@@ -1,0 +1,4 @@
+(defstruct ${1:point}
+  ${2:x}
+  ${3:y})
+$0

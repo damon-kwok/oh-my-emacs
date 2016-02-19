@@ -1,0 +1,9 @@
+func New${1:MyType}() *$1 {
+    obj := new($1)
+	obj.Constructor()
+	return obj
+}
+
+func (self *$1) Constructor() {
+	$0
+}

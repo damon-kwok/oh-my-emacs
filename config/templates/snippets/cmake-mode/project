@@ -1,0 +1,95 @@
+#cmake版本需求
+cmake_minimum_required(VERSION 2.8)
+
+project(${1:NewProject})
+set ($1_VERSION_MAJOR 1)
+set ($1_VERSION_MINOR 0)
+
+#设定c/c++标准（gcc4.7：GCC now accepts the options -std=c11 and -std=gnu11 | G++ now accepts the -std=c++11, -std=gnu++11）
+#add_definitions(-std=c99)
+#add_definitions(-std=c++98) #-std=c++98 , or -std=c++03
+
+#添加第三方lib
+#find_package(OpenGL)
+#add_definitions(
+#    -std=c99
+#    -lGL
+#    -lGLU
+#    -lGLEW
+#    -lglfw
+#)
+
+#设置源码目录（当前目录）
+set(CMAKE_SOURCE_DIR .)
+
+set(APP_${2:newapp}_SRC main.c)
+add_executable($2 \$\{APP_$2_SRC\})
+
+#set(LIB_${3:newlib}_SRC $3.c)
+#add_library($3 \$\{LIB_$3_SRC\})
+#set_target_properties($3 PROPERTIES OUTPUT_NAME "$3")
+
+#target_link_libraries($2 $3)
+
+#第一种方案
+set(CMAKE_C_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb ")
+set(CMAKE_C_FLAGS_RELEASE "${ENV{CXXFLAGS} -O3 -Wall")
+
+set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CFLAGS} -O0 -Wall -g -ggdb ")
+set(CMAKE_CXX_FLAGS_RELEASE "${ENV{CFLAGS} -O3 -Wall")
+
+#第二种方案
+#set (CMAKE_C_FLAGS_INIT                "-Wall -std=c99")
+#set (CMAKE_C_FLAGS_DEBUG_INIT          "-g")
+#set (CMAKE_C_FLAGS_MINSIZEREL_INIT     "-Os -DNDEBUG")
+#set (CMAKE_C_FLAGS_RELEASE_INIT        "-O4 -DNDEBUG")
+#set (CMAKE_C_FLAGS_RELWITHDEBINFO_INIT "-O2 -g")
+
+#set (CMAKE_CXX_FLAGS_INIT                "-Wall")
+#set (CMAKE_CXX_FLAGS_DEBUG_INIT          "-g")
+#set (CMAKE_CXX_FLAGS_MINSIZEREL_INIT     "-Os -DNDEBUG")
+#set (CMAKE_CXX_FLAGS_RELEASE_INIT        "-O4 -DNDEBUG")
+#set (CMAKE_CXX_FLAGS_RELWITHDEBINFO_INIT "-O2 -g")
+
+#Using C++ compilers for C source files? tyr：
+#SET_SOURCE_FILES_PROPERTIES( file1.c file2.c PROPERTIES LANGUAGE CXX )
+
+#[其他的选项]
+#cmake指定编译器（不确定可用）
+#set(CMAKE_C_COMPILER "g++") 指定.c文件用g++编译器
+#set(CMAKE_CXX_COMPILER "gcc")指定.cpp文件用gcc编译器
+
+#使用命令 ADD_SUBDIRECTORY 指明本项目包含一个子目录 smth 
+#add_subdirectory (smth)
+
+#头文件的路径设置——相对于源码的路径(CMakeLists.txt路径)
+#include_directories（../../utils）向上2层目录
+
+#lib库的路径设置
+#这里的相对路径并不是相对于源码路径(CMakeLists.txt路径)，而是相对于执行命令的路径（build目录），向上三层目录结构。
+#link_directories (../../../bin/lib)
+
+#AUX_SOURCE_DIRECTORY 将当前目录中的源文件名称赋值给变量 DIR_SRCS
+#aux_source_directory(. DIR_SRCS)
+#add_executable(main ${DIR_SRCS})
+
+
+#教程
+
+#[t1]在 linux 下使用 CMake 构建应用程序
+#http://www.ibm.com/developerworks/cn/linux/l-cn-cmake/
+
+#[t2]cmake中lib库的路径设置
+#http://blog.csdn.net/lifemap/article/details/7586398
+
+#[t3]用CMake将visual studio 项目转到linux下编译
+#http://blog.csdn.net/ghosthjt/article/details/6595892
+
+#[t4-精华]CMAKE的使用
+#http://blog.csdn.net/netnote/article/details/4051620
+
+#[t5]cmake使用总结
+#http://yntcsb.iteye.com/blog/317779
+
+# 一个例子：
+#http://www.hdfgroup.org/ftp/HDF5/projects/jpss/h5augjpss/unpacked/CMakeLists.txt
