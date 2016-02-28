@@ -3,7 +3,12 @@
 cd /d %~dp0%
 
 set ROOT=%CD%\..\
-set APP_HOME=%ROOT%\cache\apps
+set CACHE=%ROOT%\cache
+set APP_HOME=%CACHE%\apps
+
+IF NOT EXIST %CACHE% (
+   mkdir %CACHE%
+)
 REM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 REM Emacs
 REM set EMACS_HOME=%APP_HOME%\emacs-24.5-bin-i686-mingw32

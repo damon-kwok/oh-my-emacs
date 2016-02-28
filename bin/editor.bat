@@ -12,5 +12,3 @@ start %EMACS_BIN%\runemacs.exe -debug-init -l %ROOT%\config\init.el
 
 REM emacs -batch -f batch-byte-compile *.el
 REM start %EMACS_BIN%\runemacs.exe -debug-init 
-
-

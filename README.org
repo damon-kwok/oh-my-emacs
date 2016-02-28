@@ -1,4 +1,4 @@
-#+TITLE:     medusa-ide
+#+TITLE: my emacs config
 this is my emacs config
 
 ** global
@@ -7,21 +7,20 @@ this is my emacs config
  - M-z mark-word
  - C-M-d delete-backward-char
  - C-c d (C-c D) bing-dict
- - C- toggle-input-method
+ - C-\\ toggle-input-method
  - F1 neotree-toggle
  - C-- shrink-window
  - C-= enlarge-window
  - C-x M-k close all buffer
  - C-M-` yafolding-toggle-all
  - C-` yafolding-toggle-element
-** orgmode
  - C-cl 'org-store-link)
  - C-cc 'org-capture)
  - C-ca 'org-agenda)
  - C-cb 'org-iswitchb)
 ** elisp
- - C-c C-c compile
  - C-c C-z repl
+ - C-c C-c compile
 ** clojure
  - C-c C-z repl
  - C-c C-h sheet
