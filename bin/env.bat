@@ -62,11 +62,6 @@ set CLANG_HOME=%APP_HOME%\Clang\bin
 set CLANG_BIN=%CLANG_HOME%\bin
 
 REM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-REM Unity
-set UNITY_HOME="C:\Program Files\Unity"
-set UNITY_BIN="C:\Program Files\Unity\Editor"
-
-REM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 set PATH=%ROOT%\bin;%PATH%
 set PATH=%GLOBAL_BIN%;%CMAKE_BIN%;%OPENSSL_BIN%;%PATH%
 set PATH=%PKG_CONFIG_BIN%;%PKG_CONFIG_PATH%;%PATH%
