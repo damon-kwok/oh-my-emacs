@@ -41,43 +41,47 @@
 (global-set-key (kbd "C-M-]") 'tabbar-forward-group)
 (global-set-key (kbd "C-M-[") 'tabbar-backward-group)
 
+(global-set-key (kbd "<backtab>") #'(lambda () 
+				      (interactive) 
+				      (switch-to-buffer (other-buffer (current-buffer) 1))))
+
 ;; (set-face-attribute 'tabbar-default nil
 ;; 		    ;; :family "DejaVu Sans Mono"
 ;; 		    ;;:inherit 'tabbar-default
-;; 		    :background "#383838" 
-;; 		    :foreground "#383838" 
-;; 		    :box '(:line-width 2 
+;; 		    :background "#383838"
+;; 		    :foreground "#383838"
+;; 		    :box '(:line-width 2
 ;; 				       :color "#330000") ; "#00B2BF"
-;; 		    :overline "#330000" 
-;; 		    :underline "#330000" 
+;; 		    :overline "#330000"
+;; 		    :underline "#330000"
 ;; 		    :height 1.0)
 
-;; (set-face-attribute 'tabbar-button nil 
-;; 		    :inherit 'tabbar-default 
+;; (set-face-attribute 'tabbar-button nil
+;; 		    :inherit 'tabbar-default
 ;; 		    :foreground "#330000" ;;"DarkGreen"
 ;; 		    :background "gray60"  ;;LightGoldenrod
-;; 		    :box '(:line-width 1 
-;; 				       :color "#330000") 
-;; 		    :overline "#330000" 
+;; 		    :box '(:line-width 1
+;; 				       :color "#330000")
+;; 		    :overline "#330000"
 ;; 		    :underline "#330000")
 
-;; (set-face-attribute 'tabbar-selected nil 
-;; 		    :inherit 'tabbar-default 
+;; (set-face-attribute 'tabbar-selected nil
+;; 		    :inherit 'tabbar-default
 ;; 		    :foreground "gold"	 ;;"DarkGreen"
 ;; 		    :background "#383838" ;;LightGoldenrod
 ;; 		    :box '(:line-width 1 ;;
 ;; 				       :color "DarkGoldenrod") ;DarkGoldenrod gray30 DarkGreen ;yellow70
-;; 		    :overline "gold" 
-;; 		    :underline "#383838" 
+;; 		    :overline "gold"
+;; 		    :underline "#383838"
 ;; 		    :weight 'bold)
 
-;; (set-face-attribute 'tabbar-unselected nil 
-;; 		    :inherit 'tabbar-default 
+;; (set-face-attribute 'tabbar-unselected nil
+;; 		    :inherit 'tabbar-default
 ;; 		    :foreground "#330000" ;;"DarkGreen"
 ;; 		    :background "gray60"  ;;LightGoldenrod
-;; 		    :box '(:line-width 1 
+;; 		    :box '(:line-width 1
 ;; 				       :color "#330000") ;00B2BF
-;; 		    :overline "#330000" 
+;; 		    :overline "#330000"
 ;; 		    :underline "#330000" ;;down
 ;; 		    :weight 'bold)
 
@@ -92,8 +96,8 @@
 
 (set-face-attribute 'tabbar-button nil 
 		    :inherit 'tabbar-default 
-		    :foreground "#181A26"
-		    :background "#181A26"
+		    :foreground "#181A26" 
+		    :background "#181A26" 
 		    :box '(:line-width 1 
 				       :color "#181A26") 
 		    :overline "#181A26" 
@@ -101,18 +105,18 @@
 
 (set-face-attribute 'tabbar-selected nil 
 		    :inherit 'tabbar-default 
-		    :foreground "gold"
-		    :background "#181A26"
+		    :foreground "gold" 
+		    :background "#181A26" 
 		    :box '(:line-width 1 ;;
-				       :color "DarkGoldenrod")
+				       :color "DarkGoldenrod") 
 		    :overline "gold" 
 		    :underline "#383838" 
 		    :weight 'bold)
 
 (set-face-attribute 'tabbar-unselected nil 
 		    :inherit 'tabbar-default 
-		    :foreground "gray60" ;;"DarkGreen"
-		    :background "#181A26"  ;;LightGoldenrod
+		    :foreground "gray60"  ;;"DarkGreen"
+		    :background "#181A26" ;;LightGoldenrod
 		    :box '(:line-width 1 
 				       :color "#330000") ;#00B2BF
 		    :overline "gray60" 

@@ -26,7 +26,21 @@
 (require 's)
 (require 'f)
 
+(defun m-project-root()
+  (setq aaa (substring (buffer-only-name) 0 1))
+  (if (string= aaa "*")
+      "./"
+  (if (projectile-project-p)
+      (projectile-project-root)
+    (buffer-path-name))))
 
+;; (projectile-project-p)
+;; (projectile-project-root)
+;; (projectile-get-project-directories)
+;; (m-run-command (concat "grep -n --include=\"*.el\" \"buffer-\" -R ./"));; (projectile-project-root)))
+
+;;(m-run-command (concat "grep -n --include=\"*.el\" \"buffer-\" -R ./" (projectile-project-root)))
+;;(m-run-command (concat "grep -n \"buffer-\" -r ./" (projectile-project-root)))
 
 ;;(require 'dash)
 ;;(require 'json)
@@ -60,23 +74,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `keymap-unset-key'
 
-(defun keymap-unset-key (key keymap)
-  "Remove binding of KEY in a keymap 
+(defun keymap-unset-key (key keymap) 
+  "Remove binding of KEY in a keymap
     KEY is a string or vector representing a sequence of keystrokes.
 
     Example:
     (keymap-unset-key (kbd \"C-c <C-left>\") \"tabbar-mode\")
     (keymap-unset-key [C-c <C-left>] \"tabbar-mode\")"
+  (interactive (list (call-interactively #'get-key-combo) 
+		     (completing-read "Which map: " minor-mode-map-alist nil t))) 
+  (let ((map (rest (assoc (intern keymap) minor-mode-map-alist)))) 
+    (when map (define-key map key nil) 
+	  (message  "%s unbound for %s" key keymap))))
 
-  (interactive
-   (list (call-interactively #'get-key-combo)
-	 (completing-read "Which map: " minor-mode-map-alist nil t)))
-  (let ((map (rest (assoc (intern keymap) minor-mode-map-alist))))
-    (when map
-      (define-key map key nil)
-      (message  "%s unbound for %s" key keymap))))
-	  
-	  
+
 ;; http://www.ergoemacs.org/emacs/elisp_idioms_prompting_input.html
 (defun query-user (x y) 
   (interactive "sEnter friend's name: \nnEnter friend's age: ") 
@@ -91,11 +102,12 @@
   "Works just like `progn' but will only evaluate expressions in VAR when Emacs is running in a terminal else just nil."
   `(when (is-in-terminal) ,@body))
 
+
 (defun buffer-path-name() 
   (directory-file-name (file-name-directory buffer-file-name)))
 
 (defun buffer-dir-name() 
-  (nth 0 (last (split-string (buffer-dir-truename) "/") 1)))
+  (nth 0 (last (split-string (buffer-path-name) "/") 1)))
 
 (defun buffer-only-name() 
   (first (split-string (buffer-name) "\\."))) ;;file-name-base
@@ -174,7 +186,7 @@
 
     ;;save
     (save-buffer) 
-    (message "Renamed to %s." new-name)))
+    (message "Renamed to %s" new-name)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; define function to shutdown emacs server instance
@@ -216,67 +228,6 @@
   (interactive) 
   (cond ((y-or-n-p "Exit? ") ;;(y-or-n-p "Relax...? ")
 	 (medusa-bye))))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (defun show-webpage-baidu() 
-;;   (interactive) 
-;;   (show-4-1-window "*eww*") 
-;;   (other-window 1) 
-;;   (eww "http://www.baidu.com/"))
-
-;; (defun show-webpage-bing() 
-;;   (interactive) 
-;;   (show-4-1-window "*eww*") 
-;;   (other-window 1) 
-;;   (eww "http://www.bing.com/"))
-
-;; (defun show-webpage-xahlee() 
-;;   (interactive) 
-;;   (show-4-1-window "*eww*") 
-;;   (other-window 1) 
-;;   (eww "http://ergoemacs.org/emacs/elisp.html"))
-
-;; (defun show-eww() 
-;;   (interactive) 
-;;   (m-show-compilation "*eww*"))
-
-;; (defun show-messages() 
-;;   (interactive) 
-;;   (m-show-compilation "*Messages*"))
-
-;; (defun show-scratch() 
-;;   (interactive) 
-;;   (m-show-compilation "*scratch*") 
-;;   (other-window 1))
-
-;; (defun show-mod-keybind() 
-;;   (interactive) 
-;;   (delete-other-windows) 
-;;   (m-show-compilation "*Messages*") 
-;;   (other-window 1) 
-;;   (find-file "~/../config/modules/mod-keybind.el"))
-
-;; (defun show-mod-library() 
-;;   (interactive) 
-;;   (delete-other-windows) 
-;;   (m-show-compilation "*Messages*") 
-;;   (other-window 1) 
-;;   (find-file "~/../config/modules/mod-library.el"))
-
-;; (defun show-mod-init() 
-;;   (interactive) 
-;;   (delete-other-windows) 
-;;   (m-show-compilation "*Messages*") 
-;;   (other-window 1) ;;(switch-window)
-;;   (find-file "~/../config/init.el"))
-
-;; (defun show-readme() 
-;;   (interactive) 
-;;   (delete-other-windows) 
-;;   (m-show-compilation "*Messages*") 
-;;   (other-window 1) ;;(switch-window)
-;;   (find-file "~/../README.org"))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun m-open-file(file-name) 
   (interactive) 
@@ -332,10 +283,9 @@
 		      (prompt (if (stringp default) 
 				  (format "Search Bing web dict (default \"%s\"): " default)
 				"Search Bing web dict: ")) 
-		      (string (read-string prompt nil 'bing-dict-history default)))
-		 ;;--------------------------------------
-		 ;;(message (concat "---:" string))
-		 (bing-dict-brief-eww string))))
+		      (string (read-string prompt nil 'bing-dict-history default))) 
+		 (list string))) 
+  (save-match-data (bing-dict-brief-eww word)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;comment or uncomment
@@ -380,26 +330,6 @@ occurence of CHAR."
       (shrink-window (/ (window-height) 2))) 
   (if dont-return-old-buffer nil (switch-to-buffer-other-window temp-buffer-name)))
 
-;; (defun show-4-1-window(buffer-name &optional dont-return-old-buffer) 
-;;   "shrink compile window, avoid compile window occupy 1/2 hight of whole window" 
-;;   (interactive) 
-;;   (delete-other-windows) 
-;;   (setq temp-buffer-name (buffer-name (current-buffer))) 
-;;   (switch-to-buffer-other-window buffer-name) 
-;;   (if (< (/ (frame-height) 3) 
-;; 	 (window-height)) 
-;;       (shrink-window (/ (window-height) 2))) 
-;;   (if dont-return-old-buffer nil (switch-to-buffer-other-window temp-buffer-name)))
-
-;; (defun show-2-1-window(buffer-name &optional dont-return-old-buffer) 
-;;   "shrink compile window, avoid compile window occupy 1/2 hight of whole window" 
-;;   (interactive) 
-;;   (delete-other-windows) 
-;;   (setq temp-buffer-name (buffer-name (current-buffer))) 
-;;   (switch-to-buffer-other-window buffer-name) 
-;;   (shrink-window (/ (window-height) 3)) 
-;;   (if dont-return-old-buffer nil (switch-to-buffer-other-window temp-buffer-name)))
-
 (defun m-run-command (cmd) 
   "compile project" 
   (interactive) 
@@ -408,7 +338,6 @@ occurence of CHAR."
 
 (package-require-curl "elisp-format.el" "http://www.emacswiki.org/emacs/download/elisp-format.el")
 
-;; (package-require-git "hydra" "https://github.com/abo-abo/hydra.git")
 ;; (package-require-git "window-layout" "https://github.com/kiwanami/emacs-window-layout.git")
 ;; (package-require-git "E2WM" "https://github.com/kiwanami/emacs-window-manager.git")
 
@@ -421,7 +350,6 @@ occurence of CHAR."
 ;;    (load-my-term-theme)
 ;;    (set-some-keybindings)
 ;;    (foo-bar))
-
 
 ;; (symbol-to-string major-mode) ;;cl
 ;;(find-library (file-name-sans-extension (symbol-file major-mode)))

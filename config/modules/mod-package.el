@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-package.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2015 Damon Kwok
+;; Copyright (C) 2015-2015 damon-kwok
 ;;
 ;; Author: gww <DamonKwok@msn.com>
 ;; Date: 2015-12-31
@@ -26,13 +26,15 @@
 ;; required-at-runtime
 ;; (eval-when-compile
 ;;   (require 'cl))
-
+ 
 (with-no-warnings 
   (require 'cl))
 
 (require 'package)
 ;; (setq package-user-dir (concat dotfiles-dir "elpa"))
 (setq package-user-dir "~/elpa")
+(setq libs-user-dir "~/libs")
+(make-directory libs-user-dir t)
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
@@ -47,43 +49,43 @@
     (package-install pkg)))
 
 (defun package-require-git(lib-name path)
-  ;;(setq dir-lib-name (expand-file-name "~/libraries" ))
-  (setq dir-name (concat (expand-file-name "~/libraries") "/" (file-name-base lib-name))) 
+  ;; (setq dir-lib-name (expand-file-name libs-user-dir ))
+  (setq dir-name (concat (expand-file-name libs-user-dir) "/" (file-name-base lib-name))) 
   (setq full-name (concat dir-name "/" lib-name)) 
   (setq cmd-update (concat "git fetch")) 
   (setq cmd-clone (concat "git clone " path " " lib-name)) 
   (add-to-list 'load-path dir-name) 
-  (make-directory "~/libraries" t) 
+  (make-directory libs-user-dir t) 
   (message dir-name) 
   (if (file-exists-p dir-name) 
       (progn 
 	(setq default-directory dir-name) 
 	(call-process-shell-command cmd-update nil t)) 
     (progn 
-      (setq default-directory "~/libraries") 
+      (setq default-directory libs-user-dir) 
       (call-process-shell-command cmd-clone nil t))))
 
 (defun package-require-svn(lib-name path)
-  ;;(setq dir-lib-name (expand-file-name "~/libraries" ))
-  (setq dir-name (concat (expand-file-name "~/libraries") "/" (file-name-base lib-name))) 
+  ;;(setq dir-lib-name (expand-file-name libs-user-dir ))
+  (setq dir-name (concat (expand-file-name libs-user-dir) "/" (file-name-base lib-name))) 
   (setq full-name (concat dir-name "/" lib-name)) 
   (setq cmd-update (concat "svn up")) 
   (setq cmd-clone (concat "svn co " path " " lib-name)) 
   (add-to-list 'load-path dir-name) 
-  (make-directory "~/libraries" t) 
+  (make-directory libs-user-dir t) 
   (message dir-name) 
   (if (file-exists-p dir-name) 
       (progn 
 	(setq default-directory dir-name) 
 	(call-process-shell-command cmd-update nil t)) 
     (progn 
-      (setq default-directory "~/libraries") 
+      (setq default-directory libs-user-dir) 
       (call-process-shell-command cmd-clone nil t))))
 
 
 (defun package-require-curl(file-name path)
-  ;;(setq dir-lib-name (expand-file-name "~/libraries" ))
-  (setq dir-name (concat (expand-file-name "~/libraries") "/" (file-name-base file-name))) 
+  ;; (setq dir-lib-name (expand-file-name libs-user-dir ))
+  (setq dir-name (concat (expand-file-name libs-user-dir) "/" (file-name-base file-name))) 
   (setq full-name (concat dir-name "/" file-name)) 
   (setq cmd (concat "curl -o " full-name  " " path)) 
   (add-to-list 'load-path dir-name) 
@@ -91,7 +93,7 @@
   (unless (file-exists-p full-name) 
     (call-process-shell-command cmd nil t)))
 
-;;(auto-install-from-url "https://raw.github.com/aki2o/guide-key-tip/master/guide-key-tip.el")
+;; (auto-install-from-url "https://raw.github.com/aki2o/guide-key-tip/master/guide-key-tip.el")
 
 (defun package-update() 
   (interactive) 
@@ -111,6 +113,6 @@
   (package-update) 
   (package-upgrade)) ;;(package-autoremove)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
+;;;
 (provide 'mod-package)
 

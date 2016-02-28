@@ -1,5 +1,5 @@
-;;; -*- lexical-binding: t -*-
-;; mod-orgmode.el --- This is where you apply your OCD.
+;;; lexical-binding: t -*-
+;; mod-theme.el --- This is where you apply your OCD.
 ;;
 ;; Copyright (C) 2015-2016 Damon Kwok
 ;;
@@ -21,22 +21,16 @@
 ;;
 ;; Code:
 ;;
-;;org-mode
-(package-require 'org-plus-contrib)
-(require 'org-install)
+(require 'mod-package)
 
-(setq org-todo-keywords '((sequence "TODO" "DOING" "DONE")))
 
-(setq org-todo-keyword-faces '(("TODO" . "red")
-                               ("DOING" . "yellow")
-                               ("DONE" . "green")))
-(setq org-log-done 'time)
-;;(setq org-log-done 'note)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-(provide 'mod-orgmode)
-;;; mod-orgmode.el ends here
+(provide 'mod-theme)
+;;; mod-theme.el ends here

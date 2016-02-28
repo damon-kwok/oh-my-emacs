@@ -44,7 +44,7 @@
       (switch-to-buffer-other-window "*erlang*")
     (erlang-shell-display))
   (switch-to-buffer-other-window temp-buffer-name)
-  (show-output-window "*erlang*" t))
+  (m-show-compilation "*erlang*" t))
 
 (defun hide-erlang-shell()
   (interactive)

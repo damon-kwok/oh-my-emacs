@@ -56,10 +56,9 @@
 (global-set-key (kbd "<S-f2>") 'bm-previous)
 
 ;;; Click on fringe to toggle bookmarks, and use mouse wheel to move between them.
-(global-set-key (kbd "<left-fringe> <mouse-5>") 'bm-next-mouse)
-(global-set-key (kbd "<left-fringe> <mouse-4>") 'bm-previous-mouse)
-(global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
-
+;; (global-set-key (kbd "<left-fringe> <mouse-5>") 'bm-next-mouse)
+;; (global-set-key (kbd "<left-fringe> <mouse-4>") 'bm-previous-mouse)
+;; (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
 
 ;;; If you would like the markers on the right fringe instead of the left, add the following line:
 ;; (setq bm-marker 'bm-marker-right)
@@ -75,6 +74,22 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`ido';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;ido mode
+;;(require 'ido)
+;;(ido-mode 1)
+
+;;(setq ido-confirm-unique-completion t)
+;;(setq ido-default-buffer-method 'samewindow)
+;;(setq ido-use-filename-at-point t)
+;;(setq ido-enable-flex-matching t)
+;;(ido-mode t)
+;;(ido-everywhere t)
+;;(set-face-background 'ido-first-match "green")
+;;(set-face-foreground 'ido-subdir "blue3")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`helm';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require 'helm)
@@ -86,11 +101,11 @@
 
 ;;; Replace common selectors with Helm versions.
 (global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-c i") 'helm-imenu)
+;;(global-set-key (kbd "C-c i") 'helm-imenu)
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x c g") 'helm-google-suggest)
-(global-set-key (kbd "C-x C-g") 'helm-do-grep)
+;; (global-set-key (kbd "C-x c g") 'helm-google-suggest)
+;; (global-set-key (kbd "C-x C-g") 'helm-do-grep)
 
 ;;; A binding for using Helm to pick files using Projectile,
 ;;; and override the normal grep with a Projectile based grep.
@@ -102,8 +117,18 @@
 ;;; Enrich isearch with Helm using the `C-S-s' binding.
 ;;; swiper-helm behaves subtly different from isearch, so let's not
 ;;; override the default binding.
+
+;;; ac-helm
+;; (package-require 'ac-helm)
+;; (require 'ac-helm)
+
+;;; helm-company
+;; (package-require 'helm-company)
+;; (require 'helm-company)
+
 (package-require 'swiper-helm)
-(global-set-key (kbd "C-S-s") 'swiper-helm)
+(require 'swiper-helm)
+(global-set-key (kbd "C-s") 'swiper-helm)
 
 ;;; Tell Helm to resize the selector as needed.
 (helm-autoresize-mode 1)
@@ -128,18 +153,6 @@
 (package-require 'helm-bm)
 (require 'helm-bm) ;;; Not necessary if using ELPA package
 (global-set-key (kbd "C-c b") 'helm-bm)
-
-;;; ac-helm
-;; (package-require 'ac-helm)
-;; (require 'ac-helm)
-
-;;; helm-company
-;; (package-require 'helm-company)
-;; (require 'helm-company)
-
-;;; swiper-helm
-(package-require 'swiper-helm)
-(require 'swiper-helm)
 
 ;;; helm-ag
 (package-require 'helm-ag)

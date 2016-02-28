@@ -78,7 +78,7 @@
   (byte-compile-file (buffer-file-name))
   (delete-file (concat (buffer-file-name) "c"))
 
-  ;;(show-output-window "*Warnings*")
+  ;;(m-show-compilation "*Warnings*")
   (m-show-compilation "*Compile-Log*"))
 
 (require 'ielm)

@@ -34,9 +34,9 @@
 
 (defun into-omnisharp() 
   (interactive) 
-  (omnisharp-mode)
   ;;(company-mode)
-  (auto-complete-mode))
+  ;;(auto-complete-mode)
+  (omnisharp-mode))
 
 (defun omnisharp-cs-code-format() 
   (interactive) 
@@ -68,16 +68,16 @@
 ;;			     (if (string= (symbol-name major-mode) "csharp-mode")
 ;;				 (message (concat "you opened cs file:" (buffer-name))))
 
-(add-hook 'csharp-mode-hook
-          (lambda ()
-              (ggtags-mode 1)))
+;; (add-hook 'csharp-mode-hook
+;;           (lambda ()
+;;               (ggtags-mode 1)))
 
 (setq flycheck-idle-change-delay 2)	; in seconds
 
-(define-key csharp-mode-map (kbd "C-M-\\")  'csharp-code-format)
-(define-key omnisharp-mode-map (kbd "C-c u")  'omnisharp-fix-usings)
-(define-key omnisharp-mode-map (kbd ".")  'omnisharp-add-dot-and-auto-complete)
-(define-key omnisharp-mode-map (kbd "C-M-i")  'omnisharp-auto-complete)
+(define-key csharp-mode-map (kbd "C-M-\\") 'csharp-code-format)
+(define-key omnisharp-mode-map (kbd "C-c u") 'omnisharp-fix-usings)
+;; (define-key omnisharp-mode-map (kbd ".") 'omnisharp-add-dot-and-auto-complete)
+(define-key omnisharp-mode-map (kbd "C-M-i") 'omnisharp-auto-complete)
 ;;
 (provide 'mod-csharp)
 ;;; mod-csharp.el ends here

@@ -17,7 +17,7 @@
 
 ;;(print argv)
 (message "input argument are %s" argv)
-(message "system-type:%s system-name:%s" system-type system-name)
+(message "system-type:%s system-name:%s" system-type (system-name))
 
 (defun cal-salary (iday)
   "Calculate the salary for intern in shanghai"

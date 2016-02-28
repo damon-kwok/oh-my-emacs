@@ -1,3 +1,36 @@
+;;; -*- lexical-binding: t -*-
+;;; mod-basic.el --- This is where you apply your OCD.
+;;;
+;;; Author     : Dylan R. E. Moonfire (original)
+;;; Maintainer : Jostein Kjønigsen <jostein@gmail.com>
+;;; Created    : Feburary 2005
+;;; Modified   : November 2015
+;;; Version    : 0.8.12
+;;; Keywords   : emacs elisp
+;;; Package-Version: 20160117.1321
+;;; X-URL      : https://github.com/josteink/csharp-mode
+;;; Last-saved : 2016-Jan-06
+;;; Copyright (C) 2015-2016 Damon Kwok
+;;;
+;;; Author: gww <damon-kwok@outlook.com>
+;;; Date: 2016-02-16
+;;;
+;;; This program is free software; you can redistribute it and/or modify
+;;; it under the terms of the GNU General Public License as published by
+;;; the Free Software Foundation, either version 3 of the License, or
+;;; (at your option) any later version.
+;;;
+;;; This program is distributed in the hope that it will be useful,
+;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;; GNU General Public License for more details.
+;;;
+;;; You should have received a copy of the GNU General Public License
+;;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;;;
+;;; Code:
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 
 ;;Mac osx: set command to meta
@@ -30,7 +63,6 @@
 (package-require 'switch-window)
 (require 'switch-window)
 (global-set-key (kbd "C-x o") 'switch-window)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Swiper
@@ -68,7 +100,7 @@
 (package-require 'bing-dict)
 (require 'bing-dict)
 ;; (global-set-key (kbd "C-c d") 'bing-dict-brief)
-;; (global-set-key (kbd "C-c C-d") 'bing-dict-brief-web)
+;; (global-set-key (kbd "C-c D") 'bing-dict-brief-web)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (define-key global-map (kbd "C-c f") 'go-to-char-forward)
 ;; (define-key global-map (kbd "C-c b") 'go-to-char-backward)
@@ -106,46 +138,43 @@
 ;;; hydra
 (package-require 'hydra)
 (require 'hydra)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; `C-SPC' function couter: bm hydra edit-select
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `Action'
 ;;; swiper d:bing-dict  f:forward b:backward
 
-(defhydra hydra-do-action 
-  (:color blue 
-	  :hint nil)
-  "
-^Search^               ^Buffer-and-File^    ^Dict^           ^Export^
-^^^^^^^^-----------------------------------------------------------------
-_f_: goto-char-f       _r_: rename          _b_: bing        _p_: htmlize-buffer
-_b_: goto-char-b       _x_: delete          _w_: bing-web    _P_: htmlize-file
-_1_: replace-string    _>_: scale-inc  ^^^^
-_2_: query-replace     _<_: scale-dec  ^^^^
-^^^^^^^^-----------------------------------------------------------------
-_q_: quit              _d_: calendar   ^^ ^^
-"
-("f" go-to-char-forward "go-to-char-forward")
-("b" go-to-char-backward "go-to-char-backward")
+;; (defhydra hydra-do-action
+;;   (:color blue
+;; 	  :hint nil)
+;;   "
+;; ^Search^               ^Buffer-and-File^    ^Dict^           ^Export^
+;; ^^^^^^^^-----------------------------------------------------------------
+;; _f_: goto-char-f       _r_: rename          _b_: bing        _p_: htmlize-buffer
+;; _b_: goto-char-b       _x_: delete          _w_: bing-web    _P_: htmlize-file
+;; _1_: replace-string    _>_: scale-inc  ^^^^
+;; _2_: query-replace     _<_: scale-dec  ^^^^
+;; ^^^^^^^^-----------------------------------------------------------------
+;; _q_: Quit              _d_: calendar   ^^ ^^
+;; "
+;; ("f" go-to-char-forward "go-to-char-forward")
+;; ("b" go-to-char-backward "go-to-char-backward")
 
-("1" replace-string "replace-string")
-("2" query-replace "query-replace")
+;; ("1" replace-string "replace-string")
+;; ("2" query-replace "query-replace")
 
-("r" rename-file-and-buffer "rename-file-and-buffer")
-("x" delete-file-and-buffer "delete-file-and-buffer")
-(">" text-scale-increase "text-scale-increase")
-("<" text-scale-decrease "text-scale-decrease")
+;; ("r" rename-file-and-buffer "rename-file-and-buffer")
+;; ("x" delete-file-and-buffer "delete-file-and-buffer")
+;; (">" text-scale-increase "text-scale-increase")
+;; ("<" text-scale-decrease "text-scale-decrease")
 
-("b" bing-dict "bing-dict-brief")
-("w" bing-dict-web "bing-dict-brief-web")
+;; ("b" bing-dict-brief "bing-dict-brief")
+;; ("w" bing-dict-brief-web "bing-dict-brief-web")
 
-("p" htmlize-buffer "htmlize-buffer")
-("P" htmlize-file "htmlize-file")
+;; ("p" htmlize-buffer "htmlize-buffer")
+;; ("P" htmlize-file "htmlize-file")
 
-("d" (calendar) "calendar")
-("q" nil "quit"))
+;; ("d" (calendar) "calendar")
+;; ("q" nil "Quit"))
 ;; (global-set-key (kbd "C-c a") 'hydra-do-action/body)
 ;; (global-set-key (kbd "C-SPC") 'hydra-do-action/body)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -154,40 +183,39 @@ _q_: quit              _d_: calendar   ^^ ^^
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `buffer'
-(defhydra hydra-show-buffer
+(defhydra hydra-show-buffer 
   (:color blue)
-"hydra-show-buffer"
-("m" (m-show-buffer "*Messages*") "*Messages*")
-("w" (m-show-buffer "*eww*") "*eww*")
-("t" (m-show-buffer "*scratch*") "*scratch*")
-("c" (m-show-buffer "*compilation*") "*compilation*")
-("l" (m-show-buffer "*Compile-Log*") "*scratch*")
-("s" eshell "*eshell*")
-("S" (shell "*shell*"))
-
-("d" (calendar) "calendar")
-("q" nil "quit"))
+  "hydra-show-buffer" ("l" (helm-buffers-list) "buffers-list") 
+  ("m" (m-show-buffer "*Messages*") "*Messages*") 
+  ("w" (m-show-buffer "*eww*") "*eww*") 
+  ("t" (m-show-buffer "*scratch*") "*scratch*") 
+  ("c" (m-show-buffer "*compilation*") "*compilation*") 
+  ("C" (m-show-buffer "*Compile-Log*") "*scratch*") 
+  ("s" eshell "*eshell*") 
+  ("S" (shell "*shell*")) 
+  ("0" (calendar) "calendar") 
+  ("b" (hydra-do-space/body) "BACK") 
+  ("q" nil "Quit"))
 ;; (global-set-key (kbd "C-c s") 'hydra-show-buffer/body)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `hydra-open-file'
-(defhydra hydra-open-file
+(defhydra hydra-open-file 
   (:color blue)
-"
+  "
 ^README^            ^GTD^           ^Blog^              ^Editor^
 ^^^^^^^^-----------------------------------------------------------------
 _h_: README.org     _g_: GTD.org         ^^^^
 ^^                  _t_: todo.org        ^^^^
 ^^^^       ^^^^
 ^^^^^^^^-----------------------------------------------------------------
-_d_: calendar       _q_: quit              ^^^^"
-
-("h" (m-open-file "~/../README.org") "README.org")
+_0_: calendar       _q_: Quit       _b_: <-BACK ^^
+" ("h" (m-open-file "~/../README.org") "README.org")
 ("g" (m-open-doc "GTD.org") "GTD.org")
 ("t" (m-open-doc "todo.org") "todo.org")
-
-("d" (calendar) "calendar")
-("q" nil "quit"))
+("0" (calendar) "calendar")
+("b" (hydra-do-space/body) "BACK")
+("q" nil "Quit"))
 ;; (global-set-key (kbd "C-c f") 'hydra-open-file/body)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -197,51 +225,48 @@ _d_: calendar       _q_: quit              ^^^^"
   "
 ^Basic^            ^Layout^         ^Editor^          ^Language^      ^Other^
 ^^^^^^^^-------------------------------------------------------------------------
-_i_: init          _1_: tabbar      _6_: orgmode      _e_: elisp      _z_: chinese-py
-_b_: basic         _2_: helm        _7_: latex        _j_: clojure    _m_: music 
-_p_: package       _3_: theme       _8_: markdown     _e_: cc         _d_: coding
-_k_: keybind       _4_: speedbar    _9_: reST         _w_: web        _s_: server
+_i_: init          ^^               _6_: orgmode      _e_: elisp      _z_: input
+_a_: appearance    _2_: helm        _7_: latex        _j_: clojure    _m_: music
+_p_: package       ^^               _8_: markdown     _e_: cc         _d_: coding
+_k_: keybind       ^^               _9_: reST         ^^              _s_: server
 _l_: library       _5_: nil         _z_: csv          _c_: csharp     ^^
-_a_: ac(complete)  ^^               _x_: protobuf     ^^              ^^
+_y_: ac-and-yas    ^^               _x_: protobuf     ^^              ^^
 ^^                 ^^               ^^                ^^              ^^
 ^^^^^^^^-------------------------------------------------------------------------
-_d_: calendar    _q_: quit      ^ ^             ^ ^
-"
-  ("i" (m-open-file "~/../config/init.el") "Bing")
-  ("b" (m-open-mod "basic") "basic")
-  ("p" (m-open-mod "package") "package")
-  ("k" (m-open-mod "keybind") "keybind")
-  ("l" (m-open-mod "library") "library")
-  ("a" (m-open-mod "complete") "complete")
-  
-  ("1" (m-open-mod "tabbar") "tabbar")
-  ("2" (m-open-mod "helm") "helm")
-  ("3" (m-open-mod "theme") "theme")
-  ("4" (m-open-mod "speedbar") "speedbar")
-  ("5" nil)
-  
-  
-  ("6" (m-open-mod "orgmode") "orgmode")
-  ("7" (m-open-mod "latex") "latex")
-  ("8" (m-open-mod "markdown") "markdown")
-  ("9" (m-open-mod "rest") "reST")
-  
-  ("z" (m-open-mod "csv") "csv")
-  ("x" (m-open-mod "protobuf") "protobuf")
+_0_: calendar    _q_: Quit      _b_: <-BACK           ^ ^             ^ ^
+" ("i" (m-open-file "~/../config/init.el") "Bing")
+("a" (m-open-mod "basic") "basic")
+("p" (m-open-mod "package") "package")
+("k" (m-open-mod "keybind") "keybind")
+("l" (m-open-mod "library") "library")
+("y" (m-open-mod "complete") "complete")
 
-  ("z" (m-open-mod "chinese-py") "chinese-py")
-  ("m" (m-open-mod "music") "music")
-  ("d" (m-open-mod "coding") "coding")
-  ("s" (m-open-mod "server") "server")
+;;("1" (m-open-mod "tabbar") "tabbar")
+("2" (m-open-mod "helm") "helm")
+;;("3" (m-open-mod "theme") "theme")
+;;("4" (m-open-mod "speedbar") "speedbar")
+("5" nil)
 
-  ("e" (m-open-mod "elisp") "elisp")
-  ("j" (m-open-mod "clojure") "clojure")
-  ("c" (m-open-mod "cc") "cc")
-  ("w" (m-open-mod "web") "web")
-  ("c" (m-open-mod "csharp") "csharp")
+("6" (m-open-mod "orgmode") "orgmode")
+("7" (m-open-mod "latex") "latex")
+("8" (m-open-mod "markdown") "markdown")
+("9" (m-open-mod "rest") "reST")
+("z" (m-open-mod "csv") "csv")
+("x" (m-open-mod "protobuf") "protobuf")
 
-  ("d" calendar)
-  ("q" nil "quit"))
+("z" (m-open-mod "chinese-py") "input")
+("m" (m-open-mod "music") "music")
+("d" (m-open-mod "coding") "coding")
+("s" (m-open-mod "server") "server")
+("e" (m-open-mod "elisp") "elisp")
+("j" (m-open-mod "clojure") "clojure")
+("c" (m-open-mod "cc") "cc")
+;;("w" (m-open-mod "web") "web")
+("c" (m-open-mod "csharp") "csharp")
+
+("0" calendar)
+("b" (hydra-do-space/body) "BACK")
+("q" nil "Quit"))
 ;; (global-set-key (kbd "C-c c") 'hydra-open-config/body)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -252,82 +277,149 @@ _d_: calendar    _q_: quit      ^ ^             ^ ^
 ^News^       ^Search^          ^Tut^                 ^Awesome^          ^site^
 ^^^^^^^^------------------------------------------------------------------------------
 _1_: Bing    _5_: Weibo#Emacs# _x_: Xahlee           _a_: Awesomeness   _v_: Github
-_2_: Baidu   _6_: Tuicool      _j_: gad.qq           _e_: Emacs         _9_: wego
+_2_: Baidu   _6_: Tuicool      _m_: Manual           _e_: Emacs         _9_: wego
 _3_: Taobao  _7_: oschina      _k_: emacs-tutor      _y_: Clojure        ^ ^
 _4_: Amazon  _8_: GAME         _l_: MasteringEmacs   _c_: CommonLisp     ^ ^
 ^^^^^^^^------------------------------------------------------------------------------
-_d_: calendar       _q_: quit              ^^^^^^
-"
-  ("1" (m-open-url "http://cn.bing.com/") "Bing")
-  ("2" (m-open-url "https://www.baidu.com/") "Baidu")
-  ("3" (m-open-url "https://www.taobao.com/") "Taobao")
-  ("4" (m-open-url "http://www.amazon.cn/") "Amazon")
-  
-  ("5" (m-open-url "http://weibo.com/p/100808169bafefac5c96e7ad8b1714ec46c585?k=Emacs&from=501&_from_=huati_topic") "WeiBo #Emacs#")
-  ("6" (m-open-url "http://www.tuicool.com/topics") "tuicool")
-  ("7" (m-open-url "http://www.oschina.net/news") "oschina")
-  ("8" (m-open-url "http://www.3dmgame.com/news/") "3dm-news")
-  
-  ("x" (m-open-url "http://ergoemacs.org/emacs/elisp.html") "Xahlee Elisp")
-  ("j" (m-open-url "http://gad.qq.com/") "gad-qq")
-  ("k" (m-open-url "http://tuhdo.github.io/emacs-tutor.html") "emacs-tutor")
-  ("l" (m-open-url "https://masteringemacs.org/book") "MasteringEmacs")
-
-  ("a" (m-open-url "https://github.com/bayandin/awesome-awesomeness") "awesome-awesomeness")
-  ("e" (m-open-url "https://github.com/emacs-tw/awesome-emacs") "awesome-emacs")
-  ("y" (m-open-url "https://github.com/razum2um/awesome-clojure") "Clojure")
-  ("c" (m-open-url "https://github.com/CodyReichert/awesome-cl") "CommonLisp")
-
-  ("v" (m-open-url "https://github.com/") "github")
-  ("9" (m-open-url "http://wttr.in/") "wego")
-  ("d" (calendar) "calendar")
-  ("q" nil "quit"))
+_q_: Quit    _0_: calendar     _b_: <-BACK          ^^ ^^
+" ("1" (m-open-url "http://cn.bing.com/") "Bing")
+("2" (m-open-url "https://www.baidu.com/") "Baidu")
+("3" (m-open-url "https://www.taobao.com/") "Taobao")
+("4" (m-open-url "http://www.amazon.cn/") "Amazon")
+("5" (m-open-url
+      "http://weibo.com/p/100808169bafefac5c96e7ad8b1714ec46c585?k=Emacs&from=501&_from_=huati_topic") "WeiBo #Emacs#")
+("6" (m-open-url "http://www.tuicool.com/topics") "tuicool")
+("7" (m-open-url "http://www.oschina.net/news") "oschina")
+("8" (m-open-url "http://www.3dmgame.com/news/") "3dm-news")
+("x" (m-open-url "http://ergoemacs.org/emacs/elisp.html") "Xahlee Elisp")
+("m" (m-open-url "http://www.gnu.org/software/emacs/manual/html_node/elisp/index.html#SEC_Contents") "Manual")
+("k" (m-open-url "http://tuhdo.github.io/emacs-tutor.html") "emacs-tutor")
+("l" (m-open-url "https://masteringemacs.org/book") "MasteringEmacs")
+("a" (m-open-url "https://github.com/bayandin/awesome-awesomeness") "awesome-awesomeness")
+("e" (m-open-url "https://github.com/emacs-tw/awesome-emacs") "awesome-emacs")
+("y" (m-open-url "https://github.com/razum2um/awesome-clojure") "Clojure")
+("c" (m-open-url "https://github.com/CodyReichert/awesome-cl") "CommonLisp")
+("v" (m-open-url "https://github.com/") "github")
+("9" (m-open-url "http://wttr.in/") "wego")
+("0" (calendar) "calendar")
+("b" (hydra-do-space/body) "BACK")
+("q" nil "Quit"))
 ;; (global-set-key (kbd "C-c w") 'hydra-open-url/body)
-
-(defhydra hydra-do-space (:color blue)
-  "hydra-do-esc"
-  
-("a" (hydra-do-action/body) "action")
-("s" (hydra-show-buffer/body) "buffer")
-("f" (hydra-open-file/body) "file")
-("c" (hydra-open-config/body) "config")
-("w" (hydra-open-url/body) "url")
-
-(">" text-scale-increase "text-scale-increase")
-("<" text-scale-decrease "text-scale-decrease")
-
-("d" (calendar) "calendar")
-("q" nil "quit"))
-(global-set-key (kbd "C-SPC") 'hydra-do-space/body)
-
-;; (defhydra hydra-zoom (global-map "C-c w")
-;;   "zoom"
-;;   ("g" text-scale-increase "in")
-;;   ("l" text-scale-decrease "out"))
-
-;; (defhydra hydra-zoom (global-map "ESC")
-;;   "Press _g_ to zoom in."
-;;   ("g" text-scale-increase "in" :color blue)
-;;   ("l" text-scale-decrease "out" :color red))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;M-;
-(global-set-key [remap comment-dwim] 'comment-or-uncomment-region-or-line)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(package-require 'guide-key)
-(require 'guide-key)
-(guide-key-mode 1)			; Enable guide-key-mode
-(setq guide-key/idle-delay 0.7)
-(setq guide-key/guide-key-sequence '("C-h" "C-c" "C-x" "C-t" "ESC"))
-;;(setq guide-key/guide-key-sequence t)
-(setq guide-key/recursive-key-sequence-flag t)
-(setq guide-key/popup-window-position 'bottom)
-(setq guide-key/text-scale-amount 1)
+;;; `C-SPC'
+(defhydra hydra-do-space 
+  (:color blue)
+  "
+^SPC^            ^Search^               ^Buffer-and-File^    ^Export^             ^tabbar^
+^^^^^^^^---------------------------------------------------------------------------------
+_a_: nil   =>    _>_: goto-char-f      _r_: rename          _p_: htmlize-buffer  _;_: <-
+_b_: Buffer=>    _<_: goto-char-b      _x_: delete          _P_: htmlize-file    _\\'_: ->
+_f_: File  =>    _s_: query-string     _=_: scale-inc       _C_: complie-modules _[_: up
+_m_: Module=>    _S_: grep             _-_: scale-dec       _d_: bing-dict       _/_: down
+_w_: URLs  =>    _e_: mc/mark-all      _h_: README.org      _D_: bing-dict-web   ^^
+^^^^^^^^---------------------------------------------------------------------------------
+_q_: Quit        _0_: Calendar          ^^ ^^
+" ("a" nil)
+("b" (hydra-show-buffer/body) "buffer")
+("f" (hydra-open-file/body) "file")
+("m" (hydra-open-config/body) "module")
+("w" (hydra-open-url/body) "url")
+(">" go-to-char-forward "go-to-char-forward")
+("<" go-to-char-backward "go-to-char-backward")
+;;("s" replace-string "replace-string")
+("s" query-replace "query-replace")
+("S" my-grep "projectile-project-root")
+("e" mc/mark-all-like-this "mc/mark-all-like-this")
+("r" rename-file-and-buffer "rename-file-and-buffer")
+("x" delete-file-and-buffer "delete-file-and-buffer")
+("=" text-scale-increase "text-scale-increase")
+("-" text-scale-decrease "text-scale-decrease")
+("h" (m-open-file "~/../README.org") "README.org")
+("p" htmlize-buffer "htmlize-buffer")
+("P" htmlize-file "htmlize-file")
+("C" (byte-recompile-directory "~/../config") "byte-recomplie-directory")
+("d" bing-dict-brief "bing-dict-brief")
+("D" bing-dict-brief-web "bing-dict-brief-web")
+(";" tabbar-ruler-backward "tabbar-backward")
+("'" tabbar-ruler-forward "tabbar-forward")
+("[" tabbar-ruler-tabbar-backward-group "tabbar-up")
+("/" tabbar-ruler-tabbar-forward-group "tabbar-down")
+
+
+("0" (calendar) "calendar")
+("q" nil "Quit"))
+(global-set-key (kbd "C-SPC") 'hydra-do-space/body)
+
+(defun my-grep (word) 
+  "Show the explanation of WORD from Bing in the echo area." 
+  (interactive (let* ((default (if (use-region-p) 
+				   (buffer-substring-no-properties 
+				    (region-beginning) 
+				    (region-end)) 
+				 (let ((text (thing-at-point 'word))) 
+				   (if text (substring-no-properties text))))) 
+		      (prompt (if (stringp default) 
+				  (format "grep (default \"%s\"): " default)
+				"grep: ")) 
+		      (string (read-string prompt nil nil default))) 
+		 (list string))) 
+  (save-match-data (m-grep word) 
+		   (other-window 1)))
+
+
+(defun m-grep (str) 
+  (m-run-command (concat "grep -n " "\"" str "\"" " -r " (m-project-root))))
+
+;; (defun m-grep (str)
+;;   (interactive "sEnter friend's name:")
+;;   (m-run-command (concat "grep -n " "\"" str "\"" " -r " (projectile-project-root)))
+;; )
+
+;; (defhydra hydra-do-space (:color blue)
+;;   "hydra-do-space"
+
+;; ("a" (hydra-do-action/body) "action")
+;; ("s" (hydra-show-buffer/body) "buffer")
+;; ("f" (hydra-open-file/body) "file")
+;; ("c" (hydra-open-config/body) "config")
+;; ("w" (hydra-open-url/body) "url")
+
+;; (">" text-scale-increase "text-scale-increase")
+;; ("<" text-scale-decrease "text-scale-decrease")
+
+;; ("d" (calendar) "calendar")
+;; ("q" nil "Quit"))
+;; (global-set-key (kbd "C-SPC") 'hydra-do-space/body)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `comment-toggle' M-;
+(global-set-key [remap comment-dwim] 'comment-or-uncomment-region-or-line)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `'guide-key'
+;; (package-require 'guide-key)
+;; (require 'guide-key)
+;; (guide-key-mode 1)			; Enable guide-key-mode
+;; (setq guide-key/idle-delay 0.7)
+;; (setq guide-key/guide-key-sequence '("C-h" "C-c" "C-x" "C-t" "ESC"))
+;; ;;(setq guide-key/guide-key-sequence t)
+;; (setq guide-key/recursive-key-sequence-flag t)
+;; (setq guide-key/popup-window-position 'bottom)
+;; (setq guide-key/text-scale-amount 1)
+
 ;;; `guide-key-tip'
 ;; (package-require 'guide-key-tip)
 ;; (require 'guide-key-tip)
 ;; (setq guide-key-tip/enabled nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `'which-key'
+(package-require 'which-key)
+(require 'which-key)
+(which-key-mode)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 (provide 'mod-keybind)
+;;; mod-keybind.el ends here

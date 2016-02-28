@@ -26,9 +26,6 @@
 ;; (toggle-debug-on-error)
 ;;plugins: highlight-tail tabbar fill-column-indicator sr-speedbar yasnippet omnisharp
 
-(setq gc-cons-threshold (* 256 1024 1024))
-(setq debug-on-error t) ;; M-x toggle-debug-on-error
-;; (typo-err)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path "~")
 (add-to-list 'load-path "~/.emacs.d/libraries")
@@ -39,8 +36,9 @@
 (require 'mod-package)
 (require 'mod-library)
 (require 'mod-coding)
-
+(require 'mod-input)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; version
 (package-require 'magit)
 (require 'magit)
 
@@ -51,24 +49,24 @@
 (require 'mod-csv)
 (require 'mod-protobuf)
 (require 'mod-orgmode)
-;;(require 'mod-markdown)
-(require 'mod-latex)
+;; (require 'mod-markdown)
+;; (require 'mod-latex)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;base
 (require 'mod-basic)
 (require 'mod-helm)
 (require 'mod-complete)
-(require 'mod-tabbar)
 (require 'mod-theme)
 (require 'mod-calendar)
 
+;; (require 'mod-tabbar)
 ;;(require 'mod-speedbar)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;code
 (require 'mod-elisp)
 (require 'mod-csharp)
 (require 'mod-clojure)
-(require 'mod-cc)
+;; (require 'mod-cc)
 ;;(require 'mod-slime)
 ;;(require 'mod-erlang)
 ;;(require 'mod-elixir)
@@ -85,13 +83,13 @@
 ;;(package-require 'eide)
 ;;(eide-start)
 
-(package-require 'emms)
-(require 'emms-setup)
-(emms-standard)
-(emms-default-players)
+;;; music
+;; (package-require 'emms)
+;; (require 'emms-setup)
+;; (emms-standard)
+;; (emms-default-players)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-keybind)
-(require 'mod-chinese-py)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "hello, medusa!")
 (provide 'init)

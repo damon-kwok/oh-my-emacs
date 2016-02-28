@@ -26,6 +26,7 @@
 (package-require 'popup)
 (require 'popup)
 
+;;(message projectile-project-root)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (package-require 'ido)
 ;; (require 'ido)
@@ -43,24 +44,56 @@
 (require 'yasnippet)
 ;; (setq yas-snippet-dirs '(yas-installed-snippets-dir (expand-file-name "~/../config/templates/snippets/")))
 ;; (setq yas-snippet-dirs (expand-file-name "~/../config/templates/snippets/"))
-(add-to-list 'yas-snippet-dirs (expand-file-name "~/../config/templates/snippets/"))
+;; (add-to-list 'yas-snippet-dirs (expand-file-name "~/../config/templates/snippets/"))
+(setq yas-snippet-dirs (expand-file-name "~/../config/templates/snippets/"))
 (yas-global-mode 1)
 
-(global-set-key (kbd "C-x y a") 
-		'(lambda() 
-		   (interactive) 
-		   (find-file (concat "~/../config/templates/snippets/" (symbol-name major-mode)
-				      "/auto-insert"))))
 
-(global-set-key (kbd "C-x y f") 
-		'(lambda(filename) 
-		   (interactive "sEnter snippet file name:")
-		   ;;(interactive (concat "sEnter yas file name(" (symbol-name major-mode) "):"))
-		   (find-file (concat "~/../config/templates/snippets/" (symbol-name major-mode)"/"
-				      filename))))
+(defun yas-open-snippet-file(file-name)
+  (interactive "sEnter snippet file name:")
+  (find-file (concat "~/../config/templates/snippets/" (symbol-name major-mode)"/"file-name)))
 
-;;(define-key yas-minor-mode-map (kbd "TAB") nil)
-;;(define-key yas-minor-mode-map [backtab] 'yas-expand)
+(defun yas-open-snippet-auto-insert()
+  (interactive)
+  (find-file (concat "~/../config/templates/snippets/" (symbol-name major-mode)
+				      "/auto-insert")))
+
+;; (define-key yas-minor-mode-map (kbd "TAB") nil)
+;; (define-key yas-minor-mode-map [backtab] 'yas-expand)
+(global-set-key (kbd "C-x y f") 'yas-open-snippet-file)
+(global-set-key (kbd "C-x y a") 'yas-open-snippet-auto-inset)
+
+
+;; (global-set-key (kbd "C-x y a") 
+;; 		'(lambda() 
+;; 		   (interactive) 
+;; 		   (find-file (concat "~/../config/templates/snippets/" (symbol-name major-mode)
+;; 				      "/auto-insert"))))
+;;
+;; (global-set-key (kbd "C-x y f") 
+;; 		'(lambda(filename) 
+;; 		   (interactive "sEnter snippet file name:")
+;; 		   ;;(interactive (concat "sEnter yas file name(" (symbol-name major-mode) "):"))
+;; 		   (find-file (concat "~/../config/templates/snippets/" (symbol-name major-mode)"/"
+;; 				      filename))))
+
+(defun yasnippet-current-line ();; C-c TAB
+  (interactive)
+  (let ((current-line (string-trim-right (thing-at-point 'line t))))
+    (end-of-line)
+    (newline-and-indent)
+    (yas-expand-snippet (yasnippet-string-to-template (string-trim current-line)))))
+ 
+(defun yasnippet-string-to-template (string)
+  (let ((count 1))
+    (labels ((rep (text)
+                  (let ((replace (format "${%d:%s}" count text)))
+                    (incf count)
+                    replace)))
+      (replace-regexp-in-string "[a-zA-Z0-9]+" #'rep string))))
+       
+(global-set-key (kbd "C-c TAB") 'yasnippet-current-line)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `auto-complete'
 (package-require 'auto-complete)
@@ -76,25 +109,11 @@
 (ac-config-default)
 (auto-complete-mode 1)
 
-;; (define-key ac-complete-mode-map (kbd "TAB") nil)
+(define-key ac-complete-mode-map (kbd "TAB") 'ac-next)
+(define-key ac-complete-mode-map (kbd "S-TAB") 'ac-previous)
 (define-key ac-complete-mode-map "\C-n" 'ac-next)
 (define-key ac-complete-mode-map "\C-p" 'ac-previous)
 (define-key ac-complete-mode-map (kbd "SPC") 'ac-complete)
-
-;; (defface ac-yasnippet-candidate-face
-;;   '((t (:background "sandybrown" :foreground "black")))
-;;   "Face for yasnippet candidate.")
- 
-;; (defface ac-yasnippet-selection-face
-;;   '((t (:background "coral3" :foreground "white")))
-;;   "Face for the yasnippet selected candidate.")
- 
-;; (defvar ac-source-yasnippet
-;;   '((candidates . ac-yasnippet-candidate)
-;;     (action . yas/expand)
-;;     (candidate-face . ac-yasnippet-candidate-face)
-;;     (selection-face . ac-yasnippet-selection-face))
-;;   "Source for Yasnippet.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `company'
