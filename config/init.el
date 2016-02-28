@@ -56,7 +56,7 @@
 (require 'mod-basic)
 (require 'mod-helm)
 (require 'mod-complete)
-(require 'mod-theme)
+;; (require 'mod-theme)h
 (require 'mod-calendar)
 
 ;; (require 'mod-tabbar)

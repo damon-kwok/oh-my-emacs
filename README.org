@@ -1,28 +1,27 @@
 #+TITLE:     medusa-ide
 this is my emacs config
 
-* *Global*
-** C-SPC global-menu
-** C-z set-mark
-** M-z mark-word
-** C-M-d delete-backward-char
-** C-c d (C-c D) bing-dict
-** C-\\ toggle-input-method
-** F1 neotree-toggle
-** C-- shrink-window
-** C-= enlarge-window
-** C-x M-k close all buffer
-** C-M-` yafolding-toggle-all
-** C-` yafolding-toggle-element	
-* *orgmode*
-   (global-set-key "\C-cl" 'org-store-link)
-   (global-set-key "\C-cc" 'org-capture)
-   (global-set-key "\C-ca" 'org-agenda)
-   (global-set-key "\C-cb" 'org-iswitchb)
-* *elisp*
-C-c C-c compile
-C-c C-z repl
-C-c C-h 
-* *clojure*
-C-c C-z repl
-C-c C-h sheet
+* global
+C-SPC global-menu\\
+C-z set-mark\\
+M-z mark-word\\
+C-M-d delete-backward-char\\
+C-c d (C-c D) bing-dict\\
+C-\\ toggle-input-method\\
+F1 neotree-toggle\\
+C-- shrink-window\\
+C-= enlarge-window\\
+C-x M-k close all buffer\\
+C-M-` yafolding-toggle-all\\
+C-` yafolding-toggle-element\\
+* orgmode
+C-cl 'org-store-link)\\
+C-cc 'org-capture)\\
+C-ca 'org-agenda)\\
+C-cb 'org-iswitchb)\\
+* elisp
+C-c C-c compile\\
+C-c C-z repl\\
+* clojure
+C-c C-z repl\\
+C-c C-h sheet\\
