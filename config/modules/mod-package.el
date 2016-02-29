@@ -26,7 +26,7 @@
 ;; required-at-runtime
 ;; (eval-when-compile
 ;;   (require 'cl))
- 
+
 (with-no-warnings 
   (require 'cl))
 
@@ -97,8 +97,8 @@
 
 (defun package-update() 
   (interactive) 
-  (package-list-packages t) 
-  (package-refresh-contents))
+  (save-window-excursion (package-list-packages t) 
+			 (package-refresh-contents)))
 
 (defun package-upgrade() 
   (interactive)
@@ -115,4 +115,3 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 (provide 'mod-package)
-

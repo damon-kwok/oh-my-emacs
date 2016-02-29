@@ -35,7 +35,7 @@
 (defun into-omnisharp() 
   (interactive) 
   ;;(company-mode)
-  ;;(auto-complete-mode)
+  (auto-complete-mode)
   (omnisharp-mode))
 
 (defun omnisharp-cs-code-format() 
@@ -51,6 +51,12 @@
   (forward-line old-line) 
   (save-current-buffer))
 
+(defun omnisharp-cs-code-find-usages() 
+  (interactive) 
+  (into-omnisharp) 
+  (omnisharp-helm-find-usages))
+
+
 (defun csharp-code-format() 
   (interactive) 
   (into-omnisharp) 
@@ -61,7 +67,7 @@
 (setq omnisharp-imenu-support t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;(add-hook 'csharp-mode-hook 'into-omnisharp)
+;; (add-hook 'csharp-mode-hook 'into-omnisharp)
 
 ;;(eval-after-load 'company '(add-to-list 'company-backends 'company-omnisharp))
 ;;(add-hook 'find-file-hook '(lambda()
@@ -76,8 +82,10 @@
 
 (define-key csharp-mode-map (kbd "C-M-\\") 'csharp-code-format)
 (define-key omnisharp-mode-map (kbd "C-c u") 'omnisharp-fix-usings)
-;; (define-key omnisharp-mode-map (kbd ".") 'omnisharp-add-dot-and-auto-complete)
+(define-key omnisharp-mode-map (kbd ".") 'omnisharp-add-dot-and-auto-complete)
 (define-key omnisharp-mode-map (kbd "C-M-i") 'omnisharp-auto-complete)
+(define-key csharp-mode-map (kbd "M-.") 'omnisharp-cs-code-find-usages)
+
 ;;
 (provide 'mod-csharp)
 ;;; mod-csharp.el ends here

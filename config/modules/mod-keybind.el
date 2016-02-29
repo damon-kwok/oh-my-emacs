@@ -1,17 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 ;;; mod-basic.el --- This is where you apply your OCD.
 ;;;
-;;; Author     : Dylan R. E. Moonfire (original)
-;;; Maintainer : Jostein Kjønigsen <jostein@gmail.com>
-;;; Created    : Feburary 2005
-;;; Modified   : November 2015
-;;; Version    : 0.8.12
-;;; Keywords   : emacs elisp
-;;; Package-Version: 20160117.1321
-;;; X-URL      : https://github.com/josteink/csharp-mode
-;;; Last-saved : 2016-Jan-06
-;;; Copyright (C) 2015-2016 Damon Kwok
-;;;
 ;;; Author: gww <damon-kwok@outlook.com>
 ;;; Date: 2016-02-16
 ;;;
@@ -205,14 +194,15 @@
   "
 ^README^            ^GTD^           ^Blog^              ^Editor^
 ^^^^^^^^-----------------------------------------------------------------
-_h_: README.org     _g_: GTD.org         ^^^^
+_h_: README.org     _g_: gtd.org         ^^^^
 ^^                  _t_: todo.org        ^^^^
-^^^^       ^^^^
+^^                  _r_: read.org        ^^^^
 ^^^^^^^^-----------------------------------------------------------------
 _0_: calendar       _q_: Quit       _b_: <-BACK ^^
 " ("h" (m-open-file "~/../README.org") "README.org")
-("g" (m-open-doc "GTD.org") "GTD.org")
+("g" (m-open-doc "gtd.org") "GTD.org")
 ("t" (m-open-doc "todo.org") "todo.org")
+("r" (m-open-doc "read.org") "read.org")
 ("0" (calendar) "calendar")
 ("b" (hydra-do-space/body) "BACK")
 ("q" nil "Quit"))

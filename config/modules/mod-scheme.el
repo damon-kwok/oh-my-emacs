@@ -1,19 +1,10 @@
 ;;; -*- lexical-binding: t -*-
-;;; mod-rest.el --- This is where you apply your OCD.
+;;; mod-scheme.el --- This is where you apply your OCD.
 ;;;
-;;; Author     : Dylan R. E. Moonfire (original)
-;;; Maintainer : Jostein Kjønigsen <jostein@gmail.com>
-;;; Created    : Feburary 2005
-;;; Modified   : November 2015
-;;; Version    : 0.8.12
-;;; Keywords   : emacs elisp
-;;; Package-Version: 20160117.1321
-;;; X-URL      : https://github.com/josteink/csharp-mode
-;;; Last-saved : 2016-Jan-06
-;;; Copyright (C) 2015-2016 Damon Kwok
+;;; Copyright (C) 2015-2016 damon-kwok
 ;;;
-;;; Author: gww <DamonKwok@msn.com>
-;;; Date: 2016-02-18
+;;; Author: gww <damon-kwok@outlook.com>
+;;; Date: 2016-02-28
 ;;;
 ;;; This program is free software; you can redistribute it and/or modify
 ;;; it under the terms of the GNU General Public License as published by
@@ -33,6 +24,25 @@
 (require 'mod-package)
 ;;;
 
+;;; geiser
+(package-require 'geiser)
+(require 'geiser)
+
+;;; quack
+;; (package-require-curl "quack" "http://www.neilvandyke.org/quack/quack.el")
+;; (require 'quack)
+
+;;;racket-mode
+(package-require 'racket-mode)
+(require 'mod-package)
+
+(setq tab-always-indent 'complete)
+(add-hook 'racket-mode-hook
+          (lambda ()
+            (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
+
+(add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
+(add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(provide 'mod-rest)
-;;; mod-rest.el ends here
+(provide 'mod-scheme)
+;;; mod-scheme.el ends here

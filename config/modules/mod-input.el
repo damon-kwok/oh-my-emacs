@@ -1,14 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 ;; mod-input.el --- This is where you apply your OCD.
 ;;
-;; Author     : Dylan R. E. Moonfire (original)
-;; Maintainer : Jostein Kjønigsen <jostein@gmail.com>
-;; Created    : Feburary 2005
-;; Modified   : November 2015
-;; Version    : 0.8.12
-;; Keywords   : emacs elisp
-;; Package-Version: 20160117.1321
-;; X-URL      : https://github.com/josteink/csharp-mode
 ;; Last-saved : 2016-Jan-06
 ;; Copyright (C) 2015-2016 Damon Kwok
 ;;

@@ -53,7 +53,7 @@
   (interactive "sEnter snippet file name:")
   (find-file (concat "~/../config/templates/snippets/" (symbol-name major-mode)"/"file-name)))
 
-(defun yas-open-snippet-auto-insert()
+(defun yas-open-snippet-template()
   (interactive)
   (find-file (concat "~/../config/templates/snippets/" (symbol-name major-mode)
 				      "/auto-insert")))
@@ -61,21 +61,7 @@
 ;; (define-key yas-minor-mode-map (kbd "TAB") nil)
 ;; (define-key yas-minor-mode-map [backtab] 'yas-expand)
 (global-set-key (kbd "C-x y f") 'yas-open-snippet-file)
-(global-set-key (kbd "C-x y a") 'yas-open-snippet-auto-inset)
-
-
-;; (global-set-key (kbd "C-x y a") 
-;; 		'(lambda() 
-;; 		   (interactive) 
-;; 		   (find-file (concat "~/../config/templates/snippets/" (symbol-name major-mode)
-;; 				      "/auto-insert"))))
-;;
-;; (global-set-key (kbd "C-x y f") 
-;; 		'(lambda(filename) 
-;; 		   (interactive "sEnter snippet file name:")
-;; 		   ;;(interactive (concat "sEnter yas file name(" (symbol-name major-mode) "):"))
-;; 		   (find-file (concat "~/../config/templates/snippets/" (symbol-name major-mode)"/"
-;; 				      filename))))
+(global-set-key (kbd "C-x y a") 'yas-open-snippet-template)
 
 (defun yasnippet-current-line ();; C-c TAB
   (interactive)
@@ -109,12 +95,19 @@
 (ac-config-default)
 (auto-complete-mode 1)
 
-(define-key ac-complete-mode-map (kbd "TAB") 'ac-next)
-(define-key ac-complete-mode-map (kbd "S-TAB") 'ac-previous)
-(define-key ac-complete-mode-map "\C-n" 'ac-next)
-(define-key ac-complete-mode-map "\C-p" 'ac-previous)
-(define-key ac-complete-mode-map (kbd "SPC") 'ac-complete)
+;; (define-key ac-complete-mode-map (kbd "TAB") 'ac-next)
+;; (define-key ac-complete-mode-map (kbd "S-TAB") 'ac-previous)
+;; (define-key ac-complete-mode-map "\C-n" 'ac-next)
+;; (define-key ac-complete-mode-map "\C-p" 'ac-previous)
+;; (define-key ac-complete-mode-map (kbd "SPC") 'ac-complete)
 
+(setq ac-use-menu-map t)
+;; Default settings
+(define-key ac-menu-map "\C-n" 'ac-next)
+(define-key ac-menu-map "\C-p" 'ac-previous)
+(define-key ac-menu-map (kbd "TAB") 'ac-next)
+(define-key ac-menu-map (kbd "S-TAB") 'ac-previous)
+(define-key ac-menu-map (kbd "SPC") 'ac-complete)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `company'
 ;; (package-require 'company)

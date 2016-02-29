@@ -1,17 +1,26 @@
-;;---------------------------
-;;env
-;;(setq-default env-seg ":")
-;;(if (eq system-type 'windows-nt) (setq env-seg ";"))
-
-;;(setenv-ext "LEIN_HOME" "ROOT" "leiningen-1.5.2-win/lein")
-;;(setenv-ext "LEIN" "ROOT" "leiningen-1.5.2-win/lein")
-;;(setenv-ext "LEIN_JAR" "LEIN_HOME" "leiningen-2.0.0-preview10-standalone.jar")
-;;(setenv "PATH" (concat (getenv "LEIN_HOME") env-seg (getenv "PATH")))
-
-;;(setq-default DEFAULT_PATH (getenv "PATH"))
-;;(setq-default GOOS "windows")
-
+;;; -*- lexical-binding: t -*-
+;;; mod-clojure.el --- This is where you apply your OCD.
+;;;
+;;; Author: gww <damon-kwok@outlook.com>
+;;; Date: 2016-02-01
+;;;
+;;; This program is free software; you can redistribute it and/or modify
+;;; it under the terms of the GNU General Public License as published by
+;;; the Free Software Foundation, either version 3 of the License, or
+;;; (at your option) any later version.
+;;;
+;;; This program is distributed in the hope that it will be useful,
+;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;; GNU General Public License for more details.
+;;;
+;;; You should have received a copy of the GNU General Public License
+;;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;;;						 
+;;; Code:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
+;;;
 
 ;;===================================================
 ;;clojure
@@ -70,4 +79,6 @@
 (define-key cider-repl-mode-map (kbd "C-c C-z")  'show-clojure-workbuffer)
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-clojure)
+;;; mod-clojure.el ends here

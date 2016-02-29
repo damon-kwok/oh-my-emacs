@@ -14,10 +14,10 @@ this is my emacs config
  - C-x M-k close all buffer
  - C-M-` yafolding-toggle-all
  - C-` yafolding-toggle-element
- - C-cl 'org-store-link)
- - C-cc 'org-capture)
- - C-ca 'org-agenda)
- - C-cb 'org-iswitchb)
+ - *C-cl org-store-link*
+ - *C-cc org-capture*
+ - *C-ca org-agenda*
+ - *C-cb org-iswitchb*
 ** elisp
  - C-c C-z repl
  - C-c C-c compile
