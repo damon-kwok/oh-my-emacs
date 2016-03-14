@@ -1,0 +1,11 @@
+-/semanticdb
+-/url
+-/edts
+-/elpa
+-/cache
+-/.cache
+-ac-comphist.dat
+-.emacs.desktop
+-.emacs.desktop.lock
+-.smex-items
+-*.elc

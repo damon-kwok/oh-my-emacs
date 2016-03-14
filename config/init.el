@@ -2,9 +2,9 @@
 ;; -*- lexical-binding: t -*-
 ;; init.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2016 Damon Kwok
+;; Copyright (C) 2015-2016 damon-kwok
 ;;
-;; Author: gww <DamonKwok@msn.com>
+;; Author: damon-kwok <damon-kwok@outlook.com>
 ;; Date: 2016-01-05
 ;;
 ;; This program is free software; you can redistribute it and/or modify
@@ -31,41 +31,44 @@
 (add-to-list 'load-path "~/.emacs.d/libraries")
 (add-to-list 'load-path "~/../config")
 (add-to-list 'load-path "~/../config/modules")
+(add-to-list 'custom-theme-load-path "~/../config/themes")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'mod-coding)
 (require 'mod-server)
 (require 'mod-package)
 (require 'mod-library)
-(require 'mod-coding)
 (require 'mod-input)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; version
-(package-require 'magit)
-(require 'magit)
+;; (package-require 'tramp)
+;; (require 'tramp)
 
-(package-require 'psvn)
-(require 'psvn)
+;; ;;; version
+;; (package-require 'magit)
+;; (require 'magit)
+;; (auto-fill-mode 0)
+;; (package-require 'psvn)
+;; (require 'psvn)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;edit
 (require 'mod-csv)
 (require 'mod-protobuf)
 (require 'mod-orgmode)
-;; (require 'mod-markdown)
+(require 'mod-markdown)
 ;; (require 'mod-latex)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;base
 (require 'mod-basic)
-(require 'mod-helm)
+(require 'mod-helm)			
 (require 'mod-complete)
-;; (require 'mod-theme)h
 (require 'mod-calendar)
-
-;; (require 'mod-tabbar)
-;;(require 'mod-speedbar)
+;; (require 'mod-theme)
+(require 'mod-tabbar)
+;; (require 'mod-speedbar)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;code
 (require 'mod-elisp)
 (require 'mod-csharp)
-(require 'mod-clojure)
+;; (require 'mod-clojure)
 ;; (require 'mod-cc)
 ;;(require 'mod-slime)
 ;;(require 'mod-erlang)
@@ -91,5 +94,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-keybind)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(message "hello, medusa!")
+(message "hello, emacs!")
 (provide 'init)
+
+;; (package-requir

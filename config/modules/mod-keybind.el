@@ -39,6 +39,17 @@
 (global-set-key (kbd "M-z") 'er/expand-region) ;; (global-set-key "\M-z" 'mark-word)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; move line
+(package-require-git "move-lines" "https://github.com/targzeta/move-lines.git")
+(require 'move-lines)
+
+;;; After that, you can move the line(s) up by M-p or down by M-n.
+(global-set-key (kbd "M-p") 'move-lines-up)
+(global-set-key (kbd "M-n") 'move-lines-down)
+
+(global-set-key (kbd "M-<up>") 'move-lines-up)
+(global-set-key (kbd "M-<down>") 'move-lines-down)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key (kbd "C-M-d") 'delete-backward-char)
 (global-set-key (kbd "C-x C-c") 'medusa-exit) ;;[(control x) (control c)]
 
@@ -121,51 +132,12 @@
 ;; (add-hook 'shell-mode-hook (lambda () (local-set-key (kbd "M-s") 'replace-string)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-set-key (kbd "C-x M-k") 'kill-all-buffers)
+;; (global-set-key (kbd "C-x M-k") 'kill-all-buffers)
 ;; (global-set-key (kbd "C-x M-k") 'kill-other-buffers)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; hydra
+;;; `hydra'
 (package-require 'hydra)
 (require 'hydra)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `Action'
-;;; swiper d:bing-dict  f:forward b:backward
-
-;; (defhydra hydra-do-action
-;;   (:color blue
-;; 	  :hint nil)
-;;   "
-;; ^Search^               ^Buffer-and-File^    ^Dict^           ^Export^
-;; ^^^^^^^^-----------------------------------------------------------------
-;; _f_: goto-char-f       _r_: rename          _b_: bing        _p_: htmlize-buffer
-;; _b_: goto-char-b       _x_: delete          _w_: bing-web    _P_: htmlize-file
-;; _1_: replace-string    _>_: scale-inc  ^^^^
-;; _2_: query-replace     _<_: scale-dec  ^^^^
-;; ^^^^^^^^-----------------------------------------------------------------
-;; _q_: Quit              _d_: calendar   ^^ ^^
-;; "
-;; ("f" go-to-char-forward "go-to-char-forward")
-;; ("b" go-to-char-backward "go-to-char-backward")
-
-;; ("1" replace-string "replace-string")
-;; ("2" query-replace "query-replace")
-
-;; ("r" rename-file-and-buffer "rename-file-and-buffer")
-;; ("x" delete-file-and-buffer "delete-file-and-buffer")
-;; (">" text-scale-increase "text-scale-increase")
-;; ("<" text-scale-decrease "text-scale-decrease")
-
-;; ("b" bing-dict-brief "bing-dict-brief")
-;; ("w" bing-dict-brief-web "bing-dict-brief-web")
-
-;; ("p" htmlize-buffer "htmlize-buffer")
-;; ("P" htmlize-file "htmlize-file")
-
-;; ("d" (calendar) "calendar")
-;; ("q" nil "Quit"))
-;; (global-set-key (kbd "C-c a") 'hydra-do-action/body)
-;; (global-set-key (kbd "C-SPC") 'hydra-do-action/body)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `tty'
 ;; (defhydra hydra-show-tty
@@ -183,30 +155,11 @@
   ("s" eshell "*eshell*") 
   ("S" (shell "*shell*")) 
   ("0" (calendar) "calendar") 
-  ("b" (hydra-do-space/body) "BACK") 
-  ("q" nil "Quit"))
+  ("<tab>" (hydra-do-space/body) "BACK") 
+  ("q" nil "Quit") 
+  ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c s") 'hydra-show-buffer/body)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `hydra-open-file'
-(defhydra hydra-open-file 
-  (:color blue)
-  "
-^README^            ^GTD^           ^Blog^              ^Editor^
-^^^^^^^^-----------------------------------------------------------------
-_h_: README.org     _g_: gtd.org         ^^^^
-^^                  _t_: todo.org        ^^^^
-^^                  _r_: read.org        ^^^^
-^^^^^^^^-----------------------------------------------------------------
-_0_: calendar       _q_: Quit       _b_: <-BACK ^^
-" ("h" (m-open-file "~/../README.org") "README.org")
-("g" (m-open-doc "gtd.org") "GTD.org")
-("t" (m-open-doc "todo.org") "todo.org")
-("r" (m-open-doc "read.org") "read.org")
-("0" (calendar) "calendar")
-("b" (hydra-do-space/body) "BACK")
-("q" nil "Quit"))
-;; (global-set-key (kbd "C-c f") 'hydra-open-file/body)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `hydra-open-module'
@@ -215,15 +168,15 @@ _0_: calendar       _q_: Quit       _b_: <-BACK ^^
   "
 ^Basic^            ^Layout^         ^Editor^          ^Language^      ^Other^
 ^^^^^^^^-------------------------------------------------------------------------
-_i_: init          ^^               _6_: orgmode      _e_: elisp      _z_: input
-_a_: appearance    _2_: helm        _7_: latex        _j_: clojure    _m_: music
-_p_: package       ^^               _8_: markdown     _e_: cc         _d_: coding
-_k_: keybind       ^^               _9_: reST         ^^              _s_: server
-_l_: library       _5_: nil         _z_: csv          _c_: csharp     ^^
+_i_: init          _t_: tabbar      _6_: orgmode      _1_: elisp      _z_: input
+_a_: appearance    _h_: helm        _7_: latex        _2_: clojure    _m_: music
+_p_: package       ^^               _8_: markdown     _3_: csharp     _d_: coding
+_k_: keybind       ^^               _9_: reST         _4_: js         _s_: server
+_l_: library       ^^               _z_: csv          _5_: cc         ^^
 _y_: ac-and-yas    ^^               _x_: protobuf     ^^              ^^
 ^^                 ^^               ^^                ^^              ^^
 ^^^^^^^^-------------------------------------------------------------------------
-_0_: calendar    _q_: Quit      _b_: <-BACK           ^ ^             ^ ^
+_0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 " ("i" (m-open-file "~/../config/init.el") "Bing")
 ("a" (m-open-mod "basic") "basic")
 ("p" (m-open-mod "package") "package")
@@ -231,11 +184,19 @@ _0_: calendar    _q_: Quit      _b_: <-BACK           ^ ^             ^ ^
 ("l" (m-open-mod "library") "library")
 ("y" (m-open-mod "complete") "complete")
 
-;;("1" (m-open-mod "tabbar") "tabbar")
-("2" (m-open-mod "helm") "helm")
+("t" (m-open-mod "tabbar") "tabbar")
+("h" (m-open-mod "helm") "helm")
 ;;("3" (m-open-mod "theme") "theme")
 ;;("4" (m-open-mod "speedbar") "speedbar")
-("5" nil)
+
+("1" (m-open-mod "elisp") "elisp")
+("2" (m-open-mod "clojure") "clojure")
+("3" (m-open-mod "csharp") "csharp")
+("4" (m-open-mod "javascript") "javascript")
+("5" (m-open-mod "cc") "cc")
+
+;;("w" (m-open-mod "web") "web")
+
 
 ("6" (m-open-mod "orgmode") "orgmode")
 ("7" (m-open-mod "latex") "latex")
@@ -248,15 +209,11 @@ _0_: calendar    _q_: Quit      _b_: <-BACK           ^ ^             ^ ^
 ("m" (m-open-mod "music") "music")
 ("d" (m-open-mod "coding") "coding")
 ("s" (m-open-mod "server") "server")
-("e" (m-open-mod "elisp") "elisp")
-("j" (m-open-mod "clojure") "clojure")
-("c" (m-open-mod "cc") "cc")
-;;("w" (m-open-mod "web") "web")
-("c" (m-open-mod "csharp") "csharp")
 
 ("0" calendar)
-("b" (hydra-do-space/body) "BACK")
-("q" nil "Quit"))
+("<tab>" (hydra-do-space/body) "BACK")
+("q" nil "Quit")
+("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c c") 'hydra-open-config/body)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -271,7 +228,7 @@ _2_: Baidu   _6_: Tuicool      _m_: Manual           _e_: Emacs         _9_: weg
 _3_: Taobao  _7_: oschina      _k_: emacs-tutor      _y_: Clojure        ^ ^
 _4_: Amazon  _8_: GAME         _l_: MasteringEmacs   _c_: CommonLisp     ^ ^
 ^^^^^^^^------------------------------------------------------------------------------
-_q_: Quit    _0_: calendar     _b_: <-BACK          ^^ ^^
+_<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 " ("1" (m-open-url "http://cn.bing.com/") "Bing")
 ("2" (m-open-url "https://www.baidu.com/") "Baidu")
 ("3" (m-open-url "https://www.taobao.com/") "Taobao")
@@ -282,7 +239,8 @@ _q_: Quit    _0_: calendar     _b_: <-BACK          ^^ ^^
 ("7" (m-open-url "http://www.oschina.net/news") "oschina")
 ("8" (m-open-url "http://www.3dmgame.com/news/") "3dm-news")
 ("x" (m-open-url "http://ergoemacs.org/emacs/elisp.html") "Xahlee Elisp")
-("m" (m-open-url "http://www.gnu.org/software/emacs/manual/html_node/elisp/index.html#SEC_Contents") "Manual")
+("m" (m-open-url "http://www.gnu.org/software/emacs/manual/html_node/elisp/index.html#SEC_Contents")
+ "Manual")
 ("k" (m-open-url "http://tuhdo.github.io/emacs-tutor.html") "emacs-tutor")
 ("l" (m-open-url "https://masteringemacs.org/book") "MasteringEmacs")
 ("a" (m-open-url "https://github.com/bayandin/awesome-awesomeness") "awesome-awesomeness")
@@ -292,57 +250,104 @@ _q_: Quit    _0_: calendar     _b_: <-BACK          ^^ ^^
 ("v" (m-open-url "https://github.com/") "github")
 ("9" (m-open-url "http://wttr.in/") "wego")
 ("0" (calendar) "calendar")
-("b" (hydra-do-space/body) "BACK")
-("q" nil "Quit"))
+("<tab>" (hydra-do-space/body) "BACK")
+("q" nil "Quit")
+("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c w") 'hydra-open-url/body)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `hydra-open-file'
+(defhydra hydra-open-file 
+  (:color blue)
+  "
+^Editor^        ^Export^                ^Docs^              ^Docs^
+^^^^^^^^-----------------------------------------------------------------
+_r_:rename      _p_: htmlize-buffer     _h_: README.org      _n_: note.org
+_d_:delete      _P_: htmlize-file       _d_: diary.org       _p_: problem.org
+_k_:close-all   _C_: complie-modules    _t_: todo.org        ^^
+_o_:kill-other  ^^                      _b_: book.org        ^^
+^^^^^^^^-----------------------------------------------------------------
+_0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
+" ("r" rename-file-and-buffer "rename-file-and-buffer")
+("d" delete-file-and-buffer "delete-file-and-buffer")
+("k" kill-all-buffers "kill-all-buffers")
+("o" kill-other-buffers "kill-other-buffers")
+("p" htmlize-buffer "htmlize-buffer")
+("P" htmlize-file "htmlize-file")
+("C" (byte-recompile-directory "~/../config") "byte-recomplie-directory")
+("h" (m-open-file "~/../README.org") "README.org")
+("g" (m-open-doc "gtd.org") "GTD.org")
+("t" (m-open-doc "todo.org") "todo.org")
+("b" (m-open-doc "book.org") "book.org")
+("n" (m-open-doc "note.org") "note.org")
+("p" (m-open-doc "problem.org") "read.org")
+("<tab>" helm-keyboard-quit "back" 
+ :exit t)
+("0" (calendar) "calendar")
+("<tab>" (hydra-do-space/body) "BACK")
+("q" nil "Quit")
+("<escape>" nil "Quit"))
+;; (global-set-key (kbd "C-c f") 'hydra-open-file/body)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `C-SPC'
 (defhydra hydra-do-space 
   (:color blue)
   "
-^SPC^            ^Search^               ^Buffer-and-File^    ^Export^             ^tabbar^
+^SPC^            ^Buffer^               ^Search^              ^UI|View^
 ^^^^^^^^---------------------------------------------------------------------------------
-_a_: nil   =>    _>_: goto-char-f      _r_: rename          _p_: htmlize-buffer  _;_: <-
-_b_: Buffer=>    _<_: goto-char-b      _x_: delete          _P_: htmlize-file    _\\'_: ->
-_f_: File  =>    _s_: query-string     _=_: scale-inc       _C_: complie-modules _[_: up
-_m_: Module=>    _S_: grep             _-_: scale-dec       _d_: bing-dict       _/_: down
-_w_: URLs  =>    _e_: mc/mark-all      _h_: README.org      _D_: bing-dict-web   ^^
+^^               _>_: goto-char-f       _G_: grep-project     _;_: <>
+_b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _\\'_: ->
+_f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: up
+_m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: down
+_w_: URLs  =>    _e_: mc/mark-all       ^^                    _=_: scale-inc
+^^               _r_: Reload|Refresh    ^^                    _-_: scale-dec
+_<tab>_: recent  ^^                     ^^                    ^^
 ^^^^^^^^---------------------------------------------------------------------------------
-_q_: Quit        _0_: Calendar          ^^ ^^
-" ("a" nil)
-("b" (hydra-show-buffer/body) "buffer")
+_<escape>_: Quit        _0_: Calendar          ^^                    ^^
+" ("b" (hydra-show-buffer/body) "buffer")
 ("f" (hydra-open-file/body) "file")
 ("m" (hydra-open-config/body) "module")
 ("w" (hydra-open-url/body) "url")
+("<tab>" helm-recentf "(helm-recentf)")
 (">" go-to-char-forward "go-to-char-forward")
 ("<" go-to-char-backward "go-to-char-backward")
-;;("s" replace-string "replace-string")
-("s" query-replace "query-replace")
-("S" my-grep "projectile-project-root")
-("e" mc/mark-all-like-this "mc/mark-all-like-this")
-("r" rename-file-and-buffer "rename-file-and-buffer")
-("x" delete-file-and-buffer "delete-file-and-buffer")
-("=" text-scale-increase "text-scale-increase")
-("-" text-scale-decrease "text-scale-decrease")
-("h" (m-open-file "~/../README.org") "README.org")
-("p" htmlize-buffer "htmlize-buffer")
-("P" htmlize-file "htmlize-file")
-("C" (byte-recompile-directory "~/../config") "byte-recomplie-directory")
+("s" replace-string "replace-string")
+("S" query-replace "query-replace")
+("e" (m-mark-all-like-this) "mc/mark-all-like-this")
+("r" (m-buffer-reload) "Refresh")
+("G" my-grep-project "projectile-project-root")
+("g" my-grep-directory "projectile-directory-root")
 ("d" bing-dict-brief "bing-dict-brief")
 ("D" bing-dict-brief-web "bing-dict-brief-web")
 (";" tabbar-ruler-backward "tabbar-backward")
 ("'" tabbar-ruler-forward "tabbar-forward")
 ("[" tabbar-ruler-tabbar-backward-group "tabbar-up")
 ("/" tabbar-ruler-tabbar-forward-group "tabbar-down")
-
-
+("=" text-scale-increase "text-scale-increase")
+("-" text-scale-decrease "text-scale-decrease")
 ("0" (calendar) "calendar")
-("q" nil "Quit"))
+("<escape>" nil "quit"))
 (global-set-key (kbd "C-SPC") 'hydra-do-space/body)
 
-(defun my-grep (word) 
+(defun m-buffer-reload()
+  (interactive)
+  (save-buffer)
+  (setq old-pos (point)) 
+  (goto-char (point-min))
+  (find-alternate-file (buffer-file-name))
+  (goto-char old-pos))
+
+(defun m-mark-all-like-this () 
+  "Find and mark all the parts of the buffer matching the currently active region" 
+  (interactive) 
+  (condition-case err
+      (progn
+	(mc/mark-all-like-this))
+    (error
+     (message "error: %s"(car (cdr err))))))
+
+(defun my-grep-project (word) 
   "Show the explanation of WORD from Bing in the echo area." 
   (interactive (let* ((default (if (use-region-p) 
 				   (buffer-substring-no-properties 
@@ -351,44 +356,39 @@ _q_: Quit        _0_: Calendar          ^^ ^^
 				 (let ((text (thing-at-point 'word))) 
 				   (if text (substring-no-properties text))))) 
 		      (prompt (if (stringp default) 
-				  (format "grep (default \"%s\"): " default)
-				"grep: ")) 
+				  (format "grep (default \"%s\"): " default) "grep: ")) 
 		      (string (read-string prompt nil nil default))) 
 		 (list string))) 
-  (save-match-data (m-grep word) 
+  (save-match-data (m-grep-project  word) 
 		   (other-window 1)))
 
+(defun my-grep-directory (word) 
+  "Show the explanation of WORD from Bing in the echo area." 
+  (interactive (let* ((default (if (use-region-p) 
+				   (buffer-substring-no-properties 
+				    (region-beginning) 
+				    (region-end)) 
+				 (let ((text (thing-at-point 'word))) 
+				   (if text (substring-no-properties text))))) 
+		      (prompt (if (stringp default) 
+				  (format "grep (default \"%s\"): " default) "grep: ")) 
+		      (string (read-string prompt nil nil default))) 
+		 (list string))) 
+  (save-match-data (m-grep-directory  word) 
+		   (other-window 1)))
 
-(defun m-grep (str) 
+(defun m-grep-project (str) 
   (m-run-command (concat "grep -n " "\"" str "\"" " -r " (m-project-root))))
 
-;; (defun m-grep (str)
-;;   (interactive "sEnter friend's name:")
-;;   (m-run-command (concat "grep -n " "\"" str "\"" " -r " (projectile-project-root)))
-;; )
-
-;; (defhydra hydra-do-space (:color blue)
-;;   "hydra-do-space"
-
-;; ("a" (hydra-do-action/body) "action")
-;; ("s" (hydra-show-buffer/body) "buffer")
-;; ("f" (hydra-open-file/body) "file")
-;; ("c" (hydra-open-config/body) "config")
-;; ("w" (hydra-open-url/body) "url")
-
-;; (">" text-scale-increase "text-scale-increase")
-;; ("<" text-scale-decrease "text-scale-decrease")
-
-;; ("d" (calendar) "calendar")
-;; ("q" nil "Quit"))
-;; (global-set-key (kbd "C-SPC") 'hydra-do-space/body)
+(defun m-grep-directory (str) 
+  (m-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory buffer-file-name))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `comment-toggle' M-;
 (global-set-key [remap comment-dwim] 'comment-or-uncomment-region-or-line)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `'guide-key'
+;;; `guide-key'
 ;; (package-require 'guide-key)
 ;; (require 'guide-key)
 ;; (guide-key-mode 1)			; Enable guide-key-mode
@@ -405,10 +405,15 @@ _q_: Quit        _0_: Calendar          ^^ ^^
 ;; (setq guide-key-tip/enabled nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `'which-key'
+;;; `which-key'
 (package-require 'which-key)
 (require 'which-key)
 (which-key-mode)
+
+;;; disable mouse-2 mouse-3
+;; (global-set-key [mouse-1] nil)
+(global-set-key [mouse-2] nil)
+(global-set-key [mouse-3] nil)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 (provide 'mod-keybind)

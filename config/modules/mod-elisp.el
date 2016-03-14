@@ -25,6 +25,10 @@
 ;;; Code:
 (require 'mod-package)
 ;;
+
+(package-require-curl "elisp-format" "elisp-format.el" "https://www.emacswiki.org/emacs/download/elisp-format.el")
+(require 'elisp-format)
+
 ;;(package-require 'paredit)
 ;;(package-require 'rainbow-delimiters)
 ;;(global-rainbow-delimiters-mode)
@@ -44,7 +48,6 @@
 
 (defun elisp-code-format() 
   (interactive) 
-  (require 'elisp-format) 
   (elisp-format-buffer)
   ;;(setq old-line (line-number-at-pos))
   ;;(goto-char (point-min))
@@ -86,6 +89,7 @@
 
 (define-key emacs-lisp-mode-map (kbd "C-c C-z")  'show-elisp-repl)
 (define-key emacs-lisp-mode-map (kbd "C-c C-c")  'compile-current-buffer)
+(define-key emacs-lisp-mode-map (kbd "C-c C-k")  'eval-buffer)
 (define-key emacs-lisp-mode-map (kbd "C-M-\\")  'elisp-code-format)
 
 ;;

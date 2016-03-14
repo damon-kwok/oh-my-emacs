@@ -117,6 +117,9 @@
 ;;; Enrich isearch with Helm using the `C-S-s' binding.
 ;;; swiper-helm behaves subtly different from isearch, so let's not
 ;;; override the default binding.
+(package-require 'swiper-helm)
+(require 'swiper-helm)
+(global-set-key (kbd "C-M-s") 'swiper-helm)
 
 ;;; ac-helm
 ;; (package-require 'ac-helm)
@@ -126,16 +129,14 @@
 ;; (package-require 'helm-company)
 ;; (require 'helm-company)
 
-(package-require 'swiper-helm)
-(require 'swiper-helm)
-(global-set-key (kbd "C-s") 'swiper-helm)
+
 
 ;;; Tell Helm to resize the selector as needed.
 (helm-autoresize-mode 1)
 
 ;;; Make Helm look nice.
 (setq-default helm-display-header-line nil
-              helm-autoresize-min-height 10
+              helm-autoresize-min-height 20
               helm-autoresize-max-height 35
               helm-split-window-in-side-p t
 
@@ -148,7 +149,7 @@
 
 ;;; Keybinding
 (define-key helm-map (kbd "<tab>")  'helm-execute-persistent-action)
-
+(define-key helm-map (kbd "<escape>")  'helm-keyboard-quit)
 ;;; helm-bm
 (package-require 'helm-bm)
 (require 'helm-bm) ;;; Not necessary if using ELPA package

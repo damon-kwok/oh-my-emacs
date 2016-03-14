@@ -1,18 +1,9 @@
 ;;; -*- lexical-binding: t -*-
 ;; mod-markdown.el --- This is where you apply your OCD.
 ;;
-;; Author     : Dylan R. E. Moonfire (original)
-;; Maintainer : Jostein Kjønigsen <jostein@gmail.com>
-;; Created    : Feburary 2005
-;; Modified   : November 2015
-;; Version    : 0.8.12
-;; Keywords   : emacs elisp
-;; Package-Version: 20160117.1321
-;; X-URL      : https://github.com/josteink/csharp-mode
-;; Last-saved : 2016-Jan-06
-;; Copyright (C) 2015-2016 Damon Kwok
+;; Copyright (C) 2015-2016 damon-kwok
 ;;
-;; Author: gww <DamonKwok@msn.com>
+;; Author: gww <damon-kwok@outlook.com>
 ;; Date: 2016-01-21
 ;;
 ;; This program is free software; you can redistribute it and/or modify
@@ -54,7 +45,7 @@
   "markdown-mode-hook"
   (setq markdown-command "markdown | smartypants")
   (define-key markdown-mode-map [f1] 'show-markdown-output)
-  (define-key markdown-mode-map (kbd "C-c z") 'show-markdown-output))
+  (define-key markdown-mode-map (kbd "C-c C-z") 'show-markdown-output))
 
 (add-hook 'markdown-mode-hook '(lambda() (markdown-custom-settings)))
 ;;

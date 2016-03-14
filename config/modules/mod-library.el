@@ -102,6 +102,9 @@
   "Works just like `progn' but will only evaluate expressions in VAR when Emacs is running in a terminal else just nil."
   `(when (is-in-terminal) ,@body))
 
+;; (file-name-as-directory buffer-file-name)
+;; (file-name-nondirectory buffer-file-name)
+;; (file-name-directory buffer-file-name)
 
 (defun buffer-path-name() 
   (directory-file-name (file-name-directory buffer-file-name)))
@@ -336,7 +339,10 @@ occurence of CHAR."
   (m-show-compilation "*compilation*") 
   (compile cmd))
 
-(package-require-curl "elisp-format.el" "http://www.emacswiki.org/emacs/download/elisp-format.el")
+(package-require-curl "elisp-format" "elisp-format.el" "https://www.emacswiki.org/emacs/download/elisp-format.el")
+(package-require-curl "pink-bliss" "pink-bliss-theme.el" "https://raw.githubusercontent.com/kensanata/elisp/master/pink-bliss-theme.el")
+(package-require-curl "pink-bliss" "pink-bliss.el" "https://www.emacswiki.org/emacs/download/pink-bliss.el")
+(package-require-curl "pink-bliss" "pink-gnu.xpm" "http://www.emacswiki.org/emacs/download/pink-gnu.xpm")
 
 ;; (package-require-git "window-layout" "https://github.com/kiwanami/emacs-window-layout.git")
 ;; (package-require-git "E2WM" "https://github.com/kiwanami/emacs-window-manager.git")

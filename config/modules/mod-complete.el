@@ -72,7 +72,7 @@
  
 (defun yasnippet-string-to-template (string)
   (let ((count 1))
-    (labels ((rep (text)
+    (cl-labels ((rep (text)
                   (let ((replace (format "${%d:%s}" count text)))
                     (incf count)
                     replace)))
@@ -95,11 +95,11 @@
 (ac-config-default)
 (auto-complete-mode 1)
 
-;; (define-key ac-complete-mode-map (kbd "TAB") 'ac-next)
-;; (define-key ac-complete-mode-map (kbd "S-TAB") 'ac-previous)
-;; (define-key ac-complete-mode-map "\C-n" 'ac-next)
-;; (define-key ac-complete-mode-map "\C-p" 'ac-previous)
-;; (define-key ac-complete-mode-map (kbd "SPC") 'ac-complete)
+(define-key ac-complete-mode-map (kbd "TAB") 'ac-next)
+(define-key ac-complete-mode-map (kbd "S-TAB") 'ac-previous)
+(define-key ac-complete-mode-map "\C-n" 'ac-next)
+(define-key ac-complete-mode-map "\C-p" 'ac-previous)
+;; (define-key ac-complete-mode-map (kbd "SPC") nil)'ac-complete)
 
 (setq ac-use-menu-map t)
 ;; Default settings

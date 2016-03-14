@@ -35,7 +35,7 @@
 (defun into-omnisharp() 
   (interactive) 
   ;;(company-mode)
-  (auto-complete-mode)
+  ;;(auto-complete-mode)
   (omnisharp-mode))
 
 (defun omnisharp-cs-code-format() 
@@ -56,18 +56,23 @@
   (into-omnisharp) 
   (omnisharp-helm-find-usages))
 
+(defun omnisharp-cs-code-rename() 
+  (interactive) 
+  (into-omnisharp) 
+  (omnisharp-rename))
 
 (defun csharp-code-format() 
   (interactive) 
-  (into-omnisharp) 
+  ;;(into-omnisharp) 
   (omnisharp-cs-code-format))
 
 (setq omnisharp-debug nil)
 
 (setq omnisharp-imenu-support t)
+;; (if (eq system-type 'windows-nt) (setq omnisharp--curl-executable-path  "~/../bin/curl.exe"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (add-hook 'csharp-mode-hook 'into-omnisharp)
+(add-hook 'csharp-mode-hook 'into-omnisharp)
 
 ;;(eval-after-load 'company '(add-to-list 'company-backends 'company-omnisharp))
 ;;(add-hook 'find-file-hook '(lambda()
@@ -85,7 +90,7 @@
 (define-key omnisharp-mode-map (kbd ".") 'omnisharp-add-dot-and-auto-complete)
 (define-key omnisharp-mode-map (kbd "C-M-i") 'omnisharp-auto-complete)
 (define-key csharp-mode-map (kbd "M-.") 'omnisharp-cs-code-find-usages)
-
+(define-key csharp-mode-map (kbd "M-2") 'omnisharp-cs-code-rename)
 ;;
 (provide 'mod-csharp)
 ;;; mod-csharp.el ends here

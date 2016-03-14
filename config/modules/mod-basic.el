@@ -18,17 +18,17 @@
 ;;;
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
-;;;						 
+;;;
 ;;; Code:
 ;;;
-(require 'mod-package)   
+(require 'mod-package)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`base-config';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; `'gc'
-(setq gc-cons-threshold (* 256 1024 1024))
+(setq gc-cons-threshold (* 387 1024 1024))
 
 ;;; '`error'
 (setq debug-on-error t) ;; M-x toggle-debug-on-error
@@ -45,20 +45,7 @@
 ;; (setq global-mark-ring-max 1024)        ;设置最大的全局标记容量
 ;; (setq history-delete-duplicates t)      ;删除minibuffer的重复历史
 
-;;; `'Theme'
-;; (package-require 'django-theme)
-;;  (when  (package-installed-p 'django-theme)
-;;    (require 'django-theme))
-
-;; (if (display-graphic-p) 
-;;     (require 'django-theme)
-;;   (load-theme 'deeper-blue))
-
-;; (load-theme 'wombat)
-
-(load-theme 'deeper-blue)
-
-;;; enable/disable loading page
+;;; enable/disable loading page (t:disable nil:enable)
 (setq inhibit-startup-message t)
 
 ;;; `'default-mode'
@@ -77,7 +64,8 @@
 (setq visible-bell nil)
 ;;; remove 'bell beep function'
 ;; (setq ring-bell-function (lambda () (message "*beep*")))
-(setq ring-bell-function (lambda ()))
+(setq ring-bell-function 
+      (lambda ()))
 
 ;;; y-or-n-p
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -90,7 +78,7 @@
 ;;    (message "Can't load xxx-mode %s" (cdr err))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`Frame';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`frame';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;(bgex-set-image-default "~/gnuemacsref.png" nil)
@@ -106,7 +94,7 @@
 (tool-bar-mode 0)
 
 ;;; menu-bar (0:disable 1:show)
-(menu-bar-mode 1)
+(menu-bar-mode 0)
 
 ;;; scroll setttings
 (scroll-bar-mode 0) ;; (0:disable 1:show)
@@ -165,18 +153,21 @@
 (setq display-time-24hr-format t)
 (setq display-time-day-and-date t)
 (setq display-time-interval 10)
-;; (coding-system-get buffer-file-coding-system 'mime-charset)
 
 ;;; title
-;;%f%p%l
-;; (setq frame-title-format `(,(user-login-name) "#" ,(system-name) "---["  "]---- " global-mode-string " ---- %f" ))
-(setq frame-title-format `(,(user-login-name) "#" ,(system-name) " [",'(coding-system-get
-									buffer-file-coding-system
-									'mime-charset) "]      %f"))
-;; (setq frame-title-format `(,(user-login-name) "#" ,(system-name) "---[" ,(coding-system-get buffer-file-coding-system 'mime-charset) "]---- " global-mode-string " ---- %f" ))
-;; (setq frame-title-format `(,(user-login-name) "#" ,(system-name) "---[" ,(coding-system-get buffer-file-coding-system 'mime-charset) "]---- " global-mode-string " ---- %f" ))
+(setq frame-title-format '("%Z  "
+			   (:eval (cond (buffer-read-only "(Read-Only)")))
+			   (:eval (cond ((buffer-modified-p) "*")))
+			   "%b"
+			   "  [%m]  %f"))
 
-(setq frame-title-format '("" invocation-name "@" system-name "     " global-mode-string "     %f"))
+;; (setq frame-title-format '("[%Z]    %m    "
+;; 			   (:eval (cond (buffer-read-only "%%")
+;; 					((buffer-modified-p) "*")))
+;; 			   "%f  (" invocation-name "@" system-name ")   " global-mode-string ))
+;;user-login-name
+;;(setq frame-title-format '("" invocation-name "@" system-name "     " global-mode-string "     %f"))
+
 ;; See also:  `display-time-format' and `mode-line-format'
 
 ;; `mode-line-format'
@@ -189,30 +180,30 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`tabbar';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(package-require 'tabbar-ruler)
+;; (package-require 'tabbar-ruler)
 
-(setq tabbar-ruler-global-tabbar t)    ; get tabbar
-(setq tabbar-ruler-global-ruler nil)     ; get global ruler
-(setq tabbar-ruler-popup-menu nil)       ; get popup menu.
-(setq tabbar-ruler-popup-toolbar nil)    ; get popup toolbar
-(setq tabbar-ruler-popup-scrollbar nil)  ; show scroll-bar on mouse-move
-(require 'tabbar-ruler)
+;; (setq tabbar-ruler-global-tabbar t)	; get tabbar
+;; (setq tabbar-ruler-global-ruler nil)	; get global ruler
+;; (setq tabbar-ruler-popup-menu nil)	; get popup menu.
+;; (setq tabbar-ruler-popup-toolbar nil)	; get popup toolbar
+;; (setq tabbar-ruler-popup-scrollbar nil)	; show scroll-bar on mouse-move
+;; (require 'tabbar-ruler)
 
 ;;; The default behavior for tabbar-ruler is to group the tabs by frame. You can change this back to the old-behavior by:
-;; (tabbar-ruler-group-buffer-groups)
+;;-- (tabbar-ruler-group-buffer-groups)
 
 ;;; or by issuing the following code:
-;; (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
+;;-- (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
 
 ;;; In addition, you can also group by projectile project easily by:
-(tabbar-ruler-group-by-projectile-project)
+;; (tabbar-ruler-group-by-projectile-project)
 
-(global-set-key (kbd "M-]") 'tabbar-ruler-forward)
-(global-set-key (kbd "M-[") 'tabbar-ruler-backward)
-(global-set-key (kbd "C-M-]") 'tabbar-ruler-tabbar-forward-group)
-(global-set-key (kbd "C-M-[") 'tabbar-ruler-tabbar-backward-group)
+;; (global-set-key (kbd "M-]") 'tabbar-ruler-forward)
+;; (global-set-key (kbd "M-[") 'tabbar-ruler-backward)
+;; (global-set-key (kbd "C-M-]") 'tabbar-ruler-tabbar-forward-group)
+;; (global-set-key (kbd "C-M-[") 'tabbar-ruler-tabbar-backward-group)
 
-;; (global-set-key (kbd "C-c t") 'tabbar-ruler-move)
+;;-- (global-set-key (kbd "C-c t") 'tabbar-ruler-move)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`modeline';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -237,7 +228,6 @@
 ;; (setq sml/theme 'dark)
 ;; (setq sml/theme 'light)
 ;; (setq sml/theme 'respectful)
-
 ;; (package-require 'smart-mode-line-powerline-theme)
 ;; (require 'smart-mode-line-powerline-theme)
 ;; (setq sml/theme 'powerline)
@@ -260,14 +250,13 @@
 ;; (smt/set-theme 'ocodo-steps-aqua-smt)
 
 ;;; `powerline'
-(package-require'powerline)
-(require 'powerline)
-(powerline-default-theme)
+;; (package-require'powerline)
+;; (require 'powerline)
+;; (powerline-default-theme)
 
 ;;; `spaceline'
 ;; (package-require 'spaceline)
 ;; (require 'spaceline-config)
-
 ;; (spaceline-spacemacs-theme)
 ;; (spaceline-emacs-theme)
 
@@ -281,6 +270,74 @@
 (package-require 'mode-icons)
 (require 'mode-icons)
 (mode-icons-mode)
+
+;;; `nyan-mode'
+(package-require 'nyan-mode)
+(if (display-graphic-p)
+    (progn
+      (require 'nyan-mode)
+      (nyan-start-animation)
+      (nyan-mode 1)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`Theme';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (package-require 'django-theme)
+;;  (when  (package-installed-p 'django-theme)
+;;    (require 'django-theme))
+
+;; (if (display-graphic-p)
+;;     (require 'django-theme)
+;; (load-theme 'deeper-blue))
+
+;; (load-theme 'wombat)
+
+;; (load-theme 'deeper-blue)
+
+;; (package-require 'sublime-themes)
+;; ;;(require 'sublime-themes)
+;; (load-theme 'granger t t)
+;; (enable-theme 'granger)
+
+(package-require 'color-theme-modern)
+
+;; (load-theme 'oswald t t)
+;; (enable-theme 'oswald)
+
+;; (load-theme 'charcoal-black t t)
+;; (enable-theme 'charcoal-black)
+
+;; (load-theme 'ld-dark t t)
+;; (enable-theme 'ld-dark)
+
+;; (load-theme 'gray30 t t)
+;; (enable-theme 'gray30)
+
+;;; dos 情怀
+;; (load-theme 'parus t t)
+;; (enable-theme 'parus)
+
+;;; gnome
+;; (load-theme 'pok-wog t t)
+;; (enable-theme 'pok-wog)
+
+;; (load-theme 'jonadabian-slate t t)
+;; (enable-theme 'jonadabian-slate)
+
+;;; xemacs
+(load-theme 'm-xemacs t t)
+(enable-theme 'm-xemacs)
+
+;; (load-theme 'fischmeister t t)
+;; (enable-theme 'fischmeister)
+
+ ;; (require 'pink-bliss)
+ ;; (pink-bliss)
+
+;; (load-theme 'jedit-grey t t)
+;; (enable-theme 'jedit-grey)
+
+;; (load-theme 'xemacs t t)
+;; (enable-theme 'xemacs)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`buffer';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -302,10 +359,7 @@
 (setq require-final-newline t)
 
 ;;; clipboard X clipboard
-(setq select-enable-clipboard t)
-;;set clipboard format: Firefox
-(set-clipboard-coding-system 'ctext)
-
+(setq select-enable-clipboard t) ;; (setq x-select-enable-clipboard t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`mini-buffer';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -338,10 +392,11 @@
       (shrink-window (/ (window-height) 2))))
 
 (global-set-key (kbd "C-x u") 'show-undo-tree)
-(define-key undo-tree-map (kbd "C-x u") #'(lambda ()
-                                            (interactive)
-                                            (undo-tree-visualize)
-                                            (undo-tree-visualize-undo)))
+(define-key undo-tree-map (kbd "C-x u")
+  '(lambda () 
+     (interactive) 
+     (undo-tree-visualize) 
+     (undo-tree-visualize-undo)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
@@ -350,7 +405,7 @@
 ;; (require 'linum)
 (global-linum-mode)
 (setq column-number-mode t)
- 
+
 ;;; column
 ;;; page width
 (setq fill-column 120)
@@ -361,31 +416,41 @@
 (setq whitespace-style '(face trailing))
 (setq fci-rule-column 120)
 (setq fci-rule-width 1)
-(setq fci-rule-color "grey30") ;; DarkBlue white
+(setq fci-rule-color "grey30") ;; "white" "grey30"
+
 ;;-- (setq fci-rule-use-dashes 111)
 ;;-- (setq fci-dash-pattern 111)
 ;;-- (setq fci-rule-character "%")
-;;-- (setq fci-rule-character-color 111)
+;;-- (setq fci-rule-cinharacter-color "DarkBlue")
 
-;;; define-globalized-minor-mode:
-;; (define-globalized-minor-mode global-fci-mode fci-mode
-;;   (lambda ()
-;;    (fci-mode 1)))
+;;; define `global-fci-mode'
+(define-globalized-minor-mode global-fci-mode fci-mode
+  (lambda ()
+   (fci-mode 1)))
+
 ;;; open global-fci-mode
-;; (global-fci-mode 1)
+(global-fci-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`cursor';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; mouse avoidance cursor
-;; (mouse-avoidance-mode 'animate)
+;;; `mouse-avoidance-mode'
+(mouse-avoidance-mode 'none) ;; turn it off
+;; (mouse-avoidance-mode 'jump)  ;; jump away randomly when approached
+;; (mouse-avoidance-mode 'banish) ;; jump to corner when typing
+;; (mouse-avoidance-mode 'exile)  ;; jump to corner when approached
+;; (mouse-avoidance-mode 'animate) ;; fru-fru
+;; (mouse-avoidance-mode 'cat-and-mouse) ;; same
+;; (mouse-avoidance-mode 'proteus)  ;; same + change the pointer shape
 
-;;; set paste pos:cursor (not mouse)
-(setq mouse-yank-at-point t)
+;;; set mouse `middle-key' paste pos (t :cursor pos  nil:mouse pos)
+(setq mouse-yank-at-point nil)
 
-;; (setq-default cursor-type 'bar);; set cursor is line
+;;; set cursor type: `line' or `bar'
+;; (setq-default cursor-type 'bar);;
 
-(blink-cursor-mode -1) ;;set cursor don't blink
+;;;  cursor blink
+(blink-cursor-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`highlight';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -427,9 +492,9 @@
 ;; (defcustom hl-paren-colors
 ;;   '("firebrick1" "IndianRed1" "IndianRed3" "IndianRed4")
 
-(setq hl-paren-colors `("DeepPink" "green" "yellow" "cyan"
-			"HotPink" "SpringGreen" "red" "DeepSkyBlue"
-			"violet" "LightGreen" "orange" "blue")) ;;turquoise orange
+(setq hl-paren-colors `("DeepPink" "LightGreen" "yellow" "cyan"
+			"HotPink" "SpringGreen" "red""DeepSkyBlue"
+			"violet" "turquoise" "orange" "blue")) ;;turquoise orange DarkGreen LightGreen SpringGreen
 
 (define-globalized-minor-mode global-highlight-parentheses-mode highlight-parentheses-mode 
   (lambda () 
@@ -447,15 +512,15 @@
 ;; 			      ("#bc2525" . 25)
 ;; 			      ("black" . 66)))
 
-;; (setq highlight-tail-colors '(("#c1e156" . 0) 
-;; 			      ("#b8ff07" . 25) 
+;; (setq highlight-tail-colors '(("#c1e156" . 0)
+;; 			      ("#b8ff07" . 25)
 ;; 			      ("#00c377" . 60)))
 ;;; 2. -----
 ;; (setq highlight-tail-steps 14 highlight-tail-timer 1)
 
 ;;; 3. highlight-tail-posterior-type控制渐变的方式
 ;; (setq highlight-tail-const-width 5)
-;; (setq highlight-tail-posterior-type 'const) 
+;; (setq highlight-tail-posterior-type 'const)
 					;const :渐变highlight-tail-const-width指定固定长度 t:渐变所有修改
 ;; (message "Highlight-tail loaded - now your Emacs will be even more sexy!")
 
@@ -515,7 +580,7 @@
 ;; (add-hook 'after-init-hook 'session-initialize)
 
 ;;; desktop
-(desktop-save-mode 1) ;;(require 'desktop-settings)
+(desktop-save-mode 0) ;;(require 'desktop-settings)
 
 ;;; recentf file list
 (recentf-mode t)

@@ -11,7 +11,7 @@ IF NOT EXIST %CACHE% (
 )
 REM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 REM emacs
-set EMACS_HOME=%APP_HOME%\emacs-bin-w64-25.0.91-O2
+set EMACS_HOME=%APP_HOME%\emacs-bin-w64-25.0.92-O2
 set EMACS_BIN=%EMACS_HOME%\bin
 
 set EMACS_CONFIG_HOME=%ROOT%\cache
@@ -73,7 +73,6 @@ rem set CLANG_HOME=%APP_HOME%\Clang\bin
 rem set CLANG_BIN=%CLANG_HOME%\bin
 
 REM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-set PATH=%EMACS_BIN%;%PATH%
 set PATH=%MSYS_BIN%;%PATH%
 rem set PATH=%GLOBAL_BIN%;%CMAKE_BIN%;%OPENSSL_BIN%;%PATH%
 rem set PATH=%PKG_CONFIG_BIN%;%PKG_CONFIG_PATH%;%PATH%
@@ -81,4 +80,6 @@ rem set PATH=%MINGW_BIN%;%GIT_BIN%;%GIT_USR_BIN%;%PATH%
 rem set PATH=%MSBUILD_BIN%;%PROTOBUF_BIN%;%PATH%
 rem set PATH=%LLVM_BIN%;%CLANG_BIN%;%PATH%
 set PATH=%OMNISHARP_BIN%;%PATH%
+set PATH=%EMACS_BIN%;%PATH%
+set PATH=%ROOT%\bin;%PATH%
 REM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -33,6 +33,10 @@
 (setq org-log-done 'time)
 ;;(setq org-log-done 'note)
 
+(define-key org-mode-map "\M-p" 'org-metaup)
+(define-key org-mode-map "\M-n" 'org-metadown)
+
+
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)

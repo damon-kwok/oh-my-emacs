@@ -7,6 +7,8 @@ call download.bat
 set HOME=%EMACS_CONFIG_HOME%
 copy /y %ROOT%\config\templates\.emacs %HOME%\.emacs
 
+
+
 cd %HOME%
 start %EMACS_BIN%\runemacs.exe -debug-init -l %ROOT%\config\init.el
 

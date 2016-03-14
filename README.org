@@ -2,25 +2,30 @@
 this is my emacs config
 
 ** global
- - C-SPC global-menu
- - C-z set-mark
- - M-z mark-word
- - C-M-d delete-backward-char
- - C-c d (C-c D) bing-dict
- - C-\\ toggle-input-method
- - F1 neotree-toggle
- - C-- shrink-window
- - C-= enlarge-window
- - C-x M-k close all buffer
- - C-M-` yafolding-toggle-all
- - C-` yafolding-toggle-element
+ - *C-SPC global-menu*
+ - *C-z set-mark*
+ - *M-z mark-word*
+ - /C-M-d delete-backward-char/
+ - *M-p | M-n move-lines-up | move-lines-down*
+ - /C-\\ toggle-input-method/
+ - /F1 neotree-toggle/
+ - /C-- shrink-window/
+ - /C-= enlarge-window/
+ - /C-x M-k close all buffer/
+ - /C-M-` folding-toggle-all/
+ - /C-` folding-toggle-element/
  - *C-cl org-store-link*
  - *C-cc org-capture*
  - *C-ca org-agenda*
  - *C-cb org-iswitchb*
+** orgmode
+   *M-n | M-p org-metaup| org-metadown*
 ** elisp
  - C-c C-z repl
  - C-c C-c compile
+ - C-c C-k eval-buffer
 ** clojure
  - C-c C-z repl
  - C-c C-h sheet
+** csharp
+ - M-. find-usages
