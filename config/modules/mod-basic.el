@@ -26,7 +26,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`base-config';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;;; `'gc'
 (setq gc-cons-threshold (* 387 1024 1024))
 
@@ -100,6 +99,10 @@
 (scroll-bar-mode 0) ;; (0:disable 1:show)
 ;;(set-scroll-bar-mode 'right); (nil:disable right left)
 
+;;; The effect is that (however it is moved) the cursor is always given 3 lines
+;;; of context before the top or bottom of the window, which I find very useful.
+(setq scroll-margin 3)
+
 ;;; set background alpha
 ;; (set-frame-parameter (selected-frame) 'alpha '(90 85))
 ;; (add-to-list 'default-frame-alist '(alpha 80 75))
@@ -142,7 +145,6 @@
 ;; (global-set-key (kbd "C-n") 'hold-line-scroll-up)
 ;; (global-set-key (kbd "C-p") 'hold-line-scroll-down)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`title';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -155,11 +157,10 @@
 (setq display-time-interval 10)
 
 ;;; title
-(setq frame-title-format '("%Z  "
-			   (:eval (cond (buffer-read-only "(Read-Only)")))
+(setq frame-title-format '("%Z  " 
+			   (:eval (cond (buffer-read-only "(Read-Only)"))) 
 			   (:eval (cond ((buffer-modified-p) "*")))
-			   "%b"
-			   "  [%m]  %f"))
+			   "%b" "  [%m]  %f"))
 
 ;; (setq frame-title-format '("[%Z]    %m    "
 ;; 			   (:eval (cond (buffer-read-only "%%")
@@ -267,16 +268,16 @@
 ;; (tdd-status-global-mode)
 
 ;;; `mode-icons'
-(package-require 'mode-icons)
-(require 'mode-icons)
-(mode-icons-mode)
+;; (package-require 'mode-icons)
+;; (require 'mode-icons)
+;; (mode-icons-mode)
 
 ;;; `nyan-mode'
 (package-require 'nyan-mode)
-(if (display-graphic-p)
-    (progn
-      (require 'nyan-mode)
-      (nyan-start-animation)
+(if (display-graphic-p) 
+    (progn 
+      (require 'nyan-mode) 
+      (nyan-start-animation) 
       (nyan-mode 1)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`Theme';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -300,6 +301,37 @@
 
 (package-require 'color-theme-modern)
 
+(if (display-graphic-p) 
+    (progn ;;
+      (load-theme 'gray30 t t) 
+      (enable-theme 'gray30) 
+      (load-theme 'deeper-blue)
+      ;;
+      ) 
+  (progn
+    ;;
+    (load-theme 'xemacs t t) 
+    (enable-theme 'xemacs))
+  ;;
+  )
+
+;;; xemacs
+;; (load-theme 'm-xemacs t t)
+;; (enable-theme 'm-xemacs)
+
+;; (load-theme 'fischmeister t t)
+;; (enable-theme 'fischmeister)
+
+;; (require 'pink-bliss)
+;; (pink-bliss)
+
+;; (load-theme 'jedit-grey t t)
+;; (enable-theme 'jedit-grey)
+
+;; (load-theme 'xemacs t t)
+;; (enable-theme 'xemacs)
+
+;;; other
 ;; (load-theme 'oswald t t)
 ;; (enable-theme 'oswald)
 
@@ -309,10 +341,9 @@
 ;; (load-theme 'ld-dark t t)
 ;; (enable-theme 'ld-dark)
 
-;; (load-theme 'gray30 t t)
-;; (enable-theme 'gray30)
 
-;;; dos 情怀
+
+;;; dos
 ;; (load-theme 'parus t t)
 ;; (enable-theme 'parus)
 
@@ -322,22 +353,6 @@
 
 ;; (load-theme 'jonadabian-slate t t)
 ;; (enable-theme 'jonadabian-slate)
-
-;;; xemacs
-(load-theme 'm-xemacs t t)
-(enable-theme 'm-xemacs)
-
-;; (load-theme 'fischmeister t t)
-;; (enable-theme 'fischmeister)
-
- ;; (require 'pink-bliss)
- ;; (pink-bliss)
-
-;; (load-theme 'jedit-grey t t)
-;; (enable-theme 'jedit-grey)
-
-;; (load-theme 'xemacs t t)
-;; (enable-theme 'xemacs)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`buffer';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -350,7 +365,7 @@
 (delete-selection-mode t)
 
 ;;; set word wrap
-;;(global-visual-line-mode t)
+(global-visual-line-mode t)
 
 ;;; set line space(pixel)
 (setq line-spacing 2)
@@ -372,6 +387,9 @@
 ;;; max height
 (setq max-mini-window-height 0.3)
 
+;;; eldoc and paredit
+(add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode)
+(add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`undo' && `redo';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -392,7 +410,7 @@
       (shrink-window (/ (window-height) 2))))
 
 (global-set-key (kbd "C-x u") 'show-undo-tree)
-(define-key undo-tree-map (kbd "C-x u")
+(define-key undo-tree-map (kbd "C-x u") 
   '(lambda () 
      (interactive) 
      (undo-tree-visualize) 
@@ -403,10 +421,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 'linum'
 ;; (require 'linum)
+(setq linum-mode t)
+(setq linum-format "%4d")
 (global-linum-mode)
+
+;;; `column'
 (setq column-number-mode t)
 
-;;; column
 ;;; page width
 (setq fill-column 120)
 
@@ -424,9 +445,9 @@
 ;;-- (setq fci-rule-cinharacter-color "DarkBlue")
 
 ;;; define `global-fci-mode'
-(define-globalized-minor-mode global-fci-mode fci-mode
-  (lambda ()
-   (fci-mode 1)))
+(define-globalized-minor-mode global-fci-mode fci-mode 
+  (lambda () 
+    (fci-mode 1)))
 
 ;;; open global-fci-mode
 (global-fci-mode 1)
@@ -467,7 +488,7 @@
 (transient-mark-mode t)
 
 ;;; more highlights
-(require 'generic-x)
+;; (require 'generic-x)
 
 ;;; highlight current line (0:close 1:open)
 (global-hl-line-mode 0)
@@ -492,9 +513,8 @@
 ;; (defcustom hl-paren-colors
 ;;   '("firebrick1" "IndianRed1" "IndianRed3" "IndianRed4")
 
-(setq hl-paren-colors `("DeepPink" "LightGreen" "yellow" "cyan"
-			"HotPink" "SpringGreen" "red""DeepSkyBlue"
-			"violet" "turquoise" "orange" "blue")) ;;turquoise orange DarkGreen LightGreen SpringGreen
+(setq hl-paren-colors `("DeepPink" "SpringGreen" "yellow" "cyan" "HotPink" "green" "red"
+			"DeepSkyBlue" "violet" "turquoise" "orange" "blue")) ;;turquoise orange DarkGreen LightGreen SpringGreen
 
 (define-globalized-minor-mode global-highlight-parentheses-mode highlight-parentheses-mode 
   (lambda () 

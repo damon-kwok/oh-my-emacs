@@ -1,4 +1,4 @@
-#!/usr/bin/emacs --script
+;;; #!/usr/bin/emacs --script
 ;; -*- lexical-binding: t -*-
 ;; init.el --- This is where you apply your OCD.
 ;;
@@ -52,23 +52,23 @@
 ;;edit
 (require 'mod-csv)
 (require 'mod-protobuf)
-(require 'mod-orgmode)
+;; (require 'mod-orgmode)
 (require 'mod-markdown)
 ;; (require 'mod-latex)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;base
 (require 'mod-basic)
-(require 'mod-helm)			
+(require 'mod-helm)
+(require 'mod-dired)
 (require 'mod-complete)
 (require 'mod-calendar)
-;; (require 'mod-theme)
 (require 'mod-tabbar)
 ;; (require 'mod-speedbar)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;code
 (require 'mod-elisp)
 (require 'mod-csharp)
-;; (require 'mod-clojure)
+(require 'mod-clojure)
 ;; (require 'mod-cc)
 ;;(require 'mod-slime)
 ;;(require 'mod-erlang)
@@ -97,4 +97,3 @@
 (message "hello, emacs!")
 (provide 'init)
 
-;; (package-requir

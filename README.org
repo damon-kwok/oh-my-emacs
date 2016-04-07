@@ -2,24 +2,24 @@
 this is my emacs config
 
 ** global
- - *C-SPC global-menu*
- - *C-z set-mark*
- - *M-z mark-word*
- - /C-M-d delete-backward-char/
- - *M-p | M-n move-lines-up | move-lines-down*
- - /C-\\ toggle-input-method/
- - /F1 neotree-toggle/
- - /C-- shrink-window/
- - /C-= enlarge-window/
- - /C-x M-k close all buffer/
- - /C-M-` folding-toggle-all/
- - /C-` folding-toggle-element/
- - *C-cl org-store-link*
- - *C-cc org-capture*
- - *C-ca org-agenda*
- - *C-cb org-iswitchb*
+ - *C-SPC* *super-key*
+ - *C-z* set-mark
+ - *M-z* mark-word
+ - *C-M-d* delete-backward-char
+ - *M-p* | *M-n* move-lines-up | move-lines-down
+ - *C-x M-k* close all buffer
+ - *C-\\* toggle-input-method
+ - F1 neotree-toggle
+ - C-- shrink-window
+ - C-= enlarge-window
+ - C-M-` folding-toggle-all
+ - C-` folding-toggle-element
+ - *C-c l* org-store-link
+ - *C-c c* org-capture
+ - *C-c a* org-agenda
+ - *C-c b* org-iswitchb
 ** orgmode
-   *M-n | M-p org-metaup| org-metadown*
+   M-n | M-p /org-metaup/| /org-metadown/
 ** elisp
  - C-c C-z repl
  - C-c C-c compile

@@ -27,15 +27,21 @@
 
 (setq org-todo-keywords '((sequence "TODO" "DOING" "DONE")))
 
-(setq org-todo-keyword-faces '(("TODO" . "red")
-                               ("DOING" . "yellow")
-                               ("DONE" . "green")))
+(setq org-todo-keyword-faces '(("TODO" . "red") 
+			       ("DOING" . "yellow") 
+			       ("DONE" . "green")))
 (setq org-log-done 'time)
 ;;(setq org-log-done 'note)
 
-(define-key org-mode-map "\M-p" 'org-metaup)
-(define-key org-mode-map "\M-n" 'org-metadown)
+(add-hook 'org-load-hook 
+	  (lambda ()
+	    (org-defkey org-mode-map [(meta p)]    'org-metaup)
+	    (org-defkey org-mode-map [(meta n)]  'org-metadown)
 
+	    (org-defkey org-mode-map "\M-["    'org-metaup)
+	    (org-defkey org-mode-map "\M-/"  'org-metadown)
+	    (org-defkey org-mode-map "\M-;"    'org-metaup)
+	    (org-defkey org-mode-map "\M-'"  'org-metadown)))
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)

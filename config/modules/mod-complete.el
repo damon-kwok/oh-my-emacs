@@ -44,10 +44,10 @@
 (require 'yasnippet)
 ;; (setq yas-snippet-dirs '(yas-installed-snippets-dir (expand-file-name "~/../config/templates/snippets/")))
 ;; (setq yas-snippet-dirs (expand-file-name "~/../config/templates/snippets/"))
-;; (add-to-list 'yas-snippet-dirs (expand-file-name "~/../config/templates/snippets/"))
-(setq yas-snippet-dirs (expand-file-name "~/../config/templates/snippets/"))
-(yas-global-mode 1)
 
+(add-to-list 'yas-snippet-dirs (expand-file-name "~/../config/templates/snippets/"))
+;;(setq yas-snippet-dirs (expand-file-name "~/../config/templates/snippets/"))
+(yas-global-mode 1)
 
 (defun yas-open-snippet-file(file-name)
   (interactive "sEnter snippet file name:")
@@ -77,7 +77,7 @@
                     (incf count)
                     replace)))
       (replace-regexp-in-string "[a-zA-Z0-9]+" #'rep string))))
-       
+
 (global-set-key (kbd "C-c TAB") 'yasnippet-current-line)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -93,7 +93,10 @@
 
 ;;; `ac-default' setting
 (ac-config-default)
-(auto-complete-mode 1)
+(global-auto-complete-mode t)
+;;(setq-default ac-sources '(ac-source-words-in-same-mode-buffers))
+;;(add-hook 'emacs-lisp-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-symbols)))
+;;(add-hook 'auto-complete-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
 
 (define-key ac-complete-mode-map (kbd "TAB") 'ac-next)
 (define-key ac-complete-mode-map (kbd "S-TAB") 'ac-previous)
@@ -101,13 +104,26 @@
 (define-key ac-complete-mode-map "\C-p" 'ac-previous)
 ;; (define-key ac-complete-mode-map (kbd "SPC") nil)'ac-complete)
 
-(setq ac-use-menu-map t)
 ;; Default settings
-(define-key ac-menu-map "\C-n" 'ac-next)
-(define-key ac-menu-map "\C-p" 'ac-previous)
-(define-key ac-menu-map (kbd "TAB") 'ac-next)
-(define-key ac-menu-map (kbd "S-TAB") 'ac-previous)
-(define-key ac-menu-map (kbd "SPC") 'ac-complete)
+;; (define-key ac-menu-map "\C-n" 'ac-next)
+;; (define-key ac-menu-map "\C-p" 'ac-previous)
+;; (define-key ac-menu-map (kbd "TAB") 'ac-next)
+;; (define-key ac-menu-map (kbd "S-TAB") 'ac-previous)
+;; ;;(define-key ac-menu-map (kbd "SPC") 'ac-complete)
+
+;; (set-face-background 'ac-candidate-face "LightGray")
+;; (set-face-underline 'ac-candidate-face "DarkGray")
+;; (set-face-background 'ac-selection-face "SteelBlue")
+
+(set-face-background 'ac-candidate-face "gray80")
+(set-face-underline 'ac-candidate-face "#330000")
+(set-face-background 'ac-selection-face "DarkBlue")
+
+(setq ac-use-menu-map t)
+(setq ac-auto-start 3)
+;; (setq ac-dwim t)
+
+(global-set-key "\M-/" 'auto-complete)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `company'
 ;; (package-require 'company)

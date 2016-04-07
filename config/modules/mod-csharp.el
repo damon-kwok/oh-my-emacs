@@ -87,7 +87,7 @@
 
 (define-key csharp-mode-map (kbd "C-M-\\") 'csharp-code-format)
 (define-key omnisharp-mode-map (kbd "C-c u") 'omnisharp-fix-usings)
-(define-key omnisharp-mode-map (kbd ".") 'omnisharp-add-dot-and-auto-complete)
+;; (define-key omnisharp-mode-map (kbd ".") 'omnisharp-add-dot-and-auto-complete)
 (define-key omnisharp-mode-map (kbd "C-M-i") 'omnisharp-auto-complete)
 (define-key csharp-mode-map (kbd "M-.") 'omnisharp-cs-code-find-usages)
 (define-key csharp-mode-map (kbd "M-2") 'omnisharp-cs-code-rename)

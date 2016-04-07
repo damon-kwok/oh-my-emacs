@@ -129,13 +129,13 @@
 (set-face-attribute 'tabbar-default nil
 		    ;; :family "DejaVu Sans Mono"
 		    ;;:inherit 'tabbar-default
-		    :foreground "DarkBlue" 
+		    :foreground "navy" 
 		    :background "gray" 
 		    :height 1.0)
 
 (set-face-attribute 'tabbar-button nil 
 		    :inherit 'tabbar-default 
-		    :foreground "DarkBlue"
+		    :foreground "navy"
 		    :background "gray"
 		    :box '(:line-width 1 
 				       :color "#330000")
@@ -145,7 +145,7 @@
 
 (set-face-attribute 'tabbar-unselected nil 
 		    :inherit 'tabbar-default 
-		    :foreground "DarkBlue"
+		    :foreground "navy"
 		    :background "gray"
 		    :box '(:line-width 1 
 				       :color "#330000")
@@ -156,11 +156,11 @@
 (set-face-attribute 'tabbar-selected nil 
 		    :inherit 'tabbar-default 
 		    :foreground "gray" 
-		    :background "DarkBlue" 
+		    :background "navy" 
 		    :box '(:line-width 1
 				       :color "#330000") 
 		    :overline "#330000" 
-		    :underline "DarkBlue" 
+		    :underline "navy" 
 		    :weight 'bold)
 
 
@@ -168,13 +168,13 @@
 ;; (set-face-attribute 'tabbar-default nil
 ;; 		    ;; :family "DejaVu Sans Mono"
 ;; 		    ;;:inherit 'tabbar-default
-;; 		    :foreground "DarkBlue" 
+;; 		    :foreground "navy" 
 ;; 		    :background "gray" 
 ;; 		    :height 1.0)
 
 ;; (set-face-attribute 'tabbar-button nil 
 ;; 		    :inherit 'tabbar-default 
-;; 		    :foreground "DarkBlue"
+;; 		    :foreground "navy"
 ;; 		    :background "gray"
 ;; 		    :box '(:line-width 1 
 ;; 				       :color "#330000")
@@ -184,7 +184,7 @@
 
 ;; (set-face-attribute 'tabbar-unselected nil 
 ;; 		    :inherit 'tabbar-default 
-;; 		    :foreground "DarkBlue"
+;; 		    :foreground "navy"
 ;; 		    :background "gray"
 ;; 		    :box '(:line-width 1 
 ;; 				       :color "gray")
@@ -195,9 +195,9 @@
 ;; (set-face-attribute 'tabbar-selected nil 
 ;; 		    :inherit 'tabbar-default 
 ;; 		    :foreground "gray" 
-;; 		    :background "DarkBlue" 
+;; 		    :background "navy" 
 ;; 		    :box '(:line-width 1
-;; 				       :color "DarkBlue") 
+;; 				       :color "navy") 
 ;; 		    :overline "#330000" 
 ;; 		    :underline "#330000" 
 ;; 		    :weight 'bold)

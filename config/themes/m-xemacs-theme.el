@@ -47,28 +47,28 @@
  '(border ((t (:foregound "#330000")))) ;;black
 
  '(modeline ((t (:foreground "black" :background "gray80"))))
- '(modeline-buffer-id ((t (:foreground "gray80" :background "DarkBlue"))))
+ '(modeline-buffer-id ((t (:foreground "gray80" :background "navy"))))
  '(modeline-mousable ((t (:foreground "black" :background "gray80"))))
  '(modeline-mousable-minor-mode ((t (:foreground "black" :background "gray80"))))
 
- '(highlight ((t (:background "darkseagreen2"))))
+ '(highlight ((t (:background "DarkSeaGreen2"))))
  '(bold ((t (:bold t))))
  '(italic ((t (:italic t))))
  '(bold-italic ((t (:bold t :italic t))))
- '(region ((t (:background "#00B2BF")))) ;;gray
- '(secondary-selection ((t (:background "paleturquoise"))))
+ '(region ((t (:background "SteelBlue")))) ;;gray80 gray40 gray30
+ '(secondary-selection ((t (:background "PaleTurquoise"))))
  '(underline ((t (:underline t))))
- '(show-paren-match-face ((t (:foreground "yellow" :background "darkgreen"))))
+ '(show-paren-match-face ((t (:foreground "gold" :background "DarkGreen")))) ;;yellow
  '(show-paren-mismatch-face ((t (:foreground "white" :background "red"))))
- '(font-lock-comment-face ((t (:foreground "darkgreen":italic t)))) ;; :bold t 
- '(font-lock-string-face ((t (:foreground "DarkGoldenrod" :italic t)))) ;;DarkSlateBlue
- '(font-lock-keyword-face ((t (:foreground "navy"))))
- '(font-lock-builtin-face ((t (:foreground "white"))))
- '(font-lock-function-name-face ((t (:foreground "Blue"))))
- '(font-lock-variable-name-face ((t (:foreground "Darkblue"))))
- '(font-lock-type-face ((t (:foreground "navy" :bold t)))) ;; FireBrick
+ '(font-lock-comment-face ((t (:foreground "DarkGreen":italic t)))) ;; :bold t 
+ '(font-lock-string-face ((t (:foreground "DarkGoldenrod" :italic t)))) ;;"DarkSlateBlue "DarkGoldenrod" "gold"
+ '(font-lock-keyword-face ((t (:foreground "blue"  :bold t)))) ;;"navy"DarkBlue "blue"
+ '(font-lock-builtin-face ((t (:foreground "gray40":italic t)))) ;;white
+ '(font-lock-function-name-face ((t (:foreground "blue" :italic t))))
+ '(font-lock-variable-name-face ((t (:foreground "navy":italic t)))) ;;DarkBlue
+ '(font-lock-type-face ((t (:foreground "navy" :bold t)))) ;; "FireBrick"
  '(font-lock-constant-face ((t (:foreground "#770000" :bold t )))) ;; #00B2BF CadetBlue #00B2FF
- '(font-lock-warning-face ((t (:foreground "Orchid" :bold t)))) ;;Orchid
+ '(font-lock-warning-face ((t (:foreground "orchid" :bold t)))) ;;orchid
  '(font-lock-reference-face ((t (:foreground "SteelBlue")))))
 
 ;;;###autoload

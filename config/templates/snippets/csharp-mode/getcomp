@@ -1,0 +1,1 @@
+${1:Rigidbody} ${2:rigidbody} = GetComponentSafe<$1>(${3:go});$0

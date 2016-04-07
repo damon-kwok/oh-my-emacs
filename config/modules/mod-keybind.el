@@ -38,26 +38,56 @@
 (require 'expand-region)
 (global-set-key (kbd "M-z") 'er/expand-region) ;; (global-set-key "\M-z" 'mark-word)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; move line
-(package-require-git "move-lines" "https://github.com/targzeta/move-lines.git")
-(require 'move-lines)
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;;; move line
+;; (package-require-git "move-lines" "https://github.com/targzeta/move-lines.git")
+;; (require 'move-lines)
 
+;; ;;; After that, you can move the line(s) up by M-p or down by M-n.
+;; (global-set-key (kbd "M-p") 'move-lines-up)
+;; (global-set-key (kbd "M-n") 'move-lines-down)
+
+;; (global-set-key (kbd "M-<up>") 'move-lines-up)
+;; (global-set-key (kbd "M-<down>") 'move-lines-down)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `move-text'
+(package-require 'move-text)
+(require 'move-text)
+	       
 ;;; After that, you can move the line(s) up by M-p or down by M-n.
-(global-set-key (kbd "M-p") 'move-lines-up)
-(global-set-key (kbd "M-n") 'move-lines-down)
+;;; (move-text-default-bindings)
 
-(global-set-key (kbd "M-<up>") 'move-lines-up)
-(global-set-key (kbd "M-<down>") 'move-lines-down)
+(global-set-key (kbd "M-p") 'move-text-up)
+(global-set-key (kbd "M-n") 'move-text-down)
+;; (global-set-key (kbd "M-<up>") 'move-text-up)
+;; (global-set-key (kbd "M-<down>") 'move-text-down)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `buffer-move'
+(package-require 'buffer-move)
+(require 'buffer-move)
+	       
+(global-set-key (kbd "<C-M-up>")     'buf-move-up)
+(global-set-key (kbd "<C-M-down>")   'buf-move-down)
+(global-set-key (kbd "<C-M-left>")   'buf-move-left)
+(global-set-key (kbd "<C-M-right>")  'buf-move-right)
+
+;;; Alternatively, you may let the current window switch back to the previous buffer,
+;;; instead of swapping the buffers of both windows.
+;;; Set the following customization variable to 'move to activate this behavior:
+(setq buffer-move-behavior 'move)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 
 (global-set-key (kbd "C-M-d") 'delete-backward-char)
 (global-set-key (kbd "C-x C-c") 'medusa-exit) ;;[(control x) (control c)]
 
 (global-set-key (kbd "C-=") 'enlarge-window)
 (global-set-key (kbd "C--") 'shrink-window)
 
-;; minibuffer (press mouse left, show: shrink-compile-window
-(define-key minibuffer-local-map [double-mouse-1] 'shrink-compile-window)
+;;; minibuffer (press mouse left, show: shrink-compile-window
+;; (define-key minibuffer-local-map [double-mouse-1] 'shrink-compile-window)
 
 
 (package-require 'switch-window)
@@ -116,8 +146,8 @@
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c <") 'mc/mark-all-like-this)
-(global-set-key (kbd "C-c >") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-M-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-M->") 'mc/mark-all-like-this)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C-x r (file rename)
 ;; (global-set-key (kbd "C-c r") 'rename-file-and-buffer)
@@ -146,7 +176,20 @@
 ;;; `buffer'
 (defhydra hydra-show-buffer 
   (:color blue)
-  "hydra-show-buffer" ("l" (helm-buffers-list) "buffers-list") 
+  "
+^Cmooand^            ^Buffer1^         ^Buffer2^
+^^^^^^^^-------------------------------------------------------------------------
+_l_: buffers-list    _m_: Messages       _s_: *eshell*
+^^                   _w_: eww            _S_: *shell*
+^^                   _t_: scratch       ^^
+^^                   _c_: compilation   ^^
+^^                   _C_: Compile-Log   ^^
+^^                   ^^                 ^^
+^^                   ^^                 ^^
+^^^^^^^^-------------------------------------------------------------------------
+_0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
+"
+  ("l" (helm-buffers-list) "buffers-list") 
   ("m" (m-show-buffer "*Messages*") "*Messages*") 
   ("w" (m-show-buffer "*eww*") "*eww*") 
   ("t" (m-show-buffer "*scratch*") "*scratch*") 
@@ -159,7 +202,6 @@
   ("q" nil "Quit") 
   ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c s") 'hydra-show-buffer/body)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `hydra-open-module'
@@ -188,7 +230,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ("h" (m-open-mod "helm") "helm")
 ;;("3" (m-open-mod "theme") "theme")
 ;;("4" (m-open-mod "speedbar") "speedbar")
-
+("T" (m-open-file "~/../config/themes/m-xemacs-theme.el") "theme")
 ("1" (m-open-mod "elisp") "elisp")
 ("2" (m-open-mod "clojure") "clojure")
 ("3" (m-open-mod "csharp") "csharp")
@@ -196,7 +238,6 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ("5" (m-open-mod "cc") "cc")
 
 ;;("w" (m-open-mod "web") "web")
-
 
 ("6" (m-open-mod "orgmode") "orgmode")
 ("7" (m-open-mod "latex") "latex")
@@ -266,6 +307,7 @@ _r_:rename      _p_: htmlize-buffer     _h_: README.org      _n_: note.org
 _d_:delete      _P_: htmlize-file       _d_: diary.org       _p_: problem.org
 _k_:close-all   _C_: complie-modules    _t_: todo.org        ^^
 _o_:kill-other  ^^                      _b_: book.org        ^^
+^^                 ^^                   _N_: NEWS.org ^^
 ^^^^^^^^-----------------------------------------------------------------
 _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 " ("r" rename-file-and-buffer "rename-file-and-buffer")
@@ -280,7 +322,8 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("t" (m-open-doc "todo.org") "todo.org")
 ("b" (m-open-doc "book.org") "book.org")
 ("n" (m-open-doc "note.org") "note.org")
-("p" (m-open-doc "problem.org") "read.org")
+("p" (m-open-doc "problem.org") "problem.org")
+("N" (m-open-doc "news.org") "news.org")
 ("<tab>" helm-keyboard-quit "back" 
  :exit t)
 ("0" (calendar) "calendar")
@@ -308,6 +351,7 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
 " ("b" (hydra-show-buffer/body) "buffer")
 ("f" (hydra-open-file/body) "file")
 ("m" (hydra-open-config/body) "module")
+("c" (hydra-open-config/body) "module")
 ("w" (hydra-open-url/body) "url")
 ("<tab>" helm-recentf "(helm-recentf)")
 (">" go-to-char-forward "go-to-char-forward")
@@ -387,6 +431,11 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
 ;;; `comment-toggle' M-;
 (global-set-key [remap comment-dwim] 'comment-or-uncomment-region-or-line)
 
+;; (package-require 'smart-comment)
+;; (require 'smart-comment)
+;; (global-set-key (kbd "M-;") 'smart-comment)
+;; (global-set-key (kbd "C-u M-;") 'smart-comment)
+;; (global-set-key (kbd "C-u C-u M-;") 'smart-comment)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `guide-key'
 ;; (package-require 'guide-key)
@@ -406,9 +455,9 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `which-key'
-(package-require 'which-key)
-(require 'which-key)
-(which-key-mode)
+;; (package-require 'which-key)
+;; (require 'which-key)
+;; (which-key-mode)
 
 ;;; disable mouse-2 mouse-3
 ;; (global-set-key [mouse-1] nil)
