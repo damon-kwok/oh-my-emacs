@@ -42,40 +42,40 @@
 ;;; `yasnippet'
 (package-require 'yasnippet)
 (require 'yasnippet)
-;; (setq yas-snippet-dirs '(yas-installed-snippets-dir (expand-file-name "~/../config/templates/snippets/")))
-;; (setq yas-snippet-dirs (expand-file-name "~/../config/templates/snippets/"))
 
-(add-to-list 'yas-snippet-dirs (expand-file-name "~/../config/templates/snippets/"))
-;;(setq yas-snippet-dirs (expand-file-name "~/../config/templates/snippets/"))
+(setq dir-medusa-snippets (concat dir-medusa-config "/snippets/"))
+;; (setq yas-snippet-dirs '(yas-installed-snippets-dir (expand-file-name "~/../config/snippets/")))
+;; (setq yas-snippet-dirs (expand-file-name "~/../config/snippets/"))
+
+(add-to-list 'yas-snippet-dirs (expand-file-name dir-medusa-snippets))
+;;(setq yas-snippet-dirs (expand-file-name "~/../config/snippets/"))
 (yas-global-mode 1)
 
-(defun yas-open-snippet-file(file-name)
-  (interactive "sEnter snippet file name:")
-  (find-file (concat "~/../config/templates/snippets/" (symbol-name major-mode)"/"file-name)))
+(defun yas-open-snippet-file(file-name) 
+  (interactive "sEnter snippet file name:") 
+  (find-file (concat dir-medusa-snippets (symbol-name major-mode)"/"file-name)))
 
-(defun yas-open-snippet-template()
-  (interactive)
-  (find-file (concat "~/../config/templates/snippets/" (symbol-name major-mode)
-				      "/auto-insert")))
+(defun yas-open-snippet-template() 
+  (interactive) 
+  (find-file (concat dir-medusa-snippets (symbol-name major-mode) "/auto-insert")))
 
 ;; (define-key yas-minor-mode-map (kbd "TAB") nil)
 ;; (define-key yas-minor-mode-map [backtab] 'yas-expand)
 (global-set-key (kbd "C-x y f") 'yas-open-snippet-file)
 (global-set-key (kbd "C-x y a") 'yas-open-snippet-template)
 
-(defun yasnippet-current-line ();; C-c TAB
-  (interactive)
-  (let ((current-line (string-trim-right (thing-at-point 'line t))))
-    (end-of-line)
-    (newline-and-indent)
+(defun yasnippet-current-line () ;; C-c TAB
+  (interactive) 
+  (let ((current-line (string-trim-right (thing-at-point 'line t)))) 
+    (end-of-line) 
+    (newline-and-indent) 
     (yas-expand-snippet (yasnippet-string-to-template (string-trim current-line)))))
- 
-(defun yasnippet-string-to-template (string)
-  (let ((count 1))
-    (cl-labels ((rep (text)
-                  (let ((replace (format "${%d:%s}" count text)))
-                    (incf count)
-                    replace)))
+
+(defun yasnippet-string-to-template (string) 
+  (let ((count 1)) 
+    (cl-labels ((rep (text) 
+		     (let ((replace (format "${%d:%s}" count text))) 
+		       (incf count) replace))) 
       (replace-regexp-in-string "[a-zA-Z0-9]+" #'rep string))))
 
 (global-set-key (kbd "C-c TAB") 'yasnippet-current-line)

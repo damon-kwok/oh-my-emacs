@@ -27,11 +27,14 @@
 ;;plugins: highlight-tail tabbar fill-column-indicator sr-speedbar yasnippet omnisharp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path "~")
-(add-to-list 'load-path "~/.emacs.d/libraries")
-(add-to-list 'load-path "~/../config")
-(add-to-list 'load-path "~/../config/modules")
-(add-to-list 'custom-theme-load-path "~/../config/themes")
+(if (or (eq system-type 'windows-nt) 
+	(eq system-type 'ms-dos)) 
+    (setq dir-medusa-config "~/../config") 
+  (setq dir-medusa-config "~/config"))
+
+(add-to-list 'load-path dir-medusa-config) 
+(add-to-list 'load-path (concat dir-medusa-config "/modules"))
+(add-to-list 'custom-theme-load-path (concat dir-medusa-config "/themes"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-coding)
 (require 'mod-server)
@@ -96,4 +99,3 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "hello, emacs!")
 (provide 'init)
-

@@ -22,6 +22,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 
+
+
 ;;Mac osx: set command to meta
 ;;; I prefer cmd key for meta
 ;;(setq mac-option-key-is-meta nil
@@ -55,7 +57,7 @@
 ;;; `move-text'
 (package-require 'move-text)
 (require 'move-text)
-	       
+
 ;;; After that, you can move the line(s) up by M-p or down by M-n.
 ;;; (move-text-default-bindings)
 
@@ -68,7 +70,7 @@
 ;;; `buffer-move'
 (package-require 'buffer-move)
 (require 'buffer-move)
-	       
+
 (global-set-key (kbd "<C-M-up>")     'buf-move-up)
 (global-set-key (kbd "<C-M-down>")   'buf-move-down)
 (global-set-key (kbd "<C-M-left>")   'buf-move-left)
@@ -79,7 +81,7 @@
 ;;; Set the following customization variable to 'move to activate this behavior:
 (setq buffer-move-behavior 'move)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 
+;;;
 (global-set-key (kbd "C-M-d") 'delete-backward-char)
 (global-set-key (kbd "C-x C-c") 'medusa-exit) ;;[(control x) (control c)]
 
@@ -188,19 +190,18 @@ _l_: buffers-list    _m_: Messages       _s_: *eshell*
 ^^                   ^^                 ^^
 ^^^^^^^^-------------------------------------------------------------------------
 _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
-"
-  ("l" (helm-buffers-list) "buffers-list") 
-  ("m" (m-show-buffer "*Messages*") "*Messages*") 
-  ("w" (m-show-buffer "*eww*") "*eww*") 
-  ("t" (m-show-buffer "*scratch*") "*scratch*") 
-  ("c" (m-show-buffer "*compilation*") "*compilation*") 
-  ("C" (m-show-buffer "*Compile-Log*") "*scratch*") 
-  ("s" eshell "*eshell*") 
-  ("S" (shell "*shell*")) 
-  ("0" (calendar) "calendar") 
-  ("<tab>" (hydra-do-space/body) "BACK") 
-  ("q" nil "Quit") 
-  ("<escape>" nil "Quit"))
+" ("l" (helm-buffers-list) "buffers-list")
+("m" (m-show-buffer "*Messages*") "*Messages*")
+("w" (m-show-buffer "*eww*") "*eww*")
+("t" (m-show-buffer "*scratch*") "*scratch*")
+("c" (m-show-buffer "*compilation*") "*compilation*")
+("C" (m-show-buffer "*Compile-Log*") "*scratch*")
+("s" eshell "*eshell*")
+("S" (shell "*shell*"))
+("0" (calendar) "calendar")
+("<tab>" (hydra-do-space/body) "BACK")
+("q" nil "Quit")
+("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c s") 'hydra-show-buffer/body)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -374,21 +375,19 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
 ("<escape>" nil "quit"))
 (global-set-key (kbd "C-SPC") 'hydra-do-space/body)
 
-(defun m-buffer-reload()
-  (interactive)
-  (save-buffer)
+(defun m-buffer-reload() 
+  (interactive) 
+  (save-buffer) 
   (setq old-pos (point)) 
-  (goto-char (point-min))
-  (find-alternate-file (buffer-file-name))
+  (goto-char (point-min)) 
+  (find-alternate-file (buffer-file-name)) 
   (goto-char old-pos))
 
 (defun m-mark-all-like-this () 
   "Find and mark all the parts of the buffer matching the currently active region" 
   (interactive) 
-  (condition-case err
-      (progn
-	(mc/mark-all-like-this))
-    (error
+  (condition-case err (progn (mc/mark-all-like-this)) 
+    (error 
      (message "error: %s"(car (cdr err))))))
 
 (defun my-grep-project (word) 

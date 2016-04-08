@@ -2,8 +2,8 @@
 
 cd /d %~dp0%
 
-set ROOT=%CD%\..\
-set CACHE=%ROOT%\cache
+set ROOT=%CD%\
+set CACHE=%ROOT%\home
 set APP_HOME=%CACHE%\apps
 
 IF NOT EXIST %CACHE% (
@@ -14,7 +14,7 @@ REM emacs
 set EMACS_HOME=%APP_HOME%\emacs-bin-w64-25.0.92-O2
 set EMACS_BIN=%EMACS_HOME%\bin
 
-set EMACS_CONFIG_HOME=%ROOT%\cache
+set HOME=%ROOT%\home
 set ALTERNATE_EDITOR=%EMACS_BIN%\emacsclientw.exe
 set EMACS_SERVER_FILE=%EMACS_CONFIG_HOME%\.emacs.d\server\emacs-server-file
 

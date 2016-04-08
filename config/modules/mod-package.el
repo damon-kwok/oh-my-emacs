@@ -32,8 +32,8 @@
 
 (require 'package)
 ;; (setq package-user-dir (concat dotfiles-dir "elpa"))
-(setq package-user-dir "~/elpa")
-(setq libs-user-dir "~/libs")
+;; (setq package-user-dir "~/elpa")
+(setq libs-user-dir "~/.emacs.d/libs")
 (make-directory libs-user-dir t)
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
