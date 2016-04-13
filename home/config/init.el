@@ -29,7 +29,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (if (or (eq system-type 'windows-nt) 
 	(eq system-type 'ms-dos)) 
-    (setq dir-medusa-config "~/../config") 
+    (setq dir-medusa-config "~/config") 
   (setq dir-medusa-config "~/config"))
 
 (add-to-list 'load-path dir-medusa-config) 

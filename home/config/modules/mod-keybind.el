@@ -26,10 +26,10 @@
 
 ;;Mac osx: set command to meta
 ;;; I prefer cmd key for meta
-;;(setq mac-option-key-is-meta nil
-;;	mac-command-key-is-meta t
-;;	mac-command-modifier 'meta
-;;	mac-option-modifier 'none)
+;; (setq mac-option-key-is-meta nil
+      ;; mac-command-key-is-meta t
+      ;; mac-command-modifier 'meta
+      ;; mac-option-modifier 'none)
 
 (global-set-key (kbd "C-\\") 'toggle-input-method)
 (global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-space ;; (global-set-key [?\S- ] 'set-mark-command)
@@ -220,7 +220,7 @@ _y_: ac-and-yas    ^^               _x_: protobuf     ^^              ^^
 ^^                 ^^               ^^                ^^              ^^
 ^^^^^^^^-------------------------------------------------------------------------
 _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
-" ("i" (m-open-file "~/../config/init.el") "Bing")
+" ("i" (m-open-file "~/config/init.el") "Bing")
 ("a" (m-open-mod "basic") "basic")
 ("p" (m-open-mod "package") "package")
 ("k" (m-open-mod "keybind") "keybind")
@@ -231,7 +231,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ("h" (m-open-mod "helm") "helm")
 ;;("3" (m-open-mod "theme") "theme")
 ;;("4" (m-open-mod "speedbar") "speedbar")
-("T" (m-open-file "~/../config/themes/m-xemacs-theme.el") "theme")
+("T" (m-open-file "~/config/themes/m-xemacs-theme.el") "theme")
 ("1" (m-open-mod "elisp") "elisp")
 ("2" (m-open-mod "clojure") "clojure")
 ("3" (m-open-mod "csharp") "csharp")
@@ -317,7 +317,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("o" kill-other-buffers "kill-other-buffers")
 ("p" htmlize-buffer "htmlize-buffer")
 ("P" htmlize-file "htmlize-file")
-("C" (byte-recompile-directory "~/../config") "byte-recomplie-directory")
+("C" (byte-recompile-directory "~/config") "byte-recomplie-directory")
 ("h" (m-open-file "~/../README.org") "README.org")
 ("g" (m-open-doc "gtd.org") "GTD.org")
 ("t" (m-open-doc "todo.org") "todo.org")
@@ -372,8 +372,10 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
 ("=" text-scale-increase "text-scale-increase")
 ("-" text-scale-decrease "text-scale-decrease")
 ("0" (calendar) "calendar")
+("<SPC>" nil "quit")
 ("<escape>" nil "quit"))
 (global-set-key (kbd "C-SPC") 'hydra-do-space/body)
+(global-set-key (kbd "M-SPC") 'hydra-do-space/body)
 
 (defun m-buffer-reload() 
   (interactive) 

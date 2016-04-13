@@ -6,7 +6,7 @@
 
 (if (or (eq system-type 'windows-nt) 
 	(eq system-type 'ms-dos)) 
-    (progn (add-to-list 'load-path "~/../config")) 
+    (progn (add-to-list 'load-path "~/config")) 
   (progn (add-to-list 'load-path "~/config")))
 
 (require 'init)

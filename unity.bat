@@ -1,6 +1,6 @@
 @echo off
 
-call bin\env.bat
+call env.bat
 
 set UNITY_HOME="C:\Program Files\Unity"
 set UNITY_BIN=%UNITY_HOME%\Editor

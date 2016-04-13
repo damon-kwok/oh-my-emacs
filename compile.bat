@@ -1,6 +1,6 @@
 @echo off
 
-call bin\env.bat
+call env.bat
 
 set HOME=%EMACS_CONFIG_HOME%
 cd %HOME%

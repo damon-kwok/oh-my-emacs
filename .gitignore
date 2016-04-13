@@ -1,3 +1,10 @@
-home/
+# ignore
+home/*
 backup/
 docs/
+.DS_Store
+Thumbs.db
+*.elc
+
+# white list anything that's a directort
+!home/config
