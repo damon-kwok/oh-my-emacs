@@ -18,27 +18,28 @@ if not exist %ZIP_HOME% (
 )
 
 echo %DIR_APPZIP%\apps-%ddd%.7z
-7z a -v10m -t7z %ZIP_HOME%\apps-%ddd%.7z %APP_HOME%\*
+7z a -v5m -t7z %ZIP_HOME%\apps-%ddd%.7z %APP_HOME%\*
 
 rem 生成download.bat
-rm -rf download.bat
-cp download.tpl download.bat
-sed -i "s/ttttt/%ddd%/g" download.bat
+rm -rf app-fetch.bat
+cp app-fetch.tpl app-fetchbat
+sed -i "s/ttttt/%ddd%/g" app-fetch.bat
 
-rem 提交src
+rem 提交app-fetch
 git reset
-git add .
+git add app-fetch.bat
 git status
-git commit -m "apps-%ddd%.7z"
+git commit -m "modify app-fetch: %ddd%"
 git push -u origin master
 
 rem 提交app
 cd %ZIP_HOME%
+rm -rf *.7z.*
 
 git reset
 git add .
 git status
-git commit -m "apps-%ddd%.7z"
+git commit -m "modify app: %ddd%"
 git push -u origin master
 
 pause

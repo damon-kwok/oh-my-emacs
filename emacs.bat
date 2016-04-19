@@ -2,7 +2,7 @@
 
 cd /d %~dp0%
 call env.bat
-call download.bat
+call app-fetch.bat
 
 copy /y %HOME%\config\.emacs %HOME%\.emacs
 cd %HOME%
