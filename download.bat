@@ -1,20 +1,17 @@
-@echo off
-
 cd /d %~dp0%
 call env.bat
 
-set DIR_APPZIP=%CACHE%\apps-zip
-set DIR_APP=%CACHE%\apps
+set ZIP_HOME=%APP_HOME%-zip
 
-IF EXIST %DIR_APP% (
+if exist %APP_HOME% (
    echo apps exist!
-) ELSE (
+) else(
   echo apps missing!
-  IF EXIST %DIR_APPZIP% (
+  if exist %ZIP_HOME% (
      git fetch
-     7z x %DIR_APPZIP%p\apps-2016-02-28--15-05.7z.001 -y -aos -o%DIR_APP%
-  ) ELSE (
-     git clone https://github.com/damon-kwok/my-emacs-apps.git ..\cache\apps-zip
-     7z x %DIR_APPZIP%p\apps-2016-02-28--15-05.7z.001 -y -aos -o%DIR_APP%
+     7z x %ZIP_HOME%p\apps-04-19-2016-Tue@18#36#34.83.7z.001 -y -aos -o%APP_HOME%
+  ) else (
+     git clone https://github.com/damon-kwok/my-emacs-apps.git %ZIP_HOME%
+     7z x %ZIP_HOME%p\apps-04-19-2016-Tue@18#36#34.83.7z.001 -y -aos -o%APP_HOME%
   ) 
 )

@@ -3,28 +3,42 @@
 cd /d %~dp0%
 call env.bat
 
-set year=%date:~0,4%
-set month=%date:~5,2%
-set day=%date:~8,2%
-set week=%date:~10,6%
-set hour=%time:~0,2%
-set minute=%time:~3,2%
-set second=%time:~6,2%
-set ms=%time:~9,2%
+rem 2.1 将文件1.txt内的文字“garden”替换成“mirGarden”
+rem # sed -i "s/garden/mirGarden/g" 1.txt //sed -i 很简单
 
-set DIR_APPZIP=%CACHE%\apps-zip
-set DIR_APP=%CACHE%\apps
+set ddd=%date%@%time%
+set "ddd=%ddd:/=-%"
+set "ddd=%ddd: =-%"
+set "ddd=%ddd::=#%"
 
-IF NOT EXIST %DIR_APPZIP% (
-   mkdir %DIR_APPZIP%
+set ZIP_HOME=%APP_HOME%-zip
+
+if not exist %ZIP_HOME% (
+   mkdir %ZIP_HOME%
 )
 
-REM 7z a -v10m -t7z %DIR_APPZIP%\apps-%year%-%month%-%day%--%hour%-%minute%.7z %DIR_APP%\*
+echo %DIR_APPZIP%\apps-%ddd%.7z
+7z a -v10m -t7z %ZIP_HOME%\apps-%ddd%.7z %APP_HOME%\*
 
-cd %DIR_APPZIP%
+rem 生成download.bat
+rm -rf download.bat
+cp download.tpl download.bat
+sed -i "s/ttttt/%ddd%/g" download.bat
+
+rem 提交src
+git reset
 git add .
 git status
-git commit -m "apps-%year%-%month%-%day%--%hour%-%minute%.7z"
+git commit -m "apps-%ddd%.7z"
+git push -u origin master
+
+rem 提交app
+cd %ZIP_HOME%
+
+git reset
+git add .
+git status
+git commit -m "apps-%ddd%.7z"
 git push -u origin master
 
 pause

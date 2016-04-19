@@ -1,0 +1,3 @@
+cd /d D:\medusa-ide\
+call env.bat
+ECHO is off.
