@@ -24,6 +24,83 @@
 (require 'mod-package)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`Theme';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (package-require 'django-theme)
+;;  (when  (package-installed-p 'django-theme)
+;;    (require 'django-theme))
+
+;; (if (display-graphic-p)
+;;     (require 'django-theme)
+;; (load-theme 'deeper-blue))
+
+;; (load-theme 'wombat)
+
+;; (load-theme 'deeper-blue)
+
+;; (package-require 'sublime-themes)
+;; ;;(require 'sublime-themes)
+;; (load-theme 'granger t t)
+;; (enable-theme 'granger)
+
+(package-require 'color-theme-modern)
+
+(if (display-graphic-p) 
+    (progn ;;
+      (load-theme 'gray30 t t) 
+      (enable-theme 'gray30) 
+      (load-theme 'deeper-blue)
+      ;;
+      ) 
+  (progn
+    ;;
+    ;; (load-theme 'xemacs t t)
+    ;; (enable-theme 'xemacs)
+    (load-theme 'deeper-blue)
+    ;;
+    )
+  ;;
+  )
+
+;;; xemacs
+;; (load-theme 'm-xemacs t t)
+;; (enable-theme 'm-xemacs)
+
+;; (load-theme 'fischmeister t t)
+;; (enable-theme 'fischmeister)
+
+;; (require 'pink-bliss)
+;; (pink-bliss)
+
+;; (load-theme 'jedit-grey t t)
+;; (enable-theme 'jedit-grey)
+
+;; (load-theme 'xemacs t t)
+;; (enable-theme 'xemacs)
+
+;;; other
+;; (load-theme 'oswald t t)
+;; (enable-theme 'oswald)
+
+;; (load-theme 'charcoal-black t t)
+;; (enable-theme 'charcoal-black)
+
+;; (load-theme 'ld-dark t t)
+;; (enable-theme 'ld-dark)
+
+
+
+;;; dos
+;; (load-theme 'parus t t)
+;; (enable-theme 'parus)
+
+;;; gnome
+;; (load-theme 'pok-wog t t)
+;; (enable-theme 'pok-wog)
+
+;; (load-theme 'jonadabian-slate t t)
+;; (enable-theme 'jonadabian-slate)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`base-config';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `'gc'
@@ -63,8 +140,7 @@
 (setq visible-bell nil)
 ;;; remove 'bell beep function'
 ;; (setq ring-bell-function (lambda () (message "*beep*")))
-(setq ring-bell-function 
-      (lambda ()))
+(setq ring-bell-function (lambda ()))
 
 ;;; y-or-n-p
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -279,80 +355,6 @@
       (require 'nyan-mode) 
       (nyan-start-animation) 
       (nyan-mode 1)))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`Theme';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (package-require 'django-theme)
-;;  (when  (package-installed-p 'django-theme)
-;;    (require 'django-theme))
-
-;; (if (display-graphic-p)
-;;     (require 'django-theme)
-;; (load-theme 'deeper-blue))
-
-;; (load-theme 'wombat)
-
-;; (load-theme 'deeper-blue)
-
-;; (package-require 'sublime-themes)
-;; ;;(require 'sublime-themes)
-;; (load-theme 'granger t t)
-;; (enable-theme 'granger)
-
-(package-require 'color-theme-modern)
-
-(if (display-graphic-p) 
-    (progn ;;
-      (load-theme 'gray30 t t) 
-      (enable-theme 'gray30) 
-      (load-theme 'deeper-blue)
-      ;;
-      ) 
-  (progn
-    ;;
-    (load-theme 'xemacs t t) 
-    (enable-theme 'xemacs))
-  ;;
-  )
-
-;;; xemacs
-;; (load-theme 'm-xemacs t t)
-;; (enable-theme 'm-xemacs)
-
-;; (load-theme 'fischmeister t t)
-;; (enable-theme 'fischmeister)
-
-;; (require 'pink-bliss)
-;; (pink-bliss)
-
-;; (load-theme 'jedit-grey t t)
-;; (enable-theme 'jedit-grey)
-
-;; (load-theme 'xemacs t t)
-;; (enable-theme 'xemacs)
-
-;;; other
-;; (load-theme 'oswald t t)
-;; (enable-theme 'oswald)
-
-;; (load-theme 'charcoal-black t t)
-;; (enable-theme 'charcoal-black)
-
-;; (load-theme 'ld-dark t t)
-;; (enable-theme 'ld-dark)
-
-
-
-;;; dos
-;; (load-theme 'parus t t)
-;; (enable-theme 'parus)
-
-;;; gnome
-;; (load-theme 'pok-wog t t)
-;; (enable-theme 'pok-wog)
-
-;; (load-theme 'jonadabian-slate t t)
-;; (enable-theme 'jonadabian-slate)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`buffer';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -478,8 +480,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; for lisp (elisp) : `lambda' to 入
-(prettify-symbols-mode)
-(global-prettify-symbols-mode 1)
+;; (prettify-symbols-mode)
+;; (global-prettify-symbols-mode 1)
 
 ;;; Syntax highlighting
 (global-font-lock-mode t)
@@ -488,7 +490,7 @@
 (transient-mark-mode t)
 
 ;;; more highlights
-;; (require 'generic-x)
+(require 'generic-x)
 
 ;;; highlight current line (0:close 1:open)
 (global-hl-line-mode 0)

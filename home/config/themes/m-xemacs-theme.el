@@ -55,7 +55,7 @@
  '(bold ((t (:bold t))))
  '(italic ((t (:italic t))))
  '(bold-italic ((t (:bold t :italic t))))
- '(region ((t (:background "SteelBlue")))) ;;gray80 gray40 gray30
+ '(region ((t (:background "CadetBlue")))) ;;gray80 gray40 gray30
  '(secondary-selection ((t (:background "PaleTurquoise"))))
  '(underline ((t (:underline t))))
  '(show-paren-match-face ((t (:foreground "gold" :background "DarkGreen")))) ;;yellow

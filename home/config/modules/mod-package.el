@@ -36,7 +36,20 @@
 (setq libs-user-dir "~/.emacs.d/libs")
 (make-directory libs-user-dir t)
 
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+;; (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+;;                         ("org" . "http://orgmode.org/elpa/")))
+;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+
+
+(setq package-archives '( ;;
+						("gnu" . "https://elpa.gnu.org/packages/")
+						;; ("org" . "http://orgmode.org/elpa/")
+						;; ("melpa" . "http://melpa.org/packages/")
+						;; ("popkit" . "http://elpa.popkit.org/packages/")
+						 ;;
+						 ))
+(add-to-list 'package-archives '("popkit" . "http://elpa.popkit.org/packages/"))
+
 ;; To get the package manager going, we invoke its initialise function.
 (package-initialize)
 

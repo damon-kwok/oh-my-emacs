@@ -1,11 +1,11 @@
 ;;; -*- lexical-binding: t -*-
 ;;; `(buffer-name)` --- This is where you apply your OCD.
 ;;;
-;;; Last-saved : 2016-Jan-06
 ;;; Copyright (C) 2015-`(format-time-string "%Y")` damon-kwok
 ;;;
 ;;; Author: `(user-login-name)` <damon-kwok@outlook.com>
-;;; Date: `(format-time-string "%Y-%m-%d")`
+;;; Create: `(format-time-string "%Y-%m-%d")`
+;;; Modify: `(format-time-string "%Y-%m-%d")`
 ;;;
 ;;; This program is free software; you can redistribute it and/or modify
 ;;; it under the terms of the GNU General Public License as published by
