@@ -344,9 +344,9 @@
 ;; (tdd-status-global-mode)
 
 ;;; `mode-icons'
-;; (package-require 'mode-icons)
-;; (require 'mode-icons)
-;; (mode-icons-mode)
+(package-require 'mode-icons)
+(require 'mode-icons)
+(mode-icons-mode)
 
 ;;; `nyan-mode'
 (package-require 'nyan-mode)

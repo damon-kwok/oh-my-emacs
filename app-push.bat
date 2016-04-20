@@ -17,10 +17,16 @@ if not exist %ZIP_HOME% (
    mkdir %ZIP_HOME%
 )
 
+set /p choice=compress the app directory(y/n)?
+if /I "%choice%"=="y" goto zip
+if /I "%choice%"=="n" goto commit
+
+:zip
 echo %DIR_APPZIP%\apps-%ddd%.7z
+rm -rf *.7z.*
 7z a -v5m -t7z %ZIP_HOME%\apps-%ddd%.7z %APP_HOME%\*
 
-rem 生成download.bat
+rem 生成app-fetch
 rm -rf app-fetch.bat
 cp app-fetch.tpl app-fetchbat
 sed -i "s/ttttt/%ddd%/g" app-fetch.bat
@@ -34,12 +40,19 @@ git push -u origin master
 
 rem 提交app
 cd %ZIP_HOME%
-rm -rf *.7z.*
-
 git reset
 git add .
 git status
 git commit -m "modify app: %ddd%"
 git push -u origin master
+pause
 
+:commit
+cd %ZIP_HOME%
+git reset
+git add .
+git status
+set /p msg=please input commit message:
+git commit -m "%msg%"
+git push -u origin master
 pause

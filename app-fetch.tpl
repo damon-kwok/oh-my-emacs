@@ -5,7 +5,7 @@ set ZIP_HOME=%APP_HOME%-zip
 
 if exist %APP_HOME% (
    echo apps exist!
-) else(
+) else (
   echo apps missing!
   if exist %ZIP_HOME% (
      git fetch

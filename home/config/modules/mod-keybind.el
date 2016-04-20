@@ -306,8 +306,8 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 ^^^^^^^^-----------------------------------------------------------------
 _r_:rename      _p_: htmlize-buffer     _h_: README.org      _n_: note.org
 _d_:delete      _P_: htmlize-file       _d_: diary.org       _p_: problem.org
-_k_:close-all   _C_: complie-modules    _t_: todo.org        ^^
-_o_:kill-other  ^^                      _b_: book.org        ^^
+_k_:close-all   _C_: complie-modules    _t_: todo.org        _s_: passwd.org
+_o_:kill-other  ^^                      _b_: book.org        _g_: game.org
 ^^                 ^^                   _N_: NEWS.org ^^
 ^^^^^^^^-----------------------------------------------------------------
 _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
@@ -324,6 +324,8 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("b" (m-open-doc "book.org") "book.org")
 ("n" (m-open-doc "note.org") "note.org")
 ("p" (m-open-doc "problem.org") "problem.org")
+("s" (m-open-doc "passwd.org") "passwd.org")
+("g" (m-open-doc "game.org") "game.org")
 ("N" (m-open-doc "news.org") "news.org")
 ("<tab>" helm-keyboard-quit "back" 
  :exit t)
