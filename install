@@ -1,0 +1,5 @@
+#!/bin/bash
+
+git clone https://github.com/damon-kwok/my-emacs-config ~/medusa-ide
+cp ~/medusa-ide/home/config/.emacs ~/.emacs
+ln -s ~/medusa-ide/home/config ~/config
