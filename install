@@ -8,7 +8,8 @@ else
     git clone https://github.com/damon-kwok/my-emacs-config ~/medusa-ide
 fi
 
-set bkdir=emacs-config-backup/`date "+%Y-%m-%d@%H-%M-%S`
+set bkdir=~/emacs-config-backup/`date "+%Y-%m-%d@%H-%M-%S`
+echo $bkdir
 mkdir -p $bkdir
 
 mv ~/.emacs $bkdir
