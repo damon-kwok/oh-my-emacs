@@ -1,5 +1,18 @@
 #!/bin/bash
 
-git clone https://github.com/damon-kwok/my-emacs-config ~/medusa-ide
-cp ~/medusa-ide/home/config/.emacs ~/.emacs
-ln -s ~/medusa-ide/home/config ~/config
+if [ -d ~/medusa-ide ]; then
+    cd ~/medusa-ide
+    git fetch
+    cd ~
+else
+    git clone https://github.com/damon-kwok/my-emacs-config ~/.medusa-ide
+fi
+
+set bkdir=emacs-config-backup/`date "+%Y-%m-%d@%H-%M-%S`
+mkdir -p $bkdir
+
+mv -rf ~/.emacs $bkdir
+# mv -rf ~/config $bkdir
+
+cp -a ~/medusa-ide/home/config/.emacs ~/.emacs
+# ln -s ~/medusa-ide/home/config ~/config

@@ -1,6 +1,8 @@
 #+TITLE: my emacs config
 this is my emacs config
 
+* INSTALL
+bash <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/INSTALL)
 ** global
  - *C-SPC* *super-key*
  - *C-z* set-mark

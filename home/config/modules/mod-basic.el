@@ -233,10 +233,10 @@
 (setq display-time-interval 10)
 
 ;;; title
-(setq frame-title-format '("%Z  " 
+(setq frame-title-format '("%Z  - " 
 			   (:eval (cond (buffer-read-only "(Read-Only)"))) 
 			   (:eval (cond ((buffer-modified-p) "*")))
-			   "%b" "  [%m]  %f"))
+			   "%b" "  | (%m) |  %f"))
 
 ;; (setq frame-title-format '("[%Z]    %m    "
 ;; 			   (:eval (cond (buffer-read-only "%%")
@@ -298,18 +298,18 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `smart-mode-line'
-;; (package-require 'smart-mode-line)
-;; (require 'smart-mode-line)
-;; (setq sml/no-confirm-load-theme t)
+(package-require 'smart-mode-line)
+(require 'smart-mode-line)
+(setq sml/no-confirm-load-theme t)
 
-;; (setq sml/theme 'dark)
+(setq sml/theme 'dark)
 ;; (setq sml/theme 'light)
 ;; (setq sml/theme 'respectful)
 ;; (package-require 'smart-mode-line-powerline-theme)
 ;; (require 'smart-mode-line-powerline-theme)
 ;; (setq sml/theme 'powerline)
 
-;; (sml/setup)
+(sml/setup)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `mode-line': ocodo-svg-modelines
@@ -344,9 +344,9 @@
 ;; (tdd-status-global-mode)
 
 ;;; `mode-icons'
-(package-require 'mode-icons)
-(require 'mode-icons)
-(mode-icons-mode)
+;; (package-require 'mode-icons)
+;; (require 'mode-icons)
+;; (mode-icons-mode)
 
 ;;; `nyan-mode'
 (package-require 'nyan-mode)

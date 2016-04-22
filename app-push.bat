@@ -3,8 +3,8 @@
 cd /d %~dp0%
 call env.bat
 
-rem 2.1 ½«ÎÄ¼ş1.txtÄÚµÄÎÄ×Ö¡°garden¡±Ìæ»»³É¡°mirGarden¡±
-rem # sed -i "s/garden/mirGarden/g" 1.txt //sed -i ºÜ¼òµ¥
+rem 2.1 å°†æ–‡ä»¶1.txtå†…çš„æ–‡å­—â€œgardenâ€æ›¿æ¢æˆâ€œmirGardenâ€
+rem # sed -i "s/garden/mirGarden/g" 1.txt //sed -i å¾ˆç®€å•
 
 set ddd=%date%@%time%
 set "ddd=%ddd:/=-%"
@@ -26,19 +26,19 @@ echo %DIR_APPZIP%\apps-%ddd%.7z
 rm -rf *.7z.*
 7z a -v5m -t7z %ZIP_HOME%\apps-%ddd%.7z %APP_HOME%\*
 
-rem Éú³Éapp-fetch
+rem ç”Ÿæˆapp-fetch
 rm -rf app-fetch.bat
 cp app-fetch.tpl app-fetchbat
 sed -i "s/ttttt/%ddd%/g" app-fetch.bat
 
-rem Ìá½»app-fetch
+rem æäº¤app-fetch
 git reset
 git add app-fetch.bat
 git status
 git commit -m "modify app-fetch: %ddd%"
 git push -u origin master
 
-rem Ìá½»app
+rem æäº¤app
 cd %ZIP_HOME%
 git reset
 git add .
