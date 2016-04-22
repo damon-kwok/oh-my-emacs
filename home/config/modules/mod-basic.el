@@ -125,7 +125,7 @@
 (setq inhibit-startup-message t)
 
 ;;; `'default-mode'
-(setq major-mode 'text-mode) ;;set default major mode
+(setq major-mode 'sh-mode) ;;set default major mode {sh-mode | text-mode}
 
 ;;; set font 1 : look:http://www.linuxsir.org/bbs/thread326299.html
 ;; (set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
