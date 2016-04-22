@@ -41,13 +41,13 @@ else
   echo apps missing!
   if [ -d $ZIP_HOME ]; then
      git fetch
-     # 7z x $ZIP_HOME/apps-04-22-2016-Fri@19#08#34.91.7z.001 -y -aos -o$APP_HOME
-	 cat apps-%ddd%.zip.* > 04-22-2016-Fri@19#08#34.91.zip
-	 unzip 04-22-2016-Fri@19#08#34.91.zip
+     # 7z x $ZIP_HOME/apps-04-22-2016-Fri@19#11#53.94.7z.001 -y -aos -o$APP_HOME
+	 cat apps-%ddd%.zip.* > 04-22-2016-Fri@19#11#53.94.zip
+	 unzip 04-22-2016-Fri@19#11#53.94.zip
   else
      git clone https://github.com/damon-kwok/my-emacs-apps.git $ZIP_HOME
-     # 7z x $ZIP_HOME/apps-04-22-2016-Fri@19#08#34.91.7z.001 -y -aos -o$APP_HOME
-	 cat apps-04-22-2016-Fri@19#08#34.91.zip.* > 04-22-2016-Fri@19#08#34.91.zip
-	 unzip 04-22-2016-Fri@19#08#34.91.zip
+     # 7z x $ZIP_HOME/apps-04-22-2016-Fri@19#11#53.94.7z.001 -y -aos -o$APP_HOME
+	 cat apps-04-22-2016-Fri@19#11#53.94.zip.* > 04-22-2016-Fri@19#11#53.94.zip
+	 unzip 04-22-2016-Fri@19#11#53.94.zip
   fi
 fi
