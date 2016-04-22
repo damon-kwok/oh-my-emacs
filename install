@@ -11,8 +11,8 @@ fi
 set bkdir=emacs-config-backup/`date "+%Y-%m-%d@%H-%M-%S`
 mkdir -p $bkdir
 
-mv -rf ~/.emacs $bkdir
-mv -rf ~/config $bkdir
+mv ~/.emacs $bkdir
+mv ~/config $bkdir
 
 cp -a ~/medusa-ide/home/config/.emacs ~/.emacs
 ln -s ~/medusa-ide/home/config ~/config
