@@ -244,7 +244,7 @@
   (delete-other-windows) 
   (m-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
-  (find-file (concat "~/config/modules/mod-" mod-name ".el")))
+  (find-file (concat "~/emacs-config/modules/mod-" mod-name ".el")))
 
 (defun m-open-doc(doc-name) 
   (interactive) 

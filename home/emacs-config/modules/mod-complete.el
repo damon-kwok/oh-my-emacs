@@ -99,10 +99,10 @@
 (require 'yasnippet)
 
 ;; (setq yas-snippet-dirs '(yas-installed-snippets-dir (expand-file-name "~/config/snippets/")))
-;; (setq yas-snippet-dirs (expand-file-name "~/config/snippets/"))
-;;(setq yas-snippet-dirs (expand-file-name "~/config/snippets/"))
+;; (setq yas-snippet-dirs (expand-file-name "~/emacs-config/snippets/"))
+;;(setq yas-snippet-dirs (expand-file-name "~/emacs-config/snippets/"))
 
-(setq dir-medusa-snippets "~/config/snippets/")
+(setq dir-medusa-snippets "~/emacs-config/snippets/")
 (add-to-list 'yas-snippet-dirs (expand-file-name dir-medusa-snippets))
 
 (yas-global-mode 1)

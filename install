@@ -9,7 +9,6 @@ else
 fi
 
 export bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
-echo $bkdir
 mkdir -p $bkdir
 
 mv ~/.emacs $bkdir

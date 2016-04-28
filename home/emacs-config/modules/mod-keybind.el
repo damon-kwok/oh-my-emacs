@@ -220,7 +220,7 @@ _y_: ac-and-yas    ^^               _x_: protobuf     ^^              ^^
 ^^                 ^^               ^^                ^^              ^^
 ^^^^^^^^-------------------------------------------------------------------------
 _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
-" ("i" (m-open-file "~/config/init.el") "Bing")
+" ("i" (m-open-file "~/emacs-config/init.el") "Bing")
 ("a" (m-open-mod "basic") "basic")
 ("p" (m-open-mod "package") "package")
 ("k" (m-open-mod "keybind") "keybind")
@@ -231,7 +231,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ("h" (m-open-mod "helm") "helm")
 ;;("3" (m-open-mod "theme") "theme")
 ;;("4" (m-open-mod "speedbar") "speedbar")
-("T" (m-open-file "~/config/themes/m-xemacs-theme.el") "theme")
+("T" (m-open-file "~/emacs-config/themes/m-xemacs-theme.el") "theme")
 ("1" (m-open-mod "elisp") "elisp")
 ("2" (m-open-mod "clojure") "clojure")
 ("3" (m-open-mod "csharp") "csharp")
@@ -317,7 +317,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("o" kill-other-buffers "kill-other-buffers")
 ("p" htmlize-buffer "htmlize-buffer")
 ("P" htmlize-file "htmlize-file")
-("C" (byte-recompile-directory "~/config") "byte-recomplie-directory")
+("C" (byte-recompile-directory "~/emacs-config") "byte-recomplie-directory")
 ("h" (m-open-file "~/../README.org") "README.org")
 ("g" (m-open-doc "gtd.org") "GTD.org")
 ("t" (m-open-doc "todo.org") "todo.org")

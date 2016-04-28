@@ -27,8 +27,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;(if (or (eq system-type 'windows-nt)
 ;;	(eq system-type 'ms-dos))
-;;   (setq dir-medusa-config "~/config")
-;;  (setq dir-medusa-config "~/config"))
+;;   (setq dir-medusa-config "~/emacs-config")
+;;  (setq dir-medusa-config "~/emacs-config"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (standard-display-european t)
 ;; (load-library "iso-transl")
