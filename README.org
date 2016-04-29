@@ -1,9 +1,12 @@
 #+TITLE: my emacs config
 this is my emacs config
 
-** INSTALL
-bash <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/install)
-
+* INSTALL
+** require
+- msys2 {git curl zip unzip split cat}
+** install
+- bash <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/install)
+* Keybind
 ** global
  - *C-SPC* *super-key*
  - *C-z* set-mark

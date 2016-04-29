@@ -26,23 +26,24 @@ cd %ZIP_HOME%
 rm -rf *.z*
 
 cd %ROOT%/home
-zip -r %ddd%.zip apps
-mv %ddd%.zip %ZIP_HOME%
+zip -r apps.zip apps
+mv apps.zip %ZIP_HOME%
 
 cd %ZIP_HOME%
 REM 分卷
-split -d -b 3m %ddd%.zip apps-%ddd%.zip.
-rm -rf %ddd%.zip
+split -d -b 3m apps.zip apps.
+ping -n 1 127.0.0.1>nul
+rm -rf apps.zip
 REM 合并
-echo cat apps-%ddd%.zip.* > %ddd%.zip
-echo unzip %ddd%.zip
+REM cat apps-%ddd%.zip.* > %ddd%.zip
+REM unzip %ddd%.zip
 REM goto end
 
-cd %ROOT%
+rem cd %ROOT%
 rem 生成app-fetch
-rm -rf app-fetch
-cp app-fetch.tpl app-fetch
-sed -i "s/ttttt/%ddd%/g" app-fetch
+rem rm -rf app-fetch
+rem cp app-fetch.tpl app-fetch
+rem sed -i "s/ttttt/%ddd%/g" app-fetch
 
 rem 提交app-fetch
 git reset

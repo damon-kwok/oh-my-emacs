@@ -17,6 +17,11 @@ export EMACS_SERVER_FILE=$HOME/.emacs.d/server/emacs-server-file
 export MSYS_HOME=$APP_HOME/msys32
 export MSYS_BIN=$MSYS_HOME/usr/bin
 
+export MSYS_HOME2=/c/msys32
+export MSYS_BIN2=$MSYS_HOME2/usr/bin
+
+export MSYS_HOME3=/d/msys32
+export MSYS_BIN3=$MSYS_HOME3/usr/bin
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # omnisharp
 export OMNISHARP_HOME=$APP_HOME/omnisharp-server
@@ -40,14 +45,16 @@ if [ -d $APP_HOME ]; then
 else
   echo apps missing!
   if [ -d $ZIP_HOME ]; then
+	 cd $ZIP_HOME
      git fetch
      # 7z x $ZIP_HOME/apps-ttttt.7z.001 -y -aos -o$APP_HOME
-	 cat apps-%ddd%.zip.* > ttttt.zip
+	 cat *.zip.* > ttttt.zip
 	 unzip ttttt.zip
   else
      git clone https://github.com/damon-kwok/my-emacs-apps.git $ZIP_HOME
+	 cd $ZIP_HOME
      # 7z x $ZIP_HOME/apps-ttttt.7z.001 -y -aos -o$APP_HOME
-	 cat apps-ttttt.zip.* > ttttt.zip
+	 cat *.zip.* > ttttt.zip
 	 unzip ttttt.zip
   fi
 fi

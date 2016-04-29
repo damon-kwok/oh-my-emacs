@@ -5,6 +5,7 @@ cd /d %~dp0%
 set ROOT=%CD%
 set CACHE=%ROOT%\home
 set APP_HOME=%CACHE%\apps
+set ZIP_HOME=%CACHE%\apps-zip
 
 IF NOT EXIST %CACHE% (
    mkdir %CACHE%
@@ -23,6 +24,12 @@ rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem msys2
 set MSYS_HOME=%APP_HOME%\msys32
 set MSYS_BIN=%MSYS_HOME%\usr\bin
+
+set MSYS_HOME2=c:\msys32
+set MSYS_BIN2=%MSYS_HOME2%\usr\bin
+
+set MSYS_HOME3=d:\msys32
+set MSYS_BIN3=%MSYS_HOME3%\usr\bin
 
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem mingw
@@ -74,7 +81,7 @@ rem set CLANG_HOME=%APP_HOME%\Clang\bin
 rem set CLANG_BIN=%CLANG_HOME%\bin
 
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-set PATH=%MSYS_BIN%;%PATH%
+set PATH=%MSYS_BIN%;%MSYS_BIN2%;%MSYS_BIN3%;%PATH%
 rem set PATH=%GLOBAL_BIN%;%CMAKE_BIN%;%OPENSSL_BIN%;%PATH%
 rem set PATH=%PKG_CONFIG_BIN%;%PKG_CONFIG_PATH%;%PATH%
 rem set PATH=%MINGW_BIN%;%GIT_BIN%;%GIT_USR_BIN%;%PATH%
