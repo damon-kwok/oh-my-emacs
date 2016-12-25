@@ -24,6 +24,43 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `base'
+(require 'mod-basic)
+(require 'mod-package)
+(require 'mod-library)
+;;(require 'mod-coding)
+(require 'mod-helm)
+(require 'mod-dired)
+(require 'mod-complete)
+(require 'mod-tabbar)
+;; (require 'mod-speedbar)
+;; (require 'mod-input)
+;(require 'mod-calendar)
+(require 'mod-server)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `docs'
+(require 'mod-csv)
+(require 'mod-protobuf)
+(require 'mod-orgmode)
+(require 'mod-markdown)
+;;(require 'mod-latex)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `programming-languages'
+(require 'mod-elisp)
+;; (require 'mod-csharp)
+(require 'mod-clojure)
+(require 'mod-cc)
+(require 'mod-r)
+;; (require 'mod-slime)
+;; (require 'mod-erlang)
+;; (require 'mod-elixir)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;(if (or (eq system-type 'windows-nt)
 ;;	(eq system-type 'ms-dos))
@@ -61,37 +98,7 @@
 ;; (auto-fill-mode 0)
 ;; (package-require 'psvn)
 ;; (require 'psvn)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'mod-coding)
-(require 'mod-server)
-(require 'mod-package)
-(require 'mod-library)
-;; (require 'mod-input)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `docs'
-(require 'mod-csv)
-(require 'mod-protobuf)
-;; (require 'mod-orgmode)
-(require 'mod-markdown)
-;; (require 'mod-latex)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `base'
-(require 'mod-basic)
-(require 'mod-helm)
-(require 'mod-dired)
-(require 'mod-complete)
-;; (require 'mod-calendar)
-(require 'mod-tabbar)
-;; (require 'mod-speedbar)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `dev-languages'
-(require 'mod-elisp)
-(require 'mod-csharp)
-;; (require 'mod-clojure)
-;; (require 'mod-cc)
-;;(require 'mod-slime)
-;;(require 'mod-erlang)
-;;(require 'mod-elixir)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-keybind)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

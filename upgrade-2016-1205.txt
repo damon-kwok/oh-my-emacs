@@ -1,0 +1,4 @@
+base-devel
+grep
+libclang
+cmake

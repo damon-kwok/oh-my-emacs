@@ -41,14 +41,18 @@
 ;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 
 
+
 (setq package-archives '( ;;
-						("gnu" . "https://elpa.gnu.org/packages/")
-						;; ("org" . "http://orgmode.org/elpa/")
-						;; ("melpa" . "http://melpa.org/packages/")
-						;; ("popkit" . "http://elpa.popkit.org/packages/")
+						;;("gnu" . "https://elpa.gnu.org/packages/")
+						("org" . "http://orgmode.org/elpa/")
+						;;("melpa" . "https://melpa.org/packages/")
+						("popkit" . "http://elpa.popkit.org/packages/")
 						 ;;
 						 ))
-(add-to-list 'package-archives '("popkit" . "http://elpa.popkit.org/packages/"))
+;; (add-to-list 'package-archives '("popkit" . "http://elpa.popkit.org/packages/"))
+(add-to-list 'load-path "~/emacs-config/elpa-mirror")
+(require 'elpa-mirror)
+
 
 ;; To get the package manager going, we invoke its initialise function.
 (package-initialize)

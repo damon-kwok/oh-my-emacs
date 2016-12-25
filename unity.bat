@@ -1,6 +1,6 @@
 @echo off
 
-call env.bat
+call medusa.bat env
 
 set UNITY_HOME="C:\Program Files\Unity"
 set UNITY_BIN=%UNITY_HOME%\Editor

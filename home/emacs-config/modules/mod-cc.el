@@ -70,8 +70,10 @@
 ;; (define-key objc-mode-map (kbd "M-/")  'company-complete)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;'ac-irony
-(package-require-git "ac-irony" "https://github.com/Sarcasm/ac-irony.git")
-(require 'ac-irony)
+;; (package-require-git "ac-irony" "https://github.com/Sarcasm/ac-irony.git")
+;; (require 'ac-irony)
+(package-require 'company-irony)
+(require 'company-irony)
 
 (defun my-ac-irony-setup ()
   ;; be cautious, if yas is not enabled before (auto-complete-mode 1), overlays

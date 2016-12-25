@@ -1,7 +1,7 @@
 @echo off
 
 cd /d %~dp0%
-call env.bat
+call medusa.bat env
 bash app-fetch
 
 rem set HOME=%CD%\home

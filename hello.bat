@@ -84,16 +84,40 @@ rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem set PATH=%MSBUILD_BIN%;%PATH%
 rem set PATH=%LLVM_BIN%;%CLANG_BIN%;%PATH%
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+:getapp
+if not exist %APP_HOME% (
+  
+  if exist %ZIP_HOME% (
+		echo apps-zip ok!
+		cd $ZIP_HOME
+		git fetch
+		call:unzipapp
+    )
+	else (
+		echo apps-zip missing!
+		cd $ZIP_HOME/../
+		git clone https://github.com/damon-kwok/my-emacs-apps.git %ZIP_HOME%
+		call:unzipapp
+  )
+  move apps ../
+)
+goto:eof
 
-goto:main
+echo 111
+call:getapp
+echo 222
 
 if %1==env (
 	goto:quit
 )
 
+echo 333
+
 if %1==main (
 	goto:main
 )
+
+echo 444
 
 :sleep
 ping -n %arg1% 127.0.0.1>nul
@@ -108,7 +132,7 @@ rem rm -f .git/index.lock
 git reset
 git add *
 git status
-git commit -m "update module"
+git commit -m "%msg%"
 git push -u origin master
 goto:eof
 
@@ -121,7 +145,6 @@ git push -u origin master
 goto:eof
 
 :zipapp
-echo zipapp
 cd %ROOT%/home
 zip -r apps.zip apps
 move apps.zip %ZIP_HOME%/apps.zip
@@ -133,10 +156,8 @@ rm -rf apps.zip
 goto:eof
 
 :unzipapp
-echo unzipapp
 cd %ZIP_HOME%
 dir
-echo ---------22
 cat *.zip.* > apps.zip
 unzip apps.zip
 ping -n 1 127.0.0.1>nul
@@ -176,7 +197,6 @@ echo %2%
 goto:eof
 
 :ask
-echo ask
 echo    1) push-medusa
 echo    2) getapp
 echo    3) pushapp
@@ -195,7 +215,6 @@ echo error-input
 call:ask
 
 :main
-echo =>main
 rem call:test 111 222
 call:ask
 goto:quit

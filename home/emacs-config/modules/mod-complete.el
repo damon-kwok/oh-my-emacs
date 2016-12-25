@@ -40,28 +40,28 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `auto-complete'
-(package-require 'auto-complete)
-(require 'auto-complete)
-(require 'auto-complete-config)
+;;-(package-require 'auto-complete)
+;;-(require 'auto-complete)
+;;-(require 'auto-complete-config)
 
 ;;; `pos-tip'
-(package-require 'pos-tip)
-(require 'pos-tip)
-(setq ac-quick-help-prefer-pos-tip t)
+;;-(package-require 'pos-tip)
+;;-(require 'pos-tip)
+;;-(setq ac-quick-help-prefer-pos-tip t)
 
 ;;; `ac-default'
-(ac-config-default)
-(global-auto-complete-mode t)
+;;-(ac-config-default)
+;;-(global-auto-complete-mode t)
 ;;(setq-default ac-sources '(ac-source-words-in-same-mode-buffers))
 ;;(add-hook 'emacs-lisp-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-symbols)))
 ;;(add-hook 'auto-complete-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
 
 ;; ac keybind settings
 
-(define-key ac-complete-mode-map (kbd "TAB") 'ac-next)
-(define-key ac-complete-mode-map (kbd "S-TAB") 'ac-previous)
-(define-key ac-complete-mode-map "\C-n" 'ac-next)
-(define-key ac-complete-mode-map "\C-p" 'ac-previous)
+;;-(define-key ac-complete-mode-map (kbd "TAB") 'ac-next)
+;;-(define-key ac-complete-mode-map (kbd "S-TAB") 'ac-previous)
+;;-(define-key ac-complete-mode-map "\C-n" 'ac-next)
+;;-(define-key ac-complete-mode-map "\C-p" 'ac-previous)
 ;; (define-key ac-complete-mode-map (kbd "SPC") nil)'ac-complete)
 ;; (define-key ac-menu-map "\C-n" 'ac-next)
 ;; (define-key ac-menu-map "\C-p" 'ac-previous)
@@ -73,26 +73,37 @@
 ;; (set-face-underline 'ac-candidate-face "DarkGray")
 ;; (set-face-background 'ac-selection-face "SteelBlue")
 
-(set-face-background 'ac-candidate-face "gray80")
-(set-face-underline 'ac-candidate-face "#330000")
-(set-face-background 'ac-selection-face "DarkBlue")
+;;-(set-face-background 'ac-candidate-face "gray80")
+;;-(set-face-underline 'ac-candidate-face "#330000")
+;;-(set-face-background 'ac-selection-face "DarkBlue")
 
-(setq ac-use-menu-map t)
-(setq ac-auto-start 3)
+;;-(setq ac-use-menu-map t)
+;;-(setq ac-auto-start 3)
 ;; (setq ac-dwim t)
 
-(global-set-key "\M-/" 'auto-complete)
+;;-(global-set-key "\M-/" 'auto-complete)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `company'
-;; (package-require 'company)
-;; (require 'company)
-;; (add-hook 'after-init-hook 'global-company-mode)
+(package-require 'company)
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
 
-;; (global-set-key (kbd "<M-/>") 'company-complete)
-;; (global-set-key (kbd "<C-M-i>") 'company-complete)
+(global-set-key (kbd "<M-/>") 'company-complete)
+(global-set-key (kbd "<C-M-i>") 'company-complete)
 
-;; (define-key company-active-map (kbd "C-n")  'company-select-next)
-;; (define-key company-active-map (kbd "C-p")  'company-select-previous)
+(define-key company-active-map (kbd "C-n")  'company-select-next)
+(define-key company-active-map (kbd "C-p")  'company-select-previous)
+
+(package-require 'company-quickhelp)
+(company-quickhelp-mode 1)
+
+;;; `helm-company'
+(package-require 'helm-company)
+(autoload 'helm-company "helm-company") ;; Not necessary if using ELPA package
+(eval-after-load 'company
+  '(progn
+     (define-key company-mode-map (kbd "C-:") 'helm-company)
+     (define-key company-active-map (kbd "C-:") 'helm-company)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `yasnippet'
 (package-require 'yasnippet)

@@ -212,11 +212,11 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 ^Basic^            ^Layout^         ^Editor^          ^Language^      ^Other^
 ^^^^^^^^-------------------------------------------------------------------------
 _i_: init          _t_: tabbar      _6_: orgmode      _1_: elisp      _z_: input
-_a_: appearance    _h_: helm        _7_: latex        _2_: clojure    _m_: music
+_a_: basic         _h_: helm        _7_: latex        _2_: clojure    _m_: music
 _p_: package       ^^               _8_: markdown     _3_: csharp     _d_: coding
 _k_: keybind       ^^               _9_: reST         _4_: js         _s_: server
 _l_: library       ^^               _z_: csv          _5_: cc         ^^
-_y_: ac-and-yas    ^^               _x_: protobuf     ^^              ^^
+_y_: complete-yas  ^^               _x_: protobuf     ^^              ^^
 ^^                 ^^               ^^                ^^              ^^
 ^^^^^^^^-------------------------------------------------------------------------
 _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
@@ -342,8 +342,8 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   "
 ^SPC^            ^Buffer^               ^Search^              ^UI|View^
 ^^^^^^^^---------------------------------------------------------------------------------
-^^               _>_: goto-char-f       _G_: grep-project     _;_: <>
-_b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _\\'_: ->
+^^               _>_: goto-char-f       _G_: grep-project     _;_: <-
+_b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: ->
 _f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: up
 _m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: down
 _w_: URLs  =>    _e_: mc/mark-all       ^^                    _=_: scale-inc
@@ -424,11 +424,14 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
   (save-match-data (m-grep-directory  word) 
 		   (other-window 1)))
 
-(defun m-grep-project (str) 
-  (m-run-command (concat "grep -n " "\"" str "\"" " -r " (m-project-root))))
+(defun m-grep-project (str)
+  (if (stringp str)
+  (m-run-command (concat "grep -n " "\"" str "\"" " -r " (m-project-root)))))
 
-(defun m-grep-directory (str) 
-  (m-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory buffer-file-name))))
+(defun m-grep-directory (str)
+  (message (concat "grep-dir:" str))
+  (if (stringp str)
+  (m-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory buffer-file-name)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `comment-toggle' M-;
@@ -458,14 +461,34 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `which-key'
-;; (package-require 'which-key)
-;; (require 'which-key)
-;; (which-key-mode)
+(package-require 'which-key)
+(require 'which-key)
+(which-key-mode)
 
-;;; disable mouse-2 mouse-3
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `disable-mouse'
 ;; (global-set-key [mouse-1] nil)
-(global-set-key [mouse-2] nil)
-(global-set-key [mouse-3] nil)
+;; (global-set-key [mouse-2] nil)
+;; (global-set-key [mouse-3] nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `disable-mouse-mode'
+(define-minor-mode disable-mouse-mode
+  "A minor-mode that disables all mouse keybinds."
+  :global t
+  :lighter " :mouse:"
+  :keymap (make-sparse-keymap))
+
+(dolist (type '(mouse down-mouse drag-mouse
+                      double-mouse triple-mouse))
+  (dolist (prefix '("" C- M- S- M-S- C-M- C-S- C-M-S-))
+    ;; Yes, I actually HAD to go up to 7 here.
+    (dotimes (n 7)
+      (let ((k (format "%s%s-%s" prefix type n)))
+        (define-key disable-mouse-mode-map
+          (vector (intern k)) #'ignore)))))
+
+(disable-mouse-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 (provide 'mod-keybind)

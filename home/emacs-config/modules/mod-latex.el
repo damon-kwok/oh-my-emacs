@@ -24,7 +24,8 @@
 (require 'mod-package)
 
 ;;; load auctex
-(package-require 'auctex)
+;;(package-require 'auctex)
+(package-require-git "auctex" "https://github.com/jwiegley/auctex.git")
 (load "auctex.el" nil t t)
 ;; (load "preview.el" nil t t)
 (setq Tex-auto-save t)

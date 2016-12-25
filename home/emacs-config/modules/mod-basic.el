@@ -24,6 +24,76 @@
 (require 'mod-package)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`frame';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;(bgex-set-image-default "~/gnuemacsref.png" nil)
+
+;;; open file (don't in new frame)
+(setq ns-pop-up-frames nil)
+
+(setq default-frame-alist '((height . 40) (width . 130) (top . 25) (left . 18) (menu-bar-lines . 0) (tool-bar-lines . 0)))
+
+;;; set tool bar to text style (need emacs24)
+(setq tool-bar-style 'both) ;;opt:text image both
+
+;; toolbar (0:disable 1:show) (0:disable 1:show)
+;(tool-bar-mode 0)
+
+;;; menu-bar (0:disable 1:show)
+;(menu-bar-mode 0)
+
+;;; scroll setttings (0:disable 1:show)
+(scroll-bar-mode 0)
+;;(set-scroll-bar-mode 'right); (nil:disable right left)
+
+;;; The effect is that (however it is moved) the cursor is always given 3 lines
+;;; of context before the top or bottom of the window, which I find very useful.
+(setq scroll-margin 3)
+
+;;; set background alpha
+;; (set-frame-parameter (selected-frame) 'alpha '(90 85))
+;; (add-to-list 'default-frame-alist '(alpha 80 75))
+
+;;; maxframe
+;;(require 'maxframe)
+;;(add-hook 'window-setup-hook 'maximize-frame t)
+
+;;; `scroll'
+;;; page smooth scrolling
+;; (setq scroll-margin 1 scroll-conservatively 10000)
+(setq scroll-step 1 scroll-margin 3 scroll-conservatively 10000)
+
+;;; set scroll speed (mormal:3 line | shift:1 line |control:1 page)
+(setq mouse-wheel-scroll-amount '(3 ((shift) . 1) 
+				    ((control))) mouse-wheel-progressive-speed nil scroll-step 1)
+
+;;; when up/down move: if the cursor is 'end of line', keep it 'end of line'
+(setq track-eol t)
+
+;;; 保持滚动时一直保持在屏幕中间
+(defun hold-line-scroll-up() 
+  "Scroll the page with the cursor in the same line" 
+  (interactive)
+  ;; move the cursor also
+  (let ((tmp (current-column))) 
+    (scroll-down -1) 
+    (line-move-to-column tmp) 
+    (forward-line 1)))
+
+(defun hold-line-scroll-down() 
+  "Scroll the page with the cursor in the same line" 
+  (interactive)
+  ;; move the cursor also
+  (let ((tmp (current-column))) 
+    (scroll-down 1) 
+    (line-move-to-column tmp) 
+    (forward-line -1)))
+
+;; (global-set-key (kbd "C-n") 'hold-line-scroll-up)
+;; (global-set-key (kbd "C-p") 'hold-line-scroll-down)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`Theme';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (package-require 'django-theme)
@@ -151,75 +221,6 @@
 ;;		(require 'xxx) )
 ;;    (error
 ;;    (message "Can't load xxx-mode %s" (cdr err))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`frame';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;(bgex-set-image-default "~/gnuemacsref.png" nil)
-
-;;; open file (don't in new frame)
-(setq ns-pop-up-frames nil)
-
-;; (setq default-frame-alist '((height . 40) (width . 120) (top . 25) (left . 18) (menu-bar-lines . 0) (tool-bar-lines . 0)))
-
-;;; set tool bar to text style (need emacs24)
-(setq tool-bar-style 'both) ;;opt:text image both
-;; toolbar (0:disable 1:show) (0disable 1show)
-(tool-bar-mode 0)
-
-;;; menu-bar (0:disable 1:show)
-(menu-bar-mode 0)
-
-;;; scroll setttings
-(scroll-bar-mode 0) ;; (0:disable 1:show)
-;;(set-scroll-bar-mode 'right); (nil:disable right left)
-
-;;; The effect is that (however it is moved) the cursor is always given 3 lines
-;;; of context before the top or bottom of the window, which I find very useful.
-(setq scroll-margin 3)
-
-;;; set background alpha
-;; (set-frame-parameter (selected-frame) 'alpha '(90 85))
-;; (add-to-list 'default-frame-alist '(alpha 80 75))
-
-;;; maxframe
-;;(require 'maxframe)
-;;(add-hook 'window-setup-hook 'maximize-frame t)
-
-;;; `scroll'
-;;; page smooth scrolling
-;; (setq scroll-margin 1 scroll-conservatively 10000)
-(setq scroll-step 1 scroll-margin 3 scroll-conservatively 10000)
-
-;;; set scroll speed (mormal:3 line | shift:1 line |control:1 page)
-(setq mouse-wheel-scroll-amount '(3 ((shift) . 1) 
-				    ((control))) mouse-wheel-progressive-speed nil scroll-step 1)
-
-;;; when up/down move: if the cursor is 'end of line', keep it 'end of line'
-(setq track-eol t)
-
-;;; 保持滚动时一直保持在屏幕中间
-(defun hold-line-scroll-up() 
-  "Scroll the page with the cursor in the same line" 
-  (interactive)
-  ;; move the cursor also
-  (let ((tmp (current-column))) 
-    (scroll-down -1) 
-    (line-move-to-column tmp) 
-    (forward-line 1)))
-
-(defun hold-line-scroll-down() 
-  "Scroll the page with the cursor in the same line" 
-  (interactive)
-  ;; move the cursor also
-  (let ((tmp (current-column))) 
-    (scroll-down 1) 
-    (line-move-to-column tmp) 
-    (forward-line -1)))
-
-;; (global-set-key (kbd "C-n") 'hold-line-scroll-up)
-;; (global-set-key (kbd "C-p") 'hold-line-scroll-down)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`title';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -377,6 +378,17 @@
 
 ;;; clipboard X clipboard
 (setq select-enable-clipboard t) ;; (setq x-select-enable-clipboard t)
+
+;;; ANSI-colors in the compilation buffer output
+(require 'ansi-color)
+(defun endless/colorize-compilation ()
+  "Colorize from `compilation-filter-start' to `point'."
+  (let ((inhibit-read-only t))
+    (ansi-color-apply-on-region
+     compilation-filter-start (point))))
+
+(add-hook 'compilation-filter-hook
+          #'endless/colorize-compilation)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`mini-buffer';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
