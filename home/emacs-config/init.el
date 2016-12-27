@@ -27,7 +27,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `base'
 (require 'mod-basic)
@@ -55,7 +54,7 @@
 ;; (require 'mod-csharp)
 (require 'mod-clojure)
 (require 'mod-cc)
-(require 'mod-r)
+(require 'mod-ess)
 ;; (require 'mod-slime)
 ;; (require 'mod-erlang)
 ;; (require 'mod-elixir)

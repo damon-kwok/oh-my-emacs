@@ -1,18 +1,21 @@
 #!/bin/bash
 
-if [ -d ~/medusa-ide ]; then
-    cd ~/medusa-ide
+export ROOT_NAME=my-emacs-config
+
+if [ -d ~/$ROOT_NAME ]; then
+    cd ~/$ROOT_NAME
     git fetch
     cd ~
 else
-    git clone https://github.com/damon-kwok/my-emacs-config ~/medusa-ide
+    git clone https://github.com/damon-kwok/my-emacs-config ~/$ROOT_NAME
 fi
 
 export bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
 mkdir -p $bkdir
 
 mv ~/.emacs $bkdir
-mv ~/config $bkdir
+mv ~/.emacs.d $bkdir
+mv ~/emacs-config $bkdir
 
-cp -a ~/medusa-ide/home/config/.emacs ~/.emacs
-ln -s ~/medusa-ide/home/config ~/config
+cp -a ~/$ROOT_NAME/home/emacs-config/.emacs ~/.emacs
+ln -s ~/$ROOT_NAME/home/emacs-config ~/emacs-config

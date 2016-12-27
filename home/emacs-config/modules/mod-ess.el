@@ -28,5 +28,5 @@
 (require 'ess-site)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(provide 'mod-r)
+(provide 'mod-ess)
 ;;; mod-r.el ends here

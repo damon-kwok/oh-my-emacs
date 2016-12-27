@@ -90,15 +90,45 @@ rem set PATH=%MSBUILD_BIN%;%PATH%
 rem set PATH=%LLVM_BIN%;%CLANG_BIN%;%PATH%
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+if "%1"=="" (
 goto:main
-
-if %1==env (
-	goto:quit
+)else (
+goto:%1
 )
 
-if %1==main (
-	goto:main
-)
+:env
+goto:quit
+
+:emacs
+copy /y %HOME%\emacs-config\.emacs %HOME%\.emacs
+cd %HOME%
+REM start %EMACS_BIN%\runemacs.exe --debug-init
+call %EMACS_BIN%\runemacs.exe --debug-init
+goto:eof
+
+:emacs-nw
+copy /y %HOME%\emacs-config\.emacs %HOME%\.emacs
+cd %HOME%
+%EMACS_BIN%\emacs.exe -nw --debug-init
+goto:eof
+
+:unity
+set UNITY_HOME="C:\Program Files\Unity"
+set UNITY_BIN=%UNITY_HOME%\Editor
+
+REM ::code by LZ-MyST QQ:8450919 BLOG:http://hi.baidu.com/lzmyst http://www.clxp.net.cn
+if "%1" neq "1" (
+>"%temp%\tmp.vbs" echo set WshShell = WScript.CreateObject^(^"WScript.Shell^"^)
+>>"%temp%\tmp.vbs" echo WshShell.Run chr^(34^) ^& %0 ^& chr^(34^) ^& ^" 1^",0
+start /d "%temp%" tmp.vbs
+exit
+) 
+%UNITY_BIN%\Unity.exe
+goto:eof
+
+:shell
+bash
+goto:eof
 
 :sleep
 ping -n %arg1% 127.0.0.1>nul
@@ -193,7 +223,11 @@ echo    2) getapp
 echo    3) pushapp
 echo    4) zipapp
 echo    5) unzipapp
+echo    e) emacs-x
+echo    n) emacs-nw
+echo    s) shell
 echo    r) return
+echo    q) quit
 set /p c=please input your choice:
 
 if /i "%c%"=="1" call:push
@@ -201,7 +235,11 @@ if /i "%c%"=="2" call:getapp
 if /i "%c%"=="3" call:pushapp
 if /i "%c%"=="4" call:zipapp
 if /i "%c%"=="5" call:unzipapp
+if /i "%c%"=="e" goto:emacs
+if /i "%c%"=="n" goto:emacs-nw
+if /i "%c%"=="s" goto:shell
 if /i "%c%"=="r" goto:eof
+if /i "%c%"=="q" goto:quit
 echo error-input
 call:ask
 
@@ -212,7 +250,6 @@ call:ask
 goto:quit
 
 :quit
-echo quit
 cd %ROOT%
 REM
 REM medusa.bat ends here

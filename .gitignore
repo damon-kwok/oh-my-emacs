@@ -2,6 +2,7 @@
 home/*
 backup/
 docs/
+.projectile
 .DS_Store
 Thumbs.db
 *.elc

@@ -31,6 +31,8 @@
   (require 'cl))
 
 (require 'package)
+(package-initialize)
+
 ;; (setq package-user-dir (concat dotfiles-dir "elpa"))
 ;; (setq package-user-dir "~/elpa")
 (setq libs-user-dir "~/.emacs.d/libs")
