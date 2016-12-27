@@ -85,8 +85,10 @@
 (global-set-key (kbd "C-M-d") 'delete-backward-char)
 (global-set-key (kbd "C-x C-c") 'medusa-exit) ;;[(control x) (control c)]
 
-(global-set-key (kbd "C-=") 'enlarge-window)
 (global-set-key (kbd "C--") 'shrink-window)
+(global-set-key (kbd "C-=") 'enlarge-window)
+(global-set-key (kbd "C-M--") 'shrink-window-horizontally)
+(global-set-key (kbd "C-M-=") 'enlarge-window-horizontally)
 
 ;;; minibuffer (press mouse left, show: shrink-compile-window
 ;; (define-key minibuffer-local-map [double-mouse-1] 'shrink-compile-window)

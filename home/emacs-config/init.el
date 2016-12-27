@@ -33,14 +33,14 @@
 (require 'mod-basic)
 (require 'mod-package)
 (require 'mod-library)
-;;(require 'mod-coding)
+(require 'mod-coding)
 (require 'mod-helm)
 (require 'mod-dired)
 (require 'mod-complete)
 (require 'mod-tabbar)
 ;; (require 'mod-speedbar)
-;; (require 'mod-input)
-;(require 'mod-calendar)
+(require 'mod-input)
+(require 'mod-calendar)
 (require 'mod-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `docs'
@@ -107,6 +107,3 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'init)
 ;;; init.el ends here
-
-
-

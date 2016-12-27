@@ -110,6 +110,7 @@ rem rm -f .git/index.lock
 git reset
 git add *
 git status
+set /p msg=please input commit message:
 git commit -m "%msg%"
 git push -u origin master
 goto:eof
@@ -189,7 +190,7 @@ echo    5) unzipapp
 echo    r) return
 set /p c=please input your choice:
 
-if /i "%c%"=="1" call:push-a
+if /i "%c%"=="1" call:push
 if /i "%c%"=="2" call:getapp
 if /i "%c%"=="3" call:pushapp
 if /i "%c%"=="4" call:zipapp

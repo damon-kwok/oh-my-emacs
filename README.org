@@ -8,16 +8,19 @@ this is damon kwok's emacs config
 - bash <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/install)
 * Keybind
 ** global
- - *C-SPC* *super-key*
+ - *M-SPC* *super-key*
  - *C-z* set-mark
  - *M-z* mark-word
  - *C-M-d* delete-backward-char
- - *M-p* | *M-n* move-lines-up | move-lines-down
+ - *M-p* move-lines-up
+ - *M-n* move-lines-down
  - *C-x M-k* close all buffer
  - *C-\\* toggle-input-method
  - F1 neotree-toggle
  - C-- shrink-window
  - C-= enlarge-window
+ - C-M-- shrink-window-horizontally
+ - C-M-= enlarge-window-horizontally
  - C-M-` folding-toggle-all
  - C-` folding-toggle-element
  - *C-c l* org-store-link
@@ -25,7 +28,8 @@ this is damon kwok's emacs config
  - *C-c a* org-agenda
  - *C-c b* org-iswitchb
 ** orgmode
-   M-n | M-p /org-metaup/| /org-metadown/
+ - M-n /org-metaup/
+ - M-p /org-metadown/
 ** elisp
  - C-c C-z repl
  - C-c C-c compile
