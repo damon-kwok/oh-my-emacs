@@ -74,6 +74,11 @@ set PROTOBUF_BIN=%APP_HOME%\protobuf
 set PATH=%PROTOBUF_BIN%;%PATH%
 
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+rem irony-server
+set IRONY_BIN=%APP_HOME%\irony-server\bin
+set PATH=%IRONY_BIN%;%PATH%
+
+rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem set LLVM_HOME=%APP_HOME%\LLVM
 rem set LLVM_BIN=%LLVM_HOME%\bin
 
@@ -100,23 +105,24 @@ ping -n %arg1% 127.0.0.1>nul
 goto:eof
 
 :fetch
-echo =>fetch
+echo do::fetch
 git fetch
 goto:eof
 
 :push
-echo =>push
+echo do::push
 rem rm -f .git/index.lock
 git reset
 git add *
 git status
 set /p msg=please input commit message:
+echo commit: %msg%
 git commit -m "%msg%"
 git push -u origin master
 goto:eof
 
 :push-a
-echo =>push-a
+echo do::push-a
 git reset
 git add *
 git status
@@ -125,7 +131,7 @@ git push -u origin master
 goto:eof
 
 :zipapp
-echo =>zipapp
+echo do::zipapp
 cd %ROOT%/home
 zip -r apps.zip apps
 move apps.zip %ZIP_HOME%/apps.zip
@@ -137,7 +143,7 @@ rm -rf apps.zip
 goto:eof
 
 :unzipapp
-echo =>unzipapp
+echo do::unzipapp
 cd %ZIP_HOME%
 dir
 cat *.zip.* > apps.zip
@@ -148,7 +154,7 @@ move apps ../
 goto:eof
 
 :pushapp
-echo =>pushapp
+echo do::pushapp
 cd $ZIP_HOME
 rem rm -f apps.zip
 call:zipapp
@@ -156,7 +162,7 @@ call:push
 goto:eof
 
 :getapp
-echo =>getapp
+echo do::getapp
 if not exist %APP_HOME% (
   
   if exist %ZIP_HOME% (
@@ -181,7 +187,7 @@ echo %2%
 goto:eof
 
 :ask
-echo =>ask
+echo do::ask
 echo    1) push-medusa
 echo    2) getapp
 echo    3) pushapp
@@ -200,7 +206,7 @@ echo error-input
 call:ask
 
 :main
-echo =>main
+echo do::main
 rem call:test 111 222
 call:ask
 goto:quit

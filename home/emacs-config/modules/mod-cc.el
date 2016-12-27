@@ -35,9 +35,11 @@
 
 ;; replace the `completion-at-point' and `complete-symbol' bindings in
 ;; irony-mode's buffers by irony-mode's function
-(defun my-irony-mode-hook () 
-  (define-key irony-mode-map [remap completion-at-point] 'irony-completion-at-point-async) 
-  (define-key irony-mode-map [remap complete-symbol] 'irony-completion-at-point-async))
+(defun my-irony-mode-hook ()
+  (define-key irony-mode-map [remap completion-at-point]
+    'irony-completion-at-point-async)
+  (define-key irony-mode-map [remap complete-symbol]
+    'irony-completion-at-point-async))
 (add-hook 'irony-mode-hook 'my-irony-mode-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
@@ -80,16 +82,20 @@
 (package-require 'company-irony)
 (require 'company-irony)
 
-(defun my-ac-irony-setup ()
+(defun my-company-irony-setup ()
   ;; be cautious, if yas is not enabled before (auto-complete-mode 1), overlays
   ;; *may* persist after an expansion.
   (yas-minor-mode 1)
-  (auto-complete-mode 1)
+  ;;(auto-complete-mode 1)
 
-  (add-to-list 'ac-sources 'ac-source-irony)
-  (define-key irony-mode-map (kbd "M-RET") 'ac-complete-irony-async))
+  ;;(add-to-list 'ac-sources 'ac-source-irony)
+  ;;  (define-key irony-mode-map (kbd "M-RET") 'ac-complete-irony-async)
+  )
 
-(add-hook 'irony-mode-hook 'my-ac-irony-setup)
+;;=================================================
+(add-hook 'irony-mode-hook 'my-company-irony-setup)
+
+
 
 (add-hook 'cc-mode-hook 
 	  '(lambda()
