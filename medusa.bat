@@ -100,10 +100,12 @@ ping -n %arg1% 127.0.0.1>nul
 goto:eof
 
 :fetch
+echo =>fetch
 git fetch
 goto:eof
 
 :push
+echo =>push
 rem rm -f .git/index.lock
 git reset
 git add *
@@ -113,6 +115,7 @@ git push -u origin master
 goto:eof
 
 :push-a
+echo =>push-a
 git reset
 git add *
 git status
@@ -121,7 +124,7 @@ git push -u origin master
 goto:eof
 
 :zipapp
-echo zipapp
+echo =>zipapp
 cd %ROOT%/home
 zip -r apps.zip apps
 move apps.zip %ZIP_HOME%/apps.zip
@@ -133,10 +136,9 @@ rm -rf apps.zip
 goto:eof
 
 :unzipapp
-echo unzipapp
+echo =>unzipapp
 cd %ZIP_HOME%
 dir
-echo ---------22
 cat *.zip.* > apps.zip
 unzip apps.zip
 ping -n 1 127.0.0.1>nul
@@ -145,6 +147,7 @@ move apps ../
 goto:eof
 
 :pushapp
+echo =>pushapp
 cd $ZIP_HOME
 rem rm -f apps.zip
 call:zipapp
@@ -152,6 +155,7 @@ call:push
 goto:eof
 
 :getapp
+echo =>getapp
 if not exist %APP_HOME% (
   
   if exist %ZIP_HOME% (
@@ -176,7 +180,7 @@ echo %2%
 goto:eof
 
 :ask
-echo ask
+echo =>ask
 echo    1) push-medusa
 echo    2) getapp
 echo    3) pushapp

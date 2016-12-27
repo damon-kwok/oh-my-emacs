@@ -116,15 +116,15 @@
 ;; (set-w32-system-coding-system 'utf-8)
 ;; (set-file-name-coding-system 'utf-8)
 ;; (prefer-coding-system 'utf-8)
-
-
-
 (set-language-environment 'Chinese-GB)
 ;; default-buffer-file-coding-system变量在emacs23.2之后已被废弃，使用buffer-file-coding-system代替
 (set-default buffer-file-coding-system 'utf-8-unix)
 (set-default-coding-systems 'utf-8-unix)
 (setq-default pathname-coding-system 'euc-cn)
 (setq file-name-coding-system 'euc-cn)
+(set-terminal-coding-system 'euc-cn)
+(set-keyboard-coding-system 'euc-cn)
+;; (set-selection-coding-system 'euc-cn)  ;;这个变量用于控制emacs和其他窗口相互发送接收文本的编码
 ;; 另外建议按下面的先后顺序来设置中文编码识别方式。
 ;; 重要提示:写在最后一行的，实际上最优先使用; 最前面一行，反而放到最后才识别。
 ;; utf-16le-with-signature 相当于 Windows 下的 Unicode 编码，这里也可写成
@@ -141,5 +141,6 @@
 ;; 这一句的话，新建文件以utf-8编码，行末结束符平台相关
 (prefer-coding-system 'utf-8-dos)
 (prefer-coding-system 'utf-8-unix)
+
 ;;
 (provide 'mod-coding)

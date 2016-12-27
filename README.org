@@ -1,9 +1,9 @@
 #+TITLE: my emacs config
-this is my emacs config
+this is damon kwok's emacs config
 
 * INSTALL
 ** require
-- msys2 {git curl zip unzip split cat}
+- msys2 {git curl zip unzip cmake clang(libclang)}
 ** install
 - bash <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/install)
 * Keybind
@@ -35,3 +35,4 @@ this is my emacs config
  - C-c C-h sheet
 ** csharp
  - M-. find-usages
+ - M-, jump-define
