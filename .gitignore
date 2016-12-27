@@ -5,6 +5,5 @@ docs/
 .DS_Store
 Thumbs.db
 *.elc
-
 # white list anything that's a directort
 !home/emacs-config

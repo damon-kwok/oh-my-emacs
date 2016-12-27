@@ -6,7 +6,7 @@ this is damon kwok's emacs config
 - msys2 {git curl zip unzip cmake clang(libclang)}
 ** install
 - bash <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/install)
-* Keybind
+* KEYBIND
 ** global
  - *M-SPC* *super-key*
  - *C-z* set-mark

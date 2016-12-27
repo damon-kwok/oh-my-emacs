@@ -113,7 +113,7 @@ goto:eof
 echo do::push
 rem rm -f .git/index.lock
 git reset
-git add *
+git add .
 git status
 set /p msg=please input commit message:
 echo commit: %msg%
@@ -124,7 +124,7 @@ goto:eof
 :push-a
 echo do::push-a
 git reset
-git add *
+git add .
 git status
 git commit -m "update module"
 git push -u origin master
