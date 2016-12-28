@@ -101,14 +101,14 @@ goto:%1
 goto:quit
 
 :emacs
-copy /y %ROOT%\emacs-config\.emacs %HOME%\.emacs
+copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
 cd %HOME%
 REM start %EMACS_BIN%\runemacs.exe --debug-init
 call %EMACS_BIN%\runemacs.exe --debug-init
 goto:eof
 
 :emacs-nw
-copy /y %ROOT%\emacs-config\.emacs %HOME%\.emacs
+copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
 cd %HOME%
 %EMACS_BIN%\emacs.exe -nw --debug-init
 goto:eof

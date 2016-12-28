@@ -222,7 +222,7 @@ _y_: complete-yas  ^^               _x_: protobuf     ^^              ^^
 ^^                 ^^               ^^                ^^              ^^
 ^^^^^^^^-------------------------------------------------------------------------
 _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
-" ("i" (m-open-file "~/emacs-config/init.el") "Bing")
+" ("i" (m-open-mod "init") "init")
 ("a" (m-open-mod "basic") "basic")
 ("p" (m-open-mod "package") "package")
 ("k" (m-open-mod "keybind") "keybind")

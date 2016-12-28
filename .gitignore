@@ -8,6 +8,7 @@ Thumbs.db
 *.elc
 .gitconfig
 .gnupg
+.emacs
 .emacs.d
 # white list anything that's a directort
 !cache/bin
