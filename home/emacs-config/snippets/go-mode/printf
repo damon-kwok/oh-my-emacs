@@ -1,2 +1,0 @@
-fmt.printf(${1:"%s"}, ${2:"hello,world!"})
-$0

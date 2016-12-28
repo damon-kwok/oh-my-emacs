@@ -1,3 +1,0 @@
-CLASS ${1:NewClass}
-    $0
-}

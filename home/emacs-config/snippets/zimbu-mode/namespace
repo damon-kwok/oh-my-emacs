@@ -1,3 +1,0 @@
-NAMESPACE ${1:Name}
-    $0
-}

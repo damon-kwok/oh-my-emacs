@@ -1,5 +1,0 @@
-BITS MyFlags
-    bool  $done   # boolean flag takes 1 bit
-    Kolor $color  # enum with 3 values takes 2 bits
-    int5  $count  # 5 bit integer
-}

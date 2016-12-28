@@ -1,2 +1,2 @@
 @echo off
-medusa.bat shell
+shaman.bat shell

@@ -1,0 +1,1 @@
+(make-array ${1:3} :initial-element ${2:nil})$0

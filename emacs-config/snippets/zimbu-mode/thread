@@ -1,0 +1,11 @@
+PROC sayHello()
+    IO.writeLine("Hello one")
+    TIME.sleepSec(1)
+    IO.writeLine("Hello two")
+}
+
+thread t = NEW(sayHello)
+t.start()
+IO.writeLine("Waiting for the thread to finish")
+t.wait()
+IO.writeLine("Thread finished")

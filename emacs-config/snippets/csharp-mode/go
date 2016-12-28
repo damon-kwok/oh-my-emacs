@@ -1,0 +1,1 @@
+GameObject ${1:go} = GameObject.Find("${2:name}");

@@ -1,0 +1,13 @@
+type ${1:MyType} struct {
+    $0
+}
+
+func New$1() *$1 {
+    obj := new($1)
+	obj.Constructor()
+	return obj
+}
+
+func (self *$1) Constructor() {
+	
+}

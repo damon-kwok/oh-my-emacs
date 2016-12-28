@@ -1,3 +1,0 @@
-func ${1:new_function}(${2:argc int})${3:error} {
-    $0
-}

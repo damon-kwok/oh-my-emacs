@@ -1,0 +1,169 @@
+/*
+import(
+	"medusa"
+)*/
+
+//==============================================================
+//Acceptor: $1
+//==============================================================
+
+type ${1:MyAcceptor} struct {
+    medusa.TcpAcceptor
+    
+    //...
+	$0
+}
+
+func New$1(listener medusa.Listener, uuid int) *$1 {
+
+    acc := new($1)
+	acc.Constructor(listener, uuid)
+
+	return acc
+}
+
+func (self *$1) Constructor(listener medusa.Listener, uuid int) {
+	self.TcpAcceptor.Constructor(listener, uuid,
+		//event callback: OnIdle        
+		func() {
+
+		},
+		//event callback: PreOnSent    
+		func(pack *medusa.Packet) {
+
+		},
+		//event callback: ConnectionLose
+		func() {
+
+		},
+		//event callback: UnknowPacketReceived 
+		func(pack *medusa.Packet) {
+
+		}
+    )// end: Constructor)
+
+	//init methods
+	self.init_methods()
+
+	//init protocol
+	self.init_protocol()
+}
+
+//--------------------------------------------------------------
+//$1: methods
+//--------------------------------------------------------------
+//$1: internal implements
+func (self *$1) init_methods() {
+
+	self.Register("add", func(args ...interface{}) (result interface{}, err error) {
+			a := args[0].(int)
+			b := args[1].(int)
+			result = a+b
+			return
+	})
+
+	//your code
+	$0
+}
+
+//$1: external inteface
+func (self *$1) Add(a, b int) {
+	c, err := self.Call("add", a, b)
+	if err==nil {
+			fmt.Printf("%v + %v = %v\n", a, b, c.(int))
+	} else {
+			fmt.Printf(err.Error())
+	}
+		
+}
+
+//--------------------------------------------------------------
+//$1: network protocol
+//--------------------------------------------------------------
+func (self *$1) init_protocol() {
+	self.AddProtocol(101, func(pack *medusa.Packet) {
+			
+	})
+
+	self.AddProtocol(102, func(pack *medusa.Packet) {
+			
+	})
+}
+
+
+//==============================================================
+//Listener: $2
+//==============================================================
+type ${2:MyListener} struct {
+    medusa.TcpListener
+	
+    //...
+}
+
+func New$2(name string, max_conn int, 
+	rcv_buf int, snd_buf int, sndchan int, max_idle_sec int64, log log.Log) *$2 {
+
+    listen := new($2)
+	listen.Constructor(name, max_conn, rcv_buf, snd_buf, sndchan, max_idle_sec, log)
+
+	return listen
+}
+
+func (self *$2) Constructor(name string, max_conn int, 
+	rcv_buf int, snd_buf int, sndchan int, max_idle_sec int64,
+	log log.Log) {
+
+	self.TcpListener.Constructor(name, max_conn, rcv_buf, snd_buf, sndchan, max_idle_sec, log,
+
+		//event callback: gen uuid 
+		nil,
+		/*
+		func() int {
+			return self.DefaultGenUUID ()
+		},*/
+
+		//event callback: create connection object
+		func(uuid int) medusa.Acceptor {
+			return New$1(self, uuid)
+		},
+
+		//event callback: connection made 
+		func(acc medusa.Acceptor){
+
+		},
+
+		//event callback: connection lose 
+		func(acc medusa.Acceptor){
+
+		})// end: medusa.NewListener
+
+	//init methods
+	self.init_methods()
+}
+
+//--------------------------------------------------------------
+//$2: methods
+//--------------------------------------------------------------
+//$2: internal implements
+func (self *$2) init_methods() {
+	self.Register("add", func(args ...interface{}) (result interface{}, err error) {
+			a := args[0].(int)
+			b := args[1].(int)
+			result = a+b
+			return
+	})
+
+	//your code
+	$0
+}
+
+//$2: external inteface
+func (self *$2) Add(a, b int) {
+	c, err := self.Call("add", a, b)
+	if err==nil {
+			fmt.Printf("%v + %v = %v\n", a, b, c.(int))
+	} else {
+			fmt.Printf(err.Error())
+	}
+}
+

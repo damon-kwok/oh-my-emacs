@@ -1,5 +1,0 @@
-if exist ${1:dir1} (
-   remove $1
-) else (
-  mkdir $1
-)

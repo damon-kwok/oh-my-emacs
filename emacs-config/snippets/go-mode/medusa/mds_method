@@ -1,0 +1,12 @@
+func (self *${1:MyStruct}) ${2:MethodName}(a, b int)int {
+	c := self.CallMethod(self.$1_Method_Add, a, b).(int)
+	fmt.Printf("%v + %v = %v\n", a, b, c)
+	return c
+}
+
+self.AddMethod("$1_Method__$2", func(args ...interface{}) interface{}{
+		a := args[0].(int)
+		b := args[1].(int)
+		return a+b
+})
+$0

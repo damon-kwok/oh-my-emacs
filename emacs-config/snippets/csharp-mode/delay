@@ -1,0 +1,5 @@
+Ninja.DelayDo(${1:1}, ($2)=>
+{
+	//TODO DelayDo
+	$0
+});

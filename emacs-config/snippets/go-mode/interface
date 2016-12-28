@@ -1,0 +1,5 @@
+
+type MyInterface interface {
+	${1:Add(a, b int) int}
+	$0
+}

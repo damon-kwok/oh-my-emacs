@@ -1,0 +1,2 @@
+List<${1:string}> ${2:list} = new List<$1>();
+$0

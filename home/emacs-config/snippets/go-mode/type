@@ -1,2 +1,0 @@
-type ${1:OldType} ${2:NewType}
-$0

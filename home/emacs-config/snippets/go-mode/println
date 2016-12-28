@@ -1,2 +1,0 @@
-fmt.println(${1:"hello,world!"})
-$0

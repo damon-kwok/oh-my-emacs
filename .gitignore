@@ -1,10 +1,13 @@
 # ignore
-home/*
+cache/*
 backup/
 docs/
 .projectile
 .DS_Store
 Thumbs.db
 *.elc
+.gitconfig
+.gnupg
+.emacs.d
 # white list anything that's a directort
-!home/emacs-config
+!cache/bin

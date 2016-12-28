@@ -17,5 +17,5 @@ mv ~/.emacs $bkdir
 mv ~/.emacs.d $bkdir
 mv ~/emacs-config $bkdir
 
-cp -a ~/$ROOT_NAME/home/emacs-config/.emacs ~/.emacs
-ln -s ~/$ROOT_NAME/home/emacs-config ~/emacs-config
+cp -a ~/$ROOT_NAME/emacs-config/.emacs ~/.emacs
+ln -s ~/$ROOT_NAME/emacs-config ~/emacs-config

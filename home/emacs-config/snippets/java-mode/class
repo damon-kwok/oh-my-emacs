@@ -1,8 +1,0 @@
-public class ${1:ClassName}
-{
-     public $1($2){
-		 
-	 }
-
-	 $0
-}

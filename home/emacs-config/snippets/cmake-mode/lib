@@ -1,5 +1,0 @@
-set(LIB_${1:newlib}_SRC $1.c)
-add_library($1 \$\{LIB_$1_SRC\})
-#set_target_properties($1 PROPERTIES OUTPUT_NAME "$1")
-
-#target_link_libraries(new_app $1)

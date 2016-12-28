@@ -1,2 +1,0 @@
-set(APP_${1:newapp}_SRC main.c)
-add_executable($1 \$\{APP_$1_SRC\})

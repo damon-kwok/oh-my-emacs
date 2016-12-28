@@ -1,3 +1,0 @@
-VAR pipe = THREAD.eval({ => "hello from the thread!" })
-# do something else
-IO.writeLine("The thread says: " .. pipe.read())

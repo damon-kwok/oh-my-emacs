@@ -1,1 +1,0 @@
-Debug.LogWarning(${1:"message"});

@@ -1,3 +1,0 @@
-FUNC ${1:FuncName} () ${2:int}
-    $0
-}

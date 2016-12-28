@@ -1,3 +1,0 @@
-for ${1:key}, ${2:data}:= range ${3:map_a} {
-	$0
-}

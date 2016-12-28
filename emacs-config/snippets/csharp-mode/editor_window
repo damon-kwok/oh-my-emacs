@@ -1,0 +1,172 @@
+using System;
+using System.IO;
+using UnityEngine;
+using UnityEditor;
+using System.Collections;
+using System.Collections.Generic;
+
+public class `(buffer-only-name)` : EditorWindow
+{
+    public static `(buffer-only-name)` instance = null;
+
+    [MenuItem("Window/`(buffer-only-name)`")]
+    public static void Init()
+    {
+        instance = (`(buffer-only-name)`)EditorWindow.GetWindow(typeof(`(buffer-only-name)`));
+        instance.Show();
+    }
+
+    void OnProjectChange()
+    {
+        Debug.Log("----------------`(buffer-only-name)`::OnProjectChange---------------");
+	instance = this;
+    }
+
+    void OnSelectionChange()
+    {
+        Debug.Log("----------------`(buffer-only-name)`::OnSelectionChange---------------");
+        instance = this;
+    }
+
+    void OnDestory()
+    {
+        instance = null;
+    }
+    
+    void OnEnable()
+    {
+	Debug.Log("----------------`(buffer-only-name)`::OnSelectionChange---------------");
+	this.title = "`(buffer-only-name)`";
+        instance = this;
+    }
+
+    void Update()
+    {
+
+        this.Repaint();
+
+    }
+
+    //zoom layout
+    float height_top = 30;
+    float height_bottom = 30;
+    float width_left = 30;
+    float width_right = 30;
+    float zoom_view = 1.0f;
+    
+    public float Height_Top
+    {
+	get{return this.height_top;}
+    }
+
+    public float Height_Bottom
+    {
+	get{return this.height_bottom;}
+    }
+
+    public float Width_Left
+    {
+	get{return this.width_left;}
+    }
+    
+    public float Width_Left
+    {
+	get{return this.height_bottom;}
+    }
+    
+    void OnGUI()
+    {
+	// GUI.BeginGroup(new Rect((this.LIST_WIDTH + this.WIDTH_LEFT_PANEL) + 2, 0, this.position.width, this.position.height));
+
+        // if (this.right != null)
+        //     this.right.Draw(new Rect(this.TIMELINE_POS_LEFT, this.LEFT_GRID_HEIGHT, 10000, this.position.height));
+
+        // ///////////////////////////////////////////////////////////
+        // //Draw OPT
+        // this.draw_right_opt();
+
+        // GUI.EndGroup();
+
+
+	if(this.Height_Top > 0)
+	{
+	    GUI.BeginGroup(new Rect(0, 0, this.position.width, this.Height_Top));
+	    this.draw_top();
+	    GUI.EndGroup();
+	}
+
+	if(this.Height_Bottom > 0)
+	{
+	    GUI.BeginGroup(new Rect(0, this.position.height-this.Height_Bottom, this.position.width, this.Height_Bottom));
+	    this.draw_bottom();
+	    GUI.EndGroup();
+	}
+
+	if(this.Width_Left > 0)
+	{
+	    GUI.BeginGroup(0, 0, this.Width_Left, this.position.height));
+	    this.draw_left();
+	    GUI.EndGroup();
+	}
+    
+        if(this.Width_Right > 0)
+	{
+	    GUI.BeginGroup(this.position.width-this.Width_Right, 0, this.Width_Right, this.position.height));
+	    this.draw_left();
+	    GUI.EndGroup();
+	}
+    }
+	///////////////////////////////////////////////////////////
+        //Event
+        Event ev = Event.current;
+        if (ev.type == EventType.ScrollWheel)
+        {
+            if (ev.delta.y < 0)
+            {
+                this.RIGHT_GRID_WIDTH += 1;
+                this.right.IncGridWidth();
+            }
+            else
+            {
+                this.RIGHT_GRID_WIDTH -= 1;
+                this.right.DecGridWidth();
+            }
+
+        }
+        else if (Event.current.type == EventType.MouseDrag)//&& Input.GetKeyDown(KeyCode.LeftControl)
+        {
+            float aaa = this.LIST_WIDTH + this.WIDTH_LEFT_ATTR_PANEL + this.WIDTH_LEFT_OBJECT_PANEL;
+            if (Event.current.delta.x < 0)
+            {
+                if (this.position.width - aaa > (this.TIMELINE_POS_LEFT + this.RIGHT_GRID_WIDTH * this.right.CountEntry()))
+                    return;
+            }
+
+            this.TIMELINE_POS_LEFT += Event.current.delta.x;
+            if (this.TIMELINE_POS_LEFT > 0)
+                this.TIMELINE_POS_LEFT = 0;
+        }
+    }
+    ////////////////////////////////////////
+    //your method:
+
+    void draw_top()
+    {
+	
+    }
+    
+    void draw_bottom()
+    {
+	
+    }
+    void draw_left()
+    {
+	
+    }
+    
+    void draw_right()
+    {
+	
+    }
+    
+}

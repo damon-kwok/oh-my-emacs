@@ -1,0 +1,7 @@
+public class ${1:Main}
+{
+     public static void main(String[] args)
+     {
+		 ${0:System.out.println("hello world!");}
+     }
+}

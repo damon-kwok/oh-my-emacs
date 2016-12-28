@@ -1,1 +1,0 @@
-Debug.LogError(${1:"message"});

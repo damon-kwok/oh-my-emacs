@@ -1,5 +1,0 @@
-Packet ${1:pack} = new Packet(MsgCode.${2:CS_KV_GET});
-${3:CS_KV_Get} ${4:data} = new $3();
-//$4.xxx = vvv;
-$1.WriteProtobuf($4);
-Session.Send($1);$0

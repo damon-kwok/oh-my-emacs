@@ -1,0 +1,44 @@
+import(
+	"medusa"
+)
+
+${1:my_listen} := medusa.NewListener(${2:"my_listenner_name"}, ${3:1000/*max_conn*/}, 
+	${4:409600/*rcv_buf*/}, ${5:409600/*snd_buf*/}, ${6:math.MaxInt32/*sndchan*/}, 
+	${7:log},
+	//event callback: gen_uuid 
+	func() int {
+		return self.DefaultGenUUID ()
+	},
+
+	//event callback: create connection object
+	func() Acceptor {
+		acc := medusa.NewAcceptor(self, self.ecb_gen_uuid(),
+			//event callback: on_idle        
+			func() {
+
+			},
+			//event callback: pre_on_sent    
+			func(pack *Packet) {
+
+			},
+			//event callback: connection lose
+			func(err error) {
+
+			},
+			//event callback: unknow packet received 
+			func(pack *Packet) {
+
+			})// end: medusa.NewAcceptor
+
+		return acc
+	},
+
+	//event callback: connection made 
+	func(acc Acceptor){
+
+	},
+	//event callback: connection_lose 
+	func(acc Acceptor){
+
+	}
+)// end: medusa.NewListener

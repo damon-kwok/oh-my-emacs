@@ -1,3 +1,0 @@
-FOR ${1:i} IN ${2:ARG}.getRawList()
-    $0
-}

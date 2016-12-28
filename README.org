@@ -1,4 +1,4 @@
-#+TITLE: my emacs config
+#+TITLE: My emacs config
 this is damon kwok's emacs config
 
 * INSTALL

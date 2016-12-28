@@ -1,0 +1,45 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+public class `(buffer-only-name)` : MonoBehaviour
+{
+
+    Button button__${1:return} = null;
+	Button button__${2:return} = null;
+	Button button__${3:return} = null;
+	Button button__${4:return} = null;
+	
+    void Start()
+    {
+        this.button__$1 = transform.Find("button__$1").GetComponent<Button>();
+        this.button__$2 = transform.Find("button__$2").GetComponent<Button>();
+        this.button__$3 = transform.Find("button__$3").GetComponent<Button>();
+        this.button__$4 = transform.Find("button__$4").GetComponent<Button>();
+		
+        UGUI_EventListener.Get(button__$1.gameObject).onClick = OnButtonClick;
+        UGUI_EventListener.Get(button__$2.gameObject).onClick = OnButtonClick;
+		UGUI_EventListener.Get(button__$3.gameObject).onClick = OnButtonClick;
+        UGUI_EventListener.Get(button__$4.gameObject).onClick = OnButtonClick;
+    }
+    
+    private void OnButtonClick(GameObject go)
+    {
+        Debug.Log("Button OnClick:" + go.name);
+        
+        if (go == button__$1.gameObject)
+        {
+            $0
+        }
+        else if (go == button__$2.gameObject)
+        {
+            
+        }else if (go == button__$3.gameObject)
+        {
+            
+        }else if (go == button__$4.gameObject)
+        {
+            
+        }
+        
+    }
+}

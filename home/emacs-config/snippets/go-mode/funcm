@@ -1,3 +1,0 @@
-func (self *${1:MyType})${2:funcname}(${3:argc int})${4:error} {
-    $0
-}

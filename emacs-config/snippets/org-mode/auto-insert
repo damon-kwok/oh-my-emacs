@@ -1,0 +1,8 @@
+#+TITLE:     ${1:This is Title}
+#+AUTHOR:    damon-kwok
+#+EMAIL:     damon-kwok@outlook.com
+#+DATE:      `(format-time-string "%Y-%m-%d")`
+#+TODO: TODO DOING DONE
+
+
+$0

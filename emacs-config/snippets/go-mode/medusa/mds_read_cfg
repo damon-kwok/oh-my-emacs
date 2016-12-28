@@ -1,0 +1,50 @@
+import (
+	"fmt"
+	"flag"
+    ${1:gocfg} "github.com/robfig/config"
+	"medusa"
+)
+
+func read_cfg() {
+
+	$2 := flag.String("conf", "gate.cfg", "gateserver starup config file")
+	flag.Parse()
+    
+	${3:cfg}, _ := $1.ReadDefault(*$2)
+	maxprocs, _ := $3.Int("runtime", "maxprocs")
+	loglv, _ := $3.Int("runtime", "loglv")
+	//maxonline, _ := $3.Int("runtime", "maxonline")
+	runtime.GOMAXPROCS(maxprocs)
+
+	world_listen_name, _ := $3.String("world_listen", "name")
+	world_listen_ip, _ := $3.String("world_listen", "ip")
+	world_listen_port, _ := $3.Int("world_listen", "port")
+	world_listen_rcvbuf, _ := $3.Int("world_listen", "rcvbuf")
+	world_listen_sndbuf, _ := $3.Int("world_listen", "sndbuf")
+	world_listen_sndchan, _ := $3.Int("world_listen", "sndchan")
+	world_listen_maxconn, _ := $3.Int("world_listen", "maxconn")
+	world_listen_maxidle, _ := $3.Int("world_listen", "maxidle")
+
+	gate_listen_name, _ := $3.String("gate_listen", "name")
+	gate_listen_ip, _ := $3.String("gate_listen", "ip")
+	gate_listen_port, _ := $3.Int("gate_listen", "port")
+	gate_listen_rcvbuf, _ := $3.Int("gate_listen", "rcvbuf")
+	gate_listen_sndbuf, _ := $3.Int("gate_listen", "sndbuf")
+	gate_listen_sndchan, _ := $3.Int("gate_listen", "sndchan")
+	gate_listen_maxconn, _ := $3.Int("gate_listen", "maxconn")
+	gate_listen_maxidle, _ := $3.Int("gate_listen", "maxidle")
+
+	fmt.Println("runtime\t\tvalue")
+	fmt.Println("-----------------------------------------------------------------------")
+	fmt.Printf("%v\t%v\n", "maxprocs", maxprocs)
+	fmt.Printf("%v\t\t%v\n\n", "loglv", loglv)
+
+	fmt.Println("info\tip\t\t\tport\tmaxconn\tmaxidle\trcvbuf\tsndbuf\tsndchan")
+	fmt.Println("-----------------------------------------------------------------------")
+	fmt.Printf("%v\t%v\t%v\t%v\t\t%v\t%vK\t%vK\t%v\n", world_listen_name, world_listen_ip,
+		world_listen_port, world_listen_maxconn, world_listen_maxidle,
+		world_listen_rcvbuf/1024, world_listen_sndbuf/1024, world_listen_sndchan)
+	fmt.Printf("%v\t%v\t%v\t%v\t\t%v\t%vK\t%vK\t%v\n\n", gate_listen_name, gate_listen_ip,
+		gate_listen_port, gate_listen_maxconn, gate_listen_maxidle,
+		gate_listen_rcvbuf/1024, gate_listen_sndbuf/1024, gate_listen_sndchan)
+}
