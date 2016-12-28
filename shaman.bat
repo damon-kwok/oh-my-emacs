@@ -36,7 +36,6 @@ if not exist %CACHE% (
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem emacs
 set EMACS_HOME=%APP_HOME%\emacs
-rem set EMACS_HOME=%APP_HOME%\emacs-25-20160331T094545Z-bin-i686-mingw32
 set EMACS_BIN=%EMACS_HOME%\bin
 set PATH=%EMACS_BIN%;%PATH%
 
@@ -45,11 +44,11 @@ set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
 set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem msys2
-REM set MSYS_HOME=%APP_HOME%\msys64
+REM set MSYS_HOME=c:\msys64
 REM set MSYS_BIN=%MSYS_HOME%\usr\bin
 
-set MSYS_HOME=d:\msys64
-set MSYS_BIN=%MSYS_HOME%\usr\bin
+REM set MSYS_HOME=d:\msys64
+REM set MSYS_BIN=%MSYS_HOME%\usr\bin
 
 REM set MSYS_HOME2=c:\msys32
 REM set MSYS_BIN2=%MSYS_HOME2%\usr\bin
@@ -57,7 +56,9 @@ REM set MSYS_BIN2=%MSYS_HOME2%\usr\bin
 REM set MSYS_HOME3=d:\msys32
 REM set MSYS_BIN3=%MSYS_HOME3%\usr\bin
 
-set PATH=%PATH%;%MSYS_BIN%;%MSYS_BIN2%;%MSYS_BIN3%
+REM set PATH=%PATH%;%MSYS_BIN%;%MSYS_BIN2%;%MSYS_BIN3%
+set PATH=%PATH%;c:\msys32\usr\bin;d:\msys32\usr\bin;e:\msys32\usr\bin;f:\msys32\usr\bin;
+set PATH=%PATH%;c:\msys64\usr\bin;d:\msys64\usr\bin;e:\msys64\usr\bin;f:\msys64\usr\bin;
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem MsBuild
 rem set MSBUILD_HOME="C:\Program Files (x86)\MSBuild\14.0\Bin"
@@ -252,5 +253,4 @@ goto:quit
 
 :quit
 cd %ROOT%
-REM
-REM medusa.bat ends here
+
