@@ -39,6 +39,7 @@
 (require 'mod-tabbar)
 ;; (require 'mod-speedbar)
 (require 'mod-input)
+
 (require 'mod-calendar)
 (require 'mod-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -47,7 +48,7 @@
 (require 'mod-protobuf)
 (require 'mod-orgmode)
 (require 'mod-markdown)
-;;(require 'mod-latex)
+(require 'mod-latex)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `programming-languages'
 (require 'mod-elisp)
@@ -55,9 +56,9 @@
 (require 'mod-clojure)
 (require 'mod-cc)
 (require 'mod-ess)
-;; (require 'mod-slime)
+(require 'mod-slime)
 ;; (require 'mod-erlang)
-;; (require 'mod-elixir)
+(require 'mod-elixir)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
