@@ -13,9 +13,20 @@ fi
 export bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
 mkdir -p $bkdir
 
-mv ~/.emacs $bkdir
-mv ~/.emacs.d $bkdir
-mv ~/emacs-config $bkdir
 
-cp -a ~/$ROOT_NAME/emacs-config/.emacs ~/.emacs
+if [ -f ~/.emacs ]; then
+   mv ~/.emacs $bkdir
+fi
+
+if [ -f ~/.emacs.d ]; then
+   mv -a ~/.emacs.d $bkdir
+fi
+
+if [ -f ~/emacs-config ]; then
+   mv ~/emacs-config $bkdir
+fi
+
+cp -a ~/$ROOT_NAME/emacs-config/init.el ~/.emacs 
 ln -s ~/$ROOT_NAME/emacs-config ~/emacs-config
+
+

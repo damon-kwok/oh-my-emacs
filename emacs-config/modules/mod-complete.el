@@ -114,7 +114,9 @@
 ;;(setq yas-snippet-dirs (expand-file-name "~/emacs-config/snippets/"))
 
 (setq dir-medusa-snippets "~/emacs-config/snippets/")
+(setq dir-medusa-snippets2 "~/my-emacs-config/emacs-config/snippets/")
 (add-to-list 'yas-snippet-dirs (expand-file-name dir-medusa-snippets))
+(add-to-list 'yas-snippet-dirs (expand-file-name dir-medusa-snippets2))
 
 (yas-global-mode 1)
 

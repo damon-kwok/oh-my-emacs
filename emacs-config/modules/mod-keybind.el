@@ -32,13 +32,13 @@
       ;; mac-option-modifier 'none)
 
 (global-set-key (kbd "C-\\") 'toggle-input-method)
-(global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-space ;; (global-set-key [?\S- ] 'set-mark-command)
+;; (global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-space ;; (global-set-key [?\S- ] 'set-mark-command)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; expand region
 (package-require 'expand-region)
 (require 'expand-region)
-(global-set-key (kbd "M-z") 'er/expand-region) ;; (global-set-key "\M-z" 'mark-word)
+(global-set-key (kbd "C-z") 'er/expand-region) ;; (global-set-key "\C-z" 'mark-word)
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;; move line
@@ -320,7 +320,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("p" htmlize-buffer "htmlize-buffer")
 ("P" htmlize-file "htmlize-file")
 ("C" (byte-recompile-directory "~/emacs-config") "byte-recomplie-directory")
-("h" (m-open-file "~/../README.org") "README.org")
+("h" (m-open-file "~/README.org") "README.org")
 ("g" (m-open-doc "gtd.org") "GTD.org")
 ("t" (m-open-doc "todo.org") "todo.org")
 ("b" (m-open-doc "book.org") "book.org")
@@ -378,8 +378,9 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
 ("0" (calendar) "calendar")
 ("<SPC>" nil "quit")
 ("<escape>" nil "quit"))
-(global-set-key (kbd "C-SPC") 'hydra-do-space/body)
+;; (global-set-key (kbd "C-SPC") 'hydra-do-space/body)
 (global-set-key (kbd "M-SPC") 'hydra-do-space/body)
+(global-set-key (kbd "C-c z") 'hydra-do-space/body)
 
 (defun m-buffer-reload() 
   (interactive) 

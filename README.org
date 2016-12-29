@@ -3,14 +3,13 @@ this is damon kwok's emacs config
 
 * INSTALL
 ** require
-- msys2 {git curl zip unzip cmake clang(libclang)}
+- msys2 {git svn curl zip unzip cmake clang}
 ** install
 - bash <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/install)
 * KEYBIND
 ** global
- - *M-SPC* *super-key*
- - *C-z* set-mark
- - *M-z* mark-word
+ - *C-c z | M-SPC* *super-key*
+ - *C-z* mark-word
  - *C-M-d* delete-backward-char
  - *M-p* move-lines-up
  - *M-n* move-lines-down
@@ -31,12 +30,12 @@ this is damon kwok's emacs config
  - M-n /org-metaup/
  - M-p /org-metadown/
 ** elisp
- - C-c C-z repl
- - C-c C-c compile
+ - C-c C-c compile current file
  - C-c C-k eval-buffer
 ** clojure
- - C-c C-z repl
  - C-c C-h sheet
+** haskell elixir erlang clojure elisp slime gister python
+ - C-c C-z show repl window
 ** csharp
  - M-. find-usages
  - M-, jump-define
