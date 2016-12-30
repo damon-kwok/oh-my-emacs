@@ -71,6 +71,12 @@ set OMNISHARP_BIN=%OMNISHARP_HOME%\bin
 set PATH=%OMNISHARP_BIN%;%PATH%
 
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+rem cmake
+set CMAKE_HOME=%APP_HOME%\cmake
+set CMAKE_BIN=%CMAKE_HOME%\bin
+set PATH=%CMAKE_BIN%;%PATH%
+
+rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem protobuf-net
 set PROTOBUF_BIN=%APP_HOME%\protobuf
 set PATH=%PROTOBUF_BIN%;%PATH%
@@ -78,7 +84,7 @@ set PATH=%PROTOBUF_BIN%;%PATH%
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem irony-server
 set IRONY_BIN=%APP_HOME%\irony-server\bin
-set PATH=%IRONY_BIN%;%PATH%
+set PATH=%APP_HOME%\gcc-6-win64\bin;c:\LLVM\bin;%IRONY_BIN%;%PATH%
 
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem set LLVM_HOME=%APP_HOME%\LLVM
@@ -225,7 +231,7 @@ echo    2) getapp
 echo    3) pushapp
 echo    4) zipapp
 echo    5) unzipapp
-echo    e) emacs-x
+echo    e) emacs
 echo    n) emacs-nw
 echo    s) shell
 echo    r) return

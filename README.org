@@ -3,7 +3,12 @@ this is damon kwok's emacs config
 
 * INSTALL
 ** require
-- msys2 {git svn curl zip unzip cmake clang}
+- pacman -S {base-devel git svn curl zip unzip cmake clang libclang}
+- apt-get install {build-essential git svn curl zip unzip cmake clang libclang}
+- yum | dnf groupinstall "Development Tools and Libraries" {git svn curl zip unzip cmake clang libclang}
+** remark
+msys2
+sudo dnf grouplist
 ** install
 - bash <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/install)
 * KEYBIND

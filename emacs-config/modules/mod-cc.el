@@ -86,6 +86,7 @@
   ;; be cautious, if yas is not enabled before (auto-complete-mode 1), overlays
   ;; *may* persist after an expansion.
   (yas-minor-mode 1)
+;;  (company-irony)
   ;;(auto-complete-mode 1)
 
   ;;(add-to-list 'ac-sources 'ac-source-irony)
