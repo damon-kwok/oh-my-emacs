@@ -22,43 +22,43 @@
 ;;;						 
 ;;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'mod-package)
+(module-require 'mod-package)
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `base'
-(require 'mod-basic)
-(require 'mod-package)
-(require 'mod-library)
-(require 'mod-coding)
-(require 'mod-helm)
-(require 'mod-dired)
-(require 'mod-complete)
-(require 'mod-tabbar)
-;; (require 'mod-speedbar)
-(require 'mod-input)
+(module-require 'mod-basic)
+(module-require 'mod-library)
+(module-require 'mod-coding)
+(module-require 'mod-mouse)
+(module-require 'mod-helm)
+;;(module-require 'mod-dired)
+(module-require 'mod-complete)
+(module-require 'mod-tabbar)
+;; (module-require 'mod-speedbar)
+;;(module-require 'mod-input)
 
-(require 'mod-calendar)
-(require 'mod-server)
+(module-require 'mod-calendar)
+(module-require 'mod-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `docs'
-(require 'mod-csv)
-(require 'mod-protobuf)
-(require 'mod-orgmode)
-(require 'mod-markdown)
-(require 'mod-latex)
+(module-require 'mod-csv)
+(module-require 'mod-protobuf)
+(module-require 'mod-orgmode)
+(module-require 'mod-markdown)
+(module-require 'mod-latex)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `programming-languages'
-(require 'mod-elisp)
-;; (require 'mod-csharp)
-(require 'mod-clojure)
-(require 'mod-cc)
-(require 'mod-ess)
-(require 'mod-slime)
-;; (require 'mod-erlang)
-(require 'mod-elixir)
+(module-require 'mod-elisp)
+;; (module-require 'mod-csharp)
+;; (module-require 'mod-clojure)
+;;(module-require 'mod-cc)
+;; (module-require 'mod-ess)
+;;(module-require 'mod-slime)
+;; (module-require 'mod-erlang)
+;;(module-require 'mod-elixir)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -81,26 +81,24 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `music'
 ;; (package-require 'emms)
-;; (require 'emms-setup)
+;; (module-require 'emms-setup)
 ;; (emms-standard)
 ;; (emms-default-players)
-;; (toggle-frame-fullscreen)
-;; (toggle-debug-on-error)
 ;;plugins: highlight-tail tabbar fill-column-indicator sr-speedbar yasnippet omnisharp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `tramp'
 ;; (package-require 'tramp)
-;; (require 'tramp)
+;; (module-require 'tramp)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `version'
 ;; (package-require 'magit)
-;; (require 'magit)
+;; (module-require 'magit)
 ;; (auto-fill-mode 0)
 ;; (package-require 'psvn)
-;; (require 'psvn)
+;; (module-require 'psvn)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'mod-keybind)
+(module-require 'mod-keybind)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (message "hello, emacs!")
 

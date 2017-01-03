@@ -44,7 +44,7 @@
 ;(menu-bar-mode 0)
 
 ;;; scroll setttings (0:disable 1:show)
-(scroll-bar-mode 0)
+(scroll-bar-mode nil)
 ;;(set-scroll-bar-mode 'right); (nil:disable right left)
 
 ;;; The effect is that (however it is moved) the cursor is always given 3 lines

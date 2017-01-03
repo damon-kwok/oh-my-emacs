@@ -236,8 +236,8 @@ echo    n) emacs-nw
 echo    s) shell
 echo    r) return
 echo    q) quit
-set /p c=please input your choice:
 
+set /p c=please input your choice:
 if /i "%c%"=="1" call:push
 if /i "%c%"=="2" call:getapp
 if /i "%c%"=="3" call:pushapp
@@ -247,7 +247,8 @@ if /i "%c%"=="e" goto:emacs
 if /i "%c%"=="n" goto:emacs-nw
 if /i "%c%"=="s" goto:shell
 if /i "%c%"=="r" goto:eof
-if /i "%c%"=="q" goto:quit
+if /i "%c%"=="q" exit
+
 echo error-input
 call:ask
 

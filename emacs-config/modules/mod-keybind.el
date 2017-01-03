@@ -19,10 +19,8 @@
 ;;;
 ;;; Code:
 ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (require 'mod-package)
-
-
 
 ;;Mac osx: set command to meta
 ;;; I prefer cmd key for meta
@@ -34,13 +32,13 @@
 (global-set-key (kbd "C-\\") 'toggle-input-method)
 ;; (global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-space ;; (global-set-key [?\S- ] 'set-mark-command)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; expand region
 (package-require 'expand-region)
 (require 'expand-region)
 (global-set-key (kbd "C-z") 'er/expand-region) ;; (global-set-key "\C-z" 'mark-word)
 
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; ;;; move line
 ;; (package-require-git "move-lines" "https://github.com/targzeta/move-lines.git")
 ;; (require 'move-lines)
@@ -53,7 +51,7 @@
 ;; (global-set-key (kbd "M-<down>") 'move-lines-down)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; `move-text'
 (package-require 'move-text)
 (require 'move-text)
@@ -66,7 +64,7 @@
 ;; (global-set-key (kbd "M-<up>") 'move-text-up)
 ;; (global-set-key (kbd "M-<down>") 'move-text-down)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; `buffer-move'
 (package-require 'buffer-move)
 (require 'buffer-move)
@@ -80,7 +78,8 @@
 ;;; instead of swapping the buffers of both windows.
 ;;; Set the following customization variable to 'move to activate this behavior:
 (setq buffer-move-behavior 'move)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 ;;;
 (global-set-key (kbd "C-M-d") 'delete-backward-char)
 (global-set-key (kbd "C-x C-c") 'medusa-exit) ;;[(control x) (control c)]
@@ -93,12 +92,25 @@
 ;;; minibuffer (press mouse left, show: shrink-compile-window
 ;; (define-key minibuffer-local-map [double-mouse-1] 'shrink-compile-window)
 
-
+;; `switch-window'
 (package-require 'switch-window)
 (require 'switch-window)
 (global-set-key (kbd "C-x o") 'switch-window)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `window-numbering'
+(package-require 'window-numbering)
+(require 'window-numbering)
+(window-numbering-mode)
+(setq window-numbering-assign-func
+      (lambda () (when (equal (buffer-name) "*Calculator*") 9)))
+
+
+;; `page-break-lines'
+(package-require 'page-break-lines)
+(require 'page-break-lines)
+(global-page-break-lines-mode)
+
+
 ;;; Swiper
 ;; (package-require 'swiper)
 ;; (require 'swiper)
@@ -123,28 +135,30 @@
 ;; (global-set-key (kbd "C-x l") 'counsel-locate)
 ;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; htmlize
 (package-require 'htmlize)
 (require 'htmlize)
 ;; (global-set-key (kbd "C-c p") 'htmlize-buffer)
 ;; (global-set-key (kbd "C-c C-p") 'htmlize-file)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 ;;; bing-dict
 (package-require 'bing-dict)
 (require 'bing-dict)
 ;; (global-set-key (kbd "C-c d") 'bing-dict-brief)
 ;; (global-set-key (kbd "C-c D") 'bing-dict-brief-web)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (define-key global-map (kbd "C-c f") 'go-to-char-forward)
-;; (define-key global-map (kbd "C-c b") 'go-to-char-backward)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-key global-map (kbd "C-c f") 'go-to-char-forward)
+(define-key global-map (kbd "C-c b") 'go-to-char-backward)
+
+
 (package-require 'neotree)
 (require 'neotree)
 (global-set-key [f1] 'neotree-toggle)
 ;; (global-set-key (kbd "C-c t") 'neotree-toggle)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (package-require 'multiple-cursors)
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -152,12 +166,12 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-M-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-M->") 'mc/mark-all-like-this)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; C-x r (file rename)
 ;; (global-set-key (kbd "C-c r") 'rename-file-and-buffer)
 ;; (global-set-key (kbd "C-c x") 'delete-file-and-buffer)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; string replace
 ;; (global-set-key (kbd "C-M-s") 'replace-string)
 ;; (global-set-key (kbd "C-M-r") 'replace-rectangle)
@@ -165,18 +179,18 @@
 ;; (define-key sh-mode-map (kbd "C-c C-r") 'replace-string)
 ;; (add-hook 'shell-mode-hook (lambda () (local-set-key (kbd "M-s") 'replace-string)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; (global-set-key (kbd "C-x M-k") 'kill-all-buffers)
 ;; (global-set-key (kbd "C-x M-k") 'kill-other-buffers)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; `hydra'
 (package-require 'hydra)
 (require 'hydra)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; `tty'
 ;; (defhydra hydra-show-tty
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; `buffer'
 (defhydra hydra-show-buffer 
   (:color blue)
@@ -206,7 +220,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c s") 'hydra-show-buffer/body)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; `hydra-open-module'
 (defhydra hydra-open-config 
   (:color blue)
@@ -260,7 +274,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c c") 'hydra-open-config/body)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; `hydra-open-url'
 (defhydra hydra-open-url 
   (:color blue)
@@ -299,7 +313,7 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c w") 'hydra-open-url/body)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; `hydra-open-file'
 (defhydra hydra-open-file 
   (:color blue)
@@ -337,7 +351,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c f") 'hydra-open-file/body)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; `C-SPC'
 (defhydra hydra-do-space 
   (:color blue)
@@ -436,7 +450,7 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
   (if (stringp str)
   (m-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory buffer-file-name)))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; `comment-toggle' M-;
 (global-set-key [remap comment-dwim] 'comment-or-uncomment-region-or-line)
 
@@ -445,7 +459,7 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
 ;; (global-set-key (kbd "M-;") 'smart-comment)
 ;; (global-set-key (kbd "C-u M-;") 'smart-comment)
 ;; (global-set-key (kbd "C-u C-u M-;") 'smart-comment)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; `guide-key'
 ;; (package-require 'guide-key)
 ;; (require 'guide-key)
@@ -462,37 +476,13 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
 ;; (require 'guide-key-tip)
 ;; (setq guide-key-tip/enabled nil)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; `which-key'
 (package-require 'which-key)
 (require 'which-key)
 (which-key-mode)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `disable-mouse'
-;; (global-set-key [mouse-1] nil)
-;; (global-set-key [mouse-2] nil)
-;; (global-set-key [mouse-3] nil)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `disable-mouse-mode'
-(define-minor-mode disable-mouse-mode
-  "A minor-mode that disables all mouse keybinds."
-  :global t
-  :lighter " :mouse:"
-  :keymap (make-sparse-keymap))
-
-(dolist (type '(mouse down-mouse drag-mouse
-                      double-mouse triple-mouse))
-  (dolist (prefix '("" C- M- S- M-S- C-M- C-S- C-M-S-))
-    ;; Yes, I actually HAD to go up to 7 here.
-    (dotimes (n 7)
-      (let ((k (format "%s%s-%s" prefix type n)))
-        (define-key disable-mouse-mode-map
-          (vector (intern k)) #'ignore)))))
-
-(disable-mouse-mode 1)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;
 (provide 'mod-keybind)
 ;;; mod-keybind.el ends here

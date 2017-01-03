@@ -18,6 +18,7 @@ sudo dnf grouplist
  - *C-M-d* delete-backward-char
  - *M-p* move-lines-up
  - *M-n* move-lines-down
+ - *M*-/num/ switch window
  - *C-x M-k* close all buffer
  - *C-\\* toggle-input-method
  - F1 neotree-toggle
