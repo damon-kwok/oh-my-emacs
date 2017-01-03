@@ -1,14 +1,9 @@
-# ignore
-cache/*
-backup/
-docs/
-.projectile
-.DS_Store
-Thumbs.db
-*.elc
-.gitconfig
-.gnupg
-.emacs
-.emacs.d
+# ignore everything
+*
 # white list anything that's a directort
 !cache/bin
+!emacs-config/*
+!install
+!README.org
+!shaman
+!shaman.bat
