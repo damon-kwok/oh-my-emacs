@@ -29,7 +29,7 @@
 ;;; Install Projectile and activate it for all things.
 ;;; Learn about Projectile: http://batsov.com/projectile/
 (package-require 'projectile)
-(module-require 'projectile)
+(require 'projectile)
 ;;; 默认全局使用
 (projectile-global-mode)
 
@@ -48,7 +48,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; or if you want use this feature in your library: (bm-bookmark-add nil nil t)
 (package-require 'bm)
-(module-require 'bm)
+(require 'bm)
 
 ;;; M$ Visual Studio key setup.
 (global-set-key (kbd "<C-f2>") 'bm-toggle)
@@ -77,7 +77,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`ido';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;ido mode
-;;(module-require 'ido)
+;;(require 'ido)
 ;;(ido-mode 1)
 
 ;;(setq ido-confirm-unique-completion t)
@@ -93,8 +93,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`helm';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require 'helm)
-(module-require 'helm-config)
-(module-require 'helm)
+(require 'helm-config)
+(require 'helm)
 
 ;;; Activate Helm.
 (helm-mode 1)
@@ -110,7 +110,7 @@
 ;;; A binding for using Helm to pick files using Projectile,
 ;;; and override the normal grep with a Projectile based grep.
 ;; (package-require 'helm-projectile)
-;; (module-require 'helm-projectile)
+;; (require 'helm-projectile)
 ;; (global-set-key (kbd "C-c C-f") 'helm-projectile-find-file-dwim)
 ;; (global-set-key (kbd "C-x C-g") 'helm-projectile-grep)
 
@@ -118,16 +118,16 @@
 ;;; swiper-helm behaves subtly different from isearch, so let's not
 ;;; override the default binding.
 (package-require 'swiper-helm)
-(module-require 'swiper-helm)
+(require 'swiper-helm)
 (global-set-key (kbd "C-M-s") 'swiper-helm)
 
 ;;; ac-helm
 ;; (package-require 'ac-helm)
-;; (module-require 'ac-helm)
+;; (require 'ac-helm)
 
 ;;; helm-company
 ;; (package-require 'helm-company)
-;; (module-require 'helm-company)
+;; (require 'helm-company)
 
 
 
@@ -152,31 +152,31 @@
 (define-key helm-map (kbd "<escape>")  'helm-keyboard-quit)
 ;;; helm-bm
 (package-require 'helm-bm)
-(module-require 'helm-bm) ;;; Not necessary if using ELPA package
+(require 'helm-bm) ;;; Not necessary if using ELPA package
 (global-set-key (kbd "C-c b") 'helm-bm)
 
 ;;; helm-ag (need ag)
 (package-require 'helm-ag)
-(module-require 'helm-ag)
+(require 'helm-ag)
 
 ;;; helm-is-git hg svn
 (package-require 'helm-ls-svn)
-(module-require 'helm-ls-svn)
+(require 'helm-ls-svn)
 
 (package-require 'helm-ls-git)
-(module-require 'helm-ls-git)
+(require 'helm-ls-git)
 
 (package-require 'helm-ls-hg)
-(module-require 'helm-ls-hg)
+(require 'helm-ls-hg)
 
 ;;; (package-require 'helm-buffer-list)
 (package-require 'helm-descbinds)
-(module-require 'helm-descbinds)
+(require 'helm-descbinds)
 (helm-descbinds-mode)
 
 ;;; helm-pages
 (package-require 'helm-pages)
-(module-require 'helm-pages)
+(require 'helm-pages)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 (provide 'mod-helm)

@@ -47,16 +47,6 @@ rem msys2
 REM set MSYS_HOME=c:\msys64
 REM set MSYS_BIN=%MSYS_HOME%\usr\bin
 
-REM set MSYS_HOME=d:\msys64
-REM set MSYS_BIN=%MSYS_HOME%\usr\bin
-
-REM set MSYS_HOME2=c:\msys32
-REM set MSYS_BIN2=%MSYS_HOME2%\usr\bin
-
-REM set MSYS_HOME3=d:\msys32
-REM set MSYS_BIN3=%MSYS_HOME3%\usr\bin
-
-REM set PATH=%PATH%;%MSYS_BIN%;%MSYS_BIN2%;%MSYS_BIN3%
 set PATH=%PATH%;c:\msys32\usr\bin;d:\msys32\usr\bin;e:\msys32\usr\bin;f:\msys32\usr\bin;
 set PATH=%PATH%;c:\msys64\usr\bin;d:\msys64\usr\bin;e:\msys64\usr\bin;f:\msys64\usr\bin;
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -118,6 +108,20 @@ goto:eof
 copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
 cd %HOME%
 %EMACS_BIN%\emacs.exe -nw --debug-init
+goto:eof
+
+:compile-elc
+cd %ROOT%\emacs-config\modules
+%EMACS_BIN%\emacs.exe -batch -f batch-byte-compile *.el
+cd %ROOT%
+pause
+goto:eof
+
+:clean-elc
+cd %ROOT%\emacs-config\modules
+rm *.elc
+cd %ROOT%
+pause
 goto:eof
 
 :unity
@@ -233,6 +237,7 @@ echo    4) zipapp
 echo    5) unzipapp
 echo    e) emacs
 echo    n) emacs-nw
+echo    c) complie-elc
 echo    s) shell
 echo    r) return
 echo    q) quit
@@ -245,6 +250,7 @@ if /i "%c%"=="4" call:zipapp
 if /i "%c%"=="5" call:unzipapp
 if /i "%c%"=="e" goto:emacs
 if /i "%c%"=="n" goto:emacs-nw
+if /i "%c%"=="c" goto:compile-elc
 if /i "%c%"=="s" goto:shell
 if /i "%c%"=="r" goto:eof
 if /i "%c%"=="q" exit
