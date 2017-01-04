@@ -1,6 +1,7 @@
 # ignore everything
 *
 *.elc
+.#*
 # white list anything that's a directort
 !cache/bin
 !emacs-config/*
