@@ -26,7 +26,8 @@
 (require 'mod-package)
 ;;
 
-(package-require-curl "elisp-format" "elisp-format.el" "https://www.emacswiki.org/emacs/download/elisp-format.el")
+(package-require-curl "elisp-format" "elisp-format.el"
+		      "https://www.emacswiki.org/emacs/download/elisp-format.el")
 (require 'elisp-format)
 
 ;;(package-require 'paredit)
@@ -74,11 +75,11 @@
   (switch-to-buffer-other-window temp-buffer-name))
 
 
-(defun compile-current-buffer()
-  (interactive)
-  (save-buffer)
-  (delete-other-windows)
-  (byte-compile-file (buffer-file-name))
+(defun compile-current-buffer() 
+  (interactive) 
+  (save-buffer) 
+  (delete-other-windows) 
+  (byte-compile-file (buffer-file-name)) 
   (delete-file (concat (buffer-file-name) "c"))
 
   ;;(m-show-compilation "*Warnings*")

@@ -25,19 +25,17 @@
 ;;Mac osx: set command to meta
 ;;; I prefer cmd key for meta
 ;; (setq mac-option-key-is-meta nil
-      ;; mac-command-key-is-meta t
-      ;; mac-command-modifier 'meta
-      ;; mac-option-modifier 'none)
+;; mac-command-key-is-meta t
+;; mac-command-modifier 'meta
+;; mac-option-modifier 'none)
 
 (global-set-key (kbd "C-\\") 'toggle-input-method)
 ;; (global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-space ;; (global-set-key [?\S- ] 'set-mark-command)
-
 
 ;;; expand region
 (package-require 'expand-region)
 (require 'expand-region)
 (global-set-key (kbd "C-z") 'er/expand-region) ;; (global-set-key "\C-z" 'mark-word)
-
 
 ;; ;;; move line
 ;; (package-require-git "move-lines" "https://github.com/targzeta/move-lines.git")
@@ -49,7 +47,6 @@
 
 ;; (global-set-key (kbd "M-<up>") 'move-lines-up)
 ;; (global-set-key (kbd "M-<down>") 'move-lines-down)
-
 
 
 ;;; `move-text'
@@ -63,7 +60,6 @@
 (global-set-key (kbd "M-n") 'move-text-down)
 ;; (global-set-key (kbd "M-<up>") 'move-text-up)
 ;; (global-set-key (kbd "M-<down>") 'move-text-down)
-
 
 ;;; `buffer-move'
 (package-require 'buffer-move)
@@ -78,7 +74,6 @@
 ;;; instead of swapping the buffers of both windows.
 ;;; Set the following customization variable to 'move to activate this behavior:
 (setq buffer-move-behavior 'move)
-
 
 ;;;
 (global-set-key (kbd "C-M-d") 'delete-backward-char)
@@ -101,15 +96,13 @@
 (package-require 'window-numbering)
 (require 'window-numbering)
 (window-numbering-mode)
-(setq window-numbering-assign-func
-      (lambda () (when (equal (buffer-name) "*Calculator*") 9)))
-
+(setq window-numbering-assign-func (lambda () 
+				     (when (equal (buffer-name) "*Calculator*") 9)))
 
 ;; `page-break-lines'
 (package-require 'page-break-lines)
 (require 'page-break-lines)
 (global-page-break-lines-mode)
-
 
 ;;; Swiper
 ;; (package-require 'swiper)
@@ -134,25 +127,21 @@
 ;; (global-set-key (kbd "C-c k") 'counsel-ag)
 ;; (global-set-key (kbd "C-x l") 'counsel-locate)
 ;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-
 
 ;;; htmlize
 (package-require 'htmlize)
 (require 'htmlize)
 ;; (global-set-key (kbd "C-c p") 'htmlize-buffer)
 ;; (global-set-key (kbd "C-c C-p") 'htmlize-file)
-
 
 ;;; bing-dict
 (package-require 'bing-dict)
 (require 'bing-dict)
 ;; (global-set-key (kbd "C-c d") 'bing-dict-brief)
 ;; (global-set-key (kbd "C-c D") 'bing-dict-brief-web)
-
 
 (define-key global-map (kbd "C-c f") 'go-to-char-forward)
 (define-key global-map (kbd "C-c b") 'go-to-char-backward)
-
 
 (package-require 'neotree)
 (require 'neotree)
@@ -170,7 +159,6 @@
 ;; C-x r (file rename)
 ;; (global-set-key (kbd "C-c r") 'rename-file-and-buffer)
 ;; (global-set-key (kbd "C-c x") 'delete-file-and-buffer)
-
 
 ;;; string replace
 ;; (global-set-key (kbd "C-M-s") 'replace-string)
@@ -178,7 +166,6 @@
 
 ;; (define-key sh-mode-map (kbd "C-c C-r") 'replace-string)
 ;; (add-hook 'shell-mode-hook (lambda () (local-set-key (kbd "M-s") 'replace-string)))
-
 
 ;; (global-set-key (kbd "C-x M-k") 'kill-all-buffers)
 ;; (global-set-key (kbd "C-x M-k") 'kill-other-buffers)
@@ -189,7 +176,6 @@
 
 ;;; `tty'
 ;; (defhydra hydra-show-tty
-
 
 ;;; `buffer'
 (defhydra hydra-show-buffer 
@@ -219,7 +205,6 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c s") 'hydra-show-buffer/body)
-
 
 ;;; `hydra-open-module'
 (defhydra hydra-open-config 
@@ -232,8 +217,7 @@ _a_: basic         _h_: helm        _7_: latex        _2_: clojure    _m_: music
 _p_: package       ^^               _8_: markdown     _3_: csharp     _d_: coding
 _k_: keybind       ^^               _9_: reST         _4_: js         _s_: server
 _l_: library       ^^               _z_: csv          _5_: cc         ^^
-_y_: complete-yas  ^^               _x_: protobuf     ^^              ^^
-^^                 ^^               ^^                ^^              ^^
+_y_: complete-yas  ^^               _x_: protobuf     ^^              _C_: compile-all-modules
 ^^^^^^^^-------------------------------------------------------------------------
 _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 " ("i" (m-open-mod "init") "init")
@@ -268,12 +252,16 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ("d" (m-open-mod "coding") "coding")
 ("s" (m-open-mod "server") "server")
 
+("C" (compile-all-modules) "compile-all-modules")
+
 ("0" calendar)
 ("<tab>" (hydra-do-space/body) "BACK")
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c c") 'hydra-open-config/body)
 
+(defun compile-all-modules() 
+  (byte-recompile-directory (expand-file-name (concat (getenv "ROOT") "/emacs-config/modules")) 0))
 
 ;;; `hydra-open-url'
 (defhydra hydra-open-url 
@@ -312,7 +300,6 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c w") 'hydra-open-url/body)
-
 
 ;;; `hydra-open-file'
 (defhydra hydra-open-file 
@@ -350,7 +337,6 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c f") 'hydra-open-file/body)
-
 
 ;;; `C-SPC'
 (defhydra hydra-do-space 
@@ -394,7 +380,7 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
 ("<escape>" nil "quit"))
 ;; (global-set-key (kbd "C-SPC") 'hydra-do-space/body)
 (global-set-key (kbd "M-SPC") 'hydra-do-space/body)
-(global-set-key (kbd "C-c z") 'hydra-do-space/body)
+(global-set-key (kbd "M-z") 'hydra-do-space/body)
 
 (defun m-buffer-reload() 
   (interactive) 
@@ -441,15 +427,15 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
   (save-match-data (m-grep-directory  word) 
 		   (other-window 1)))
 
-(defun m-grep-project (str)
-  (if (stringp str)
-  (m-run-command (concat "grep -n " "\"" str "\"" " -r " (m-project-root)))))
+(defun m-grep-project (str) 
+  (if (stringp str) 
+      (m-run-command (concat "grep -n " "\"" str "\"" " -r " (m-project-root)))))
 
-(defun m-grep-directory (str)
-  (message (concat "grep-dir:" str))
-  (if (stringp str)
-  (m-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory buffer-file-name)))))
-
+(defun m-grep-directory (str) 
+  (message (concat "grep-dir:" str)) 
+  (if (stringp str) 
+      (m-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory
+							      buffer-file-name)))))
 
 ;;; `comment-toggle' M-;
 (global-set-key [remap comment-dwim] 'comment-or-uncomment-region-or-line)
@@ -475,13 +461,11 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
 ;; (package-require 'guide-key-tip)
 ;; (require 'guide-key-tip)
 ;; (setq guide-key-tip/enabled nil)
-
 
 ;;; `which-key'
 (package-require 'which-key)
 (require 'which-key)
 (which-key-mode)
-
 
 ;;
 (provide 'mod-keybind)

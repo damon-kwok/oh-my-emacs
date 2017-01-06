@@ -40,8 +40,8 @@
 	    (org-defkey org-mode-map [(meta p)]    'org-metaup)
 	    (org-defkey org-mode-map [(meta n)]  'org-metadown)
 
-	    (org-defkey org-mode-map "\M-["    'org-metaup)
-	    (org-defkey org-mode-map "\M-/"  'org-metadown)
+	    ;;(org-defkey org-mode-map "\M-["    'org-metaup)
+	    ;;(org-defkey org-mode-map "\M-/"  'org-metadown)
 	    (org-defkey org-mode-map "\M-;"    'org-metaup)
 	    (org-defkey org-mode-map "\M-'"  'org-metadown)))
 

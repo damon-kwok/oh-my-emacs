@@ -253,7 +253,7 @@
   (delete-other-windows) 
   (m-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
-  (find-file (concat "~/../docs/" doc-name))
+  (find-file (concat (getenv "ROOT") "/docs/" doc-name))
   (delete-other-windows))
 
 (defun m-open-url(url) 

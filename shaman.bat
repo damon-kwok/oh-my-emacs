@@ -23,6 +23,7 @@ REM Code:
 REM
 cd /d %~dp0%
 set ROOT=%CD%
+set PATH=%ROOT%;%PATH%
 
 set CACHE=%ROOT%\cache
 set APP_HOME=%CACHE%\apps
@@ -49,6 +50,8 @@ REM set MSYS_BIN=%MSYS_HOME%\usr\bin
 
 set PATH=%PATH%;c:\msys32\usr\bin;d:\msys32\usr\bin;e:\msys32\usr\bin;f:\msys32\usr\bin;
 set PATH=%PATH%;c:\msys64\usr\bin;d:\msys64\usr\bin;e:\msys64\usr\bin;f:\msys64\usr\bin;
+set PATH=%PATH%;c:\msys32\mingw32\bin;d:\msys32\mingw32\bin;e:\msys32\mingw32\bin;f:\msys32\mingw32\bin;
+set PATH=%PATH%;c:\msys64\mingw64\bin;d:\msys64\mingw64\bin;e:\msys64\mingw64\bin;f:\msys64\mingw64\bin;
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem MsBuild
 rem set MSBUILD_HOME="C:\Program Files (x86)\MSBuild\14.0\Bin"
@@ -98,30 +101,37 @@ goto:%1
 goto:quit
 
 :emacs
-copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
+if not exist %HOME%\.emacs (
+   copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
+)
 cd %HOME%
 REM start %EMACS_BIN%\runemacs.exe --debug-init
 call %EMACS_BIN%\runemacs.exe --debug-init
-goto:eof
+exit
 
 :emacs-nw
-copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
+if not exist %HOME%\.emacs (
+   copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
+)
 cd %HOME%
 %EMACS_BIN%\emacs.exe -nw --debug-init
 goto:eof
 
 :compile-elc
 cd %ROOT%\emacs-config\modules
-%EMACS_BIN%\emacs.exe -batch -f batch-byte-compile *.el
+%EMACS_BIN%\emacs.exe -Q -batch -f batch-byte-compile *.el
+REM emacs --batch --eval '(byte-recompile-directory "~/.emacs.d")'
+REM emacs --batch --eval '(byte-compile-file "your-elisp-file.el")'
+REM emacs -Q --batch -f batch-byte-compile *.el foo/*.el
+REM %EMACS_BIN%\emacs.exe --batch --eval "(byte-recompile-directory  \"~/emacs-config/modules\" 0)"
+REM copy /y %ROOT%\emacs-config\comp.el %HOME%\.emacs
 cd %ROOT%
-pause
 goto:eof
 
-:clean-elc
+:delete-elc
 cd %ROOT%\emacs-config\modules
-rm *.elc
+rm -rf *.elc
 cd %ROOT%
-pause
 goto:eof
 
 :unity
@@ -223,6 +233,9 @@ if not exist %APP_HOME% (
 )
 goto:eof
 
+:toolchain
+pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
+
 :test
 echo %1%
 echo %2%
@@ -237,7 +250,8 @@ echo    4) zipapp
 echo    5) unzipapp
 echo    e) emacs
 echo    n) emacs-nw
-echo    c) complie-elc
+REM echo    c) complie-elc
+echo    d) delete-elc
 echo    s) shell
 echo    r) return
 echo    q) quit
@@ -249,20 +263,18 @@ if /i "%c%"=="3" call:pushapp
 if /i "%c%"=="4" call:zipapp
 if /i "%c%"=="5" call:unzipapp
 if /i "%c%"=="e" goto:emacs
-if /i "%c%"=="n" goto:emacs-nw
-if /i "%c%"=="c" goto:compile-elc
-if /i "%c%"=="s" goto:shell
-if /i "%c%"=="r" goto:eof
+if /i "%c%"=="n" call:emacs-nw
+REM if /i "%c%"=="c" call:compile-elc
+if /i "%c%"=="d" call:delete-elc
+if /i "%c%"=="s" call:shell
+if /i "%c%"=="r" call:eof
 if /i "%c%"=="q" exit
-
-echo error-input
+REM echo your input is not invalid:(
 call:ask
 
 :main
 echo do::main
-rem call:test 111 222
 call:ask
-goto:quit
 
 :quit
 cd %ROOT%

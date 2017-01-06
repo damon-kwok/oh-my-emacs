@@ -443,13 +443,13 @@
 (setq column-number-mode t)
 
 ;;; page width
-;; (setq fill-column 120)
+;; (setq fill-column 100)
 
 ;;; print margin column
 (package-require 'fill-column-indicator)
 (require 'fill-column-indicator)
 (setq whitespace-style '(face trailing))
-(setq fci-rule-column 120)
+(setq fci-rule-column 100)
 (setq fci-rule-width 1)
 (setq fci-rule-color "grey30") ;; "white" "grey30"
 

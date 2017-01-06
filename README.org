@@ -13,15 +13,19 @@ sudo dnf grouplist
 - bash <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/install)
 * KEYBIND
 ** global
- - *C-c z | M-SPC* *super-key*
+ - *M-z | M-SPC* *super-key*
  - *C-z* mark-word
  - *C-M-d* delete-backward-char
  - *M-p* move-lines-up
  - *M-n* move-lines-down
+ - *M-;* comment-or-uncomment-region-or-line
  - *M*-/num/ switch window
  - *C-x M-k* close all buffer
  - *C-\\* toggle-input-method
  - F1 neotree-toggle
+ - C-M-; tab-backward
+ - C-M-' tab-forward
+ - C-M-[ tab-forward-group
  - C-- shrink-window
  - C-= enlarge-window
  - C-M-- shrink-window-horizontally

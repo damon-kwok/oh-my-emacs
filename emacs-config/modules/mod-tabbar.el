@@ -30,21 +30,21 @@
 ;;; cycle: `tabs' `groups' `default'
 (setq tabbar-cycle-scope 'tabs)
 
-(keymap-unset-key (kbd "C-c C-<home>") "tabbar-mode")
-(keymap-unset-key (kbd "C-c <C-f10>") "tabbar-mode")
-(keymap-unset-key (kbd "C-c <C-left>") "tabbar-mode")
-(keymap-unset-key (kbd "C-c <C-right>") "tabbar-mode")
-(keymap-unset-key (kbd "C-c <C-up>") "tabbar-mode")
-(keymap-unset-key (kbd "C-c <C-down>") "tabbar-mode")
-(keymap-unset-key (kbd "C-c <C-prior>") "tabbar-mode")
-(keymap-unset-key (kbd "C-c <C-next>") "tabbar-mode")
+;;(keymap-unset-key (kbd "C-c C-<home>") "tabbar-mode")
+;;(keymap-unset-key (kbd "C-c <C-f10>") "tabbar-mode")
+;;(keymap-unset-key (kbd "C-c <C-left>") "tabbar-mode")
+;;(keymap-unset-key (kbd "C-c <C-right>") "tabbar-mode")
+;;(keymap-unset-key (kbd "C-c <C-up>") "tabbar-mode")
+;;(keymap-unset-key (kbd "C-c <C-down>") "tabbar-mode")
+;;(keymap-unset-key (kbd "C-c <C-prior>") "tabbar-mode")
+;;(keymap-unset-key (kbd "C-c <C-next>") "tabbar-mode")
 
-(global-set-key (kbd "M-]") 'tabbar-forward)
-(global-set-key (kbd "M-[") 'tabbar-backward)
-(global-set-key (kbd "C-M-]") 'tabbar-forward-group)
-(global-set-key (kbd "C-M-[") 'tabbar-backward-group)
+(global-set-key (kbd "C-M-'") 'tabbar-forward)
+(global-set-key (kbd "C-M-;") 'tabbar-backward)
+(global-set-key (kbd "C-M-[") 'tabbar-forward-group)
+;;(global-set-key (kbd "C-M-]") 'tabbar-backward-group)
 
-(global-set-key (kbd "<backtab>")
+(global-set-key (kbd "<backtab>") 
 		'(lambda () 
 		   (interactive) 
 		   (switch-to-buffer (other-buffer (current-buffer) 1))))
@@ -135,29 +135,29 @@
 
 (set-face-attribute 'tabbar-button nil 
 		    :inherit 'tabbar-default 
-		    :foreground "navy"
-		    :background "gray"
+		    :foreground "navy" 
+		    :background "gray" 
 		    :box '(:line-width 1 
-				       :color "#330000")
+				       :color "#330000") 
 		    :overline "#330000" 
-		    :underline "gray"
+		    :underline "gray" 
 		    :weight 'bold)
 
 (set-face-attribute 'tabbar-unselected nil 
 		    :inherit 'tabbar-default 
-		    :foreground "navy"
-		    :background "gray"
+		    :foreground "navy" 
+		    :background "gray" 
 		    :box '(:line-width 1 
-				       :color "#330000")
+				       :color "#330000") 
 		    :overline "#330000" 
-		    :underline "gray"
+		    :underline "gray" 
 		    :weight 'bold)
 
 (set-face-attribute 'tabbar-selected nil 
 		    :inherit 'tabbar-default 
 		    :foreground "gray" 
 		    :background "navy" 
-		    :box '(:line-width 1
+		    :box '(:line-width 1 
 				       :color "#330000") 
 		    :overline "#330000" 
 		    :underline "navy" 
@@ -168,38 +168,38 @@
 ;; (set-face-attribute 'tabbar-default nil
 ;; 		    ;; :family "DejaVu Sans Mono"
 ;; 		    ;;:inherit 'tabbar-default
-;; 		    :foreground "navy" 
-;; 		    :background "gray" 
-;; 		    :height 1.0)
-
-;; (set-face-attribute 'tabbar-button nil 
-;; 		    :inherit 'tabbar-default 
 ;; 		    :foreground "navy"
 ;; 		    :background "gray"
-;; 		    :box '(:line-width 1 
+;; 		    :height 1.0)
+
+;; (set-face-attribute 'tabbar-button nil
+;; 		    :inherit 'tabbar-default
+;; 		    :foreground "navy"
+;; 		    :background "gray"
+;; 		    :box '(:line-width 1
 ;; 				       :color "#330000")
-;; 		    :overline "#330000" 
+;; 		    :overline "#330000"
 ;; 		    :underline "gray"
 ;; 		    :weight 'bold)
 
-;; (set-face-attribute 'tabbar-unselected nil 
-;; 		    :inherit 'tabbar-default 
+;; (set-face-attribute 'tabbar-unselected nil
+;; 		    :inherit 'tabbar-default
 ;; 		    :foreground "navy"
 ;; 		    :background "gray"
-;; 		    :box '(:line-width 1 
+;; 		    :box '(:line-width 1
 ;; 				       :color "gray")
-;; 		    :overline "#330000" 
+;; 		    :overline "#330000"
 ;; 		    :underline "#330000"
 ;; 		    :weight 'bold)
 
-;; (set-face-attribute 'tabbar-selected nil 
-;; 		    :inherit 'tabbar-default 
-;; 		    :foreground "gray" 
-;; 		    :background "navy" 
+;; (set-face-attribute 'tabbar-selected nil
+;; 		    :inherit 'tabbar-default
+;; 		    :foreground "gray"
+;; 		    :background "navy"
 ;; 		    :box '(:line-width 1
-;; 				       :color "navy") 
-;; 		    :overline "#330000" 
-;; 		    :underline "#330000" 
+;; 				       :color "navy")
+;; 		    :overline "#330000"
+;; 		    :underline "#330000"
 ;; 		    :weight 'bold)
 
 ;; (require 'tabbar-ruler)
@@ -222,10 +222,10 @@
 	 ;;          '("*scratch*" "*Messages*" "*Help*"))
 	 ;;  "Common"
 	 ;;  )
-	 ((condition-case err
-               (projectile-project-root)
-	    (error nil)) (list (projectile-project-name)))
-	 
+	 ((condition-case err (projectile-project-root) 
+	    (error 
+	     nil)) 
+	  (list (projectile-project-name)))
 	 ((string-equal "*" (substring (buffer-name) 0 1)) "Common") 
 	 ((member (buffer-name) 
 		  '("xyz" "day" "m3" "abi" "for" "nws" "eng" "f_g" "tim" "tmp")) "Main") 
@@ -246,27 +246,34 @@
 
 
 
-(defvar tabbar-ruler-projectile-tabbar-buffer-group-calc nil
+(defvar tabbar-ruler-projectile-tabbar-buffer-group-calc nil 
   "Buffer group for projectile.  Should be buffer local and speed up calculation of buffer groups.")
-(defun tabbar-ruler-projectile-tabbar-buffer-groups ()
+(defun tabbar-ruler-projectile-tabbar-buffer-groups () 
   "Return the list of group names BUFFER belongs to.
     Return only one group for each buffer."
-
-  (if tabbar-ruler-projectile-tabbar-buffer-group-calc
-      (symbol-value 'tabbar-ruler-projectile-tabbar-buffer-group-calc)
+  (if tabbar-ruler-projectile-tabbar-buffer-group-calc (symbol-value
+							'tabbar-ruler-projectile-tabbar-buffer-group-calc) 
     (set (make-local-variable 'tabbar-ruler-projectile-tabbar-buffer-group-calc)
-
-         (cond
-          ((or (get-buffer-process (current-buffer)) (memq major-mode '(comint-mode compilation-mode))) '("Term"))
-          ((string-equal "*" (substring (buffer-name) 0 1)) '("Misc"))
-          ((condition-case err
-               (projectile-project-root)
-             (error nil)) (list (projectile-project-name)))
-          ((memq major-mode '(emacs-lisp-mode python-mode emacs-lisp-mode c-mode c++-mode makefile-mode lua-mode vala-mode)) '("Coding"))
-          ((memq major-mode '(javascript-mode js-mode nxhtml-mode html-mode css-mode)) '("HTML"))
-          ((memq major-mode '(org-mode calendar-mode diary-mode)) '("Org"))
-          ((memq major-mode '(dired-mode)) '("Dir"))
-          (t '("Main"))))
+	 (cond ((or 
+		 (get-buffer-process (current-buffer)) 
+		 (memq major-mode '(comint-mode compilation-mode))) 
+		'("Term")) 
+	       ((string-equal "*" (substring (buffer-name) 0 1)) 
+		'("Misc")) 
+	       ((condition-case err (projectile-project-root) 
+		  (error 
+		   nil)) 
+		(list (projectile-project-name))) 
+	       ((memq major-mode '(emacs-lisp-mode python-mode emacs-lisp-mode c-mode c++-mode
+						   makefile-mode lua-mode vala-mode)) 
+		'("Coding")) 
+	       ((memq major-mode '(javascript-mode js-mode nxhtml-mode html-mode css-mode)) 
+		'("HTML")) 
+	       ((memq major-mode '(org-mode calendar-mode diary-mode)) 
+		'("Org")) 
+	       ((memq major-mode '(dired-mode)) 
+		'("Dir")) 
+	       (t '("Main")))) 
     (symbol-value 'tabbar-ruler-projectile-tabbar-buffer-group-calc)))
 
 (setq tabbar-buffer-groups-function 'tabbar-ruler-projectile-tabbar-buffer-groups)
