@@ -3,8 +3,10 @@
 *.elc
 .#*
 # white list anything that's a directort
+!*.el
 !cache/bin
-!emacs-config/*
+!/emacs-config
+!/emacs-config/*
 !install
 !README.org
 !shaman
