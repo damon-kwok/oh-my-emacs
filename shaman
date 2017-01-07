@@ -1,7 +1,170 @@
-#!/use/bin/bash
+#!/usr/bin/bash
 
-
-function git-fetch() {
-    local 
+echo-ask() {
+    read -p $(tput setaf 5)"$1 "$(tput sgr0)
+}
+echo-warning-ask() {
+    read -p $(tput setaf 3)"$1 "$(tput sgr0)
+}
+echo-success() {
+    echo -e $(tput setaf 2)"$1"$(tput sgr0)
+}
+echo-warning() {
+    echo -e $(tput setaf 3)"$1"$(tput sgr0)
+}
+echo-error() {
+    echo -e $(tput setaf 1)"$1"$(tput sgr0)
+}
+echo-tip() {
+    echo -e $(tput setaf 6)"$1"$(tput sgr0)
+}
+echo-debug() {
+    echo -e $(tput setaf 8)"$1"$(tput sgr0)
+}
+echo-waiting() {
+    echo -e $(tput setaf 4)"$1"$(tput sgr0)
 }
 
+DIRNAME=`dirname "$0"`
+export ROOT=`cd "$DIRNAME"; pwd`
+export PATH=$ROOT:$PATH
+
+CACHE=$ROOT/cache
+APP_HOME=$CACHE/apps
+ZIP_HOME=$CACHE/apps-zip
+
+if [ ! -d $CACHE ]
+then mkdir $CACHE
+fi
+
+function link-init-el() {
+    cp -rf $ROOT/emacs-config/init.el $HOME/.emacs
+}
+
+function run-emacs {
+    if [ ! -f $HOME/.emacs ]
+    then link-init-el
+    fi
+
+    emacs --debug-init
+}
+
+function run-emacs-nw {
+    if [ ! -f $HOME/.emacs ]
+    then link-init-el
+    fi
+
+    emacs -nw --debug-init
+}
+
+function delete-etc {
+    cd $ROOT/emacs-config/modules
+    rm -rf *.elc
+    cd $ROOT
+}
+
+function push {
+    git reset
+    git add .
+    git status
+    read -p "please input commit message:" msg
+    echo "commit: $msg"
+    git commit -m "$msg"
+    git push -u origin master
+}
+
+function push-a {
+    echo "func::push-a"
+
+    cd $ROOT
+    
+    git reset
+    git add .
+    git status
+    git commit -m "update module"
+    git push -u origin master
+}
+
+function zipapp {
+    echo "func::zipapp"
+    cd $ROOT/home
+    zip -r apps.zip apps
+    mv apps.zip $ZIP_HOME/apps.zip
+    cd $ZIP_HOME
+    rm -rf *.zip.*
+    split -d -b 3m apps.zip apps.zip.
+    sleep 1s
+    rm -rf apps.zip
+
+    cd $ROOT
+}
+
+function unzipapp {
+    echo "func::unzipapp"
+    cd $ZIP_HOME
+    ls
+    cat *.zip.* > apps.zip
+    unzip apps.zip
+    sleep 1s
+    rm -rf apps.zip
+    mv apps ..
+
+    cd $ROOT
+}
+
+function pushapp {
+    echo "func::pushapp"
+    cd $ZIP_HOME
+    zipapp
+    push
+}
+
+function getapp {
+    echo "func::getapp"
+    if [ ! -d $APP_HOME ]
+    then if [ ! -d $ZIPHOME ]
+	 then 111
+	 fi
+    fi
+}
+
+function install-toolchain {
+    pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
+}
+
+function ask-menu {
+    echo "func::ask-menu"
+    echo "    1) push"
+    echo "    2) getapp"
+    echo "    3) pushapp"
+    echo "    4) zipapp"
+    echo "    5) unzipapp"
+    echo "    e) emacs"
+    echo "    n) emacs-nw"
+    # echo "    c) complie-elc"
+    echo "    l) link init.el"
+    echo "    d) delete-elc"
+    echo "    s) shell"
+    echo "    r) return"
+    echo "    q) quit"
+
+    read -p "please input your choice:" item
+    case $item in
+	1) push;;
+	2) getapp;;
+	3) pushapp;;
+	4) zipapp;;
+	5) unzipapp;;
+	e | E) emacs;;
+	n | N) emacs-nw;;
+	c | C) compile-elc;;
+	l | L) link-init-el;;
+	d | D) delete-elc;;
+	s | S) shell;;
+	r | R) ;;
+	q | Q) exit;;
+	*) ask-menu;;	    
+   esac
+}
+
+ask-menu

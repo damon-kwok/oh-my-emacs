@@ -43,7 +43,7 @@
 
  '(default ((t (:foreground "black" :background "gray80"))))
  '(mouse ((t (:foregound "red"))))
- '(cursor ((t (:foregound "yellow"))))
+ '(cursor ((t (:foregound "yellow")))) ;;yellow 
  '(border ((t (:foregound "#330000")))) ;;black
 
  '(modeline ((t (:foreground "black" :background "gray80"))))

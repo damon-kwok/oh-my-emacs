@@ -7,11 +7,11 @@
 
 (add-to-list 'load-path "~/emacs-config")
 (add-to-list 'load-path "~/emacs-config/modules")
-(add-to-list 'load-path "~/emacs-config/themes")
+(add-to-list 'custom-theme-load-path "~/emacs-config/themes")
 
 (add-to-list 'load-path "~/my-emacs-config/emacs-config")
 (add-to-list 'load-path "~/my-emacs-config/emacs-config/modules")
-(add-to-list 'load-path "~/my-emacs-config/emacs-config/themes")
+(add-to-list 'custom-theme-load-path "~/my-emacs-config/emacs-config/themes")
 
 ;;avoid compile error
 ;;(setq byte-compile-warnings nil) 

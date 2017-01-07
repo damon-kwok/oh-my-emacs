@@ -100,6 +100,10 @@ goto:%1
 :env
 goto:quit
 
+:link-init-el
+copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
+goto:eof
+
 :emacs
 if not exist %HOME%\.emacs (
    copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
@@ -153,16 +157,17 @@ bash
 goto:eof
 
 :sleep
+echo "sleep %arg1%s"
 ping -n %arg1% 127.0.0.1>nul
 goto:eof
 
 :fetch
-echo do::fetch
+echo "do::fetch"
 git fetch
 goto:eof
 
 :push
-echo do::push
+echo "do::push"
 rem rm -f .git/index.lock
 git reset
 git add .
@@ -174,7 +179,7 @@ git push -u origin master
 goto:eof
 
 :push-a
-echo do::push-a
+echo "do::push-a"
 git reset
 git add .
 git status
@@ -183,7 +188,7 @@ git push -u origin master
 goto:eof
 
 :zipapp
-echo do::zipapp
+echo "do::zipapp"
 cd %ROOT%/home
 zip -r apps.zip apps
 move apps.zip %ZIP_HOME%/apps.zip
@@ -195,7 +200,7 @@ rm -rf apps.zip
 goto:eof
 
 :unzipapp
-echo do::unzipapp
+echo "do::unzipapp"
 cd %ZIP_HOME%
 dir
 cat *.zip.* > apps.zip
@@ -206,15 +211,15 @@ move apps ../
 goto:eof
 
 :pushapp
-echo do::pushapp
-cd $ZIP_HOME
+echo "do::pushapp"
+cd %ZIP_HOME%
 rem rm -f apps.zip
 call:zipapp
 call:push
 goto:eof
 
 :getapp
-echo do::getapp
+echo "do::getapp"
 if not exist %APP_HOME% (
   
   if exist %ZIP_HOME% (
@@ -251,6 +256,7 @@ echo    5) unzipapp
 echo    e) emacs
 echo    n) emacs-nw
 REM echo    c) complie-elc
+echo    l) link init.el
 echo    d) delete-elc
 echo    s) shell
 echo    r) return
@@ -265,6 +271,7 @@ if /i "%c%"=="5" call:unzipapp
 if /i "%c%"=="e" goto:emacs
 if /i "%c%"=="n" call:emacs-nw
 REM if /i "%c%"=="c" call:compile-elc
+if /i "%c%"=="l" call:link-init-el
 if /i "%c%"=="d" call:delete-elc
 if /i "%c%"=="s" call:shell
 if /i "%c%"=="r" call:eof

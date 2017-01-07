@@ -32,16 +32,21 @@
 ;;; open file (don't in new frame)
 (setq ns-pop-up-frames nil)
 
-(setq default-frame-alist '((height . 40) (width . 130) (top . 25) (left . 18) (menu-bar-lines . 0) (tool-bar-lines . 0)))
+(setq default-frame-alist '((height . 40) 
+			    (width . 130) 
+			    (top . 25) 
+			    (left . 18) 
+			    (menu-bar-lines . 0) 
+			    (tool-bar-lines . 0)))
 
 ;;; set tool bar to text style (need emacs24)
 (setq tool-bar-style 'both) ;;opt:text image both
 
 ;; toolbar (0:disable 1:show) (0:disable 1:show)
-;(tool-bar-mode 0)
+					;(tool-bar-mode 0)
 
 ;;; menu-bar (0:disable 1:show)
-;(menu-bar-mode 0)
+					;(menu-bar-mode 0)
 
 ;;; scroll setttings (0:disable 1:show)
 (scroll-bar-mode nil)
@@ -117,24 +122,28 @@
 
 (if (display-graphic-p) 
     (progn ;;
-      (load-theme 'gray30 t t) 
-      (enable-theme 'gray30) 
-      (load-theme 'deeper-blue)
+      ;;(load-theme 'gray30 t t)
+      ;;(enable-theme 'gray30)
+      (load-theme 'deeper-blue) 
+      (enable-theme 'deeper-blue)
       ;;
       ) 
   (progn
     ;;
-    ;; (load-theme 'xemacs t t)
-    ;; (enable-theme 'xemacs)
-    (load-theme 'deeper-blue)
-    ;;
-    )
+    ;;(load-theme 'xemacs t t)
+    ;;(enable-theme 'xemacs)
+    (load-theme 'deeper-blue) 
+    (enable-theme 'deeper-blue))
   ;;
   )
 
 ;;; xemacs
-;; (load-theme 'm-xemacs t t)
-;; (enable-theme 'm-xemacs)
+;;(load-theme 'm-xemacs t t)
+;;(enable-theme 'm-xemacs)
+
+;;(package-require 'monokai-theme)
+;;(load-theme 'monokai t t)
+;;(enable-theme 'monokai)
 
 ;; (load-theme 'fischmeister t t)
 ;; (enable-theme 'fischmeister)
@@ -345,9 +354,9 @@
 ;; (tdd-status-global-mode)
 
 ;;; `mode-icons'
-;; (package-require 'mode-icons)
-;; (require 'mode-icons)
-;; (mode-icons-mode)
+(package-require 'mode-icons)
+(require 'mode-icons)
+(mode-icons-mode)
 
 ;;; `nyan-mode'
 (package-require 'nyan-mode)
@@ -381,14 +390,12 @@
 
 ;;; ANSI-colors in the compilation buffer output
 (require 'ansi-color)
-(defun endless/colorize-compilation ()
+(defun endless/colorize-compilation () 
   "Colorize from `compilation-filter-start' to `point'."
-  (let ((inhibit-read-only t))
-    (ansi-color-apply-on-region
-     compilation-filter-start (point))))
+  (let ((inhibit-read-only t)) 
+    (ansi-color-apply-on-region compilation-filter-start (point))))
 
-(add-hook 'compilation-filter-hook
-          #'endless/colorize-compilation)
+(add-hook 'compilation-filter-hook #'endless/colorize-compilation)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`mini-buffer';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -614,7 +621,7 @@
 ;; (add-hook 'after-init-hook 'session-initialize)
 
 ;;; desktop
-(desktop-save-mode 0) ;;(require 'desktop-settings)
+(desktop-save-mode 1) ;;(require 'desktop-settings)
 
 ;;; recentf file list
 (recentf-mode t)
