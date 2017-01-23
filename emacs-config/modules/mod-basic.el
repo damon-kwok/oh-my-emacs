@@ -23,6 +23,26 @@
 ;;;
 (require 'mod-package)
 ;;;
+;;----------------------------------------------------------------------------
+;; Temporarily reduce garbage collection during startup
+;;----------------------------------------------------------------------------
+;; (defconst sanityinc/initial-gc-cons-threshold gc-cons-threshold
+;;   "Initial value of `gc-cons-threshold' at start-up time.")
+;; (setq gc-cons-threshold (* 256 1024 1024))
+;; (add-hook 'after-init-hook (lambda ()
+;; 			     (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
+
+(defun my-optimize-gc (NUM PER) 
+  "By default Emacs will initiate GC every 0.76 MB allocated (gc-cons-threshold == 800000).
+@see http://www.gnu.org/software/emacs/manual/html_node/elisp/Garbage-Collection.html
+We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
+  (setq-default gc-cons-threshold (* 1024 1024 NUM) gc-cons-percentage PER))
+
+;;(message (concat "gc:" gc-cons-threshold " pre:" gc-cons-percentage))
+(my-optimize-gc 512 0.2)
+(add-hook 'after-init-hook (lambda ()
+			     (my-optimize-gc 8 0.2)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`frame';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -49,7 +69,7 @@
 					;(menu-bar-mode 0)
 
 ;;; scroll setttings (0:disable 1:show)
-(scroll-bar-mode nil)
+(scroll-bar-mode 0)
 ;;(set-scroll-bar-mode 'right); (nil:disable right left)
 
 ;;; The effect is that (however it is moved) the cursor is always given 3 lines
@@ -133,9 +153,29 @@
     ;;(load-theme 'xemacs t t)
     ;;(enable-theme 'xemacs)
     (load-theme 'deeper-blue) 
-    (enable-theme 'deeper-blue))
+    (enable-theme 'deeper-blue)
+    ;;
+    )
   ;;
   )
+
+;;; shaman
+;;(load-theme 'shaman t t)
+;;(enable-theme 'shaman)
+
+;;; jazz
+;; (package-require 'jazz-theme)
+;; (load-theme 'jazz t t)
+;; (enable-theme 'jazz)
+
+;;; leuven
+;; (package-require 'leuven-theme)
+;; (load-theme 'leuven t t)
+;; (enable-theme 'leuven)
+
+;;; django
+;;(load-theme 'django t t)
+;;(enable-theme 'django)
 
 ;;; xemacs
 ;;(load-theme 'm-xemacs t t)
@@ -179,12 +219,10 @@
 
 ;; (load-theme 'jonadabian-slate t t)
 ;; (enable-theme 'jonadabian-slate)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`base-config';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `'gc'
-(setq gc-cons-threshold (* 387 1024 1024))
-
 ;;; '`error'
 (setq debug-on-error t) ;; M-x toggle-debug-on-error
 ;; (typo-err)
@@ -204,7 +242,7 @@
 (setq inhibit-startup-message t)
 
 ;;; `'default-mode'
-(setq major-mode 'sh-mode) ;;set default major mode {sh-mode | text-mode}
+(setq major-mode 'text-mode) ;;set default major mode {sh-mode | text-mode}
 
 ;;; set font 1 : look:http://www.linuxsir.org/bbs/thread326299.html
 ;; (set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
@@ -437,6 +475,7 @@
      (undo-tree-visualize) 
      (undo-tree-visualize-undo)))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -446,17 +485,18 @@
 (setq linum-format "%4d")
 (global-linum-mode)
 
+
 ;;; `column'
 (setq column-number-mode t)
-
+
 ;;; page width
 ;; (setq fill-column 100)
-
-;;; print margin column
+
+;;; fci-mode
 (package-require 'fill-column-indicator)
 (require 'fill-column-indicator)
 (setq whitespace-style '(face trailing))
-(setq fci-rule-column 100)
+(setq fci-rule-column 80)
 (setq fci-rule-width 1)
 (setq fci-rule-color "grey30") ;; "white" "grey30"
 
@@ -471,7 +511,30 @@
     (fci-mode 1)))
 
 ;;; open global-fci-mode
-(global-fci-mode 1)
+(global-fci-mode 0)
+
+
+
+;;; indent-guide
+(package-require 'indent-guide)
+(require 'indent-guide)
+
+;; and call command “M-x indent-guide-mode”.
+
+;; If you want to enable indent-guide-mode in all buffers, call function indent-guide-global-mode.
+;; (indent-guide-global-mode)
+
+;; Column lines are propertized with “indent-guide-face”. So you may configure this face to make lines more pretty in your colorscheme.
+;; (set-face-background 'indent-guide-face "dimgray")
+
+;; If you want indent-guide to show guide lines only in idle-time, you can set delay.
+;; (setq indent-guide-delay 0.1)
+
+;; To show not only one guide line but all guide lines recursively, set “indent-guide-recursive” non-nil.
+;; (setq indent-guide-recursive t)
+
+;; You may also change the character for guides.
+;; (setq indent-guide-char "|")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`cursor';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

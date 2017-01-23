@@ -47,6 +47,7 @@ function run-emacs {
     fi
 
     emacs --debug-init
+    exit
 }
 
 function run-emacs-nw {
@@ -87,7 +88,7 @@ function push-a {
 
 function zipapp {
     echo "func::zipapp"
-    cd $ROOT/home
+    cd $CACHE
     zip -r apps.zip apps
     mv apps.zip $ZIP_HOME/apps.zip
     cd $ZIP_HOME
@@ -129,7 +130,9 @@ function getapp {
 }
 
 function install-toolchain {
-    pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
+    pacman -Syu
+    pacman -S curl zip unzip git svn perl
+    #pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
 }
 
 function ask-menu {
@@ -139,13 +142,13 @@ function ask-menu {
     echo "    3) pushapp"
     echo "    4) zipapp"
     echo "    5) unzipapp"
+    echo "    i) install-chain
     echo "    e) emacs"
     echo "    n) emacs-nw"
     # echo "    c) complie-elc"
     echo "    l) link init.el"
     echo "    d) delete-elc"
     echo "    s) shell"
-    echo "    r) return"
     echo "    q) quit"
 
     read -p "please input your choice:" item
@@ -155,16 +158,17 @@ function ask-menu {
 	3) pushapp;;
 	4) zipapp;;
 	5) unzipapp;;
-	e | E) emacs;;
-	n | N) emacs-nw;;
+	i) install-toolchain;;
+	e | E) run-emacs;;
+	n | N) run-emacs-nw;;
 	c | C) compile-elc;;
 	l | L) link-init-el;;
 	d | D) delete-elc;;
-	s | S) shell;;
-	r | R) ;;
+	s | S) bash;;
 	q | Q) exit;;
 	*) ask-menu;;	    
-   esac
+    esac
+    ask-menu
 }
 
 ask-menu

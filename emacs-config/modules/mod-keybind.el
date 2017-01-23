@@ -36,6 +36,9 @@
 (package-require 'expand-region)
 (require 'expand-region)
 (global-set-key (kbd "C-z") 'er/expand-region) ;; (global-set-key "\C-z" 'mark-word)
+(global-set-key (kbd "C-x M-u") 'upcase-region)
+(global-set-key (kbd "C-x M-l") 'downcase-region)
+
 
 ;; ;;; move line
 ;; (package-require-git "move-lines" "https://github.com/targzeta/move-lines.git")

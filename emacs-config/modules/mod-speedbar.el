@@ -14,8 +14,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require 'sr-speedbar)
 (require 'sr-speedbar)
+
 ;;(global-set-key [(f4)] 'sr-speedbar-toggle)
-(global-set-key (kbd "C-c t") 'sr-speedbar-toggle)
+;; (global-set-key (kbd "C-c t") 'sr-speedbar-toggle)
+
+(package-require 'projectile-speedbar)
+(require 'projectile-speedbar)
+
+;; Sometimes, when I am deep in a project tree, I like to use this shortcut to see full context:
+(global-set-key (kbd "C-c t") 'projectile-speedbar-toggle)
+
+;; You can also disable the feature completely:
+(setq projectile-speedbar-projectile-speedbar-enable nil)
+
 ;;==============================================================================
 ;;speedbar base settings
 ;;==============================================================================
@@ -38,8 +49,8 @@
 ;;(setq sr-speedbar-delete-windows t)
 
 ;; width
-(setq sr-speedbar-max-width 35)	;;set max width
-(setq sr-speedbar-width 35)	;;width
+(setq sr-speedbar-max-width 30)	;;set max width
+(setq sr-speedbar-width 30)	;;width
 
 ;; show all file
 (setq speedbar-show-unknown-files t)

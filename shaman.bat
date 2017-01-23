@@ -58,6 +58,13 @@ rem set MSBUILD_HOME="C:\Program Files (x86)\MSBuild\14.0\Bin"
 rem set MSBUILD_BIN=%MSBUILD_HOME%\Bin
 
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+rem ocaml
+set OCAML_HOME=C:\OCaml
+set OCAML_BIN=%OCAML_HOME%\bin
+set OCAMLLIB=%OCAML_HOME%\lib
+set PATH=%OCAML_BIN%;%PATH%
+
+rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem omnisharp
 set OMNISHARP_HOME=%APP_HOME%\omnisharp-server
 set OMNISHARP_BIN=%OMNISHARP_HOME%\bin
@@ -90,6 +97,8 @@ rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem set PATH=%MSBUILD_BIN%;%PATH%
 rem set PATH=%LLVM_BIN%;%CLANG_BIN%;%PATH%
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+rem bash shaman
+rem goto:quit
 
 if "%1"=="" (
 goto:main
@@ -109,8 +118,8 @@ if not exist %HOME%\.emacs (
    copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
 )
 cd %HOME%
-REM start %EMACS_BIN%\runemacs.exe --debug-init
-call %EMACS_BIN%\runemacs.exe --debug-init
+start %EMACS_BIN%\runemacs.exe --debug-init
+rem call %EMACS_BIN%\emacs.exe -Q -l ~/emacs-config/profile-dotemacs.el -f profile-dotemacs ~/emacs-config/init.el
 exit
 
 :emacs-nw
@@ -189,7 +198,7 @@ goto:eof
 
 :zipapp
 echo "do::zipapp"
-cd %ROOT%/home
+cd %CACHE%
 zip -r apps.zip apps
 move apps.zip %ZIP_HOME%/apps.zip
 cd %ZIP_HOME%
@@ -238,12 +247,15 @@ if not exist %APP_HOME% (
 )
 goto:eof
 
-:toolchain
-pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
-
 :test
 echo %1%
 echo %2%
+goto:eof
+
+:install-toolchain
+pacman -Syu
+pacman -S curl zip unzip git svn perl
+REM pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
 goto:eof
 
 :ask
@@ -255,6 +267,7 @@ echo    4) zipapp
 echo    5) unzipapp
 echo    e) emacs
 echo    n) emacs-nw
+echo    i) install-chain
 REM echo    c) complie-elc
 echo    l) link init.el
 echo    d) delete-elc
@@ -268,6 +281,7 @@ if /i "%c%"=="2" call:getapp
 if /i "%c%"=="3" call:pushapp
 if /i "%c%"=="4" call:zipapp
 if /i "%c%"=="5" call:unzipapp
+if /i "%c%"=="i" call:install-toolchain
 if /i "%c%"=="e" goto:emacs
 if /i "%c%"=="n" call:emacs-nw
 REM if /i "%c%"=="c" call:compile-elc

@@ -163,7 +163,6 @@
 		    :underline "navy" 
 		    :weight 'bold)
 
-
 ;;; xemacs
 ;; (set-face-attribute 'tabbar-default nil
 ;; 		    ;; :family "DejaVu Sans Mono"
@@ -225,7 +224,7 @@
 	 ((condition-case err (projectile-project-root) 
 	    (error 
 	     nil)) 
-	  (list (projectile-project-name)))
+	  (list (projectile-project-name))) 
 	 ((string-equal "*" (substring (buffer-name) 0 1)) "Common") 
 	 ((member (buffer-name) 
 		  '("xyz" "day" "m3" "abi" "for" "nws" "eng" "f_g" "tim" "tmp")) "Main") 
@@ -253,7 +252,7 @@
     Return only one group for each buffer."
   (if tabbar-ruler-projectile-tabbar-buffer-group-calc (symbol-value
 							'tabbar-ruler-projectile-tabbar-buffer-group-calc) 
-    (set (make-local-variable 'tabbar-ruler-projectile-tabbar-buffer-group-calc)
+    (set (make-local-variable 'tabbar-ruler-projectile-tabbar-buffer-group-calc) 
 	 (cond ((or 
 		 (get-buffer-process (current-buffer)) 
 		 (memq major-mode '(comint-mode compilation-mode))) 
