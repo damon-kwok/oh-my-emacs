@@ -522,7 +522,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; and call command “M-x indent-guide-mode”.
 
 ;; If you want to enable indent-guide-mode in all buffers, call function indent-guide-global-mode.
-;; (indent-guide-global-mode)
+(indent-guide-global-mode)
 
 ;; Column lines are propertized with “indent-guide-face”. So you may configure this face to make lines more pretty in your colorscheme.
 ;; (set-face-background 'indent-guide-face "dimgray")
@@ -531,7 +531,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (setq indent-guide-delay 0.1)
 
 ;; To show not only one guide line but all guide lines recursively, set “indent-guide-recursive” non-nil.
-;; (setq indent-guide-recursive t)
+(setq indent-guide-recursive t)
 
 ;; You may also change the character for guides.
 ;; (setq indent-guide-char "|")

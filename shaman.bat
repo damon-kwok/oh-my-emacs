@@ -48,10 +48,11 @@ rem msys2
 REM set MSYS_HOME=c:\msys64
 REM set MSYS_BIN=%MSYS_HOME%\usr\bin
 
-set PATH=%PATH%;c:\msys32\usr\bin;d:\msys32\usr\bin;e:\msys32\usr\bin;f:\msys32\usr\bin;
-set PATH=%PATH%;c:\msys64\usr\bin;d:\msys64\usr\bin;e:\msys64\usr\bin;f:\msys64\usr\bin;
-set PATH=%PATH%;c:\msys32\mingw32\bin;d:\msys32\mingw32\bin;e:\msys32\mingw32\bin;f:\msys32\mingw32\bin;
-set PATH=%PATH%;c:\msys64\mingw64\bin;d:\msys64\mingw64\bin;e:\msys64\mingw64\bin;f:\msys64\mingw64\bin;
+set MSYS32_BIN=c:\msys32\usr\bin;d:\msys32\usr\bin;e:\msys32\usr\bin;f:\msys32\usr\bin;
+set MSYS64_BIN=c:\msys64\usr\bin;d:\msys64\usr\bin;e:\msys64\usr\bin;f:\msys64\usr\bin;
+set MINGW32_BIN=c:\msys32\mingw32\bin;d:\msys32\mingw32\bin;e:\msys32\mingw32\bin;f:\msys32\mingw32\bin;
+set MINGW64_BIN=c:\msys64\mingw64\bin;d:\msys64\mingw64\bin;e:\msys64\mingw64\bin;f:\msys64\mingw64\bin;
+set PATH=%MSYS32_BIN%;%MSYS64_BIN%;%MINGW32_BIN%;%MINGW64_BIN%;%PATH%
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem MsBuild
 rem set MSBUILD_HOME="C:\Program Files (x86)\MSBuild\14.0\Bin"

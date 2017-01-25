@@ -38,7 +38,6 @@
 (global-set-key (kbd "C-z") 'er/expand-region) ;; (global-set-key "\C-z" 'mark-word)
 (global-set-key (kbd "C-x M-u") 'upcase-region)
 (global-set-key (kbd "C-x M-l") 'downcase-region)
-
 
 ;; ;;; move line
 ;; (package-require-git "move-lines" "https://github.com/targzeta/move-lines.git")
@@ -50,7 +49,6 @@
 
 ;; (global-set-key (kbd "M-<up>") 'move-lines-up)
 ;; (global-set-key (kbd "M-<down>") 'move-lines-down)
-
 
 ;;; `move-text'
 (package-require 'move-text)
@@ -105,8 +103,7 @@
 ;; `page-break-lines'
 (package-require 'page-break-lines)
 (require 'page-break-lines)
-(global-page-break-lines-mode)
-
+(global-page-break-lines-mode) 
 ;;; Swiper
 ;; (package-require 'swiper)
 ;; (require 'swiper)
@@ -274,8 +271,8 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ^^^^^^^^------------------------------------------------------------------------------
 _1_: Bing    _5_: Weibo#Emacs# _x_: Xahlee           _a_: Awesomeness   _v_: Github
 _2_: Baidu   _6_: Tuicool      _m_: Manual           _e_: Emacs         _9_: wego
-_3_: Taobao  _7_: oschina      _k_: emacs-tutor      _y_: Clojure        ^ ^
-_4_: Amazon  _8_: GAME         _l_: MasteringEmacs   _c_: CommonLisp     ^ ^
+_3_: Taobao  _7_: oschina      _k_: emacs-tutor      _y_: Clojure       _r_: Reddit
+_4_: Amazon  _8_: GAME         _l_: MasteringEmacs   _c_: CommonLisp    _s_: StackOverflow
 ^^^^^^^^------------------------------------------------------------------------------
 _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 " ("1" (m-open-url "http://cn.bing.com/") "Bing")
@@ -298,6 +295,8 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 ("c" (m-open-url "https://github.com/CodyReichert/awesome-cl") "CommonLisp")
 ("v" (m-open-url "https://github.com/") "github")
 ("9" (m-open-url "http://wttr.in/") "wego")
+("r" open-reddit-channel "Reddit")
+("s" open-stackoverflow-channel "StackOverflow")
 ("0" (calendar) "calendar")
 ("<tab>" (hydra-do-space/body) "BACK")
 ("q" nil "Quit")
@@ -439,6 +438,36 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
   (if (stringp str) 
       (m-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory
 							      buffer-file-name)))))
+
+(defun open-reddit-channel (word) 
+  "Show the explanation of WORD from Bing in the echo area." 
+  (interactive (let* ((default (if (use-region-p) 
+				   (buffer-substring-no-properties 
+				    (region-beginning) 
+				    (region-end)) 
+				 (let ((text (thing-at-point 'word))) 
+				   (if text (substring-no-properties text))))) 
+		      (prompt (if (stringp default) 
+				  (format "reddit (default \"%s\"): " default) "reddit: ")) 
+		      (string (read-string prompt nil nil default))) 
+		 (list string))) 
+  (m-open-url (concat "https://www.reddit.com/r/" word "/")))
+
+(defun open-stackoverflow-channel (word) 
+  "Show the explanation of WORD from Bing in the echo area." 
+  (interactive (let* ((default (if (use-region-p) 
+				   (buffer-substring-no-properties 
+				    (region-beginning) 
+				    (region-end)) 
+				 (let ((text (thing-at-point 'word))) 
+				   (if text (substring-no-properties text))))) 
+		      (prompt (if (stringp default) 
+				  (format "StackOverflow (default \"%s\"): " default) "StackOverflow: ")) 
+		      (string (read-string prompt nil nil default))) 
+		 (list string))) 
+  (m-open-url (concat "http://stackoverflow.com/questions/tagged/" word)))
+
+;; http://stackoverflow.com/questions/tagged/f%23
 
 ;;; `comment-toggle' M-;
 (global-set-key [remap comment-dwim] 'comment-or-uncomment-region-or-line)
@@ -468,8 +497,7 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
 ;;; `which-key'
 (package-require 'which-key)
 (require 'which-key)
-(which-key-mode)
-
+(which-key-mode) 
 ;;
 (provide 'mod-keybind)
 ;;; mod-keybind.el ends here

@@ -100,10 +100,8 @@
 ;;; `helm-company'
 (package-require 'helm-company)
 (autoload 'helm-company "helm-company") ;; Not necessary if using ELPA package
-(eval-after-load 'company
-  '(progn
-     (define-key company-mode-map (kbd "C-:") 'helm-company)
-     (define-key company-active-map (kbd "C-:") 'helm-company)))
+(eval-after-load 'company '(progn (define-key company-mode-map (kbd "C-:") 'helm-company) 
+				  (define-key company-active-map (kbd "C-:") 'helm-company)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `yasnippet'
 (package-require 'yasnippet)
@@ -118,7 +116,7 @@
 
 (if (file-exists-p dir-medusa-snippets)
     (add-to-list 'yas-snippet-dirs (expand-file-name dir-medusa-snippets)))
-(if (file-exists-p dir-medusa-snippets2)
+(if (file-exists-p dir-medusa-snippets2) 
     (add-to-list 'yas-snippet-dirs (expand-file-name dir-medusa-snippets2)))
 
 (yas-global-mode 1)
