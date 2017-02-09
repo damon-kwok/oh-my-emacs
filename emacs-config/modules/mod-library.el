@@ -227,10 +227,15 @@
   (save-buffers-kill-emacs))
 ;;remove the prompt for killing emacsclient buffers
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
+(defun medusa-exit-animate() 
+  (interactive) 
+  (cond ((y-or-n-p "Exit? ")
+	 (medusa-bye))))
+
 (defun medusa-exit() 
   (interactive) 
-  (cond ((y-or-n-p "Exit? ") ;;(y-or-n-p "Relax...? ")
-	 (medusa-bye))))
+  (cond ((y-or-n-p "Exit? ")
+	 (save-buffers-kill-emacs))))
 
 (defun m-open-file(file-name) 
   (interactive) 
