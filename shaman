@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 echo-ask() {
     read -p $(tput setaf 5)"$1 "$(tput sgr0)
@@ -142,7 +142,7 @@ function ask-menu {
     echo "    3) pushapp"
     echo "    4) zipapp"
     echo "    5) unzipapp"
-    echo "    i) install-chain
+    echo "    i) install-chain"
     echo "    e) emacs"
     echo "    n) emacs-nw"
     # echo "    c) complie-elc"
