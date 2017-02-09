@@ -231,6 +231,11 @@
   (interactive) 
   (cond ((y-or-n-p "Exit? ")
 	 (medusa-bye))))
+(defun medusa-exit() 
+  (interactive) 
+  (cond ((y-or-n-p "Exit? ") ;;(y-or-n-p "Relax...? ")
+	 (save-buffers-kill-emacs))))
+
 
 (defun medusa-exit() 
   (interactive) 
