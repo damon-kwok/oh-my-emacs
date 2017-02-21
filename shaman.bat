@@ -171,6 +171,11 @@ echo "sleep %arg1%s"
 ping -n %arg1% 127.0.0.1>nul
 goto:eof
 
+:download-lein
+cd %CACHE%/bin
+curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+goto:eof
+
 :fetch
 echo "do::fetch"
 git fetch
@@ -260,12 +265,14 @@ REM pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
 goto:eof
 
 :ask
+cd %ROOT%
 echo do::ask
 echo    1) push
 echo    2) getapp
 echo    3) pushapp
 echo    4) zipapp
 echo    5) unzipapp
+echo    6) download-leiningen
 echo    e) emacs
 echo    n) emacs-nw
 echo    i) install-chain
@@ -282,6 +289,7 @@ if /i "%c%"=="2" call:getapp
 if /i "%c%"=="3" call:pushapp
 if /i "%c%"=="4" call:zipapp
 if /i "%c%"=="5" call:unzipapp
+if /i "%c%"=="6" call:download-lein
 if /i "%c%"=="i" call:install-toolchain
 if /i "%c%"=="e" goto:emacs
 if /i "%c%"=="n" call:emacs-nw
