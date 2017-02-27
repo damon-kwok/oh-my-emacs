@@ -53,8 +53,8 @@
 ;;; `programming-languages'
 (module-require 'mod-elisp)
 ;; (module-require 'mod-csharp)
-;; (module-require 'mod-clojure)
-;;(module-require 'mod-cc)
+(module-require 'mod-clojure)
+;;(Module-Require 'mod-cc)
 ;; (module-require 'mod-ess)
 ;;(module-require 'mod-slime)
 ;; (module-require 'mod-erlang)

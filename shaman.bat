@@ -173,7 +173,9 @@ goto:eof
 
 :download-lein
 cd %CACHE%/bin
-curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+rem curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+chmod +x ./lein
 goto:eof
 
 :fetch
