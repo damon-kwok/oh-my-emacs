@@ -37,21 +37,22 @@
 (package-require 'helm-cider-history)
 (require 'helm-cider-history)
 
+
+
+;;; `clj-refactor'
 (package-require 'clj-refactor)
 (require 'clj-refactor)
 
-;; (package-require 'lispy)
-;; (require 'lispy)
 
 (defun my-clojure-mode-hook ()
-  ;; (lispy-mode 1)
-  (clj-refactor-mode 1) 
+  (clj-refactor-mode 1)
   (yas-minor-mode 1)	    ; for adding require/use/import statements
   ;; This choice of keybinding leaves cider-macroexpand-1 unbound
   (cljr-add-keybindings-with-prefix "C-c C-m"))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
+
 
 ;;;;
 ;; Clojure
@@ -81,10 +82,16 @@
             (define-clojure-indent (fact 1))
             (define-clojure-indent (facts 1))))
 
+
 ;;;;
 ;; Cider
 ;;;;
+(package-require 'helm-cider)
+(require 'helm-cider)
 
+;;; 
+(package-require 'cider-hydra)
+(require 'cider-hydra)
 
 ;; provides minibuffer documentation for the code you're typing into the repl
 (add-hook 'cider-mode-hook 'eldoc-mode)
@@ -111,6 +118,8 @@
 (add-to-list 'auto-mode-alist '("\\.cljs.*$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("lein-env" . enh-ruby-mode))
 
+(add-hook 'cider-repl-mode-hook #'company-mode)
+(add-hook 'cider-mode-hook #'company-mode)
 ;;===================================================
 ;;keybind
 ;;===================================================
@@ -151,6 +160,7 @@
 
 (eval-after-load 'cider
   '(progn
+     (helm-cider-mode 1)
      (define-key clojure-mode-map (kbd "C-c C-v") 'cider-start-http-server)
      (define-key clojure-mode-map (kbd "C-M-r") 'cider-refresh)
      (define-key clojure-mode-map (kbd "C-c u") 'cider-user-ns)

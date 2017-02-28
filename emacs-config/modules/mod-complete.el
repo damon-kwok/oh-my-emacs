@@ -86,6 +86,7 @@
 ;;; `company'
 (package-require 'company)
 (require 'company)
+
 (add-hook 'after-init-hook 'global-company-mode)
 
 (global-set-key (kbd "<M-/>") 'company-complete)
@@ -94,8 +95,10 @@
 (define-key company-active-map (kbd "C-n")  'company-select-next)
 (define-key company-active-map (kbd "C-p")  'company-select-previous)
 
-(package-require 'company-quickhelp)
-(company-quickhelp-mode 1)
+;; don't super tty
+;; (package-require 'company-quickhelp)
+;; (company-quickhelp-mode 1)
+;; (setq company-quickhelp-delay 0.5)
 
 ;;; `helm-company'
 (package-require 'helm-company)
