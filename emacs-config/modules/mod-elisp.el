@@ -30,14 +30,18 @@
 		      "https://www.emacswiki.org/emacs/download/elisp-format.el")
 (require 'elisp-format)
 
-;;(package-require 'paredit)
+
+(package-require 'paredit)
+(require 'paredit)
+;; enable paredit for elisp
+(add-hook 'emacs-mode-hook 'enable-paredit-mode)
+;;(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+
 ;;(package-require 'rainbow-delimiters)
 ;;(global-rainbow-delimiters-mode)
-;;(require 'paredit)
 ;;(require 'rainbow-delimiters)
 ;;(rainbow-delimiters-mode t)
 
-;;(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 ;;(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
 ;;(add-hook 'emacs-lisp-mode-hook 'highlight-parentheses-mode)
 

@@ -30,7 +30,7 @@
 ;; mac-option-modifier 'none)
 
 (global-set-key (kbd "C-\\") 'toggle-input-method)
-;; (global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-space ;; (global-set-key [?\S- ] 'set-mark-command)
+;; (global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-super ;; (global-set-key [?\S- ] 'set-mark-command)
 
 ;;; expand region
 (package-require 'expand-region)
@@ -201,7 +201,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 ("s" eshell "*eshell*")
 ("S" (shell "*shell*"))
 ("0" (calendar) "calendar")
-("<tab>" (hydra-do-space/body) "BACK")
+("<tab>" (hydra-do-super/body) "BACK")
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c s") 'hydra-show-buffer/body)
@@ -255,7 +255,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ("C" (compile-all-modules) "compile-all-modules")
 
 ("0" calendar)
-("<tab>" (hydra-do-space/body) "BACK")
+("<tab>" (hydra-do-super/body) "BACK")
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c c") 'hydra-open-config/body)
@@ -298,7 +298,7 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 ("r" open-reddit-channel "Reddit")
 ("s" open-stackoverflow-channel "StackOverflow")
 ("0" (calendar) "calendar")
-("<tab>" (hydra-do-space/body) "BACK")
+("<tab>" (hydra-do-super/body) "BACK")
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c w") 'hydra-open-url/body)
@@ -335,15 +335,15 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("<tab>" helm-keyboard-quit "back" 
  :exit t)
 ("0" (calendar) "calendar")
-("<tab>" (hydra-do-space/body) "BACK")
+("<tab>" (hydra-do-super/body) "BACK")
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c f") 'hydra-open-file/body)
 
 ;;; `C-SPC'
-(defhydra hydra-do-space 
+(defhydra hydra-do-super 
   (:color blue)
-  "
+  (concat "
 ^SPC^            ^Buffer^               ^Search^              ^UI|View^
 ^^^^^^^^---------------------------------------------------------------------------------
 ^^               _>_: goto-char-f       _G_: grep-project     _;_: <-
@@ -352,10 +352,10 @@ _f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: up
 _m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: down
 _w_: URLs  =>    _e_: mc/mark-all       ^^                    _=_: scale-inc
 ^^               _r_: Reload|Refresh    ^^                    _-_: scale-dec
-_<tab>_: recent  ^^                     ^^                    ^^
+_<tab>_: recent  ^^                     ^^                    _z_: " (symbol-name major-mode)"
 ^^^^^^^^---------------------------------------------------------------------------------
-_<escape>_: Quit        _0_: Calendar          ^^                    ^^
-" ("b" (hydra-show-buffer/body) "buffer")
+_<escape>_: Quit        _0_: Calendar          ^^                    ^^")
+("b" (hydra-show-buffer/body) "buffer")
 ("f" (hydra-open-file/body) "file")
 ("m" (hydra-open-config/body) "module")
 ("c" (hydra-open-config/body) "module")
@@ -377,12 +377,15 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^
 ("/" tabbar-forward-group "tabbar-down")
 ("=" text-scale-increase "text-scale-increase")
 ("-" text-scale-decrease "text-scale-decrease")
+
+("z" (message "SmartDo"))
+
 ("0" (calendar) "calendar")
 ("<SPC>" nil "quit")
 ("<escape>" nil "quit"))
-;; (global-set-key (kbd "C-SPC") 'hydra-do-space/body)
-(global-set-key (kbd "M-SPC") 'hydra-do-space/body)
-(global-set-key (kbd "M-z") 'hydra-do-space/body)
+;; (global-set-key (kbd "C-SPC") 'hydra-do-super/body)
+(global-set-key (kbd "M-SPC") 'hydra-do-super/body)
+(global-set-key (kbd "M-z") 'hydra-do-super/body)
 
 (defun m-buffer-reload() 
   (interactive) 
