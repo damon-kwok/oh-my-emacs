@@ -89,7 +89,7 @@ function push-a {
     git reset
     git add .
     git status
-    git commit -m "update module"
+    git commit -m "update module" `date +%Y-%m-%d@%H-%M-%S`
     git push -u origin master
 }
 

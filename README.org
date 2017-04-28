@@ -3,9 +3,9 @@ this is damon kwok's emacs config
 
 * INSTALL
 ** require
-- pacman -S {base-devel git svn curl zip unzip cmake clang libclang}
-- apt-get install {build-essential git svn curl zip unzip cmake clang libclang}
-- yum | dnf groupinstall "Development Tools and Libraries" {git svn curl zip unzip cmake clang libclang}
+- pacman -S {base-devel git svn curl zip unzip cmake clang}
+- apt-get install {build-essential git svn curl zip unzip cmake clang}
+- yum | dnf groupinstall "Development Tools and Libraries" {git svn curl zip unzip cmake clang}
 ** remark
 msys2
 sudo dnf grouplist
