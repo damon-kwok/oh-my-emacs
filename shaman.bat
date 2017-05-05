@@ -98,6 +98,16 @@ rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem set PATH=%MSBUILD_BIN%;%PATH%
 rem set PATH=%LLVM_BIN%;%CLANG_BIN%;%PATH%
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+set JAVA_VERSION=131
+set JAVA_HOME2="C:\Program Files"\Java\jdk1.8.0_%VERSION%
+set JAVA_HOME=C:\PROGRA~1\Java\jdk1.8.0_%VERSION%
+set JAVA_BIN=%JAVA_HOME%\bin
+rem set LEIN_JAVA_CMD=%JAVA_BIN%\java.exe
+set CLASSPATH=.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;
+set PATH=%JAVA_BIN%;%LEIN_JAVA_CMD%;%PATH%
+rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 rem bash shaman
 rem goto:quit
 
@@ -173,8 +183,8 @@ goto:eof
 
 :download-lein
 cd %CACHE%/bin
-curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
-rem curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+rem curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 chmod +x ./lein
 goto:eof
 
