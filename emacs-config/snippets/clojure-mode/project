@@ -1,9 +1,20 @@
-(defproject helloclj "0.1.0-SNAPSHOT"
+(defproject ${1:hello-clj "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :global-vars {*warn-on-reflection* true
+                *assert* true}
+
+  
+  :java-cmd "C:\\Program Files\\Java\\jdk1.8.0_131\\bin\\java.exe"
+  :javac-options ["-target" "1.8" "-source" "1.8" "-Xlint:-options"]
+  :jvm-opts ["-Xmx1g"]
+
+  :source-paths ["src/clojure"]
+  :java-source-paths ["src/java"]
+  ;:resource-paths ["lib/mylib.jar"]
+  
+  ;;:plugins [[cider/cider-nrepl "0.8.1"]]
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/tools.nrepl "0.2.12"]]
-  :profiles {:dev {:plugins [[cider/cider-nrepl "0.11.0-SNAPSHOT"]
-                             [refactor-nrepl "2.0.0-SNAPSHOT"]]}})
+                 [org.clojure/core.async "0.3.442"]])

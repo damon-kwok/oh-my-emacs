@@ -2,12 +2,19 @@
 *
 *.elc
 .#*
+
 # white list anything that's a directort
 !*.el
-!cache/bin
-!/emacs-config
-!/emacs-config/*
 !install
 !README.org
 !shaman
 !shaman.bat
+
+!/cache/
+!/cache/bin/
+!/cache/bin/*
+
+!/emacs-config/
+!/emacs-config/*/*/*/*/*/*
+
+
