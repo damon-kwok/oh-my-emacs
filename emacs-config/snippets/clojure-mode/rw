@@ -1,0 +1,3 @@
+(defn read-${1:name} [$2] (.read${3:name} $2))
+(defn write-$1 [$2 v] (.write$3 $2 v))
+$0

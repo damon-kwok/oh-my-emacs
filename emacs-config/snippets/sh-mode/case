@@ -1,0 +1,13 @@
+read -p "${1:please input your choice:}" ${2:item}
+case $2 in
+     ${3:a})
+     #todo
+     $0
+     ;;
+     ${4:b})
+     #todo
+     ;;
+     *)
+     #todo
+     ;;	    
+esac

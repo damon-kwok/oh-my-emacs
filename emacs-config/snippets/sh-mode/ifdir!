@@ -1,0 +1,4 @@
+if [ ! -d ${1:dirname} ]; then
+   $0
+fi
+
