@@ -1,0 +1,17 @@
+(defn- ${1:server-handler} [${2:a}]
+  (proxy [Handler] []
+    (${3:on_conn} [${4:asc}]
+      (do
+        (println "!conn!")
+        (swap server-list (conj (assc server-list) asc))))
+    
+    (on_disconn [asc]
+      (do
+        (println "!conn!")
+        (swap server-list (disj (assc server-list) asc))))
+
+    
+    (on_data [asc buf]
+      (do
+        (println "recv pack!")
+        (Tcp/send asc pack)))))

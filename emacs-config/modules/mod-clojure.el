@@ -28,15 +28,8 @@
 (package-require 'clojure-mode)
 (require 'clojure-mode)
 
-(package-require 'cider)
-(require 'cider)
-
 (package-require 'clojure-cheatsheet)
 (require 'clojure-cheatsheet)
-
-(package-require 'helm-cider-history)
-(require 'helm-cider-history)
-
 
 
 ;;; `clj-refactor'
@@ -86,12 +79,18 @@
 ;;;;
 ;; Cider
 ;;;;
-(package-require 'helm-cider)
-(require 'helm-cider)
+(package-require 'cider)
+(require 'cider)
 
-;;; 
 (package-require 'cider-hydra)
 (require 'cider-hydra)
+
+(package-require 'helm-cider)
+(require 'helm-cider)
+(helm-cider-mode 1)
+
+(package-require 'helm-cider-history)
+(require 'helm-cider-history)
 
 ;; provides minibuffer documentation for the code you're typing into the repl
 (add-hook 'cider-mode-hook 'eldoc-mode)
@@ -168,7 +167,8 @@
      (define-key cider-mode-map (kbd "C-c C-z")  'show-clojure-repl)
      (define-key cider-repl-mode-map (kbd "C-c C-z")  'show-clojure-workbuffer)))
 
-(define-key clojure-mode-map (kbd "C-c C-h") 'clojure-cheatsheet)
+;; (define-key clojure-mode-map (kbd "C-c C-h") 'clojure-cheatsheet)
+(define-key clojure-mode-map (kbd "C-c C-h") 'helm-cider-apropos)
 (define-key clojure-mode-map (kbd "C-M-\\")  'cider-format-buffer)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

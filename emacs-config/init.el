@@ -2,8 +2,8 @@
 (package-initialize)
 
 ;; (toggle-frame-fullscreen)
-;; (toggle-debug-on-error)
-;; (toggle-debug-on-quit)
+(toggle-debug-on-error)
+(toggle-debug-on-quit)
 
 (add-to-list 'load-path "~/emacs-config")
 (add-to-list 'load-path "~/emacs-config/modules")

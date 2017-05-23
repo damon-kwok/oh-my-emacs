@@ -40,7 +40,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 ;;(message (concat "gc:" gc-cons-threshold " pre:" gc-cons-percentage))
 (my-optimize-gc 512 0.2)
-(add-hook 'after-init-hook (lambda ()
+(add-hook 'after-init-hook (lambda () 
 			     (my-optimize-gc 8 0.2)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -68,8 +68,8 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;; menu-bar (0:disable 1:show)
 					;(menu-bar-mode 0)
 
-;;; scroll setttings (0:disable 1:show)
-(scroll-bar-mode 0)
+;;; scroll setttings (nil:disable 1:show)
+(set-scroll-bar-mode nil)
 ;;(set-scroll-bar-mode 'right); (nil:disable right left)
 
 ;;; The effect is that (however it is moved) the cursor is always given 3 lines
@@ -474,7 +474,6 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
      (interactive) 
      (undo-tree-visualize) 
      (undo-tree-visualize-undo)))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
@@ -484,7 +483,6 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (setq linum-mode t)
 (setq linum-format "%4d")
 (global-linum-mode)
-
 
 ;;; `column'
 (setq column-number-mode t)
@@ -512,7 +510,6 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 ;;; open global-fci-mode
 (global-fci-mode 0)
-
 
 
 ;;; indent-guide
