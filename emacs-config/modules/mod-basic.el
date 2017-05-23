@@ -69,6 +69,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 					;(menu-bar-mode 0)
 
 ;;; scroll setttings (nil:disable 1:show)
+(require 'scroll-bar)
 (set-scroll-bar-mode nil)
 ;;(set-scroll-bar-mode 'right); (nil:disable right left)
 
