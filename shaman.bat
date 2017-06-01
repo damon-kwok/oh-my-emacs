@@ -175,8 +175,8 @@ exit
 goto:eof
 
 :shell
-rem bash
-msys2.exe
+bash
+rem msys2.exe
 goto:eof
 
 :sleep

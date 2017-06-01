@@ -68,10 +68,10 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;; menu-bar (0:disable 1:show)
 					;(menu-bar-mode 0)
 
-;;; scroll setttings (nil:disable 1:show)
+;;; scroll setttings (nil 'left 'right)
 (require 'scroll-bar)
-(set-scroll-bar-mode nil)
 ;;(set-scroll-bar-mode 'right); (nil:disable right left)
+(set-scroll-bar-mode nil)
 
 ;;; The effect is that (however it is moved) the cursor is always given 3 lines
 ;;; of context before the top or bottom of the window, which I find very useful.
@@ -225,7 +225,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`base-config';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; '`error'
-(setq debug-on-error t) ;; M-x toggle-debug-on-error
+;; (setq debug-on-error t) ;; M-x toggle-debug-on-error
 ;; (typo-err)
 
 ;; overflow of stack
@@ -250,7 +250,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (add-to-list 'default-frame-alist '(font, "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1"))
 
 ;;; set font 2:
-(set-frame-font "Bitstream Vera Sans Mono-9")
+;; (set-frame-font "Bitstream Vera Sans Mono-9")
 ;; (set-frame-font "翩翩体-简-11")
 
 ;;; `tip'
@@ -564,10 +564,10 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (global-prettify-symbols-mode 1)
 
 ;;; Syntax highlighting
-(global-font-lock-mode t)
+(global-font-lock-mode nil)
 
 ;;; Syntax highlighting select area
-(transient-mark-mode t)
+(transient-mark-mode nil)
 
 ;;; more highlights
 (require 'generic-x)
@@ -580,7 +580,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;(show-paren-mode nil) ;;(show-paren-mode 1)
 ;;(setq show-paren-style 'parentheses)
 
-;;; rainbow-mode
+;;; `rainbow-mode'
 (package-require 'rainbow-mode)
 (require 'rainbow-mode)
 (define-globalized-minor-mode global-rainbow-mode rainbow-mode 
@@ -588,21 +588,42 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
     (rainbow-mode 1)))
 (global-rainbow-mode t)
 
-;;; highlight-parentheses
-(package-require 'highlight-parentheses)
-(require 'highlight-parentheses)
+;;; `highlight-parentheses'
+;; (package-require 'highlight-parentheses)
+;; (require 'highlight-parentheses)
 
 ;; (defcustom hl-paren-colors
 ;;   '("firebrick1" "IndianRed1" "IndianRed3" "IndianRed4")
 
-(setq hl-paren-colors `("DeepPink" "SpringGreen" "yellow" "cyan" "HotPink" "green" "red"
-			"DeepSkyBlue" "violet" "turquoise" "orange" "blue")) ;;turquoise orange DarkGreen LightGreen SpringGreen
+;; (setq hl-paren-colors `("DeepPink" "SpringGreen" "yellow" "cyan" "HotPink" "green" "red" "DeepSkyBlue" "violet" "turquoise" "orange" "blue")) ;;turquoise orange DarkGreen LightGreen SpringGreen chartreuse LightGoldenrod navy
 
-(define-globalized-minor-mode global-highlight-parentheses-mode highlight-parentheses-mode 
-  (lambda () 
-    (highlight-parentheses-mode t)))
-(global-highlight-parentheses-mode t)
+;; (define-globalized-minor-mode global-highlight-parentheses-mode highlight-parentheses-mode 
+  ;; (lambda () 
+    ;; (highlight-parentheses-mode t)))
+;; (global-highlight-parentheses-mode t)
 
+
+;;; `rainbow-delimiters'
+(package-require 'rainbow-delimiters)
+(require 'rainbow-delimiters)
+
+(add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'elisp-mode-hook #'rainbow-delimiters-mode)
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "white"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "LightGreen"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "SlateGray"))))
+ '(rainbow-delimiters-depth-4-face ((t (:foreground "khaki"))))
+ '(rainbow-delimiters-depth-5-face ((t (:foreground "HotPink2"))))
+ '(rainbow-delimiters-depth-6-face ((t (:foreground "DarkGreen"))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "DodgerBlue"))))
+ '(rainbow-delimiters-depth-8-face ((t (:foreground "orange"))))
+ '(rainbow-delimiters-depth-9-face ((t (:foreground "brown")))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Sexy tail
 ;; (package-require 'highlight-tail)
