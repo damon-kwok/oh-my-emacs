@@ -116,14 +116,54 @@ rem goto:quit
 if "%1"=="" (
 goto:main
 )else (
-goto:%1
+goto:open
 )
 
 :env
 goto:quit
 
+REM%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+:got-admin-auth
+REM --> Check for permissions
+>nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
+
+REM --> If error flag set, we do not have admin.
+if '%errorlevel%' NEQ '0' (
+echo Requesting administrative privileges...
+goto UACPrompt
+) else 
+( goto gotAdmin )
+
+:UACPrompt
+echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
+echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
+
+"%temp%\getadmin.vbs"
+exit
+
+:gotAdmin
+if exist "%temp%\getadmin.vbs" ( del "%temp%\getadmin.vbs" )
+pushd "%CD%"
+CD /D "%~dp0" 
+goto:eof
+
+REM%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 :link-init-el
 copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
+goto:eof
+
+:open
+rem goto:%1
+rem start %EMACS_BIN%\runemacs.exe --debug-init %1
+"%ROOT%/cache/apps/emacs/bin/emacsclientw.exe" --server-file "%ROOT%/.emacs.d/server/server" --no-wait --alternate-editor="%ROOT%/cache/apps/emacs/bin/runemacs.exe" %1
+exit
+
+:reg-open-menu
+goto:got-admin-auth
+rem regedit.exe /S %ROOT%/emacs.reg
+rem reg import %ROOT%/emacs.reg
+REG ADD "HKEY_CLASSES_ROOT\*\shell\Edit with Emacs\command" /ve /t REG_SZ /d "\"%ROOT%\cache\apps\emacs\bin\emacsclientw.exe\" --no-wait --server-file \"%ROOT%\.emacs.d\server\server\" --alternate-editor=\"%ROOT%\cache\apps\emacs\bin\runemacs.exe\" \"%%1\"" /f
 goto:eof
 
 :emacs
@@ -295,6 +335,7 @@ REM echo    c) complie-elc
 echo    l) link init.el
 echo    d) delete-elc
 echo    s) shell
+echo    m) register right open menu
 echo    r) return
 echo    q) quit
 
@@ -312,6 +353,7 @@ REM if /i "%c%"=="c" call:compile-elc
 if /i "%c%"=="l" call:link-init-el
 if /i "%c%"=="d" call:delete-elc
 if /i "%c%"=="s" call:shell
+if /i "%c%"=="m" call:reg-open-menu
 if /i "%c%"=="r" call:eof
 if /i "%c%"=="q" exit
 REM echo your input is not invalid:(

@@ -252,6 +252,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;; set font 2:
 ;; (set-frame-font "Bitstream Vera Sans Mono-9")
 ;; (set-frame-font "翩翩体-简-11")
+;; (set-frame-font "Microsoft Yahei UI-9")
 
 ;;; `tip'
 ;;; set error tips:blink or beep ?(t:blink nil:beep)

@@ -21,15 +21,19 @@
 ;;
 ;; Code:
 ;;
-(setq server-auth-dir "~/.emacs.d/server/")
-(setq server-name "emacs-server-file")
-(setq server-file-name (concat server-auth-dir server-name))
+;;(setq server-auth-dir "~/.emacs.d/server/")
+;;(setq server-name "emacs-server-file")
+;;(setq server-file-name (concat server-auth-dir server-name))
 
-(server-force-delete)
-(if(file-exists-p server-file-name) 
-    (delete-file server-file-name))
+;;(server-force-delete)			
+;;(if(file-exists-p server-file-name) 
+;;    (delete-file server-file-name))
+;;(server-start)
 
-(server-start)
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
 ;;(or (server-running-p)(server-start))
 ;;
 (provide 'mod-server)

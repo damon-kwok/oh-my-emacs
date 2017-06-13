@@ -191,6 +191,9 @@
     (save-buffer) 
     (message "Renamed to %s" new-name)))
 
+(defun rename-file-and-buffer-extname (ext-name)
+  "rename ext name"
+    (rename-file-and-buffer (concat (buffer-only-name) "." ext-name)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; define function to shutdown emacs server instance
 (defun server-shutdown () 
