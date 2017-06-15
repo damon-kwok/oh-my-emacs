@@ -178,6 +178,10 @@
   ;;(m-show-compilation "*cider-repl Server**") 
   (cider-jack-in))
 ;;(define-key clojure-mode-map (kbd "C-c M-j") 'my-jack-in)
+
+(defun my-run-project ()
+  (interactive)
+  (m-run-command "lein run"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-clojure)
 ;;; mod-clojure.el ends here

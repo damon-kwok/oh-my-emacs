@@ -340,21 +340,31 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c f") 'hydra-open-file/body)
 
+
+(defun major-do ()
+  (interactive)
+  (let (mod-name (symbol-name major-mode) 
+		 (cond
+		  ((string= mod-name "clojure-mode") (my-run-project))
+		  ((string= mod-name "emacs-lisp--mode") (my-run-project))
+		  ((string= mod-name "sh-mode") (my-run-project))
+		  
+		 ))))
 ;;; `C-SPC'
 (defhydra hydra-do-super 
   (:color blue)
   (concat "
-^SPC^            ^Buffer^               ^Search^              ^UI|View^
-^^^^^^^^---------------------------------------------------------------------------------
-^^               _>_: goto-char-f       _G_: grep-project     _;_: <-
-_b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: ->
-_f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: up
-_m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: down
-_w_: URLs  =>    _e_: mc/mark-all       ^^                    _=_: scale-inc
-^^               _r_: Reload|Refresh    ^^                    _-_: scale-dec
-_<tab>_: recent  ^^                     ^^                    _z_: " (symbol-name major-mode)"
-^^^^^^^^---------------------------------------------------------------------------------
-_<escape>_: Quit        _0_: Calendar          ^^                    ^^")
+^SPC^            ^Buffer^               ^Search^              ^UI|View^          ^"(symbol-name major-mode)"^
+^^^^^^^^^^-------------------------------------------------------------------------------------------------
+^^               _>_: goto-char-f       _G_: grep-project     _;_: <-            ^_1_:run^
+_b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: ->            ^^
+_f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: group-up      ^^
+_m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: group-down    ^^
+_w_: URLs  =>    _e_: mc/mark-all       ^^                    _=_: scale-inc     ^^
+^^               _r_: Reload|Refresh    ^^                    _-_: scale-dec     ^^
+_<tab>_: recent  ^^                     ^^                    _z_: smart-do      ^^
+^^^^^^^^^^-------------------------------------------------------------------------------------------------
+_<escape>_: Quit _0_: Calendar          ^^                    ^^                 ^^")
 ("b" (hydra-show-buffer/body) "buffer")
 ("f" (hydra-open-file/body) "file")
 ("m" (hydra-open-config/body) "module")
@@ -378,7 +388,9 @@ _<escape>_: Quit        _0_: Calendar          ^^                    ^^")
 ("=" text-scale-increase "text-scale-increase")
 ("-" text-scale-decrease "text-scale-decrease")
 
-("z" (message "SmartDo"))
+("1" (major-do) "run project")
+
+("z" (message "smart-do"))
 
 ("0" (calendar) "calendar")
 ("<SPC>" nil "quit")
