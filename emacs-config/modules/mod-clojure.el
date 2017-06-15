@@ -16,7 +16,7 @@
 ;;;
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
-;;;						 
+;;;
 ;;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
@@ -30,21 +30,19 @@
 
 (package-require 'clojure-cheatsheet)
 (require 'clojure-cheatsheet)
-
 
 ;;; `clj-refactor'
 (package-require 'clj-refactor)
 (require 'clj-refactor)
 
 
-(defun my-clojure-mode-hook ()
-  (clj-refactor-mode 1)
+(defun my-clojure-mode-hook () 
+  (clj-refactor-mode 1) 
   (yas-minor-mode 1)	    ; for adding require/use/import statements
   ;; This choice of keybinding leaves cider-macroexpand-1 unbound
   (cljr-add-keybindings-with-prefix "C-c C-m"))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
-
 
 
 ;;;;
@@ -63,18 +61,14 @@
 (require 'clojure-mode-extra-font-locking)
 
 ;; syntax hilighting for midje
-(add-hook 'clojure-mode-hook
-          (lambda ()
-            (setq inferior-lisp-program "lein repl")
-            (font-lock-add-keywords
-             nil
-             '(("(\\(facts?\\)"
-                (1 font-lock-keyword-face))
-               ("(\\(background?\\)"
-                (1 font-lock-keyword-face))))
-            (define-clojure-indent (fact 1))
-            (define-clojure-indent (facts 1))))
-
+(add-hook 'clojure-mode-hook (lambda () 
+			       (setq inferior-lisp-program "lein repl") 
+			       (font-lock-add-keywords 
+				nil
+				'(("(\\(facts?\\)" (1 font-lock-keyword-face)) 
+				  ("(\\(background?\\)" (1 font-lock-keyword-face)))) 
+			       (define-clojure-indent (fact 1)) 
+			       (define-clojure-indent (facts 1))))
 
 ;;;;
 ;; Cider
@@ -140,37 +134,50 @@
 
 ;; key bindings
 ;; these help me out with the way I usually develop web apps
-(defun cider-start-http-server ()
-  (interactive)
-  (cider-load-current-buffer)
-  (let ((ns (cider-current-ns)))
-    (cider-repl-set-ns ns)
-    (cider-interactive-eval (format "(println '(def server (%s/start))) (println 'server)" ns))
+(defun cider-start-http-server () 
+  (interactive) 
+  (cider-load-current-buffer) 
+  (let ((ns (cider-current-ns))) 
+    (cider-repl-set-ns ns) 
+    (cider-interactive-eval (format "(println '(def server (%s/start))) (println 'server)" ns)) 
     (cider-interactive-eval (format "(def server (%s/start)) (println server)" ns))))
 
 
-(defun cider-refresh ()
-  (interactive)
+(defun cider-refresh () 
+  (interactive) 
   (cider-interactive-eval (format "(user/reset)")))
 
-(defun cider-user-ns ()
-  (interactive)
+(defun cider-user-ns () 
+  (interactive) 
   (cider-repl-set-ns "user"))
 
-(eval-after-load 'cider
-  '(progn
-     (helm-cider-mode 1)
-     (define-key clojure-mode-map (kbd "C-c C-v") 'cider-start-http-server)
-     (define-key clojure-mode-map (kbd "C-M-r") 'cider-refresh)
-     (define-key clojure-mode-map (kbd "C-c u") 'cider-user-ns)
-     (define-key cider-mode-map (kbd "C-c u") 'cider-user-ns)
-     (define-key cider-mode-map (kbd "C-c C-z")  'show-clojure-repl)
-     (define-key cider-repl-mode-map (kbd "C-c C-z")  'show-clojure-workbuffer)))
+(eval-after-load 'cider '(progn (helm-cider-mode 1) 
+				(define-key clojure-mode-map (kbd "C-c C-v")
+				  'cider-start-http-server) 
+				(define-key clojure-mode-map (kbd "C-M-r") 'cider-refresh) 
+				(define-key clojure-mode-map (kbd "C-c u") 'cider-user-ns) 
+				(define-key cider-mode-map (kbd "C-c u") 'cider-user-ns) 
+				(define-key cider-mode-map (kbd "C-c C-z")  'show-clojure-repl) 
+				(define-key cider-repl-mode-map (kbd "C-c C-z")
+				  'show-clojure-workbuffer)))
 
 ;; (define-key clojure-mode-map (kbd "C-c C-h") 'clojure-cheatsheet)
 (define-key clojure-mode-map (kbd "C-c C-h") 'helm-cider-apropos)
 (define-key clojure-mode-map (kbd "C-M-\\")  'cider-format-buffer)
 
+
+(defun my-kill-java () 
+  (interactive)
+  (delete-window)
+  (cider-interactive-eval "(System/exit 0)"))
+(define-key cider-repl-mode-map (kbd "C-c C-q") 'my-kill-java)
+
+(defun my-jack-in () 
+  (interactive) 
+  (delete-other-windows) 
+  ;;(m-show-compilation "*cider-repl Server**") 
+  (cider-jack-in))
+;;(define-key clojure-mode-map (kbd "C-c M-j") 'my-jack-in)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-clojure)
 ;;; mod-clojure.el ends here

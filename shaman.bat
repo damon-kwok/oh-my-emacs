@@ -113,11 +113,18 @@ rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem bash shaman
 rem goto:quit
 
+goto:init
+
+:init
 if "%1"=="" (
+goto:main
+)else if "%1"=="reg" (
+call:reg-open-menu
 goto:main
 )else (
 goto:open
 )
+goto:eof
 
 :env
 goto:quit
@@ -135,7 +142,7 @@ goto UACPrompt
 
 :UACPrompt
 echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
-echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
+echo UAC.ShellExecute "%~s0", "reg", "", "runas", 1 >> "%temp%\getadmin.vbs"
 
 "%temp%\getadmin.vbs"
 exit
@@ -159,10 +166,11 @@ rem start %EMACS_BIN%\runemacs.exe --debug-init %1
 exit
 
 :reg-open-menu
-goto:got-admin-auth
+call:got-admin-auth
 rem regedit.exe /S %ROOT%/emacs.reg
 rem reg import %ROOT%/emacs.reg
-REG ADD "HKEY_CLASSES_ROOT\*\shell\Edit with Emacs\command" /ve /t REG_SZ /d "\"%ROOT%\cache\apps\emacs\bin\emacsclientw.exe\" --no-wait --server-file \"%ROOT%\.emacs.d\server\server\" --alternate-editor=\"%ROOT%\cache\apps\emacs\bin\runemacs.exe\" \"%%1\"" /f
+rem REG ADD "HKEY_CLASSES_ROOT\*\shell\Edit with Emacs\command" /ve /t REG_SZ /d "\"%ROOT%\cache\apps\emacs\bin\emacsclientw.exe\" --no-wait --server-file \"%ROOT%\.emacs.d\server\server\" --alternate-editor=\"%ROOT%\cache\apps\emacs\bin\runemacs.exe\" \"%%1\"" /f
+REG ADD "HKEY_CLASSES_ROOT\*\shell\Edit with Emacs\command" /ve /t REG_SZ /d "\"%ROOT%\shaman.bat\" \"%%1\"" /f
 goto:eof
 
 :emacs
@@ -314,13 +322,14 @@ goto:eof
 
 :install-toolchain
 pacman -Syu
-pacman -S curl zip unzip git svn perl
+pacman -S curl zip unzip git svn perl diffutils
 REM pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
 goto:eof
 
 :ask
+echo hello %username%, what's up?
+rem echo do::ask
 cd %ROOT%
-echo do::ask
 echo    1) push
 echo    2) getapp
 echo    3) pushapp
@@ -359,7 +368,7 @@ REM echo your input is not invalid:(
 call:ask
 
 :main
-echo do::main
+rem echo do::main
 call:ask
 
 :quit

@@ -38,7 +38,7 @@
 (module-require 'mod-complete)
 (module-require 'mod-tabbar)
 (module-require 'mod-speedbar)
-;;(module-require 'mod-input)
+(module-require 'mod-input)
 
 (module-require 'mod-calendar)
 (module-require 'mod-server)

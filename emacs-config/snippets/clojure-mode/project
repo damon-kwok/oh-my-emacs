@@ -17,4 +17,5 @@
   
   ;;:plugins [[cider/cider-nrepl "0.8.1"]]
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/core.async "0.3.442"]])
+                 [org.clojure/core.async "0.3.443"]]
+  :main $1.core/main)

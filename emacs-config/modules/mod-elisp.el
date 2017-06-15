@@ -66,7 +66,7 @@
 (defun show-elisp-repl() 
   (interactive) 
   (setq temp-buffer-name (buffer-name (current-buffer))) 
-  (m-show-compilation "*ielm*") 
+  (m-show-compilation "*ielm*")
   (ielm) 
   (switch-to-buffer-other-window temp-buffer-name) 
   (m-show-compilation "*ielm*" t))

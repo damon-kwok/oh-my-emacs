@@ -764,9 +764,11 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (add-to-list 'mm-attachment-override-types "/image/*")
 (autoload 'thumbs "thumbs" "Preview images in a directory." t) ;;thumbs-mode
 
-;;; pdf
+;;; `pdf'
 (require 'doc-view)
 
+;;; `eldoc'
+(global-eldoc-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 (provide 'mod-basic)

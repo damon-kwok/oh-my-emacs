@@ -247,7 +247,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ("z" (m-open-mod "csv") "csv")
 ("x" (m-open-mod "protobuf") "protobuf")
 
-("z" (m-open-mod "chinese-py") "input")
+("z" (m-open-mod "input") "input")
 ("m" (m-open-mod "music") "music")
 ("d" (m-open-mod "coding") "coding")
 ("s" (m-open-mod "server") "server")
