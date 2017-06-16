@@ -80,12 +80,12 @@
 
 
 (defun compile-current-buffer() 
-  (interactive) 
+  (interactive)
+  (kill-buffer (get-buffer "*Compile-Log*"))
   (save-buffer) 
   (delete-other-windows) 
   (byte-compile-file (buffer-file-name)) 
   (delete-file (concat (buffer-file-name) "c"))
-
   ;;(m-show-compilation "*Warnings*")
   (m-show-compilation "*Compile-Log*"))
 

@@ -112,20 +112,16 @@ rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 rem bash shaman
 rem goto:quit
-
 goto:init
 
 :init
-if "%1"=="" (
-goto:main
-)else if "%1"=="reg" (
-call:reg-open-menu
-goto:main
-)else (
-goto:open
-)
+if /i "%1"=="" goto:main
+if /i "%1"=="reg" goto:reg-open-menu
+if /i "%1"=="emacs" goto:emacs
+if /i "%1"=="emacs-nw" goto:emacs-nw
 goto:eof
 
+REM%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 :env
 goto:quit
 
@@ -373,4 +369,3 @@ call:ask
 
 :quit
 cd %ROOT%
-

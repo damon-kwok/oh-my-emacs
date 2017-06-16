@@ -212,7 +212,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
   "
 ^Basic^            ^Layout^         ^Editor^          ^Language^      ^Other^
 ^^^^^^^^-------------------------------------------------------------------------
-_i_: init          _t_: tabbar      _6_: orgmode      _1_: elisp      _z_: input
+_i_: init          _t_: tabbar      _6_: orgmode      _1_: elisp      _u_: input
 _a_: basic         _h_: helm        _7_: latex        _2_: clojure    _m_: music
 _p_: package       ^^               _8_: markdown     _3_: csharp     _d_: coding
 _k_: keybind       ^^               _9_: reST         _4_: js         _s_: server
@@ -247,7 +247,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ("z" (m-open-mod "csv") "csv")
 ("x" (m-open-mod "protobuf") "protobuf")
 
-("z" (m-open-mod "input") "input")
+("u" (m-open-mod "input") "input")
 ("m" (m-open-mod "music") "music")
 ("d" (m-open-mod "coding") "coding")
 ("s" (m-open-mod "server") "server")
@@ -312,7 +312,7 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 _r_:rename      _p_: htmlize-buffer     _h_: README.org      _n_: note.org
 _d_:delete      _P_: htmlize-file       _d_: diary.org       _p_: problem.org
 _k_:close-all   _C_: complie-modules    _t_: todo.org        _s_: passwd.org
-_o_:kill-other  ^^                      _b_: book.org        _g_: game.org
+_o_:kill-other  ^^                      _b_: book.org        _G_: game.org
 ^^                 ^^                   _N_: NEWS.org ^^
 ^^^^^^^^-----------------------------------------------------------------
 _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
@@ -330,7 +330,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("n" (m-open-doc "note.org") "note.org")
 ("p" (m-open-doc "problem.org") "problem.org")
 ("s" (m-open-doc "passwd.org") "passwd.org")
-("g" (m-open-doc "game.org") "game.org")
+("G" (m-open-doc "game.org") "game.org")
 ("N" (m-open-doc "news.org") "news.org")
 ("<tab>" helm-keyboard-quit "back" 
  :exit t)
@@ -340,149 +340,116 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c f") 'hydra-open-file/body)
 
+(defun major-do () 
+  (let ((mod-name (symbol-name major-mode))) 
+    (cond ((string= mod-name "clojure-mode") 123) 
+	  ((string= mod-name "emacs-lisp--mode") 456) 
+	  ((string= mod-name "sh-mode") 789))))
 
-(defun major-do ()
-  (interactive)
-  (let (mod-name (symbol-name major-mode) 
-		 (cond
-		  ((string= mod-name "clojure-mode") (my-run-project))
-		  ((string= mod-name "emacs-lisp--mode") (my-run-project))
-		  ((string= mod-name "sh-mode") (my-run-project))
-		  
-		 ))))
+(defun m-create-*project() 
+  (let ((mod-name (symbol-name major-mode))) 
+    (cond ((string= mod-name "clojure-mode") 
+	   (m-create-project "lein new %s" "project.clj")) 
+	  ((string= mod-name "elixir-mode") 
+	   (m-create-project "mix new %s" "mix.exs")) 
+	  ((string= mod-name "rust-mode") 
+	   (m-create-project "cargo new %s --bin" "mix.exs")))))
+
+(defun m-run-*project () 
+  (let ((mod-name (symbol-name major-mode))) 
+    (cond ((string= mod-name "clojure-mode") 
+	   (m-run-command "lein run")) 
+	  ((string= mod-name "elixir-mode") 
+	   (m-run-command "mix run")) 
+	  ((string= mod-name "rust-mode") 
+	   (m-run-command "cargo run")) 
+	  ((string= mod-name "sh-mode") 
+	   (m-run-command (concat "bash " (buffer-file-name)))) 
+	  ((string= mod-name "bat-mode") 
+	   (m-run-command (concat "cmd.exe " (buffer-file-name)))) 
+	  ((string= mod-name "emacs-lisp-mode") 
+	   (message "hello,emacs")) )))
+
+(defun m-test-*project() 
+  (let ((mod-name (symbol-name major-mode))) 
+    (cond ((string= mod-name "clojure-mode") 
+	   (m-run-command "lein test")) 
+	  ((string= mod-name "elixir-mode") 
+	   (m-run-command "mix test")) 
+	  ((string= mod-name "rust-mode") 
+	   (m-run-command "cargo test")) 
+	  ((string= mod-name "emacs-lisp-mode") 
+	   (compile-current-buffer)))))
+
+(defun m-build-*project() 
+  (let ((mod-name (symbol-name major-mode))) 
+    (cond ((string= mod-name "clojure-mode") 
+	   (m-run-command "lein compile")) 
+	  ((string= mod-name "elixir-mode") 
+	   (m-run-command "mix compile")) 
+	  ((string= mod-name "rust-mode") 
+	   (m-run-command "cargo build")) 
+	  ((string= mod-name "emacs-lisp-mode") 
+	   (compile-current-buffer)))))
+
+
+
 ;;; `C-SPC'
 (defhydra hydra-do-super 
-  (:color blue)
+  (:color blue) 
   (concat "
-^SPC^            ^Buffer^               ^Search^              ^UI|View^          ^"(symbol-name major-mode)"^
-^^^^^^^^^^-------------------------------------------------------------------------------------------------
-^^               _>_: goto-char-f       _G_: grep-project     _;_: <-            ^_1_:run^
-_b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: ->            ^^
-_f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: group-up      ^^
-_m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: group-down    ^^
-_w_: URLs  =>    _e_: mc/mark-all       ^^                    _=_: scale-inc     ^^
-^^               _r_: Reload|Refresh    ^^                    _-_: scale-dec     ^^
-_<tab>_: recent  ^^                     ^^                    _z_: smart-do      ^^
-^^^^^^^^^^-------------------------------------------------------------------------------------------------
-_<escape>_: Quit _0_: Calendar          ^^                    ^^                 ^^")
-("b" (hydra-show-buffer/body) "buffer")
-("f" (hydra-open-file/body) "file")
-("m" (hydra-open-config/body) "module")
-("c" (hydra-open-config/body) "module")
-("w" (hydra-open-url/body) "url")
-("<tab>" helm-recentf "(helm-recentf)")
-(">" go-to-char-forward "go-to-char-forward")
-("<" go-to-char-backward "go-to-char-backward")
-("s" replace-string "replace-string")
-("S" query-replace "query-replace")
-("e" (m-mark-all-like-this) "mc/mark-all-like-this")
-("r" (m-buffer-reload) "Refresh")
-("G" my-grep-project "projectile-project-root")
-("g" my-grep-directory "projectile-directory-root")
-("d" bing-dict-brief "bing-dict-brief")
-("D" bing-dict-brief-web "bing-dict-brief-web")
-(";" tabbar-backward "tabbar-backward")
-("'" tabbar-forward "tabbar-forward")
-("[" tabbar-backward-group "tabbar-up")
-("/" tabbar-forward-group "tabbar-down")
-("=" text-scale-increase "text-scale-increase")
-("-" text-scale-decrease "text-scale-decrease")
-
-("1" (major-do) "run project")
-
-("z" (message "smart-do"))
-
-("0" (calendar) "calendar")
-("<SPC>" nil "quit")
-("<escape>" nil "quit"))
+^SPC^            ^Buffer^               ^Search^              ^UI|View^         ^Project^
+^"(symbol-name major-mode)
+"^
+^^^^^^^^^^^^-------------------------------------------------------------------------------------------------
+^^               _>_: goto-char-f       _G_: grep-project     _;_: <-Tab         _6_: Clojure   ^_1_:run^
+_b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->         _7_: Erlang    ^^ test
+_f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: <-Group       _8_: Golang    ^^ compile/build
+_m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: Group->       _9_: Scala     ^^ clean
+_w_: URLs  =>    _e_: mc/mark-all       ^^                    _=_: scale-inc     ^^Python       ^^
+^^               _r_: Reload|Refresh    ^^                    _-_: scale-dec     ^^Elixir       ^^
+_<tab>_: recent  ^^                     ^^                    _z_: smart-do      ^^Kotlin       ^^
+^^^^^^^^^^^^-------------------------------------------------------------------------------------------------
+_<escape>_: Quit _0_: Calendar          ^^                    ^^                 ^^             ^^") 
+  ("b" (hydra-show-buffer/body) "buffer") 
+  ("f" (hydra-open-file/body) "file") 
+  ("m" (hydra-open-config/body) "module") 
+  ("c" (hydra-open-config/body) "module") 
+  ("w" (hydra-open-url/body) "url") 
+  ("<tab>" helm-recentf "(helm-recentf)") 
+  (">" go-to-char-forward "go-to-char-forward") 
+  ("<" go-to-char-backward "go-to-char-backward") 
+  ("s" replace-string "replace-string") 
+  ("S" query-replace "query-replace") 
+  ("e" (m-mark-all-like-this) "mc/mark-all-like-this") 
+  ("r" (m-buffer-reload) "Refresh") 
+  ("G" my-grep-project "projectile-project-root") 
+  ("g" my-grep-directory "projectile-directory-root") 
+  ("d" bing-dict-brief "bing-dict-brief") 
+  ("D" bing-dict-brief-web "bing-dict-brief-web") 
+  (";" tabbar-backward "tabbar-backward") 
+  ("'" tabbar-forward "tabbar-forward") 
+  ("[" tabbar-backward-group "tabbar-up") 
+  ("/" tabbar-forward-group "tabbar-down") 
+  ("=" text-scale-increase "text-scale-increase") 
+  ("-" text-scale-decrease "text-scale-decrease") 
+  ("1" (m-run-*project) "run project") 
+  ("2" (message "smart-do")) 
+  ("3" (message "smart-do")) 
+  ("4" (message "smart-do")) 
+  ("5" (message "smart-do")) 
+  ("6" (message "smart-do")) 
+  ("7" (message "smart-do")) 
+  ("8" (message "smart-do")) 
+  ("9" (message "smart-do")) 
+  ("z" (message "smart-do")) 
+  ("0" (calendar) "calendar") 
+  ("<SPC>" nil "quit") 
+  ("<escape>" nil "quit"))
 ;; (global-set-key (kbd "C-SPC") 'hydra-do-super/body)
 (global-set-key (kbd "M-SPC") 'hydra-do-super/body)
 (global-set-key (kbd "M-z") 'hydra-do-super/body)
 
-(defun m-buffer-reload() 
-  (interactive) 
-  (save-buffer) 
-  (setq old-pos (point)) 
-  (goto-char (point-min)) 
-  (find-alternate-file (buffer-file-name)) 
-  (goto-char old-pos))
-
-(defun m-mark-all-like-this () 
-  "Find and mark all the parts of the buffer matching the currently active region" 
-  (interactive) 
-  (condition-case err (progn (mc/mark-all-like-this)) 
-    (error 
-     (message "error: %s"(car (cdr err))))))
-
-(defun my-grep-project (word) 
-  "Show the explanation of WORD from Bing in the echo area." 
-  (interactive (let* ((default (if (use-region-p) 
-				   (buffer-substring-no-properties 
-				    (region-beginning) 
-				    (region-end)) 
-				 (let ((text (thing-at-point 'word))) 
-				   (if text (substring-no-properties text))))) 
-		      (prompt (if (stringp default) 
-				  (format "grep (default \"%s\"): " default) "grep: ")) 
-		      (string (read-string prompt nil nil default))) 
-		 (list string))) 
-  (save-match-data (m-grep-project  word) 
-		   (other-window 1)))
-
-(defun my-grep-directory (word) 
-  "Show the explanation of WORD from Bing in the echo area." 
-  (interactive (let* ((default (if (use-region-p) 
-				   (buffer-substring-no-properties 
-				    (region-beginning) 
-				    (region-end)) 
-				 (let ((text (thing-at-point 'word))) 
-				   (if text (substring-no-properties text))))) 
-		      (prompt (if (stringp default) 
-				  (format "grep (default \"%s\"): " default) "grep: ")) 
-		      (string (read-string prompt nil nil default))) 
-		 (list string))) 
-  (save-match-data (m-grep-directory  word) 
-		   (other-window 1)))
-
-(defun m-grep-project (str) 
-  (if (stringp str) 
-      (m-run-command (concat "grep -n " "\"" str "\"" " -r " (m-project-root)))))
-
-(defun m-grep-directory (str) 
-  (message (concat "grep-dir:" str)) 
-  (if (stringp str) 
-      (m-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory
-							      buffer-file-name)))))
-
-(defun open-reddit-channel (word) 
-  "Show the explanation of WORD from Bing in the echo area." 
-  (interactive (let* ((default (if (use-region-p) 
-				   (buffer-substring-no-properties 
-				    (region-beginning) 
-				    (region-end)) 
-				 (let ((text (thing-at-point 'word))) 
-				   (if text (substring-no-properties text))))) 
-		      (prompt (if (stringp default) 
-				  (format "reddit (default \"%s\"): " default) "reddit: ")) 
-		      (string (read-string prompt nil nil default))) 
-		 (list string))) 
-  (m-open-url (concat "https://www.reddit.com/r/" word "/")))
-
-(defun open-stackoverflow-channel (word) 
-  "Show the explanation of WORD from Bing in the echo area." 
-  (interactive (let* ((default (if (use-region-p) 
-				   (buffer-substring-no-properties 
-				    (region-beginning) 
-				    (region-end)) 
-				 (let ((text (thing-at-point 'word))) 
-				   (if text (substring-no-properties text))))) 
-		      (prompt (if (stringp default) 
-				  (format "StackOverflow (default \"%s\"): " default) "StackOverflow: ")) 
-		      (string (read-string prompt nil nil default))) 
-		 (list string))) 
-  (m-open-url (concat "http://stackoverflow.com/questions/tagged/" word)))
-
-;; http://stackoverflow.com/questions/tagged/f%23
 
 ;;; `comment-toggle' M-;
 (global-set-key [remap comment-dwim] 'comment-or-uncomment-region-or-line)
@@ -512,9 +479,7 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^                
 ;;; `which-key'
 (package-require 'which-key)
 (require 'which-key)
-(which-key-mode)
-
-
+(which-key-mode) 
 ;;; `paredit'
 (package-require 'paredit)
 (require 'paredit)
@@ -524,7 +489,6 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^                
 (define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
 (define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
 (define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
-
 
 ;;
 (provide 'mod-keybind)
