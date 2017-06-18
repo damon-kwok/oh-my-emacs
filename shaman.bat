@@ -119,7 +119,7 @@ if /i "%1"=="" goto:main
 if /i "%1"=="reg" goto:reg-open-menu
 if /i "%1"=="emacs" goto:emacs
 if /i "%1"=="emacs-nw" goto:emacs-nw
-goto:eof
+goto:open
 
 REM%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 :env
