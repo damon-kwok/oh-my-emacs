@@ -313,7 +313,7 @@ _r_:rename      _p_: htmlize-buffer     _h_: README.org      _n_: note.org
 _d_:delete      _P_: htmlize-file       _d_: diary.org       _p_: problem.org
 _k_:close-all   _C_: complie-modules    _t_: todo.org        _s_: passwd.org
 _o_:kill-other  ^^                      _b_: book.org        _G_: game.org
-^^                 ^^                   _N_: NEWS.org ^^
+^^              ^^                      _N_: NEWS.org        ^^
 ^^^^^^^^-----------------------------------------------------------------
 _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 " ("r" rename-file-and-buffer "rename-file-and-buffer")
@@ -353,7 +353,9 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 	  ((string= mod-name "elixir-mode") 
 	   (m-create-project "mix new %s" "mix.exs")) 
 	  ((string= mod-name "rust-mode") 
-	   (m-create-project "cargo new %s --bin" "mix.exs")))))
+	   (m-create-project "cargo new %s --bin" "mix.exs")) 
+	  ((string= mod-name "go-mode") 
+	   (m-create-project "glide create %s" "glide.yaml")))))
 
 (defun m-run-*project () 
   (let ((mod-name (symbol-name major-mode))) 
@@ -449,7 +451,6 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^                
 ;; (global-set-key (kbd "C-SPC") 'hydra-do-super/body)
 (global-set-key (kbd "M-SPC") 'hydra-do-super/body)
 (global-set-key (kbd "M-z") 'hydra-do-super/body)
-
 
 ;;; `comment-toggle' M-;
 (global-set-key [remap comment-dwim] 'comment-or-uncomment-region-or-line)
