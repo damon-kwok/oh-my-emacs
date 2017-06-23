@@ -39,7 +39,9 @@
       (interactive) 
       (save-buffer) 
       (alchemist-iex-compile-this-buffer))) 
-  (define-key alchemist-mode-map (kbd "C-x C-e") 'alchemist-iex-send-current-line))
+  (define-key alchemist-iex-mode-map (kbd "C-c C-z") 'show-elixir-workbuffer)
+  (define-key alchemist-mode-map (kbd "C-x C-e") 'alchemist-iex-send-current-line)
+  (define-key elixir-mode-map (kbd "C-c C-z")  'show-elixir-repl))
 
 ;; A Flycheck checker that uses Mix, so it finds project deps.
 ;; From https://github.com/ananthakumaran/dotfiles/blob/master/.emacs.d/init-elixir.el#L25-L42
@@ -64,6 +66,24 @@
     :modes elixir-mode) 
   (add-to-list 'flycheck-checkers 'elixir-mix))
 
+(defun show-elixir-repl() 
+  (interactive) 
+  (setq temp-elixir-buffer-name (buffer-name (current-buffer))) 
+  (m-show-compilation "*Alchemist-IEx*")
+  (ielm) 
+  (switch-to-buffer-other-window temp-elixir-buffer-name) 
+  (m-show-compilation "*Alchemist-IEx*" t))
+
+(defun show-elixir-workbuffer() 
+  (interactive) 
+  (switch-to-buffer-other-window temp-elixir-buffer-name) 
+  (delete-other-windows) 
+  (show-elixir-repl) 
+  (switch-to-buffer-other-window temp-elixir-buffer-name))
+
+;; (define-key elixir-mode-map (kbd "C-c C-c")  'compile-current-buffer)
+;; (define-key elixir-mode-map (kbd "C-c C-k")  'eval-buffer)
+;; (define-key elixir-mode-map (kbd "C-M-\\")  'elisp-code-format)
 
 ;;
 (provide 'mod-elixir)

@@ -39,9 +39,15 @@
 ;;(keymap-unset-key (kbd "C-c <C-prior>") "tabbar-mode")
 ;;(keymap-unset-key (kbd "C-c <C-next>") "tabbar-mode")
 
+(defun m-tabbar-forward-group ()
+  (interactive)
+    (tabbar-forward-group)
+    (if (s-match "^*" (buffer-name))
+      (m-tabbar-forward-group)))
+
 (global-set-key (kbd "C-M-'") 'tabbar-forward)
 (global-set-key (kbd "C-M-;") 'tabbar-backward)
-(global-set-key (kbd "C-M-[") 'tabbar-forward-group)
+(global-set-key (kbd "C-M-[") 'm-tabbar-forward-group)
 ;;(global-set-key (kbd "C-M-]") 'tabbar-backward-group)
 
 (global-set-key (kbd "<backtab>") 

@@ -34,26 +34,25 @@ set PATH=%CACHE%\bin;%PATH%
 if not exist %CACHE% (
    mkdir %CACHE%
 )
+
+rem set HOME=%USERPATH%
+set HOME=%ROOT%
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem emacs
 set EMACS_HOME=%APP_HOME%\emacs
 set EMACS_BIN=%EMACS_HOME%\bin
 set PATH=%EMACS_BIN%;%PATH%
-
-set HOME=%ROOT%
-set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
-set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem msys2
 REM set MSYS_HOME=c:\msys64
 REM set MSYS_BIN=%MSYS_HOME%\usr\bin
 
-set MSYS32_HOME=c:\msys32;d:\msys32;e:\msys32;f:\msys32;
-set MSYS64_HOME=c:\msys64;d:\msys64;e:\msys64;f:\msys64;
-set MSYS32_BIN=c:\msys32\usr\bin;d:\msys32\usr\bin;e:\msys32\usr\bin;f:\msys32\usr\bin;
-set MSYS64_BIN=c:\msys64\usr\bin;d:\msys64\usr\bin;e:\msys64\usr\bin;f:\msys64\usr\bin;
-set MINGW32_BIN=c:\msys32\mingw32\bin;d:\msys32\mingw32\bin;e:\msys32\mingw32\bin;f:\msys32\mingw32\bin;
-set MINGW64_BIN=c:\msys64\mingw64\bin;d:\msys64\mingw64\bin;e:\msys64\mingw64\bin;f:\msys64\mingw64\bin;
+set MSYS32_HOME=c:\msys32;d:\msys32;e:\msys32;f:\msys32;g:\msys32;
+set MSYS64_HOME=c:\msys64;d:\msys64;e:\msys64;f:\msys64;g:\msys64;
+set MSYS32_BIN=c:\msys32\usr\bin;d:\msys32\usr\bin;e:\msys32\usr\bin;f:\msys32\usr\bin;g:\msys32\usr\bin;
+set MSYS64_BIN=c:\msys64\usr\bin;d:\msys64\usr\bin;e:\msys64\usr\bin;f:\msys64\usr\bin;g:\msys32\usr\bin;
+set MINGW32_BIN=c:\msys32\mingw32\bin;d:\msys32\mingw32\bin;e:\msys32\mingw32\bin;f:\msys32\mingw32\bin;g:\msys32\mingw32\bin;
+set MINGW64_BIN=c:\msys64\mingw64\bin;d:\msys64\mingw64\bin;e:\msys64\mingw64\bin;f:\msys64\mingw64\bin;g:\msys64\mingw64\bin;
 set PATH=%MSYS32_HOME%;%MSYS64_HOME%;%MSYS32_BIN%;%MSYS64_BIN%;%MINGW32_BIN%;%MINGW64_BIN%;%PATH%
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem MsBuild
@@ -152,16 +151,26 @@ goto:eof
 REM%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 :link-init-el
+rem set HOME=%ROOT%
+rem set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
+rem set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
 copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
 goto:eof
 
 :open
+rem set HOME=%ROOT%
+rem set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
+rem set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
 rem goto:%1
 rem start %EMACS_BIN%\runemacs.exe --debug-init %1
 "%ROOT%/cache/apps/emacs/bin/emacsclientw.exe" --server-file "%ROOT%/.emacs.d/server/server" --no-wait --alternate-editor="%ROOT%/cache/apps/emacs/bin/runemacs.exe" %1
 exit
 
 :reg-open-menu
+rem set HOME=%ROOT%
+rem set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
+rem set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
+
 call:got-admin-auth
 rem regedit.exe /S %ROOT%/emacs.reg
 rem reg import %ROOT%/emacs.reg
@@ -170,6 +179,9 @@ REG ADD "HKEY_CLASSES_ROOT\*\shell\Edit with Emacs\command" /ve /t REG_SZ /d "\"
 goto:eof
 
 :emacs
+rem set HOME=%ROOT%
+rem set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
+rem set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
 if not exist %HOME%\.emacs (
    copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
 )
@@ -179,6 +191,9 @@ rem call %EMACS_BIN%\emacs.exe -Q -l ~/emacs-config/profile-dotemacs.el -f profi
 exit
 
 :emacs-nw
+rem set HOME=%ROOT%
+rem set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
+rem set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
 if not exist %HOME%\.emacs (
    copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
 )
@@ -187,6 +202,10 @@ cd %HOME%
 goto:eof
 
 :compile-elc
+rem set HOME=%ROOT%
+rem set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
+rem set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
+
 cd %ROOT%\emacs-config\modules
 %EMACS_BIN%\emacs.exe -Q -batch -f batch-byte-compile *.el
 REM emacs --batch --eval '(byte-recompile-directory "~/.emacs.d")'

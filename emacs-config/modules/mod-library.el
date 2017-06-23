@@ -27,13 +27,11 @@
 (package-require 'f)
 (require 'f)
 
-(defun m-project-root()
-  (let ((aaa (substring (buffer-only-name) 0 1)))
-  (if (string= aaa "*")
-      "./"
-  (if (projectile-project-p)
-      (projectile-project-root)
-    (buffer-path-name)))))
+(defun m-project-root() 
+  (let ((aaa (substring (buffer-only-name) 0 1))) 
+    (if (string= aaa "*") "./" (if (projectile-project-p) 
+				   (projectile-project-root) 
+				 (buffer-path-name)))))
 
 ;; (projectile-project-p)
 ;; (projectile-project-root)
@@ -81,7 +79,7 @@
 
     Example:
     (keymap-unset-key (kbd \"C-c <C-left>\") \"tabbar-mode\")
-    (keymap-unset-key [C-c <C-left>] \"tabbar-mode\")"
+    (keymap-unset-key [C-c <C-left>] \"tabbar-mode\")" 
   (interactive (list (call-interactively #'get-key-combo) 
 		     (completing-read "Which map: " minor-mode-map-alist nil t))) 
   (let ((map (rest (assoc (intern keymap) minor-mode-map-alist)))) 
@@ -123,6 +121,65 @@
 
 ;;(file-name-sans-extension "222/111.el") ;;==>222/111
 ;;(file-name-base "222/111.el") ;;==> 111
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (browse-url
+;;  (concat "http://www.bing.com/dict/search?q="
+;; 	 (url-hexify-string
+;; 	  (read-string "Query: "))))
+
+(defun bing-dict-brief-eww (arg) 
+  "compile project"
+  ;;(interactive)
+  (m-show-compilation "*Messages*") 
+  (other-window 1) 
+  (eww (concat "http://www.bing.com/dict/search?q=" arg)))
+
+(defun bing-dict-brief-web (word) 
+  "Show the explanation of WORD from Bing in the echo area." 
+  (interactive (let* ((default (if (use-region-p) 
+				   (buffer-substring-no-properties 
+				    (region-beginning) 
+				    (region-end)) 
+				 (let ((text (thing-at-point 'word))) 
+				   (if text (substring-no-properties text))))) 
+		      (prompt (if (stringp default) 
+				  (format "Search Bing web dict (default \"%s\"): " default)
+				"Search Bing web dict: ")) 
+		      (string (read-string prompt nil 'bing-dict-history default))) 
+		 (list string))) 
+  (save-match-data (bing-dict-brief-eww word)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;comment or uncomment
+(defun comment-or-uncomment-region-or-line () 
+  "Comments or uncomments the region or the current line if there's no active region." 
+  (interactive) 
+  (let (beg end) 
+    (if (region-active-p) 
+	(setq beg (region-beginning) end (region-end)) 
+      (setq beg (line-beginning-position) end (line-end-position))) 
+    (comment-or-uncomment-region beg end) 
+    (next-line)))
+
+(defun go-to-char-forward (n char) 
+  "Move forward to Nth occurence of CHAR.
+Typing `wy-go-to-char-key' again will move forwad to the next Nth
+occurence of CHAR." 
+  (interactive "p\ncGo to char: ") 
+  (search-forward (string char) nil nil n) 
+  (while (char-equal (read-char) char) 
+    (search-forward (string char) nil nil n)) 
+  (setq unread-command-events (list last-input-event)))
+
+(defun go-to-char-backward (n char) 
+  "Move forward to Nth occurence of CHAR.
+Typing `wy-go-to-char-key' again will move forwad to the next Nth
+occurence of CHAR." 
+  (interactive "p\ncGo to char: ") 
+  (search-backward (string char) nil nil n) 
+  (while (char-equal (read-char) char) 
+    (search-backward (string char) nil nil n)) 
+  (setq unread-command-events (list last-input-event)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; close all buffer
@@ -192,9 +249,9 @@
     (save-buffer) 
     (message "Renamed to %s" new-name)))
 
-(defun rename-file-and-buffer-extname (ext-name)
-  "rename ext name"
-    (rename-file-and-buffer (concat (buffer-only-name) "." ext-name)))
+(defun rename-file-and-buffer-ext (ext-name) 
+  "rename extname with file and buffer"
+  (rename-file-and-buffer (concat (buffer-only-name) "." ext-name)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; define function to shutdown emacs server instance
 (defun server-shutdown () 
@@ -214,7 +271,7 @@
 
 ;; exit
 ;; prevent kill emacs by mistake
-(defun medusa-bye () 
+(defun m-play-exit-animate () 
   "say bye-bye !" 
   (interactive)
   ;;(if (sr-speedbar-exist-p)
@@ -223,27 +280,25 @@
   (switch-to-buffer (get-buffer-create "*bye*")) 
   (erase-buffer)
   ;; Display the empty buffer.
-  ;;(sit-for 0)
+  (sit-for 0)
   ;;(animate-string "I'll miss you~" 7)
   ;;(sit-for 1) ;;wait 1 second
   (animate-string " Bye!!!" 9) 
   (sit-for 1) ;;wait 1 second
-  (save-buffers-kill-emacs))
-;;remove the prompt for killing emacsclient buffers
+)
+
+;;`remove' the prompt for killing emacsclient buffers
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
-(defun medusa-exit-animate() 
+
+(defun m-exit-animate() 
   (interactive) 
-  (cond ((y-or-n-p "Exit? ")
-	 (medusa-bye))))
-(defun medusa-exit() 
-  (interactive) 
-  (cond ((y-or-n-p "Exit? ") ;;(y-or-n-p "Relax...? ")
+  (cond ((y-or-n-p "Exit? ") 
+	 (medusa-bye)
 	 (save-buffers-kill-emacs))))
 
-
-(defun medusa-exit() 
+(defun m-exit() 
   (interactive) 
-  (cond ((y-or-n-p "Exit? ")
+  (cond ((y-or-n-p "Exit? ") ;;(y-or-n-p "Relax...? ")
 	 (save-buffers-kill-emacs))))
 
 (defun m-open-file(file-name) 
@@ -251,7 +306,7 @@
   (delete-other-windows) 
   (m-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
-  (find-file file-name)
+  (find-file file-name) 
   (delete-other-windows))
 
 (defun m-open-mod(mod-name) 
@@ -259,7 +314,7 @@
   (delete-other-windows) 
   (m-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
-  (find-file (concat "~/emacs-config/modules/mod-" mod-name ".el"))
+  (find-file (concat "~/emacs-config/modules/mod-" mod-name ".el")) 
   (delete-other-windows))
 
 (defun m-open-doc(doc-name) 
@@ -267,7 +322,7 @@
   (delete-other-windows) 
   (m-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
-  (find-file (concat (getenv "ROOT") "/docs/" doc-name))
+  (find-file (concat (getenv "ROOT") "/docs/" doc-name)) 
   (delete-other-windows))
 
 (defun m-open-url(url) 
@@ -275,69 +330,6 @@
   ( m-show-compilation "*eww*") 
   (other-window 1) 
   (eww url))
-
-(defun m-show-buffer(buffer-name) 
-  (interactive) 
-  (m-show-compilation buffer-name))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (browse-url
-;;  (concat "http://www.bing.com/dict/search?q="
-;; 	 (url-hexify-string
-;; 	  (read-string "Query: "))))
-
-(defun bing-dict-brief-eww (arg) 
-  "compile project"
-  ;;(interactive)
-  (m-show-compilation "*Messages*") 
-  (other-window 1) 
-  (eww (concat "http://www.bing.com/dict/search?q=" arg)))
-
-(defun bing-dict-brief-web (word) 
-  "Show the explanation of WORD from Bing in the echo area." 
-  (interactive (let* ((default (if (use-region-p) 
-				   (buffer-substring-no-properties 
-				    (region-beginning) 
-				    (region-end)) 
-				 (let ((text (thing-at-point 'word))) 
-				   (if text (substring-no-properties text))))) 
-		      (prompt (if (stringp default) 
-				  (format "Search Bing web dict (default \"%s\"): " default)
-				"Search Bing web dict: ")) 
-		      (string (read-string prompt nil 'bing-dict-history default))) 
-		 (list string))) 
-  (save-match-data (bing-dict-brief-eww word)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;comment or uncomment
-(defun comment-or-uncomment-region-or-line () 
-  "Comments or uncomments the region or the current line if there's no active region." 
-  (interactive) 
-  (let (beg end) 
-    (if (region-active-p) 
-	(setq beg (region-beginning) end (region-end)) 
-      (setq beg (line-beginning-position) end (line-end-position))) 
-    (comment-or-uncomment-region beg end) 
-    (next-line)))
-
-(defun go-to-char-forward (n char) 
-  "Move forward to Nth occurence of CHAR.
-Typing `wy-go-to-char-key' again will move forwad to the next Nth
-occurence of CHAR." 
-  (interactive "p\ncGo to char: ") 
-  (search-forward (string char) nil nil n) 
-  (while (char-equal (read-char) char) 
-    (search-forward (string char) nil nil n)) 
-  (setq unread-command-events (list last-input-event)))
-
-(defun go-to-char-backward (n char) 
-  "Move forward to Nth occurence of CHAR.
-Typing `wy-go-to-char-key' again will move forwad to the next Nth
-occurence of CHAR." 
-  (interactive "p\ncGo to char: ") 
-  (search-backward (string char) nil nil n) 
-  (while (char-equal (read-char) char) 
-    (search-backward (string char) nil nil n)) 
-  (setq unread-command-events (list last-input-event)))
 
 (defun m-show-compilation(buffer-name &optional dont-return-old-buffer) 
   "shrink compile window, avoid compile window occupy 1/2 hight of whole window" 
@@ -356,9 +348,9 @@ occurence of CHAR."
   (compile command))
 
 (defun m-create-project(command openfile) 
-  (let  ((project-name (read-file-name "hello:" nil default-directory nil)))
+  (let  ((project-name (read-file-name "hello:" nil default-directory nil))) 
     (setq default-directory (f-dirname project-name)) 
-    (f-mkdir default-directory)
+    (f-mkdir default-directory) 
     (if (= (shell-command (concat (s-replace "%s" (f-filename project-name) command))) 0) 
 	(progn (message (concat "shell-cmd:" )) 
 	       (find-file (concat project-name "/" openfile)) 
@@ -454,11 +446,15 @@ occurence of CHAR."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(package-require-curl "elisp-format" "elisp-format.el" "https://www.emacswiki.org/emacs/download/elisp-format.el")
+(package-require-curl "elisp-format" "elisp-format.el"
+		      "https://www.emacswiki.org/emacs/download/elisp-format.el")
 (package-require-curl "xcowsay" "xcowsay.el" "https://www.emacswiki.org/emacs/download/xcowsay.el")
-(package-require-curl "pink-bliss" "pink-bliss-theme.el" "https://raw.githubusercontent.com/kensanata/elisp/master/pink-bliss-theme.el")
-(package-require-curl "pink-bliss" "pink-bliss.el" "https://www.emacswiki.org/emacs/download/pink-bliss.el")
-(package-require-curl "pink-bliss" "pink-gnu.xpm" "http://www.emacswiki.org/emacs/download/pink-gnu.xpm")
+(package-require-curl "pink-bliss" "pink-bliss-theme.el"
+		      "https://raw.githubusercontent.com/kensanata/elisp/master/pink-bliss-theme.el")
+(package-require-curl "pink-bliss" "pink-bliss.el"
+		      "https://www.emacswiki.org/emacs/download/pink-bliss.el")
+(package-require-curl "pink-bliss" "pink-gnu.xpm"
+		      "http://www.emacswiki.org/emacs/download/pink-gnu.xpm")
 
 ;; (package-require-git "window-layout" "https://github.com/kiwanami/emacs-window-layout.git")
 ;; (package-require-git "E2WM" "https://github.com/kiwanami/emacs-window-manager.git")

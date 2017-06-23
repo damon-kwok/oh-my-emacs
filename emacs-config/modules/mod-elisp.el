@@ -65,18 +65,18 @@
 
 (defun show-elisp-repl() 
   (interactive) 
-  (setq temp-buffer-name (buffer-name (current-buffer))) 
+  (setq temp-elisp-buffer-name (buffer-name (current-buffer))) 
   (m-show-compilation "*ielm*")
   (ielm) 
-  (switch-to-buffer-other-window temp-buffer-name) 
+  (switch-to-buffer-other-window temp-elisp-buffer-name) 
   (m-show-compilation "*ielm*" t))
 
 (defun show-elisp-workbuffer() 
   (interactive) 
-  (switch-to-buffer-other-window temp-buffer-name) 
+  (switch-to-buffer-other-window temp-elisp-buffer-name) 
   (delete-other-windows) 
   (show-elisp-repl) 
-  (switch-to-buffer-other-window temp-buffer-name))
+  (switch-to-buffer-other-window temp-elisp-buffer-name))
 
 
 (defun compile-current-buffer() 

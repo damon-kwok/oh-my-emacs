@@ -40,3 +40,6 @@
 !/emacs-config/*/*/*/*/*/*/*/*/*/*
 !/emacs-config/*/*/*/*/*/*/*/*/*/*/
 !/emacs-config/*/*/*/*/*/*/*/*/*/*/*
+target/
+**/*.rs.bk
+Cargo.lock

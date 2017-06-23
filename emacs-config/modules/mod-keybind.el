@@ -78,7 +78,7 @@
 
 ;;;
 (global-set-key (kbd "C-M-d") 'delete-backward-char)
-(global-set-key (kbd "C-x C-c") 'medusa-exit) ;;[(control x) (control c)]
+(global-set-key (kbd "C-x C-c") 'm-exit) ;;[(control x) (control c)]
 
 (global-set-key (kbd "C--") 'shrink-window)
 (global-set-key (kbd "C-=") 'enlarge-window)
@@ -193,11 +193,11 @@ _l_: buffers-list    _m_: Messages       _s_: *eshell*
 ^^^^^^^^-------------------------------------------------------------------------
 _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 " ("l" (helm-buffers-list) "buffers-list")
-("m" (m-show-buffer "*Messages*") "*Messages*")
-("w" (m-show-buffer "*eww*") "*eww*")
-("t" (m-show-buffer "*scratch*") "*scratch*")
-("c" (m-show-buffer "*compilation*") "*compilation*")
-("C" (m-show-buffer "*Compile-Log*") "*scratch*")
+("m" (m-show-compilation "*Messages*") "*Messages*")
+("w" (m-show-compilation "*eww*") "*eww*")
+("t" (m-show-compilation "*scratch*") "*scratch*")
+("c" (m-show-compilation "*compilation*") "*compilation*")
+("C" (m-show-compilation "*Compile-Log*") "*scratch*")
 ("s" eshell "*eshell*")
 ("S" (shell "*shell*"))
 ("0" (calendar) "calendar")
@@ -212,12 +212,12 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
   "
 ^Basic^            ^Layout^         ^Editor^          ^Language^      ^Other^
 ^^^^^^^^-------------------------------------------------------------------------
-_i_: init          _t_: tabbar      _6_: orgmode      _1_: elisp      _u_: input
+_i_: init          _t_: tabbar      _o_: orgmode      _1_: elisp      _u_: input
 _a_: basic         _h_: helm        _7_: latex        _2_: clojure    _m_: music
 _p_: package       ^^               _8_: markdown     _3_: csharp     _d_: coding
 _k_: keybind       ^^               _9_: reST         _4_: js         _s_: server
 _l_: library       ^^               _z_: csv          _5_: cc         ^^
-_y_: complete-yas  ^^               _x_: protobuf     ^^              _C_: compile-all-modules
+_y_: complete-yas  ^^               _x_: protobuf     _6_: elixir     _C_: compile-all-modules
 ^^^^^^^^-------------------------------------------------------------------------
 _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 " ("i" (m-open-mod "init") "init")
@@ -237,10 +237,11 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ("3" (m-open-mod "csharp") "csharp")
 ("4" (m-open-mod "javascript") "javascript")
 ("5" (m-open-mod "cc") "cc")
+("6" (m-open-mod "elixir") "elixir")
 
 ;;("w" (m-open-mod "web") "web")
 
-("6" (m-open-mod "orgmode") "orgmode")
+("o" (m-open-mod "orgmode") "orgmode")
 ("7" (m-open-mod "latex") "latex")
 ("8" (m-open-mod "markdown") "markdown")
 ("9" (m-open-mod "rest") "reST")
@@ -346,16 +347,16 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 	  ((string= mod-name "emacs-lisp--mode") 456) 
 	  ((string= mod-name "sh-mode") 789))))
 
-(defun m-create-*project() 
-  (let ((mod-name (symbol-name major-mode))) 
-    (cond ((string= mod-name "clojure-mode") 
-	   (m-create-project "lein new %s" "project.clj")) 
-	  ((string= mod-name "elixir-mode") 
-	   (m-create-project "mix new %s" "mix.exs")) 
-	  ((string= mod-name "rust-mode") 
-	   (m-create-project "cargo new %s --bin" "mix.exs")) 
-	  ((string= mod-name "go-mode") 
-	   (m-create-project "glide create %s" "glide.yaml")))))
+(defun m-project-wizard(lang) 
+  (cond ((string= lang "clojure") 
+	 (m-create-project "lein new %s" "project.clj")) 
+	((string= lang "elixir") 
+	 (m-create-project "mix new %s --module App" "mix.exs")) 
+	((string= lang "rust") 
+	 (m-create-project "cargo new %s --bin" "Cargo.toml")) 
+	((string= lang "go") 
+	 (m-create-project "glide create %s" "glide.yaml"))))
+
 
 (defun m-run-*project () 
   (let ((mod-name (symbol-name major-mode))) 
@@ -400,17 +401,15 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 (defhydra hydra-do-super 
   (:color blue) 
   (concat "
-^SPC^            ^Buffer^               ^Search^              ^UI|View^         ^Project^
-^"(symbol-name major-mode)
-"^
+^SPC^            ^Buffer^               ^Search^              ^UI|View^         ^Project^     ^"(symbol-name major-mode)"^
 ^^^^^^^^^^^^-------------------------------------------------------------------------------------------------
-^^               _>_: goto-char-f       _G_: grep-project     _;_: <-Tab         _6_: Clojure   ^_1_:run^
-_b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->         _7_: Erlang    ^^ test
-_f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: <-Group       _8_: Golang    ^^ compile/build
-_m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: Group->       _9_: Scala     ^^ clean
-_w_: URLs  =>    _e_: mc/mark-all       ^^                    _=_: scale-inc     ^^Python       ^^
-^^               _r_: Reload|Refresh    ^^                    _-_: scale-dec     ^^Elixir       ^^
-_<tab>_: recent  ^^                     ^^                    _z_: smart-do      ^^Kotlin       ^^
+^^               _>_: goto-char-f       _G_: grep-project     _;_: <-Tab       _6_: Clojure   ^_1_:run^
+_b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->       _7_: Elixir    ^^ test
+_f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: <-Group     _8_: Rust      ^^ compile/build
+_m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: Group->     _9_: Go        ^^ clean
+_w_: URLs  =>    _e_: mc/mark-all       ^^                    _=_: scale-inc   ^^Python       ^^
+^^               _r_: Reload|Refresh    ^^                    _-_: scale-dec   ^^Erlang       ^^
+_<tab>_: recent  ^^                     ^^                    _z_: smart-do    ^^Kotlin       ^^
 ^^^^^^^^^^^^-------------------------------------------------------------------------------------------------
 _<escape>_: Quit _0_: Calendar          ^^                    ^^                 ^^             ^^") 
   ("b" (hydra-show-buffer/body) "buffer") 
@@ -440,10 +439,10 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^                
   ("3" (message "smart-do")) 
   ("4" (message "smart-do")) 
   ("5" (message "smart-do")) 
-  ("6" (message "smart-do")) 
-  ("7" (message "smart-do")) 
-  ("8" (message "smart-do")) 
-  ("9" (message "smart-do")) 
+  ("6" (m-project-wizard "clojure") "smart-do")
+  ("7" (m-project-wizard "elixir") "smart-do") 
+  ("8" (m-project-wizard "rust") "smart-do")
+  ("9" (m-project-wizard "go") "smart-do")
   ("z" (message "smart-do")) 
   ("0" (calendar) "calendar") 
   ("<SPC>" nil "quit") 
