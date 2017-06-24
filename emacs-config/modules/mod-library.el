@@ -73,13 +73,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `keymap-unset-key'
 
-(defun keymap-unset-key (key keymap) 
+(defun m-keymap-unset-key (key keymap) 
   "Remove binding of KEY in a keymap
     KEY is a string or vector representing a sequence of keystrokes.
 
     Example:
-    (keymap-unset-key (kbd \"C-c <C-left>\") \"tabbar-mode\")
-    (keymap-unset-key [C-c <C-left>] \"tabbar-mode\")" 
+    (m-keymap-unset-key (kbd \"C-c <C-left>\") \"tabbar-mode\")
+    (m-keymap-unset-key [C-c <C-left>] \"tabbar-mode\")" 
   (interactive (list (call-interactively #'get-key-combo) 
 		     (completing-read "Which map: " minor-mode-map-alist nil t))) 
   (let ((map (rest (assoc (intern keymap) minor-mode-map-alist)))) 
@@ -88,18 +88,18 @@
 
 
 ;; http://www.ergoemacs.org/emacs/elisp_idioms_prompting_input.html
-(defun query-user (x y) 
+(defun m-query-user (x y) 
   (interactive "sEnter friend's name: \nnEnter friend's age: ") 
   (message "Name is: %s, Age is: %d" x y))
 
-(defun is-in-terminal() 
+(defun m-is-in-terminal() 
   (not (display-graphic-p)))
 
 (defmacro when-terminal 
     (&rest 
      body)
   "Works just like `progn' but will only evaluate expressions in VAR when Emacs is running in a terminal else just nil."
-  `(when (is-in-terminal) ,@body))
+  `(when (m-is-in-terminal) ,@body))
 
 ;; (file-name-as-directory buffer-file-name)
 ;; (file-name-nondirectory buffer-file-name)
@@ -127,14 +127,14 @@
 ;; 	 (url-hexify-string
 ;; 	  (read-string "Query: "))))
 
-(defun bing-dict-brief-eww (arg) 
+(defun m-bing-dict-brief-eww (arg) 
   "compile project"
   ;;(interactive)
   (m-show-compilation "*Messages*") 
   (other-window 1) 
   (eww (concat "http://www.bing.com/dict/search?q=" arg)))
 
-(defun bing-dict-brief-web (word) 
+(defun m-bing-dict-brief-web (word) 
   "Show the explanation of WORD from Bing in the echo area." 
   (interactive (let* ((default (if (use-region-p) 
 				   (buffer-substring-no-properties 
@@ -147,11 +147,11 @@
 				"Search Bing web dict: ")) 
 		      (string (read-string prompt nil 'bing-dict-history default))) 
 		 (list string))) 
-  (save-match-data (bing-dict-brief-eww word)))
+  (save-match-data (m-bing-dict-brief-eww word)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;comment or uncomment
-(defun comment-or-uncomment-region-or-line () 
+(defun m-comment-or-uncomment-region-or-line () 
   "Comments or uncomments the region or the current line if there's no active region." 
   (interactive) 
   (let (beg end) 
@@ -161,7 +161,7 @@
     (comment-or-uncomment-region beg end) 
     (next-line)))
 
-(defun go-to-char-forward (n char) 
+(defun m-go-to-char-forward (n char) 
   "Move forward to Nth occurence of CHAR.
 Typing `wy-go-to-char-key' again will move forwad to the next Nth
 occurence of CHAR." 
@@ -171,7 +171,7 @@ occurence of CHAR."
     (search-forward (string char) nil nil n)) 
   (setq unread-command-events (list last-input-event)))
 
-(defun go-to-char-backward (n char) 
+(defun m-go-to-char-backward (n char) 
   "Move forward to Nth occurence of CHAR.
 Typing `wy-go-to-char-key' again will move forwad to the next Nth
 occurence of CHAR." 
@@ -183,13 +183,13 @@ occurence of CHAR."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; close all buffer
-(defun kill-all-buffers () 
+(defun m-kill-all-buffers () 
   "Kill all other buffers." 
   (interactive) 
   (mapcar 'kill-buffer (buffer-list)))
 
 ;; close all buffer but this
-(defun kill-other-buffers () 
+(defun m-kill-other-buffers () 
   "Kill all other buffers." 
   (interactive) 
   (delete-other-windows) 
@@ -197,7 +197,7 @@ occurence of CHAR."
 			   (remove-if-not 'buffer-file-name (buffer-list)))))
 
 ;; delete current buffer && file
-(defun delete-file-and-buffer() 
+(defun m-delete-file-and-buffer() 
   (interactive) 
   (cond ((y-or-n-p (concat "delete'" (buffer-name) "'?")) 
 	 ((progn) 
@@ -205,7 +205,7 @@ occurence of CHAR."
 		       (kill-this-buffer))))))
 
 ;; Originally from stevey, adapted to support moving to a new directory.
-(defun rename-file-and-buffer (new-name) 
+(defun m-rename-file-and-buffer (new-name) 
   "Renames both current buffer and file it's visiting to NEW-NAME." 
   (interactive (progn (if (not (buffer-file-name)) 
 			  (error 
@@ -249,12 +249,12 @@ occurence of CHAR."
     (save-buffer) 
     (message "Renamed to %s" new-name)))
 
-(defun rename-file-and-buffer-ext (ext-name) 
+(defun m-rename-file-and-buffer-ext (ext-name) 
   "rename extname with file and buffer"
-  (rename-file-and-buffer (concat (buffer-only-name) "." ext-name)))
+  (m-rename-file-and-buffer (concat (buffer-only-name) "." ext-name)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; define function to shutdown emacs server instance
-(defun server-shutdown () 
+(defun m-server-shutdown () 
   "Save buffers, Quit, and Shutdown (kill) server" 
   (interactive) 
   (save-some-buffers) 
@@ -412,7 +412,7 @@ occurence of CHAR."
       (m-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory
 							      buffer-file-name)))))
 
-(defun open-reddit-channel (word) 
+(defun m-open-reddit-channel (word) 
   "Show the explanation of WORD from Bing in the echo area." 
   (interactive (let* ((default (if (use-region-p) 
 				   (buffer-substring-no-properties 
@@ -426,7 +426,7 @@ occurence of CHAR."
 		 (list string))) 
   (m-open-url (concat "https://www.reddit.com/r/" word "/")))
 
-(defun open-stackoverflow-channel (word) 
+(defun m-open-stackoverflow-channel (word) 
   "Show the explanation of WORD from Bing in the echo area." 
   (interactive (let* ((default (if (use-region-p) 
 				   (buffer-substring-no-properties 

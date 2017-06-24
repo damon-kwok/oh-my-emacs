@@ -137,11 +137,11 @@
 ;;; bing-dict
 (package-require 'bing-dict)
 (require 'bing-dict)
-;; (global-set-key (kbd "C-c d") 'bing-dict-brief)
-;; (global-set-key (kbd "C-c D") 'bing-dict-brief-web)
+;; (global-set-key (kbd "C-c d") 'm-bing-dict-brief)
+;; (global-set-key (kbd "C-c D") 'm-bing-dict-brief-web)
 
-(define-key global-map (kbd "C-c f") 'go-to-char-forward)
-(define-key global-map (kbd "C-c b") 'go-to-char-backward)
+(define-key global-map (kbd "C-c f") 'm-go-to-char-forward)
+(define-key global-map (kbd "C-c b") 'm-go-to-char-backward)
 
 (package-require 'neotree)
 (require 'neotree)
@@ -157,8 +157,8 @@
 (global-set-key (kbd "C-M->") 'mc/mark-all-like-this)
 
 ;; C-x r (file rename)
-;; (global-set-key (kbd "C-c r") 'rename-file-and-buffer)
-;; (global-set-key (kbd "C-c x") 'delete-file-and-buffer)
+;; (global-set-key (kbd "C-c r") 'm-rename-file-and-buffer)
+;; (global-set-key (kbd "C-c x") 'm-delete-file-and-buffer)
 
 ;;; string replace
 ;; (global-set-key (kbd "C-M-s") 'replace-string)
@@ -167,8 +167,8 @@
 ;; (define-key sh-mode-map (kbd "C-c C-r") 'replace-string)
 ;; (add-hook 'shell-mode-hook (lambda () (local-set-key (kbd "M-s") 'replace-string)))
 
-;; (global-set-key (kbd "C-x M-k") 'kill-all-buffers)
-;; (global-set-key (kbd "C-x M-k") 'kill-other-buffers)
+;; (global-set-key (kbd "C-x M-k") 'm-kill-all-buffers)
+(global-set-key (kbd "C-x M-k") 'm-kill-other-buffers)
 
 ;;; `hydra'
 (package-require 'hydra)
@@ -296,8 +296,8 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 ("c" (m-open-url "https://github.com/CodyReichert/awesome-cl") "CommonLisp")
 ("v" (m-open-url "https://github.com/") "github")
 ("9" (m-open-url "http://wttr.in/") "wego")
-("r" open-reddit-channel "Reddit")
-("s" open-stackoverflow-channel "StackOverflow")
+("r" m-open-reddit-channel "Reddit")
+("s" m-open-stackoverflow-channel "StackOverflow")
 ("0" (calendar) "calendar")
 ("<tab>" (hydra-do-super/body) "BACK")
 ("q" nil "Quit")
@@ -317,10 +317,10 @@ _o_:kill-other  ^^                      _b_: book.org        _G_: game.org
 ^^              ^^                      _N_: NEWS.org        ^^
 ^^^^^^^^-----------------------------------------------------------------
 _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
-" ("r" rename-file-and-buffer "rename-file-and-buffer")
-("d" delete-file-and-buffer "delete-file-and-buffer")
-("k" kill-all-buffers "kill-all-buffers")
-("o" kill-other-buffers "kill-other-buffers")
+" ("r" m-rename-file-and-buffer "rename-file-and-buffer")
+("d" m-delete-file-and-buffer "delete-file-and-buffer")
+("k" m-kill-all-buffers "kill-all-buffers")
+("o" m-kill-other-buffers "kill-other-buffers")
 ("p" htmlize-buffer "htmlize-buffer")
 ("P" htmlize-file "htmlize-file")
 ("C" (byte-recompile-directory "~/emacs-config") "byte-recomplie-directory")
@@ -407,9 +407,9 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 _b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->       _7_: Elixir    ^^ test
 _f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: <-Group     _8_: Rust      ^^ compile/build
 _m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: Group->     _9_: Go        ^^ clean
-_w_: URLs  =>    _e_: mc/mark-all       ^^                    _=_: scale-inc   ^^Python       ^^
-^^               _r_: Reload|Refresh    ^^                    _-_: scale-dec   ^^Erlang       ^^
-_<tab>_: recent  ^^                     ^^                    _z_: smart-do    ^^Kotlin       ^^
+_w_: URLs  =>    _e_: mc/mark-all       _>_: goto-char-f      _=_: scale-inc   ^^Python       ^^
+^^               _r_: Reload|Refresh    _<_: goto-char-b      _-_: scale-dec   ^^Erlang       ^^
+_<tab>_: recent  _o_: kill-other-buffer ^^                    _z_: smart-do    ^^Kotlin       ^^
 ^^^^^^^^^^^^-------------------------------------------------------------------------------------------------
 _<escape>_: Quit _0_: Calendar          ^^                    ^^                 ^^             ^^") 
   ("b" (hydra-show-buffer/body) "buffer") 
@@ -418,20 +418,21 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^                
   ("c" (hydra-open-config/body) "module") 
   ("w" (hydra-open-url/body) "url") 
   ("<tab>" helm-recentf "(helm-recentf)") 
-  (">" go-to-char-forward "go-to-char-forward") 
-  ("<" go-to-char-backward "go-to-char-backward") 
+  (">" m-go-to-char-forward "go-to-char-forward") 
+  ("<" m-go-to-char-backward "go-to-char-backward") 
   ("s" replace-string "replace-string") 
   ("S" query-replace "query-replace") 
   ("e" (m-mark-all-like-this) "mc/mark-all-like-this") 
-  ("r" (m-buffer-reload) "Refresh") 
+  ("r" (m-buffer-reload) "Refresh")
+  ("o" (m-kill-other-buffers) "KillOtherBuffers")
   ("G" my-grep-project "projectile-project-root") 
   ("g" my-grep-directory "projectile-directory-root") 
-  ("d" bing-dict-brief "bing-dict-brief") 
-  ("D" bing-dict-brief-web "bing-dict-brief-web") 
+  ("d" m-bing-dict-brief "bing-dict-brief") 
+  ("D" m-bing-dict-brief-web "bing-dict-brief-web") 
   (";" tabbar-backward "tabbar-backward") 
   ("'" tabbar-forward "tabbar-forward") 
-  ("[" tabbar-backward-group "tabbar-up") 
-  ("/" tabbar-forward-group "tabbar-down") 
+  ("[" m-tabbar-backward-group "tabbar-up") 
+  ("/" m-tabbar-forward-group "tabbar-down") 
   ("=" text-scale-increase "text-scale-increase") 
   ("-" text-scale-decrease "text-scale-decrease") 
   ("1" (m-run-*project) "run project") 
@@ -445,14 +446,15 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^                
   ("9" (m-project-wizard "go") "smart-do")
   ("z" (message "smart-do")) 
   ("0" (calendar) "calendar") 
-  ("<SPC>" nil "quit") 
+  ("<SPC>" nil "quit")
+  ("q" nil "quit") 
   ("<escape>" nil "quit"))
 ;; (global-set-key (kbd "C-SPC") 'hydra-do-super/body)
 (global-set-key (kbd "M-SPC") 'hydra-do-super/body)
 (global-set-key (kbd "M-z") 'hydra-do-super/body)
 
 ;;; `comment-toggle' M-;
-(global-set-key [remap comment-dwim] 'comment-or-uncomment-region-or-line)
+(global-set-key [remap comment-dwim] 'm-comment-or-uncomment-region-or-line)
 
 ;; (package-require 'smart-comment)
 ;; (require 'smart-comment)
