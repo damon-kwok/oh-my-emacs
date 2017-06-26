@@ -39,17 +39,42 @@
 ;;(m-keymap-unset-key (kbd "C-c <C-prior>") "tabbar-mode")
 ;;(m-keymap-unset-key (kbd "C-c <C-next>") "tabbar-mode")
 
-(defun m-tabbar-forward-group ()
-  (interactive)
-    (tabbar-forward-group)
-    (if (s-match "^*" (buffer-name))
-      (m-tabbar-forward-group)))
+(defun m-number 
+    (&optional 
+     num) 
+  (if (numberp num) num 0))
 
-(defun m-tabbar-backward-group ()
-  (interactive)
-    (tabbar-backward-group)
-    (if (s-match "^*" (buffer-name))
-	(m-tabbar-backward-group)))
+(defun m-inc 
+    (&optional 
+     num) 
+  (if (numberp num) 
+      (+ 1 num) 1))
+
+(defun m-dec 
+    (&optional 
+     num) 
+  (if (numberp num) 
+      (- num 1) -1))
+
+
+(defun m-tabbar-forward-group 
+    (&optional 
+     num) 
+  (interactive) 
+  (tabbar-forward-group)
+  ;; (message (concat "--group:" (m-number num)))
+  (if (and (s-match "^*" (buffer-name)) 
+	   (< (m-number num) 5)) 
+      (m-tabbar-forward-group (m-inc num))))
+
+(defun m-tabbar-backward-group 
+    (&optional 
+     num) 
+  (interactive) 
+  (tabbar-backward-group) 
+  (if (and (s-match "^*" (buffer-name)) 
+	   (< (m-number num) 5)) 
+      (m-tabbar-backward-group (m-inc num))))
 
 (global-set-key (kbd "C-M-'") 'tabbar-forward)
 (global-set-key (kbd "C-M-;") 'tabbar-backward)
