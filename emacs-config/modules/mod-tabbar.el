@@ -56,7 +56,6 @@
   (if (numberp num) 
       (- num 1) -1))
 
-
 (defun m-tabbar-forward-group 
     (&optional 
      num) 
