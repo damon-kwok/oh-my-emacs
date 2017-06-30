@@ -54,6 +54,7 @@ set MSYS64_BIN=c:\msys64\usr\bin;d:\msys64\usr\bin;e:\msys64\usr\bin;f:\msys64\u
 set MINGW32_BIN=c:\msys32\mingw32\bin;d:\msys32\mingw32\bin;e:\msys32\mingw32\bin;f:\msys32\mingw32\bin;g:\msys32\mingw32\bin;
 set MINGW64_BIN=c:\msys64\mingw64\bin;d:\msys64\mingw64\bin;e:\msys64\mingw64\bin;f:\msys64\mingw64\bin;g:\msys64\mingw64\bin;
 set PATH=%MSYS32_HOME%;%MSYS64_HOME%;%MSYS32_BIN%;%MSYS64_BIN%;%MINGW32_BIN%;%MINGW64_BIN%;%PATH%
+
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem MsBuild
 rem set MSBUILD_HOME="C:\Program Files (x86)\MSBuild\14.0\Bin"
@@ -61,10 +62,18 @@ rem set MSBUILD_BIN=%MSBUILD_HOME%\Bin
 
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem ocaml
-set OCAML_HOME=C:\OCaml
+set OCAML_HOME=%APP_HOME%\opam64
 set OCAML_BIN=%OCAML_HOME%\bin
 set OCAMLLIB=%OCAML_HOME%\lib
 set PATH=%OCAML_BIN%;%PATH%
+
+rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+rem Haskell-Stack
+if not exist %APPDATA%\stack ( mkdir %APPDATA%\stack )
+if not exist %APPDATA%\stack\config.yaml ( copy /y %CACHE%\bin\config.yaml %APPDATA%\stack\ )
+set STACK_HOME=%APP_HOME%\stack
+set STACK_BIN=%STACK_HOME%\bin
+set PATH=%STACK_BIN%;%PATH%
 
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem omnisharp
@@ -238,7 +247,9 @@ goto:eof
 
 :shell
 bash
-rem msys2.exe
+rem start msys2.exe
+rem start mintty
+rem msys2_shell.cmd
 goto:eof
 
 :sleep
@@ -341,6 +352,22 @@ pacman -S curl zip unzip git svn perl diffutils
 REM pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
 goto:eof
 
+:ask-repl
+echo please choose your need:
+echo    1) clojure
+echo    2) haskell
+echo    3) elixir
+echo    4) erlang
+
+set /p c=please input your choice:
+echo loading...
+if /i "%c%"=="1" lein repl
+if /i "%c%"=="2" stack repl
+if /i "%c%"=="3" iex
+if /i "%c%"=="4" erl
+if /i "%c%"=="r" call:ask
+goto:eof
+
 :ask
 echo hello %username%, what's up?
 rem echo do::ask
@@ -359,6 +386,7 @@ echo    l) link init.el
 echo    d) delete-elc
 echo    s) shell
 echo    m) register right open menu
+echo    z) *REPL
 echo    r) return
 echo    q) quit
 
@@ -377,6 +405,7 @@ if /i "%c%"=="l" call:link-init-el
 if /i "%c%"=="d" call:delete-elc
 if /i "%c%"=="s" call:shell
 if /i "%c%"=="m" call:reg-open-menu
+if /i "%c%"=="z" call:ask-repl
 if /i "%c%"=="r" call:eof
 if /i "%c%"=="q" exit
 REM echo your input is not invalid:(
