@@ -47,15 +47,15 @@
 (module-require 'mod-csv)
 (module-require 'mod-protobuf)
 (module-require 'mod-orgmode)
-(module-require 'mod-markdown)
-(module-require 'mod-latex)
+;; (module-require 'mod-markdown)
+;; (module-require 'mod-latex)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `programming-languages'
 (module-require 'mod-elisp)
 ;; (module-require 'mod-csharp)
 (module-require 'mod-clojure)
 ;;(Module-Require 'mod-cc)
-(module-require 'mod-ess)
+;; (module-require 'mod-ess)
 ;;(module-require 'mod-slime)
 ;; (module-require 'mod-erlang)
 (module-require 'mod-elixir)
