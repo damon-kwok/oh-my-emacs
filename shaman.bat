@@ -348,7 +348,7 @@ goto:eof
 
 :install-toolchain
 pacman -Syu
-pacman -S curl zip unzip git svn perl diffutils
+pacman -S base-devel curl zip unzip git svn perl diffutils rubygems mingw-w64-x86_64-nodejs mingw-w64-x86_64-ocaml-findlib
 REM pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
 goto:eof
 
