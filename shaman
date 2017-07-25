@@ -137,9 +137,27 @@ function getapp {
 }
 
 function install-toolchain {
-    pacman -Syu
-    pacman -S curl zip unzip git svn perl
+    yaourt -Syyu
+    yaourt -S curl zip unzip git svn diffutils perl rubygems nodejs ocaml-findlib stack leiningen elixir
     #pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
+}
+
+function ask-repl {
+    echo "please choose your need:"
+    echo "    1) clojure"
+    echo "    2) haskell"
+    echo "    3) elixir"
+    echo "    4) erlang"
+
+    read -p "please input your choice:" item
+    case $item in
+	1) lein repl;;
+	2) stack repl;;
+	3) iex;;
+	4) erl;;
+	r | R) ask-menu;;
+	*) ask-repl;;
+    esac
 }
 
 function ask-menu {
@@ -150,7 +168,7 @@ function ask-menu {
     echo "    3) pushapp"
     echo "    4) zipapp"
     echo "    5) unzipapp"
-    echo "    6) download-leiningen"
+    #echo "    6) download-leiningen"
     echo "    i) install-chain"
     echo "    e) emacs"
     echo "    n) emacs-nw"
@@ -158,6 +176,7 @@ function ask-menu {
     echo "    l) link init.el"
     echo "    d) delete-elc"
     echo "    s) shell"
+    echo "    z) REPL"
     echo "    q) quit"
 
     read -p "please input your choice:" item
@@ -167,7 +186,7 @@ function ask-menu {
 	3) pushapp;;
 	4) zipapp;;
 	5) unzipapp;;
-	6) download-lein;;
+	#6) download-lein;;
 	i) install-toolchain;;
 	e | E) run-emacs;;
 	n | N) run-emacs-nw;;
@@ -175,6 +194,7 @@ function ask-menu {
 	l | L) link-init-el;;
 	d | D) delete-elc;;
 	s | S) bash;;
+	z | Z) ask-repl;;
 	q | Q) exit;;
 	*) ask-menu;;	    
     esac

@@ -347,8 +347,8 @@ echo %2%
 goto:eof
 
 :install-toolchain
-pacman -Syu
-pacman -S base-devel curl zip unzip git svn perl diffutils rubygems mingw-w64-x86_64-nodejs mingw-w64-x86_64-ocaml-findlib
+pacman -Syyu
+pacman -S base-devel curl zip unzip git svn diffutils perl rubygems mingw-w64-x86_64-nodejs mingw-w64-x86_64-ocaml-findlib
 REM pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
 goto:eof
 
@@ -386,7 +386,7 @@ echo    l) link init.el
 echo    d) delete-elc
 echo    s) shell
 echo    m) register right open menu
-echo    z) *REPL
+echo    z) REPL
 echo    r) return
 echo    q) quit
 
