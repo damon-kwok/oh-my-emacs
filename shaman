@@ -138,7 +138,7 @@ function getapp {
 
 function install-toolchain {
     yaourt -Syyu
-    yaourt -S curl zip unzip git svn diffutils perl rubygems nodejs ocaml-findlib stack leiningen elixir
+    yaourt -S curl zip unzip git svn coreutils diffutils perl rubygems nodejs ocaml-findlib stack leiningen elixir cargo
     #pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
 }
 
