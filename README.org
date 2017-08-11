@@ -10,7 +10,7 @@ this is damon kwok's emacs config
 msys2
 sudo dnf grouplist
 ** install
-- bash <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/install)
+- sh <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/install)
 * KEYBIND
 ** global
  - *C-u C-h n *what's the new*

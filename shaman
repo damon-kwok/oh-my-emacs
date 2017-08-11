@@ -65,12 +65,6 @@ function delete-etc {
     cd $ROOT
 }
 
-function download-lein {
-    cd $CACHE/bin/
-    curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-    chmod +x ./lein
-    cd $ROOT
-}
 function push {
     git reset
     git add .
@@ -138,8 +132,7 @@ function getapp {
 
 function install-toolchain {
     yaourt -Syyu
-    yaourt -S curl zip unzip git svn coreutils diffutils perl rubygems nodejs ocaml-findlib stack leiningen elixir cargo
-    #pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
+    yaourt -S base-devel zsh wget curl zip unzip git svn coreutils diffutils perl rubygems nodejs ocaml stack leiningen elixir cargo oh-my-zsh-git
 }
 
 function ask-repl {
@@ -151,10 +144,10 @@ function ask-repl {
 
     read -p "please input your choice:" item
     case $item in
-	1) lein repl;;
-	2) stack repl;;
-	3) iex;;
-	4) erl;;
+	1) echo abort with "^C | ^D | (exit) | (quit)" && lein repl;;
+	2) echo abort with "^D :quit" && stack repl;;
+	3) echo abort with "^C" && iex;;
+	4) echo abort with "^C | ^G | q()." erl;;
 	r | R) ask-menu;;
 	*) ask-repl;;
     esac
@@ -168,7 +161,6 @@ function ask-menu {
     echo "    3) pushapp"
     echo "    4) zipapp"
     echo "    5) unzipapp"
-    #echo "    6) download-leiningen"
     echo "    i) install-chain"
     echo "    e) emacs"
     echo "    n) emacs-nw"
@@ -186,16 +178,15 @@ function ask-menu {
 	3) pushapp;;
 	4) zipapp;;
 	5) unzipapp;;
-	#6) download-lein;;
 	i) install-toolchain;;
-	e | E) run-emacs;;
-	n | N) run-emacs-nw;;
-	c | C) compile-elc;;
-	l | L) link-init-el;;
-	d | D) delete-elc;;
-	s | S) bash;;
-	z | Z) ask-repl;;
-	q | Q) exit;;
+	e|E) run-emacs;;
+	n|N) run-emacs-nw;;
+	c|C) compile-elc;;
+	l|L) link-init-el;;
+	d|D) delete-elc;;
+	s|S) zsh;;
+	z|Z) ask-repl;;
+	q|Q) exit;;
 	*) ask-menu;;	    
     esac
     ask-menu

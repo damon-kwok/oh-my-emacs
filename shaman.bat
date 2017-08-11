@@ -246,7 +246,7 @@ exit
 goto:eof
 
 :shell
-bash
+zsh
 rem start msys2.exe
 rem start mintty
 rem msys2_shell.cmd
@@ -255,13 +255,6 @@ goto:eof
 :sleep
 echo "sleep %arg1%s"
 ping -n %arg1% 127.0.0.1>nul
-goto:eof
-
-:download-lein
-cd %CACHE%/bin
-curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
-curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-chmod +x ./lein
 goto:eof
 
 :fetch
@@ -348,8 +341,21 @@ goto:eof
 
 :install-toolchain
 pacman -Syyu
-pacman -S base-devel curl zip unzip git svn coreutils diffutils perl rubygems mingw-w64-x86_64-nodejs mingw-w64-x86_64-ocaml-findlib
-REM pacman -S base-devel curl zip unzip git svn cmake mingw-w64-x86_64-gcc
+pacman -S base-devel zsh wget curl zip unzip git svn coreutils diffutils camke
+pacman -S perl rubygems mingw-w64-x86_64-nodejs mingw-w64-x86_64-ocaml
+
+rem install: lien
+cd %CACHE%/bin
+curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+chmod +x ./lein
+
+rem install: cargo
+
+rem install: elixir && erlang-nox
+
+rem oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 goto:eof
 
 :ask-repl
@@ -361,10 +367,10 @@ echo    4) erlang
 
 set /p c=please input your choice:
 echo loading...
-if /i "%c%"=="1" lein repl
-if /i "%c%"=="2" stack repl
-if /i "%c%"=="3" iex
-if /i "%c%"=="4" erl
+if /i "%c%"=="1" echo abort with "^C | ^D | (exit) | (quit)" && lein repl
+if /i "%c%"=="2" echo abort with "^D :quit" && stack repl
+if /i "%c%"=="3" echo abort with "^C" && iex
+if /i "%c%"=="4" echo abort with "^C | ^G | q()." && erl
 if /i "%c%"=="r" call:ask
 goto:eof
 
@@ -377,7 +383,6 @@ echo    2) getapp
 echo    3) pushapp
 echo    4) zipapp
 echo    5) unzipapp
-echo    6) download-leiningen
 echo    e) emacs
 echo    n) emacs-nw
 echo    i) install-chain
@@ -396,7 +401,6 @@ if /i "%c%"=="2" call:getapp
 if /i "%c%"=="3" call:pushapp
 if /i "%c%"=="4" call:zipapp
 if /i "%c%"=="5" call:unzipapp
-if /i "%c%"=="6" call:download-lein
 if /i "%c%"=="i" call:install-toolchain
 if /i "%c%"=="e" goto:emacs
 if /i "%c%"=="n" call:emacs-nw
