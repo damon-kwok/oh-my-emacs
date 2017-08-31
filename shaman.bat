@@ -37,6 +37,9 @@ if not exist %CACHE% (
 
 rem set HOME=%USERPATH%
 set HOME=%ROOT%
+
+set PROJECT_BLOG=damon-kwok.github.io
+
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem emacs
 set EMACS_HOME=%APP_HOME%\emacs
@@ -54,6 +57,12 @@ set MSYS64_BIN=c:\msys64\usr\bin;d:\msys64\usr\bin;e:\msys64\usr\bin;f:\msys64\u
 set MINGW32_BIN=c:\msys32\mingw32\bin;d:\msys32\mingw32\bin;e:\msys32\mingw32\bin;f:\msys32\mingw32\bin;g:\msys32\mingw32\bin;
 set MINGW64_BIN=c:\msys64\mingw64\bin;d:\msys64\mingw64\bin;e:\msys64\mingw64\bin;f:\msys64\mingw64\bin;g:\msys64\mingw64\bin;
 set PATH=%MSYS32_HOME%;%MSYS64_HOME%;%MSYS32_BIN%;%MSYS64_BIN%;%MINGW32_BIN%;%MINGW64_BIN%;%PATH%
+
+
+rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+rem TexLive
+set TEXLIVE_BIN=C:\texlive\2017\bin\win32;D:\texlive\2017\bin\win32;E:\texlive\2017\bin\win32;
+set PATH=%TEXLIVE_BIN%;%PATH%
 
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem MsBuild
@@ -246,7 +255,7 @@ exit
 goto:eof
 
 :shell
-zsh
+bash
 rem start msys2.exe
 rem start mintty
 rem msys2_shell.cmd
@@ -342,7 +351,7 @@ goto:eof
 :install-toolchain
 pacman -Syyu
 pacman -S base-devel zsh wget curl zip unzip git svn coreutils diffutils camke
-pacman -S perl rubygems mingw-w64-x86_64-nodejs mingw-w64-x86_64-ocaml
+pacman -S perl rubygems mingw-w64-x86_64-nodejs mingw-w64-x86_64-ocaml mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
 
 rem install: lien
 cd %CACHE%/bin
@@ -355,7 +364,7 @@ rem install: cargo
 rem install: elixir && erlang-nox
 
 rem oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 goto:eof
 
 :ask-repl
@@ -385,7 +394,7 @@ echo    4) zipapp
 echo    5) unzipapp
 echo    e) emacs
 echo    n) emacs-nw
-echo    i) install-chain
+echo    i) install toolchain
 REM echo    c) complie-elc
 echo    l) link init.el
 echo    d) delete-elc

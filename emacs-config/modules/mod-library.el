@@ -353,7 +353,8 @@ occurence of CHAR."
     (f-mkdir default-directory) 
     (if (= (shell-command (concat (s-replace "%s" (f-filename project-name) command))) 0) 
 	(progn (message (concat "shell-cmd:" )) 
-	       (find-file (concat project-name "/" openfile)) 
+	       (find-file (concat project-name "/" openfile))
+	       ;;(switch-to-buffer (get-buffer-create openfile))
 	       (message (concat "created new project '" (f-filename project-name) "'"))) 
       (message (concat "created new project '" (f-filename project-name) "' failed!")))))
 

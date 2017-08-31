@@ -351,7 +351,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   (cond ((string= lang "clojure") 
 	 (m-create-project "lein new %s" "project.clj")) 
 	((string= lang "elixir") 
-	 (m-create-project "mix new %s --module App" "mix.exs"))
+	 (m-create-project "mix new %s" "mix.exs"))
 	((string= lang "haskell") 
 	 (m-create-project "stack new %s" "src/Main.hs"))
 	((string= lang "rust") 

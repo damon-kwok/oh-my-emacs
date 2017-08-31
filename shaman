@@ -1,30 +1,5 @@
 #!/bin/bash
 
-echo-ask() {
-    read -p $(tput setaf 5)"$1 "$(tput sgr0)
-}
-echo-warning-ask() {
-    read -p $(tput setaf 3)"$1 "$(tput sgr0)
-}
-echo-success() {
-    echo -e $(tput setaf 2)"$1"$(tput sgr0)
-}
-echo-warning() {
-    echo -e $(tput setaf 3)"$1"$(tput sgr0)
-}
-echo-error() {
-    echo -e $(tput setaf 1)"$1"$(tput sgr0)
-}
-echo-tip() {
-    echo -e $(tput setaf 6)"$1"$(tput sgr0)
-}
-echo-debug() {
-    echo -e $(tput setaf 8)"$1"$(tput sgr0)
-}
-echo-waiting() {
-    echo -e $(tput setaf 4)"$1"$(tput sgr0)
-}
-
 DIRNAME=`dirname "$0"`
 export ROOT=`cd "$DIRNAME"; pwd`
 export PATH=$ROOT:$PATH
@@ -132,7 +107,7 @@ function getapp {
 
 function install-toolchain {
     yaourt -Syyu
-    yaourt -S base-devel zsh wget curl zip unzip git svn coreutils diffutils perl rubygems nodejs ocaml stack leiningen elixir cargo oh-my-zsh-git
+    yaourt -S base-devel zsh wget curl zip unzip git svn coreutils diffutils perl rubygems nodejs ocaml stack leiningen elixir cargo oh-my-zsh-git zmq ghostscript
 }
 
 function ask-repl {
@@ -161,7 +136,7 @@ function ask-menu {
     echo "    3) pushapp"
     echo "    4) zipapp"
     echo "    5) unzipapp"
-    echo "    i) install-chain"
+    echo "    i) install toolchain"
     echo "    e) emacs"
     echo "    n) emacs-nw"
     # echo "    c) complie-elc"
@@ -193,3 +168,29 @@ function ask-menu {
 }
 
 ask-menu
+
+
+echo-ask() {
+    read -p $(tput setaf 5)"$1 "$(tput sgr0)
+}
+echo-warning-ask() {
+    read -p $(tput setaf 3)"$1 "$(tput sgr0)
+}
+echo-success() {
+    echo -e $(tput setaf 2)"$1"$(tput sgr0)
+}
+echo-warning() {
+    echo -e $(tput setaf 3)"$1"$(tput sgr0)
+}
+echo-error() {
+    echo -e $(tput setaf 1)"$1"$(tput sgr0)
+}
+echo-tip() {
+    echo -e $(tput setaf 6)"$1"$(tput sgr0)
+}
+echo-debug() {
+    echo -e $(tput setaf 8)"$1"$(tput sgr0)
+}
+echo-waiting() {
+    echo -e $(tput setaf 4)"$1"$(tput sgr0)
+}

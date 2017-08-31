@@ -24,8 +24,12 @@
 ;;org-mode
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
-;;-(package-require 'org-plus-contrib)
-;;-(require 'org-install)
+(package-require 'org-plus-contrib)
+(require 'org-install)
+
+;; 自动换行
+(add-hook 'org-mode-hook (lambda () 
+			   (setq truncate-lines nil)))
 
 (setq org-todo-keywords '((sequence "TODO" "DOING" "DONE")))
 
@@ -35,20 +39,63 @@
 (setq org-log-done 'time)
 ;;(setq org-log-done 'note)
 
-(add-hook 'org-load-hook 
-	  (lambda ()
-	    (org-defkey org-mode-map [(meta p)]    'org-metaup)
-	    (org-defkey org-mode-map [(meta n)]  'org-metadown)
-
-	    (org-defkey org-mode-map "\M-["    'org-metaup)
-	    (org-defkey org-mode-map "\M-/"  'org-metadown)
-	    (org-defkey org-mode-map "\M-;"    'org-metaleft )
-	    (org-defkey org-mode-map "\M-'"  'org-metaright)))
+(add-hook 'org-load-hook (lambda () 
+			   (org-defkey org-mode-map [(meta p)]    'org-metaup) 
+			   (org-defkey org-mode-map [(meta n)]  'org-metadown) 
+			   (org-defkey org-mode-map "\M-["    'org-metaup) 
+			   (org-defkey org-mode-map "\M-/"  'org-metadown) 
+			   (org-defkey org-mode-map "\M-;"    'org-metaleft ) 
+			   (org-defkey org-mode-map "\M-'"  'org-metaright) 
+			   (org-defkey org-mode-map "C-c C-z" 'org-export-dispatch)))
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
+
+;; `insert-source'
+;; (org-babel-do-load-languages 'org-babel-load-languages '((sh . t)
+;; (python . t)
+;; (R . t)
+;; (ruby . t)
+;; (ditaa . t)
+;; (dot . t)
+;; (octave . t)
+;; (sqlite . t)
+;; (perl . t)
+;; (C . t)
+;; (Elixir .t)))
+
+
+(require 'ox-publish)
+(setq org-publish-project-alist '(
+
+				  ;; 把各部分的配置文件写到这里面来
+				  ("blog-notes" :base-directory "~/docs/blog/" 
+				   :base-extension "org" 
+				   :publishing-directory "~/blog/" 
+				   :recursive t 
+				   :publishing-function org-html-publish-to-html 
+				   :headline-levels 4 ; Just the default for this project.
+				   :auto-preamble t 
+				   :section-numbers nil 
+				   :author "damon-kwok" 
+				   :email "damon-kwok@outlook.com" 
+				   :auto-sitemap t ; Generate sitemap.org automagically...
+				   :sitemap-filename "sitemap.org" ; ... call it sitemap.org (it's the default)...
+				   :sitemap-title "Sitemap" ; ... with title 'Sitemap'.
+				   :sitemap-sort-files anti-chronologically 
+				   :sitemap-file-entry-format "%d %t")
+
+				  ("blog-static" :base-directory "~/docs/blog/" 
+				   :base-extension
+				   "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf" 
+				   :publishing-directory "~/blog/" 
+				   :recursive t 
+				   :publishing-function org-publish-attachment)
+
+				  ("blog" :components ("blog-notes" "blog-static"))))
+
 ;;
 (provide 'mod-orgmode)
 ;;; mod-orgmode.el ends here

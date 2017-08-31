@@ -70,7 +70,7 @@
   (interactive) 
   (setq temp-elixir-buffer-name (buffer-name (current-buffer))) 
   (m-show-compilation "*Alchemist-IEx*")
-  (ielm) 
+  (alchemist-iex-run)
   (switch-to-buffer-other-window temp-elixir-buffer-name) 
   (m-show-compilation "*Alchemist-IEx*" t))
 

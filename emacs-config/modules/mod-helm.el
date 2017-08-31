@@ -114,12 +114,19 @@
 ;; (global-set-key (kbd "C-c C-f") 'helm-projectile-find-file-dwim)
 ;; (global-set-key (kbd "C-x C-g") 'helm-projectile-grep)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `helm-swiper-helm'
 ;;; Enrich isearch with Helm using the `C-S-s' binding.
 ;;; swiper-helm behaves subtly different from isearch, so let's not
 ;;; override the default binding.
-(package-require 'swiper-helm)
-(require 'swiper-helm)
-(global-set-key (kbd "C-M-s") 'swiper-helm)
+;; (package-require 'swiper-helm)
+;; (require 'swiper-helm)
+;; (global-set-key (kbd "C-M-s") 'swiper-helm)
+
+;; `helm-swoop'
+(package-require 'helm-swoop)
+(require 'helm-swoop)
+(global-set-key (kbd "C-M-s") 'helm-swoop)
 
 ;;; ac-helm
 ;; (package-require 'ac-helm)
@@ -128,8 +135,6 @@
 ;;; helm-company
 ;; (package-require 'helm-company)
 ;; (require 'helm-company)
-
-
 
 ;;; Tell Helm to resize the selector as needed.
 (helm-autoresize-mode 1)

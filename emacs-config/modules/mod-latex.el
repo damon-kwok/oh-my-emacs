@@ -23,51 +23,48 @@
 ;;
 (require 'mod-package)
 
-;;; load auctex
-(package-require 'auctex)
+;;; `load-auctex'
 ;; (package-require-git "auctex" "https://github.com/jwiegley/auctex.git")
+(package-require 'auctex)
 (load "auctex.el" nil t t)
 ;; (load "preview.el" nil t t)
 (setq Tex-auto-save t)
 (setq Tex-parse-self t)
 (setq-default Tex-master nil)
 
-(if (string-equal system-type "windows-nt")
+(if (string-equal system-type "windows-nt") 
     (require 'tex-mik))
 
 ;; turn on image file support
-(auto-image-file-mode) 
+(auto-image-file-mode)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; set xelatex is default edit command
+(setq Tex-output-view-style (quote (("^pdf$" "." "evince &o %(outpage)"))))
 
-(setq Tex-output-view-style
-      (quote (("^pdf$" "." "evince &o %(outpage)"))))
-
-(add-hook 'LaTex-mode-hook
-	  (lambda()
-	    (add-to-list 'Tex-command-list '("XeLaTex" "%`xelatex%(mode)'
-%t" Tex-run-Tex nil t))
-	    (setq Tex-command-default "XeLaTex")))
+(add-hook 'LaTex-mode-hook (lambda() 
+			     (add-to-list 'Tex-command-list '("XeLaTex" "%`xelatex%(mode)'%t"
+							      Tex-run-Tex nil t)) 
+			     (setq Tex-command-default "XeLaTex")))
 
 
-;;; set org export tex template, can us chinese
-
-;; (require 'org-latex)
-;; (unless (boundp 'org-export-latex-classes)
-;;   (setq org-export-latex-classes nil))
+;;; set org export tex template, can use chinese
+(require 'org-latex)
+(unless (boundp 'org-export-latex-classes)
+  (setq org-export-latex-classes nil))
 
 ;; ;;; output latex template
-;; (add-to-list 'org-export-latex-classes
-;; 	     '("article"
-;; 	       "\\documentclass{article}
-;;  \\usepackage{ctex}"
-;; 	       ("\\section{%s}" . "\\section*{%s}")
-;; 	       ;;("\\subsection{%s}" . "\\subsection{%s}")
-;; 	       ;;("\\subsubsection{%s}" . "\\subsubsection{%s}")
-;; 	       ("\\paragraph{%s}" . "\\paragraph{%s}")
-;; 	       ("\\subparagraph{%s}" . "\\subparagraph{%s}")))
+(add-to-list 'org-export-latex-classes
+	     '("article"
+	       "\\documentclass{article} \\usepackage{ctex}"
+	       ("\\section{%s}" . "\\section*{%s}")
+	       ;;("\\subsection{%s}" . "\\subsection{%s}")
+	       ;;("\\subsubsection{%s}" . "\\subsubsection{%s}")
+	       ("\\paragraph{%s}" . "\\paragraph{%s}")
+	       ("\\subparagraph{%s}" . "\\subparagraph{%s}")))
 
-;;; cdlatex
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `cdlatex'
 (package-require 'cdlatex)
 (require 'cdlatex)
 
