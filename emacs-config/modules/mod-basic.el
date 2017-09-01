@@ -253,7 +253,20 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (set-frame-font "Bitstream Vera Sans Mono-9")
 ;; (set-frame-font "翩翩体-简-11")
 ;; (set-frame-font "Microsoft Yahei 10")
-(set-frame-font "宋体 10")
+;; (set-frame-font "宋体 10")
+
+;; ============================================================
+
+(defun m-set-font()
+;; Setting English Font
+(set-face-attribute 'default nil 
+		    :font "Bitstream Vera Sans Mono-9")
+;; Setting Chinese Font
+(dolist (charset '(kana han symbol cjk-misc bopomofo)) 
+  (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" ;;"宋体" ;;
+								   :size 12))))
+(if window-system
+    (m-set-font))
 
 ;;; `tip'
 ;;; set error tips:blink or beep ?(t:blink nil:beep)
@@ -476,8 +489,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
   '(lambda () 
      (interactive) 
      (undo-tree-visualize) 
-     (undo-tree-visualize-undo)))
-
+     (undo-tree-visualize-undo))) 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -485,8 +497,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (require 'linum)
 (setq linum-mode t)
 (setq linum-format "%4d")
-(global-linum-mode)
-
+(global-linum-mode) 
 ;;; `column'
 (setq column-number-mode t)
 
@@ -513,7 +524,6 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 ;;; open global-fci-mode
 (global-fci-mode 0)
-
 
 ;;; indent-guide
 (package-require 'indent-guide)
@@ -599,9 +609,9 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 ;; (setq hl-paren-colors `("DeepPink" "SpringGreen" "yellow" "cyan" "HotPink" "green" "red" "DeepSkyBlue" "violet" "turquoise" "orange" "blue")) ;;turquoise orange DarkGreen LightGreen SpringGreen chartreuse LightGoldenrod navy
 
-;; (define-globalized-minor-mode global-highlight-parentheses-mode highlight-parentheses-mode 
-  ;; (lambda () 
-    ;; (highlight-parentheses-mode t)))
+;; (define-globalized-minor-mode global-highlight-parentheses-mode highlight-parentheses-mode
+;; (lambda ()
+;; (highlight-parentheses-mode t)))
 ;; (global-highlight-parentheses-mode t)
 
 
@@ -617,15 +627,24 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(rainbow-delimiters-depth-1-face ((t (:foreground "white"))))
- '(rainbow-delimiters-depth-2-face ((t (:foreground "LightGreen"))))
- '(rainbow-delimiters-depth-3-face ((t (:foreground "SlateGray"))))
- '(rainbow-delimiters-depth-4-face ((t (:foreground "khaki"))))
- '(rainbow-delimiters-depth-5-face ((t (:foreground "HotPink2"))))
- '(rainbow-delimiters-depth-6-face ((t (:foreground "DarkGreen"))))
- '(rainbow-delimiters-depth-7-face ((t (:foreground "DodgerBlue"))))
- '(rainbow-delimiters-depth-8-face ((t (:foreground "orange"))))
- '(rainbow-delimiters-depth-9-face ((t (:foreground "brown")))))
+ '(rainbow-delimiters-depth-1-face ((t 
+				     (:foreground "white")))) 
+ '(rainbow-delimiters-depth-2-face ((t 
+				     (:foreground "LightGreen")))) 
+ '(rainbow-delimiters-depth-3-face ((t 
+				     (:foreground "SlateGray")))) 
+ '(rainbow-delimiters-depth-4-face ((t 
+				     (:foreground "khaki")))) 
+ '(rainbow-delimiters-depth-5-face ((t 
+				     (:foreground "HotPink2")))) 
+ '(rainbow-delimiters-depth-6-face ((t 
+				     (:foreground "DarkGreen")))) 
+ '(rainbow-delimiters-depth-7-face ((t 
+				     (:foreground "DodgerBlue")))) 
+ '(rainbow-delimiters-depth-8-face ((t 
+				     (:foreground "orange")))) 
+ '(rainbow-delimiters-depth-9-face ((t 
+				     (:foreground "brown")))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Sexy tail
 ;; (package-require 'highlight-tail)
@@ -705,6 +724,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (add-hook 'after-init-hook 'session-initialize)
 
 ;;; desktop
+(setq desktop-restore-frames nil)
 (desktop-save-mode 1) ;;(require 'desktop-settings)
 
 ;;; recentf file list

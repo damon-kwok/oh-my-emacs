@@ -49,20 +49,28 @@
 
 
 ;;; set org export tex template, can use chinese
-(require 'org-latex)
-(unless (boundp 'org-export-latex-classes)
-  (setq org-export-latex-classes nil))
+;;(require 'org-latex)
+;;(unless (boundp 'org-export-latex-classes)
+;;  (setq org-export-latex-classes nil))
 
 ;; ;;; output latex template
-(add-to-list 'org-export-latex-classes
-	     '("article"
-	       "\\documentclass{article} \\usepackage{ctex}"
-	       ("\\section{%s}" . "\\section*{%s}")
+;;(add-to-list 'org-export-latex-classes
+;;	     '("article"
+;;	       "\\documentclass{article} \\usepackage{ctex}"
+;;	       ("\\section{%s}" . "\\section*{%s}")
 	       ;;("\\subsection{%s}" . "\\subsection{%s}")
 	       ;;("\\subsubsection{%s}" . "\\subsubsection{%s}")
-	       ("\\paragraph{%s}" . "\\paragraph{%s}")
-	       ("\\subparagraph{%s}" . "\\subparagraph{%s}")))
+;;	       ("\\paragraph{%s}" . "\\paragraph{%s}")
+;;	       ("\\subparagraph{%s}" . "\\subparagraph{%s}")))
 
+(with-eval-after-load 'ox-latex
+   (add-to-list 'org-latex-classes
+                '("report"
+                  "\\documentclass{report}"
+                  ("\\chapter{%s}" . "\\chapter*{%s}")
+                  ("\\section{%s}" . "\\section*{%s}")
+                  ("\\subsection{%s}" . "\\subsection*{%s}")
+                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `cdlatex'
 (package-require 'cdlatex)

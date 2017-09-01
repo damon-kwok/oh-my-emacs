@@ -24,42 +24,39 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (module-require 'mod-package)
 ;;;
-
+(module-require 'mod-coding)
+(module-require 'mod-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `base'
 (module-require 'mod-basic)
 (module-require 'mod-library)
-(module-require 'mod-coding)
 (module-require 'mod-mouse)
 (module-require 'mod-helm)
-;;(module-require 'mod-dired)
 (module-require 'mod-complete)
 (module-require 'mod-tabbar)
-;; (module-require 'mod-speedbar)
 (module-require 'mod-input)
-
 (module-require 'mod-calendar)
-(module-require 'mod-server)
+;; (module-require 'mod-dired)
+;; (module-require 'mod-speedbar)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `docs'
 (module-require 'mod-csv)
 (module-require 'mod-protobuf)
+(module-require 'mod-markdown)
 (module-require 'mod-orgmode)
-;; (module-require 'mod-markdown)
-;; (module-require 'mod-latex)
+(module-require 'mod-latex)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `programming-languages'
 (module-require 'mod-elisp)
-;; (module-require 'mod-csharp)
 (module-require 'mod-clojure)
-;;(Module-Require 'mod-cc)
-;; (module-require 'mod-ess)
-;;(module-require 'mod-slime)
-;; (module-require 'mod-erlang)
 (module-require 'mod-elixir)
-
+;; (module-require 'mod-erlang)
+;; (module-require 'mod-ess)
+;; (module-require 'mod-csharp)
+;; (Module-Require 'mod-cc)
+;; (module-require 'mod-slime)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;(if (or (eq system-type 'windows-nt)
