@@ -44,9 +44,9 @@
 			   (org-defkey org-mode-map [(meta n)]  'org-metadown) 
 			   (org-defkey org-mode-map "\M-["    'org-metaup) 
 			   (org-defkey org-mode-map "\M-/"  'org-metadown) 
-			   (org-defkey org-mode-map "\M-;"    'org-metaleft ) 
-			   (org-defkey org-mode-map "\M-'"  'org-metaright) 
-			   (org-defkey org-mode-map "C-c C-z" 'org-export-dispatch)))
+			   (org-defkey org-mode-map "\M-;"    'org-metaleft) 
+			   (org-defkey org-mode-map "\M-'"  'org-metaright)))
+			   ;; (org-defkey org-mode-map "C-c C-z" 'org-export-dispatch)))
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
