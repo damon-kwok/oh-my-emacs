@@ -266,9 +266,9 @@ echo "sleep %arg1%s"
 ping -n %arg1% 127.0.0.1>nul
 goto:eof
 
-:fetch
-echo "do::fetch"
-git fetch
+:pull
+echo "do::pull"
+git pull
 goto:eof
 
 :push
@@ -288,7 +288,7 @@ echo "do::push-a"
 git reset
 git add .
 git status
-git commit -m "update module"
+git commit -m "upgrade by "%computername%
 git push -u origin master
 goto:eof
 
@@ -330,7 +330,7 @@ if not exist %APP_HOME% (
   if exist %ZIP_HOME% (
 		echo apps-zip ok!
 		cd $ZIP_HOME
-		git fetch
+		git pull
 		call:unzipapp
     )
 	else (
