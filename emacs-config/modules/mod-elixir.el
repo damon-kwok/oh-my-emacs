@@ -30,7 +30,6 @@
 (with-eval-after-load "elixir-mode" (add-hook 'elixir-mode-hook 'alchemist-mode))
 
 ;; Bind some Alchemist commands to more commonly used keys.
-<<<<<<< HEAD
 (with-eval-after-load "alchemist" (define-key alchemist-mode-map (kbd "C-c C-l") 
 				    (lambda () 
 				      (interactive) 
@@ -41,18 +40,6 @@
 		      (define-key elixir-mode-map (kbd "C-c C-c") 'alchemist-iex-compile-this-buffer) 
 		      (define-key elixir-mode-map (kbd "C-c C-z") 'show-elixir-repl))
 
-=======
-(with-eval-after-load 
-    "alchemist"
-  (define-key alchemist-mode-map (kbd "C-c C-l") 
-    (lambda () 
-      (interactive) 
-      (save-buffer) 
-      (alchemist-iex-compile-this-buffer))) 
-  (define-key alchemist-iex-mode-map (kbd "C-c C-z") 'show-elixir-mode-workbuffer)
-  (define-key alchemist-mode-map (kbd "C-x C-e") 'alchemist-iex-send-current-line)
-  (define-key elixir-mode-map (kbd "C-c C-z")  'show-elixir-mode-repl))
->>>>>>> e007fbbe62f6f3e0dd960da0d8fdaddb67531503
 
 ;; A Flycheck checker that uses Mix, so it finds project deps.
 ;; From https://github.com/ananthakumaran/dotfiles/blob/master/.emacs.d/init-elixir.el#L25-L42
@@ -101,28 +88,15 @@
 ;; (define-key elixir-mode-map (kbd "C-c C-k")  'eval-buffer)
 ;; (define-key elixir-mode-map (kbd "C-M-\\")  'elisp-code-format)
 
-<<<<<<< HEAD
 (defun show-elixir-mode-menu(index))
 
 (defun add (a b) 
   (+ a b))
-=======
-(defun show-elixir-mode-menu(index)
-  )
-
-(defun add (a b) (+ a b))
->>>>>>> e007fbbe62f6f3e0dd960da0d8fdaddb67531503
 
 (fset 'fadd (symbol-function (intern "add")))
 (fadd 1 2)
 
-<<<<<<< HEAD
 (fset 'fadd2  (-> "add" intern symbol-function))
-=======
-(fset 'fadd2  (-> "add"
-		  intern
-		  symbol-function))
->>>>>>> e007fbbe62f6f3e0dd960da0d8fdaddb67531503
 (fadd2 1 2)
 
 
