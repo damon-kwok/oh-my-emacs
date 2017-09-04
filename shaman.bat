@@ -361,9 +361,7 @@ chmod +x ./lein
 
 rem install: cargo
 
-
 rem install: elixir && erlang-nox
-
 
 rem oh-my-zsh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
