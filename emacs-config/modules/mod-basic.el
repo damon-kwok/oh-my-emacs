@@ -258,15 +258,14 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; ============================================================
 
 (defun m-set-font()
-;; Setting English Font
-(set-face-attribute 'default nil 
-		    :font "Bitstream Vera Sans Mono-9")
-;; Setting Chinese Font
-(dolist (charset '(kana han symbol cjk-misc bopomofo)) 
-  (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" ;;"宋体" ;;
-								   :size 12))))
-(if window-system
-    (m-set-font))
+  ;; Setting English Font
+  (set-face-attribute 'default nil 
+		      :font "Bitstream Vera Sans Mono-9")
+  ;; Setting Chinese Font
+  (dolist (charset '(kana han symbol cjk-misc bopomofo)) 
+    (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" ;;"宋体" ;;
+								     :size 12))))
+(if window-system (m-set-font))
 
 ;;; `tip'
 ;;; set error tips:blink or beep ?(t:blink nil:beep)
@@ -523,8 +522,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
     (fci-mode 1)))
 
 ;;; open global-fci-mode
-(global-fci-mode 0)
-
+(global-fci-mode 0) 
 ;;; indent-guide
 (package-require 'indent-guide)
 (require 'indent-guide)

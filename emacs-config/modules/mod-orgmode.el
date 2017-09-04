@@ -24,12 +24,13 @@
 ;;org-mode
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
-;; (package-require 'org-plus-contrib)
-;; (require 'org-install)
+(package-require 'org-plus-contrib)
+(require 'org-install)
 
 ;; 自动换行
 (add-hook 'org-mode-hook (lambda () 
-			   (setq truncate-lines nil)))
+			   (setq truncate-lines nil)
+			   (org-display-inline-images t t)))
 
 (setq org-todo-keywords '((sequence "TODO" "DOING" "DONE")))
 
