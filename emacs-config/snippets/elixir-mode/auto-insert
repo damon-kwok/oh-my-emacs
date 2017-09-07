@@ -29,11 +29,11 @@ defmodule `(s-join "" (-map 's-capitalize (s-split "_"  (buffer-only-name))))` d
 
   ## Examples
 
-      iex> `(s-join "" (-map 's-capitalize (s-split "_"  (buffer-only-name))))`.hello
+      iex> `(s-join "" (-map 's-capitalize (s-split "_"  (buffer-only-name))))`.$1
       :world
 
   """
-  def hello do
-    ${1::world}
+  def ${1:hello} do
+    ${2::world}
   end
 end
