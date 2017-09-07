@@ -52,6 +52,7 @@
 (module-require 'mod-elisp)
 (module-require 'mod-clojure)
 (module-require 'mod-elixir)
+(module-require 'mod-rust)
 ;; (module-require 'mod-erlang)
 ;; (module-require 'mod-ess)
 ;; (module-require 'mod-csharp)

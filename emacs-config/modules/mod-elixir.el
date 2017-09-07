@@ -34,11 +34,13 @@
 				    (lambda () 
 				      (interactive) 
 				      (save-buffer) 
-				      (alchemist-iex-compile-this-buffer)))
-		      (define-key alchemist-iex-mode-map (kbd "C-c C-z") 'show-elixir-workbuffer)
+				      (alchemist-iex-compile-this-buffer)
+				      (show-elixir-mode-repl)))
+		      
+		      (define-key alchemist-iex-mode-map (kbd "C-c C-z") 'show-elixir-mode-workbuffer)
 		      (define-key alchemist-mode-map (kbd "C-x C-e") 'alchemist-iex-send-current-line-and-go) 
-		      (define-key elixir-mode-map (kbd "C-c C-c") 'alchemist-iex-compile-this-buffer) 
-		      (define-key elixir-mode-map (kbd "C-c C-z") 'show-elixir-repl))
+		      ;;(define-key elixir-mode-map (kbd "C-c C-c") 'alchemist-iex-compile-this-buffer)
+		      (define-key elixir-mode-map (kbd "C-c C-z") 'show-elixir-mode-repl))
 
 
 ;; A Flycheck checker that uses Mix, so it finds project deps.

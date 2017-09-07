@@ -1,0 +1,28 @@
+-----
+*${1:Item}
+
+**Elixir
+#+BEGIN_SRC Elixir
+$0
+#+END_SRC
+
+**Erlang
+#+BEGIN_SRC Erlang
+
+#+END_SRC
+
+
+**Clojure
+#+BEGIN_SRC Clojure
+
+#+END_SRC
+
+**Haskell
+#+BEGIN_SRC Haskell
+
+#+END_SRC
+
+**Rust
+#+BEGIN_SRC Rust
+
+#+END_SRC
