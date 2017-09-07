@@ -160,20 +160,22 @@
 
 (define-auto-insert "\\.org" "org-mode/auto-insert")
 
-(define-auto-insert "\\.c" "cc-mode/auto-insert.c")
-(define-auto-insert "\\.cpp" "cc-mode/auto-insert.c")
-(define-auto-insert "\\.cxx" "cc-mode/auto-insert.c")
+
+(define-auto-insert "\\.c^.cpp^.cxx" "cc-mode/auto-insert.c")
 
 (define-auto-insert "\\.h" "cc-mode/auto-insert.h")
-(define-auto-insert "\\.hpp" "cc-mode/auto-insert.hpp")
-(define-auto-insert "\\.hxx" "cc-mode/auto-insert.hpp")
+(define-auto-insert "\\.hpp^.hxx" "cc-mode/auto-insert.hpp")
 
 (define-auto-insert "\\.el" "emacs-lisp-mode/auto-insert")
 (define-auto-insert "\\.els" "emacs-lisp-mode/auto-insert.els")
-(define-auto-insert "\\.clj" "clojure-mode/auto-insert")
-(define-auto-insert "\\.lsp" "new-lispmode/auto-insert")
+
 (define-auto-insert "\\.erl" "erlang-mode/auto-insert")
+(define-auto-insert "\\.ex" "elixir-mode/auto-insert")
+(define-auto-insert "\\.clj^.cljs^.cljc^.clje" "clojure-mode/auto-insert")
+(define-auto-insert "\\.lsp" "new-lispmode/auto-insert")
 (define-auto-insert "\\.hs" "haskell-mode/auto-insert")
+(define-auto-insert "\\.rs" "rust-mode/auto-insert")
+
 (define-auto-insert "\\.py" "python-mode/auto-insert")
 (define-auto-insert "\\.js" "js-mode/auto-insert")
 (define-auto-insert "\\.cs" "csharp-mode/auto-insert")
