@@ -365,6 +365,11 @@ rem install: elixir && erlang-nox
 
 rem oh-my-zsh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+rem rebar3
+cd %ROOT%
+wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
+
 goto:eof
 
 :ask-repl

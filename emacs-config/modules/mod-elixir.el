@@ -30,46 +30,54 @@
 (with-eval-after-load "elixir-mode" (add-hook 'elixir-mode-hook 'alchemist-mode))
 
 ;; Bind some Alchemist commands to more commonly used keys.
-(with-eval-after-load "alchemist" (define-key alchemist-mode-map (kbd "C-c C-l") 
-				    (lambda () 
-				      (interactive) 
-				      (save-buffer) 
-				      (alchemist-iex-compile-this-buffer)
-				      (show-elixir-mode-repl)))
-		      
-		      (define-key alchemist-iex-mode-map (kbd "C-c C-z") 'show-elixir-mode-workbuffer)
-		      (define-key alchemist-mode-map (kbd "C-x C-e") 'alchemist-iex-send-current-line-and-go) 
-		      ;;(define-key elixir-mode-map (kbd "C-c C-c") 'alchemist-iex-compile-this-buffer)
-		      (define-key elixir-mode-map (kbd "C-c C-z") 'show-elixir-mode-repl))
+(with-eval-after-load "alchemist"
+  ;;
+  (define-key alchemist-mode-map (kbd "C-c C-l") 
+    (lambda () 
+      (interactive) 
+      (save-buffer) 
+      (alchemist-iex-compile-this-buffer) 
+      (show-elixir-mode-repl)))
+  ;;
+  (define-key alchemist-iex-mode-map (kbd "C-c C-z") 'show-elixir-mode-workbuffer)
+  ;;
+  (define-key alchemist-mode-map (kbd "C-x C-e") 
+    (lambda () 
+      (interactive) 
+      (alchemist-iex-send-current-line-and-go) 
+      (show-elixir-mode-workbuffer)))
+  ;;
+  (define-key elixir-mode-map (kbd "C-c C-c") 'alchemist-mix-compile)
+  ;;
+    (define-key elixir-mode-map (kbd "C-c C-r") 'alchemist-mix-run)
+  ;;
+  (define-key elixir-mode-map (kbd "C-c C-z") 'show-elixir-mode-repl))
 
 
 ;; A Flycheck checker that uses Mix, so it finds project deps.
 ;; From https://github.com/ananthakumaran/dotfiles/blob/master/.emacs.d/init-elixir.el#L25-L42
-(with-eval-after-load "flycheck" (flycheck-define-checker elixir-mix
-							  "An Elixir syntax checker using the Elixir interpreter.See URL `http://elixir-lang.org/'." 
-							  :command ("mix" "compile" source) 
-							  :error-patterns ((error 
-									    line-start
-									    "** ("
-									    (zero-or-more
-									     not-newline)
-									    ") "
-									    (zero-or-more
-									     not-newline)
-									    ":"
-									    line
-									    ": "
-									    (message)
-									    line-end) 
-									   (warning line-start
-										    (one-or-more
-										     (not (syntax
-											   whitespace)))
-										    ":" line ": "
-										    (message)
-										    line-end)) 
-							  :modes elixir-mode) 
-		      (add-to-list 'flycheck-checkers 'elixir-mix))
+(with-eval-after-load "flycheck"
+  ;;
+  (flycheck-define-checker
+   ;;
+   elixir-mix
+   "An Elixir syntax checker using the Elixir interpreter.See URL `http://elixir-lang.org/'." 
+   :command ("mix" "compile" source) 
+   :error-patterns ((error 
+		     line-start
+		     "** ("
+		     (zero-or-more not-newline)
+		     ") "
+		     (zero-or-more not-newline)
+		     ":"
+		     line
+		     ": "
+		     (message)
+		     line-end) 
+		    (warning line-start (one-or-more (not (syntax whitespace))) ":" line ": "
+			     (message) line-end)) 
+   :modes elixir-mode) 
+  (add-to-list 'flycheck-checkers 'elixir-mix))
 
 (defun show-elixir-mode-repl() 
   (interactive) 

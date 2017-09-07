@@ -107,7 +107,7 @@ function getapp {
 
 function install-toolchain {
     yaourt -Syyu
-    yaourt -S base-devel zsh wget curl zip unzip git svn coreutils diffutils perl rubygems nodejs ocaml stack leiningen elixir cargo oh-my-zsh-git zmq ghostscript
+    yaourt -S base-devel zsh wget curl zip unzip git svn coreutils diffutils perl rubygems nodejs ocaml stack leiningen elixir cargo oh-my-zsh-git zmq ghostscript rebar3
 }
 
 function ask-repl {
