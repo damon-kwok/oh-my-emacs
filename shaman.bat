@@ -363,13 +363,14 @@ rem install: cargo
 
 rem install: elixir && erlang-nox
 
+rem rebar3
+rem cd %CACHE%/bin
+rem wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
+
 rem oh-my-zsh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-rem rebar3
 cd %ROOT%
-wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
-
 goto:eof
 
 :ask-repl
