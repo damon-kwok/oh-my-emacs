@@ -351,7 +351,7 @@ goto:eof
 :install-toolchain
 pacman -Syyu
 pacman -S base-devel zsh wget curl zip unzip git svn coreutils diffutils camke
-pacman -S perl rubygems mingw-w64-x86_64-nodejs mingw-w64-x86_64-ocaml mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
+pacman -S perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-nodejs mingw-w64-x86_64-ocaml mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
 
 rem install: lien
 cd %CACHE%/bin
@@ -405,7 +405,7 @@ REM echo    c) complie-elc
 echo    l) link init.el
 echo    d) delete-elc
 echo    s) shell
-echo    m) register right open menu
+echo    m) register menu
 echo    z) REPL
 echo    r) return
 echo    q) quit

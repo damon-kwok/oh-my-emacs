@@ -49,7 +49,7 @@
   ;;
   (define-key elixir-mode-map (kbd "C-c C-c") 'alchemist-mix-compile)
   ;;
-    (define-key elixir-mode-map (kbd "C-c C-r") 'alchemist-mix-run)
+  (define-key elixir-mode-map (kbd "C-c C-r") 'alchemist-mix-run)
   ;;
   (define-key elixir-mode-map (kbd "C-c C-z") 'show-elixir-mode-repl))
 
@@ -88,17 +88,15 @@
   (m-show-compilation "*Alchemist-IEx*" t))
 
 (defun show-elixir-mode-workbuffer() 
-  (interactive) 
-  (switch-to-buffer-other-window temp-elixir-buffer-name) 
-  (delete-other-windows) 
-  (show-elixir-mode-repl) 
-  (switch-to-buffer-other-window temp-elixir-buffer-name))
+   (interactive) 
+   (switch-to-buffer-other-window temp-elixir-buffer-name) 
+   (delete-other-windows) 
+   (show-elixir-mode-repl) 
+   (switch-to-buffer-other-window temp-elixir-buffer-name))
 
-;; (define-key elixir-mode-map (kbd "C-c C-c")  'compile-current-buffer)
-;; (define-key elixir-mode-map (kbd "C-c C-k")  'eval-buffer)
-;; (define-key elixir-mode-map (kbd "C-M-\\")  'elisp-code-format)
-
-(defun show-elixir-mode-menu(index))
+ ;; (define-key elixir-mode-map (kbd "C-c C-c")  'compile-current-buffer)
+ ;; (define-key elixir-mode-map (kbd "C-c C-k")  'eval-buffer)
+ ;; (define-key elixir-mode-map (kbd "C-M-\\")  'elisp-code-format)
 
 (defun add (a b) 
   (+ a b))
@@ -108,7 +106,6 @@
 
 (fset 'fadd2  (-> "add" intern symbol-function))
 (fadd2 1 2)
-
 
 ;;
 (provide 'mod-elixir)

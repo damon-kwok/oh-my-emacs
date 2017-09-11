@@ -103,7 +103,8 @@
 ;; `page-break-lines'
 (package-require 'page-break-lines)
 (require 'page-break-lines)
-(global-page-break-lines-mode) 
+(global-page-break-lines-mode)
+
 ;;; Swiper
 ;; (package-require 'swiper)
 ;; (require 'swiper)
@@ -351,9 +352,9 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   (cond ((string= lang "clojure") 
 	 (m-create-project "lein new %s" "project.clj")) 
 	((string= lang "elixir") 
-	 (m-create-project "mix new %s" "mix.exs"))
+	 (m-create-project "mix new %s" "mix.exs")) 
 	((string= lang "haskell") 
-	 (m-create-project "stack new %s" "src/Main.hs"))
+	 (m-create-project "stack new %s" "src/Main.hs")) 
 	((string= lang "rust") 
 	 (m-create-project "cargo new %s --bin" "Cargo.toml")) 
 	((string= lang "go") 
@@ -363,11 +364,11 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 (defun m-run-*project () 
   (let ((mod-name (symbol-name major-mode))) 
     (cond ((string= mod-name "clojure-mode") 
-	   (m-run-command "lein run"))
+	   (m-run-command "lein run")) 
 	  ((string= mod-name "elixir-mode") 
-	   (m-run-command "mix run"))
+	   (m-run-command "mix run")) 
 	  ((string= mod-name "haskell-mode") 
-	   (m-run-command "stack exec Main"))
+	   (m-run-command "stack exec Main")) 
 	  ((string= mod-name "rust-mode") 
 	   (m-run-command "cargo run")) 
 	  ((string= mod-name "sh-mode") 
@@ -382,9 +383,9 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
     (cond ((string= mod-name "clojure-mode") 
 	   (m-run-command "lein test")) 
 	  ((string= mod-name "elixir-mode") 
-	   (m-run-command "mix test"))
+	   (m-run-command "mix test")) 
 	  ((string= mod-name "haskell-mode") 
-	   (m-run-command "stack test"))
+	   (m-run-command "stack test")) 
 	  ((string= mod-name "rust-mode") 
 	   (m-run-command "cargo test")) 
 	  ((string= mod-name "emacs-lisp-mode") 
@@ -395,9 +396,9 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
     (cond ((string= mod-name "clojure-mode") 
 	   (m-run-command "lein compile")) 
 	  ((string= mod-name "elixir-mode") 
-	   (m-run-command "mix compile"))
+	   (m-run-command "mix compile")) 
 	  ((string= mod-name "haskell-mode") 
-	   (m-run-command "stack build"))
+	   (m-run-command "stack build")) 
 	  ((string= mod-name "rust-mode") 
 	   (m-run-command "cargo build")) 
 	  ((string= mod-name "emacs-lisp-mode") 
@@ -405,11 +406,14 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 
 
 
-;;; `C-SPC'
-(defhydra hydra-do-super 
-  (:color blue) 
-  (concat "
-^SPC^            ^Buffer^               ^Search^              ^UI|View^         ^Project^     ^"(symbol-name major-mode)"^
+(defun get-major-mode-name () 
+  (symbol-name major-mode))
+
+(setq current-major-mode-name (symbol-name major-mode))
+
+(defun sss() 
+  (concat
+"^SPC^            ^Buffer^               ^Search^              ^UI|View^        ^AppWizard^^   " (get-major-mode-name)"^
 ^^^^^^^^^^^^-------------------------------------------------------------------------------------------------
 ^^               _>_: goto-char-f       _G_: grep-project     _;_: <-Tab       _6_: Clojure   ^_1_:run^
 _b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->       _7_: Elixir    ^^ test
@@ -419,47 +423,59 @@ _w_: URLs  =>    _e_: mc/mark-all       _>_: goto-char-f      _=_: scale-inc   ^
 ^^               _r_: Reload|Refresh    _<_: goto-char-b      _-_: scale-dec   ^^Erlang       ^^
 _<tab>_: recent  _o_: kill-other-buffer ^^                    _z_: smart-do    ^^Kotlin       ^^
 ^^^^^^^^^^^^-------------------------------------------------------------------------------------------------
-_<escape>_: Quit _0_: Calendar          ^^                    ^^                 ^^             ^^") 
-  ("b" (hydra-show-buffer/body) "buffer") 
-  ("f" (hydra-open-file/body) "file") 
-  ("m" (hydra-open-config/body) "module") 
-  ("c" (hydra-open-config/body) "module") 
-  ("w" (hydra-open-url/body) "url") 
-  ("<tab>" helm-recentf "(helm-recentf)") 
-  (">" m-go-to-char-forward "go-to-char-forward") 
-  ("<" m-go-to-char-backward "go-to-char-backward") 
-  ("s" replace-string "replace-string") 
-  ("S" query-replace "query-replace") 
-  ("e" (m-mark-all-like-this) "mc/mark-all-like-this") 
+_<escape>_: Quit _0_: Calendar          ^^                    ^^                 ^^             ^^"))
+
+;;; `C-SPC'
+(defhydra hydra-do-super 
+  (:color blue)
+
+  (concat "" (sss))
+  ("b" (hydra-show-buffer/body) "buffer")
+  ("f" (hydra-open-file/body) "file")
+  ("m" (hydra-open-config/body) "module")
+  ("c" (hydra-open-config/body) "module")
+  ("w" (hydra-open-url/body) "url")
+  ("<tab>" helm-recentf "(helm-recentf)")
+  (">" m-go-to-char-forward "go-to-char-forward")
+  ("<" m-go-to-char-backward "go-to-char-backward")
+  ("s" replace-string "replace-string")
+  ("S" query-replace "query-replace")
+  ("e" (m-mark-all-like-this) "mc/mark-all-like-this")
   ("r" (m-buffer-reload) "Refresh")
   ("o" (m-kill-other-buffers) "KillOtherBuffers")
-  ("G" my-grep-project "projectile-project-root") 
-  ("g" my-grep-directory "projectile-directory-root") 
-  ("d" m-bing-dict-brief "bing-dict-brief") 
-  ("D" m-bing-dict-brief-web "bing-dict-brief-web") 
-  (";" tabbar-backward "tabbar-backward") 
-  ("'" tabbar-forward "tabbar-forward") 
-  ("[" m-tabbar-backward-group "tabbar-up") 
-  ("/" m-tabbar-forward-group "tabbar-down") 
-  ("=" text-scale-increase "text-scale-increase") 
-  ("-" text-scale-decrease "text-scale-decrease") 
-  ("1" (m-run-*project) "run project") 
-  ("2" (message "smart-do")) 
-  ("3" (message "smart-do")) 
-  ("4" (message "smart-do")) 
-  ("5" (message "smart-do")) 
+  ("G" my-grep-project "projectile-project-root")
+  ("g" my-grep-directory "projectile-directory-root")
+  ("d" m-bing-dict-brief "bing-dict-brief")
+  ("D" m-bing-dict-brief-web "bing-dict-brief-web")
+  (";" tabbar-backward "tabbar-backward")
+  ("'" tabbar-forward "tabbar-forward")
+  ("[" m-tabbar-backward-group "tabbar-up")
+  ("/" m-tabbar-forward-group "tabbar-down")
+  ("=" text-scale-increase "text-scale-increase")
+  ("-" text-scale-decrease "text-scale-decrease")
+  ("1" (m-run-*project) "run project")
+  ("2" (message "smart-do"))
+  ("3" (message "smart-do"))
+  ("4" (message "smart-do"))
+  ("5" (message "smart-do"))
   ("6" (m-project-wizard "clojure") "smart-do")
-  ("7" (m-project-wizard "elixir") "smart-do") 
+  ("7" (m-project-wizard "elixir") "smart-do")
   ("8" (m-project-wizard "rust") "smart-do")
   ("9" (m-project-wizard "go") "smart-do")
-  ("z" (message "smart-do")) 
-  ("0" (calendar) "calendar") 
+  ("z" (message "smart-do"))
+  ("0" (calendar) "calendar")
   ("<SPC>" nil "quit")
-  ("q" nil "quit") 
+  ("q" nil "quit")
   ("<escape>" nil "quit"))
+
+
 ;; (global-set-key (kbd "C-SPC") 'hydra-do-super/body)
 (global-set-key (kbd "M-SPC") 'hydra-do-super/body)
-(global-set-key (kbd "M-z") 'hydra-do-super/body)
+(global-set-key (kbd "M-z")
+		(lambda ()
+		  (interactive)
+		  (setq current-major-mode-name (get-major-mode-name))
+		  (hydra-do-super/body)))
 
 ;;; `comment-toggle' M-;
 (global-set-key [remap comment-dwim] 'm-comment-or-uncomment-region-or-line)
