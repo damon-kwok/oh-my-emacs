@@ -156,9 +156,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
     (load-theme 'deeper-blue) 
     (enable-theme 'deeper-blue)
     ;;
-    )
-  ;;
-  )
+    ))
 
 ;;; shaman
 ;;(load-theme 'shaman t t)
@@ -225,7 +223,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`base-config';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; '`error'
-;; (setq debug-on-error t) ;; M-x toggle-debug-on-error
+(setq debug-on-error t) ;; M-x toggle-debug-on-error
 ;; (typo-err)
 
 ;; overflow of stack
@@ -241,6 +239,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 ;;; enable/disable loading page (t:disable nil:enable)
 (setq inhibit-startup-message t)
+(setq inhibit-startup-screen t)
 
 ;;; `'default-mode'
 (setq major-mode 'text-mode) ;;set default major mode {sh-mode | text-mode}

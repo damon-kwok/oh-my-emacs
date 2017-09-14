@@ -29,6 +29,7 @@
 ;; mac-command-modifier 'meta
 ;; mac-option-modifier 'none)
 
+(global-set-key (kbd "M-RET") 'toggle-frame-fullscreen)
 (global-set-key (kbd "C-\\") 'toggle-input-method)
 ;; (global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-super ;; (global-set-key [?\S- ] 'set-mark-command)
 
@@ -505,7 +506,8 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^                
 ;;; `which-key'
 (package-require 'which-key)
 (require 'which-key)
-(which-key-mode) 
+(which-key-mode)
+
 ;;; `paredit'
 (package-require 'paredit)
 (require 'paredit)
@@ -515,6 +517,8 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^                
 (define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
 (define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
 (define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
+
+
 
 ;;
 (provide 'mod-keybind)
