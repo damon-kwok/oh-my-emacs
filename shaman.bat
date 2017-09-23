@@ -275,6 +275,7 @@ goto:eof
 echo "do::push"
 rem rm -f .git/index.lock
 git reset
+git pull
 git add .
 git status
 set /p msg=please input commit message:
@@ -286,11 +287,27 @@ goto:eof
 :push-a
 echo "do::push-a"
 git reset
+git pull
 git add .
 git status
 git commit -m "upgrade by "%computername%
 git push -u origin master
 goto:eof
+
+:push-blog
+echo "do::push-blog"
+rem rm -f .git/index.lock
+cd %ROOT%/blog
+git reset
+git pull
+git add .
+git status
+set /p msg=please input commit message:
+echo commit: %msg%
+git commit -m "%msg%"
+git push -u origin master
+goto:eof
+
 
 :zipapp
 echo "do::zipapp"
@@ -407,6 +424,7 @@ echo    d) delete-elc
 echo    s) shell
 echo    m) register menu
 echo    z) REPL
+echo    b) push-blog
 echo    r) return
 echo    q) quit
 
@@ -425,6 +443,7 @@ if /i "%c%"=="d" call:delete-elc
 if /i "%c%"=="s" call:shell
 if /i "%c%"=="m" call:reg-open-menu
 if /i "%c%"=="z" call:ask-repl
+if /i "%c%"=="b" call:push-blog
 if /i "%c%"=="r" call:eof
 if /i "%c%"=="q" exit
 REM echo your input is not invalid:(

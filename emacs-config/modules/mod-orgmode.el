@@ -72,7 +72,7 @@
 (setq org-publish-project-alist '(
 
 				  ;; 把各部分的配置文件写到这里面来
-				  ("blog-notes" :base-directory "~/docs/blog/" 
+				  ("blog-notes" :base-directory "~/docs/github-pages/" 
 				   :base-extension "org" 
 				   :publishing-directory "~/blog/" 
 				   :recursive t 
@@ -88,7 +88,7 @@
 				   :sitemap-sort-files anti-chronologically 
 				   :sitemap-file-entry-format "%d %t")
 
-				  ("blog-static" :base-directory "~/docs/blog/" 
+				  ("blog-static" :base-directory "~/docs/github-pages/" 
 				   :base-extension
 				   "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf" 
 				   :publishing-directory "~/blog/" 
