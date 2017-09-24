@@ -63,7 +63,7 @@ function push-a {
     git pull
     git add .
     git status
-    git commit -m "upgrade by "`uname -n` # `date +%Y-%m-%d@%H-%M-%S`
+    git commit -m `date +%Y-%m-%d@%H-%M-%S` # "upgrade by "`uname -n`
     git push -u origin master
 }
 
