@@ -1,6 +1,10 @@
-#+TITLE:     ${1:Title}
+#+TITLE:     ${1:This is Title}
+#+AUTHOR:    damon-kwok
+#+EMAIL:     damon-kwok@outlook.com
+#+DATE:      `(format-time-string "%Y-%m-%d")`
 #+OPTIONS: toc:nil creator:nil author:nil email:nil timestamp:nil html-postamble:nil
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://orgmode.org/worg/worg.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/worg.css" />
+#+TODO: TODO DOING DONE
 
 [[../index.org][Home]] [[../blog.org][Blogs]] [[../articles.org][Articles]] [[../link.org][Links]]
 
