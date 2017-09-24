@@ -1,7 +1,8 @@
-#+TITLE:     damon-kwok's homepage
-#+OPTIONS: toc:nil
+#+TITLE:     ${1:Title}
+#+OPTIONS: toc:nil creator:nil author:nil email:nil timestamp:nil html-postamble:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://orgmode.org/worg/worg.css" />
 
-[[./index.org][Home]] [[./blog.org][Blogs]] [[./articles.org][Articles]] [[./link.org][Links]]
+[[../index.org][Home]] [[../blog.org][Blogs]] [[../articles.org][Articles]] [[../link.org][Links]]
 
 -----
 

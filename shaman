@@ -13,6 +13,10 @@ if [ ! -d $CACHE ]
 then mkdir $CACHE
 fi
 
+PROJECT_BLOG=demo-kwok.github.io
+
+################################################################################
+
 function link-init-el() {
     cp -rf $ROOT/emacs-config/init.el $HOME/.emacs
 }
@@ -41,7 +45,9 @@ function delete-etc {
 }
 
 function push {
+    echo "func:push"
     git reset
+    git pull
     git add .
     git status
     read -p "please input commit message:" msg
@@ -52,10 +58,20 @@ function push {
 
 function push-a {
     echo "func::push-a"
-
-    cd $ROOT
-    
+    cd $ROOT    
     git reset
+    git pull
+    git add .
+    git status
+    git commit -m "upgrade by "`uname -n` # `date +%Y-%m-%d@%H-%M-%S`
+    git push -u origin master
+}
+
+function push-blog {
+    echo "func::push-blog"
+    cd $ROOT    
+    git reset
+    git pull
     git add .
     git status
     git commit -m "upgrade by "`uname -n` # `date +%Y-%m-%d@%H-%M-%S`
@@ -144,6 +160,7 @@ function ask-menu {
     echo "    d) delete-elc"
     echo "    s) shell"
     echo "    z) REPL"
+    echo "    b) push-blog"
     echo "    q) quit"
 
     read -p "please input your choice:" item
@@ -161,6 +178,7 @@ function ask-menu {
 	d|D) delete-elc;;
 	s|S) zsh;;
 	z|Z) ask-repl;;
+	b) push-blog;;
 	q|Q) exit;;
 	*) ask-menu;;	    
     esac

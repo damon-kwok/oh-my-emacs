@@ -96,7 +96,7 @@
 				   :publishing-function org-publish-attachment)
 
 				  ("blog" :components ("blog-notes" "blog-static"))))
-
+(setq org-html-validation-link nil)
 ;;
 (provide 'mod-orgmode)
 ;;; mod-orgmode.el ends here
