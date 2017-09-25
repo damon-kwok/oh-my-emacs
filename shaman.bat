@@ -302,9 +302,9 @@ git reset
 git pull
 git add .
 git status
-set /p msg=please input commit message:
+rem set /p msg=please input commit message:
 echo commit: %msg%
-git commit -m "%msg%"
+git commit -m %date:~0,4%-%date:~5,2%-%date:~8,2%@%time:~0,2%-%time:~3,2%-%time:~6,2%
 git push -u origin master
 goto:eof
 
