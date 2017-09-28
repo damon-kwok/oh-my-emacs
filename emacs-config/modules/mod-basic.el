@@ -139,7 +139,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (load-theme 'granger t t)
 ;; (enable-theme 'granger)
 
-(package-require 'color-theme-modern)
+;; (package-require 'color-theme-modern)
 
 (if (display-graphic-p) 
     (progn ;;
@@ -262,7 +262,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 		      :font "Bitstream Vera Sans Mono-9")
   ;; Setting Chinese Font
   (dolist (charset '(kana han symbol cjk-misc bopomofo)) 
-    (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" ;;"宋体" ;;
+    (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" 
 								     :size 12))))
 (if window-system (m-set-font))
 
