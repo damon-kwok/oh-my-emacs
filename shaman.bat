@@ -392,13 +392,13 @@ cd %ROOT%
 goto:eof
 
 :ask-repl
-echo please choose your need:
+rem echo please enter your cgoice:
 echo    1) clojure
 echo    2) haskell
 echo    3) elixir
 echo    4) erlang
 
-set /p c=please input your choice:
+set /p c=please enter your choice:
 echo loading...
 if /i "%c%"=="1" echo abort with "^C | ^D | (exit) | (quit)" && lein repl
 if /i "%c%"=="2" echo abort with "^D :quit" && stack repl
@@ -429,7 +429,7 @@ echo    b) push-blog
 echo    r) return
 echo    q) quit
 
-set /p c=please input your choice:
+set /p c=please enter your choice:
 if /i "%c%"=="1" call:push
 if /i "%c%"=="2" call:getapp
 if /i "%c%"=="3" call:pushapp

@@ -50,7 +50,7 @@ function push {
     git pull
     git add .
     git status
-    read -p "please input commit message:" msg
+    read -p "please enter commit message:" msg
     echo "commit: $msg"
     git commit -m "$msg"
     git push -u origin master
@@ -127,13 +127,13 @@ function install-toolchain {
 }
 
 function ask-repl {
-    echo "please choose your need:"
+#    echo "please choose your need:"
     echo "    1) clojure"
     echo "    2) haskell"
     echo "    3) elixir"
     echo "    4) erlang"
 
-    read -p "please input your choice:" item
+    read -p "please enter your choice:" item
     case $item in
 	1) echo abort with "^C | ^D | (exit) | (quit)" && lein repl;;
 	2) echo abort with "^D :quit" && stack repl;;
@@ -163,7 +163,7 @@ function ask-menu {
     echo "    b) push-blog"
     echo "    q) quit"
 
-    read -p "please input your choice:" item
+    read -p "please enter your choice:" item
     case $item in
 	1) push;;
 	2) getapp;;

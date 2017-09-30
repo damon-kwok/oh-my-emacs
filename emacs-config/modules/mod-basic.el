@@ -41,7 +41,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;(message (concat "gc:" gc-cons-threshold " pre:" gc-cons-percentage))
 (my-optimize-gc 512 0.2)
 (add-hook 'after-init-hook (lambda () 
-			     (my-optimize-gc 32 0.2)))
+			     (my-optimize-gc 16 0.2)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`frame';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -487,7 +487,8 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
   '(lambda () 
      (interactive) 
      (undo-tree-visualize) 
-     (undo-tree-visualize-undo))) 
+     (undo-tree-visualize-undo)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
