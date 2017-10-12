@@ -9,8 +9,8 @@ APP_HOME=$CACHE/apps
 ZIP_HOME=$CACHE/apps-zip
 export PATH=$CACHE/bin:$PATH
 
-if [ ! -d $CACHE ]
-then mkdir $CACHE
+if [ ! -d $CACHE ]; then
+    mkdir $CACHE
 fi
 
 PROJECT_BLOG=demo-kwok.github.io
@@ -28,8 +28,8 @@ function link-init-el() {
 }
 
 function run-emacs {
-    if [ ! -f $HOME/.emacs ]
-    then link-init-el
+    if [ ! -f $HOME/.emacs ]; then
+	link-init-el
     fi
 
     emacs --debug-init
@@ -37,8 +37,8 @@ function run-emacs {
 }
 
 function run-emacs-nw {
-    if [ ! -f $HOME/.emacs ]
-    then link-init-el
+    if [ ! -f $HOME/.emacs ]; then
+	link-init-el
     fi
 
     emacs -nw --debug-init
