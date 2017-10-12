@@ -15,6 +15,12 @@ fi
 
 PROJECT_BLOG=demo-kwok.github.io
 
+DIR_BLOG=$ROOT/blog
+DIR_DOC=$ROOT/docs
+DIR_PROJECT=$ROOT/project
+DIR_LLVM_WHERE=$ROOT/dev
+DIR_LLVM=$ROOT/dev/llvm
+
 ################################################################################
 
 function link-init-el() {
@@ -42,6 +48,39 @@ function delete-etc {
     cd $ROOT/emacs-config/modules
     rm -rf *.elc
     cd $ROOT
+}
+
+function pull {
+    echo "func::pull"
+    git reset
+    git pull
+
+    echo blog
+    if [ ! -d $DIR_BLOG ]; then
+	git clone https://github.com/damon-kwok/damon-kwok.github.io.git blog
+    else
+	cd $DIR_BLOG
+	git pull
+    fi
+
+    echo doc
+    if [ ! -d $DIR_DOC ]; then
+	svn co svn://www.svn999.com/guowangwei.my-docs docs
+    else
+	cd $DIR_DOC
+	svn cleanup .
+	svn up
+    fi
+
+    echo project
+    if [ ! -d $DIR_PROJECT ]; then
+	svn co svn://www.svn999.com/guowangwei.my-projects project
+    else
+	cd $DIR_PROJECT
+	svn cleanup .
+	svn up
+    fi
+
 }
 
 function push {
@@ -146,7 +185,8 @@ function ask-repl {
 
 function ask-menu {
     cd $ROOT
-    echo "func::ask-menu"
+    #echo "func::ask-menu"
+    #echo "    0) pull"
     echo "    1) push"
     echo "    2) getapp"
     echo "    3) pushapp"
@@ -165,6 +205,7 @@ function ask-menu {
 
     read -p "please enter your choice:" item
     case $item in
+	0) pull;;
 	1) push;;
 	2) getapp;;
 	3) pushapp;;

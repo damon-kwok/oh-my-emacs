@@ -35,6 +35,13 @@ if not exist %CACHE% (
    mkdir %CACHE%
 )
 
+set DIR_BLOG=%ROOT%/blog
+set DIR_DOC=%ROOT%/docs
+set DIR_PROJECT=%ROOT%/project
+set DIR_DEV=%ROOT%/dev
+set DIR_LLVM_WHERE=%ROOT%/dev
+set DIR_LLVM=%ROOT%/dev/llvm
+
 rem set HOME=%USERPATH%
 set HOME=%ROOT%
 
@@ -118,7 +125,7 @@ rem set PATH=%MSBUILD_BIN%;%PATH%
 rem set PATH=%LLVM_BIN%;%CLANG_BIN%;%PATH%
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-set JAVA_VERSION=131
+set JAVA_VERSION=144
 set JAVA_HOME2="C:\Program Files"\Java\jdk1.8.0_%VERSION%
 set JAVA_HOME=C:\PROGRA~1\Java\jdk1.8.0_%VERSION%
 set JAVA_BIN=%JAVA_HOME%\bin
@@ -268,7 +275,44 @@ goto:eof
 
 :pull
 echo "do::pull"
+cd %ROOT%
+git reset
 git pull
+
+rem echo book
+rem if not exist %DIR_BLOG%/dev/elixirschool (
+   rem git clone https://github.com/elixirschool/elixirschool.git elixirschool
+rem ) else (
+  rem cd %DIR_BLOG%
+  rem git pull
+rem )
+
+echo blog
+if not exist %DIR_BLOG% (
+   git clone https://github.com/damon-kwok/damon-kwok.github.io.git blog
+) else (
+  cd %DIR_BLOG%
+  git pull
+)
+
+echo doc
+if not exist %DIR_DOC% (
+   svn co svn://www.svn999.com/guowangwei.my-docs docs
+) else (
+  cd %DIR_DOC%
+  svn cleanup .
+  svn up
+)
+
+echo project
+if not exist %DIR_PROJECT% (
+   svn co svn://www.svn999.com/guowangwei.my-projects project
+) else (
+  cd %DIR_PROJECT%
+  svn cleanup .
+  svn up
+)
+cd %ROOT%
 goto:eof
 
 :push
@@ -411,6 +455,7 @@ goto:eof
 echo hello %username%, what's up?
 rem echo do::ask
 cd %ROOT%
+REM echo    0) pull
 echo    1) push
 echo    2) getapp
 echo    3) pushapp
@@ -430,6 +475,7 @@ echo    r) return
 echo    q) quit
 
 set /p c=please enter your choice:
+if /i "%c%"=="0" call:pull
 if /i "%c%"=="1" call:push
 if /i "%c%"=="2" call:getapp
 if /i "%c%"=="3" call:pushapp
