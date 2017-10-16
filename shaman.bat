@@ -25,14 +25,14 @@ cd /d %~dp0%
 set ROOT=%CD%
 set PATH=%ROOT%;%PATH%
 
-set CACHE=%ROOT%\cache
-set APP_HOME=%CACHE%\apps
-set ZIP_HOME=%CACHE%\apps-zip
+set DIR_CACHE=%ROOT%\cache
+set APP_HOME=%DIR_CACHE%\apps
+set ZIP_HOME=%DIR_CACHE%\apps-zip
 
-set PATH=%CACHE%\bin;%PATH%
+set PATH=%DIR_CACHE%\bin;%PATH%
 
-if not exist %CACHE% (
-   mkdir %CACHE%
+if not exist %DIR_CACHE% (
+   mkdir %DIR_CACHE%
 )
 
 set DIR_BLOG=%ROOT%/blog
@@ -54,9 +54,6 @@ set EMACS_BIN=%EMACS_HOME%\bin
 set PATH=%EMACS_BIN%;%PATH%
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem msys2
-REM set MSYS_HOME=c:\msys64
-REM set MSYS_BIN=%MSYS_HOME%\usr\bin
-
 set MSYS32_HOME=c:\msys32;d:\msys32;e:\msys32;f:\msys32;g:\msys32;
 set MSYS64_HOME=c:\msys64;d:\msys64;e:\msys64;f:\msys64;g:\msys64;
 set MSYS32_BIN=c:\msys32\usr\bin;d:\msys32\usr\bin;e:\msys32\usr\bin;f:\msys32\usr\bin;g:\msys32\usr\bin;
@@ -64,7 +61,6 @@ set MSYS64_BIN=c:\msys64\usr\bin;d:\msys64\usr\bin;e:\msys64\usr\bin;f:\msys64\u
 set MINGW32_BIN=c:\msys32\mingw32\bin;d:\msys32\mingw32\bin;e:\msys32\mingw32\bin;f:\msys32\mingw32\bin;g:\msys32\mingw32\bin;
 set MINGW64_BIN=c:\msys64\mingw64\bin;d:\msys64\mingw64\bin;e:\msys64\mingw64\bin;f:\msys64\mingw64\bin;g:\msys64\mingw64\bin;
 set PATH=%MSYS32_HOME%;%MSYS64_HOME%;%MSYS32_BIN%;%MSYS64_BIN%;%MINGW32_BIN%;%MINGW64_BIN%;%PATH%
-
 
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem TexLive
@@ -86,7 +82,7 @@ set PATH=%OCAML_BIN%;%PATH%
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem Haskell-Stack
 if not exist %APPDATA%\stack ( mkdir %APPDATA%\stack )
-if not exist %APPDATA%\stack\config.yaml ( copy /y %CACHE%\bin\config.yaml %APPDATA%\stack\ )
+if not exist %APPDATA%\stack\config.yaml ( copy /y %DIR_CACHE%\bin\config.yaml %APPDATA%\stack\ )
 set STACK_HOME=%APP_HOME%\stack
 set STACK_BIN=%STACK_HOME%\bin
 set PATH=%STACK_BIN%;%PATH%
@@ -356,7 +352,7 @@ goto:eof
 
 :zipapp
 echo "do::zipapp"
-cd %CACHE%
+cd %DIR_CACHE%
 zip -r apps.zip apps
 move apps.zip %ZIP_HOME%/apps.zip
 cd %ZIP_HOME%
@@ -416,7 +412,7 @@ pacman -S base-devel zsh wget curl zip unzip git svn coreutils diffutils camke
 pacman -S perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-nodejs mingw-w64-x86_64-ocaml mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
 
 rem install: lien
-cd %CACHE%/bin
+cd %DIR_CACHE%/bin
 curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
 curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 chmod +x ./lein
@@ -426,7 +422,7 @@ rem install: cargo
 rem install: elixir && erlang-nox
 
 rem rebar3
-rem cd %CACHE%/bin
+rem cd %DIR_CACHE%/bin
 rem wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
 
 rem oh-my-zsh
