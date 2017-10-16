@@ -274,6 +274,13 @@ echo "do::pull"
 cd %ROOT%
 git reset
 git pull
+goto:eof
+
+:pull-blog
+echo "do::pull"
+cd %ROOT%
+git reset
+git pull
 
 rem echo book
 rem if not exist %DIR_BLOG%/dev/elixirschool (
@@ -313,6 +320,7 @@ goto:eof
 
 :push
 echo "do::push"
+cd %ROOT%
 rem rm -f .git/index.lock
 git reset
 git pull
@@ -326,6 +334,7 @@ goto:eof
 
 :push-a
 echo "do::push-a"
+cd %ROOT%
 git reset
 git pull
 git add .
@@ -431,12 +440,30 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/m
 cd %ROOT%
 goto:eof
 
+:ask-blog
+rem echo please enter your cgoice:
+echo    1) pull
+echo    2) push
+echo    s) shell
+echo ------------------------------------
+echo    r) return
+
+set /p c=please enter your choice:
+echo loading...
+if /i "%c%"=="1" call:pull-blog
+if /i "%c%"=="2" call:push-blog
+if /i "%c%"=="s" zsh
+if /i "%c%"=="r" call:ask-menu
+goto:eof
+
 :ask-repl
 rem echo please enter your cgoice:
 echo    1) clojure
 echo    2) haskell
 echo    3) elixir
 echo    4) erlang
+echo ------------------------------------
+echo    r) return
 
 set /p c=please enter your choice:
 echo loading...
@@ -444,57 +471,59 @@ if /i "%c%"=="1" echo abort with "^C | ^D | (exit) | (quit)" && lein repl
 if /i "%c%"=="2" echo abort with "^D :quit" && stack repl
 if /i "%c%"=="3" echo abort with "^C" && iex
 if /i "%c%"=="4" echo abort with "^C | ^G | q()." && erl
-if /i "%c%"=="r" call:ask
+if /i "%c%"=="r" call:ask-menu
 goto:eof
 
-:ask
+:ask-menu
 echo hello %username%, what's up?
-rem echo do::ask
+rem echo do::ask-menu
 cd %ROOT%
-REM echo    0) pull
-echo    1) push
-echo    2) getapp
-echo    3) pushapp
-echo    4) zipapp
-echo    5) unzipapp
+rem echo    0) ask-blog
+echo    1) pull
+echo    2) push
+rem echo    2) getapp
+rem echo    3) pushapp
+rem echo    4) zipapp
+rem echo    5) unzipapp
 echo    e) emacs
 echo    n) emacs-nw
 echo    i) install toolchain
 REM echo    c) complie-elc
 echo    l) link init.el
 echo    d) delete-elc
-echo    s) shell
+echo    ------------------------------------	
 echo    m) register menu
 echo    z) REPL
-echo    b) push-blog
+echo    s) shell
 echo    r) return
 echo    q) quit
 
 set /p c=please enter your choice:
-if /i "%c%"=="0" call:pull
-if /i "%c%"=="1" call:push
-if /i "%c%"=="2" call:getapp
-if /i "%c%"=="3" call:pushapp
-if /i "%c%"=="4" call:zipapp
-if /i "%c%"=="5" call:unzipapp
+if /i "%c%"=="0" call:ask-blog
+if /i "%c%"=="1" call:pull
+if /i "%c%"=="2" call:push
+rem if /i "%c%"=="2" call:getapp
+rem if /i "%c%"=="3" call:pushapp
+rem if /i "%c%"=="4" call:zipapp
+rem if /i "%c%"=="5" call:unzipapp
 if /i "%c%"=="i" call:install-toolchain
 if /i "%c%"=="e" goto:emacs
 if /i "%c%"=="n" call:emacs-nw
 REM if /i "%c%"=="c" call:compile-elc
 if /i "%c%"=="l" call:link-init-el
 if /i "%c%"=="d" call:delete-elc
-if /i "%c%"=="s" call:shell
+
 if /i "%c%"=="m" call:reg-open-menu
 if /i "%c%"=="z" call:ask-repl
-if /i "%c%"=="b" call:push-blog
+if /i "%c%"=="s" call:shell
 if /i "%c%"=="r" call:eof
 if /i "%c%"=="q" exit
 REM echo your input is not invalid:(
-call:ask
+call:ask-menu
 
 :main
 rem echo do::main
-call:ask
+call:ask-menu
 
 :quit
 cd %ROOT%

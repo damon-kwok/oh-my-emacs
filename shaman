@@ -55,6 +55,14 @@ function delete-etc {
 
 function pull {
     echo "func::pull"
+    cd $ROOT
+    git reset
+    git pull
+}
+
+function pull-blog {
+    echo "func::pull-blog"
+    cd $ROOT
     git reset
     git pull
 
@@ -102,6 +110,7 @@ function pull {
 
 function push {
     echo "func:push"
+    cd $ROOT
     git reset
     git pull
     git add .
@@ -182,12 +191,31 @@ function install-toolchain {
     yaourt -S base-devel zsh wget curl zip unzip git svn coreutils diffutils perl rubygems nodejs ocaml stack leiningen elixir cargo oh-my-zsh-git zmq ghostscript rebar3
 }
 
+function ask-blog {
+    echo "    1) pull"
+    echo "    2) push"
+    echo "    s) shell"    
+    echo ------------------------------------
+    echo "    r) return"
+
+    read -p "please enter your choice:" item
+    case $item in
+	1) pull-blog;;
+	2) push-blog;;
+	s|S) zsh;;
+	r|R) ask-menu;;
+	*) ask-blog;;
+    esac
+}
+
 function ask-repl {
 #    echo "please choose your need:"
     echo "    1) clojure"
     echo "    2) haskell"
     echo "    3) elixir"
     echo "    4) erlang"
+    echo ------------------------------------
+    echo "    r) return"
 
     read -p "please enter your choice:" item
     case $item in
@@ -203,31 +231,34 @@ function ask-repl {
 function ask-menu {
     cd $ROOT
     #echo "func::ask-menu"
-    #echo "    0) pull"
-    echo "    1) push"
-    echo "    2) getapp"
-    echo "    3) pushapp"
-    echo "    4) zipapp"
-    echo "    5) unzipapp"
+    # echo "    0) ask-blog"
+    echo "    1) pull"
+    echo "    2) push"
+    # echo "    2) getapp"
+    # echo "    3) pushapp"
+    # echo "    4) zipapp"
+    # echo "    5) unzipapp"
     echo "    i) install toolchain"
     echo "    e) emacs"
     echo "    n) emacs-nw"
     # echo "    c) complie-elc"
     echo "    l) link init.el"
     echo "    d) delete-elc"
+    echo "    ------------------------------------"
+    echo "    r) return"
     echo "    s) shell"
     echo "    z) REPL"
-    echo "    b) push-blog"
     echo "    q) quit"
 
     read -p "please enter your choice:" item
     case $item in
-	0) pull;;
-	1) push;;
-	2) getapp;;
-	3) pushapp;;
-	4) zipapp;;
-	5) unzipapp;;
+	0) ask-blog;;
+	1) pull;;
+	2) push;;
+	# 2) getapp;;
+	# 3) pushapp;;
+	# 4) zipapp;;
+	# 5) unzipapp;;
 	i) install-toolchain;;
 	e|E) run-emacs;;
 	n|N) run-emacs-nw;;
@@ -236,7 +267,6 @@ function ask-menu {
 	d|D) delete-elc;;
 	s|S) zsh;;
 	z|Z) ask-repl;;
-	b) push-blog;;
 	q|Q) exit;;
 	*) ask-menu;;	    
     esac
