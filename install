@@ -1,12 +1,14 @@
 #!/bin/bash
 
 ROOT_NAME=my-emacs-config
+ROOT=/home/`whoami`/$ROOT_NAME
 
 if [ -d ~/$ROOT_NAME ]; then
     cd ~/$ROOT_NAME
-    git fetch
-    cd ~
+    git reset
+    git pull
 else
+    cd ~
     git clone https://github.com/damon-kwok/my-emacs-config ~/$ROOT_NAME
 fi
 
