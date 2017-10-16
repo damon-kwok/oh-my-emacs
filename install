@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export ROOT_NAME=my-emacs-config
+ROOT_NAME=my-emacs-config
 
 if [ -d ~/$ROOT_NAME ]; then
     cd ~/$ROOT_NAME
@@ -10,7 +10,7 @@ else
     git clone https://github.com/damon-kwok/my-emacs-config ~/$ROOT_NAME
 fi
 
-export bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
+bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
 mkdir -p $bkdir
 
 
@@ -28,5 +28,9 @@ fi
 
 cp -a ~/$ROOT_NAME/emacs-config/init.el ~/.emacs 
 ln -s ~/$ROOT_NAME/emacs-config ~/emacs-config
+
+if [ ! -f /usr/bin/shaman ]; then
+    ln -s ~/$ROOT_NAME/shaman /usr/bin/shaman
+fi
 
 

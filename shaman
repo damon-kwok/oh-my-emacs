@@ -1,7 +1,10 @@
 #!/bin/bash
 
-DIRNAME=`dirname "$0"`
-export ROOT=`cd "$DIRNAME"; pwd`
+# DIRNAME=`dirname "$0"`
+# ROOT=`cd "$DIRNAME"; pwd`
+ROOT_NAME=my-emacs-config
+ROOT=`cd ~/$ROOT_NAME; pwd`
+echo "ROOT="`pwd`
 export PATH=$ROOT:$PATH
 
 CACHE=$ROOT/cache
@@ -79,6 +82,20 @@ function pull {
 	cd $DIR_PROJECT
 	svn cleanup .
 	svn up
+    fi
+
+    echo link
+
+    if [ ! -f /usr/bin/shaman ]; then
+	sudo ln -s $ROOT/shaman /usr/bin/shaman
+    fi
+
+    if [ ! -f ~/docs ]; then
+	ln -s $ROOT/docs ~/docs
+    fi
+
+    if [ ! -f ~/blog ]; then
+	ln -s $ROOT/blog ~/blog
     fi
 
 }
