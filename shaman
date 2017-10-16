@@ -98,11 +98,11 @@ function pull-blog {
 	sudo ln -s $ROOT/shaman /usr/bin/shaman
     fi
 
-    if [ ! -f ~/docs ]; then
+    if [ ! -d ~/docs ]; then
 	ln -s $ROOT/docs ~/docs
     fi
 
-    if [ ! -f ~/blog ]; then
+    if [ ! -d ~/blog ]; then
 	ln -s $ROOT/blog ~/blog
     fi
 
@@ -128,7 +128,8 @@ function push-a {
     git pull
     git add .
     git status
-    git commit -m "upgrade by "`uname -n` # `date +%Y-%m-%d@%H-%M-%S`
+    # git commit -m "upgrade by "`uname -n`
+    git commit -m `date +%Y-%m-%d@%H-%M-%S` # "upgrade by "`uname -n`
     git push -u origin master
 }
 
@@ -192,8 +193,9 @@ function install-toolchain {
 }
 
 function ask-blog {
-    echo "    1) pull"
-    echo "    2) push"
+    echo "please choose your choice:"
+    echo "    1) pull-blog"
+    echo "    2) push-blog"
     echo "    s) shell"    
     echo ------------------------------------
     echo "    r) return"
@@ -209,12 +211,12 @@ function ask-blog {
 }
 
 function ask-repl {
-#    echo "please choose your need:"
+    echo "please choose your choice:"
     echo "    1) clojure"
     echo "    2) haskell"
     echo "    3) elixir"
     echo "    4) erlang"
-    echo ------------------------------------
+    echo "    -------------------------"
     echo "    r) return"
 
     read -p "please enter your choice:" item
@@ -244,7 +246,7 @@ function ask-menu {
     # echo "    c) complie-elc"
     echo "    l) link init.el"
     echo "    d) delete-elc"
-    echo "    ------------------------------------"
+    echo "    --------------------------"
     echo "    r) return"
     echo "    s) shell"
     echo "    z) REPL"
@@ -255,6 +257,7 @@ function ask-menu {
 	0) ask-blog;;
 	1) pull;;
 	2) push;;
+	3) push-a;;
 	# 2) getapp;;
 	# 3) pushapp;;
 	# 4) zipapp;;

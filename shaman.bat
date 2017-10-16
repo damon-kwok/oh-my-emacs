@@ -339,7 +339,10 @@ git reset
 git pull
 git add .
 git status
-git commit -m "upgrade by "%computername%
+rem git commit -m "upgrade by "%computername%
+set msg=%date:~0,4%-%date:~5,2%-%date:~8,2%@%time:~0,2%-%time:~3,2%-%time:~6,2%
+rem echo commit:%msg%
+git commit -m %msg%
 git push -u origin master
 goto:eof
 
@@ -441,11 +444,11 @@ cd %ROOT%
 goto:eof
 
 :ask-blog
-rem echo please enter your cgoice:
-echo    1) pull
-echo    2) push
+echo please enter your choice:
+echo    1) pull-blog
+echo    2) push-blog
 echo    s) shell
-echo ------------------------------------
+echo 	--------------------------
 echo    r) return
 
 set /p c=please enter your choice:
@@ -457,12 +460,12 @@ if /i "%c%"=="r" call:ask-menu
 goto:eof
 
 :ask-repl
-rem echo please enter your cgoice:
+echo please enter your choice:
 echo    1) clojure
 echo    2) haskell
 echo    3) elixir
 echo    4) erlang
-echo ------------------------------------
+echo 	--------------------------
 echo    r) return
 
 set /p c=please enter your choice:
@@ -502,6 +505,7 @@ set /p c=please enter your choice:
 if /i "%c%"=="0" call:ask-blog
 if /i "%c%"=="1" call:pull
 if /i "%c%"=="2" call:push
+if /i "%c%"=="3" call:push-a
 rem if /i "%c%"=="2" call:getapp
 rem if /i "%c%"=="3" call:pushapp
 rem if /i "%c%"=="4" call:zipapp

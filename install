@@ -25,6 +25,9 @@ fi
 if [ -f ~/emacs-config ]; then
    mv ~/emacs-config $bkdir
 fi
+if [ -d ~/emacs-config ]; then
+   mv ~/emacs-config $bkdir
+fi
 
 cp -a ~/$ROOT_NAME/emacs-config/init.el ~/.emacs 
 ln -s ~/$ROOT_NAME/emacs-config ~/emacs-config
