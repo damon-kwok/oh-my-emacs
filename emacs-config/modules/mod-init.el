@@ -56,7 +56,7 @@
 ;; (module-require 'mod-erlang)
 ;; (module-require 'mod-ess)
 ;; (module-require 'mod-csharp)
-;; (Module-Require 'mod-cc)
+(module-require 'mod-cc)
 ;; (module-require 'mod-slime)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

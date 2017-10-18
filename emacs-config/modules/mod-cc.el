@@ -20,11 +20,19 @@
 ;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
 ;;
 ;; Code:
+;; `shader-mode'
 (package-require 'shader-mode)
 ;;(require 'shader-mode)
 (autoload 'shader-mode "shader" nil t)
 (add-to-list 'auto-mode-alist '("\\.shader$" . shader-mode))
 
+;; `rtags'
+(package-require 'rtags)
+(require 'rtags)
+(package-require 'company-rtags)
+(require 'company-rtags)
+
+;; `irony'
 (package-require 'irony)
 ;;(require 'irony)
 (autoload 'irony "irony" nil t)
@@ -60,33 +68,35 @@
 (defun my-ac-irony-setup ()
   ;; be cautious, if yas is not enabled before (auto-complete-mode 1), overlays
   ;; *may* persist after an expansion.
-  (yas-minor-mode 1) 
-  (auto-complete-mode 1) 
-  (add-to-list 'ac-sources 'ac-source-irony) 
-  (define-key irony-mode-map (kbd "M-RET") 'ac-complete-irony-async))
+  ;;(yas-minor-mode 1) 
+  ;;(auto-complete-mode 1) 
+  ;;(add-to-list 'ac-sources 'ac-source-irony) 
+  ;;(define-key irony-mode-map (kbd "M-RET") 'ac-complete-irony-async)
+  ;;
+  )
 
 ;;(add-hook 'irony-mode-hook 'my-ac-irony-setup)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;'company-irony
-;; (package-require 'company-irony)
-;; (require 'company-irony)
-;; (eval-after-load 'company '(add-to-list 'company-backends 'company-irony))
+(package-require 'company-irony)
+(require 'company-irony)
+(eval-after-load 'company '(add-to-list 'company-backends 'company-irony))
 
-;; (define-key c-mode-map (kbd "M-/")  'company-complete)
-;; (define-key c++-mode-map (kbd "M-/")  'company-complete)
-;; (define-key objc-mode-map (kbd "M-/")  'company-complete)
+(define-key c-mode-map (kbd "M-/")  'company-complete)
+(define-key c++-mode-map (kbd "M-/")  'company-complete)
+(define-key objc-mode-map (kbd "M-/")  'company-complete)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;'ac-irony
 ;; (package-require-git "ac-irony" "https://github.com/Sarcasm/ac-irony.git")
 ;; (require 'ac-irony)
-(package-require 'company-irony)
-(require 'company-irony)
+;;(package-require 'company-irony)
+;;(require 'company-irony)
 
 (defun my-company-irony-setup ()
   ;; be cautious, if yas is not enabled before (auto-complete-mode 1), overlays
   ;; *may* persist after an expansion.
   (yas-minor-mode 1)
-;;  (company-irony)
+  (company-irony)
   ;;(auto-complete-mode 1)
 
   ;;(add-to-list 'ac-sources 'ac-source-irony)
@@ -99,14 +109,8 @@
 
 
 (add-hook 'cc-mode-hook 
-	  '(lambda()
-	    
+	  '(lambda()	    
 	     (message (concat "you opened cc file:" (buffer-name)))))
-
-
-
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; create cmake file
@@ -125,7 +129,27 @@
 	(kill-this-buffer))))
 
 
+(defun show-cc-repl() 
+  (interactive) 
+  (setq temp-cc-buffer-name (buffer-name (current-buffer))) 
+  (m-show-compilation "*shell*")
+  (shell) 
+  (switch-to-buffer-other-window temp-cc-buffer-name) 
+  (m-show-compilation "*shell*" t))
+
+(defun show-cc-workbuffer() 
+  (interactive) 
+  (switch-to-buffer-other-window temp-cc-buffer-name) 
+  (delete-other-windows) 
+  (show-cc-repl) 
+  (switch-to-buffer-other-window temp-cc-buffer-name))
+
+
+
 (define-key c-mode-base-map [f6] 'create-cmake-file-or-close)
+(define-key c-mode-base-map (kbd "C-c C-z")  'show-cc-repl)
+(define-key shell-mode-map (kbd "C-c C-z")  'show-cc-repl)
+(define-key bat-mode-map (kbd "C-c C-z")  'show-cc-repl)
 
 ;;
 (provide 'mod-cc)
