@@ -44,6 +44,6 @@ this is damon kwok's emacs config
 ** orgmode
  - M-n /org-metaup/
  - M-p /org-metadown/
-** haskell elixir erlang clojure elisp slime gister python
+** c c++ bat shell haskell elixir erlang clojure elisp slime gister python
  - C-c C-z show-repl
 

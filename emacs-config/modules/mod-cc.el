@@ -92,19 +92,20 @@
 ;;(package-require 'company-irony)
 ;;(require 'company-irony)
 
-(defun my-company-irony-setup ()
-  ;; be cautious, if yas is not enabled before (auto-complete-mode 1), overlays
-  ;; *may* persist after an expansion.
-  (yas-minor-mode 1)
-  (company-irony)
-  ;;(auto-complete-mode 1)
 
-  ;;(add-to-list 'ac-sources 'ac-source-irony)
-  ;;  (define-key irony-mode-map (kbd "M-RET") 'ac-complete-irony-async)
-  )
+;; (defun my-company-irony-setup ()
+;;   ;; be cautious, if yas is not enabled before (auto-complete-mode 1), overlays
+;;   ;; *may* persist after an expansion.
+;;   ;;(yas-minor-mode 1)
+;;   ;;(company-irony)
+;;   ;;(auto-complete-mode 1)
+
+;;   ;;(add-to-list 'ac-sources 'ac-source-irony)
+;;   ;;  (define-key irony-mode-map (kbd "M-RET") 'ac-complete-irony-async)
+;;   )
 
 ;;=================================================
-(add-hook 'irony-mode-hook 'my-company-irony-setup)
+;;(add-hook 'irony-mode-hook 'my-company-irony-setup)
 
 
 
@@ -128,28 +129,6 @@
     (if (eq major-mode 'cmake-mode) ;;(if (equal buffer-name "CMakeLists.txt")
 	(kill-this-buffer))))
 
-
-(defun show-cc-repl() 
-  (interactive) 
-  (setq temp-cc-buffer-name (buffer-name (current-buffer))) 
-  (m-show-compilation "*shell*")
-  (shell) 
-  (switch-to-buffer-other-window temp-cc-buffer-name) 
-  (m-show-compilation "*shell*" t))
-
-(defun show-cc-workbuffer() 
-  (interactive) 
-  (switch-to-buffer-other-window temp-cc-buffer-name) 
-  (delete-other-windows) 
-  (show-cc-repl) 
-  (switch-to-buffer-other-window temp-cc-buffer-name))
-
-
-
 (define-key c-mode-base-map [f6] 'create-cmake-file-or-close)
-(define-key c-mode-base-map (kbd "C-c C-z")  'show-cc-repl)
-(define-key shell-mode-map (kbd "C-c C-z")  'show-cc-repl)
-(define-key bat-mode-map (kbd "C-c C-z")  'show-cc-repl)
-
 ;;
 (provide 'mod-cc)

@@ -29,6 +29,25 @@
 ;; mac-command-modifier 'meta
 ;; mac-option-modifier 'none)
 
+
+(defun show-global-repl() 
+  (interactive) 
+  (setq temp-global-buffer-name (buffer-name (current-buffer))) 
+  (m-show-compilation "*shell*")
+  (shell) 
+  (switch-to-buffer-other-window temp-global-buffer-name) 
+  (m-show-compilation "*shell*" t))
+
+(defun show-global-workbuffer() 
+  (interactive) 
+  (switch-to-buffer-other-window temp-global-buffer-name) 
+  (delete-other-windows) 
+  (show-global-repl) 
+  (switch-to-buffer-other-window temp-global-buffer-name))
+
+(global-set-key (kbd "C-c C-z") 'show-global-repl)
+(define-key shell-mode-map (kbd "C-c C-z")  'show-global-workbuffer)
+
 (global-set-key (kbd "M-RET") 'toggle-frame-fullscreen)
 (global-set-key (kbd "C-\\") 'toggle-input-method)
 ;; (global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-super ;; (global-set-key [?\S- ] 'set-mark-command)
