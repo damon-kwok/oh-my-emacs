@@ -145,16 +145,21 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
     (progn ;;
       ;;(load-theme 'gray30 t t)
       ;;(enable-theme 'gray30)
-      (load-theme 'deeper-blue) 
-      (enable-theme 'deeper-blue)
+      ;;(load-theme 'deeper-blue)
+      ;;(enable-theme 'deeper-blue)
+      ;; load material theme
+      (package-require 'material-theme) 
+      (load-theme 'material t)
       ;;
       ) 
   (progn
     ;;
     ;;(load-theme 'xemacs t t)
     ;;(enable-theme 'xemacs)
-    (load-theme 'deeper-blue) 
-    (enable-theme 'deeper-blue)
+    ;;(load-theme 'deeper-blue)
+    ;;(enable-theme 'deeper-blue)
+    (package-require 'material-theme) 
+    (load-theme 'material t)
     ;;
     ))
 
@@ -487,8 +492,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
   '(lambda () 
      (interactive) 
      (undo-tree-visualize) 
-     (undo-tree-visualize-undo)))
-
+     (undo-tree-visualize-undo))) 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

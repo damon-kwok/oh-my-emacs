@@ -20,22 +20,32 @@
 ;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
 ;;
 ;; Code:
+;; `function-args'
+(package-require 'function-args)
+(require 'function-args)
+(fa-config-default)
+
+;; Additional setup (optional)
+;; Put c++-mode as default for *.h files (improves parsing):
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
+;; Enable case-insensitive searching:
+(set-default 'semantic-case-fold t)
+
 ;; `shader-mode'
 (package-require 'shader-mode)
-;;(require 'shader-mode)
-(autoload 'shader-mode "shader" nil t)
+(autoload 'shader-mode "shader" nil t) ;;(require 'shader-mode)
 (add-to-list 'auto-mode-alist '("\\.shader$" . shader-mode))
-
+
 ;; `rtags'
 (package-require 'rtags)
 (require 'rtags)
 (package-require 'company-rtags)
 (require 'company-rtags)
-
+
 ;; `irony'
 (package-require 'irony)
-;;(require 'irony)
-(autoload 'irony "irony" nil t)
+(autoload 'irony "irony" nil t) ;;(require 'irony)
 
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
@@ -48,11 +58,11 @@
     'irony-completion-at-point-async)
   (define-key irony-mode-map [remap complete-symbol]
     'irony-completion-at-point-async))
+
 (add-hook 'irony-mode-hook 'my-irony-mode-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 ;; Windows performance tweaks
-;;
 (when (boundp 'w32-pipe-read-delay)
   (setq w32-pipe-read-delay 0))
 ;; Set the buffer size to 64K on Windows (from the original 4K)
@@ -60,24 +70,8 @@
   (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
 
 ;;(message irony-server-install-prefix)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;ac-irony
-;;(package-require 'ac-irony)
-;;(require 'ac-irony)
-(defun my-ac-irony-setup ()
-  ;; be cautious, if yas is not enabled before (auto-complete-mode 1), overlays
-  ;; *may* persist after an expansion.
-  ;;(yas-minor-mode 1) 
-  ;;(auto-complete-mode 1) 
-  ;;(add-to-list 'ac-sources 'ac-source-irony) 
-  ;;(define-key irony-mode-map (kbd "M-RET") 'ac-complete-irony-async)
-  ;;
-  )
-
-;;(add-hook 'irony-mode-hook 'my-ac-irony-setup)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;'company-irony
+
+;;`company-irony'
 (package-require 'company-irony)
 (require 'company-irony)
 (eval-after-load 'company '(add-to-list 'company-backends 'company-irony))
@@ -85,35 +79,19 @@
 (define-key c-mode-map (kbd "M-/")  'company-complete)
 (define-key c++-mode-map (kbd "M-/")  'company-complete)
 (define-key objc-mode-map (kbd "M-/")  'company-complete)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;'ac-irony
-;; (package-require-git "ac-irony" "https://github.com/Sarcasm/ac-irony.git")
-;; (require 'ac-irony)
-;;(package-require 'company-irony)
-;;(require 'company-irony)
 
+;; `flycheck'
+(package-require 'flycheck)
+(package-require 'flycheck-clang-analyzer)
+(with-eval-after-load 'flycheck
+  (require 'flycheck-clang-analyzer)
+  (flycheck-clang-analyzer-setup))
+
+;; `cmake'
+(package-require 'cmake-font-lock)
+(autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
+(add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
 
-;; (defun my-company-irony-setup ()
-;;   ;; be cautious, if yas is not enabled before (auto-complete-mode 1), overlays
-;;   ;; *may* persist after an expansion.
-;;   ;;(yas-minor-mode 1)
-;;   ;;(company-irony)
-;;   ;;(auto-complete-mode 1)
-
-;;   ;;(add-to-list 'ac-sources 'ac-source-irony)
-;;   ;;  (define-key irony-mode-map (kbd "M-RET") 'ac-complete-irony-async)
-;;   )
-
-;;=================================================
-;;(add-hook 'irony-mode-hook 'my-company-irony-setup)
-
-
-
-(add-hook 'cc-mode-hook 
-	  '(lambda()	    
-	     (message (concat "you opened cc file:" (buffer-name)))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; create cmake file
 (defun create-cmake-file () 
   " create cmake file with current directory!" 
@@ -130,5 +108,9 @@
 	(kill-this-buffer))))
 
 (define-key c-mode-base-map [f6] 'create-cmake-file-or-close)
+
+(add-hook 'cc-mode-hook 
+	  '(lambda()	    
+	     (message (concat "you opened cc file:" (buffer-name)))))
 ;;
 (provide 'mod-cc)

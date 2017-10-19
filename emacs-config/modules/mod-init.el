@@ -57,6 +57,7 @@
 ;; (module-require 'mod-ess)
 ;; (module-require 'mod-csharp)
 (module-require 'mod-cc)
+(module-require 'mod-py)
 ;; (module-require 'mod-slime)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

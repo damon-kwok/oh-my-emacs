@@ -33,7 +33,7 @@
 (defun show-global-repl() 
   (interactive) 
   (setq temp-global-buffer-name (buffer-name (current-buffer))) 
-  (m-show-compilation "*shell*")
+  (m-show-compilation "*shell*") 
   (shell) 
   (switch-to-buffer-other-window temp-global-buffer-name) 
   (m-show-compilation "*shell*" t))
@@ -378,7 +378,9 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 	((string= lang "rust") 
 	 (m-create-project "cargo new %s --bin" "Cargo.toml")) 
 	((string= lang "go") 
-	 (m-create-project "glide create %s" "glide.yaml"))))
+	 (m-create-project "glide create %s" "glide.yaml")) 
+	((string= lang "ros") 
+	 (message "rosman %s " "src/main.cpp"))))
 
 
 (defun m-run-*project () 
@@ -424,21 +426,21 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 	  ((string= mod-name "emacs-lisp-mode") 
 	   (compile-current-buffer)))))
 
-
-
 (defun get-major-mode-name () 
   (symbol-name major-mode))
 
 (setq current-major-mode-name (symbol-name major-mode))
 
-(defun sss() 
+(defun get-super-menu-string() 
   (concat
-"^SPC^            ^Buffer^               ^Search^              ^UI|View^        ^AppWizard^^   " (get-major-mode-name)"^
+   "^SPC^            ^Buffer^               ^Search^              ^UI|View^        ^AppWizard^^   "
+   (get-major-mode-name)
+   "^
 ^^^^^^^^^^^^-------------------------------------------------------------------------------------------------
 ^^               _>_: goto-char-f       _G_: grep-project     _;_: <-Tab       _6_: Clojure   ^_1_:run^
 _b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->       _7_: Elixir    ^^ test
 _f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: <-Group     _8_: Rust      ^^ compile/build
-_m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: Group->     _9_: Go        ^^ clean
+_m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: Group->     _9_: Ros       ^^ clean
 _w_: URLs  =>    _e_: mc/mark-all       _>_: goto-char-f      _=_: scale-inc   ^^Python       ^^
 ^^               _r_: Reload|Refresh    _<_: goto-char-b      _-_: scale-dec   ^^Erlang       ^^
 _<tab>_: recent  _o_: kill-other-buffer ^^                    _z_: smart-do    ^^Kotlin       ^^
@@ -448,53 +450,52 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^                
 ;;; `C-SPC'
 (defhydra hydra-do-super 
   (:color blue)
-
-  (concat "" (sss))
-  ("b" (hydra-show-buffer/body) "buffer")
-  ("f" (hydra-open-file/body) "file")
-  ("m" (hydra-open-config/body) "module")
-  ("c" (hydra-open-config/body) "module")
-  ("w" (hydra-open-url/body) "url")
-  ("<tab>" helm-recentf "(helm-recentf)")
-  (">" m-go-to-char-forward "go-to-char-forward")
-  ("<" m-go-to-char-backward "go-to-char-backward")
-  ("s" replace-string "replace-string")
-  ("S" query-replace "query-replace")
-  ("e" (m-mark-all-like-this) "mc/mark-all-like-this")
-  ("r" (m-buffer-reload) "Refresh")
-  ("o" (m-kill-other-buffers) "KillOtherBuffers")
-  ("G" my-grep-project "projectile-project-root")
-  ("g" my-grep-directory "projectile-directory-root")
-  ("d" m-bing-dict-brief "bing-dict-brief")
-  ("D" m-bing-dict-brief-web "bing-dict-brief-web")
-  (";" tabbar-backward "tabbar-backward")
-  ("'" tabbar-forward "tabbar-forward")
-  ("[" m-tabbar-backward-group "tabbar-up")
-  ("/" m-tabbar-forward-group "tabbar-down")
-  ("=" text-scale-increase "text-scale-increase")
-  ("-" text-scale-decrease "text-scale-decrease")
-  ("1" (m-run-*project) "run project")
-  ("2" (message "smart-do"))
-  ("3" (message "smart-do"))
-  ("4" (message "smart-do"))
-  ("5" (message "smart-do"))
-  ("6" (m-project-wizard "clojure") "smart-do")
-  ("7" (m-project-wizard "elixir") "smart-do")
-  ("8" (m-project-wizard "rust") "smart-do")
-  ("9" (m-project-wizard "go") "smart-do")
-  ("z" (message "smart-do"))
-  ("0" (calendar) "calendar")
-  ("<SPC>" nil "quit")
-  ("q" nil "quit")
+  (concat "" (get-super-menu-string))
+  ("b" (hydra-show-buffer/body) "buffer") 
+  ("f" (hydra-open-file/body) "file") 
+  ("m" (hydra-open-config/body) "module") 
+  ("c" (hydra-open-config/body) "module") 
+  ("w" (hydra-open-url/body) "url") 
+  ("<tab>" helm-recentf "(helm-recentf)") 
+  (">" m-go-to-char-forward "go-to-char-forward") 
+  ("<" m-go-to-char-backward "go-to-char-backward") 
+  ("s" replace-string "replace-string") 
+  ("S" query-replace "query-replace") 
+  ("e" (m-mark-all-like-this) "mc/mark-all-like-this") 
+  ("r" (m-buffer-reload) "Refresh") 
+  ("o" (m-kill-other-buffers) "KillOtherBuffers") 
+  ("G" my-grep-project "projectile-project-root") 
+  ("g" my-grep-directory "projectile-directory-root") 
+  ("d" m-bing-dict-brief "bing-dict-brief") 
+  ("D" m-bing-dict-brief-web "bing-dict-brief-web") 
+  (";" tabbar-backward "tabbar-backward") 
+  ("'" tabbar-forward "tabbar-forward") 
+  ("[" m-tabbar-backward-group "tabbar-up") 
+  ("/" m-tabbar-forward-group "tabbar-down") 
+  ("=" text-scale-increase "text-scale-increase") 
+  ("-" text-scale-decrease "text-scale-decrease") 
+  ("1" (m-run-*project) "run project") 
+  ("2" (message "smart-do")) 
+  ("3" (message "smart-do")) 
+  ("4" (message "smart-do")) 
+  ("5" (message "smart-do")) 
+  ("6" (m-project-wizard "clojure") "smart-do") 
+  ("7" (m-project-wizard "elixir") "smart-do") 
+  ("8" (m-project-wizard "rust") "smart-do") 
+  ("9" (m-project-wizard "ros") "smart-do") 
+  ("z" (message "smart-do")) 
+  ("0" (calendar) "calendar") 
+  ("<SPC>" nil "quit") 
+  ("q" nil "quit") 
   ("<escape>" nil "quit"))
 
 
 ;; (global-set-key (kbd "C-SPC") 'hydra-do-super/body)
 (global-set-key (kbd "M-SPC") 'hydra-do-super/body)
-(global-set-key (kbd "M-z")
-		(lambda ()
-		  (interactive)
-		  (setq current-major-mode-name (get-major-mode-name))
+(global-set-key (kbd "M-z") 
+		(lambda () 
+		  (interactive) 
+		  (setq current-major-mode-name (get-major-mode-name)) 
 		  (hydra-do-super/body)))
 
 ;;; `comment-toggle' M-;
@@ -525,8 +526,7 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^                
 ;;; `which-key'
 (package-require 'which-key)
 (require 'which-key)
-(which-key-mode)
-
+(which-key-mode) 
 ;;; `paredit'
 (package-require 'paredit)
 (require 'paredit)
@@ -537,7 +537,6 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^                
 (define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
 (define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
 
-
 
 ;;
 (provide 'mod-keybind)
