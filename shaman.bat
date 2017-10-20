@@ -277,7 +277,7 @@ git pull
 goto:eof
 
 :pull-blog
-echo "do::pull"
+echo "do::pull-blog"
 cd %ROOT%
 git reset
 git pull
@@ -418,8 +418,9 @@ goto:eof
 
 :install-toolchain
 pacman -Syyu
-pacman -S base-devel zsh wget curl zip unzip git svn coreutils diffutils camke
-pacman -S perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-nodejs mingw-w64-x86_64-ocaml mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
+pacman -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion camke
+pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-nodejs
+pacman -S mingw-w64-x86_64-ocaml mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
 
 rem install: lien
 cd %DIR_CACHE%/bin
@@ -437,6 +438,9 @@ rem wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
 
 rem oh-my-zsh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+rem pip
+pip install ipython rope jedi flake8 importmagic autopep8 yapf
 
 cd %ROOT%
 goto:eof
