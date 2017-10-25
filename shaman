@@ -188,11 +188,67 @@ function getapp {
 }
 
 function install-toolchain {
-    
-    yaourt -Syyu
-    yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion python2-pip perl rubygems nodejs ocaml stack leiningen elixir cargo oh-my-zsh-git rebar3 #zmq ghostscript
+    echo "please choose your os:"
+    echo "    1) debian/ubuntu/mint"
+    echo "    2) archlinux/manjaro"
+    echo "    3) fedora22+"
+    echo "    4) macOS"
+    echo "    5) msys2"
+    echo "    -------------------------"
+    echo "    r) return"
 
-    sudo pip install ipython rope jedi flake8 importmagic autopep8 yapf
+    read -p "please enter your choice:" item
+    case $item in
+	1)
+	    sudo apt update
+	    sudo apt install build-essential coreutils diffutils zsh wget curl zip unzip git subversion python-pip perl rubygems nodejs-legacy ocaml haskell-stack leiningen elixir cargo oh-my-zsh-git rebar #zmq ghostscript
+	    sudo pip install ipython rope jedi flake8 importmagic autopep8 yapf
+	    ;;
+	2)
+	    yaourt -Syyu
+	    yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion python2-pip perl rubygems nodejs-legacy ocaml haskell-stack-git leiningen elixir cargo oh-my-zsh-git rebar3
+	    sudo pip install ipython rope jedi flake8 importmagic autopep8 yapf
+	    ;;
+	3)
+	    sudo dnf update
+	    sudo dnf groupinstall "Development Tools and Libraries"
+	    sudo dnf install coreutils diffutils zsh wget curl zip unzip git subversion python2-pip perl rubygems nodejs-legacy ocaml haskell-stack leiningen elixir cargo oh-my-zsh-git rebar
+	    sudo pip install ipython rope jedi flake8 importmagic autopep8 yapf
+	    ;;
+	4)
+	    brew update
+	    brew install coreutils diffutils zsh wget curl zip unzip git subversion python2-pip perl rubygems nodejs-legacy ocaml haskell-stack leiningen elixir cargo oh-my-zsh-git rebar
+	    pip install ipython rope jedi flake8 importmagic autopep8 yapf
+	    ;;
+	5)
+	    pacman -Syyu
+	    pacman -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion camke
+	    pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-nodejs
+	    pacman -S mingw-w64-x86_64-ocaml #mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
+
+	    # install: lien
+	    cd $ROOT/cache/bin
+	    curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+	    curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+	    chmod +x ./lein
+
+	    # install: cargo
+
+	    # install: elixir && erlang-nox
+
+	    # rebar3
+	    # cd $ROOT/cache/bin
+	    # wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
+
+	    # oh-my-zsh
+	    bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+	    # pip
+	    pip install ipython rope jedi flake8 importmagic autopep8 yapf
+	    ;;
+	r | R) ask-menu;;
+	*) ask-repl;;
+    esac
 }
 
 function ask-blog {

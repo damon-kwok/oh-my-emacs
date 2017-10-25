@@ -264,7 +264,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (defun m-set-font()
   ;; Setting English Font
   (set-face-attribute 'default nil 
-		      :font "Bitstream Vera Sans Mono-9")
+		      :font "Bitstream Vera Sans Mono-10")
   ;; Setting Chinese Font
   (dolist (charset '(kana han symbol cjk-misc bopomofo)) 
     (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" 

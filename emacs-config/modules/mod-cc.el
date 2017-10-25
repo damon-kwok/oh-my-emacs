@@ -42,6 +42,11 @@
 (require 'rtags)
 (package-require 'company-rtags)
 (require 'company-rtags)
+
+(add-hook 'c-mode-hook 'rtags-start-process-unless-running)
+(add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
+(add-hook 'objc-mode-hook 'rtags-start-process-unless-running)
+
 
 ;; `irony'
 (package-require 'irony)
