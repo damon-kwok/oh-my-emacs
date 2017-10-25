@@ -180,16 +180,17 @@ function pushapp {
 
 function getapp {
     echo "func::getapp"
-    if [ ! -d $APP_HOME ]
-    then if [ ! -d $ZIPHOME ]
-	 then 111
-	 fi
+    if [ ! -d $APP_HOME ]; then
+	if [ ! -d $ZIPHOME ]; then
+	    111
+	fi
     fi
 }
 
 function install-toolchain {
+    
     yaourt -Syyu
-    yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion python2-pip perl rubygems nodejs ocaml stack leiningen elixir cargo oh-my-zsh-git zmq ghostscript rebar3
+    yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion python2-pip perl rubygems nodejs ocaml stack leiningen elixir cargo oh-my-zsh-git rebar3 #zmq ghostscript
 
     sudo pip install ipython rope jedi flake8 importmagic autopep8 yapf
 }

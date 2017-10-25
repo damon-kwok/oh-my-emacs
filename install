@@ -35,7 +35,7 @@ cp -a ~/$ROOT_NAME/emacs-config/init.el ~/.emacs
 ln -s ~/$ROOT_NAME/emacs-config ~/emacs-config
 
 if [ ! -f /usr/bin/shaman ]; then
-    ln -s ~/$ROOT_NAME/shaman /usr/bin/shaman
+    sudo ln -s ~/$ROOT_NAME/shaman /usr/bin/shaman
 fi
 
 
