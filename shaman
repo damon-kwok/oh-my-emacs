@@ -201,7 +201,7 @@ function install-toolchain {
     case $item in
 	1)
 	    sudo apt update
-	    sudo apt install build-essential coreutils diffutils zsh wget curl zip unzip git subversion python-pip perl ruby nodejs-legacy ocaml haskell-stack leiningen elixir cargo oh-my-zsh-git rebar #zmq ghostscript
+	    sudo apt install -y build-essential coreutils diffutils zsh wget curl zip unzip git subversion python-pip perl ruby nodejs-legacy ocaml haskell-stack leiningen elixir cargo oh-my-zsh-git rebar #zmq ghostscript
 	    sudo pip install ipython rope jedi flake8 importmagic autopep8 yapf
 	    ;;
 	2)

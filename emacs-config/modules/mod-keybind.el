@@ -380,7 +380,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 	((string= lang "go") 
 	 (m-create-project "glide create %s" "glide.yaml")) 
 	((string= lang "ros") 
-	 (message "rosman %s " "src/main.cpp"))))
+	 (m-create-project "rosman %s " "src/main.cpp"))))
 
 
 (defun m-run-*project () 
