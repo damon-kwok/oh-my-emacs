@@ -1,16 +1,48 @@
 #!/bin/bash
 
-mkdir -p $1
-echo dir:$1
-cd $1
-mkdir -p build devel src
+source /opt/ros/kinetic/setup.bash
+
+CATKIN_WS=~/catkin_ws
+# mkdir -p $1/src
+# echo dir:$1
+# cd $1/src
+
+if [ ! -d $CATKIN_WS ]; then
+    echo 1111-1
+    mkdir -p $CATKIN_WS/src
+    cd $CATKIN_WS/src
+    catkin_init_workspace
+    if [ -f ~/.bashrc ]; then
+	echo 111-2
+	source "$CATKIN_WS"/devel/setup.bash
+	echo "source "$CATKIN_WS"/devel/setup.bash" >> ~/.bashrc 
+    fi
+    if [ -f ~/.zshrc ]; then
+	echo 111-3
+	source "$CATKIN_WS"/devel/setup.zsh
+	echo "source "$CATKIN_WS"/devel/setup.zsh" >> ~/.zshrc 
+    fi
+# else
+fi
+
+cd $CATKIN_WS/src
+if [ ! -d $CATKIN_WS/build ]; then
+    catkin_init_workspace
+fi
+
+if [ ! -d $CATKIN_WS/devel ]; then
+    catkin_init_workspace
+fi
+
+cd $CATKIN_WS/src
+catkin_create_pkg $1 std_msgs roscpp
 
 echo "#include<ros/ros.h>  
 #include<pcl/point_cloud.h>  
 #include<pcl_conversions/pcl_conversions.h>  
 #include<sensor_msgs/PointCloud2.h>  
       
-main (int argc, char **argv)  
+int main (int argc, char **argv)  
 {  
   ros::init (argc, argv, \"pcl_create\");  
   ros::NodeHandle nh;  
@@ -40,7 +72,24 @@ main (int argc, char **argv)
     }  
   return 0;  
 }
-" >> src/main.cpp
-source /opt/ros/kinetic/setup.sh
+" >> $1/src/$1.cpp
+
+cd $CATKIN_WS
+
 catkin_make
 
+
+echo "
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+)
+
+add_executable(${PROJECT_NAME}_node src/"$1"_node.cpp)
+
+add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+target_link_libraries(${PROJECT_NAME}_node
+  ${catkin_LIBRARIES}
+)
+" >> $1/CMakeLists.txt
