@@ -201,30 +201,30 @@ function install-toolchain {
     case $item in
 	1)
 	    sudo apt update
-	    sudo apt install -y build-essential coreutils diffutils zsh wget curl zip unzip git subversion python-pip perl ruby nodejs-legacy ocaml haskell-stack leiningen elixir cargo oh-my-zsh-git rebar #zmq ghostscript
+	    sudo apt install -y build-essential coreutils diffutils zsh wget curl zip unzip git subversion python-pip perl ruby nodejs-legacy ocaml haskell-stack leiningen elixir cargo oh-my-zsh-git rebar ttf-bitstream-vera #zmq ghostscript
 	    sudo pip install ipython rope jedi flake8 importmagic autopep8 yapf
 	    ;;
 	2)
 	    yaourt -Syyu
-	    yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion python2-pip perl rubygems nodejs ocaml haskell-stack-git leiningen elixir cargo oh-my-zsh-git rebar3
+	    yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion python2-pip perl rubygems nodejs ocaml haskell-stack-git leiningen elixir cargo oh-my-zsh-git rebar3 ttf-bitstream-vera-dummy
 	    sudo pip install ipython rope jedi flake8 importmagic autopep8 yapf
 	    ;;
 	3)
 	    sudo dnf update
 	    sudo dnf groupinstall "Development Tools and Libraries"
-	    sudo dnf install coreutils diffutils zsh wget curl zip unzip git subversion python2-pip perl rubygems nodejs-legacy ocaml haskell-stack leiningen elixir cargo oh-my-zsh-git rebar
+	    sudo dnf install coreutils diffutils zsh wget curl zip unzip git subversion python2-pip perl rubygems nodejs-legacy ocaml haskell-stack leiningen elixir cargo oh-my-zsh-git rebar ttf-bitstream-vera
 	    sudo pip install ipython rope jedi flake8 importmagic autopep8 yapf
 	    ;;
 	4)
 	    brew update
-	    brew install coreutils diffutils zsh wget curl zip unzip git subversion python2-pip perl rubygems nodejs-legacy ocaml haskell-stack leiningen elixir cargo oh-my-zsh-git rebar
+	    brew install coreutils diffutils zsh wget curl zip unzip git subversion python2-pip perl rubygems nodejs-legacy ocaml haskell-stack leiningen elixir cargo oh-my-zsh-git rebar ttf-bitstream-vera
 	    pip install ipython rope jedi flake8 importmagic autopep8 yapf
 	    ;;
 	5)
 	    pacman -Syyu
 	    pacman -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion camke
 	    pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-nodejs
-	    pacman -S mingw-w64-x86_64-ocaml #mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
+	    pacman -S mingw-w64-x86_64-ocaml ttf-bitstream-vera #mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
 
 	    # install: lien
 	    cd $ROOT/cache/bin
