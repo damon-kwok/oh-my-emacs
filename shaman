@@ -182,7 +182,7 @@ function getapp {
     echo "func::getapp"
     if [ ! -d $APP_HOME ]; then
 	if [ ! -d $ZIPHOME ]; then
-	    111
+	    echo pass
 	fi
     fi
 }
@@ -206,7 +206,7 @@ function install-toolchain {
 	    ;;
 	2)
 	    yaourt -Syyu
-	    yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion python2-pip perl rubygems nodejs-legacy ocaml haskell-stack-git leiningen elixir cargo oh-my-zsh-git rebar3
+	    yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion python2-pip perl rubygems nodejs ocaml haskell-stack-git leiningen elixir cargo oh-my-zsh-git rebar3
 	    sudo pip install ipython rope jedi flake8 importmagic autopep8 yapf
 	    ;;
 	3)

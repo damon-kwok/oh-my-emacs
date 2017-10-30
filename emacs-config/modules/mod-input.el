@@ -29,33 +29,60 @@
 (require 'pyim-basedict)
 (pyim-basedict-enable)
 (setq default-input-method "pyim")
-  
-;;(package-require 'chinese-pyim)
-;;(require 'chinese-pyim)
-(setq pyim-dicts
-      '((:name "dict1" :file "~/dict/pyim-bigdict.pyim" :coding utf-8 :dict-type pinyin-dict)
-        (:name "dict2" :file "~/dict/AutoCAD词汇.txt" :coding utf-8 :dict-type pinyin-dict)
-	(:name "dict3" :file "~/dict/编程语言.txt" :coding utf-8 :dict-type pinyin-dict)
-	(:name "dict4" :file "~/dict/财经金融词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-	(:name "dict5" :file "~/dict/法律词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-	(:name "dict6" :file "~/dict/计算机名词.txt" :coding utf-8 :dict-type pinyin-dict)
-	(:name "dict7" :file "~/dict/计算机专业词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-	(:name "dict8" :file "~/dict/汽车词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-	(:name "dict9" :file "~/dict/前端工程师必备词库.txt" :coding utf-8 :dict-type pinyin-dict)
-	(:name "dict10" :file "~/dict/数学词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-	(:name "dict11" :file "~/dict/虚拟现实技术.txt" :coding utf-8 :dict-type pinyin-dict)
-	(:name "dict12" :file "~/dict/中国高等院校大全.txt" :coding utf-8 :dict-type pinyin-dict)
-	(:name "dict13" :file "~/dict/中国医院大全.txt" :coding utf-8 :dict-type pinyin-dict)
-	(:name "dict14" :file "~/dict/最详细的全国地名大全.txt" :coding utf-8 :dict-type pinyin-dict)))
+
+;; 我使用全拼
+(setq pyim-default-scheme 'quanpin)
+
+;; 设置 pyim 探针设置，这是 pyim 高级功能设置，可以实现 *无痛* 中英文切换 :-)
+(setq-default pyim-english-input-switch-functions
+              '(;;pyim-probe-dynamic-english ;;2. 当前字符为其他字符时，输入下一个字符时默认开启英文输入
+                pyim-probe-isearch-mode ;; 使用 isearch 搜索时，强制开启英文输入模式
+                pyim-probe-program-mode ;;如果当前的 mode 衍生自 prog-mode，那么仅仅在字符串和 comment 中开启中文输入模式
+		pyim-probe-org-speed-commands  ;;解决 org-speed-commands 与 pyim 冲突问题
+                pyim-probe-org-structure-template)) ;;使用 org-structure-template 时，关闭中文输入模式
+
+(setq-default pyim-punctuation-half-width-functions
+              '(pyim-probe-punctuation-line-beginning ;;行首强制输入半角标点
+                pyim-probe-punctuation-after-punctuation)) ;;半角标点后强制输入半角标点
+
+;; 开启拼音搜索功能
+(pyim-isearch-mode 1)
+
+;; 使用 pupup-el 来绘制选词框
+;; (setq pyim-page-tooltip 'popup)
+
+;; 使用pos-top包来绘制选词框 (emacs tooltip)
+(setq pyim-use-tooltip 'pos-tip)
+;; 注：Linux 平台下，emacs 可以使用 GTK 来绘制选词框：
+(if (eq system-type 'gnu/linux) 
+    (setq x-gtk-use-system-tooltips t))
+
+;; pyim 的 tooltip 选词框默认使用 双行显示 的样式，在一些特 殊的情况下（比如：popup 显示的菜单错位），用户可以使用 单行显示 的样式：
+;; (setq pyim-page-style 'one-line) 
+
+;; 选词框显示5个候选词
+(setq pyim-page-length 9)
+
+;; 让 Emacs 启动时自动加载 pyim 词库 
+(add-hook 'emacs-startup-hook
+          #'(lambda () (pyim-restart-1 t)))
+
+;; (setq pyim-dicts
+;;       '((:name "dict1" :file "~/dict/pyim-bigdict.pyim" :coding utf-8 :dict-type pinyin-dict)
+;;         (:name "dict2" :file "~/dict/AutoCAD词汇.txt" :coding utf-8 :dict-type pinyin-dict)
+;; 	(:name "dict3" :file "~/dict/编程语言.txt" :coding utf-8 :dict-type pinyin-dict)
+;; 	(:name "dict4" :file "~/dict/财经金融词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+;; 	(:name "dict5" :file "~/dict/法律词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+;; 	(:name "dict6" :file "~/dict/计算机名词.txt" :coding utf-8 :dict-type pinyin-dict)
+;; 	(:name "dict7" :file "~/dict/计算机专业词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+;; 	(:name "dict8" :file "~/dict/汽车词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+;; 	(:name "dict9" :file "~/dict/前端工程师必备词库.txt" :coding utf-8 :dict-type pinyin-dict)
+;; 	(:name "dict10" :file "~/dict/数学词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+;; 	(:name "dict11" :file "~/dict/虚拟现实技术.txt" :coding utf-8 :dict-type pinyin-dict)
+;; 	(:name "dict12" :file "~/dict/中国高等院校大全.txt" :coding utf-8 :dict-type pinyin-dict)
+;; 	(:name "dict13" :file "~/dict/中国医院大全.txt" :coding utf-8 :dict-type pinyin-dict)
+;; 	(:name "dict14" :file "~/dict/最详细的全国地名大全.txt" :coding utf-8 :dict-type pinyin-dict)))
  
-;;(setq default-input-method "chinese-pyim")
-
- ;;; 使用popup包来绘制选词框 (emacs overlay)
-;; (setq pyim-use-tooltip 'popup)
-
- ;;; 使用pos-top包来绘制选词框 (emacs tooltip)
- (setq pyim-use-tooltip 'pos-tip)
-
 ;; (global-set-key (kbd "C-\\") 'toggle-input-method)
 ;;
 (provide 'mod-input)

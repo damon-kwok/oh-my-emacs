@@ -22,15 +22,15 @@
 ;; Code:
 ;; `function-args'
 (package-require 'function-args)
-(require 'function-args)
-(fa-config-default)
+;; (require 'function-args)
+;; (fa-config-default)
 
 ;; Additional setup (optional)
 ;; Put c++-mode as default for *.h files (improves parsing):
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ;; Enable case-insensitive searching:
-(set-default 'semantic-case-fold t)
+;; (set-default 'semantic-case-fold t)
 
 ;; `shader-mode'
 (package-require 'shader-mode)
