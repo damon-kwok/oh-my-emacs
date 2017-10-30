@@ -440,7 +440,7 @@ rem oh-my-zsh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 rem pip
-pip install ipython rope jedi flake8 importmagic autopep8 yapf
+pip install rope jedi flake8 importmagic autopep8 yapf
 
 cd %ROOT%
 goto:eof
