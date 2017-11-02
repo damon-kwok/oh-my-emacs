@@ -29,7 +29,8 @@
 ;; mac-command-modifier 'meta
 ;; mac-option-modifier 'none)
 
-
+
+;; `repl'
 (defun show-global-repl() 
   (interactive) 
   (setq temp-global-buffer-name (buffer-name (current-buffer))) 
@@ -46,8 +47,13 @@
   (switch-to-buffer-other-window temp-global-buffer-name))
 
 (global-set-key (kbd "C-c C-z") 'show-global-repl)
+(add-hook 'sh-mode-hook 
+	  '(lambda()	    
+;;	     (message (concat "you opened cc file:" (buffer-name)))
+	     (define-key sh-mode-map (kbd "C-c C-z")  'show-global-repl)))
 (define-key shell-mode-map (kbd "C-c C-z")  'show-global-workbuffer)
 
+
 (global-set-key (kbd "M-RET") 'toggle-frame-fullscreen)
 (global-set-key (kbd "C-\\") 'toggle-input-method)
 ;; (global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-super ;; (global-set-key [?\S- ] 'set-mark-command)
@@ -345,7 +351,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("p" htmlize-buffer "htmlize-buffer")
 ("P" htmlize-file "htmlize-file")
 ("C" (byte-recompile-directory "~/emacs-config") "byte-recomplie-directory")
-("h" (m-open-file "~/README.org") "README.org")
+("h" (m-open-file "~/my-emacs-config/README.org") "README.org")
 ("g" (m-open-doc "gtd.org") "GTD.org")
 ("t" (m-open-doc "todo.org") "todo.org")
 ("b" (m-open-doc "book.org") "book.org")

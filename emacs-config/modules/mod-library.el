@@ -322,7 +322,15 @@ occurence of CHAR."
   (delete-other-windows) 
   (m-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
-  (find-file (concat (getenv "ROOT") "/docs/" doc-name)) 
+  (find-file (concat (getenv "HOME") "/docs/" doc-name)) 
+  (delete-other-windows))
+
+(defun m-open-blog(doc-name) 
+  (interactive) 
+  (delete-other-windows) 
+  (m-show-compilation "*Messages*") 
+  (other-window 1) ;;(switch-window)
+  (find-file (concat (getenv "HOME") "/docs/github-pages/" doc-name)) 
   (delete-other-windows))
 
 (defun m-open-url(url) 
@@ -330,6 +338,20 @@ occurence of CHAR."
   ( m-show-compilation "*eww*") 
   (other-window 1) 
   (eww url))
+
+
+
+(defun m-find-file-doc() 
+  (interactive) 
+  (setq default-directory  (concat (getenv "HOME") "/docs/"))
+  (helm-find-files nil))
+
+(defun m-find-file-blog() 
+  (interactive) 
+  (setq default-directory  (concat (getenv "HOME") "/docs/github-pages/"))
+  (helm-find-files nil))
+
+
 
 (defun m-show-compilation(buffer-name &optional dont-return-old-buffer) 
   "shrink compile window, avoid compile window occupy 1/2 hight of whole window" 

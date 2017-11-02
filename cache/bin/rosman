@@ -2,23 +2,28 @@
 
 source /opt/ros/kinetic/setup.bash
 
+function find_string {    
+    grep $1 $2 >/dev/null
+    if [ $? -eq 0 ]; then
+	echo "Found!"
+	return $(( 1 ));
+    else
+	echo "Not found!"
+	return $(( 0 ));
+    fi
+}
+
 CATKIN_WS=~/catkin_ws
-# mkdir -p $1/src
-# echo dir:$1
-# cd $1/src
 
 if [ ! -d $CATKIN_WS ]; then
-    echo 1111-1
     mkdir -p $CATKIN_WS/src
     cd $CATKIN_WS/src
     catkin_init_workspace
     if [ -f ~/.bashrc ]; then
-	echo 111-2
 	source "$CATKIN_WS"/devel/setup.bash
 	echo "source "$CATKIN_WS"/devel/setup.bash" >> ~/.bashrc 
     fi
     if [ -f ~/.zshrc ]; then
-	echo 111-3
 	source "$CATKIN_WS"/devel/setup.zsh
 	echo "source "$CATKIN_WS"/devel/setup.zsh" >> ~/.zshrc 
     fi
