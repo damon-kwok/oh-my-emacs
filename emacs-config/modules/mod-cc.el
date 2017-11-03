@@ -36,7 +36,9 @@
 (package-require 'shader-mode)
 (autoload 'shader-mode "shader" nil t) ;;(require 'shader-mode)
 (add-to-list 'auto-mode-alist '("\\.shader$" . shader-mode))
+
 
+
 ;; `rtags'
 (package-require 'rtags)
 (require 'rtags)
@@ -59,6 +61,10 @@
 
 (package-require 'company-rtags)
 (require 'company-rtags)
+
+(define-key c-mode-base-map (kbd "M-.") 'rtags-find-symbol-at-point)
+(define-key c-mode-base-map (kbd "M-,") 'rtags-find-references-at-point)
+
 
 
 ;; `irony'
@@ -85,8 +91,8 @@
 (when (boundp 'w32-pipe-buffer-size) 
   (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
 
-;;(message irony-server-install-prefix)
 
+
 ;;`company-irony'
 (package-require 'company-irony)
 (require 'company-irony)
@@ -103,17 +109,19 @@
 (setq company-idle-delay 0)
 (define-key c-mode-map [(tab)] 'company-complete)
 (define-key c++-mode-map [(tab)] 'company-complete)
-
+(define-key objc-mode-map [(tab)] 'company-complete)
 
 (define-key c-mode-map (kbd "M-/")  'company-complete)
 (define-key c++-mode-map (kbd "M-/")  'company-complete)
 (define-key objc-mode-map (kbd "M-/")  'company-complete)
+
 
 
 ;; `flycheck'
 (package-require 'flycheck)
-(add-hook 'c++-mode-hook 'flycheck-mode)
 (add-hook 'c-mode-hook 'flycheck-mode)
+(add-hook 'c++-mode-hook 'flycheck-mode)
+(add-hook 'objc-mode-hook 'flycheck-mode)
 
 ;; `flycheck-rtags'
 (package-require 'flycheck-rtags)
@@ -127,10 +135,11 @@
 (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
 
 ;; `flycheck-clang-analyzer'
-(package-require 'flycheck-clang-analyzer)
-(with-eval-after-load 'flycheck 
-  (require 'flycheck-clang-analyzer) 
-  (flycheck-clang-analyzer-setup))
+;; (package-require 'flycheck-clang-analyzer)
+;; (with-eval-after-load 'flycheck 
+;;   (require 'flycheck-clang-analyzer)
+;;   (setq flycheck-clang-analyzer-executable "clang-3.9")
+;;   (flycheck-clang-analyzer-setup))
 
 ;; `flycheck-irony'
 (package-require 'flycheck-irony)
@@ -164,8 +173,12 @@
 	(kill-this-buffer))))
 
 (define-key c-mode-base-map [f6] 'create-cmake-file-or-close)
+
 
-(add-hook 'cc-mode-hook '(lambda() 
-			   (message (concat "you opened cc file:" (buffer-name)))))
+
+(add-hook 'cc-mode-hook '(lambda()
+			   (message (concat "you opened cc file:" (buffer-name)))
+			   
+			   ))
 ;;
 (provide 'mod-cc)
