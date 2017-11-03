@@ -57,7 +57,7 @@
 
 (package-require 'helm-rtags)
 (require 'helm-rtags)
-(setq rtags-use-helm t)
+;; (setq rtags-use-helm nil)
 
 (package-require 'company-rtags)
 (require 'company-rtags)
@@ -92,6 +92,10 @@
 (when (boundp 'w32-pipe-buffer-size) 
   (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
 
+;; `ironyeldoc'
+(package-require 'irony-eldoc)
+(add-hook 'irony-mode-hook #'irony-eldoc)
+
 
 
 ;;`company-irony'
@@ -100,11 +104,11 @@
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
 (setq company-backends (delete 'company-semantic company-backends))
 
-(package-require 'company-irony-c-headers)
-(require 'company-irony-c-headers)
-(eval-after-load 'company
-  '(add-to-list
-    'company-backends '(company-irony-c-headers company-irony)))
+;; (package-require 'company-irony-c-headers)
+;; (require 'company-irony-c-headers)
+;; (eval-after-load 'company
+;;   '(add-to-list
+;;     'company-backends '(company-irony-c-headers company-irony)))
 
 
 (setq company-idle-delay 0)
@@ -147,7 +151,13 @@
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
+;; `flycheck-clang-tidy'
+(package-require 'flycheck-clang-tidy)
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
+
 
+
 ;; `cmake'
 ;; `cmake-ide'
 ;; (package-require 'cmake-ide)
@@ -174,6 +184,20 @@
 	(kill-this-buffer))))
 
 (define-key c-mode-base-map [f6] 'create-cmake-file-or-close)
+
+
+
+;;; Syntax highlighting support for "`ModernC++'" - until `C++17' and Technical Specification.
+(package-require 'modern-cpp-font-lock)
+(require 'modern-cpp-font-lock)
+(modern-c++-font-lock-global-mode t)
+
+
+
+;; `format'
+;; (package-require 'clang-format)
+;; (require 'clang-format)
+;; (define-key c++-mode-map (kbd "C-M-") 'clang-format-region)
 
 
 
