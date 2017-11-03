@@ -64,6 +64,7 @@
 
 (define-key c-mode-base-map (kbd "M-.") 'rtags-find-symbol-at-point)
 (define-key c-mode-base-map (kbd "M-,") 'rtags-find-references-at-point)
+(define-key c-mode-base-map (kbd "C-x M-f") 'rtags-find-file)
 
 
 
@@ -107,9 +108,9 @@
 
 
 (setq company-idle-delay 0)
-(define-key c-mode-map [(tab)] 'company-complete)
-(define-key c++-mode-map [(tab)] 'company-complete)
-(define-key objc-mode-map [(tab)] 'company-complete)
+;; (define-key c-mode-map [(tab)] 'company-complete)
+;; (define-key c++-mode-map [(tab)] 'company-complete)
+;; (define-key objc-mode-map [(tab)] 'company-complete)
 
 (define-key c-mode-map (kbd "M-/")  'company-complete)
 (define-key c++-mode-map (kbd "M-/")  'company-complete)
