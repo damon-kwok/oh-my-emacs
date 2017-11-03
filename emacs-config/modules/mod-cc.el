@@ -43,11 +43,24 @@
 (package-require 'company-rtags)
 (require 'company-rtags)
 
+(setq rtags-completions-enabled t)
+(eval-after-load 'company '(add-to-list 'company-backends 'company-rtags))
+(setq rtags-autostart-diagnostics t)
+(rtags-enable-standard-keybindings)
+
+
 (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
 (add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
 (add-hook 'objc-mode-hook 'rtags-start-process-unless-running)
 
+(package-require 'helm-rtags)
+(require 'helm-rtags)
+(setq rtags-use-helm t)
+
+(package-require 'company-rtags)
+(require 'company-rtags)
 
+
 ;; `irony'
 (package-require 'irony)
 (autoload 'irony "irony" nil t) ;;(require 'irony)
@@ -58,20 +71,18 @@
 
 ;; replace the `completion-at-point' and `complete-symbol' bindings in
 ;; irony-mode's buffers by irony-mode's function
-(defun my-irony-mode-hook ()
-  (define-key irony-mode-map [remap completion-at-point]
-    'irony-completion-at-point-async)
-  (define-key irony-mode-map [remap complete-symbol]
-    'irony-completion-at-point-async))
+(defun my-irony-mode-hook () 
+  (define-key irony-mode-map [remap completion-at-point] 'irony-completion-at-point-async) 
+  (define-key irony-mode-map [remap complete-symbol] 'irony-completion-at-point-async))
 
 (add-hook 'irony-mode-hook 'my-irony-mode-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 ;; Windows performance tweaks
-(when (boundp 'w32-pipe-read-delay)
+(when (boundp 'w32-pipe-read-delay) 
   (setq w32-pipe-read-delay 0))
 ;; Set the buffer size to 64K on Windows (from the original 4K)
-(when (boundp 'w32-pipe-buffer-size)
+(when (boundp 'w32-pipe-buffer-size) 
   (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
 
 ;;(message irony-server-install-prefix)
@@ -79,20 +90,60 @@
 ;;`company-irony'
 (package-require 'company-irony)
 (require 'company-irony)
-(eval-after-load 'company '(add-to-list 'company-backends 'company-irony))
+(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+(setq company-backends (delete 'company-semantic company-backends))
+
+(package-require 'company-irony-c-headers)
+(require 'company-irony-c-headers)
+(eval-after-load 'company
+  '(add-to-list
+    'company-backends '(company-irony-c-headers company-irony)))
+
+
+(setq company-idle-delay 0)
+(define-key c-mode-map [(tab)] 'company-complete)
+(define-key c++-mode-map [(tab)] 'company-complete)
+
 
 (define-key c-mode-map (kbd "M-/")  'company-complete)
 (define-key c++-mode-map (kbd "M-/")  'company-complete)
 (define-key objc-mode-map (kbd "M-/")  'company-complete)
+
 
 ;; `flycheck'
 (package-require 'flycheck)
+(add-hook 'c++-mode-hook 'flycheck-mode)
+(add-hook 'c-mode-hook 'flycheck-mode)
+
+;; `flycheck-rtags'
+(package-require 'flycheck-rtags)
+(require 'flycheck-rtags)
+
+(defun my-flycheck-rtags-setup ()
+  (flycheck-select-checker 'rtags)
+  (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+  (setq-local flycheck-check-syntax-automatically nil))
+;; c-mode-common-hook is also called by c++-mode
+(add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
+
+;; `flycheck-clang-analyzer'
 (package-require 'flycheck-clang-analyzer)
-(with-eval-after-load 'flycheck
-  (require 'flycheck-clang-analyzer)
+(with-eval-after-load 'flycheck 
+  (require 'flycheck-clang-analyzer) 
   (flycheck-clang-analyzer-setup))
+
+;; `flycheck-irony'
+(package-require 'flycheck-irony)
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
 
 ;; `cmake'
+;; `cmake-ide'
+;; (package-require 'cmake-ide)
+;; (cmake-ide-setup)
+
+;; 
 (package-require 'cmake-font-lock)
 (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
 (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
@@ -114,8 +165,7 @@
 
 (define-key c-mode-base-map [f6] 'create-cmake-file-or-close)
 
-(add-hook 'cc-mode-hook 
-	  '(lambda()	    
-	     (message (concat "you opened cc file:" (buffer-name)))))
+(add-hook 'cc-mode-hook '(lambda() 
+			   (message (concat "you opened cc file:" (buffer-name)))))
 ;;
 (provide 'mod-cc)
