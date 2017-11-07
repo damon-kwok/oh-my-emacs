@@ -54,7 +54,9 @@
   (define-key elixir-mode-map (kbd "C-c C-z") 'show-elixir-mode-repl))
 
 
-;; A Flycheck checker that uses Mix, so it finds project deps.
+
+
+;; A `Flycheck' checker that uses Mix, so it finds project deps.
 ;; From https://github.com/ananthakumaran/dotfiles/blob/master/.emacs.d/init-elixir.el#L25-L42
 (with-eval-after-load "flycheck"
   ;;
@@ -78,6 +80,8 @@
 			     (message) line-end)) 
    :modes elixir-mode) 
   (add-to-list 'flycheck-checkers 'elixir-mix))
+
+
 
 (defun show-elixir-mode-repl() 
   (interactive) 

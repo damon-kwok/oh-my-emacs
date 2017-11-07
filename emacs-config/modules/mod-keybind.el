@@ -441,17 +441,17 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   (concat
    "^SPC^            ^Buffer^               ^Search^              ^UI|View^        ^AppWizard^^   "
    (get-major-mode-name)
-   "^
-^^^^^^^^^^^^-------------------------------------------------------------------------------------------------
-^^               _>_: goto-char-f       _G_: grep-project     _;_: <-Tab       _6_: Clojure   ^_1_:run^
-_b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->       _7_: Elixir    ^^ test
-_f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: <-Group     _8_: Rust      ^^ compile/build
-_m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: Group->     _9_: Ros       ^^ clean
-_w_: URLs  =>    _e_: mc/mark-all       _>_: goto-char-f      _=_: scale-inc   ^^Python       ^^
-^^               _r_: Reload|Refresh    _<_: goto-char-b      _-_: scale-dec   ^^Erlang       ^^
-_<tab>_: recent  _o_: kill-other-buffer ^^                    _z_: smart-do    ^^Kotlin       ^^
-^^^^^^^^^^^^-------------------------------------------------------------------------------------------------
-_<escape>_: Quit _0_: Calendar          ^^                    ^^                 ^^             ^^"))
+   "
+^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
+^^               _>_: goto-char-f       _G_: grep-project     _;_: <-Tab       _6_: Clojure   _1_:run   ^^
+_b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->       _7_: Elixir    ^^ test   ^^
+_f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: <-Group     _8_: Rust      ^^ build  ^^
+_m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: Group->     _9_: Ros       ^^ clean  ^^
+_w_: URLs  =>    _e_: mc/mark-all       _>_: goto-char-f      _=_: scale-inc   ^^Python       ^^        ^^
+^^               _r_: Reload|Refresh    _<_: goto-char-b      _-_: scale-dec   ^^Erlang       ^^        ^^
+_<tab>_: recent  _o_: kill-other-buffer ^^                    _z_: smart-do    ^^Kotlin       ^^        ^^
+^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
+_<escape>_: Quit _0_: Calendar          ^^                    ^^               ^^             ^^        ^^"))
 
 ;;; `C-SPC'
 (defhydra hydra-do-super 

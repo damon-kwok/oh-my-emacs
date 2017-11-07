@@ -1,0 +1,1 @@
+<node name="${1:nodename}" pkg="${2:pkgname}" type="$1"/>

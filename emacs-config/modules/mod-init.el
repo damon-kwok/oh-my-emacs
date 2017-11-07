@@ -59,7 +59,8 @@
 (module-require 'mod-cc)
 (module-require 'mod-py)
 ;; (module-require 'mod-slime)
-
+(module-require 'mod-ros)
+(module-require 'mod-git)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;(if (or (eq system-type 'windows-nt)
 ;;	(eq system-type 'ms-dos))

@@ -29,7 +29,7 @@
 
 ;; 自动换行
 (add-hook 'org-mode-hook (lambda () 
-			   (setq truncate-lines nil)
+			   (setq truncate-lines nil) 
 			   (org-display-inline-images t t)))
 
 (setq org-todo-keywords '((sequence "TODO" "DOING" "DONE")))
@@ -47,31 +47,82 @@
 			   (org-defkey org-mode-map "\M-/"  'org-metadown) 
 			   (org-defkey org-mode-map "\M-;"    'org-metaleft) 
 			   (org-defkey org-mode-map "\M-'"  'org-metaright)))
-			   ;; (org-defkey org-mode-map "C-c C-z" 'org-export-dispatch)))
+;; (org-defkey org-mode-map "C-c C-z" 'org-export-dispatch)))
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
-;; `insert-source'
-;; (org-babel-do-load-languages 'org-babel-load-languages '((sh . t)
-;; (python . t)
-;; (R . t)
-;; (ruby . t)
-;; (ditaa . t)
-;; (dot . t)
-;; (octave . t)
-;; (sqlite . t)
-;; (perl . t)
-;; (C . t)
-;; (Elixir .t)))
+
 
+;; `Babel-Languages'
+(package-require 'ob-elixir)
+(package-require 'ob-browser)
+(package-require 'ob-crystal)
+(package-require 'ob-go)
+(package-require 'ob-kotlin)
+(package-require 'ob-ipython)
+(package-require 'ob-lfe)
+(package-require 'ob-crystal)
+(package-require 'ob-fsharp)
+(package-require 'ob-http)
+(package-require 'ob-nim)
+(package-require 'ob-php)
+(package-require 'ob-prolog)
+(package-require 'ob-rust)
+(package-require 'ob-swift)
+(package-require 'ob-dart)
+(package-require 'ob-coffee)
+(package-require 'ob-coffeescript)
+(package-require 'ob-hy)
+(package-require 'ob-typescript)
+(org-babel-do-load-languages 'org-babel-load-languages '((shell . t)
+							 (octave . t) 
+							 (ditaa . t) 
+							 (dot . t) 
+							 (sql . t)
+							 (sqlite . t)
+							 (makefile . t)
+							 (org . t) 
+							 (latex . t)
+							 (browser . t)
+							 (java . t)
+							 (go . t)
+							 (crystal . t)
+							 (kotlin . t)
+							 (js . t)
+							 (typescript . t)
+							 (python . t)
+							 (ipython . t)
+							 (perl . t) 
+							 (ruby . t)
+							 (groovy . t)
+							 (matlab . t) 
+							 (R . t) 
+							 (lisp . t) 
+							 (emacs-lisp .t) 
+							 (clojure .t)
+							 (hy . t)
+							 (ocaml . t) 
+							 (haskell . t) 
+							 (elixir .t)
+							 (lfe . t)
+							 (fsharp . t)
+							 (http . t)
+							 (nim . t)
+							 (php . t)
+							 (prolog . t)
+							 (rust . t)
+							 (swift . t)
+							 (dart . t)
+							 (coffee . t)
+							 (coffeescript . t)))
+
+
 
 (require 'ox-publish)
 (setq org-publish-project-alist '(
-
-				  ;; 把各部分的配置文件写到这里面来
 				  ("blog-notes" :base-directory "~/docs/github-pages/" 
 				   :base-extension "org" 
 				   :publishing-directory "~/blog/" 
@@ -86,15 +137,13 @@
 				   :sitemap-filename "sitemap.org" ; ... call it sitemap.org (it's the default)...
 				   :sitemap-title "Sitemap" ; ... with title 'Sitemap'.
 				   :sitemap-sort-files anti-chronologically 
-				   :sitemap-file-entry-format "%d %t")
-
+				   :sitemap-file-entry-format "%d %t") 
 				  ("blog-static" :base-directory "~/docs/github-pages/" 
 				   :base-extension
-				   "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf" 
+				   "css\\|js\\|png\\|jpg\\|bmp\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|ico" 
 				   :publishing-directory "~/blog/" 
 				   :recursive t 
-				   :publishing-function org-publish-attachment)
-
+				   :publishing-function org-publish-attachment) 
 				  ("blog" :components ("blog-notes" "blog-static"))))
 (setq org-html-validation-link nil)
 ;;

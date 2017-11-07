@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="${1:nodename}" pkg="${2:pkgname}" type="$1"/>
+  <node name="${3:nodename}" pkg="${4:pkgname}" type="$3"/>
+</launch>

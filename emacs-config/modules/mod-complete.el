@@ -179,6 +179,7 @@
 (define-auto-insert "\\.py" "python-mode/auto-insert")
 (define-auto-insert "\\.js" "js-mode/auto-insert")
 (define-auto-insert "\\.cs" "csharp-mode/auto-insert")
+(define-auto-insert "\\.launch" "nxml-mode/auto-insert.launch")
 
 (defadvice auto-insert  (around yasnippet-expand-after-auto-insert activate) 
   "expand auto-inserted content as yasnippet templete,
