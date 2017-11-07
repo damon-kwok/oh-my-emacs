@@ -26,6 +26,11 @@
 ;;;
 (package-require 'magit)
 (require 'magit)
+
+;; (package-require 'magithub)
+;; (use-package magithub
+;;   :after magit
+;;   :config (magithub-feature-autoinject t))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-git)
 ;;; mod-git.el ends here

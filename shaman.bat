@@ -418,7 +418,7 @@ goto:eof
 
 :install-toolchain
 pacman -Syyu
-pacman -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion camke
+pacman -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
 pacman -S python2-pip ipython perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-nodejs
 pacman -S mingw-w64-x86_64-ocaml ttf-bitstream-vera #mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
 

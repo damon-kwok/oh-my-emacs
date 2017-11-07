@@ -158,6 +158,12 @@
   (interactive) 
   (package-update) 
   (package-upgrade)) ;;(package-autoremove)
+
+
+
+;; `use-package'
+(package-require 'use-package)
+(require 'use-package)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 (provide 'mod-package)

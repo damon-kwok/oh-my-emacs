@@ -1,0 +1,2 @@
+(package-require '${1:pkg})
+(require '$1)
