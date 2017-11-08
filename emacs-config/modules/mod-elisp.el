@@ -78,7 +78,7 @@
   (show-elisp-repl) 
   (switch-to-buffer-other-window temp-elisp-buffer-name))
 
-
+;;; 
 (defun compile-current-buffer() 
   (interactive)
   (kill-buffer (get-buffer "*Compile-Log*"))
@@ -96,6 +96,8 @@
 (define-key emacs-lisp-mode-map (kbd "C-c C-c")  'compile-current-buffer)
 (define-key emacs-lisp-mode-map (kbd "C-c C-k")  'eval-buffer)
 (define-key emacs-lisp-mode-map (kbd "C-M-\\")  'elisp-code-format)
+;;; `comment-toggle' M-;
+(define-key paredit-mode-map (kbd "M-;") 'm-comment-or-uncomment-region-or-line)
 
 ;;
 (provide 'mod-elisp)

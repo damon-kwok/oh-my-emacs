@@ -16,25 +16,17 @@ function find-str {
     fi
 }
 
-function kill-process {
-    
-}
-
-function find-file {
-    
-}
-
 # smart-rtags $void
-function smart-rtags {
+function auto-gen-rtags {
     dir=`pwd`
     echo this dir:$dir
 
     # check rdm launche status
     
     if [ -e 'CMakeLists.txt' ]; then
-	if [ ! -d 'ratgs-cache' ]; then
-	    mkdir -p rtags-cache
-	    cd rtags-cache/
+	if [ ! -d 'ratgs-indexes' ]; then
+	    mkdir -p rtags-indexes
+	    cd rtags-indexes/
 	    cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 	    rc -J .
 	    cd ..
@@ -42,7 +34,7 @@ function smart-rtags {
     else
 	cd ..
 	if [ ! "/"=`pwd` ]; then
-	    smart-rtags	    
+	    auto-gen-rtags	    
 	fi
     fi
 }
@@ -52,7 +44,15 @@ function find-camke {
     
 }
 
-function test-dir {
+function kill-process {
+    
+}
+
+function find-file {
+    
+}
+
+function env-dir {
     if [ ! "/"=`pwd` ]; then
 	echo "dir:/"
     else

@@ -217,14 +217,14 @@ function install-toolchain {
 	    ;;
 	2)
 	    yaourt -Syyu
-	    yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion silversearcher
+	    yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
 	    yaourt -S python2-pip ipython perl rubygems nodejs ocaml haskell-stack-git leiningen elixir cargo rebar3 openjdk-9-jdk ttf-bitstream-vera-dummy oh-my-zsh-git
 	    sudo pip install rope jedi flake8 importmagic autopep8 yapf
 	    ;;
 	3)
 	    sudo dnf update
 	    sudo dnf groupinstall "Development Tools and Libraries"
-	    sudo dnf install coreutils diffutils zsh wget curl zip unzip git subversion silversearcher-ag
+	    sudo dnf install coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
 	    sudo dnf install python2-pip ipython perl rubygems nodejs-legacy ocaml haskell-stack leiningen elixir cargo rebar  openjdk-9-jdk ttf-bitstream-vera
 	    sudo pip install rope jedi flake8 importmagic autopep8 yapf
 	    #oh-my-zsh
@@ -232,7 +232,7 @@ function install-toolchain {
 	    ;;
 	4)
 	    brew update
-	    brew install coreutils diffutils zsh wget curl zip unzip git subversion silversearcher-ag
+	    brew install coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
 	    brew install python2-pip ipython perl rubygems nodejs-legacy ocaml haskell-stack leiningen elixir cargo rebar ttf-bitstream-vera
 	    pip install rope jedi flake8 importmagic autopep8 yapf
 	    #oh-my-zsh

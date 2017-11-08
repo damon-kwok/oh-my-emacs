@@ -77,8 +77,9 @@
 
 (global-set-key (kbd "C-M-'") 'tabbar-forward)
 (global-set-key (kbd "C-M-;") 'tabbar-backward)
+
 (global-set-key (kbd "C-M-[") 'm-tabbar-forward-group)
-;;(global-set-key (kbd "C-M-]") 'tabbar-backward-group)
+(global-set-key (kbd "C-M-/") 'm-tabbar-backward-group)
 
 (global-set-key (kbd "<backtab>") 
 		'(lambda () 

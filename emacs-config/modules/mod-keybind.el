@@ -28,7 +28,6 @@
 ;; mac-command-key-is-meta t
 ;; mac-command-modifier 'meta
 ;; mac-option-modifier 'none)
-
 
 ;; `repl'
 (defun show-global-repl() 
@@ -46,14 +45,37 @@
   (show-global-repl) 
   (switch-to-buffer-other-window temp-global-buffer-name))
 
+(add-hook 'sh-mode-hook '(lambda()
+			   ;;	     (message (concat "you opened cc file:" (buffer-name)))
+			   (define-key sh-mode-map (kbd "C-c C-z")  'show-global-repl)))
+
+(global-set-key (kbd "C-c C-s") 'show-global-repl)
 (global-set-key (kbd "C-c C-z") 'show-global-repl)
-(add-hook 'sh-mode-hook 
-	  '(lambda()	    
-;;	     (message (concat "you opened cc file:" (buffer-name)))
-	     (define-key sh-mode-map (kbd "C-c C-z")  'show-global-repl)))
 (define-key shell-mode-map (kbd "C-c C-z")  'show-global-workbuffer)
 
 
+;; `anzu' https://github.com/syohex/emacs-anzu
+(package-require 'anzu)
+(require 'anzu)
+
+(global-anzu-mode +1)
+(global-set-key [remap query-replace] 'anzu-query-replace)
+(global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp)
+
+(set-face-attribute 'anzu-mode-line nil 
+		    :foreground "yellow" 
+		    :weight 'bold)
+
+(custom-set-variables '(anzu-mode-lighter "") 
+		      '(anzu-deactivate-region t) 
+		      '(anzu-search-threshold 1000) 
+		      '(anzu-replace-threshold 50) 
+		      '(anzu-replace-to-string-separator " => "))
+
+(define-key isearch-mode-map [remap isearch-query-replace] #'anzu-isearch-query-replace)
+(define-key isearch-mode-map [remap isearch-query-replace-regexp] #'anzu-isearch-query-replace-regexp)
+
+
 (global-set-key (kbd "M-RET") 'toggle-frame-fullscreen)
 (global-set-key (kbd "C-\\") 'toggle-input-method)
 ;; (global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-super ;; (global-set-key [?\S- ] 'set-mark-command)
@@ -129,8 +151,7 @@
 ;; `page-break-lines'
 (package-require 'page-break-lines)
 (require 'page-break-lines)
-(global-page-break-lines-mode)
-
+(global-page-break-lines-mode) 
 ;;; Swiper
 ;; (package-require 'swiper)
 ;; (require 'swiper)
@@ -455,8 +476,8 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^               ^
 
 ;;; `C-SPC'
 (defhydra hydra-do-super 
-  (:color blue)
-  (concat "" (get-super-menu-string))
+  (:color blue) 
+  (concat "" (get-super-menu-string)) 
   ("b" (hydra-show-buffer/body) "buffer") 
   ("f" (hydra-open-file/body) "file") 
   ("m" (hydra-open-config/body) "module") 
@@ -541,8 +562,7 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^               ^
 (define-key paredit-mode-map (kbd "C-<left>") 'paredit-backward-slurp-sexp)
 (define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
 (define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
-(define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
-
+(define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp) 
 
 ;;
 (provide 'mod-keybind)
