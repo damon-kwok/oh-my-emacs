@@ -563,6 +563,9 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^               ^
 (define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
 (define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
 (define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp) 
+(package-require 'helpful)
+(require 'helpful)
+
 
 ;;
 (provide 'mod-keybind)

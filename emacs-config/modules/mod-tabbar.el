@@ -166,79 +166,121 @@
 ;; (set-face-attribute 'tabbar-default nil
 ;; 		    ;; :family "DejaVu Sans Mono"
 ;; 		    ;;:inherit 'tabbar-default
-;; 		    :foreground "navy" 
-;; 		    :background "gray" 
+;; 		    :foreground "navy"
+;; 		    :background "gray"
 ;; 		    :height 1.0)
 
-;; (set-face-attribute 'tabbar-button nil 
-;; 		    :inherit 'tabbar-default 
-;; 		    :foreground "navy" 
-;; 		    :background "gray" 
-;; 		    :box '(:line-width 1 
-;; 				       :color "#330000") 
-;; 		    :overline "#330000" 
-;; 		    :underline "gray" 
+;; (set-face-attribute 'tabbar-button nil
+;; 		    :inherit 'tabbar-default
+;; 		    :foreground "navy"
+;; 		    :background "gray"
+;; 		    :box '(:line-width 1
+;; 				       :color "#330000")
+;; 		    :overline "#330000"
+;; 		    :underline "gray"
 ;; 		    :weight 'bold)
 
-;; (set-face-attribute 'tabbar-unselected nil 
-;; 		    :inherit 'tabbar-default 
-;; 		    :foreground "navy" 
-;; 		    :background "gray" 
-;; 		    :box '(:line-width 1 
-;; 				       :color "#330000") 
-;; 		    :overline "#330000" 
-;; 		    :underline "gray" 
+;; (set-face-attribute 'tabbar-unselected nil
+;; 		    :inherit 'tabbar-default
+;; 		    :foreground "navy"
+;; 		    :background "gray"
+;; 		    :box '(:line-width 1
+;; 				       :color "#330000")
+;; 		    :overline "#330000"
+;; 		    :underline "gray"
 ;; 		    :weight 'normal)
 
+;; (set-face-attribute 'tabbar-selected nil
+;; 		    :inherit 'tabbar-default
+;; 		    :foreground "gold"
+;; 		    :background "navy"
+;; 		    :box '(:line-width 1
+;; 				       :color "#330000")
+;; 		    :overline "#330000"
+;; 		    :underline "navy"
+;; 		    :weight 'bold)
+
+;;; python
+;; (set-face-attribute 'tabbar-default nil
+;; 		    ;; :family "DejaVu Sans Mono"
+;; 		    ;;:inherit 'tabbar-default
+;; 		    :foreground "#b0bec5" 
+;; 		    :background "#263238" 
+;; 		    :height 1.0)
+;; (set-face-attribute 'tabbar-button nil 
+;; 		    :inherit 'tabbar-default 
+;; 		    :foreground "#b0bec5" ;;#85A5A5
+;; 		    :background "#263238" 
+;; 		    :box '(:line-width 1 
+;; 				       :color "#8a8a8a") 
+;; 		    :overline "#263238" 
+;; 		    :underline "#263238")
+;; (set-face-attribute 'tabbar-unselected nil 
+;; 		    :inherit 'tabbar-default 
+;; 		    :foreground "#b0bec5" 
+;; 		    :background "#263238" 
+;; 		    :box '(:line-width 1 
+;; 				       :color "#8a8a8a") 
+;; 		    :overline "#263238" 
+;; 		    :underline "#263238" 
+;; 		    :weight 'normal)
 ;; (set-face-attribute 'tabbar-selected nil 
 ;; 		    :inherit 'tabbar-default 
 ;; 		    :foreground "gold" 
-;; 		    :background "navy" 
-;; 		    :box '(:line-width 1
-;; 				       :color "#330000") 
-;; 		    :overline "#330000" 
-;; 		    :underline "navy" 
+;; 		    :background "#263238" 
+;; 		    :box '(:line-width 1 
+;; 				       :color "#8a8a8a") 
+;; 		    :overline "#263238" 
+;; 		    :underline "#263238" ;;#9ccc65
 ;; 		    :weight 'bold)
+
 
+(defmacro def-tabbar-color 
+    (foreground background foreground-selected background-selected boxcolor overline underline) 
+  (set-face-attribute 'tabbar-default nil
+		      :family "Bitstream Vera Sans Mono-10"
+		      ;; :family "DejaVu Sans Mono"
+		      :foreground foreground 
+		      :background background 
+		      ;; :box '(:line-width 1  :color boxcolor) 
+		      :height 1.0)
+  
+  (set-face-attribute 'tabbar-button nil 
+		      :inherit 'tabbar-default 
+		      :foreground foreground
+		      :background background 
+		      :overline overline 
+		      :underline underline)
+  
+  (set-face-attribute 'tabbar-unselected nil 
+		      :inherit 'tabbar-default 
+		      :foreground foreground 
+		      :background background
+		      :box '(:line-width 1
+					 :color boxcolor
+					 ;;:style released-button
+					 ) 
+		      :overline overline 
+		      :underline underline 
+		      :weight 'normal)
+  
+  (set-face-attribute 'tabbar-selected nil 
+		      :inherit 'tabbar-default 
+		      :foreground foreground-selected 
+		      :background background-selected 
+		      :box '(:line-width 1
+					 :color boxcolor
+					 ;;:style pressed-button
+					 ) 
+		      :overline overline 
+		      :underline underline
+		      :weight 'bold))
 
-;;; python
-(set-face-attribute 'tabbar-default nil
-		    ;; :family "DejaVu Sans Mono"
-		    ;;:inherit 'tabbar-default
-		    :foreground "#b0bec5" 
-		    :background "#263238" 
-		    :height 1.0)
+;; (set-face-attribute 'tabbar-separator nil
+		    ;; :weight 'bold)
 
-(set-face-attribute 'tabbar-button nil 
-		    :inherit 'tabbar-default 
-		    :foreground "#b0bec5" ;;#85A5A5
-		    :background "#263238" 
-		    :box '(:line-width 1 
-				       :color "#8a8a8a") 
-		    :overline "#263238" 
-		    :underline "#263238" 
-		    :weight 'bold)
-
-(set-face-attribute 'tabbar-unselected nil 
-		    :inherit 'tabbar-default 
-		    :foreground "#b0bec5" 
-		    :background "#263238" 
-		    :box '(:line-width 1 
-				       :color "#8a8a8a") 
-		    :overline "#263238" 
-		    :underline "#263238" 
-		    :weight 'normal)
-
-(set-face-attribute 'tabbar-selected nil 
-		    :inherit 'tabbar-default 
-		    :foreground "#9ccc65" 
-		    :background "#263238" 
-		    :box '(:line-width 1
-				       :color "#8a8a8a") 
-		    :overline "#263238" 
-		    :underline "#9ccc65" 
-		    :weight 'bold)
-
+(def-tabbar-color "#b0bec5" "#263238" "gold" "#263238" "#8a8a8a" "#263238" "#263238")
+;; (def-tabbar-color "navy" "gray" "gold" "navy" "red" "gray" "gray")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (setq tabbar-buffer-groups-function 'tabbar-ruler-projectile-tabbar-buffer-groups)
 (defun tabbar-buffer-groups () 
