@@ -26,6 +26,20 @@ DIR_LLVM=$ROOT/dev/llvm
 
 ################################################################################
 
+function readp {
+    read -p "$1(Y/n)" c
+    if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
+	return $(( 1 ));
+    elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
+	return $(( 0 ));
+    else
+	echo "invalid input:$c"
+	readp "$1"
+    fi
+}
+
+################################################################################
+
 function link-init-el() {
     cp -rf $ROOT/emacs-config/init.el $HOME/.emacs
 }
@@ -115,9 +129,14 @@ function push {
     git pull
     git add .
     git status
-    read -p "please enter commit message:" msg
-    echo "commit: $msg"
-    git commit -m "$msg"
+
+    readp "auto commit?"
+    if [ $? -eq 1 ]; then
+	git commit -m `date +%Y-%m-%d@%H-%M-%S`
+    else
+	read -p "please enter commit message:" msg
+	git commit -m "$msg"
+    fi
     git push -u origin master
 }
 
@@ -269,10 +288,29 @@ function install-toolchain {
     esac
 }
 
+function svn-commit {
+    svn add *
+    svn add */*
+    svn add */*/*
+    svn add */*/*/*
+    svn add */*/*/*/*
+    svn status
+
+    readp "auto commit?"
+    if [ $? -eq 1 ]; then
+	svn commit -m `date +%Y-%m-%d@%H-%M-%S`
+    else
+	read -p "please enter commit message:" msg
+	svn commit -m "$msg"
+    fi
+}
+
 function ask-blog {
     echo "please choose your choice:"
     echo "    1) pull-blog"
     echo "    2) push-blog"
+    echo "    3) commit-docs"
+    echo "    4) commit-project"
     echo "    s) shell"    
     echo ------------------------------------
     echo "    r) return"
@@ -281,6 +319,14 @@ function ask-blog {
     case $item in
 	1) pull-blog;;
 	2) push-blog;;
+	3)
+	    cd ~/docs/
+	    svn-commit
+	    ;;
+	4)
+	    # cd ~/projects/
+	    # svn-commit
+	    ;;
 	s|S) zsh;;
 	r|R) ask-menu;;
 	*) ask-blog;;

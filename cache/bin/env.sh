@@ -9,10 +9,10 @@ function find-str {
     grep $1 $2 >/dev/null
     if [ $? -eq 0 ]; then
 	echo "Found!"
-	return $true #$(( $true ));
+	return $(( 1 ));
     else
 	echo "Not found!"
-	return $false #$(( $false ));
+	return $(( 0 ));
     fi
 }
 
@@ -33,7 +33,7 @@ function auto-gen-rtags {
 	fi
     else
 	cd ..
-	if [ ! "/"=`pwd` ]; then
+	if [ ! "/" == `pwd` ]; then
 	    auto-gen-rtags	    
 	fi
     fi
@@ -41,28 +41,43 @@ function auto-gen-rtags {
 
 # check install:rtags irony-server
 function find-camke {
-    
+    echo 111
 }
 
 function kill-process {
-    
+    echo 222
 }
 
 function find-file {
-    
+    echo 333
 }
 
-function env-dir {
-    if [ ! "/"=`pwd` ]; then
-	echo "dir:/"
+function dirp {
+    dir=`pwd`
+    if [ ! "/" == "$dir" ]; then
+	echo "dir is "`pwd`
     else
-	echo "dir:"`pwd`
+	echo "dir is root"
     fi
 }
 
-find-str "devel0" ~/.bashrc
-if [ $? ]; then
-    echo "haha:"$?
-else
-    echo "hoho:"$?
-fi
+dirp
+
+# find-str "devel" ~/.bashrc
+# if [ $? -eq 1 ]; then
+    # echo "found:"$?
+# else
+    # echo "not-found:"$?
+# fi
+
+function readp {
+    read -p "$1(Y/n)" c
+    echo "your input:$c"
+    if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
+	echo yes!!!
+    elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
+	 echo no!!!!
+    else
+	readp $1
+    fi
+}
