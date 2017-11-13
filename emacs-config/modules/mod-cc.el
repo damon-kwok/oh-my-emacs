@@ -201,10 +201,9 @@
 
 
 
-(add-hook 'cc-mode-hook '(lambda()
+(add-hook 'c++-mode-hook '(lambda()
 			   (message (concat "you opened cc file:" (buffer-name)))
 			   ;; find CmakeLists.txt & gen rtags indexes
-			   ;; (m-run-command "gen-rtags.sh" )
-			   ))
+			   (m-run-command (concat (getenv "HOME")  "/my-emacs-config/cache/bin/gen-rtags.sh"))))
 ;;
 (provide 'mod-cc)
