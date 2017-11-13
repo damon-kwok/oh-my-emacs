@@ -274,7 +274,7 @@
 					 ) 
 		      :overline overline 
 		      :underline underline
-		      :weight 'bold))
+		      :weight 'normal)) ;;bold
 
 ;; (set-face-attribute 'tabbar-separator nil
 		    ;; :weight 'bold)

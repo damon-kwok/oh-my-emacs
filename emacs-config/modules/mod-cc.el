@@ -204,6 +204,7 @@
 (add-hook 'cc-mode-hook '(lambda()
 			   (message (concat "you opened cc file:" (buffer-name)))
 			   ;; find CmakeLists.txt & gen rtags indexes
+			   ;; (m-run-command "gen-rtags.sh" )
 			   ))
 ;;
 (provide 'mod-cc)
