@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # DIRNAME=`dirname "$0"`
-# ROOT=`cd "$DIRNAME"; pwd`
-ROOT_NAME=my-emacs-config
-ROOT=`cd ~/$ROOT_NAME; pwd`
-echo "ROOT="`pwd`
-export PATH=$ROOT:$PATH
+# SHAMAN_ROOT=`cd "$DIRNAME"; pwd`
+SHAMAN_DIR_NAME=my-emacs-config
+SHAMAN_ROOT=`cd ~/$SHAMAN_DIR_NAME; pwd`
+echo "SHAMAN_ROOT="`pwd`
+export PATH=$SHAMAN_ROOT:$PATH
 
-CACHE=$ROOT/cache
+CACHE=$SHAMAN_ROOT/cache
 APP_HOME=$CACHE/apps
 ZIP_HOME=$CACHE/apps-zip
 export PATH=$CACHE/bin:$PATH
@@ -18,11 +18,11 @@ fi
 
 PROJECT_BLOG=demo-kwok.github.io
 
-DIR_BLOG=$ROOT/blog
-DIR_DOC=$ROOT/docs
-DIR_PROJECT=$ROOT/project
-DIR_LLVM_WHERE=$ROOT/dev
-DIR_LLVM=$ROOT/dev/llvm
+DIR_BLOG=$SHAMAN_ROOT/blog
+DIR_DOC=$SHAMAN_ROOT/docs
+DIR_PROJECT=$SHAMAN_ROOT/project
+DIR_LLVM_WHERE=$SHAMAN_ROOT/dev
+DIR_LLVM=$SHAMAN_ROOT/dev/llvm
 
 ################################################################################
 
@@ -41,7 +41,7 @@ function readp {
 ################################################################################
 
 function link-init-el() {
-    cp -rf $ROOT/emacs-config/init.el $HOME/.emacs
+    cp -rf $SHAMAN_ROOT/emacs-config/init.el $HOME/.emacs
 }
 
 function run-emacs {
@@ -62,21 +62,21 @@ function run-emacs-nw {
 }
 
 function delete-etc {
-    cd $ROOT/emacs-config/modules
+    cd $SHAMAN_ROOT/emacs-config/modules
     rm -rf *.elc
-    cd $ROOT
+    cd $SHAMAN_ROOT
 }
 
 function pull {
     echo "func::pull"
-    cd $ROOT
+    cd $SHAMAN_ROOT
     git reset
     git pull
 }
 
 function pull-blog {
     echo "func::pull-blog"
-    cd $ROOT
+    cd $SHAMAN_ROOT
     git reset
     git pull
 
@@ -109,25 +109,25 @@ function pull-blog {
     #for linux
     echo link
     # if [ ! -f /usr/bin/shaman ]; then
-	# sudo ln -s $ROOT/shaman /usr/bin/shaman
+	# sudo ln -s $SHAMAN_ROOT/shaman /usr/bin/shaman
     # fi
 
     if [ ! -d ~/docs ]; then
-	ln -s $ROOT/docs ~/docs
+	ln -s $SHAMAN_ROOT/docs ~/docs
     fi
 
     if [ ! -d ~/blog ]; then
-	ln -s $ROOT/blog ~/blog
+	ln -s $SHAMAN_ROOT/blog ~/blog
     fi
 
     if [ ! -d ~/project ]; then
-	ln -s $ROOT/project ~/project
+	ln -s $SHAMAN_ROOT/project ~/project
     fi
 }
 
 function push {
     echo "func:push"
-    cd $ROOT
+    cd $SHAMAN_ROOT
     git reset
     git pull
     git add .
@@ -145,7 +145,7 @@ function push {
 
 function push-a {
     echo "func::push-a"
-    cd $ROOT    
+    cd $SHAMAN_ROOT    
     git reset
     git pull
     git add .
@@ -157,7 +157,7 @@ function push-a {
 
 function push-blog {
     echo "func::push-blog"
-    cd $ROOT/blog
+    cd $SHAMAN_ROOT/blog
     git reset
     git pull
     git add .
@@ -177,7 +177,7 @@ function zipapp {
     sleep 1s
     rm -rf apps.zip
 
-    cd $ROOT
+    cd $SHAMAN_ROOT
 }
 
 function unzipapp {
@@ -190,7 +190,7 @@ function unzipapp {
     rm -rf apps.zip
     mv apps ..
 
-    cd $ROOT
+    cd $SHAMAN_ROOT
 }
 
 function pushapp {
@@ -233,7 +233,7 @@ function install-toolchain {
 	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 	    # install: lien
-	    cd $ROOT/cache/bin
+	    cd $SHAMAN_ROOT/cache/bin
 	    curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 	    chmod +x ./lein
 	    ;;
@@ -267,7 +267,7 @@ function install-toolchain {
 	    pacman -S mingw-w64-x86_64-ocaml ttf-bitstream-vera #mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
 
 	    # install: lien
-	    cd $ROOT/cache/bin
+	    cd $SHAMAN_ROOT/cache/bin
 	    curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
 	    curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 	    chmod +x ./lein
@@ -277,18 +277,26 @@ function install-toolchain {
 	    # install: elixir && erlang-nox
 
 	    # rebar3
-	    # cd $ROOT/cache/bin
+	    # cd $SHAMAN_ROOT/cache/bin
 	    # wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
 
 	    # oh-my-zsh
 	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-	    # pip
-	    pip install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
 	    ;;
 	r | R) ask-menu;;
 	*) ask-repl;;
     esac
+
+    # pip
+    pip install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
+
+    #haskell
+    if [ ! -d "~/.stack/" ]; then
+	mkdir ~/.stack/
+	cp $SHAMAN_ROOT/cache/bin/config.yaml ~/.stack/
+    fi
+
 }
 
 function svn-commit {
@@ -357,7 +365,7 @@ function ask-repl {
 }
 
 function ask-menu {
-    cd $ROOT
+    cd $SHAMAN_ROOT
     #echo "func::ask-menu"
     # echo "    0) ask-blog"
     echo "    1) pull"

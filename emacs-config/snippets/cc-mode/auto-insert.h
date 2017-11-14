@@ -2,7 +2,7 @@
 //
 // Copyright (C) 2015-`(format-time-string "%Y")` Damon Kwok
 //
-// Author: `(user-login-name)` <DamonKwok@msn.com>
+// Author: `(user-login-name)` <damon-kwok@outlook.com>
 // Date: `(format-time-string "%Y-%m-%d")`
 //
 // This program is free software; you can redistribute it and/or modify

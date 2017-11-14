@@ -22,10 +22,10 @@ REM
 REM Code:
 REM
 cd /d %~dp0%
-set ROOT=%CD%
-set PATH=%ROOT%;%PATH%
+set SHAMAN_ROOT=%CD%
+set PATH=%SHAMAN_ROOT%;%PATH%
 
-set DIR_CACHE=%ROOT%\cache
+set DIR_CACHE=%SHAMAN_ROOT%\cache
 set APP_HOME=%DIR_CACHE%\apps
 set ZIP_HOME=%DIR_CACHE%\apps-zip
 
@@ -35,15 +35,15 @@ if not exist %DIR_CACHE% (
    mkdir %DIR_CACHE%
 )
 
-set DIR_BLOG=%ROOT%/blog
-set DIR_DOC=%ROOT%/docs
-set DIR_PROJECT=%ROOT%/project
-set DIR_DEV=%ROOT%/dev
-set DIR_LLVM_WHERE=%ROOT%/dev
-set DIR_LLVM=%ROOT%/dev/llvm
+set DIR_BLOG=%SHAMAN_ROOT%/blog
+set DIR_DOC=%SHAMAN_ROOT%/docs
+set DIR_PROJECT=%SHAMAN_ROOT%/project
+set DIR_DEV=%SHAMAN_ROOT%/dev
+set DIR_LLVM_WHERE=%SHAMAN_ROOT%/dev
+set DIR_LLVM=%SHAMAN_ROOT%/dev/llvm
 
 rem set HOME=%USERPATH%
-set HOME=%ROOT%
+set HOME=%SHAMAN_ROOT%
 
 set PROJECT_BLOG=damon-kwok.github.io
 
@@ -172,39 +172,39 @@ goto:eof
 REM%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 :link-init-el
-rem set HOME=%ROOT%
+rem set HOME=%SHAMAN_ROOT%
 rem set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
 rem set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
-copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
+copy /y %SHAMAN_ROOT%\emacs-config\init.el %HOME%\.emacs
 goto:eof
 
 :open
-rem set HOME=%ROOT%
+rem set HOME=%SHAMAN_ROOT%
 rem set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
 rem set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
 rem goto:%1
 rem start %EMACS_BIN%\runemacs.exe --debug-init %1
-"%ROOT%/cache/apps/emacs/bin/emacsclientw.exe" --server-file "%ROOT%/.emacs.d/server/server" --no-wait --alternate-editor="%ROOT%/cache/apps/emacs/bin/runemacs.exe" %1
+"%SHAMAN_ROOT%/cache/apps/emacs/bin/emacsclientw.exe" --server-file "%SHAMAN_ROOT%/.emacs.d/server/server" --no-wait --alternate-editor="%SHAMAN_ROOT%/cache/apps/emacs/bin/runemacs.exe" %1
 exit
 
 :reg-open-menu
-rem set HOME=%ROOT%
+rem set HOME=%SHAMAN_ROOT%
 rem set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
 rem set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
 
 call:got-admin-auth
-rem regedit.exe /S %ROOT%/emacs.reg
-rem reg import %ROOT%/emacs.reg
-rem REG ADD "HKEY_CLASSES_ROOT\*\shell\Edit with Emacs\command" /ve /t REG_SZ /d "\"%ROOT%\cache\apps\emacs\bin\emacsclientw.exe\" --no-wait --server-file \"%ROOT%\.emacs.d\server\server\" --alternate-editor=\"%ROOT%\cache\apps\emacs\bin\runemacs.exe\" \"%%1\"" /f
-REG ADD "HKEY_CLASSES_ROOT\*\shell\Edit with Emacs\command" /ve /t REG_SZ /d "\"%ROOT%\shaman.bat\" \"%%1\"" /f
+rem regedit.exe /S %SHAMAN_ROOT%/emacs.reg
+rem reg import %SHAMAN_ROOT%/emacs.reg
+rem REG ADD "HKEY_CLASSES_ROOT\*\shell\Edit with Emacs\command" /ve /t REG_SZ /d "\"%SHAMAN_ROOT%\cache\apps\emacs\bin\emacsclientw.exe\" --no-wait --server-file \"%SHAMAN_ROOT%\.emacs.d\server\server\" --alternate-editor=\"%SHAMAN_ROOT%\cache\apps\emacs\bin\runemacs.exe\" \"%%1\"" /f
+REG ADD "HKEY_CLASSES_ROOT\*\shell\Edit with Emacs\command" /ve /t REG_SZ /d "\"%SHAMAN_ROOT%\shaman.bat\" \"%%1\"" /f
 goto:eof
 
 :emacs
-rem set HOME=%ROOT%
+rem set HOME=%SHAMAN_ROOT%
 rem set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
 rem set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
 if not exist %HOME%\.emacs (
-   copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
+   copy /y %SHAMAN_ROOT%\emacs-config\init.el %HOME%\.emacs
 )
 cd %HOME%
 start %EMACS_BIN%\runemacs.exe --debug-init
@@ -212,35 +212,35 @@ rem call %EMACS_BIN%\emacs.exe -Q -l ~/emacs-config/profile-dotemacs.el -f profi
 exit
 
 :emacs-nw
-rem set HOME=%ROOT%
+rem set HOME=%SHAMAN_ROOT%
 rem set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
 rem set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
 if not exist %HOME%\.emacs (
-   copy /y %ROOT%\emacs-config\init.el %HOME%\.emacs
+   copy /y %SHAMAN_ROOT%\emacs-config\init.el %HOME%\.emacs
 )
 cd %HOME%
 %EMACS_BIN%\emacs.exe -nw --debug-init
 goto:eof
 
 :compile-elc
-rem set HOME=%ROOT%
+rem set HOME=%SHAMAN_ROOT%
 rem set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
 rem set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
 
-cd %ROOT%\emacs-config\modules
+cd %SHAMAN_ROOT%\emacs-config\modules
 %EMACS_BIN%\emacs.exe -Q -batch -f batch-byte-compile *.el
 REM emacs --batch --eval '(byte-recompile-directory "~/.emacs.d")'
 REM emacs --batch --eval '(byte-compile-file "your-elisp-file.el")'
 REM emacs -Q --batch -f batch-byte-compile *.el foo/*.el
 REM %EMACS_BIN%\emacs.exe --batch --eval "(byte-recompile-directory  \"~/emacs-config/modules\" 0)"
-REM copy /y %ROOT%\emacs-config\comp.el %HOME%\.emacs
-cd %ROOT%
+REM copy /y %SHAMAN_ROOT%\emacs-config\comp.el %HOME%\.emacs
+cd %SHAMAN_ROOT%
 goto:eof
 
 :delete-elc
-cd %ROOT%\emacs-config\modules
+cd %SHAMAN_ROOT%\emacs-config\modules
 rm -rf *.elc
-cd %ROOT%
+cd %SHAMAN_ROOT%
 goto:eof
 
 :unity
@@ -271,14 +271,14 @@ goto:eof
 
 :pull
 echo "do::pull"
-cd %ROOT%
+cd %SHAMAN_ROOT%
 git reset
 git pull
 goto:eof
 
 :pull-blog
 echo "do::pull-blog"
-cd %ROOT%
+cd %SHAMAN_ROOT%
 git reset
 git pull
 
@@ -315,12 +315,12 @@ if not exist %DIR_PROJECT% (
   svn cleanup .
   svn up
 )
-cd %ROOT%
+cd %SHAMAN_ROOT%
 goto:eof
 
 :push
 echo "do::push"
-cd %ROOT%
+cd %SHAMAN_ROOT%
 rem rm -f .git/index.lock
 git reset
 git pull
@@ -333,7 +333,7 @@ goto:eof
 
 :push-a
 echo "do::push-a"
-cd %ROOT%
+cd %SHAMAN_ROOT%
 git reset
 git pull
 git add .
@@ -347,7 +347,7 @@ goto:eof
 :push-blog
 echo "do::push-blog"
 rem rm -f .git/index.lock
-cd %ROOT%/blog
+cd %SHAMAN_ROOT%/blog
 git reset
 git pull
 git add .
@@ -442,7 +442,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/m
 rem pip
 pip install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
 
-cd %ROOT%
+cd %SHAMAN_ROOT%
 goto:eof
 
 :ask-blog
@@ -482,7 +482,7 @@ goto:eof
 :ask-menu
 echo hello %username%, what's up?
 rem echo do::ask-menu
-cd %ROOT%
+cd %SHAMAN_ROOT%
 rem echo    0) ask-blog
 echo    1) pull
 echo    2) push
@@ -532,4 +532,4 @@ rem echo do::main
 call:ask-menu
 
 :quit
-cd %ROOT%
+cd %SHAMAN_ROOT%
