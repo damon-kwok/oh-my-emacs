@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
 ;; mod-slime.el --- This is where you apply your OCD.
 ;;
 ;; Author     : Dylan R. E. Moonfire (original)
@@ -75,4 +75,4 @@
 
 ;;
 (provide 'mod-slime)
-;;; mod-slime.el ends here
+;; mod-slime.el ends here

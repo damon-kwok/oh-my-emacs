@@ -50,5 +50,4 @@
 (add-hook 'markdown-mode-hook '(lambda() (markdown-custom-settings)))
 ;;
 (provide 'mod-markdown)
-;;; mod-markdown.el ends here
-
+;; mod-markdown.el ends here

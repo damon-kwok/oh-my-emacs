@@ -1,6 +1,6 @@
 REM `(buffer-name)` --- This is where you apply your OCD.
 REM
-REM Copyright (C) 2015-`(format-time-string "%Y")` damon-kwok
+REM Copyright (C) 2009-`(format-time-string "%Y")` damon-kwok
 REM
 REM Author: `(user-login-name)` <damon-kwok@outlook.com>
 REM Date: `(format-time-string "%Y-%m-%d")`

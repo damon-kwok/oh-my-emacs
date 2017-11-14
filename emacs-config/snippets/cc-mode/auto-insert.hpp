@@ -1,6 +1,6 @@
 /// `(buffer-name)` --- This is where you apply your OCD.
 //
-// Copyright (C) 2015-`(format-time-string "%Y")` Damon Kwok
+// Copyright (C) 2009-`(format-time-string "%Y")` damon-kwok
 //
 // Author: `(user-login-name)` <damon-kwok@outlook.com>
 // Date: `(format-time-string "%Y-%m-%d")`

@@ -1,28 +1,28 @@
-;;; -*- lexical-binding: t -*-
-;;; mod-basic.el --- This is where you apply your OCD.
-;;;
-;;; Copyright (C) 2015-2016 Damon Kwok
-;;;
-;;; Author: gww <damon-kwok@outlook.com>
-;;; Date: 2016-02-16
-;;;
-;;; This program is free software; you can redistribute it and/or modify
-;;; it under the terms of the GNU General Public License as published by
-;;; the Free Software Foundation, either version 3 of the License, or
-;;; (at your option) any later version.
-;;;
-;;; This program is distributed in the hope that it will be useful,
-;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;;; GNU General Public License for more details.
-;;;
-;;; You should have received a copy of the GNU General Public License
-;;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
-;;;
-;;; Code:
-;;;
+;; -*- lexical-binding: t -*-
+;; mod-basic.el --- This is where you apply your OCD.
+;;
+;; Copyright (C) 2015-2016 Damon Kwok
+;;
+;; Author: gww <damon-kwok@outlook.com>
+;; Date: 2016-02-16
+;;
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;;
+;; Code:
+;;
 (require 'mod-package)
-;;;
+;;
 ;;----------------------------------------------------------------------------
 ;; Temporarily reduce garbage collection during startup
 ;;----------------------------------------------------------------------------
@@ -795,4 +795,4 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 (provide 'mod-basic)
-;;; mod-basic.el ends here
+;; mod-basic.el ends here

@@ -1,26 +1,26 @@
-;;; -*- lexical-binding: t -*-
-;;; mod-complete.el --- This is where you apply your OCD.
-;;;
-;;; Copyright (C) 2015-2016 Damon Kwok
-;;;
-;;; Author: gww <DamonKwok@msn.com>
-;;; Date: 2016-01-19
-;;;
-;;; This program is free software; you can redistribute it and/or modify
-;;; it under the terms of the GNU General Public License as published by
-;;; the Free Software Foundation, either version 3 of the License, or
-;;; (at your option) any later version.
-;;;
-;;; This program is distributed in the hope that it will be useful,
-;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;;; GNU General Public License for more details.
-;;;
-;;; You should have received a copy of the GNU General Public License
-;;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
-;;;
-;;; Code:
-;;;
+;; -*- lexical-binding: t -*-
+;; mod-complete.el --- This is where you apply your OCD.
+;;
+;; Copyright (C) 2015-2016 damon-kwok
+;;
+;; Author: damon-kwok <damon-kwok@outlook.com>
+;; Date: 2016-01-19
+;;
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;;
+;; Code:
+;;
 (require 'mod-package)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require 'popup)
@@ -112,7 +112,6 @@
 
 ;; (setq yas-snippet-dirs '(yas-installed-snippets-dir (expand-file-name "~/config/snippets/")))
 ;; (setq yas-snippet-dirs (expand-file-name "~/emacs-config/snippets/"))
-;;(setq yas-snippet-dirs (expand-file-name "~/emacs-config/snippets/"))
 
 (setq dir-medusa-snippets "~/emacs-config/snippets/")
 (setq dir-medusa-snippets2 "~/my-emacs-config/emacs-config/snippets/")
@@ -175,6 +174,7 @@
 (define-auto-insert "\\.lsp" "new-lispmode/auto-insert")
 (define-auto-insert "\\.hs" "haskell-mode/auto-insert")
 (define-auto-insert "\\.rs" "rust-mode/auto-insert")
+(define-auto-insert "\\.go" "go-mode/auto-insert")
 
 (define-auto-insert "\\.py" "python-mode/auto-insert")
 (define-auto-insert "\\.js" "js-mode/auto-insert")
@@ -196,6 +196,6 @@
 						 (point-max))) 
 					       (delete-region (point-min) old-point-max) 
 					       (elisp-code-format)))))
-;;;
+;;
 (provide 'mod-complete)
-;;; mod-complete.el ends here
+;; mod-complete.el ends here

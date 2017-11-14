@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
 ;; mod-server.el --- This is where you apply your OCD.
 ;;
 ;; Copyright (C) 2015-2016 Damon Kwok
@@ -38,4 +38,4 @@
 ;;(or (server-running-p)(server-start))
 ;;
 (provide 'mod-server)
-;;; mod-server.el ends here
+;; mod-server.el ends here
