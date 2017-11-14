@@ -419,7 +419,7 @@ goto:eof
 :install-toolchain
 pacman -Syyu
 pacman -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
-pacman -S python2-pip ipython perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-nodejs
+pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-nodejs
 pacman -S mingw-w64-x86_64-ocaml ttf-bitstream-vera #mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
 
 rem install: lien
@@ -440,7 +440,7 @@ rem oh-my-zsh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 rem pip
-pip install rope jedi flake8 importmagic autopep8 yapf
+pip install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
 
 cd %ROOT%
 goto:eof
