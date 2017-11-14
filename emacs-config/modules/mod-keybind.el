@@ -49,9 +49,10 @@
 			   ;;	     (message (concat "you opened cc file:" (buffer-name)))
 			   (define-key sh-mode-map (kbd "C-c C-z")  'show-global-repl)))
 
-(global-set-key (kbd "C-c C-s") 'show-global-repl)
+(global-set-key (kbd "C-c C-i") 'show-global-repl)
 (global-set-key (kbd "C-c C-z") 'show-global-repl)
 (define-key shell-mode-map (kbd "C-c C-z")  'show-global-workbuffer)
+(define-key shell-mode-map (kbd "C-c C-i")  'show-global-workbuffer)
 
 
 ;; `anzu' https://github.com/syohex/emacs-anzu

@@ -36,7 +36,6 @@
 (package-require 'shader-mode)
 (autoload 'shader-mode "shader" nil t) ;;(require 'shader-mode)
 (add-to-list 'auto-mode-alist '("\\.shader$" . shader-mode))
-
 
 
 ;; `rtags'
@@ -65,7 +64,6 @@
 (define-key c-mode-base-map (kbd "M-.") 'rtags-find-symbol-at-point)
 (define-key c-mode-base-map (kbd "M-,") 'rtags-find-references-at-point)
 (define-key c-mode-base-map (kbd "C-x M-f") 'rtags-find-file)
-
 
 
 ;; `irony'
@@ -95,7 +93,6 @@
 ;; `ironyeldoc'
 (package-require 'irony-eldoc)
 (add-hook 'irony-mode-hook #'irony-eldoc)
-
 
 
 ;;`company-irony'
@@ -119,7 +116,6 @@
 (define-key c-mode-map (kbd "M-/")  'company-complete)
 (define-key c++-mode-map (kbd "M-/")  'company-complete)
 (define-key objc-mode-map (kbd "M-/")  'company-complete)
-
 
 
 ;; `flycheck'
@@ -132,8 +128,8 @@
 (package-require 'flycheck-rtags)
 (require 'flycheck-rtags)
 
-(defun my-flycheck-rtags-setup ()
-  (flycheck-select-checker 'rtags)
+(defun my-flycheck-rtags-setup () 
+  (flycheck-select-checker 'rtags) 
   (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
   (setq-local flycheck-check-syntax-automatically nil))
 ;; c-mode-common-hook is also called by c++-mode
@@ -141,21 +137,18 @@
 
 ;; `flycheck-clang-analyzer'
 ;; (package-require 'flycheck-clang-analyzer)
-;; (with-eval-after-load 'flycheck 
+;; (with-eval-after-load 'flycheck
 ;;   (require 'flycheck-clang-analyzer)
 ;;   (setq flycheck-clang-analyzer-executable "clang-3.9")
 ;;   (flycheck-clang-analyzer-setup))
 
 ;; `flycheck-irony'
 (package-require 'flycheck-irony)
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+(eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
 ;; `flycheck-clang-tidy'
 (package-require 'flycheck-clang-tidy)
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
-
+(eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
 
 
 ;; `cmake'
@@ -163,7 +156,7 @@
 ;; (package-require 'cmake-ide)
 ;; (cmake-ide-setup)
 
-;; 
+;;
 (package-require 'cmake-font-lock)
 (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
 (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
@@ -184,26 +177,26 @@
 	(kill-this-buffer))))
 
 (define-key c-mode-base-map [f6] 'create-cmake-file-or-close)
-
 
 
 ;;; Syntax highlighting support for "`ModernC++'" - until `C++17' and Technical Specification.
 (package-require 'modern-cpp-font-lock)
 (require 'modern-cpp-font-lock)
 (modern-c++-font-lock-global-mode t)
-
 
 
 ;; `format'
 ;; (package-require 'clang-format)
 ;; (require 'clang-format)
 ;; (define-key c++-mode-map (kbd "C-M-") 'clang-format-region)
-
 
+(defun gen-rtags-indexes () 
+  (message (concat "you opened cc file:" (buffer-name)))
+  ;; find CmakeLists.txt & gen rtags indexes
+  (m-run-command (concat (getenv "HOME")  "/my-emacs-config/cache/bin/gen-rtags.sh")))
+(add-hook 'c-mode-hook 'gen-rtags-indexes)
+(add-hook 'cpp-mode-hook 'gen-rtags-indexes)
+(add-hook 'objc-mode-hook 'gen-rtags-indexes)
 
-(add-hook 'c++-mode-hook '(lambda()
-			   (message (concat "you opened cc file:" (buffer-name)))
-			   ;; find CmakeLists.txt & gen rtags indexes
-			   (m-run-command (concat (getenv "HOME")  "/my-emacs-config/cache/bin/gen-rtags.sh"))))
 ;;
 (provide 'mod-cc)

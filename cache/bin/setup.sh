@@ -20,22 +20,23 @@ function find-str {
 
 # smart-rtags $void
 function auto-gen-rtags {
-    dir=`pwd`
-    echo this dir:$dir
+    DIR=`pwd`
+    echo "check dir:$DIR"
 
-    # check rdm launche status
-    
-    if [ -e 'CMakeLists.txt' ]; then
-	if [ ! -d 'ratgs-indexes' ]; then
-	    mkdir -p rtags-indexes
-	    cd rtags-indexes/
+    if [ -f "$DIR/CMakeLists.txt" ]; then
+	if [ ! -d "$DIR/rtags_indexes" ]; then
+	    echo "$DIR/rtags_indexes is creating..."
+	    mkdir -p $DIR/rtags_indexes
+	    cd rtags_indexes/
 	    cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 	    rc -J .
 	    cd ..
+	else
+	    echo "$DIR/rtags_indexes is exist!"
 	fi
     else
 	cd ..
-	if [ ! "/" == `pwd` ]; then
+	if [ ! "/" == "$DIR" ]; then
 	    auto-gen-rtags	    
 	fi
     fi
@@ -55,8 +56,8 @@ function find-file {
 }
 
 function dirp {
-    dir=`pwd`
-    if [ ! "/" == "$dir" ]; then
+    DIR=`pwd`
+    if [ ! "/" == "$DIR" ]; then
 	echo "dir is "`pwd`
     else
 	echo "dir is root"
