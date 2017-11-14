@@ -45,8 +45,8 @@
               '(pyim-probe-punctuation-line-beginning ;;行首强制输入半角标点
                 pyim-probe-punctuation-after-punctuation)) ;;半角标点后强制输入半角标点
 
-;; 开启拼音搜索功能
-(pyim-isearch-mode 1)
+;; 开启：1/关闭：0 拼音搜索功能
+(pyim-isearch-mode 0)
 
 ;; 使用 pupup-el 来绘制选词框
 ;; (setq pyim-page-tooltip 'popup)

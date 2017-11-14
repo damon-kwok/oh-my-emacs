@@ -33,10 +33,7 @@ if [ -f ~/.emacs.d ]; then
    mv -a ~/.emacs.d $bkdir
 fi
 
-if [ -f ~/emacs-config ]; then
-   mv ~/emacs-config $bkdir
-fi
-if [ -d ~/emacs-config ]; then
+if [ -e ~/emacs-config ]; then
    mv ~/emacs-config $bkdir
 fi
 

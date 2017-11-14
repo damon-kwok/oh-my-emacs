@@ -41,18 +41,20 @@
 ;; `rtags'
 (package-require 'rtags)
 (require 'rtags)
-(package-require 'company-rtags)
-(require 'company-rtags)
+(message rtags-path)
+(setenv "PATH" (concat (file-name-directory (rtags-executable-find "rc")) ":" (getenv "PATH")))
 
 (setq rtags-completions-enabled t)
 (eval-after-load 'company '(add-to-list 'company-backends 'company-rtags))
 (setq rtags-autostart-diagnostics t)
 (rtags-enable-standard-keybindings)
 
-
 (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
 (add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
 (add-hook 'objc-mode-hook 'rtags-start-process-unless-running)
+
+(package-require 'company-rtags)
+(require 'company-rtags)
 
 (package-require 'helm-rtags)
 (require 'helm-rtags)
@@ -61,9 +63,41 @@
 (package-require 'company-rtags)
 (require 'company-rtags)
 
+(define-key c-mode-base-map (kbd "C-M-.") 'rtags-find-symbol)
+(define-key c-mode-base-map (kbd "C-M-,") 'rtags-find-references)
+(define-key c-mode-base-map (kbd "M-<") 'rtags-find-virtuals-at-point)
 (define-key c-mode-base-map (kbd "M-.") 'rtags-find-symbol-at-point)
 (define-key c-mode-base-map (kbd "M-,") 'rtags-find-references-at-point)
-(define-key c-mode-base-map (kbd "C-x M-f") 'rtags-find-file)
+(define-key c-mode-base-map (kbd "M-;") 'rtags-find-file)
+(define-key c-mode-base-map (kbd "M-i") 'rtags-imenu)
+
+(defun rtags-open-file ()
+    (interactive) 
+    (rtags-select-other-window) 
+    (delete-other-windows))
+(defun show-rtags-buffer() 
+  (interactive) 
+  (setq temp-cc-buffer-name (buffer-name (current-buffer))) 
+  (m-show-compilation "*RTags*") 
+  (shell) 
+  (switch-to-buffer-other-window temp-cc-buffer-name) 
+  (m-show-compilation "*RTags*" t))
+(defun show-cc-buffer() 
+  (interactive) 
+  (switch-to-buffer-other-window temp-cc-buffer-name) 
+  (delete-other-windows) 
+  (show-rtags-buffer) 
+  (switch-to-buffer-other-window temp-cc-buffer-name))
+
+
+(define-key rtags-mode-map (kbd "RET") 'rtags-open-file)
+(define-key rtags-mode-map (kbd "M-RET") 'rtags-select)
+(define-key rtags-mode-map [mouse-1] 'rtags-open-file)
+(define-key rtags-mode-map [mouse-2] 'rtags-open-file)
+
+(define-key rtags-mode-map (kbd "C-c C-z") 'show-cc-buffer)
+(define-key c-mode-base-map (kbd "C-c C-z") 'show-rtags-buffer)
+
 
 
 ;; `irony'
@@ -190,12 +224,16 @@
 ;; (require 'clang-format)
 ;; (define-key c++-mode-map (kbd "C-M-") 'clang-format-region)
 
-(defun gen-rtags-indexes () 
+
+;; (setq rtags-bin-path (file-name-directory (rtags-executable-find "rc")))
+(defun gen-rtags-indexes ()
+  (interactive)
   (message (concat "you opened cc file:" (buffer-name)))
   ;; find CmakeLists.txt & gen rtags indexes
   (m-run-command (concat (getenv "HOME")  "/my-emacs-config/cache/bin/gen-rtags.sh")))
+
 (add-hook 'c-mode-hook 'gen-rtags-indexes)
-(add-hook 'cpp-mode-hook 'gen-rtags-indexes)
+(add-hook 'c++-mode-hook 'gen-rtags-indexes)
 (add-hook 'objc-mode-hook 'gen-rtags-indexes)
 
 ;;

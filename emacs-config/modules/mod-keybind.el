@@ -30,7 +30,7 @@
 ;; mac-option-modifier 'none)
 
 ;; `repl'
-(defun show-global-repl() 
+(defun show-global-shell() 
   (interactive) 
   (setq temp-global-buffer-name (buffer-name (current-buffer))) 
   (m-show-compilation "*shell*") 
@@ -42,15 +42,15 @@
   (interactive) 
   (switch-to-buffer-other-window temp-global-buffer-name) 
   (delete-other-windows) 
-  (show-global-repl) 
+  (show-global-shell) 
   (switch-to-buffer-other-window temp-global-buffer-name))
 
 (add-hook 'sh-mode-hook '(lambda()
 			   ;;	     (message (concat "you opened cc file:" (buffer-name)))
-			   (define-key sh-mode-map (kbd "C-c C-z")  'show-global-repl)))
+			   (define-key sh-mode-map (kbd "C-c C-z")  'show-global-shell)))
 
-(global-set-key (kbd "C-c C-i") 'show-global-repl)
-(global-set-key (kbd "C-c C-z") 'show-global-repl)
+(global-set-key (kbd "C-c C-i") 'show-global-shell)
+(global-set-key (kbd "C-c C-z") 'show-global-shell)
 (define-key shell-mode-map (kbd "C-c C-z")  'show-global-workbuffer)
 (define-key shell-mode-map (kbd "C-c C-i")  'show-global-workbuffer)
 

@@ -192,7 +192,7 @@ occurence of CHAR."
 (defun m-kill-other-buffers () 
   "Kill all other buffers." 
   (interactive) 
-  (delete-other-windows) 
+  (delete-other-windows)
   (mapc 'kill-buffer (delq (current-buffer) 
 			   (remove-if-not 'buffer-file-name (buffer-list)))))
 

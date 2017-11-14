@@ -108,9 +108,9 @@ function pull-blog {
 
     #for linux
     echo link
-    if [ ! -f /usr/bin/shaman ]; then
-	sudo ln -s $ROOT/shaman /usr/bin/shaman
-    fi
+    # if [ ! -f /usr/bin/shaman ]; then
+	# sudo ln -s $ROOT/shaman /usr/bin/shaman
+    # fi
 
     if [ ! -d ~/docs ]; then
 	ln -s $ROOT/docs ~/docs
@@ -120,6 +120,9 @@ function pull-blog {
 	ln -s $ROOT/blog ~/blog
     fi
 
+    if [ ! -d ~/project ]; then
+	ln -s $ROOT/project ~/project
+    fi
 }
 
 function push {
