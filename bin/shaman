@@ -245,7 +245,6 @@ function install-toolchain {
     read -p "please enter your choice:" item
     case $item in
 	1)  #Debian/Ubuntu/LinuxMint
-	    # sudo add-apt-repository ppa:mikegedelman/leiningen-git-stable
 	    sudo apt update
 	    sudo apt install -y build-essential coreutils diffutils zsh wget curl zip unzip git subversion silversearcher-ag
 	    sudo apt install -y python-pip perl ruby nodejs-legacy ocaml haskell-stack elixir cargo rebar openjdk-8-jdk
@@ -253,11 +252,6 @@ function install-toolchain {
 
 	    #oh-my-zsh
 	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-	    # install: lien
-	    cd $LOCAL_BIN
-	    curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-	    chmod +x ./lein
 
 	    # Bazel
 	    sudo apt -y install pkg-config zip g++ zlib1g-dev unzip python
@@ -268,13 +262,13 @@ function install-toolchain {
 	2)  #ArchLinux/Manjaro
 	    yaourt -Syyu
 	    yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
-	    yaourt -S python2-pip perl rubygems nodejs ocaml haskell-stack-git leiningen elixir cargo rebar3 openjdk-8-jdk ttf-bitstream-vera-dummy oh-my-zsh-git
+	    yaourt -S python2-pip perl rubygems nodejs ocaml haskell-stack-git elixir cargo rebar3 openjdk-8-jdk ttf-bitstream-vera-dummy oh-my-zsh-git #leiningen
 	    ;;
 	3)  #Fedora/Redhat/CentOS
 	    sudo dnf update
 	    sudo dnf groupinstall "Development Tools and Libraries"
 	    sudo dnf install coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
-	    sudo dnf install python2-pip perl rubygems nodejs-legacy ocaml haskell-stack leiningen elixir cargo rebar3  openjdk-8-jdk ttf-bitstream-vera
+	    sudo dnf install python2-pip perl rubygems nodejs-legacy ocaml haskell-stack elixir cargo rebar3  openjdk-8-jdk ttf-bitstream-vera #leiningen
 
 	    #oh-my-zsh
 	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -282,7 +276,7 @@ function install-toolchain {
 	4)
 	    brew update
 	    brew install coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
-	    brew install python2-pip perl rubygems nodejs-legacy ocaml haskell-stack leiningen elixir cargo rebar3 openjdk-8-jdk ttf-bitstream-vera
+	    brew install python2-pip perl rubygems nodejs-legacy ocaml haskell-stack elixir cargo rebar3 openjdk-8-jdk ttf-bitstream-vera #leiningen
 
 	    #oh-my-zsh
 	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -294,18 +288,18 @@ function install-toolchain {
 	    pacman -S mingw-w64-x86_64-ocaml ttf-bitstream-vera #mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
 
 	    # install: lien
-	    cd $LOCAL_BIN
-	    curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
-	    curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-	    chmod +x ./lein
+	    # cd $LOCAL_BIN
+	    # curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+	    # curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+	    # chmod +x ./lein
 
 	    # install: cargo
 
 	    # install: elixir && erlang-nox
 
 	    # rebar3
-	    cd $LOCAL_BIN
-	    wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
+	    # cd $LOCAL_BIN
+	    # wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
 
 	    # oh-my-zsh
 	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -323,14 +317,24 @@ function install-toolchain {
 	# mkdir ~/.stack/
 	# cp $SHAMAN_ROOT/cache/bin/config.yaml ~/.stack/
     # fi
-    stack update
-    stack upgrade
+    # stack update
+    # stack upgrade
 
+    #clojure
+    cd $SHAMAN_BIN
+    chmod +x ./lein
+    lein upgrade
+    
     #erlang
-    chmod +x rebar3
+    cd $SHAMAN_BIN
+    chmod +x ./rebar3
     rebar3 update
     rebar3 upgrade
 
+    #shaman
+    cd $SHAMAN_BIN
+    chmod +x ./shaman
+    chmod +x ./rosman
 }
 
 function ask-blog {
