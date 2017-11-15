@@ -2,15 +2,17 @@
 
 # DIRNAME=`dirname "$0"`
 # SHAMAN_ROOT=`cd "$DIRNAME"; pwd`
+echo "SHAMAN_ROOT="`pwd`
 SHAMAN_DIR_NAME=my-emacs-config
 SHAMAN_ROOT=`cd ~/$SHAMAN_DIR_NAME; pwd`
-echo "SHAMAN_ROOT="`pwd`
-export PATH=$SHAMAN_ROOT:$PATH
+SHAMAN_BIN=$SHAMAN_ROOT/bin
+LOCAL_BIN=/home/`whoami`/.local/bin
+export PATH=$SHAMAN_BIN:$LOCAL_BIN:$PATH
 
 CACHE=$SHAMAN_ROOT/cache
 APP_HOME=$CACHE/apps
 ZIP_HOME=$CACHE/apps-zip
-export PATH=$CACHE/bin:$PATH
+# export PATH=$CACHE/bin:$PATH
 
 # if [ ! -d $CACHE ]; then
     # mkdir $CACHE
@@ -253,7 +255,7 @@ function install-toolchain {
 	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 	    # install: lien
-	    cd $SHAMAN_ROOT/cache/bin
+	    cd $LOCAL_BIN
 	    curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 	    chmod +x ./lein
 
@@ -292,7 +294,7 @@ function install-toolchain {
 	    pacman -S mingw-w64-x86_64-ocaml ttf-bitstream-vera #mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
 
 	    # install: lien
-	    cd $SHAMAN_ROOT/cache/bin
+	    cd $LOCAL_BIN
 	    curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
 	    curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 	    chmod +x ./lein
@@ -302,8 +304,8 @@ function install-toolchain {
 	    # install: elixir && erlang-nox
 
 	    # rebar3
-	    # cd $SHAMAN_ROOT/cache/bin
-	    # wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
+	    cd $LOCAL_BIN
+	    wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
 
 	    # oh-my-zsh
 	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"

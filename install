@@ -11,7 +11,7 @@ function find-str {
 
 SHAMAN_DIR_NAME=my-emacs-config
 SHAMAN_ROOT=/home/`whoami`/$SHAMAN_DIR_NAME
-SHAMAN_BIN=$SHAMAN_ROOT/workspace/bin
+SHAMAN_BIN=$SHAMAN_ROOT/bin
 
 if [ -d $SHAMAN_ROOT ]; then
     cd $SHAMAN_ROOT

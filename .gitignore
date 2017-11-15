@@ -18,6 +18,9 @@
 # !/cache/bin/*/*/
 # !/cache/bin/*/*/*
 
+!/bin/
+!/bin/*
+
 !/emacs-config/
 !/emacs-config/*
 !/emacs-config/*/

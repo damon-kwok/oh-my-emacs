@@ -1,0 +1,100 @@
+#!/bin/bash
+
+source /opt/ros/kinetic/setup.bash
+
+function find_string {    
+    grep $1 $2 >/dev/null
+    if [ $? -eq 0 ]; then
+	echo "Found!"
+	return $(( 1 ));
+    else
+	echo "Not found!"
+	return $(( 0 ));
+    fi
+}
+
+CATKIN_WS=~/catkin_ws
+
+if [ ! -d $CATKIN_WS ]; then
+    mkdir -p $CATKIN_WS/src
+    cd $CATKIN_WS/src
+    catkin_init_workspace
+    if [ -f ~/.bashrc ]; then
+	source "$CATKIN_WS"/devel/setup.bash
+	echo "source "$CATKIN_WS"/devel/setup.bash" >> ~/.bashrc 
+    fi
+    if [ -f ~/.zshrc ]; then
+	source "$CATKIN_WS"/devel/setup.zsh
+	echo "source "$CATKIN_WS"/devel/setup.zsh" >> ~/.zshrc 
+    fi
+# else
+fi
+
+cd $CATKIN_WS/src
+if [ ! -d $CATKIN_WS/build ]; then
+    catkin_init_workspace
+fi
+
+if [ ! -d $CATKIN_WS/devel ]; then
+    catkin_init_workspace
+fi
+
+cd $CATKIN_WS/src
+catkin_create_pkg $1 std_msgs roscpp
+
+echo "#include<ros/ros.h>  
+#include<pcl/point_cloud.h>  
+#include<pcl_conversions/pcl_conversions.h>  
+#include<sensor_msgs/PointCloud2.h>  
+      
+int main (int argc, char **argv)  
+{  
+  ros::init (argc, argv, \"pcl_create\");  
+  ros::NodeHandle nh;  
+  ros::Publisher pcl_pub = nh.advertise<sensor_msgs::PointCloud2> (\"pcl_output\", 1);  
+  pcl::PointCloud<pcl::PointXYZ> cloud;  
+  sensor_msgs::PointCloud2 output;  
+  // Fill in the cloud data  
+  cloud.width = 100;  
+  cloud.height = 1;  
+  cloud.points.resize(cloud.width * cloud.height);  
+  for (size_t i = 0; i < cloud.points.size(); ++i)  
+    {  
+      cloud.points[i].x = 1024 * rand () / (RAND_MAX + 1.0f);  
+      cloud.points[i].y = 1024 * rand () / (RAND_MAX + 1.0f);  
+      cloud.points[i].z = 1024 * rand () / (RAND_MAX + 1.0f);  
+    }  
+      
+  //Convert the cloud to ROS message  
+  pcl::toROSMsg(cloud, output);  
+  output.header.frame_id = \"odom\";//this has been done in order to be able to visualize our PointCloud2 message on the RViz visualizer  
+  ros::Rate loop_rate(1);  
+  while (ros::ok())  
+    {  
+      pcl_pub.publish(output);  
+      ros::spinOnce();  
+      loop_rate.sleep();  
+    }  
+  return 0;  
+}
+" >> $1/src/$1.cpp
+
+cd $CATKIN_WS
+
+catkin_make
+
+
+echo "
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+)
+
+add_executable(${PROJECT_NAME}_node src/"$1"_node.cpp)
+
+add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+target_link_libraries(${PROJECT_NAME}_node
+  ${catkin_LIBRARIES}
+)
+" >> $1/CMakeLists.txt
