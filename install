@@ -11,7 +11,7 @@ function find-str {
 
 SHAMAN_DIR_NAME=my-emacs-config
 SHAMAN_ROOT=/home/`whoami`/$SHAMAN_DIR_NAME
-SHAMAN_BIN=$SHAMAN_ROOT/cache/bin
+SHAMAN_BIN=$SHAMAN_ROOT/workspace/bin
 
 if [ -d $SHAMAN_ROOT ]; then
     cd $SHAMAN_ROOT
@@ -39,6 +39,7 @@ fi
 
 cp -a $SHAMAN_ROOT/emacs-config/init.el ~/.emacs 
 ln -s $SHAMAN_ROOT/emacs-config ~/emacs-config
+ln -s $SHAMAN_ROOT/workspace ~/workspace
 
 # if [ ! -f /usr/bin/shaman ]; then
     # sudo ln -s $SHAMAN_ROOT/shaman /usr/bin/shaman

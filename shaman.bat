@@ -31,13 +31,14 @@ set ZIP_HOME=%DIR_CACHE%\apps-zip
 
 set PATH=%DIR_CACHE%\bin;%PATH%
 
-if not exist %DIR_CACHE% (
-   mkdir %DIR_CACHE%
-)
+rem if not exist %DIR_CACHE% (
+   rem mkdir %DIR_CACHE%
+rem )
 
 set DIR_BLOG=%SHAMAN_ROOT%/blog
-set DIR_DOC=%SHAMAN_ROOT%/docs
-set DIR_PROJECT=%SHAMAN_ROOT%/project
+rem set DIR_DOC=%SHAMAN_ROOT%/docs
+rem set DIR_PROJECT=%SHAMAN_ROOT%/projects
+set DIR_WORKSPACE=%SHAMAN_ROOT%/workspace
 set DIR_DEV=%SHAMAN_ROOT%/dev
 set DIR_LLVM_WHERE=%SHAMAN_ROOT%/dev
 set DIR_LLVM=%SHAMAN_ROOT%/dev/llvm
@@ -269,6 +270,29 @@ echo "sleep %arg1%s"
 ping -n %arg1% 127.0.0.1>nul
 goto:eof
 
+:svn-remove-lose
+svn status grep "^!" awk `{print $2}` xargs svn rm
+goto:eof
+
+:svn-add-new
+svn status grep "^\?" awk `{print $2}` xargs svn add
+goto:eof
+
+:svn-commit
+svn-remove-lose
+svn-add-new
+svn status
+rem readp "auto commit?"
+rem if [ $? -eq 1 ]; then
+rem     svn commit -m `date +%Y-%m-%d@%H-%M-%S`
+rem else
+rem     read -p "please enter commit message:" msg
+rem     svn commit -m "$msg"
+rem fi
+set msg=%date:~0,4%-%date:~5,2%-%date:~8,2%@%time:~0,2%-%time:~3,2%-%time:~6,2%
+svn commit -m "%msg%"
+goto:eof
+
 :pull
 echo "do::pull"
 cd %SHAMAN_ROOT%
@@ -298,23 +322,15 @@ if not exist %DIR_BLOG% (
   git pull
 )
 
-echo doc
-if not exist %DIR_DOC% (
-   svn co svn://www.svn999.com/guowangwei.my-docs docs
+echo workspace
+if not exist %DIR_WORKSPACE% (
+   svn co svn://www.svn999.com/guowangwei.my-docs %DIR_WORKSPACE%
 ) else (
   cd %DIR_DOC%
   svn cleanup .
   svn up
 )
 
-echo project
-if not exist %DIR_PROJECT% (
-   svn co svn://www.svn999.com/guowangwei.my-projects project
-) else (
-  cd %DIR_PROJECT%
-  svn cleanup .
-  svn up
-)
 cd %SHAMAN_ROOT%
 goto:eof
 
@@ -449,6 +465,7 @@ goto:eof
 echo please enter your choice:
 echo    1) pull-blog
 echo    2) push-blog
+echo    3) commit-workspace
 echo    s) shell
 echo 	--------------------------
 echo    r) return
@@ -457,6 +474,9 @@ set /p c=please enter your choice:
 echo loading...
 if /i "%c%"=="1" call:pull-blog
 if /i "%c%"=="2" call:push-blog
+if /i "%c%"=="3"
+   cd %DIR_WORKSPACE%
+   call:svn-commit
 if /i "%c%"=="s" zsh
 if /i "%c%"=="r" call:ask-menu
 goto:eof
@@ -480,6 +500,7 @@ if /i "%c%"=="r" call:ask-menu
 goto:eof
 
 :ask-menu
+echo ==============================
 echo hello %username%, what's up?
 rem echo do::ask-menu
 cd %SHAMAN_ROOT%

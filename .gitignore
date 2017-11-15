@@ -10,13 +10,13 @@
 !shaman
 !shaman.bat
 
-!/cache/
-!/cache/bin/
-!/cache/bin/*
-!/cache/bin/*/
-!/cache/bin/*/*
-!/cache/bin/*/*/
-!/cache/bin/*/*/*
+# !/cache/
+# !/cache/bin/
+# !/cache/bin/*
+# !/cache/bin/*/
+# !/cache/bin/*/*
+# !/cache/bin/*/*/
+# !/cache/bin/*/*/*
 
 !/emacs-config/
 !/emacs-config/*

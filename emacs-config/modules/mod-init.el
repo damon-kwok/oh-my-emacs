@@ -58,6 +58,7 @@
 ;; (module-require 'mod-csharp)
 (module-require 'mod-cc)
 (module-require 'mod-py)
+(module-require ' mod-haskell)
 ;; (module-require 'mod-slime)
 (module-require 'mod-ros)
 (module-require 'mod-git)
