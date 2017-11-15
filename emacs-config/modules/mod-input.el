@@ -48,17 +48,16 @@
 ;; 开启：1/关闭：0 拼音搜索功能
 (pyim-isearch-mode 0)
 
-;; 使用 pupup-el 来绘制选词框
+;; 1.使用 popup 包来绘制选词框 （emacs overlay 机制）
 ;; (setq pyim-page-tooltip 'popup)
-
-;; 使用pos-top包来绘制选词框 (emacs tooltip)
-(setq pyim-use-tooltip 'pos-tip)
-;; 注：Linux 平台下，emacs 可以使用 GTK 来绘制选词框：
+;; 2.使用 pos-tip 包来绘制选词框（emacs tooltip 机制）
+(setq pyim-page-tooltip 'pos-tip)
+;; 2.1 注：Linux 平台下，emacs 可以使用 GTK 来绘制选词框：
 (if (eq system-type 'gnu/linux) 
     (setq x-gtk-use-system-tooltips t))
 
 ;; pyim 的 tooltip 选词框默认使用 双行显示 的样式，在一些特 殊的情况下（比如：popup 显示的菜单错位），用户可以使用 单行显示 的样式：
-;; (setq pyim-page-style 'one-line) 
+(setq pyim-page-style 'two-lines) ;;one-line ;;two-lines
 
 ;; 选词框显示5个候选词
 (setq pyim-page-length 9)
@@ -67,24 +66,22 @@
 (add-hook 'emacs-startup-hook
           #'(lambda () (pyim-restart-1 t)))
 
-;; (setq pyim-dicts
-;;       '((:name "dict1" :file "~/dict/pyim-bigdict.pyim" :coding utf-8 :dict-type pinyin-dict)
-;;         (:name "dict2" :file "~/dict/AutoCAD词汇.txt" :coding utf-8 :dict-type pinyin-dict)
-;; 	(:name "dict3" :file "~/dict/编程语言.txt" :coding utf-8 :dict-type pinyin-dict)
-;; 	(:name "dict4" :file "~/dict/财经金融词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-;; 	(:name "dict5" :file "~/dict/法律词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-;; 	(:name "dict6" :file "~/dict/计算机名词.txt" :coding utf-8 :dict-type pinyin-dict)
-;; 	(:name "dict7" :file "~/dict/计算机专业词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-;; 	(:name "dict8" :file "~/dict/汽车词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-;; 	(:name "dict9" :file "~/dict/前端工程师必备词库.txt" :coding utf-8 :dict-type pinyin-dict)
-;; 	(:name "dict10" :file "~/dict/数学词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-;; 	(:name "dict11" :file "~/dict/虚拟现实技术.txt" :coding utf-8 :dict-type pinyin-dict)
-;; 	(:name "dict12" :file "~/dict/中国高等院校大全.txt" :coding utf-8 :dict-type pinyin-dict)
-;; 	(:name "dict13" :file "~/dict/中国医院大全.txt" :coding utf-8 :dict-type pinyin-dict)
-;; 	(:name "dict14" :file "~/dict/最详细的全国地名大全.txt" :coding utf-8 :dict-type pinyin-dict)))
- 
-;; (global-set-key (kbd "C-\\") 'toggle-input-method)
+(setq pyim-dicts
+      '((:name "dict2" :file "~/workspace/pyim-dicts/AutoCAD词汇.txt" :coding utf-8 :dict-type pinyin-dict)
+	(:name "dict3" :file "~/workspace/pyim-dicts/编程语言.txt" :coding utf-8 :dict-type pinyin-dict)
+	(:name "dict4" :file "~/workspace/pyim-dicts/财经金融词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+	(:name "dict5" :file "~/workspace/pyim-dicts/法律词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+	(:name "dict6" :file "~/workspace/pyim-dicts/计算机名词.txt" :coding utf-8 :dict-type pinyin-dict)
+	(:name "dict7" :file "~/workspace/pyim-dicts/计算机专业词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+	(:name "dict8" :file "~/workspace/pyim-dicts/汽车词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+	(:name "dict9" :file "~/workspace/pyim-dicts/前端工程师必备词库.txt" :coding utf-8 :dict-type pinyin-dict)
+	(:name "dict10" :file "~/workspace/pyim-dicts/数学词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+	(:name "dict11" :file "~/workspace/pyim-dicts/虚拟现实技术.txt" :coding utf-8 :dict-type pinyin-dict)
+	(:name "dict12" :file "~/workspace/pyim-dicts/中国高等院校大全.txt" :coding utf-8 :dict-type pinyin-dict)
+	(:name "dict13" :file "~/workspace/pyim-dicts/中国医院大全.txt" :coding utf-8 :dict-type pinyin-dict)
+	(:name "dict14" :file "~/workspace/pyim-dicts/最详细的全国地名大全.txt" :coding utf-8 :dict-type pinyin-dict)))
+
+(global-set-key (kbd "C-\\") 'toggle-input-method)
 ;;
 (provide 'mod-input)
 ;;; mod-input.el ends here
-

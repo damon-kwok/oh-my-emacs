@@ -78,7 +78,7 @@
 
 
 (global-set-key (kbd "M-RET") 'toggle-frame-fullscreen)
-(global-set-key (kbd "C-\\") 'toggle-input-method)
+;; (global-set-key (kbd "C-\\") 'toggle-input-method)
 ;; (global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-super ;; (global-set-key [?\S- ] 'set-mark-command)
 
 ;;; expand region
