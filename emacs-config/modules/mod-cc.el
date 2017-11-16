@@ -203,16 +203,14 @@
       (if (or (eq parent nil) 
 	      (string= parent "/")) nil (search-cmakefile-from parent)))))
 
-(search-cmakefile-from "/home/damon/path/to/1.txt")
-
 (defun create-cmake-file () 
   " create cmake file with current directory!" 
-  (interactive)
-  (setq dir (m-buf-dirpath))
-  (setq cmake-dir (search-cmakefile-from dir))
-  (if (eq cmake-dir nil)
-    (find-file "CMakeLists.txt")
-      (find-file (concat cmake-dir "CMakeLists.txt"))))
+  (interactive) 
+  (setq dir (m-buf-dirpath)) 
+  (setq cmake-dir (search-cmakefile-from dir)) 
+  (if (eq cmake-dir nil) 
+      (find-file "CMakeLists.txt") 
+    (find-file (concat cmake-dir "CMakeLists.txt"))))
 
 ;; switch 'cmake buffer' and 'code buffer'
 (defun create-cmake-file-or-close () 
@@ -246,13 +244,27 @@
 
 
 ;; (setq rtags-bin-path (file-name-directory (rtags-executable-find "rc")))
-(defun gen-rtags-indexes () 
+(defun gen-rtags-indexes2 () 
   (interactive) 
   (message (concat "you opened cc file:" (buffer-name)))
   ;; find CmakeLists.txt & gen rtags indexes
-  (m-run-command (concat (getenv "HOME")  "/my-emacs-config/bin/gen-rtags"))
-  ;; (m-run-command "gen-rtags")
-  )
+  (m-run-command (concat (getenv "HOME")  "/my-emacs-config/bin/gen-rtags")))
+
+(defun gen-rtags-indexes () 
+  (setq dir (m-buf-dirpath)) 
+  (setq cmake-dir (search-cmakefile-from dir)) 
+  (setq index-dir (concat cmake-dir "rtags_indexes")) 
+  (if (eq cmake-dir nil) 
+      (message "not found 'CMakeLists.txt' file!") 
+    (if (file-exists-p index-dir)	  
+	(message "rtags_indexes is exists.") 
+      (progn 
+	(setq old-default-directory default-directory) 
+	(make-directory index-dir) 
+	(setq default-directory  index-dir) 
+	(m-run-command
+	 "bash -c \"source /opt/ros/kinetic/setup.bash && cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 && rc -J .\"") 
+	(setq default-directory old-default-directory)))))
 
 (add-hook 'c-mode-hook 'gen-rtags-indexes)
 (add-hook 'c++-mode-hook 'gen-rtags-indexes)
