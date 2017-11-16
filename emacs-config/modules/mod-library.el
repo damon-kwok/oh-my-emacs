@@ -102,8 +102,8 @@
 (defun m-buf-dirname() 
   (nth 0 (last (split-string (m-buf-dirpath) "/") 1)))
 
-;; (defun m-bufname-no-ext() 
-  ;; (first (split-string (buffer-name) "\\."))) ;;file-name-base
+;; (defun m-bufname-no-ext()
+;; (first (split-string (buffer-name) "\\."))) ;;file-name-base
 (defun m-bufname-no-ext() 
   (file-name-base (buffer-name)))
 
@@ -121,10 +121,10 @@
 				   (projectile-project-root) 
 				 (m-buf-dirpath)))))
 
-(defun m-parent-dirpath (path)
+(defun m-parent-dirpath (path) 
   (file-name-directory (directory-file-name path)))
 
-(defun f-filename-no-ext (path)
+(defun f-filename-no-ext (path) 
   (f-no-ext (f-filename path)))
 
 ;; (buffer-name)                  ;;=> "hello.txt"
@@ -158,7 +158,7 @@
 ;;  (concat "http://www.bing.com/dict/search?q="
 ;; 	 (url-hexify-string
 ;; 	  (read-string "Query: "))))
-(defun m-bing-dict-brief (arg)
+(defun m-bing-dict-brief (arg) 
   (bing-dict-brief arg))
 
 (defun m-bing-dict-brief-eww (arg) 
@@ -226,7 +226,7 @@ occurence of CHAR."
 (defun m-kill-other-buffers () 
   "Kill all other buffers." 
   (interactive) 
-  (delete-other-windows)
+  (delete-other-windows) 
   (mapc 'kill-buffer (delq (current-buffer) 
 			   (remove-if-not 'buffer-file-name (buffer-list)))))
 
@@ -319,7 +319,7 @@ occurence of CHAR."
   ;;(sit-for 1) ;;wait 1 second
   (animate-string " Bye!!!" 9) 
   (sit-for 1) ;;wait 1 second
-)
+  )
 
 ;;`remove' the prompt for killing emacsclient buffers
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
@@ -327,7 +327,7 @@ occurence of CHAR."
 (defun m-exit-animate() 
   (interactive) 
   (cond ((y-or-n-p "Exit? ") 
-	 (medusa-bye)
+	 (medusa-bye) 
 	 (save-buffers-kill-emacs))))
 
 (defun m-exit() 
@@ -372,23 +372,21 @@ occurence of CHAR."
   ( m-show-compilation "*eww*") 
   (other-window 1) 
   (eww url))
-
 
 
 (defun m-find-file-doc() 
-  (interactive)
-  (setq old-default-directory default-directory)
-  (setq default-directory  (concat (getenv "HOME") "/docs/"))
-  (helm-find-files nil)
+  (interactive) 
+  (setq old-default-directory default-directory) 
+  (setq default-directory  (concat (getenv "HOME") "/docs/")) 
+  (helm-find-files nil) 
   (setq default-directory old-default-directory))
 
 (defun m-find-file-blog() 
-  (interactive)
-  (setq old-default-directory default-directory)
-  (setq default-directory  (concat (getenv "HOME") "/docs/github-pages/"))
-  (helm-find-files nil)
+  (interactive) 
+  (setq old-default-directory default-directory) 
+  (setq default-directory  (concat (getenv "HOME") "/docs/github-pages/")) 
+  (helm-find-files nil) 
   (setq default-directory old-default-directory))
-
 
 
 (defun m-show-compilation(buffer-name &optional dont-return-old-buffer) 
@@ -407,14 +405,28 @@ occurence of CHAR."
   (m-show-compilation "*compilation*") ;;
   (compile command))
 
+
+;; (defun m-run-command (command) 
+;;   "compile project" 
+;;   (setq temp-elisp-buffer-name (buffer-name (current-buffer))) 
+;;   (m-show-compilation "*compilation*") 
+;;   (switch-to-buffer-other-window temp-elisp-buffer-name) 
+;;   (compile command)
+;;   (m-show-compilation "*compilation*" t))
+
+;; (defun m-run-command (command) 
+;;   "compile project"
+;;   (m-show-compilation "*Shell Command Output*") 
+;;   (shell-command command))
+
 (defun m-create-project(command openfile) 
-  (let  ((project-path (read-file-name "choice project path:" nil default-directory nil)))
-    (message project-path)
+  (let  ((project-path (read-file-name "choice project path:" nil default-directory nil))) 
+    (message project-path) 
     (setq default-directory (f-dirname project-path)) 
     (f-mkdir default-directory) 
     (if (= (shell-command (concat (s-replace "%s" (f-filename project-path) command))) 0) 
-	(progn (message (concat "shell-cmd:" ))	      
-	       (find-file (concat project-path "/" openfile))
+	(progn (message (concat "shell-cmd:" )) 
+	       (find-file (concat project-path "/" openfile)) 
 	       (message (concat "created new project '" (f-filename project-path) "' succeed:)"))) 
       (message (concat "creat new project '" (f-filename project-path) "' failed:(")))))
 

@@ -245,10 +245,10 @@
 
 ;; (setq rtags-bin-path (file-name-directory (rtags-executable-find "rc")))
 (defun gen-rtags-indexes2 () 
-  (interactive) 
   (message (concat "you opened cc file:" (buffer-name)))
   ;; find CmakeLists.txt & gen rtags indexes
   (m-run-command (concat (getenv "HOME")  "/my-emacs-config/bin/gen-rtags")))
+
 
 (defun gen-rtags-indexes () 
   (setq dir (m-buf-dirpath)) 
@@ -262,7 +262,7 @@
 	(setq old-default-directory default-directory) 
 	(make-directory index-dir) 
 	(setq default-directory  index-dir) 
-	(m-run-command
+	(shell-command
 	 "bash -c \"source /opt/ros/kinetic/setup.bash && cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 && rc -J .\"") 
 	(setq default-directory old-default-directory)))))
 
