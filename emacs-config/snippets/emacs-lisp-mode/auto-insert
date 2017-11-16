@@ -26,5 +26,5 @@
 ;;
 $0
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(provide '`(buffer-only-name)`)
+(provide '`(m-bufname-no-ext)`)
 ;; `(buffer-name)` ends here

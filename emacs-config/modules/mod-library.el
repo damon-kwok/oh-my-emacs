@@ -27,12 +27,6 @@
 (package-require 'f)
 (require 'f)
 
-(defun m-project-root() 
-  (let ((aaa (substring (buffer-only-name) 0 1))) 
-    (if (string= aaa "*") "./" (if (projectile-project-p) 
-				   (projectile-project-root) 
-				 (buffer-path-name)))))
-
 ;; (projectile-project-p)
 ;; (projectile-project-root)
 ;; (projectile-get-project-directories)
@@ -101,31 +95,71 @@
   "Works just like `progn' but will only evaluate expressions in VAR when Emacs is running in a terminal else just nil."
   `(when (m-is-in-terminal) ,@body))
 
-;; (file-name-as-directory buffer-file-name)
-;; (file-name-nondirectory buffer-file-name)
-;; (file-name-directory buffer-file-name)
 
-(defun buffer-path-name() 
+(defun m-buf-dirpath() 
   (directory-file-name (file-name-directory buffer-file-name)))
 
-(defun buffer-dir-name() 
-  (nth 0 (last (split-string (buffer-path-name) "/") 1)))
+(defun m-buf-dirname() 
+  (nth 0 (last (split-string (m-buf-dirpath) "/") 1)))
 
-(defun buffer-only-name() 
-  (first (split-string (buffer-name) "\\."))) ;;file-name-base
+;; (defun m-bufname-no-ext() 
+  ;; (first (split-string (buffer-name) "\\."))) ;;file-name-base
+(defun m-bufname-no-ext() 
+  (file-name-base (buffer-name)))
 
-(defun buffer-ext-name() 
+(defun m-filename-no-ext() 
+  (file-name-base (buffer-file-name)))
+
+(defun m-buf-ext() 
   (let ((ext-name (nth 0 (last (split-string (buffer-name) "\\.")))) 
 	(buf-name (buffer-name))) 
     (if (string= ext-name buf-name) "" ext-name)))
 
-;;(file-name-sans-extension "222/111.el") ;;==>222/111
-;;(file-name-base "222/111.el") ;;==> 111
+(defun m-project-root() 
+  (let ((aaa (substring (m-bufname-no-ext) 0 1))) 
+    (if (string= aaa "*") "./" (if (projectile-project-p) 
+				   (projectile-project-root) 
+				 (m-buf-dirpath)))))
+
+(defun m-parent-dirpath (path)
+  (file-name-directory (directory-file-name path)))
+
+(defun f-filename-no-ext (path)
+  (f-no-ext (f-filename path)))
+
+;; (buffer-name)                  ;;=> "hello.txt"
+;; (buffer-file-name)             ;;=> "/home/damon/docs/hello.txt"
+;; (file-name-as-directory "/home/damon/docs") ;;=> "/home/damon/docs/"
+;; (directory-file-name "/home/damon/docs/");;=> "/home/damon/docs"
+;; (file-name-nondirectory "/home/damon/docs/hello.txt") ;;=> "hello.txt"
+;; (file-name-directory "/home/damon/docs/1/2/3") ;;=> "home/damon/dacs/1/2/"
+;; (file-name-directory "/home/damon/docs/1/2/");;=> "/home/damon/docs/1/2/" oooooooooooh!no!
+;; (m-file-directory "/home/damon/docs/1/2/") ;;=> "/home/damon/docs/1/" nice:)
+;; (f-dirname "path/to/file.ext/") ;;=> "path/to/"
+
+
+;; (f-filename-no-ext "path/to/file.txt") ;;=> "file"
+;; (m-filename-no-ext) ;;=>"file”
+;; (m-bufname-no-ext);;=>"file"
+;; (m-parent-dirpath "/path/to/hello.txt")
+;; (m-parent-dirpath "C:/")
+;; (m-buf-dirpath)                ;;=> "/home/damon/docs"
+;; (m-buf-dirname)      ;;=> "docs"
+;; (m-buffer-name-sans-extension) ;;=> "hello"
+;; (m-buffer-file-name-sans-extension) ;;=> "/home/damon/docs/hello"
+;; (file-name-directory "/home/damon/docs/hello.txt");;=> "/home/damon/docs"
+;; (m-buf-ext)      ;;=> "el"
+
+;; (m-project-root)               ;;=> "/home/damon/docs"
+;; (file-name-sans-extension "222/111.el") ;;==>222/111
+;; (file-name-base "222/111.el") ;;==> 111
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (browse-url
 ;;  (concat "http://www.bing.com/dict/search?q="
 ;; 	 (url-hexify-string
 ;; 	  (read-string "Query: "))))
+(defun m-bing-dict-brief (arg)
+  (bing-dict-brief arg))
 
 (defun m-bing-dict-brief-eww (arg) 
   "compile project"
@@ -251,7 +285,7 @@ occurence of CHAR."
 
 (defun m-rename-file-and-buffer-ext (ext-name) 
   "rename extname with file and buffer"
-  (m-rename-file-and-buffer (concat (buffer-only-name) "." ext-name)))
+  (m-rename-file-and-buffer (concat (m-bufname-no-ext) "." ext-name)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; define function to shutdown emacs server instance
 (defun m-server-shutdown () 

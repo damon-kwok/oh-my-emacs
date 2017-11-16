@@ -622,7 +622,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (require 'rainbow-delimiters)
 
 (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'elisp-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

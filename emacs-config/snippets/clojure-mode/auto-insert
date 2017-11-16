@@ -22,4 +22,4 @@
 ;; Code:
 $0
 ;;
-(provide '`(buffer-only-name)`)
+(provide '`(m-bufname-no-ext)`)

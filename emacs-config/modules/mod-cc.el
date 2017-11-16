@@ -65,16 +65,16 @@
 
 (define-key c-mode-base-map (kbd "C-M-.") 'rtags-find-symbol)
 (define-key c-mode-base-map (kbd "C-M-,") 'rtags-find-references)
-(define-key c-mode-base-map (kbd "M-<") 'rtags-find-virtuals-at-point)
+(define-key c-mode-base-map (kbd "M-?") 'rtags-find-virtuals-at-point)
 (define-key c-mode-base-map (kbd "M-.") 'rtags-find-symbol-at-point)
 (define-key c-mode-base-map (kbd "M-,") 'rtags-find-references-at-point)
 (define-key c-mode-base-map (kbd "M-;") 'rtags-find-file)
 (define-key c-mode-base-map (kbd "M-i") 'rtags-imenu)
 
-(defun rtags-open-file ()
-    (interactive) 
-    (rtags-select-other-window) 
-    (delete-other-windows))
+(defun rtags-open-file () 
+  (interactive) 
+  (rtags-select-other-window) 
+  (delete-other-windows))
 (defun show-rtags-buffer() 
   (interactive) 
   (setq temp-cc-buffer-name (buffer-name (current-buffer))) 
@@ -97,7 +97,6 @@
 
 (define-key rtags-mode-map (kbd "C-c C-z") 'show-cc-buffer)
 (define-key c-mode-base-map (kbd "C-c C-z") 'show-rtags-buffer)
-
 
 
 ;; `irony'
@@ -185,23 +184,37 @@
 (eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
 
 
-;; `cmake'
 ;; `cmake-ide'
 ;; (package-require 'cmake-ide)
 ;; (cmake-ide-setup)
-
-;;
+
+;; cmake `font-lock'
 (package-require 'cmake-font-lock)
 (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
 (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
 
-;;;; create cmake file
+;; `create-or-open-cmake-file'
+(defun search-cmakefile-from (path) 
+  (message (concat "check:" path)) 
+  (if (file-exists-p (concat path "CMakeLists.txt")) 
+      (progn (message path) path) 
+    (progn 
+      (setq parent (m-parent-dirpath path)) 
+      (if (or (eq parent nil) 
+	      (string= parent "/")) nil (search-cmakefile-from parent)))))
+
+(search-cmakefile-from "/home/damon/path/to/1.txt")
+
 (defun create-cmake-file () 
   " create cmake file with current directory!" 
-  (interactive) 
-  (find-file "CMakeLists.txt"))
+  (interactive)
+  (setq dir (m-buf-dirpath))
+  (setq cmake-dir (search-cmakefile-from dir))
+  (if (eq cmake-dir nil)
+    (find-file "CMakeLists.txt")
+      (find-file (concat cmake-dir "CMakeLists.txt"))))
 
-;;;; switch 'cmake buffer' and 'code buffer'
+;; switch 'cmake buffer' and 'code buffer'
 (defun create-cmake-file-or-close () 
   (interactive) 
   (if (or (eq major-mode 'c-mode) 
@@ -213,24 +226,37 @@
 (define-key c-mode-base-map [f6] 'create-cmake-file-or-close)
 
 
-;;; Syntax highlighting support for "`ModernC++'" - until `C++17' and Technical Specification.
+;;; Syntax highlighting support for "`Modern.C++'" - until `C++17' and Technical Specification.
 (package-require 'modern-cpp-font-lock)
 (require 'modern-cpp-font-lock)
 (modern-c++-font-lock-global-mode t)
 
 
 ;; `format'
-;; (package-require 'clang-format)
-;; (require 'clang-format)
+(package-require 'clang-format)
+(require 'clang-format)
 ;; (define-key c++-mode-map (kbd "C-M-") 'clang-format-region)
+(define-key c-mode-map (kbd "C-c C-f")  'clang-format-buffer)
+(define-key c++-mode-map (kbd "C-c C-f")  'clang-format-buffer)
+(define-key objc-mode-map (kbd "C-c C-f")  'clang-format-buffer)
+
+(define-key c-mode-map (kbd "C-M-\\")  'clang-format-region)
+(define-key c++-mode-map (kbd "C-M-\\")  'clang-format-region)
+(define-key objc-mode-map (kbd "C-M-\\")  'clang-format-region)
 
 
 ;; (setq rtags-bin-path (file-name-directory (rtags-executable-find "rc")))
-(defun gen-rtags-indexes ()
-  (interactive)
+(defun gen-rtags-indexes () 
+  (interactive) 
   (message (concat "you opened cc file:" (buffer-name)))
   ;; find CmakeLists.txt & gen rtags indexes
-  (m-run-command (concat (getenv "HOME")  "/my-emacs-config/bin/gen-rtags.sh")))
+  (m-run-command (concat (getenv "HOME")  "/my-emacs-config/bin/gen-rtags"))
+  ;; (m-run-command "gen-rtags")
+  )
+
+(add-hook 'c-mode-hook 'gen-rtags-indexes)
+(add-hook 'c++-mode-hook 'gen-rtags-indexes)
+(add-hook 'objc-mode-hook 'gen-rtags-indexes)
 
 (add-hook 'c-mode-hook 'gen-rtags-indexes)
 (add-hook 'c++-mode-hook 'gen-rtags-indexes)

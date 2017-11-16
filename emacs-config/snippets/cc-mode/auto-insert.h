@@ -20,12 +20,12 @@
 //						 
 // Code:
 //
-#ifndef __`(upcase (buffer-only-name))`_H__
-#define __`(upcase (buffer-only-name))`_H__
+#ifndef __`(upcase (m-bufname-no-ext))`_H__
+#define __`(upcase (m-bufname-no-ext))`_H__
 //
 $0
 //
-#endif //#ifndef __`(upcase (buffer-only-name))`_H__
+#endif //#ifndef __`(upcase (m-bufname-no-ext))`_H__
 //`(buffer-name)` ends here
 
 

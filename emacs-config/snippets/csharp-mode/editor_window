@@ -5,26 +5,26 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
-public class `(buffer-only-name)` : EditorWindow
+public class `(m-bufname-no-ext)` : EditorWindow
 {
-    public static `(buffer-only-name)` instance = null;
+    public static `(m-bufname-no-ext)` instance = null;
 
-    [MenuItem("Window/`(buffer-only-name)`")]
+    [MenuItem("Window/`(m-bufname-no-ext)`")]
     public static void Init()
     {
-        instance = (`(buffer-only-name)`)EditorWindow.GetWindow(typeof(`(buffer-only-name)`));
+        instance = (`(m-bufname-no-ext)`)EditorWindow.GetWindow(typeof(`(m-bufname-no-ext)`));
         instance.Show();
     }
 
     void OnProjectChange()
     {
-        Debug.Log("----------------`(buffer-only-name)`::OnProjectChange---------------");
+        Debug.Log("----------------`(m-bufname-no-ext)`::OnProjectChange---------------");
 	instance = this;
     }
 
     void OnSelectionChange()
     {
-        Debug.Log("----------------`(buffer-only-name)`::OnSelectionChange---------------");
+        Debug.Log("----------------`(m-bufname-no-ext)`::OnSelectionChange---------------");
         instance = this;
     }
 
@@ -35,8 +35,8 @@ public class `(buffer-only-name)` : EditorWindow
     
     void OnEnable()
     {
-	Debug.Log("----------------`(buffer-only-name)`::OnSelectionChange---------------");
-	this.title = "`(buffer-only-name)`";
+	Debug.Log("----------------`(m-bufname-no-ext)`::OnSelectionChange---------------");
+	this.title = "`(m-bufname-no-ext)`";
         instance = this;
     }
 
