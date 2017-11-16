@@ -269,10 +269,5 @@
 (add-hook 'c-mode-hook 'gen-rtags-indexes)
 (add-hook 'c++-mode-hook 'gen-rtags-indexes)
 (add-hook 'objc-mode-hook 'gen-rtags-indexes)
-
-(add-hook 'c-mode-hook 'gen-rtags-indexes)
-(add-hook 'c++-mode-hook 'gen-rtags-indexes)
-(add-hook 'objc-mode-hook 'gen-rtags-indexes)
-
 ;;
 (provide 'mod-cc)
