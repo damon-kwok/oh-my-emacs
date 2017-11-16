@@ -335,6 +335,7 @@ function install-toolchain {
     cd $SHAMAN_BIN
     chmod +x ./shaman
     chmod +x ./rosman
+    chmod +x ./gen-rtags
 }
 
 function ask-blog {

@@ -377,14 +377,14 @@ occurence of CHAR."
 (defun m-find-file-doc() 
   (interactive) 
   (setq old-default-directory default-directory) 
-  (setq default-directory  (concat (getenv "HOME") "/docs/")) 
+  (setq default-directory  (concat (getenv "HOME") "/workspace/docs/")) 
   (helm-find-files nil) 
   (setq default-directory old-default-directory))
 
 (defun m-find-file-blog() 
   (interactive) 
   (setq old-default-directory default-directory) 
-  (setq default-directory  (concat (getenv "HOME") "/docs/github-pages/")) 
+  (setq default-directory  (concat (getenv "HOME") "/workspace/docs/github-pages/")) 
   (helm-find-files nil) 
   (setq default-directory old-default-directory))
 
