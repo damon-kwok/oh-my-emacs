@@ -484,7 +484,8 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^               ^
 (defhydra hydra-do-super 
   (:color blue) 
   (concat "" (get-super-menu-string))
-  ("`" (mu4e) "Email")
+  ;; ("`" (mu4e) "Email")
+  ("`" mu4e~headers-jump-to-maildir "Email")
   ("b" (hydra-show-buffer/body) "buffer") 
   ("f" (hydra-open-file/body) "file") 
   ("m" (hydra-open-config/body) "module") 

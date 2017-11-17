@@ -28,6 +28,7 @@
 ;; libgmime-2.6-dev libxapian-dev
 ;; (setq dir (concat (expand-file-name libs-user-dir) "/" "mu-1.0-alpha2/mu4e"))
 (setq dir (concat (expand-file-name libs-user-dir) "/" "mu-0.9.18/mu4e"))
+
 (add-to-list 'load-path dir)
 (require 'mu4e)
 
@@ -36,7 +37,7 @@
 (setq mu4e-view-show-images t)
 
 ;; use imagemagick, if available
-(when (fboundp 'imagemagick-register-types)
+(when (fboundp 'imagemagick-register-types) 
   (imagemagick-register-types))
 
 ;; save attachment to my desktop (this can also be a function)
@@ -46,11 +47,10 @@
 (setq mu4e-view-prefer-html t)
 (require 'mu4e-contrib)
 (setq mu4e-html2text-command 'mu4e-shr2text)
-
 
-(setq mu4e-drafts-folder "/[Gmail].Drafts")
-(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-(setq mu4e-trash-folder  "/[Gmail].Trash")
+(setq mu4e-drafts-folder "/Draft")
+(setq mu4e-sent-folder   "/Sent")
+(setq mu4e-trash-folder  "/Trash")
 
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
@@ -64,10 +64,17 @@
 ;; then, when you want archive some messages, move them to
 ;; the 'All Mail' folder by pressing ``ma''.
 
-(setq mu4e-maildir-shortcuts '( ("/INBOX"               . ?i) 
-				("/[Gmail].Sent Mail"   . ?s) 
-				("/[Gmail].Trash"       . ?t) 
-				("/[Gmail].All Mail"    . ?a)))
+(setq mu4e-maildir-shortcuts '( ("/INBOX" . ?i) 
+				("/INBOX/News" . ?1) 
+				("/INBOX/Notification" . ?2) 
+				("/INBOX/NewMember" . ?3) 
+				("/INBOX/Meeting" . ?4) 
+				("/INBOX/MeetingSummary" . ?5) 
+				("/INBOX/JIRA" . ?6) 
+				("/INBOX/Wage" . ?w) 
+				("/Sent" . ?s) 
+				("/Trash" . ?t) 
+				("/Junk" . ?j)))
 
 ;; allow for updating mail using 'U' in the main view:
 (setq mu4e-get-mail-command "offlineimap")
@@ -88,41 +95,15 @@
 
 ;; don't keep message buffers around
 (setq message-kill-buffer-on-exit t)
-
 
-
-(defun show-email-repl() 
-  (interactive) 
-  (setq temp-email-buffer-name (buffer-name (current-buffer))) 
-  (m-show-compilation "*mu4e-headers*")
-  (ielm) 
-  (switch-to-buffer-other-window temp-email-buffer-name) 
-  (m-show-compilation "*mu4e-headers*" t))
-
-(defun show-email-workbuffer() 
-  (interactive) 
-  (switch-to-buffer-other-window temp-email-buffer-name) 
-  (delete-other-windows) 
-  (show-email-repl) 
-  (switch-to-buffer-other-window temp-email-buffer-name))
-
-;; 
-(defun compile-current-buffer() 
-  (interactive)
-  (kill-buffer (get-buffer "*Compile-Log*"))
-  (save-buffer) 
-  (delete-other-windows) 
-  (byte-compile-file (buffer-file-name)) 
-  (delete-file (concat (buffer-file-name) "c"))
-  ;;(m-show-compilation "*Warnings*")
-  (m-show-compilation "*Compile-Log*"))
-
-(require 'ielm)
-(define-key ielm-map (kbd "C-c C-z") 'show-email-workbuffer)
-
-(define-key emacs-lisp-mode-map (kbd "C-c C-z")  'show-email-repl)
-
-(global-set-key (kbd "C-c C-`") 'show-email-repl)
+;; (define-key mu4e-headers-mode-map (kbd "SPC") ;;RET
+;;   '(lambda ()
+;;      (interactive)
+;;      (delete-other-windows)
+;;      (mu4e-headers-view-message)
+;;      (sit-for 0.1)
+;;      (switch-window)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-email)
 ;; mod-email.el ends here
