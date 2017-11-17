@@ -62,6 +62,7 @@
 
 (package-require 'company-rtags)
 (require 'company-rtags)
+(unless (rtags-executable-find "rc") (rtags-install))
 
 (define-key c-mode-base-map (kbd "C-M-.") 'rtags-find-symbol)
 (define-key c-mode-base-map (kbd "C-M-,") 'rtags-find-references)
@@ -101,7 +102,9 @@
 
 ;; `irony'
 (package-require 'irony)
-(autoload 'irony "irony" nil t) ;;(require 'irony)
+(autoload 'irony "irony" nil t)
+;; (require 'irony)
+;; (unless (file-exists-p "/home/damon/.emacs.d/elpa/irony/bin/irony-server") (irony-install-server))
 
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
@@ -241,6 +244,12 @@
 (define-key c-mode-map (kbd "C-M-\\")  'clang-format-region)
 (define-key c++-mode-map (kbd "C-M-\\")  'clang-format-region)
 (define-key objc-mode-map (kbd "C-M-\\")  'clang-format-region)
+
+(package-require 'google-c-style)
+(require 'google-c-style)
+
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+
 
 
 ;; (setq rtags-bin-path (file-name-directory (rtags-executable-find "rc")))

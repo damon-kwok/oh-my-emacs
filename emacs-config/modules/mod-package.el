@@ -44,13 +44,13 @@
 
 
 
-(setq package-archives '( ;;
+(setq package-archives '(;;
 			 ;;("gnu" . "https://elpa.gnu.org/packages/")
-			 ;;("org" . "http://orgmode.org/elpa/") 
+			 ;;("org" . "http://orgmode.org/elpa/")
 			 ;;("melpa" . "https://melpa.org/packages/")
 			 ;; ("popkit" . "http://elpa.popkit.org/packages/")
-			 ("gnu" . "http://elpa.emacs-china.org/gnu/")
-			 ("melpa" . "http://elpa.emacs-china.org/melpa/")
+			 ("gnu" . "http://elpa.emacs-china.org/gnu/") 
+			 ("melpa" . "http://elpa.emacs-china.org/melpa/") 
 			 ("org" . "http://elpa.emacs-china.org/org/")
 			 ;;
 			 ))
@@ -157,10 +157,9 @@
 (defun package-dist-upgrade() 
   (interactive) 
   (package-update) 
-  (package-upgrade)) ;;(package-autoremove)
-
+  (package-autoremove)
+  (package-upgrade))
 
-
 ;; `use-package'
 (package-require 'use-package)
 (require 'use-package)

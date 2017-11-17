@@ -1,2 +1,2 @@
-(package-require '${1:pkg})
+(package-require '${1:pkg})$0
 (require '$1)
