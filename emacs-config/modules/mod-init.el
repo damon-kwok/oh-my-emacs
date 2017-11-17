@@ -62,6 +62,7 @@
 ;; (module-require 'mod-slime)
 (module-require 'mod-ros)
 (module-require 'mod-git)
+(module-require 'mod-email)
 ;; (module-require 'mod-tree)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;(if (or (eq system-type 'windows-nt)

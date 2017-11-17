@@ -470,7 +470,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    (get-major-mode-name)
    "
 ^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
-^^               _>_: goto-char-f       _G_: grep-project     _;_: <-Tab       _6_: Clojure   _1_:run   ^^
+_`_: Email       _>_: goto-char-f       _G_: grep-project     _;_: <-Tab       _6_: Clojure   _1_:run   ^^
 _b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->       _7_: Elixir    ^^ test   ^^
 _f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: <-Group     _8_: Rust      ^^ build  ^^
 _m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: Group->     _9_: Ros       ^^ clean  ^^
@@ -483,7 +483,8 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^               ^
 ;;; `C-SPC'
 (defhydra hydra-do-super 
   (:color blue) 
-  (concat "" (get-super-menu-string)) 
+  (concat "" (get-super-menu-string))
+  ("`" (mu4e) "Email")
   ("b" (hydra-show-buffer/body) "buffer") 
   ("f" (hydra-open-file/body) "file") 
   ("m" (hydra-open-config/body) "module") 
