@@ -29,6 +29,15 @@ DIR_LLVM=$SHAMAN_ROOT/dev/llvm
 
 ################################################################################
 
+function find-str {    
+    grep $1 $2 >/dev/null
+    if [ $? -eq 0 ]; then
+	return $(( 1 ));
+    else
+	return $(( 0 ));
+    fi
+}
+
 function readp {
     read -p "$1(Y/n)" c
     if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
@@ -44,7 +53,83 @@ function readp {
 ################################################################################
 
 function link-init-el() {
-    cp -rf $SHAMAN_ROOT/emacs-config/init.el $HOME/.emacs
+    echo "func::link"
+    # cp -rf $SHAMAN_ROOT/emacs-config/init.el $HOME/.emacs
+
+    bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
+    mkdir -p $bkdir
+
+    if [ -f ~/.emacs ]; then
+	mv ~/.emacs $bkdir
+    fi
+
+    if [ -f ~/.emacs.d ]; then
+	mv -a ~/.emacs.d $bkdir
+    fi
+
+    if [ -e ~/emacs-config ]; then
+	mv ~/emacs-config $bkdir
+    fi
+
+    if [ -e ~/workspace ]; then
+	mv ~/workspace $bkdir
+    fi
+    
+    if [ -e ~/blog ]; then
+	mv ~/blog $bkdir
+    fi
+
+    
+    
+    cd $SHAMAN_ROOT
+    git reset
+    git pull
+
+    
+    echo blog
+    if [ ! -d $DIR_BLOG ]; then
+	git clone https://github.com/damon-kwok/damon-kwok.github.io.git blog
+    else
+	cd $DIR_BLOG
+	git pull
+    fi
+
+    echo workspace
+    if [ ! -d $DIR_WORKSPACE ]; then
+	cd $SHAMAN_ROOT
+	svn co svn://www.svn999.com/guowangwei.workspace workspace
+    else
+	cd $DIR_WORKSPACE
+	svn cleanup .
+	svn up
+    fi
+
+    #for linux
+    echo link
+    cp -a $SHAMAN_ROOT/emacs-config/init.el ~/.emacs 
+    ln -s $SHAMAN_ROOT/emacs-config ~/emacs-config
+    ln -s $SHAMAN_ROOT/workspace ~/workspace
+    ln -s $SHAMAN_ROOT/blog ~/blog
+    # if [ ! -f /usr/bin/shaman ]; then
+    # sudo ln -s $SHAMAN_ROOT/shaman /usr/bin/shaman
+    # fi
+
+    find-str "my-emacs-config" ~/.bashrc
+    if [ $? -eq 0 ]; then
+	echo "" >> ~/.bashrc
+	# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.bashrc
+	echo "source $SHAMAN_BIN/setup.sh" >> ~/.bashrc
+	#source ~/.bashrc
+    fi
+
+    find-str "my-emacs-config" ~/.zshrc
+    if [ $? -eq 0 ]; then
+	echo "" >> ~/.zshrc
+	# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.zshrc
+	echo "source $SHAMAN_BIN/setup.sh" >> ~/.zshrc
+	#source ~/.zshrc
+    fi
+    source $SHAMAN_BIN/setup.sh
 }
 
 function run-emacs {

@@ -36,12 +36,15 @@
 (package-require 'shader-mode)
 (autoload 'shader-mode "shader" nil t) ;;(require 'shader-mode)
 (add-to-list 'auto-mode-alist '("\\.shader$" . shader-mode))
+
 
 
 ;; `rtags'
 (package-require 'rtags)
 (require 'rtags)
-(message rtags-path)
+;; (message rtags-path)
+(unless (rtags-executable-find "rc") 
+  (rtags-install))
 (setenv "PATH" (concat (file-name-directory (rtags-executable-find "rc")) ":" (getenv "PATH")))
 
 (setq rtags-completions-enabled t)
@@ -62,7 +65,6 @@
 
 (package-require 'company-rtags)
 (require 'company-rtags)
-(unless (rtags-executable-find "rc") (rtags-install))
 
 (define-key c-mode-base-map (kbd "C-M-.") 'rtags-find-symbol)
 (define-key c-mode-base-map (kbd "C-M-,") 'rtags-find-references)
@@ -97,8 +99,7 @@
 (define-key rtags-mode-map [mouse-2] 'rtags-open-file)
 
 (define-key rtags-mode-map (kbd "C-c C-z") 'show-cc-buffer)
-(define-key c-mode-base-map (kbd "C-c C-z") 'show-rtags-buffer)
-
+(define-key c-mode-base-map (kbd "C-c C-z") 'show-rtags-buffer) 
 
 ;; `irony'
 (package-require 'irony)
@@ -128,8 +129,7 @@
 
 ;; `ironyeldoc'
 (package-require 'irony-eldoc)
-(add-hook 'irony-mode-hook #'irony-eldoc)
-
+(add-hook 'irony-mode-hook #'irony-eldoc) 
 
 ;;`company-irony'
 (package-require 'company-irony)
@@ -151,8 +151,7 @@
 
 (define-key c-mode-map (kbd "M-/")  'company-complete)
 (define-key c++-mode-map (kbd "M-/")  'company-complete)
-(define-key objc-mode-map (kbd "M-/")  'company-complete)
-
+(define-key objc-mode-map (kbd "M-/")  'company-complete) 
 
 ;; `flycheck'
 (package-require 'flycheck)
@@ -184,8 +183,7 @@
 
 ;; `flycheck-clang-tidy'
 (package-require 'flycheck-clang-tidy)
-(eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
-
+(eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup)) 
 
 ;; `cmake-ide'
 ;; (package-require 'cmake-ide)
@@ -224,14 +222,12 @@
     (if (eq major-mode 'cmake-mode) ;;(if (equal buffer-name "CMakeLists.txt")
 	(kill-this-buffer))))
 
-(define-key c-mode-base-map [f6] 'create-cmake-file-or-close)
-
+(define-key c-mode-base-map [f6] 'create-cmake-file-or-close) 
 
 ;;; Syntax highlighting support for "`Modern.C++'" - until `C++17' and Technical Specification.
 (package-require 'modern-cpp-font-lock)
 (require 'modern-cpp-font-lock)
-(modern-c++-font-lock-global-mode t)
-
+(modern-c++-font-lock-global-mode t) 
 
 ;; `format'
 (package-require 'clang-format)
@@ -249,7 +245,6 @@
 (require 'google-c-style)
 
 (add-hook 'c-mode-common-hook 'google-set-c-style)
-
 
 
 ;; (setq rtags-bin-path (file-name-directory (rtags-executable-find "rc")))
@@ -265,7 +260,7 @@
   (setq index-dir (concat cmake-dir "rtags_indexes")) 
   (if (eq cmake-dir nil) 
       (message "not found 'CMakeLists.txt' file!") 
-    (if (file-exists-p index-dir)	  
+    (if (file-exists-p index-dir) 
 	(message "rtags_indexes is exists.") 
       (progn 
 	(setq old-default-directory default-directory) 

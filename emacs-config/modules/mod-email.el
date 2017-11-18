@@ -28,8 +28,11 @@
 ;; libgmime-2.6-dev libxapian-dev
 ;; (setq dir (concat (expand-file-name libs-user-dir) "/" "mu-1.0-alpha2/mu4e"))
 (setq dir (concat (expand-file-name libs-user-dir) "/" "mu-0.9.18/mu4e"))
+;;(setq dir2 (concat (expand-file-name libs-user-dir) "/" "mu/mu4e"))
 
 (add-to-list 'load-path dir)
+;;(add-to-list 'load-path dir2)
+
 (require 'mu4e)
 
 
