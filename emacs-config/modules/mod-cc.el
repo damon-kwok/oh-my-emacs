@@ -68,10 +68,10 @@
 
 (define-key c-mode-base-map (kbd "C-M-.") 'rtags-find-symbol)
 (define-key c-mode-base-map (kbd "C-M-,") 'rtags-find-references)
-(define-key c-mode-base-map (kbd "M-?") 'rtags-find-virtuals-at-point)
+;; (define-key c-mode-base-map (kbd "M-?") 'rtags-find-virtuals-at-point)
 (define-key c-mode-base-map (kbd "M-.") 'rtags-find-symbol-at-point)
 (define-key c-mode-base-map (kbd "M-,") 'rtags-find-references-at-point)
-(define-key c-mode-base-map (kbd "M-;") 'rtags-find-file)
+(define-key c-mode-base-map (kbd "M-?") 'rtags-find-file)
 (define-key c-mode-base-map (kbd "M-i") 'rtags-imenu)
 
 (defun rtags-open-file () 

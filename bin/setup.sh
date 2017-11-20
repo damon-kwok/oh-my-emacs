@@ -2,7 +2,7 @@ ROOT_DIR_NAME=my-emacs-config
 SHAMAN_ROOT=/home/`whoami`/$ROOT_DIR_NAME
 SHAMAN_BIN=$SHAMAN_ROOT/bin
 LOCAL_BIN=/home/`whoami`/.local/bin
-export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:$PATH
+export PATH=$SHAMAN_BIN:$LOCAL_BIN:$PATH
 
 # find-str $2:str $1:file
 # example:

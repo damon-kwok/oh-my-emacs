@@ -9,15 +9,19 @@ this is damon kwok's emacs config
 - zip
 - unzip
 - zsh
+- ipython
+- jupyter
+- mu-0.9.18
+- offlineiamp
 - [[http://www.msys2.org/][msys2]] (windows)
 
 * Install
-- sh <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/install)
+- sh <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/INSTALL)
 
 * Keybind
 ** global
  - *C-u C-h n *what's the new*
- - *M-z | M-SPC* *super-key*
+ - *M-z *super-key*
  - *C-z* mark-word
  - *C-M-d* delete-backward-char
  - *M-p* move-lines-up

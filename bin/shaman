@@ -2,12 +2,12 @@
 
 # DIRNAME=`dirname "$0"`
 # SHAMAN_ROOT=`cd "$DIRNAME"; pwd`
-echo "SHAMAN_ROOT="`pwd`
+# echo "SHAMAN_ROOT="`pwd`
 SHAMAN_DIR_NAME=my-emacs-config
 SHAMAN_ROOT=`cd ~/$SHAMAN_DIR_NAME; pwd`
 SHAMAN_BIN=$SHAMAN_ROOT/bin
 LOCAL_BIN=/home/`whoami`/.local/bin
-export PATH=$SHAMAN_BIN:$LOCAL_BIN:$PATH
+PATH=$SHAMAN_BIN:$LOCAL_BIN:$PATH
 
 CACHE=$SHAMAN_ROOT/cache
 APP_HOME=$CACHE/apps
@@ -51,36 +51,31 @@ function readp {
 }
 
 ################################################################################
-
-function link-init-el() {
-    echo "func::link"
-    # cp -rf $SHAMAN_ROOT/emacs-config/init.el $HOME/.emacs
-
-    bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
-    mkdir -p $bkdir
-
-    if [ -f ~/.emacs ]; then
-	mv ~/.emacs $bkdir
+function run-emacs {
+    if [ ! -f $HOME/.emacs ]; then
+	link-init-el
     fi
 
-    if [ -f ~/.emacs.d ]; then
-	mv -a ~/.emacs.d $bkdir
+    emacs --debug-init
+    exit
+}
+
+function run-emacs-nw {
+    if [ ! -f $HOME/.emacs ]; then
+	link-init-el
     fi
 
-    if [ -e ~/emacs-config ]; then
-	mv ~/emacs-config $bkdir
-    fi
+    emacs -nw --debug-init
+}
 
-    if [ -e ~/workspace ]; then
-	mv ~/workspace $bkdir
-    fi
-    
-    if [ -e ~/blog ]; then
-	mv ~/blog $bkdir
-    fi
+function delete-etc {
+    cd $SHAMAN_ROOT/emacs-config/modules
+    rm -rf *.elc
+    cd $SHAMAN_ROOT
+}
 
-    
-    
+function pull-blog {
+    echo "func::pull-blog"
     cd $SHAMAN_ROOT
     git reset
     git pull
@@ -132,27 +127,34 @@ function link-init-el() {
     source $SHAMAN_BIN/setup.sh
 }
 
-function run-emacs {
-    if [ ! -f $HOME/.emacs ]; then
-	link-init-el
+function link-init-el() {
+    echo "func::link"
+    # cp -rf $SHAMAN_ROOT/emacs-config/init.el $HOME/.emacs
+
+    bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
+    mkdir -p $bkdir
+
+    if [ -f ~/.emacs ]; then
+	mv ~/.emacs $bkdir
     fi
 
-    emacs --debug-init
-    exit
-}
-
-function run-emacs-nw {
-    if [ ! -f $HOME/.emacs ]; then
-	link-init-el
+    if [ -f ~/.emacs.d ]; then
+	mv -a ~/.emacs.d $bkdir
     fi
 
-    emacs -nw --debug-init
-}
+    if [ -e ~/emacs-config ]; then
+	mv ~/emacs-config $bkdir
+    fi
 
-function delete-etc {
-    cd $SHAMAN_ROOT/emacs-config/modules
-    rm -rf *.elc
-    cd $SHAMAN_ROOT
+    if [ -e ~/workspace ]; then
+	mv ~/workspace $bkdir
+    fi
+    
+    if [ -e ~/blog ]; then
+	mv ~/blog $bkdir
+    fi
+
+    pull-blog
 }
 
 function svn-remove-lose {
@@ -189,48 +191,6 @@ function pull {
     cd $SHAMAN_ROOT
     git reset
     git pull
-}
-
-function pull-blog {
-    echo "func::pull-blog"
-    cd $SHAMAN_ROOT
-    git reset
-    git pull
-
-    echo blog
-    if [ ! -d $DIR_BLOG ]; then
-	git clone https://github.com/damon-kwok/damon-kwok.github.io.git blog
-    else
-	cd $DIR_BLOG
-	git pull
-    fi
-
-    echo workspace
-    if [ ! -d $DIR_WORKSPACE ]; then
-	svn co svn://www.svn999.com/guowangwei.workspace workspace
-    else
-	cd $DIR_WORKSPACE
-	svn cleanup .
-	svn up
-    fi
-
-    #for linux
-    echo link
-    # if [ ! -f /usr/bin/shaman ]; then
-	# sudo ln -s $SHAMAN_ROOT/shaman /usr/bin/shaman
-    # fi
-
-    # if [ ! -d ~/docs ]; then
-	# ln -s $SHAMAN_ROOT/docs ~/docs
-    # fi
-
-    if [ ! -d ~/blog ]; then
-	ln -s $SHAMAN_ROOT/blog ~/blog
-    fi
-
-    if [ ! -d ~/workspace ]; then
-	ln -s $SHAMAN_ROOT/workspace ~/workspace
-    fi
 }
 
 function push {
