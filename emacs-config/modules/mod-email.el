@@ -71,9 +71,9 @@
 				("/INBOX/News" . ?1) 
 				("/INBOX/Notification" . ?2) 
 				("/INBOX/NewMember" . ?3) 
-				("/INBOX/JIRA" . ?4)
+				("/INBOX/JIRA" . ?4) 
 				("/INBOX/Meeting" . ?m) 
-				("/INBOX/MeetingSummary" . ?M)
+				("/INBOX/MeetingSummary" . ?M) 
 				("/INBOX/Wage" . ?w) 
 				("/Sent" . ?s) 
 				("/Trash" . ?t) 
@@ -82,9 +82,18 @@
 ;; allow for updating mail using 'U' in the main view:
 (setq mu4e-get-mail-command "offlineimap")
 
+;; update every 5 minutes
+(setq mu4e-update-interval 300)
+
+(add-hook 'mu4e-index-updated-hook 
+	  (defun new-mail-sound ()
+	    ;; (shell-command "aplay ~/Music/open.wav&")
+	    (mu4e)))
+
 ;; something about ourselves
 (setq user-mail-address "guowangwei@51hitech.com" user-full-name  "郭王伟" mu4e-compose-signature
-      (concat "郭王伟\n" "https://damon-kwok.github.io\n"))
+      (concat
+       "郭王伟\n51World4AD\n------------------------------\n手机：＋86 18201863387\n地址：地址：长宁区长宁路1436号 倍格老船坞 F2-05\n------------------------------"))
 
 ;; sending mail -- replace USERNAME with your gmail username
 ;; also, make sure the gnutls command line utils are installed
@@ -93,7 +102,7 @@
 (require 'smtpmail)
 ;; alternatively, for emacs-24 you can use:
 (setq message-send-mail-function 'smtpmail-send-it smtpmail-stream-type 'ssl
-      smtpmail-default-smtp-server "smtp.263.net" smtpmail-smtp-server "smtp.263.com"
+      smtpmail-default-smtp-server "smtp.263.net" smtpmail-smtp-server "smtp.263.net"
       smtpmail-smtp-service 465)
 
 ;; don't keep message buffers around
