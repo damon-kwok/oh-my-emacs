@@ -85,10 +85,10 @@
 ;; update every 5 minutes
 (setq mu4e-update-interval 300)
 
-(add-hook 'mu4e-index-updated-hook 
-	  (defun new-mail-sound ()
+;; (add-hook 'mu4e-index-updated-hook 
+	  ;; (defun new-mail-sound ()
 	    ;; (shell-command "aplay ~/Music/open.wav&")
-	    (mu4e)))
+	    ;; (mu4e)))
 
 ;; something about ourselves
 (setq user-mail-address "guowangwei@51hitech.com" user-full-name  "郭王伟" mu4e-compose-signature

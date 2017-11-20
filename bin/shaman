@@ -99,32 +99,6 @@ function pull-blog {
 	svn up
     fi
 
-    #for linux
-    echo link
-    cp -a $SHAMAN_ROOT/emacs-config/init.el ~/.emacs 
-    ln -s $SHAMAN_ROOT/emacs-config ~/emacs-config
-    ln -s $SHAMAN_ROOT/workspace ~/workspace
-    ln -s $SHAMAN_ROOT/blog ~/blog
-    # if [ ! -f /usr/bin/shaman ]; then
-    # sudo ln -s $SHAMAN_ROOT/shaman /usr/bin/shaman
-    # fi
-
-    find-str "my-emacs-config" ~/.bashrc
-    if [ $? -eq 0 ]; then
-	echo "" >> ~/.bashrc
-	# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.bashrc
-	echo "source $SHAMAN_BIN/setup.sh" >> ~/.bashrc
-	#source ~/.bashrc
-    fi
-
-    find-str "my-emacs-config" ~/.zshrc
-    if [ $? -eq 0 ]; then
-	echo "" >> ~/.zshrc
-	# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.zshrc
-	echo "source $SHAMAN_BIN/setup.sh" >> ~/.zshrc
-	#source ~/.zshrc
-    fi
-    source $SHAMAN_BIN/setup.sh
 }
 
 function link-init-el() {
@@ -153,6 +127,33 @@ function link-init-el() {
     if [ -e ~/blog ]; then
 	mv ~/blog $bkdir
     fi
+
+        #for linux
+    echo link
+    cp -a $SHAMAN_ROOT/emacs-config/init.el ~/.emacs 
+    ln -s $SHAMAN_ROOT/emacs-config ~/emacs-config
+    ln -s $SHAMAN_ROOT/workspace ~/workspace
+    ln -s $SHAMAN_ROOT/blog ~/blog
+    # if [ ! -f /usr/bin/shaman ]; then
+    # sudo ln -s $SHAMAN_ROOT/shaman /usr/bin/shaman
+    # fi
+
+    find-str "my-emacs-config" ~/.bashrc
+    if [ $? -eq 0 ]; then
+	echo "" >> ~/.bashrc
+	# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.bashrc
+	echo "source $SHAMAN_BIN/setup.sh" >> ~/.bashrc
+	#source ~/.bashrc
+    fi
+
+    find-str "my-emacs-config" ~/.zshrc
+    if [ $? -eq 0 ]; then
+	echo "" >> ~/.zshrc
+	# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.zshrc
+	echo "source $SHAMAN_BIN/setup.sh" >> ~/.zshrc
+	#source ~/.zshrc
+    fi
+    source $SHAMAN_BIN/setup.sh
 
     pull-blog
 }

@@ -9,10 +9,10 @@ this is damon kwok's emacs config
 - zip
 - unzip
 - zsh
-- ipython
-- jupyter
+- pip isnatll ipython jupyter
 - mu-0.9.18
 - offlineiamp
+- imagemagick
 - [[http://www.msys2.org/][msys2]] (windows)
 
 * Install
