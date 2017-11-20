@@ -4,6 +4,10 @@ SHAMAN_BIN=$SHAMAN_ROOT/bin
 LOCAL_BIN=/home/`whoami`/.local/bin
 export PATH=$SHAMAN_BIN:$LOCAL_BIN:$PATH
 
+function upgrade {
+    sudo apt update && sudo apt dist-upgrade
+}
+
 # find-str $2:str $1:file
 # example:
 # find-str "/opt/ros/kinetic/" ~/.bashrc

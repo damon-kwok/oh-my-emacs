@@ -197,11 +197,6 @@
 (define-key global-map (kbd "C-c f") 'm-go-to-char-forward)
 (define-key global-map (kbd "C-c b") 'm-go-to-char-backward)
 
-(package-require 'neotree)
-(require 'neotree)
-(global-set-key [f1] 'neotree-toggle)
-;; (global-set-key (kbd "C-c t") 'neotree-toggle)
-
 (package-require 'multiple-cursors)
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -478,7 +473,7 @@ _w_: URLs  =>    _e_: mc/mark-all       _>_: goto-char-f      _=_: scale-inc   ^
 ^^               _r_: Reload|Refresh    _<_: goto-char-b      _-_: scale-dec   ^^Erlang       ^^        ^^
 _<tab>_: recent  _o_: kill-other-buffer ^^                    _z_: smart-do    ^^Kotlin       ^^        ^^
 ^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
-_<escape>_: Quit _0_: Calendar          ^^                    ^^               ^^             ^^        ^^"))
+_<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^^             ^^        ^^"))
 
 ;;; `C-SPC'
 (defhydra hydra-do-super 
@@ -519,7 +514,8 @@ _<escape>_: Quit _0_: Calendar          ^^                    ^^               ^
   ("8" (m-project-wizard "rust") "smart-do") 
   ("9" (m-project-wizard "ros") "smart-do") 
   ("z" (message "smart-do")) 
-  ("0" (calendar) "calendar") 
+  ("0" (calendar) "calendar")
+  ("!" (m-open-url "http://wttr.in/") "wego")
   ("<SPC>" nil "quit") 
   ("q" nil "quit") 
   ("<escape>" nil "quit"))
