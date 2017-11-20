@@ -24,16 +24,24 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-;;(require 'mu)
-;; libgmime-2.6-dev libxapian-dev
-;; (setq dir (concat (expand-file-name libs-user-dir) "/" "mu-1.0-alpha2/mu4e"))
-(setq dir (concat (expand-file-name libs-user-dir) "/" "mu-0.9.18/mu4e"))
-;;(setq dir2 (concat (expand-file-name libs-user-dir) "/" "mu/mu4e"))
-
-(add-to-list 'load-path dir)
-;;(add-to-list 'load-path dir2)
-
+(setq mu4e-root (concat (expand-file-name libs-user-dir) "/" "mu-0.9.18/mu4e"))
+(add-to-list 'load-path mu4e-root)
 (require 'mu4e)
+
+(package-require 'mu4e-maildirs-extension)
+(require 'mu4e-maildirs-extension)
+(mu4e-maildirs-extension)
+
+;; (package-require 'mu4e-jump-to-list)
+;; (require 'mu4e-jump-to-list)
+
+;; (package-require 'mu4e-query-fragments)
+;; (require 'mu4e-query-fragments)
+;; (setq mu4e-query-fragments-list
+  ;; '(("%junk" . "maildir:/Junk OR subject:SPAM")
+    ;; ("%hidden" . "flag:trashed OR %junk")))
+;; (setq mu4e-query-fragments-append "AND NOT %hidden")
+
 
 
 ;; attempt to show images when viewing messages
