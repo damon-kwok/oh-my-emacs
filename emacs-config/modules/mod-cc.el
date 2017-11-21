@@ -28,6 +28,9 @@
 ;; Additional setup (optional)
 ;; Put c++-mode as default for *.h files (improves parsing):
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.hpp\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.hxx\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.cxx\\'" . c++-mode))
 
 ;; Enable case-insensitive searching:
 ;; (set-default 'semantic-case-fold t)

@@ -1,7 +1,7 @@
 # ignore everything
 *
-*.elc
-.#*
+# *.elc
+# .#*
 
 # white list anything that's a directort
 !INSTALL

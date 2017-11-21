@@ -5,7 +5,7 @@ LOCAL_BIN=/home/`whoami`/.local/bin
 export PATH=$SHAMAN_BIN:$LOCAL_BIN:$PATH
 
 function upgrade {
-    sudo apt update && sudo apt dist-upgrade
+    sudo apt update && sudo apt dist-upgrade && sudo apt autoremove
 }
 
 # find-str $2:str $1:file
