@@ -100,6 +100,8 @@
 ;; (package-require 'psvn)
 ;; (module-require 'psvn)
 
+(require 'ediff)
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (module-require 'mod-keybind)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
