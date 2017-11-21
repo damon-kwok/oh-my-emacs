@@ -496,7 +496,7 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
   ("o" (m-kill-other-buffers) "KillOtherBuffers") 
   ("G" my-grep-project "projectile-project-root") 
   ("g" my-grep-directory "projectile-directory-root") 
-  ("d" m-bing-dict-brief "bing-dict-brief") 
+  ("d" bing-dict-brief "bing-dict-brief") 
   ("D" m-bing-dict-brief-web "bing-dict-brief-web") 
   (";" tabbar-backward "tabbar-backward") 
   ("'" tabbar-forward "tabbar-forward") 

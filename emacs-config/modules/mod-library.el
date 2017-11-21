@@ -158,8 +158,6 @@
 ;;  (concat "http://www.bing.com/dict/search?q="
 ;; 	 (url-hexify-string
 ;; 	  (read-string "Query: "))))
-(defun m-bing-dict-brief (arg) 
-  (bing-dict-brief arg))
 
 (defun m-bing-dict-brief-eww (arg) 
   "compile project"
