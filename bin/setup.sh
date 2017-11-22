@@ -47,26 +47,26 @@ function auto-gen-rtags {
 }
 
 # check install:rtags irony-server
-function find-camke {
-    echo 111
-}
+# function find-camke {
+    # echo 111
+# }
 
-function kill-process {
-    echo 222
-}
+# function kill-process {
+    # echo 222
+# }
 
-function find-file {
-    echo 333
-}
+# function find-file {
+    # echo 333
+# }
 
-function dirp {
-    DIR=`pwd`
-    if [ ! "/" == "$DIR" ]; then
-	echo "dir is "`pwd`
-    else
-	echo "dir is root"
-    fi
-}
+# function dirp {
+    # DIR=`pwd`
+    # if [ ! "/" == "$DIR" ]; then
+	# echo "dir is "`pwd`
+    # else
+	# echo "dir is root"
+    # fi
+# }
 
 # dirp
 
@@ -77,14 +77,15 @@ function dirp {
     # echo "not-found:"$?
 # fi
 
-function readp- {
-    read -p "$1(Y/n)" c
-    if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
-	return $(( 1 ));
-    elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
-	return $(( 0 ));
-    else
-	echo "invalid input:$c"
-	readp "$1"
-    fi
-}
+# function readp- {
+    # read -p "$1(Y/n)" c
+    # if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
+	# return $(( 1 ));
+    # elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
+	# return $(( 0 ));
+    # else
+	# echo "invalid input:$c"
+	# readp "$1"
+    # fi
+# }
+

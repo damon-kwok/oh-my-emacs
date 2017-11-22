@@ -84,7 +84,7 @@ function link-init-el() {
 	mv ~/blog $bkdir
     fi
 
-        #for linux
+    #for linux
     echo link
     cp -a $SHAMAN_ROOT/emacs-config/init.el ~/.emacs 
     ln -s $SHAMAN_ROOT/emacs-config ~/emacs-config
@@ -110,12 +110,9 @@ function link-init-el() {
 	#source ~/.zshrc
     fi
     source $SHAMAN_BIN/setup.sh
-
+    
     pull-blog
 }
 
 link-init-el
 
-git config --global diff.tool ediff
-git config --global difftool.ediff.cmd "ediff.sh \"\$LOCAL\" \"\$REMOTE\""
-git config --global difftool.prompt false

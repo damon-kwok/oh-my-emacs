@@ -441,6 +441,7 @@ function ask-menu {
     # echo "    4) zipapp"
     # echo "    5) unzipapp"
     echo "    i) install toolchain"
+    echo "    g) git config"
     echo "    e) emacs"
     echo "    n) emacs-nw"
     # echo "    c) complie-elc"
@@ -463,6 +464,13 @@ function ask-menu {
 	# 4) zipapp;;
 	# 5) unzipapp;;
 	i) install-toolchain;;
+	g|G)
+	    git config --global color.ui true
+	    git config --global core.editor "ed"
+	    git config --global diff.tool ediff
+	    git config --global difftool.ediff.cmd "ediff.sh \"\$LOCAL\" \"\$REMOTE\""
+	    git config --global difftool.prompt false
+	    ;;
 	e|E) run-emacs;;
 	n|N) run-emacs-nw;;
 	c|C) compile-elc;;
