@@ -38,10 +38,9 @@
 ;; (package-require 'mu4e-query-fragments)
 ;; (require 'mu4e-query-fragments)
 ;; (setq mu4e-query-fragments-list
-  ;; '(("%junk" . "maildir:/Junk OR subject:SPAM")
-    ;; ("%hidden" . "flag:trashed OR %junk")))
+;; '(("%junk" . "maildir:/Junk OR subject:SPAM")
+;; ("%hidden" . "flag:trashed OR %junk")))
 ;; (setq mu4e-query-fragments-append "AND NOT %hidden")
-
 
 
 ;; attempt to show images when viewing messages
@@ -87,21 +86,25 @@
 				("/Trash" . ?t) 
 				("/Junk" . ?j)))
 
-;; allow for updating mail using 'U' in the main view:
-(setq mu4e-get-mail-command "offlineimap")
+(setq mu4e-index-cleanup nil   ;; don't do a full cleanup check
+      mu4e-index-lazy-check t) ;; don't consider up-to-date dirs
 
-;; update every 5 minutes
-(setq mu4e-update-interval 300)
+(setq mu4e-get-mail-command "offlineimap" ;; or fetchmail, or ...
+      mu4e-update-interval 60)		  ;; update every 1 minutes
 
-;; (add-hook 'mu4e-index-updated-hook 
-	  ;; (defun new-mail-sound ()
-	    ;; (shell-command "aplay ~/Music/open.wav&")
-	    ;; (mu4e)))
+;; (add-hook 'mu4e-index-updated-hook
+;; (defun new-mail-sound ()
+;; (shell-command "aplay ~/Music/open.wav&")
+;; (mu4e)))
 
 ;; something about ourselves
-(setq user-mail-address "guowangwei@51hitech.com" user-full-name  "郭王伟" mu4e-compose-signature
-      (concat
-       "郭王伟\n51World4AD\n------------------------------\n手机：＋86 18201863387\n地址：地址：长宁区长宁路1436号 倍格老船坞 F2-05\n------------------------------"))
+(setq user-mail-address "guowangwei@51hitech.com"	    ;
+      user-full-name  "郭王伟"				    ;
+      mu4e-compose-signature (concat "郭王伟\n51World4AD\n" ;
+				     "----------------------------------------\n"	;
+				     "手机：＋86 18201863387\n"	;
+				     "地址：长宁区长宁路1436号 倍格老船坞 F2-05\n" ;
+				     "----------------------------------------"))
 
 ;; sending mail -- replace USERNAME with your gmail username
 ;; also, make sure the gnutls command line utils are installed
@@ -109,8 +112,10 @@
 
 (require 'smtpmail)
 ;; alternatively, for emacs-24 you can use:
-(setq message-send-mail-function 'smtpmail-send-it smtpmail-stream-type 'ssl
-      smtpmail-default-smtp-server "smtp.263.net" smtpmail-smtp-server "smtp.263.net"
+(setq message-send-mail-function 'smtpmail-send-it ;
+      smtpmail-stream-type 'ssl			   ;
+      smtpmail-default-smtp-server "smtp.263.net"  ;
+      smtpmail-smtp-server "smtp.263.net"	   ;
       smtpmail-smtp-service 465)
 
 ;; don't keep message buffers around
