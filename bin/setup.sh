@@ -1,7 +1,7 @@
 ROOT_DIR_NAME=my-emacs-config
-SHAMAN_ROOT=/home/`whoami`/$ROOT_DIR_NAME
-SHAMAN_BIN=$SHAMAN_ROOT/bin
-LOCAL_BIN=/home/`whoami`/.local/bin
+export SHAMAN_ROOT=/home/`whoami`/$ROOT_DIR_NAME
+export SHAMAN_BIN=$SHAMAN_ROOT/bin
+export LOCAL_BIN=/home/`whoami`/.local/bin
 export PATH=$SHAMAN_BIN:$LOCAL_BIN:$PATH
 
 function upgrade {

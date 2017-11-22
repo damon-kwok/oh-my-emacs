@@ -3,7 +3,7 @@
 ;;
 ;; Copyright (C) 2015-2016 Damon Kwok
 ;;
-;; Author: gww <DamonKwok@msn.com>
+;; Author: gww <damon-kwok@outlook.com>
 ;; Date: 2016-01-07
 ;;
 ;; This program is free software; you can redistribute it and/or modify
@@ -39,7 +39,6 @@
 (package-require 'shader-mode)
 (autoload 'shader-mode "shader" nil t) ;;(require 'shader-mode)
 (add-to-list 'auto-mode-alist '("\\.shader$" . shader-mode))
-
 
 
 ;; `rtags'
@@ -102,7 +101,8 @@
 (define-key rtags-mode-map [mouse-2] 'rtags-open-file)
 
 (define-key rtags-mode-map (kbd "C-c C-z") 'show-cc-buffer)
-(define-key c-mode-base-map (kbd "C-c C-z") 'show-rtags-buffer) 
+(define-key c-mode-base-map (kbd "C-c C-z") 'show-rtags-buffer)
+
 
 ;; `irony'
 (package-require 'irony)
@@ -132,7 +132,8 @@
 
 ;; `ironyeldoc'
 (package-require 'irony-eldoc)
-(add-hook 'irony-mode-hook #'irony-eldoc) 
+(add-hook 'irony-mode-hook #'irony-eldoc)
+
 
 ;;`company-irony'
 (package-require 'company-irony)
@@ -154,7 +155,8 @@
 
 (define-key c-mode-map (kbd "M-/")  'company-complete)
 (define-key c++-mode-map (kbd "M-/")  'company-complete)
-(define-key objc-mode-map (kbd "M-/")  'company-complete) 
+(define-key objc-mode-map (kbd "M-/")  'company-complete)
+
 
 ;; `flycheck'
 (package-require 'flycheck)
@@ -186,7 +188,8 @@
 
 ;; `flycheck-clang-tidy'
 (package-require 'flycheck-clang-tidy)
-(eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup)) 
+(eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
+
 
 ;; `cmake-ide'
 ;; (package-require 'cmake-ide)
@@ -198,39 +201,56 @@
 (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
 
 ;; `create-or-open-cmake-file'
-(defun search-cmakefile-from (path) 
+(defun m-search-file (filename &optional path) 
   (message (concat "check:" path)) 
-  (if (file-exists-p (concat path "CMakeLists.txt")) 
+  (if (file-exists-p (concat path filename)) 
       (progn (message path) path) 
     (progn 
       (setq parent (m-parent-dirpath path)) 
       (if (or (eq parent nil) 
 	      (string= parent "/")) nil (search-cmakefile-from parent)))))
 
-(defun create-cmake-file () 
+(defun m-smart-find-file (filename &optional create) 
   " create cmake file with current directory!" 
   (interactive) 
   (setq dir (m-buf-dirpath)) 
-  (setq cmake-dir (search-cmakefile-from dir)) 
+  (setq cmake-dir (m-search-file filename dir)) 
   (if (eq cmake-dir nil) 
-      (find-file "CMakeLists.txt") 
-    (find-file (concat cmake-dir "CMakeLists.txt"))))
+      (if create (find-file filename)) 
+    (find-file (concat cmake-dir filename))))
 
 ;; switch 'cmake buffer' and 'code buffer'
-(defun create-cmake-file-or-close () 
+(defun m-open-or-close-cmakefile () 
   (interactive) 
   (if (or (eq major-mode 'c-mode) 
 	  (eq major-mode 'c++-mode)) 
-      (create-cmake-file) 
+      (m-smart-find-file "CMakeLists.txt" t) 
     (if (eq major-mode 'cmake-mode) ;;(if (equal buffer-name "CMakeLists.txt")
 	(kill-this-buffer))))
 
-(define-key c-mode-base-map [f6] 'create-cmake-file-or-close) 
+;; switch 'package-xml buffer' and 'code buffer'
+(defun m-open-or-close-packagexml () 
+  (interactive) 
+  (if (or (eq major-mode 'c-mode) 
+	  (eq major-mode 'c++-mode)) 
+      (m-smart-find-file "package.xml") 
+    (if (eq major-mode 'nxml-mode) 
+	(kill-this-buffer))))
+
+(define-key c-mode-map [f6] 'm-open-or-close-cmakefile)
+(define-key c++-mode-map [f6] 'm-open-or-close-cmakefile)
+(define-key cmake-mode-map [f6] 'm-open-or-close-cmakefile)
+
+(define-key c-mode-map [f7] 'm-open-or-close-packagexml)
+(define-key c++-mode-map [f7] 'm-open-or-close-packagexml)
+(define-key nxml-mode-map [f7] 'm-open-or-close-packagexml)
+
 
 ;;; Syntax highlighting support for "`Modern.C++'" - until `C++17' and Technical Specification.
 (package-require 'modern-cpp-font-lock)
 (require 'modern-cpp-font-lock)
-(modern-c++-font-lock-global-mode t) 
+(modern-c++-font-lock-global-mode t)
+
 
 ;; `format'
 (package-require 'clang-format)
