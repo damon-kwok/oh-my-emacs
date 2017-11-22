@@ -208,7 +208,7 @@
     (progn 
       (setq parent (m-parent-dirpath path)) 
       (if (or (eq parent nil) 
-	      (string= parent "/")) nil (search-cmakefile-from parent)))))
+	      (string= parent "/")) nil (m-search-file filename parent)))))
 
 (defun m-smart-find-file (filename &optional create) 
   " create cmake file with current directory!" 
@@ -237,13 +237,14 @@
     (if (eq major-mode 'nxml-mode) 
 	(kill-this-buffer))))
 
+(require 'cmake-mode)
 (define-key c-mode-map [f6] 'm-open-or-close-cmakefile)
 (define-key c++-mode-map [f6] 'm-open-or-close-cmakefile)
 (define-key cmake-mode-map [f6] 'm-open-or-close-cmakefile)
 
 (define-key c-mode-map [f7] 'm-open-or-close-packagexml)
 (define-key c++-mode-map [f7] 'm-open-or-close-packagexml)
-(define-key nxml-mode-map [f7] 'm-open-or-close-packagexml)
+;; (define-key nxml-mode-map [f7] 'm-open-or-close-packagexml)
 
 
 ;;; Syntax highlighting support for "`Modern.C++'" - until `C++17' and Technical Specification.
@@ -279,7 +280,7 @@
 
 (defun gen-rtags-indexes () 
   (setq dir (m-buf-dirpath)) 
-  (setq cmake-dir (search-cmakefile-from dir)) 
+  (setq cmake-dir (m-search-file "CMakeLists.txt" dir)) 
   (setq index-dir (concat cmake-dir "rtags_indexes")) 
   (if (eq cmake-dir nil) 
       (message "not found 'CMakeLists.txt' file!") 

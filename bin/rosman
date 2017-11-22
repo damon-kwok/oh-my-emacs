@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#$1 pkg-name
+
 source /opt/ros/kinetic/setup.bash
 
 function find_string {    
@@ -13,6 +15,8 @@ function find_string {
     fi
 }
 
+################################################################################
+#init workspace
 CATKIN_WS=~/catkin_ws
 
 if [ ! -d $CATKIN_WS ]; then
@@ -39,6 +43,8 @@ if [ ! -d $CATKIN_WS/devel ]; then
     catkin_init_workspace
 fi
 
+################################################################################
+#create pkg
 cd $CATKIN_WS/src
 catkin_create_pkg $1 std_msgs roscpp
 
