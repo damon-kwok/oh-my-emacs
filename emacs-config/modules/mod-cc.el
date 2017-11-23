@@ -239,7 +239,7 @@
   (let ((filename (concat dir "/" basename "." ext))) 
     (if (file-exists-p filename) 
 	(find-file filename) 
-      (progn (message "not found:%s" filename) (return nil)))))
+      (progn (message "not found:%s" filename) nil))))
 
 (defun check-header (dir basename) 
   (cond ((find-cc-file dir basename "h") t) 
@@ -308,8 +308,8 @@
 
 (define-key c-mode-map [f12] 'm-switch-cc-source-and-header)
 (define-key c++-mode-map [f12] 'm-switch-cc-source-and-header)
-
-;; (define-key nxml-mode-map [f7] 'm-open-or-close-packagexml)
+(require 'nxml-mode)
+(define-key nxml-mode-map [f7] 'm-open-or-close-packagexml)
 
 
 ;;; Syntax highlighting support for "`Modern.C++'" - until `C++17' and Technical Specification.
