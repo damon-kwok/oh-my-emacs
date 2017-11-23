@@ -65,9 +65,6 @@
 (require 'helm-rtags)
 ;; (setq rtags-use-helm nil)
 
-(package-require 'company-rtags)
-(require 'company-rtags)
-
 (define-key c-mode-base-map (kbd "C-M-.") 'rtags-find-symbol)
 (define-key c-mode-base-map (kbd "C-M-,") 'rtags-find-references)
 ;; (define-key c-mode-base-map (kbd "M-?") 'rtags-find-virtuals-at-point)
@@ -242,7 +239,7 @@
   (let ((filename (concat dir "/" basename "." ext))) 
     (if (file-exists-p filename) 
 	(find-file filename) 
-      (progn (message "not found:%s" filename) nil))))
+      (progn (message "not found:%s" filename) (return nil)))))
 
 (defun check-header (dir basename) 
   (cond ((find-cc-file dir basename "h") t) 

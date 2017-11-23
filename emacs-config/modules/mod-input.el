@@ -37,7 +37,7 @@
 (setq-default pyim-english-input-switch-functions
               '(;;pyim-probe-dynamic-english ;;2. 当前字符为其他字符时，输入下一个字符时默认开启英文输入
                 pyim-probe-isearch-mode ;; 使用 isearch 搜索时，强制开启英文输入模式
-                pyim-probe-program-mode ;;如果当前的 mode 衍生自 prog-mode，那么仅仅在字符串和 comment 中开启中文输入模式
+                ;; pyim-probe-program-mode ;;如果当前的 mode 衍生自 prog-mode，那么仅仅在字符串和 comment 中开启中文输入模式
 		pyim-probe-org-speed-commands  ;;解决 org-speed-commands 与 pyim 冲突问题
                 pyim-probe-org-structure-template)) ;;使用 org-structure-template 时，关闭中文输入模式
 
@@ -46,11 +46,11 @@
                 pyim-probe-punctuation-after-punctuation)) ;;半角标点后强制输入半角标点
 
 ;; 开启：1/关闭：0 拼音搜索功能
-(pyim-isearch-mode 0)
+(pyim-isearch-mode 1)
 
-;; 1.使用 popup 包来绘制选词框 （emacs overlay 机制）
+;; option 1.使用 popup 包来绘制选词框 （emacs overlay 机制）
 ;; (setq pyim-page-tooltip 'popup)
-;; 2.使用 pos-tip 包来绘制选词框（emacs tooltip 机制）
+;; option 2.使用 pos-tip 包来绘制选词框（emacs tooltip 机制）
 (setq pyim-page-tooltip 'pos-tip)
 ;; 2.1 注：Linux平台下emacs可以使用GTK来绘制选词框：
 (if (eq system-type 'gnu/linux) 
@@ -63,8 +63,8 @@
 (setq pyim-page-length 9)
 
 ;; 让 Emacs 启动时自动加载 pyim 词库 
-(add-hook 'emacs-startup-hook
-          #'(lambda () (pyim-restart-1 t)))
+;; (add-hook 'emacs-startup-hook
+          ;; #'(lambda () (pyim-restart-1 t)))
 
 ;; (setq pyim-dicts
       ;; '((:name "dict2" :file "~/workspace/pyim-dicts/AutoCAD词汇.txt" :coding utf-8 :dict-type pinyin-dict)
