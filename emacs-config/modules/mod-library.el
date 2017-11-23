@@ -108,7 +108,7 @@
   (file-name-base (buffer-name)))
 
 (defun m-filename-no-ext() 
-  (file-name-base (buffer-file-name)))
+  (file-name-sans-extension (buffer-file-name)))
 
 (defun m-buf-ext() 
   (let ((ext-name (nth 0 (last (split-string (buffer-name) "\\.")))) 
@@ -116,10 +116,10 @@
     (if (string= ext-name buf-name) "" ext-name)))
 
 (defun m-project-root() 
-  (let ((aaa (substring (m-bufname-no-ext) 0 1))) 
-    (if (string= aaa "*") "./" (if (projectile-project-p) 
-				   (projectile-project-root) 
-				 (m-buf-dirpath)))))
+  (let ((fist-char (substring (m-bufname-no-ext) 0 1))) 
+    (if (string= fist-char "*") "./" (if (projectile-project-p) 
+					 (projectile-project-root) 
+				       (m-buf-dirpath)))))
 
 (defun m-parent-dirpath (path) 
   (file-name-directory (directory-file-name path)))
@@ -139,6 +139,7 @@
 
 
 ;; (f-filename-no-ext "path/to/file.txt") ;;=> "file"
+
 ;; (m-filename-no-ext) ;;=>"file”
 ;; (m-bufname-no-ext);;=>"file"
 ;; (m-parent-dirpath "/path/to/hello.txt")
@@ -404,17 +405,17 @@ occurence of CHAR."
   (compile command))
 
 
-;; (defun m-run-command (command) 
-;;   "compile project" 
-;;   (setq temp-elisp-buffer-name (buffer-name (current-buffer))) 
-;;   (m-show-compilation "*compilation*") 
-;;   (switch-to-buffer-other-window temp-elisp-buffer-name) 
+;; (defun m-run-command (command)
+;;   "compile project"
+;;   (setq temp-elisp-buffer-name (buffer-name (current-buffer)))
+;;   (m-show-compilation "*compilation*")
+;;   (switch-to-buffer-other-window temp-elisp-buffer-name)
 ;;   (compile command)
 ;;   (m-show-compilation "*compilation*" t))
 
-;; (defun m-run-command (command) 
+;; (defun m-run-command (command)
 ;;   "compile project"
-;;   (m-show-compilation "*Shell Command Output*") 
+;;   (m-show-compilation "*Shell Command Output*")
 ;;   (shell-command command))
 
 (defun m-create-project(command openfile) 

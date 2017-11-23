@@ -23,17 +23,17 @@
 ;;
 (require 'server)
 
-(setq server-auth-dir "~/.emacs.d/server/")
-(setq server-name "server")
-(setq server-file-name (concat server-auth-dir server-name))
+;; (setq server-auth-dir (concat (getenv "HOME") "~/.emacs.d/server/"))
+;; (setq server-name "server")
 
-(server-force-delete)			
-(if(file-exists-p server-file-name) 
-   (delete-file server-file-name))
-(server-start)
+;; (setq server-file-name (concat server-auth-dir server-name))
+;; (server-force-delete)			
+;; (if(file-exists-p server-file-name) 
+   ;; (delete-file server-file-name))
+;; (server-start)
 
-;; (unless (server-running-p)
-  ;; (server-start))
+(unless (server-running-p)
+  (server-start))
 
 ;;(or (server-running-p)(server-start))
 ;;

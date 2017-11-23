@@ -202,13 +202,14 @@
 
 ;; `create-or-open-cmake-file'
 (defun m-search-file (filename &optional path) 
-  (message (concat "check:" path)) 
-  (if (file-exists-p (concat path filename)) 
-      (progn (message path) path) 
-    (progn 
-      (setq parent (m-parent-dirpath path)) 
-      (if (or (eq parent nil) 
-	      (string= parent "/")) nil (m-search-file filename parent)))))
+  (let ((from (if path path (m-buf-dirpath)))) 
+    (message (concat "check:" from)) 
+    (if (file-exists-p (concat from filename)) 
+	(progn (message from) from) 
+      (progn 
+	(setq parent (m-parent-dirpath from)) 
+	(if (or (eq parent nil) 
+		(string= parent "/")) nil (m-search-file filename parent))))))
 
 (defun m-smart-find-file (filename &optional create) 
   " create cmake file with current directory!" 
@@ -237,6 +238,51 @@
     (if (eq major-mode 'nxml-mode) 
 	(kill-this-buffer))))
 
+(defun find-cc-file (dir basename ext) 
+  (let ((filename (concat dir "/" basename "." ext))) 
+    (if (file-exists-p filename) 
+	(find-file filename) 
+      (progn (message "not found:%s" filename) nil))))
+
+(defun check-header (dir basename) 
+  (cond ((find-cc-file dir basename "h") t) 
+	((find-cc-file dir basename "hh") t) 
+	((find-cc-file dir basename "hpp") t) 
+	((find-cc-file dir basename "h++") t) 
+	((find-cc-file dir basename "hxx") t)))
+
+(defun check-source (dir basename) 
+  (cond ((find-cc-file dir basename "c") t) 
+	((find-cc-file dir basename "cc") t) 
+	((find-cc-file dir basename "cpp") t) 
+	((find-cc-file dir basename "c++") t) 
+	((find-cc-file dir basename "cxx") t)))
+
+(defun m-switch-cc-source-and-header () 
+  (interactive) 
+  (setq basename (m-bufname-no-ext)) 
+  (setq dir (m-buf-dirpath)) 
+  (setq dir2 (concat (m-parent-dirpath dir) "Private")) 
+  (setq dir3 (concat (m-parent-dirpath dir) "Public")) 
+  (setq dir4 (concat (m-parent-dirpath dir) "Classes")) 
+  (setq dir5 (concat (m-parent-dirpath dir) "include")) 
+  (setq dir6 (concat (m-parent-dirpath dir) "src")) 
+  (setq extname (m-buf-ext))
+  ;; (message "dir:%s extname:%s\n=================" dir extname)
+  (if (s-contains? "h" extname) 
+      (progn (check-source dir basename) 
+	     (check-source dir2 basename) 
+	     (check-source dir3 basename) 
+	     (check-source dir4 basename) 
+	     (check-source dir5 basename) 
+	     (check-source dir6 basename)) 
+    (progn (check-header dir basename) 
+	   (check-header dir2 basename) 
+	   (check-header dir3 basename) 
+	   (check-header dir4 basename) 
+	   (check-header dir5 basename) 
+	   (check-header dir6 basename))))
+
 (require 'cmake-mode)
 (define-key c-mode-map [f6] 'm-open-or-close-cmakefile)
 (define-key c++-mode-map [f6] 'm-open-or-close-cmakefile)
@@ -244,6 +290,10 @@
 
 (define-key c-mode-map [f7] 'm-open-or-close-packagexml)
 (define-key c++-mode-map [f7] 'm-open-or-close-packagexml)
+
+(define-key c-mode-map [f12] 'm-switch-cc-source-and-header)
+(define-key c++-mode-map [f12] 'm-switch-cc-source-and-header)
+
 ;; (define-key nxml-mode-map [f7] 'm-open-or-close-packagexml)
 
 
@@ -271,8 +321,7 @@
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 
 
-;; (setq rtags-bin-path (file-name-directory (rtags-executable-find "rc")))
-(defun gen-rtags-indexes2 () 
+(defun gen-rtags-indexes-with-sh () 
   (message (concat "you opened cc file:" (buffer-name)))
   ;; find CmakeLists.txt & gen rtags indexes
   (m-run-command (concat (getenv "HOME")  "/my-emacs-config/bin/gen-rtags")))

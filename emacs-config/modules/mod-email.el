@@ -90,7 +90,7 @@
       mu4e-index-lazy-check t) ;; don't consider up-to-date dirs
 
 (setq mu4e-get-mail-command "offlineimap" ;; or fetchmail, or ...
-      mu4e-update-interval 60)		  ;; update every 1 minutes
+      mu4e-update-interval 300)		  ;; update every 1 minutes
 
 ;; (add-hook 'mu4e-index-updated-hook
 ;; (defun new-mail-sound ()

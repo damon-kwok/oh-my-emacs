@@ -382,6 +382,10 @@ function install-toolchain {
     chmod +x ./shaman
     chmod +x ./rosman
     chmod +x ./gen-rtags
+    chmod +x ./ed
+    chmod +x ./ediff
+    chmod +x ./ediff3
+    chmod +x ./pfind
 }
 
 function ask-blog {
