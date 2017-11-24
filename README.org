@@ -2,7 +2,9 @@
 #+STARTUP: inlineimages
 this is damon kwok's emacs config
 
-[[file:https://imgs.xkcd.com/comics/blanket_fort.png]]
+# [[file:https://imgs.xkcd.com/comics/blanket_fort.png]]
+[[https://imgs.xkcd.com/comics/real_programmers.png]]
+
 * Require
 - git
 - subversion
