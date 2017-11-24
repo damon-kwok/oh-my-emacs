@@ -65,9 +65,9 @@
 (if (executable-find "cargo") 
     (module-require 'mod-rust))
 
-(if (and (executable-find "rc") 
-	 (executable-find "rdm")) 
-    (module-require 'mod-cc))
+;; (if (and (executable-find "rc") 
+	 ;; (executable-find "rdm"))) 
+(module-require 'mod-cc)
 
 (if (and (executable-find "ipython") 
 	 (executable-find "jupyter")) 
