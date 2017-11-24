@@ -29,7 +29,8 @@
 
 ;; 自动换行
 (add-hook 'org-mode-hook (lambda () 
-			   (setq truncate-lines nil) 
+			   (setq truncate-lines nil)
+			   (setq org-startup-with-inline-images t)
 			   (org-display-inline-images t t)))
 
 (setq org-todo-keywords '((sequence "TODO" "DOING" "DONE")))
