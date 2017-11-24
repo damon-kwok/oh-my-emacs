@@ -108,7 +108,7 @@
 							 (hy . t)
 							 (ocaml . t)
 							 (sml . t)
-							 (haskell . t) 
+							 (haskell . t)
 							 (elixir .t)
 							 (lfe . t)
 							 (fsharp . t)

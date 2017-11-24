@@ -19,7 +19,7 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
-;;						 
+;;
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (module-require 'mod-package)
@@ -47,22 +47,42 @@
 (module-require 'mod-markdown)
 (module-require 'mod-orgmode)
 (module-require 'mod-latex)
+(module-require 'mod-ros)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `programming-languages'
 (module-require 'mod-elisp)
-(module-require 'mod-clojure)
-(module-require 'mod-elixir)
-(module-require 'mod-rust)
 ;; (module-require 'mod-erlang)
 ;; (module-require 'mod-ess)
-;; (module-require 'mod-csharp)
-(module-require 'mod-cc)
-(module-require 'mod-py)
-(module-require ' mod-haskell)
 ;; (module-require 'mod-slime)
-(module-require 'mod-ros)
-(module-require 'mod-git)
-(module-require 'mod-email)
+;; (module-require 'mod-csharp)
+
+(if (executable-find "lein") 
+    (module-require 'mod-clojure))
+
+(if (executable-find "mix") 
+    (module-require 'mod-elixir))
+
+(if (executable-find "cargo") 
+    (module-require 'mod-rust))
+
+(if (and (executable-find "rc") 
+	 (executable-find "rdm")) 
+    (module-require 'mod-cc))
+
+(if (and (executable-find "ipython") 
+	 (executable-find "jupyter")) 
+    (module-require 'mod-py))
+
+(if (executable-find "stack") 
+    (module-require ' mod-haskell))
+
+(if (executable-find "git") 
+    (module-require 'mod-git))
+
+(if (and (executable-find "offlineimap") 
+	 (executable-find "mu")) 
+    (module-require 'mod-email))
+
 (module-require 'mod-tree)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;(if (or (eq system-type 'windows-nt)
@@ -106,8 +126,6 @@
 (module-require 'mod-keybind)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (message "hello, emacs!")
-(package-require 'xkcd)
-(require 'xkcd)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-init)

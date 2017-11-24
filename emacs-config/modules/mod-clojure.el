@@ -27,9 +27,6 @@
 ;;===================================================
 (package-require 'clojure-mode)
 (require 'clojure-mode)
-
-(package-require 'clojure-cheatsheet)
-(require 'clojure-cheatsheet)
 
 ;;; `clj-refactor'
 (package-require 'clj-refactor)
@@ -101,10 +98,11 @@
 
 ;; Wrap when navigating history.
 (setq cider-repl-wrap-history t)
-
+
 ;; enable paredit in your REPL
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
 
+
 ;; Use clojure mode for other extensions
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
@@ -161,26 +159,28 @@
 				(define-key cider-repl-mode-map (kbd "C-c C-z")
 				  'show-clojure-workbuffer)))
 
+;; (package-require 'clojure-cheatsheet)
+;; (require 'clojure-cheatsheet)
 ;; (define-key clojure-mode-map (kbd "C-c C-h") 'clojure-cheatsheet)
 (define-key clojure-mode-map (kbd "C-c C-h") 'helm-cider-apropos)
 (define-key clojure-mode-map (kbd "C-M-\\")  'cider-format-buffer)
 
 
 (defun my-kill-java () 
-  (interactive)
-  (delete-window)
+  (interactive) 
+  (delete-window) 
   (cider-interactive-eval "(System/exit 0)"))
 (define-key cider-repl-mode-map (kbd "C-c C-q") 'my-kill-java)
 
 (defun my-jack-in () 
   (interactive) 
-  (delete-other-windows) 
-  ;;(m-show-compilation "*cider-repl Server**") 
+  (delete-other-windows)
+  ;;(m-show-compilation "*cider-repl Server**")
   (cider-jack-in))
 ;;(define-key clojure-mode-map (kbd "C-c M-j") 'my-jack-in)
 
-(defun my-run-project ()
-  (interactive)
+(defun my-run-project () 
+  (interactive) 
   (m-run-command "lein run"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-clojure)

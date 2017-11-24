@@ -557,18 +557,21 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 ;;; `which-key'
 (package-require 'which-key)
 (require 'which-key)
-(which-key-mode) 
+(which-key-mode)
+
 ;;; `paredit'
 (package-require 'paredit)
 (require 'paredit)
 
-;;(define-key clojure-mode-map (kbd "C-c C-h") 'clojure-cheatsheet)
 (define-key paredit-mode-map (kbd "C-<left>") 'paredit-backward-slurp-sexp)
 (define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
 (define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
 (define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp) 
 (package-require 'helpful)
 (require 'helpful)
+
+(package-require 'xkcd)
+(require 'xkcd)
 
 
 ;;
