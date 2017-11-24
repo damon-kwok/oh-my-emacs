@@ -1,4 +1,4 @@
-#+TITLE: My emacs confi
+#+TITLE: My emacs config
 #+STARTUP: inlineimages
 this is damon kwok's emacs config
 
