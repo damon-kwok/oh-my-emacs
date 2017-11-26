@@ -1,11 +1,8 @@
-#+TITLE:     ${1:This is Title}
-#+AUTHOR:    damon-kwok
-#+EMAIL:     damon-kwok@outlook.com
 #+DATE:      `(format-time-string "%Y-%m-%d")`
 #+INCLUDE: "./template"
 
 #+BEGIN_CENTER
-${1:Title}
+*${1:Title}*
 #+END_CENTER
 
 $0
