@@ -1,0 +1,27 @@
+def read_int8(buf) do
+  $0
+end
+def write_int8(buf) do
+
+end
+
+def read_int16(buf) do
+
+end
+def write_int16(buf) do
+
+end
+
+def read_int32(buf) do
+
+end
+def write_int32(buf) do
+
+end
+
+def read_int64(buf) do
+
+end
+def write_int64(buf) do
+
+end

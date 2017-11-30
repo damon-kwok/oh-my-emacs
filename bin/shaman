@@ -21,8 +21,6 @@ ZIP_HOME=$CACHE/apps-zip
 PROJECT_BLOG=demo-kwok.github.io
 
 DIR_BLOG=$SHAMAN_ROOT/blog
-# DIR_DOC=$SHAMAN_ROOT/docs
-# DIR_PROJECT=$SHAMAN_ROOT/projects
 DIR_WORKSPACE=$SHAMAN_ROOT/workspace
 DIR_LLVM_WHERE=$SHAMAN_ROOT/dev
 DIR_LLVM=$SHAMAN_ROOT/dev/llvm
@@ -214,7 +212,7 @@ function push {
 
 function push-a {
     echo "func::push-a"
-    cd $SHAMAN_ROOT    
+    cd $SHAMAN_ROOT
     git reset
     git pull
     git add .

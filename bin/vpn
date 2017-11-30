@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo openconnect tokyo.link.ac.cn:4433

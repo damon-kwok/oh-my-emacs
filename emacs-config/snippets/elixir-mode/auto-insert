@@ -36,4 +36,5 @@ defmodule `(s-join "" (-map 's-capitalize (s-split "_"  (m-bufname-no-ext))))` d
   def ${1:hello} do
     ${2::world}
   end
+  $0
 end

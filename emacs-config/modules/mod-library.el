@@ -528,6 +528,8 @@ occurence of CHAR."
 (package-require-curl "pink-bliss" "pink-gnu.xpm"
 		      "http://www.emacswiki.org/emacs/download/pink-gnu.xpm")
 
+(package-require-curl "multi-term" "multi-term.el" "https://www.emacswiki.org/emacs/download/multi-term.el")
+(setq multi-term-program "/bin/zsh")
 ;; (package-require-git "window-layout" "https://github.com/kiwanami/emacs-window-layout.git")
 ;; (package-require-git "E2WM" "https://github.com/kiwanami/emacs-window-manager.git")
 

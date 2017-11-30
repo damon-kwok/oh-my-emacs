@@ -46,7 +46,7 @@
                 pyim-probe-punctuation-after-punctuation)) ;;半角标点后强制输入半角标点
 
 ;; 开启：1/关闭：0 拼音搜索功能
-(pyim-isearch-mode 1)
+(pyim-isearch-mode 0)
 
 ;; option 1.使用 popup 包来绘制选词框 （emacs overlay 机制）
 ;; (setq pyim-page-tooltip 'popup)

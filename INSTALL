@@ -3,8 +3,9 @@
 SHAMAN_DIR_NAME=my-emacs-config
 SHAMAN_ROOT=`cd ~/$SHAMAN_DIR_NAME; pwd`
 SHAMAN_BIN=$SHAMAN_ROOT/bin
-LOCAL_BIN=/home/`whoami`/.local/bin
 
+DIR_BLOG=$SHAMAN_ROOT/blog
+DIR_WORKSPACE=$SHAMAN_ROOT/workspace
 ################################################################################
 
 function find-str {    
@@ -31,7 +32,6 @@ function readp {
 ################################################################################
 
 function pull-blog {
-    echo "func::pull-blog"
     cd $SHAMAN_ROOT
     git reset
     git pull
@@ -58,29 +58,30 @@ function pull-blog {
 }
 
 function link-init-el() {
-    echo "func::link"
-    # cp -rf $SHAMAN_ROOT/emacs-config/init.el $HOME/.emacs
-
     bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
-    mkdir -p $bkdir
 
     if [ -f ~/.emacs ]; then
+	mkdir -p $bkdir
 	mv ~/.emacs $bkdir
     fi
 
     if [ -f ~/.emacs.d ]; then
+	mkdir -p $bkdir
 	mv -a ~/.emacs.d $bkdir
     fi
 
     if [ -e ~/emacs-config ]; then
+	mkdir -p $bkdir
 	mv ~/emacs-config $bkdir
     fi
 
     if [ -e ~/workspace ]; then
+	mkdir -p $bkdir
 	mv ~/workspace $bkdir
     fi
     
     if [ -e ~/blog ]; then
+	mkdir -p $bkdir
 	mv ~/blog $bkdir
     fi
 
@@ -97,17 +98,13 @@ function link-init-el() {
     find-str "my-emacs-config" ~/.bashrc
     if [ $? -eq 0 ]; then
 	echo "" >> ~/.bashrc
-	# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.bashrc
 	echo "source $SHAMAN_BIN/setup.sh" >> ~/.bashrc
-	#source ~/.bashrc
     fi
 
     find-str "my-emacs-config" ~/.zshrc
     if [ $? -eq 0 ]; then
 	echo "" >> ~/.zshrc
-	# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.zshrc
 	echo "source $SHAMAN_BIN/setup.sh" >> ~/.zshrc
-	#source ~/.zshrc
     fi
     source $SHAMAN_BIN/setup.sh
     
