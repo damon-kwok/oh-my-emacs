@@ -1,0 +1,45 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+SET(ProjectName YourProjectName)
+PROJECT(${ProjectName})
+
+FILE(GLOB_RECURSE all_files 
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Source/*.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Public/*.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Private/*.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Classes/*.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/TestSource/*.cpp"
+
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/*/*.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Source/*/*.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Public/*/*.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Private/*/*.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Classes/*/*.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/TestSource/*/*.cpp"  
+  )
+
+INCLUDE_DIRECTORIES( 
+  "${CMAKE_CURRENT_SOURCE_DIR}/Include"
+  "${CMAKE_CURRENT_SOURCE_DIR}/inc"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Public"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Private"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Classes"
+  "${CMAKE_CURRENT_SOURCE_DIR}Include/gtest"
+  "${CMAKE_CURRENT_SOURCE_DIR}Include/gtest/internal"
+  "${CMAKE_CURRENT_SOURCE_DIR}/TestSource"
+  )
+
+if(${CMAKE_COMPILER_IS_GNUCC})
+  add_definitions(-Wall -s)
+endif()
+
+link_directories("${CMAKE_CURRENT_SOURCE_DIR}/gtest/lib")
+add_executable(${ProjectName} ${all_files})
+message (STATUS "CMAKE_C_COMPILER is ${CMAKE_C_COMPILER}, CMAKE_CXX_COMPILER is ${CMAKE_CXX_COMPILER}")
+message (STATUS "CMAKE_COMPILER_IS_GNUCC is ${CMAKE_COMPILER_IS_GNUCC}")
+if(${CMAKE_COMPILER_IS_GNUCC})
+  target_link_libraries(${ProjectName} libgtest.a)
+else()
+  target_link_libraries(${ProjectName} gtest-vc10.lib)
+endif()
