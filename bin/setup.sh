@@ -25,7 +25,7 @@ function find-str {
 # smart-rtags $void
 function auto-gen-rtags {
     DIR=`pwd`
-    echo "check dir:$DIR"
+    # echo "check dir:$DIR"
 
     if [ -f "$DIR/CMakeLists.txt" ]; then
 	if [ ! -d "$DIR/rtags_indexes" ]; then

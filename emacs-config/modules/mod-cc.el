@@ -335,13 +335,13 @@
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 
 
-(defun gen-rtags-indexes-with-sh ()
+(defun gen-rtags-indexes ()
   ;; (message (concat "you opened cc file:" (buffer-name)))
   ;; find CmakeLists.txt & gen rtags indexes
-  (m-run-command (concat (getenv "HOME")  "/my-emacs-config/bin/gen-rtags")))
+  (shell-command (concat (getenv "HOME")  "/my-emacs-config/bin/gen-rtags")))
 
 
-(defun gen-rtags-indexes () 
+(defun gen-rtags-indexes-with-elisp () 
   (setq dir (m-buf-dirpath)) 
   (setq cmake-dir (m-search-file "CMakeLists.txt" dir)) 
   (setq index-dir (concat cmake-dir "rtags_indexes")) 
