@@ -1,0 +1,5 @@
+#ifdef ${1:XXXXX}
+$0
+#else
+
+#endif

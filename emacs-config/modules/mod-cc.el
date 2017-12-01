@@ -295,6 +295,11 @@
 
 (define-key c-mode-map [f12] 'm-switch-cc-source-and-header)
 (define-key c++-mode-map [f12] 'm-switch-cc-source-and-header)
+
+(define-key c++-mode-map [f5] '(lambda ()
+								 (interactive)
+								 (m-run-command "/home/damon/catkin_ws/bin/build_adsim")))
+
 (require 'nxml-mode)
 (define-key nxml-mode-map [f7] 'm-open-or-close-packagexml)
 
@@ -317,8 +322,15 @@
 (define-key c++-mode-map (kbd "C-M-\\")  'clang-format-region)
 (define-key objc-mode-map (kbd "C-M-\\")  'clang-format-region)
 
-(package-require 'google-c-style)
-(require 'google-c-style)
+(setq-default c-basic-offset 4
+              tab-width 4
+              indent-tabs-mode t)
+(setq c-default-style "linux")
+;; (package-require 'google-c-style)
+;; (require 'google-c-style)
+;; (setq indent-tabs-mode nil)
+;; (setq default-tab-width 4)
+;; (setq tab-width 4)
 
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 
