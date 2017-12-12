@@ -401,8 +401,18 @@ function ask-blog {
 	1) pull-blog;;
 	2) push-blog;;
 	3)
+		mkdir -p ~/tmp/
+		mv $DIR_WORKSPACE/catkin_ws/.git/ ~/tmp/
+		rm -rf  $DIR_WORKSPACE/catkin_ws/src/adsim/rtags_indexes
+		rm -rf $DIR_WORKSPACE/catkin_ws/build/
+		rm -rf $DIR_WORKSPACE/catkin_ws/devel/lib/
+		rm -rf $DIR_WORKSPACE/catkin_ws/devel/share/
+		
 	    cd $DIR_WORKSPACE
 	    svn-commit
+		
+		mv ~/tmp/.git/ $DIR_WORKSPACE/catkin_ws/
+		mv ~/tmp/rtags_indexes $DIR_WORKSPACE/catkin_ws/adsim/
 	    ;;
 	s|S) zsh;;
 	r|R) ask-menu;;
