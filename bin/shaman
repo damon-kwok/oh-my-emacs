@@ -407,7 +407,6 @@ function ask-blog {
 		1) pull-blog;;
 		2) push-blog;;
 		3)
-<<<<<<< HEAD
 			mkdir -p ~/tmp/
 			mv $DIR_WORKSPACE/catkin_ws/.git/ ~/tmp/
 			rm -rf  $DIR_WORKSPACE/catkin_ws/src/adsim/rtags_indexes
@@ -419,11 +418,6 @@ function ask-blog {
 			svn-commit
 			
 			mv ~/tmp/.git/ $DIR_WORKSPACE/catkin_ws/
-			mv ~/tmp/rtags_indexes $DIR_WORKSPACE/catkin_ws/adsim/
-=======
-			cd $DIR_WORKSPACE
-			svn-commit
->>>>>>> e5f37bc0ffe2f39ba79242cd9f44fa77c2ae40eb
 			;;
 		s|S) zsh;;
 		r|R) ask-menu;;
@@ -490,7 +484,6 @@ function ask-menu {
 		g|G)
 			git config --global color.ui true
 			git config --global core.editor "ed"
-<<<<<<< HEAD
 			
 			git config --global merge.tool ediff-merge
 			git config --global mergetool.diffmerge.cmd "ediff-merge \$LOCAL \$REMOTE \$BASE \$MERGED"
@@ -498,10 +491,6 @@ function ask-menu {
 
 			git config --global diff.tool ediff
 			git config --global difftool.ediff.cmd "ediff \"\$LOCAL\" \"\$REMOTE\""
-=======
-			git config --global diff.tool ediff
-			git config --global difftool.ediff.cmd "ediff.sh \"\$LOCAL\" \"\$REMOTE\""
->>>>>>> e5f37bc0ffe2f39ba79242cd9f44fa77c2ae40eb
 			git config --global difftool.prompt false
 			;;
 		e|E) run-emacs;;

@@ -42,7 +42,7 @@
 ;; (module-require 'mod-speedbar)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `docs'
-(module-require 'mod-csv)
+;; (module-require 'mod-csv)
 (module-require 'mod-protobuf)
 (module-require 'mod-markdown)
 (module-require 'mod-orgmode)
