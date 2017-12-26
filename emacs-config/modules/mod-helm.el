@@ -124,9 +124,9 @@
 ;; (global-set-key (kbd "C-M-s") 'swiper-helm)
 
 ;; `helm-swoop'
-(package-require 'helm-swoop)
-(require 'helm-swoop)
-(global-set-key (kbd "C-M-s") 'helm-swoop)
+;; (package-require 'helm-swoop)
+;; (require 'helm-swoop)
+;; (global-set-key (kbd "C-M-s") 'helm-swoop)
 
 ;;; ac-helm
 ;; (package-require 'ac-helm)

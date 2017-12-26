@@ -49,6 +49,8 @@
 			   ;;	     (message (concat "you opened cc file:" (buffer-name)))
 			   (define-key sh-mode-map (kbd "C-c C-z")  'show-global-shell)))
 
+(global-set-key (kbd "C-M-w") 'm-copy-line)
+
 (global-set-key (kbd "C-c C-`") 'show-global-shell)
 (global-set-key (kbd "C-c C-z") 'show-global-shell)
 (define-key shell-mode-map (kbd "C-c C-z")  'show-global-workbuffer)
@@ -467,11 +469,11 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
 _`_: Email       _>_: goto-char-f       _G_: grep-project     _;_: <-Tab       _6_: Clojure   _1_:run   ^^
 _b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->       _7_: Elixir    ^^ test   ^^
-_f_: File  =>    _s_: replace-string    _d_: bing-dict        _[_: <-Group     _8_: Rust      ^^ build  ^^
-_m_: Module=>    _S_: query-replace     _D_: bing-dict-web    _/_: Group->     _9_: Ros       ^^ clean  ^^
-_w_: URLs  =>    _e_: mc/mark-all       _>_: goto-char-f      _=_: scale-inc   ^^Python       ^^        ^^
+_f_: File  =>    ^^                     _d_: bing-dict        _[_: <-Group     _8_: Rust      ^^ build  ^^
+_m_: Module=>    _w_: copy-line         _D_: bing-dict-web    _/_: Group->     _9_: Ros       ^^ clean  ^^
+_u_: URLs  =>    _e_: mc/mark-all       _>_: goto-char-f      _=_: scale-inc   ^^Python       ^^        ^^
 ^^               _r_: Reload|Refresh    _<_: goto-char-b      _-_: scale-dec   ^^Erlang       ^^        ^^
-_<tab>_: recent  _o_: kill-other-buffer ^^                    _z_: smart-do    ^^Kotlin       ^^        ^^
+_<tab>_: recent  _o_: kill-other-buffer _s_: replace-string   _z_: smart-do    ^^Kotlin       ^^        ^^
 ^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
 _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^^             ^^        ^^"))
 
@@ -485,8 +487,9 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
   ("f" (hydra-open-file/body) "file") 
   ("m" (hydra-open-config/body) "module") 
   ("c" (hydra-open-config/body) "module") 
-  ("w" (hydra-open-url/body) "url") 
+  ("u" (hydra-open-url/body) "url") 
   ("<tab>" helm-recentf "(helm-recentf)") 
+  ("w" m-copy-line "copy-line")
   (">" m-go-to-char-forward "go-to-char-forward") 
   ("<" m-go-to-char-backward "go-to-char-backward") 
   ("s" replace-string "replace-string") 

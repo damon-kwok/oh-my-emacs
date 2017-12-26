@@ -39,7 +39,7 @@
 (module-require 'mod-input)
 (module-require 'mod-calendar)
 ;; (module-require 'mod-dired)
-;; (module-require 'mod-speedbar)
+(module-require 'mod-speedbar)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `docs'
 ;; (module-require 'mod-csv)
@@ -83,7 +83,7 @@
 	 (executable-find "mu")) 
     (module-require 'mod-email))
 
-(module-require 'mod-tree)
+;; (module-require 'mod-tree)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;(if (or (eq system-type 'windows-nt)
 ;;	(eq system-type 'ms-dos))
