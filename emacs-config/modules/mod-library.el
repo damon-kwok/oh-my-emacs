@@ -188,7 +188,6 @@
   "copy a line" 
   (interactive) 
   (let ((pos (point)))
-	;; (kill-whole-line)
 	(beginning-of-visual-line) 
 	(kill-visual-line) 
 	(yank) 

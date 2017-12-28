@@ -403,5 +403,10 @@
 	 nil)))
 
 ;; (setq compilation-finish-function 'highlight-error-lines)
+
+;; `realgud'
+(package-require 'realgud)
+(require 'realgud)
+
 ;;
 (provide 'mod-cc)

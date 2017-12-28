@@ -47,7 +47,7 @@
 
 ;; Sometimes, when I am deep in a project tree, I like to use this shortcut to see full context:
 (global-set-key (kbd "C-M-s") 'projectile-speedbar-toggle)
-(global-set-key (kbd "C-M-w") 'projectile-speedbar-open-current-buffer-in-tree)
+(global-set-key (kbd "C-M-z") 'projectile-speedbar-open-current-buffer-in-tree)
 
 ;; You can also disable the feature completely:
 ;; (setq projectile-speedbar-projectile-speedbar-enable nil)
@@ -84,7 +84,9 @@
 ;;(setq sr-speedbar-right-side nil)
 ;;(setq sr-speedbar-width 35)
 ;;(setq speedbar-show-unknown-files t)
-;;(setq dframe-update-speed t)        ;; prevent the speedbar to update the current state, since it is always changing
+
+;; prevent the speedbar to update the current state, since it is always changing
+;;(setq dframe-update-speed t)
 
 (autoload 'speedbar-frame-mode "speedbar" "Popup a speedbar frame" t)
 (autoload 'speedbar-get-focus "speedbar" "Jump to speedbar frame" t)
