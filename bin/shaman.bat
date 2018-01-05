@@ -23,7 +23,10 @@ REM Code:
 REM
 cd /d %~dp0%
 set SHAMAN_ROOT=%CD%\..
-set PATH=%SHAMAN_ROOT%;%PATH%
+set SHAMAN_BIN=%SHAMAN_ROOT%\bin
+rem set LOCAL_BIN=/home/`whoami`/.local/bin
+rem set PATH=%SHAMAN_BIN%;%LOCAL_BIN%;%PATH%
+set PATH=%SHAMAN_BIN%;%PATH%
 
 set DIR_CACHE=%SHAMAN_ROOT%\cache
 set APP_HOME=%DIR_CACHE%\apps
@@ -35,13 +38,13 @@ rem if not exist %DIR_CACHE% (
    rem mkdir %DIR_CACHE%
 rem )
 
-set DIR_BLOG=%SHAMAN_ROOT%/blog
-rem set DIR_DOC=%SHAMAN_ROOT%/docs
-rem set DIR_PROJECT=%SHAMAN_ROOT%/projects
-set DIR_WORKSPACE=%SHAMAN_ROOT%/workspace
-set DIR_DEV=%SHAMAN_ROOT%/dev
-set DIR_LLVM_WHERE=%SHAMAN_ROOT%/dev
-set DIR_LLVM=%SHAMAN_ROOT%/dev/llvm
+set DIR_BLOG=%SHAMAN_ROOT%\blog
+rem set DIR_DOC=%SHAMAN_ROOT%\docs
+rem set DIR_PROJECT=%SHAMAN_ROOT%\projects
+set DIR_WORKSPACE=%SHAMAN_ROOT%\workspace
+set DIR_DEV=%SHAMAN_ROOT%\dev
+set DIR_LLVM_WHERE=%SHAMAN_ROOT%\dev
+set DIR_LLVM=%SHAMAN_ROOT%\dev\llvm
 
 rem set HOME=%USERPATH%
 set HOME=%SHAMAN_ROOT%
@@ -185,7 +188,7 @@ rem set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
 rem set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
 rem goto:%1
 rem start %EMACS_BIN%\runemacs.exe --debug-init %1
-"%SHAMAN_ROOT%/cache/apps/emacs/bin/emacsclientw.exe" --server-file "%SHAMAN_ROOT%/.emacs.d/server/server" --no-wait --alternate-editor="%SHAMAN_ROOT%/cache/apps/emacs/bin/runemacs.exe" %1
+"%SHAMAN_ROOT%\cache\apps\emacs\bin\emacsclientw.exe" --server-file "%SHAMAN_ROOT%\.emacs.d\server\server" --no-wait --alternate-editor="%SHAMAN_ROOT%\cache\apps\emacs\bin\runemacs.exe" %1
 exit
 
 :reg-open-menu
@@ -194,8 +197,8 @@ rem set ALTERNATE_EDITOR=%EMACS_BIN%\emacsc.exe
 rem set EMACS_SERVER_FILE=%HOME%\.emacs.d\server\emacs-server-file
 
 call:got-admin-auth
-rem regedit.exe /S %SHAMAN_ROOT%/emacs.reg
-rem reg import %SHAMAN_ROOT%/emacs.reg
+rem regedit.exe /S %SHAMAN_ROOT%\emacs.reg
+rem reg import %SHAMAN_ROOT%\emacs.reg
 rem REG ADD "HKEY_CLASSES_ROOT\*\shell\Edit with Emacs\command" /ve /t REG_SZ /d "\"%SHAMAN_ROOT%\cache\apps\emacs\bin\emacsclientw.exe\" --no-wait --server-file \"%SHAMAN_ROOT%\.emacs.d\server\server\" --alternate-editor=\"%SHAMAN_ROOT%\cache\apps\emacs\bin\runemacs.exe\" \"%%1\"" /f
 REG ADD "HKEY_CLASSES_ROOT\*\shell\Edit with Emacs\command" /ve /t REG_SZ /d "\"%SHAMAN_ROOT%\shaman.bat\" \"%%1\"" /f
 goto:eof
@@ -343,7 +346,7 @@ git pull
 git add .
 git status
 set /p msg=please input commit message:
-git commit -m %msg%
+git commit -m "%msg%"
 git push -u origin master
 goto:eof
 
@@ -356,7 +359,7 @@ git add .
 git status
 rem git commit -m "upgrade by "%computername%
 set msg=%date:~0,4%-%date:~5,2%-%date:~8,2%@%time:~0,2%-%time:~3,2%-%time:~6,2%
-git commit -m %msg%
+git commit -m "%msg%"
 git push -u origin master
 goto:eof
 
@@ -371,7 +374,7 @@ git status
 rem set /p msg=please input commit message:
 set msg=%date:~0,4%-%date:~5,2%-%date:~8,2%@%time:~0,2%-%time:~3,2%-%time:~6,2%
 rem echo commit:%msg%
-git commit -m %msg%
+git commit -m "%msg%"
 git push -u origin master
 goto:eof
 
