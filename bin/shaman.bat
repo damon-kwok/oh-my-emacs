@@ -22,7 +22,7 @@ REM
 REM Code:
 REM
 cd /d %~dp0%
-set SHAMAN_ROOT=%CD%
+set SHAMAN_ROOT=%CD%\..
 set PATH=%SHAMAN_ROOT%;%PATH%
 
 set DIR_CACHE=%SHAMAN_ROOT%\cache
