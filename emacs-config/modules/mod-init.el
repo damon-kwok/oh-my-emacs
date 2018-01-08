@@ -48,6 +48,7 @@
 (module-require 'mod-orgmode)
 (module-require 'mod-latex)
 (module-require 'mod-ros)
+(module-require 'mod-js)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `programming-languages'
 (module-require 'mod-elisp)
