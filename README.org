@@ -16,8 +16,8 @@ this is damon kwok's emacs config
 - pip isnatll ipython jupyter
 - [[https://github.com/djcb/mu][mu-0.9.18]]
 - [[https://github.com/OfflineIMAP/offlineimap][offlineimap]]
-- imagemagick
-- [[http://www.msys2.org/][msys2]] (windows) #define timegm _mkgmtime glib2-devel mingw-w64-x86_64-gmime mingw-w64-x86_64-xapian-core 
+- [[http://www.imagemagick.org/script/index.php][imagemagick]]
+- [[http://www.msys2.org/][msys2]] (windows)
 mingw-w64-x86_64-gtk3 
 mingw-w64-x86_64-webkitgtk3
 guile
