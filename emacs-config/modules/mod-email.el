@@ -28,6 +28,11 @@
 (add-to-list 'load-path mu4e-root)
 (require 'mu4e)
 
+(if (or (string= system-type 'windows-nt) 
+	(string= system-type 'ms-dos))
+    (setq mu4e-mu-binary (concat (expand-file-name libs-user-dir) "/" "mu-0.9.18/mu/mu.exe")))
+
+;; `extensions'
 (package-require 'mu4e-maildirs-extension)
 (require 'mu4e-maildirs-extension)
 (mu4e-maildirs-extension)
@@ -61,7 +66,6 @@
 (setq mu4e-drafts-folder "/Draft")
 (setq mu4e-sent-folder   "/Sent")
 (setq mu4e-trash-folder  "/Trash")
-
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
 
@@ -101,7 +105,7 @@
 (setq user-mail-address "guowangwei@51hitech.com"	    ;
       user-full-name  "郭王伟"				    ;
       mu4e-compose-signature (concat "郭王伟\n51World4AD\n" ;
-				     "----------------------------------------\n"	;
+				     "----------------------------------------\n" ;
 				     "手机：＋86 18201863387\n"	;
 				     "地址：长宁区长宁路1436号 倍格老船坞 F2-05\n" ;
 				     "----------------------------------------"))

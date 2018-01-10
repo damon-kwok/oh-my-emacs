@@ -44,11 +44,21 @@
 ;; `rtags'
 (package-require 'rtags)
 (require 'rtags)
-;; (message rtags-path)
-(unless (rtags-executable-find "rc") 
-  (rtags-install))
-(setenv "PATH" (concat (file-name-directory (rtags-executable-find "rc")) ":" (getenv "PATH")))
 
+(if (or (eq system-type 'windows-nt) 
+		(eq system-type 'ms-dos)) 
+	(setq rtags-rc "rc.exe") 
+  (setq rtags-rc "rc"))
+
+(unless (rtags-executable-find rtags-rc) 
+  (rtags-install))
+
+(setq rtags-path (file-name-directory (rtags-executable-find rtags-rc)))
+(message rtags-path)
+
+(setenv "PATH" (concat (file-name-directory rtags-path) ":" (getenv "PATH")))
+
+;; 
 (setq rtags-completions-enabled t)
 (eval-after-load 'company '(add-to-list 'company-backends 'company-rtags))
 (setq rtags-autostart-diagnostics t)
@@ -308,8 +318,7 @@
 ;;; Syntax highlighting support for "`Modern.C++'" - until `C++17' and Technical Specification.
 (package-require 'modern-cpp-font-lock)
 (require 'modern-cpp-font-lock)
-(modern-c++-font-lock-global-mode t)
-
+(modern-c++-font-lock-global-mode t) 
 
 ;; `format'
 (package-require 'clang-format)
@@ -384,7 +393,7 @@
   (setq error-line-overlay (make-overlay 1 1))
 
   ;; Append to list of all overlays
-  (setq all-overlays (cons error-line-overlay all-overlays))
+  (setq all-overlays (cons error-line-overlay all-overlays)) 
   (overlay-put error-line-overlay 'face '(background-color . "pink")) 
   (overlay-put error-line-overlay 'modification-hooks (list 'delete-this-overlay)) 
   (move-overlay error-line-overlay beg end) 
@@ -398,7 +407,7 @@
   (interactive) 
   (delete-all-overlays) 
   (condition-case nil (while t (next-error) 
-							 (highlight-current-line))
+							 (highlight-current-line)) 
 	(error 
 	 nil)))
 

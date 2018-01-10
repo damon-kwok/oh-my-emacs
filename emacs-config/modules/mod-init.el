@@ -66,13 +66,13 @@
 (if (executable-find "cargo") 
     (module-require 'mod-rust))
 
-;; (if (and (executable-find "rc")
-;; (executable-find "rdm")))
 (if (or (unless system-type 'windows-nt) 
 	(unless system-type 'ms-dos)) 
     (module-require 'mod-cc))
 
-(if (and (executable-find "ipython") 
+;; (module-require 'mod-cc)
+
+(if (and (executable-find "ipython")
 	 (executable-find "jupyter")) 
     (module-require 'mod-py))
 
@@ -82,9 +82,15 @@
 (if (executable-find "git") 
     (module-require 'mod-git))
 
-(if (and (executable-find "offlineimap") 
-	 (executable-find "mu")) 
-    (module-require 'mod-email))
+;; (if (and (executable-find "offlineimap")
+;; (executable-find "mu"))
+;; (module-require 'mod-email))
+
+;; (if (or (unless system-type 'windows-nt) 
+	;; (unless system-type 'ms-dos)) 
+    ;; (module-require 'mod-email))
+
+(module-require 'mod-email)
 
 ;; (module-require 'mod-tree)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
