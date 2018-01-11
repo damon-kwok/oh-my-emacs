@@ -21,6 +21,7 @@ REM along with this program.  If not, see <http:REMwww.gnu.org/licenses/>.
 REM					 
 REM Code:
 REM
+export LANG="en_US.UTF-8"
 cd /d %~dp0%
 set SHAMAN_ROOT=%CD%\..
 set SHAMAN_BIN=%SHAMAN_ROOT%\bin
@@ -309,17 +310,10 @@ cd %SHAMAN_ROOT%
 git reset
 git pull
 
-rem echo book
-rem if not exist %DIR_BLOG%/dev/elixirschool (
-   rem git clone https://github.com/elixirschool/elixirschool.git elixirschool
-rem ) else (
-  rem cd %DIR_BLOG%
-  rem git pull
-rem )
-
 echo blog
 if not exist %DIR_BLOG% (
-   git clone https://github.com/damon-kwok/damon-kwok.github.io.git blog
+   cd %SHAMAN_ROOT%
+   git clone https://github.com/damon-kwok/damon-kwok.github.io.git %DIR_BLOG%
 ) else (
   cd %DIR_BLOG%
   git pull
@@ -327,9 +321,10 @@ if not exist %DIR_BLOG% (
 
 echo workspace
 if not exist %DIR_WORKSPACE% (
-   svn co svn://www.svn999.com/guowangwei.my-docs %DIR_WORKSPACE%
+   cd %SHAMAN_ROOT%
+   svn co svn://www.svn999.com/guowangwei.workspace workspace
 ) else (
-  cd %DIR_DOC%
+  cd %DIR_WORKSPACE%
   svn cleanup .
   svn up
 )
@@ -340,7 +335,6 @@ goto:eof
 :push
 echo "do::push"
 cd %SHAMAN_ROOT%
-rem rm -f .git/index.lock
 git reset
 git pull
 git add .
@@ -365,7 +359,6 @@ goto:eof
 
 :push-blog
 echo "do::push-blog"
-rem rm -f .git/index.lock
 cd %SHAMAN_ROOT%/blog
 git reset
 git pull
@@ -377,7 +370,6 @@ rem echo commit:%msg%
 git commit -m "%msg%"
 git push -u origin master
 goto:eof
-
 
 :zipapp
 echo "do::zipapp"
@@ -470,18 +462,21 @@ echo    1) pull-blog
 echo    2) push-blog
 echo    3) commit-workspace
 echo    s) shell
-echo 	--------------------------
+echo --------------------------
 echo    r) return
 
 set /p c=please enter your choice:
 echo loading...
 if /i "%c%"=="1" call:pull-blog
 if /i "%c%"=="2" call:push-blog
-if /i "%c%"=="3"
+if /i "%c%"=="3" (
    cd %DIR_WORKSPACE%
    call:svn-commit
+)
 if /i "%c%"=="s" zsh
 if /i "%c%"=="r" call:ask-menu
+
+call:ask-menu
 goto:eof
 
 :ask-repl
@@ -490,7 +485,7 @@ echo    1) clojure
 echo    2) haskell
 echo    3) elixir
 echo    4) erlang
-echo 	--------------------------
+echo --------------------------
 echo    r) return
 
 set /p c=please enter your choice:
@@ -520,7 +515,7 @@ echo    i) install toolchain
 REM echo    c) complie-elc
 echo    l) link init.el
 echo    d) delete-elc
-echo    ------------------------------------	
+echo --------------------------
 echo    m) register menu
 echo    z) REPL
 echo    s) shell
@@ -548,7 +543,7 @@ if /i "%c%"=="z" call:ask-repl
 if /i "%c%"=="s" call:shell
 if /i "%c%"=="r" call:eof
 if /i "%c%"=="q" exit
-REM echo your input is not invalid:(
+echo your input is invalid
 call:ask-menu
 
 :main
@@ -557,3 +552,4 @@ call:ask-menu
 
 :quit
 cd %SHAMAN_ROOT%
+

@@ -18,36 +18,33 @@ this is damon kwok's emacs config
 - [[https://github.com/OfflineIMAP/offlineimap][offlineimap]]
 - [[http://www.imagemagick.org/script/index.php][imagemagick]]
 - [[http://www.msys2.org/][msys2]] (windows)
-mingw-w64-x86_64-gtk3 
-mingw-w64-x86_64-webkitgtk3
-guile
 
 * Install
 - sh <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/INSTALL)
 
 * Keybind
 ** global
- - *C-u C-h n *what's the new*
+# - *C-u C-h n *what's the new*
  - *M-z *super-key*
+ - *M*-/num/ switch window
+ - C-c C-z show-repl
+
  - *C-z* mark-word
  - *C-M-d* delete-backward-char
- - *M-p* move-lines-up
- - *M-n* move-lines-down
  - *M-;* comment-or-uncomment-region-or-line
- - *M*-/num/ switch window
+ - *M-p*/*M-n* move-lines-up/down
+ - C-M-` | C-M-` folding-toggle-element | folding-toggle-all
+
  - *C-x M-k* close all buffer
  - *C-\\* toggle-input-method
- - F1 neotree-toggle
- - C-c t projectile-speedbar
- - C-M-; tab-backward
- - C-M-' tab-forward
- - C-M-[ tab-forward-group
- - C-- shrink-window
- - C-= enlarge-window
- - C-M-- shrink-window-horizontally
- - C-M-= enlarge-window-horizontally
- - C-M-` folding-toggle-all
- - C-` folding-toggle-element
+
+ - C-M-s/x speedtree/update
+ - C-M-; | C-M-' | tab-backward | tab-forward
+ - C-M-[ | C-M-/ tab-forward-group | tab-backward-group
+ - C-*-* | C-*=* shrink-window |  enlarge-window
+
+ - C-M-*-* | C-M-*=* shrink-window-horizontally | enlarge-window-horizontally
+
  - *C-c l* org-store-link
  - *C-c c* org-capture
  - *C-c a* org-agenda
@@ -55,6 +52,4 @@ guile
 ** orgmode
  - M-n /org-metaup/
  - M-p /org-metadown/
-** c c++ bat shell haskell elixir erlang clojure elisp slime gister python
- - C-c C-z show-repl
 
