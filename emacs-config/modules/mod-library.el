@@ -193,6 +193,14 @@
 	(yank) 
 	(goto-char pos)))
 
+(defun m-mark-line () 
+  "copy a line" 
+  (interactive) 
+  (beginning-of-visual-line) 
+  (let ((pos (point)))
+    (set-mark pos)
+    (end-of-visual-line)))
+
 (defun m-quick-copy-line ()
       "Copy the whole line that point is on and move to the beginning of the next line.
     Consecutive calls to this command append each line to the

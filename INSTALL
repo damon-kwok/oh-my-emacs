@@ -35,10 +35,10 @@ function pull-blog {
     cd $SHAMAN_ROOT
     git reset
     git pull
-
     
     echo blog
     if [ ! -d $DIR_BLOG ]; then
+	cd $SHAMAN_ROOT
 	git clone https://github.com/damon-kwok/damon-kwok.github.io.git blog
     else
 	cd $DIR_BLOG
@@ -91,9 +91,6 @@ function link-init-el() {
     ln -s $SHAMAN_ROOT/emacs-config ~/emacs-config
     ln -s $SHAMAN_ROOT/workspace ~/workspace
     ln -s $SHAMAN_ROOT/blog ~/blog
-    # if [ ! -f /usr/bin/shaman ]; then
-    # sudo ln -s $SHAMAN_ROOT/shaman /usr/bin/shaman
-    # fi
 
     find-str "my-emacs-config" ~/.bashrc
     if [ $? -eq 0 ]; then
@@ -112,4 +109,3 @@ function link-init-el() {
 }
 
 link-init-el
-

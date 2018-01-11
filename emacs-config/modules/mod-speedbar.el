@@ -47,7 +47,7 @@
 
 ;; Sometimes, when I am deep in a project tree, I like to use this shortcut to see full context:
 (global-set-key (kbd "C-M-s") 'projectile-speedbar-toggle)
-(global-set-key (kbd "C-M-z") 'projectile-speedbar-open-current-buffer-in-tree)
+;; (global-set-key (kbd "C-M-z") 'projectile-speedbar-open-current-buffer-in-tree)
 
 ;; You can also disable the feature completely:
 ;; (setq projectile-speedbar-projectile-speedbar-enable nil)
@@ -97,9 +97,9 @@
 ;; (speedbar-change-initial-expansion-list "files")
 
 ;; key bind
-;; (define-key speedbar-key-map "\M-j" 'speedbar-restricted-prev) 
+;; (define-key speedbar-key-map "\M-j" 'speedbar-restricted-prev)
 ;; (define-key speedbar-key-map "\M-l" 'speedbar-restricted-next)
-;; (define-key speedbar-key-map "\M-i" 'speedbar-prev) 
+;; (define-key speedbar-key-map "\M-i" 'speedbar-prev)
 ;; (define-key speedbar-key-map "\M-k" 'speedbar-next)
 ;; (define-key speedbar-key-map "\M- " 'speedbar-toggle-line-expansion)
 ;;---------------new-begin--------------
@@ -113,23 +113,17 @@
 (defun speedbar-edit-line() 
   "Edit whatever tag or file is on the current speedbar line." 
   (interactive) 
-  (or 
-   (save-excursion 
-     (beginning-of-line)
-     ;; If this fails, then it is a non-standard click, and as such,
-     ;; perfectly allowed.
-     (if (re-search-forward "[]>?}] [^ ]" (line-end-position) t) 
-	 (progn 
-	   (forward-char -1) 
-	   (speedbar-do-function-pointer))
-       nil)) 
-   (speedbar-do-function-pointer)) 
+  (or (save-excursion (beginning-of-line)
+		      ;; If this fails, then it is a non-standard click, and as such,
+		      ;; perfectly allowed.
+		      (if (re-search-forward "[]>?}] [^ ]" (line-end-position) t) 
+			  (progn (forward-char -1) 
+				 (speedbar-do-function-pointer)) nil)) 
+      (speedbar-do-function-pointer)) 
   (setq speedbar-is-opened (sr-speedbar-exist-p)) 
-  (if speedbar-is-opened 
-      (sr-speedbar-close)) 
+  (if speedbar-is-opened (sr-speedbar-close)) 
   (delete-other-windows) 
-  (if speedbar-is-opened 
-      (sr-speedbar-open)))
+  (if speedbar-is-opened (sr-speedbar-open)))
 
 ;; (global-set-key (kbd "C-c s")
 ;; 		(function

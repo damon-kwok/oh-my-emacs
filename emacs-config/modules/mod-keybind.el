@@ -50,6 +50,7 @@
 			   (define-key sh-mode-map (kbd "C-c C-z")  'show-global-shell)))
 
 (global-set-key (kbd "C-M-w") 'm-copy-line)
+(global-set-key (kbd "C-M-z") 'm-mark-line)
 
 (global-set-key (kbd "C-c C-`") 'show-global-shell)
 (global-set-key (kbd "C-c C-z") 'show-global-shell)

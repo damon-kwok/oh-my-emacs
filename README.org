@@ -28,6 +28,7 @@ this is damon kwok's emacs config
  - *M-z *super-key*
  - *M*-/num/ switch window
  - C-c C-z show-repl
+ - C-M-s speedtree
 
  - *C-z* mark-word
  - *C-M-d* delete-backward-char
@@ -35,15 +36,16 @@ this is damon kwok's emacs config
  - *M-p*/*M-n* move-lines-up/down
  - C-M-` | C-M-` folding-toggle-element | folding-toggle-all
 
+
  - *C-x M-k* close all buffer
  - *C-\\* toggle-input-method
 
- - C-M-s/x speedtree/update
+
  - C-M-; | C-M-' | tab-backward | tab-forward
  - C-M-[ | C-M-/ tab-forward-group | tab-backward-group
  - C-*-* | C-*=* shrink-window |  enlarge-window
-
  - C-M-*-* | C-M-*=* shrink-window-horizontally | enlarge-window-horizontally
+
 
  - *C-c l* org-store-link
  - *C-c c* org-capture
