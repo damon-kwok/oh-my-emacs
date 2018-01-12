@@ -66,11 +66,11 @@
 (if (executable-find "cargo") 
     (module-require 'mod-rust))
 
-(if (or (unless system-type 'windows-nt) 
-	(unless system-type 'ms-dos)) 
-    (module-require 'mod-cc))
+;; (if (and (unless system-type 'windows-nt)
+	;; (unless system-type 'ms-dos)) 
+    ;; (module-require 'mod-cc))
 
-;; (module-require 'mod-cc)
+(module-require 'mod-cc)
 
 (if (and (executable-find "ipython")
 	 (executable-find "jupyter")) 
