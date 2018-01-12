@@ -24,12 +24,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'lsp-mode)
-(require 'lsp-mode)
+;; (package-require 'lsp-mode)
+;; (require 'lsp-mode)
 
-(package-require 'lsp-ui)
-(require 'lsp-ui)
-(add-hook 'lsp-mode-hook 'lsp-ui-mode)
+;; (package-require 'lsp-ui)
+;; (require 'lsp-ui)
+;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+
+;; `lsp-js'
+;; (package-require 'lsp-javascript-typescript)
+;; (require 'lsp-javascript-typescript)
+;; (add-hook 'js-mode-hook #'lsp-javascript-typescript-enable)
+;; (add-hook 'typescript-mode-hook #'lsp-javascript-typescript-enable) ;; for typescript support
+;; (add-hook 'js2-mode-hook #'lsp-javascript-typescript-enable) ;; for js2-mode support
+;; (add-hook 'js3-mode-hook #'lsp-javascript-typescript-enable) ;; for js3-mode support
+;; (add-hook 'rjsx-mode #'lsp-javascript-typescript-enable) ;; for rjsx-mode support
 
 ;; `company'
 (package-require 'company-lsp)
@@ -53,15 +62,6 @@
 ;; eg. extract function with `C-s-e C-s-f`.
 
 (define-key js2-refactor-mode-map (kbd "C-c C-e C-f") 'js2r-extract-function)
-
-;; `lsp-js'
-(package-require 'lsp-javascript-typescript)
-(require 'lsp-javascript-typescript)
-(add-hook 'js-mode-hook #'lsp-javascript-typescript-enable)
-(add-hook 'typescript-mode-hook #'lsp-javascript-typescript-enable) ;; for typescript support
-(add-hook 'js2-mode-hook #'lsp-javascript-typescript-enable) ;; for js2-mode support
-(add-hook 'js3-mode-hook #'lsp-javascript-typescript-enable) ;; for js3-mode support
-(add-hook 'rjsx-mode #'lsp-javascript-typescript-enable) ;; for rjsx-mode support
 
 ;; `web-mode'
 (package-require 'web-mode)

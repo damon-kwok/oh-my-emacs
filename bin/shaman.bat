@@ -543,7 +543,6 @@ if /i "%c%"=="z" call:ask-repl
 if /i "%c%"=="s" call:shell
 if /i "%c%"=="r" call:eof
 if /i "%c%"=="q" exit
-echo your input is invalid
 call:ask-menu
 
 :main

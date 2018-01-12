@@ -30,7 +30,8 @@ this is damon kwok's emacs config
  - C-c C-z show-repl
  - C-M-s speedtree
 
- - *C-z* mark-word
+
+ - *C-z* | *C-M-z* mark-word mark-line
  - *C-M-d* delete-backward-char
  - *M-;* comment-or-uncomment-region-or-line
  - *M-p*/*M-n* move-lines-up/down
