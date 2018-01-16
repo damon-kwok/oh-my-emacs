@@ -30,12 +30,12 @@
 ;;						 
 ;; Code:
 ;;
-(require 'mod-package)   
-(package-require 'slime)
+(require 'mod-package)
 
+(package-require 'slime)
 (require 'slime)
 (slime-setup)
-;;(package-require "slime/contrib")
+;; (package-require "slime/contrib")
 
 (defun slime-fuzzy-init () 
   (message "-------------------slime-fuzzy-init-------------------"))
@@ -70,7 +70,9 @@
      (setq slime-net-coding-system 'utf-8-unix)))
 
 ;;-------------------------------------------------
-;;(setq inferior-lisp-program "/usr/local/bin/sbcl")
+;; Set your lisp system and, optionally, some contribs
+(setq inferior-lisp-program "sbcl")
+(setq slime-contribs '(slime-fancy))
 (require 'slime-autoloads)
 
 ;;

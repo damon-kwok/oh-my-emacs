@@ -158,7 +158,8 @@ function link-init-el() {
 
 function svn-remove-lose {
     # svn status grep "^!" awk '{print $2}' xargs svn rm
-    svn st | grep '^\!' | cut -c 9- | xargs -r svn rm --depth infinity
+    svn st | grep '^\!' | cut -c 9- | xargs -r svn rm
+	# --depth infinity
 }
 
 function svn-add-new {

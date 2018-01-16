@@ -23,6 +23,7 @@
 ;;
 (require 'mod-package)
 
+;; (setq calendar-font-lock-keywords nil)
 (package-require 'cal-china-x)
 (require 'cal-china-x)
 

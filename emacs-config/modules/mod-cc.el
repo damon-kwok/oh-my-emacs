@@ -74,6 +74,7 @@
 (package-require 'helm-rtags)
 (require 'helm-rtags)
 ;; (setq rtags-use-helm nil)
+(setq rtags-display-result-backend 'helm)
 
 (define-key c-mode-base-map (kbd "C-M-.") 'rtags-find-symbol)
 (define-key c-mode-base-map (kbd "C-M-,") 'rtags-find-references)
@@ -180,7 +181,9 @@
   (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
   (setq-local flycheck-check-syntax-automatically nil))
 ;; c-mode-common-hook is also called by c++-mode
-(add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
+(add-hook 'c-mode-hook #'my-flycheck-rtags-setup) ;;c-mode-common-hook
+(add-hook 'c++-mode-hook #'my-flycheck-rtags-setup)
+(add-hook 'objc-mode-hook #'my-flycheck-rtags-setup)
 
 ;; `flycheck-clang-analyzer'
 ;; (package-require 'flycheck-clang-analyzer)

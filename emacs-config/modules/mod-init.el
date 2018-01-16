@@ -37,7 +37,7 @@
 (module-require 'mod-complete)
 (module-require 'mod-tabbar)
 (module-require 'mod-input)
-(module-require 'mod-calendar)
+;; (module-require 'mod-calendar)
 ;; (module-require 'mod-dired)
 (module-require 'mod-speedbar)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -54,7 +54,7 @@
 (module-require 'mod-elisp)
 ;; (module-require 'mod-erlang)
 ;; (module-require 'mod-ess)
-;; (module-require 'mod-slime)
+(module-require 'mod-slime)
 ;; (module-require 'mod-csharp)
 
 (if (executable-find "lein") 
@@ -71,10 +71,16 @@
     ;; (module-require 'mod-cc))
 
 (module-require 'mod-cc)
+(module-require 'mod-java)
+;; (module-require 'mod-cquery)
+
+(module-require 'mod-java)
 
 (if (and (executable-find "ipython")
 	 (executable-find "jupyter")) 
     (module-require 'mod-py))
+
+;; (module-require 'mod-lsp-py)
 
 (if (executable-find "stack") 
     (module-require ' mod-haskell))
