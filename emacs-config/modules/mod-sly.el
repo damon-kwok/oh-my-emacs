@@ -1,11 +1,11 @@
 ;; -*- lexical-binding: t -*-
-;; mod-py.el --- This is where you apply your OCD.
+;; mod-sly.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2017 damon-kwok
+;; Copyright (C) 2009-2018 damon-kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2017-10-19
-;; Modify: 2017-10-19
+;; Create: 2018-01-16
+;; Modify: 2018-01-16
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -18,30 +18,22 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
-;;;
-(package-require 'elpy)
-(require 'elpy)
-(elpy-enable)
+;;
+(package-require 'sly)
+;; (require 'sly)
+(require 'sly-autoloads)
+(setq inferior-lisp-program "sbcl")
 
-(package-require 'ein)
-(setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "-i --simple-prompt")
+(package-require 'sly-quicklisp)
+;; (require 'sly-quicklisp)
+(require 'sly-quicklisp-autoloads)
 
-;; use flycheck not flymake with elpy
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
-
-;; enable autopep8 formatting on save
-(package-require 'py-autopep8)
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(provide 'mod-py)
-;; mod-py.el ends here
+(provide 'mod-sly)
+;; mod-sly.el ends here

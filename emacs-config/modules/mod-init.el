@@ -55,6 +55,7 @@
 ;; (module-require 'mod-erlang)
 ;; (module-require 'mod-ess)
 (module-require 'mod-slime)
+;; (module-require 'mod-sly)
 ;; (module-require 'mod-csharp)
 
 (if (executable-find "lein") 
