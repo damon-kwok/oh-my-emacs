@@ -90,10 +90,10 @@
 
 ;; `keybind'
 (defun show-lisp-repl() 
-  (interactive) 
+  (interactive)
+  ;; (message (symbol-name major-mode))
   (delete-other-windows) 
-  (setq temp-lisp-buffer-name (buffer-name (current-buffer)))
-  ;; (slime-switch-to-output-buffer)
+  (setq temp-lisp-buffer-name (buffer-name (current-buffer))) 
   (if (slime-connected-p) 
 	  (slime-switch-to-output-buffer) 
 	(slime)) 
@@ -103,16 +103,19 @@
 
 (defun show-lisp-workbuffer() 
   (interactive) 
-  (switch-to-buffer-other-window temp-elixir-buffer-name) 
+  (switch-to-buffer-other-window temp-lisp-buffer-name) 
   (delete-other-windows) 
   (show-lisp-repl) 
-  (slime-switch-to-output-buffer))
+  (switch-to-buffer-other-window temp-lisp-buffer-name))
 
-(define-key lisp-mode-map (kbd "C-c C-q") 'slime-repl-quit)
 (define-key lisp-mode-map (kbd "C-c C-z") 'show-lisp-repl)
-
-(define-key slime-repl-mode-map (kbd "C-c C-q") 'slime-repl-quit)
+(define-key slime-prefix-map (kbd "C-c C-z") 'show-lisp-repl)
 (define-key slime-repl-mode-map (kbd "C-c C-z") 'show-lisp-workbuffer)
+
+(define-key slime-prefix-map (kbd "C-c C-q") 'slime-repl-quit)
+(define-key slime-repl-mode-map (kbd "C-c C-q") 'slime-repl-quit)
+
+(slime-define-keys slime-prefix-map ("\C-z" 'show-lisp-repl))
 ;;
 (provide 'mod-slime)
 ;; mod-slime.el ends here
