@@ -157,29 +157,29 @@
 (auto-insert-mode)
 (setq auto-insert-query nil) ;;don't ask me "R U want insert?"
 
-(define-auto-insert "\\.org" "org-mode/auto-insert")
+(define-auto-insert "\\.org\\'" "org-mode/auto-insert")
 
+(define-auto-insert "\\.\\(c\\|cc|\\|cpp\\|cxx\\)\\'" "cc-mode/auto-insert.c")
+(define-auto-insert "\\.\\(h\\|hh\\)\\'" "cc-mode/auto-insert.h")
+(define-auto-insert "\\.\\(hpp\\|hxx\\)\\'" "cc-mode/auto-insert.hpp")
 
-(define-auto-insert "\\.c^.cpp^.cxx" "cc-mode/auto-insert.c")
+(define-auto-insert "\\.el\\'" "emacs-lisp-mode/auto-insert")
+(define-auto-insert "\\.els\\'" "emacs-lisp-mode/auto-insert.els")
 
-(define-auto-insert "\\.h" "cc-mode/auto-insert.h")
-(define-auto-insert "\\.hpp^.hxx" "cc-mode/auto-insert.hpp")
+(define-auto-insert "\\.erl\\'" "erlang-mode/auto-insert")
+(define-auto-insert "\\.ex\\'" "elixir-mode/auto-insert")
+(define-auto-insert "\\.\\(clj\\|cljs\\|cljc\\|clje\\)\\'" "clojure-mode/auto-insert")
+(define-auto-insert "\\.\\(lisp\\|cl\\|ros\\)\\'" "lisp-mode/auto-insert")
+(define-auto-insert "\\.\\(scm\\|ss\\)\\'" "scheme-mode/auto-insert")
+(define-auto-insert "\\.lsp\\'" "newlisp-mode/auto-insert")
+(define-auto-insert "\\.hs\\'" "haskell-mode/auto-insert")
+(define-auto-insert "\\.rs\\'" "rust-mode/auto-insert")
+(define-auto-insert "\\.go\\'" "go-mode/auto-insert")
 
-(define-auto-insert "\\.el" "emacs-lisp-mode/auto-insert")
-(define-auto-insert "\\.els" "emacs-lisp-mode/auto-insert.els")
-
-(define-auto-insert "\\.erl" "erlang-mode/auto-insert")
-(define-auto-insert "\\.ex" "elixir-mode/auto-insert")
-(define-auto-insert "\\.clj^.cljs^.cljc^.clje" "clojure-mode/auto-insert")
-(define-auto-insert "\\.lsp" "new-lispmode/auto-insert")
-(define-auto-insert "\\.hs" "haskell-mode/auto-insert")
-(define-auto-insert "\\.rs" "rust-mode/auto-insert")
-(define-auto-insert "\\.go" "go-mode/auto-insert")
-
-(define-auto-insert "\\.py" "python-mode/auto-insert")
-(define-auto-insert "\\.js" "js-mode/auto-insert")
-(define-auto-insert "\\.cs" "csharp-mode/auto-insert")
-(define-auto-insert "\\.launch" "nxml-mode/auto-insert.launch")
+(define-auto-insert "\\.py\\'" "python-mode/auto-insert")
+(define-auto-insert "\\.js\\'" "js-mode/auto-insert")
+(define-auto-insert "\\.cs\\'" "csharp-mode/auto-insert")
+(define-auto-insert "\\.launch\\'" "nxml-mode/auto-insert.launch")
 
 (defadvice auto-insert  (around yasnippet-expand-after-auto-insert activate) 
   "expand auto-inserted content as yasnippet templete,

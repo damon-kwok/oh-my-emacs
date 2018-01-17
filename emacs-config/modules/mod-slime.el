@@ -59,7 +59,7 @@
 													  slime-highlight-edits slime-hyperdoc
 													  slime-indentation slime-mdot-fu slime-media ;;slime-motd
 													  slime-mrepl slime-package-fu slime-parse
-													  slime-presentation-streams slime-presentations
+													  ;; slime-presentation-streams slime-presentations
 													  slime-references slime-repl slime-sbcl-exts
 													  slime-scheme slime-scratch slime-snapshot
 													  slime-sprof slime-tramp ;;slime-typeout-frame ;;muliti-frame
@@ -71,9 +71,7 @@
 
 ;;-------------------------------------------------
 ;; Set your lisp system and, optionally, some contribs
-(setq inferior-lisp-program "sbcl")
-;; (setq inferior-lisp-program (concat (getenv "HOME") "/dev/clasp/build/clasp"))
-;; (setq inferior-lisp-program (concat (getenv "HOME") "/dev/ccl/lx86cl64"))
+(setq inferior-lisp-program "ros run")
 (setq slime-contribs '(slime-fancy))
 (require 'slime-autoloads)
 
@@ -91,7 +89,6 @@
 ;; `keybind'
 (defun show-lisp-repl() 
   (interactive)
-  ;; (message (symbol-name major-mode))
   (delete-other-windows) 
   (setq temp-lisp-buffer-name (buffer-name (current-buffer))) 
   (if (slime-connected-p) 
@@ -116,6 +113,9 @@
 (define-key slime-repl-mode-map (kbd "C-c C-q") 'slime-repl-quit)
 
 (slime-define-keys slime-prefix-map ("\C-z" 'show-lisp-repl))
+
+(add-to-list 'auto-mode-alist '("\\.ros\\'" . lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.cl\\'" . lisp-mode))
 ;;
 (provide 'mod-slime)
 ;; mod-slime.el ends here

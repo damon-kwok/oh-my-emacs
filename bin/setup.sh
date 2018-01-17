@@ -2,7 +2,9 @@ ROOT_DIR_NAME=my-emacs-config
 export SHAMAN_ROOT=/home/`whoami`/$ROOT_DIR_NAME
 export SHAMAN_BIN=$SHAMAN_ROOT/bin
 export LOCAL_BIN=/home/`whoami`/.local/bin
-export PATH=$SHAMAN_BIN:$LOCAL_BIN:$PATH
+export ROSWELL_BIN=/home/`whoami`/.roswell/bin
+export CATKIN_WS_BIN=/home/`whoami`/catkin_ws/bin
+export PATH=$SHAMAN_BIN:$ROSWELL_BIN:$CATKIN_WS_BIN:$LOCAL_BIN:$PATH
 
 function upgrade {
     sudo apt update && sudo apt dist-upgrade && sudo apt autoremove
