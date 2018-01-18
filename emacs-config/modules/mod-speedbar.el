@@ -24,6 +24,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
+;; (package-require 'sublimity)
+;; (require 'sublimity)
+;; (require 'sublimity-scroll)
+;; (require 'sublimity-map) ;; experimental
+;; (require 'sublimity-attractive)
 ;;==============================================================================
 ;;speedbar display mode
 ;;==============================================================================

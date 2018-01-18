@@ -56,7 +56,41 @@
 (global-set-key (kbd "C-c C-z") 'show-global-shell)
 (define-key shell-mode-map (kbd "C-c C-z")  'show-global-workbuffer)
 (define-key shell-mode-map (kbd "C-c C-`")  'show-global-workbuffer)
+
+(package-require 'mwim)
+(require 'mwim)
+(global-set-key (kbd "C-a") 'mwim-beginning)
+(global-set-key (kbd "C-e") 'mwim-end)
+
+(package-require 'wand)
+(require 'wand)
+(global-set-key (kbd "<C-return>")       'wand:execute)
+;; (global-set-key (kbd "<C-mouse-1>")      'wand:execute)
+;; (global-set-key (kbd "<C-down-mouse-1>")  nil)
+(wand:add-rule-by-pattern :match "\\$ "
+                          :capture :after
+                          :action popup-shell-command)
+(wand:add-rule-by-pattern :match "https?://"
+                          :capture :whole
+                          :action browse-url)
+(wand:add-rule-by-pattern :match "file:"
+                          :capture :after
+                          :action find-file)
+(wand:add-rule-by-pattern :match "#> "
+                          :capture :after
+                          :action add-bracket-and-eval)
+
+;; `folding'
+;; (package-require 'vimish-fold)
+;; (require 'vimish-fold)
+;; (vimish-fold-global-mode 1)
 
+(package-require 'yafolding)
+(require 'yafolding)
+
+(global-set-key (kbd "C-M-`") 'yafolding-toggle-all)
+(global-set-key (kbd "C-~") 'yafolding-hide-parent-element)
+(global-set-key (kbd "C-`") 'yafolding-toggle-element)
 
 ;; `anzu' https://github.com/syohex/emacs-anzu
 (package-require 'anzu)
@@ -473,7 +507,7 @@ _b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->       _
 _f_: File  =>    ^^                     _d_: bing-dict        _[_: <-Group     _8_: Rust      ^^ build  ^^
 _m_: Module=>    _w_: copy-line         _D_: bing-dict-web    _/_: Group->     _9_: Ros       ^^ clean  ^^
 _u_: URLs  =>    _e_: mc/mark-all       _>_: goto-char-f      _=_: scale-inc   ^^Python       ^^        ^^
-^^               _r_: Reload|Refresh    _<_: goto-char-b      _-_: scale-dec   ^^Erlang       ^^        ^^
+_l_: Bookmarks   _r_: Reload|Refresh    _<_: goto-char-b      _-_: scale-dec   ^^Erlang       ^^        ^^
 _<tab>_: recent  _o_: kill-other-buffer _s_: replace-string   _z_: smart-do    ^^Kotlin       ^^        ^^
 ^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
 _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^^             ^^        ^^"))
@@ -488,7 +522,8 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
   ("f" (hydra-open-file/body) "file") 
   ("m" (hydra-open-config/body) "module") 
   ("c" (hydra-open-config/body) "module") 
-  ("u" (hydra-open-url/body) "url") 
+  ("u" (hydra-open-url/body) "url")
+  ("l" helm-bookmarks "bookmarks")
   ("<tab>" helm-recentf "(helm-recentf)") 
   ("w" m-copy-line "copy-line")
   (">" m-go-to-char-forward "go-to-char-forward") 
@@ -573,9 +608,16 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 (define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp) 
 (package-require 'helpful)
 (require 'helpful)
+(global-set-key (kbd "C-h f") #'helpful-callable)
+(global-set-key (kbd "C-h v") #'helpful-variable)
+(global-set-key (kbd "C-h k") #'helpful-key)
+(global-set-key (kbd "C-c C-d") #'helpful-at-point)
 
 (package-require 'xkcd)
 (require 'xkcd)
+
+(package-require 'weechat)
+(require 'weechat)
 
 
 ;;

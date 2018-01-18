@@ -32,6 +32,9 @@
 ;;
 (require 'mod-package)
 
+(add-to-list 'auto-mode-alist '("\\.ros\\'" . lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.cl\\'" . lisp-mode))
+
 (package-require 'slime)
 (require 'slime)
 (slime-setup)
@@ -48,9 +51,12 @@
 ;;slime-references slime-repl slime-sbcl-exts slime-scheme slime-scratch slime-snapshot
 ;;slime-sprof slime-tramp slime-typeout-frame slime-xref-browser
 
+(package-require 'slime-company)
+;; (require 'slime-company)
 (eval-after-load "slime" '(progn
 							;;(slime-setup '(slime-repl slime-fuzzy))
-							(slime-setup '(slime-asdf slime-autodoc slime-banner slime-c-p-c
+							(slime-setup '(slime-company
+										   slime-asdf slime-autodoc slime-banner slime-c-p-c
 													  slime-cl-indent slime-clipboard
 													  slime-compiler-notes-tree
 													  slime-editing-commands slime-enclosing-context
@@ -105,6 +111,17 @@
   (show-lisp-repl) 
   (switch-to-buffer-other-window temp-lisp-buffer-name))
 
+(package-require 'elisp-format)
+(require 'elisp-format)
+
+(defun lisp-code-format() 
+  (interactive) 
+  (elisp-format-buffer) 
+  (save-current-buffer) 
+  (message "format complete!"))
+
+(define-key lisp-mode-map (kbd "C-M-\\")  'lisp-code-format)
+
 (define-key lisp-mode-map (kbd "C-c C-z") 'show-lisp-repl)
 (define-key slime-prefix-map (kbd "C-c C-z") 'show-lisp-repl)
 (define-key slime-repl-mode-map (kbd "C-c C-z") 'show-lisp-workbuffer)
@@ -114,8 +131,6 @@
 
 (slime-define-keys slime-prefix-map ("\C-z" 'show-lisp-repl))
 
-(add-to-list 'auto-mode-alist '("\\.ros\\'" . lisp-mode))
-(add-to-list 'auto-mode-alist '("\\.cl\\'" . lisp-mode))
 ;;
 (provide 'mod-slime)
 ;; mod-slime.el ends here

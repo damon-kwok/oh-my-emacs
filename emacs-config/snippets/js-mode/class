@@ -1,0 +1,9 @@
+class ${1:ClassName}
+{
+	constructor()
+	{
+		
+	}
+
+	$0
+}

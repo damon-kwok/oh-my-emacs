@@ -375,8 +375,24 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (package-require 'smart-mode-line-powerline-theme)
 ;; (require 'smart-mode-line-powerline-theme)
 ;; (setq sml/theme 'powerline)
-
 (sml/setup)
+
+(package-require 'anzu)
+(require 'anzu)
+(global-anzu-mode +1)
+
+(set-face-attribute 'anzu-mode-line nil
+                    :foreground "goldenrod" :weight 'bold)
+
+(custom-set-variables
+ '(anzu-mode-lighter "")
+ '(anzu-deactivate-region t)
+ '(anzu-search-threshold 1000)
+ '(anzu-replace-threshold 50)
+ '(anzu-replace-to-string-separator " => "))
+
+(define-key isearch-mode-map [remap isearch-query-replace]  #'anzu-isearch-query-replace)
+(define-key isearch-mode-map [remap isearch-query-replace-regexp] #'anzu-isearch-query-replace-regexp)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `mode-line': ocodo-svg-modelines
@@ -572,7 +588,9 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`highlight';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+(package-require 'dimmer)
+(require 'dimmer)
+(dimmer-mode)
 ;;; for lisp (elisp) : `lambda' to 入
 ;; (prettify-symbols-mode)
 ;; (global-prettify-symbols-mode 1)
@@ -684,19 +702,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; Enable it globally.
 ;; (add-hook 'after-init-hook #'global-emojify-mode)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`folding';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (package-require 'vimish-fold)
-;; (require 'vimish-fold)
-;; (vimish-fold-global-mode 1)
 
-(package-require 'yafolding)
-(require 'yafolding)
-
-(global-set-key (kbd "C-M-`") 'yafolding-toggle-all)
-(global-set-key (kbd "C-~") 'yafolding-hide-parent-element)
-(global-set-key (kbd "C-`") 'yafolding-toggle-element)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`indent';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -720,14 +726,25 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;`desktop' && `session' && `recentf';;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(package-require 'dashboard)
+(require 'dashboard)
+(dashboard-setup-startup-hook)
+(setq dashboard-banner-logo-title "DamonKwok's Emacs config")
+(setq dashboard-items '((projects . 15)
+						(recents  . 20)
+                        (bookmarks . 7)
+                        (agenda . 5)
+                        (registers . 5)
+))
+;; (add-to-list 'dashboard-items '(agenda) t)
 ;;; session
 ;; (package-require 'session)
 ;; (require 'session)
 ;; (add-hook 'after-init-hook 'session-initialize)
 
 ;;; desktop
-(setq desktop-restore-frames nil)
-(desktop-save-mode 1) ;;(require 'desktop-settings)
+;; (setq desktop-restore-frames nil)
+;; (desktop-save-mode 1)
 
 ;;; recentf file list
 (recentf-mode t)

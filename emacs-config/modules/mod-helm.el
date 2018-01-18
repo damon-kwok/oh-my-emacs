@@ -47,13 +47,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`bm';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; or if you want use this feature in your library: (bm-bookmark-add nil nil t)
-(package-require 'bm)
-(require 'bm)
+;; (package-require 'bm)
+;; (require 'bm)
 
 ;;; M$ Visual Studio key setup.
-(global-set-key (kbd "<C-f2>") 'bm-toggle)
-(global-set-key (kbd "<f2>")   'bm-next)
-(global-set-key (kbd "<S-f2>") 'bm-previous)
+;; (global-set-key (kbd "<C-f2>") 'bm-toggle)
+;; (global-set-key (kbd "<f2>")   'bm-next)
+;; (global-set-key (kbd "<S-f2>") 'bm-previous)
 
 ;;; Click on fringe to toggle bookmarks, and use mouse wheel to move between them.
 ;; (global-set-key (kbd "<left-fringe> <mouse-5>") 'bm-next-mouse)
@@ -64,7 +64,7 @@
 ;; (setq bm-marker 'bm-marker-right)
 
 ;;; If you would like to cycle bookmark in LIFO order, add the following line:
-(setq bm-in-lifo-order t)
+;; (setq bm-in-lifo-order t)
 
 ;;; If you would like to cycle through bookmarks in all open buffers, add the following line:
 ;; (setq bm-cycle-all-buffers t)
@@ -72,7 +72,15 @@
 ;;; If you would like to remove bookmark after jump to it by bm-next or bm-previous:
 ;; (setq temporary-bookmark-p t)
 
+;; `helm-bm'
+;; (package-require 'helm-bm)
+;; (require 'helm-bm)
+;; (global-set-key (kbd "C-c b") 'helm-bm)
 
+
+;; `bookmark'
+(global-set-key (kbd "C-x r l") 'helm-bookmarks)
+(global-set-key (kbd "C-x r d") 'bookmark-delete)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`ido';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

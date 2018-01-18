@@ -280,7 +280,7 @@
 		    ;; :weight 'bold)
 
 (def-tabbar-color "#b0bec5" "#263238" "gold" "#263238" "#8a8a8a" "#263238" "#263238")
-;; (def-tabbar-color "navy" "gray" "gold" "navy" "red" "gray" "gray")
+;; (def-tabbar-color "navy" "gray" "goldenrod" "navy" "red" "gray" "gray")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (setq tabbar-buffer-groups-function 'tabbar-ruler-projectile-tabbar-buffer-groups)
 (defun tabbar-buffer-groups () 
