@@ -4,7 +4,8 @@ export SHAMAN_BIN=$SHAMAN_ROOT/bin
 export LOCAL_BIN=/home/`whoami`/.local/bin
 export ROSWELL_BIN=/home/`whoami`/.roswell/bin
 export CATKIN_WS_BIN=/home/`whoami`/catkin_ws/bin
-export PATH=$SHAMAN_BIN:$ROSWELL_BIN:$CATKIN_WS_BIN:$LOCAL_BIN:$PATH
+export OPAM_BIN=/home/`whoami`/.opam/system/bin
+export PATH=$SHAMAN_BIN:$OPAM_BIN:$ROSWELL_BIN:$CATKIN_WS_BIN:$LOCAL_BIN:$PATH
 
 function upgrade {
     sudo apt update && sudo apt dist-upgrade && sudo apt autoremove

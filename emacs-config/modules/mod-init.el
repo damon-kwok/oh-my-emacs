@@ -58,6 +58,8 @@
 ;; (module-require 'mod-sly)
 ;; (module-require 'mod-csharp)
 
+;; (module-require 'mod-ocaml)
+
 (if (executable-find "lein") 
     (module-require 'mod-clojure))
 

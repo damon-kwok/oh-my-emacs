@@ -1,11 +1,11 @@
 ;; -*- lexical-binding: t -*-
-;; mod-ocaml.el --- This is where you apply your OCD.
+;; mod-lsp-ocaml.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2017 damon-kwok
+;; Copyright (C) 2009-2018 damon-kwok
 ;;
-;; Author: qq563 <damon-kwok@outlook.com>
-;; Create: 2017-06-26
-;; Modify: 2017-06-26
+;; Author: damon <damon-kwok@outlook.com>
+;; Create: 2018-01-18
+;; Modify: 2018-01-18
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -18,12 +18,36 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
-;;;
+;;
+(package-require 'lsp-mode)
+(require 'lsp-mode)
+
+;; `company'
+(package-require 'company-lsp)
+(require 'company-lsp)
+(push 'company-lsp company-backends)
+
+;; `lsp-ui'
+(package-require 'lsp-ui)
+(require 'lsp-ui)
+(add-hook 'lsp-mode-hook 'lsp-ui-mode)
+
+(package-require 'helm-xref)
+(require 'helm-xref)
+(setq xref-show-xrefs-function 'helm-xref-show-xrefs)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(package-require 'lsp-ocaml)
+(require 'lsp-ocaml)
+
+(add-hook 'tuareg-mode-hook #'lsp-ocaml-enable)
+(add-hook 'caml-mode-hook #'lsp-ocaml-enable)
+(add-hook 'reason-mode-hook #'lsp-ocaml-enable) ;; for Reason support
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require 'tuareg)
 (require 'tuareg)
 
@@ -42,19 +66,6 @@
 (autoload 'merlin-mode "merlin" "Merlin mode" t)
 (add-hook 'tuareg-mode-hook 'merlin-mode)
 (add-hook 'caml-mode-hook 'merlin-mode)
-
-;; `flycheck'
-(package-require 'flycheck-ocaml)
-(require 'flycheck-ocaml)
-
-(with-eval-after-load 'merlin
-  ;; Disable Merlin's own error checking
-  (setq merlin-error-after-save nil)
-
-  ;; Enable Flycheck checker
-  (flycheck-ocaml-setup))
-
-(add-hook 'tuareg-mode-hook #'merlin-mode)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(provide 'mod-ocaml)
-;; mod-ocaml.el ends here
+(provide 'mod-lsp-ocaml)
+;; mod-lsp-ocaml.el ends here

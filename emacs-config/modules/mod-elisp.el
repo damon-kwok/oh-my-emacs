@@ -98,6 +98,10 @@
 (require 'elisp-refs)
 (define-key emacs-lisp-mode-map (kbd "M-.")  'elisp-refs-function)
 
+(package-require 'macrostep)
+(require 'macrostep)
+(define-key emacs-lisp-mode-map (kbd "C-c e") 'macrostep-expand)
+
 ;; `comment-toggle' M-;
 (define-key paredit-mode-map (kbd "M-;") 'm-comment-or-uncomment-region-or-line)
 

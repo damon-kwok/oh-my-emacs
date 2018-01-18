@@ -41,7 +41,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;(message (concat "gc:" gc-cons-threshold " pre:" gc-cons-percentage))
 (my-optimize-gc 512 0.2)
 (add-hook 'after-init-hook (lambda () 
-			     (my-optimize-gc 16 0.2)))
+							 (my-optimize-gc 16 0.2)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`frame';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -53,20 +53,20 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (setq ns-pop-up-frames nil)
 
 (setq default-frame-alist '((height . 40) 
-			    (width . 130) 
-			    (top . 25) 
-			    (left . 18) 
-			    (menu-bar-lines . 0) 
-			    (tool-bar-lines . 0)))
+							(width . 130) 
+							(top . 25) 
+							(left . 18) 
+							(menu-bar-lines . 0) 
+							(tool-bar-lines . 0)))
 
 ;;; set tool bar to text style (need emacs24)
 (setq tool-bar-style 'both) ;;opt:text image both
 
 ;; toolbar (0:disable 1:show) (0:disable 1:show)
-					;(tool-bar-mode 0)
+										;(tool-bar-mode 0)
 
 ;;; menu-bar (0:disable 1:show)
-					;(menu-bar-mode 0)
+										;(menu-bar-mode 0)
 
 ;;; scroll setttings (nil 'left 'right)
 (require 'scroll-bar)
@@ -92,7 +92,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 ;;; set scroll speed (mormal:3 line | shift:1 line |control:1 page)
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1) 
-				    ((control))) mouse-wheel-progressive-speed nil scroll-step 1)
+									((control))) mouse-wheel-progressive-speed nil scroll-step 1)
 
 ;;; when up/down move: if the cursor is 'end of line', keep it 'end of line'
 (setq track-eol t)
@@ -103,18 +103,18 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
   (interactive)
   ;; move the cursor also
   (let ((tmp (current-column))) 
-    (scroll-down -1) 
-    (line-move-to-column tmp) 
-    (forward-line 1)))
+	(scroll-down -1) 
+	(line-move-to-column tmp) 
+	(forward-line 1)))
 
 (defun hold-line-scroll-down() 
   "Scroll the page with the cursor in the same line" 
   (interactive)
   ;; move the cursor also
   (let ((tmp (current-column))) 
-    (scroll-down 1) 
-    (line-move-to-column tmp) 
-    (forward-line -1)))
+	(scroll-down 1) 
+	(line-move-to-column tmp) 
+	(forward-line -1)))
 
 ;; (global-set-key (kbd "C-n") 'hold-line-scroll-up)
 ;; (global-set-key (kbd "C-p") 'hold-line-scroll-down)
@@ -142,14 +142,14 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (package-require 'color-theme-modern)
 
 (if (display-graphic-p) 
-    (progn ;;
+	(progn ;;
       ;;(load-theme 'gray30 t t)
       ;;(enable-theme 'gray30)
       ;;(load-theme 'deeper-blue)
       ;;(enable-theme 'deeper-blue)
       ;; load material theme
       (package-require 'material-theme) 
-      (load-theme 'material t)
+	  (load-theme 'material t)
       ;;
       ) 
   (progn
@@ -159,7 +159,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
     ;;(load-theme 'deeper-blue)
     ;;(enable-theme 'deeper-blue)
     (package-require 'material-theme) 
-    (load-theme 'material t)
+	(load-theme 'material t)
     ;;
     ))
 
@@ -264,11 +264,11 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (defun m-set-font()
   ;; Setting English Font
   (set-face-attribute 'default nil 
-		      :font "Bitstream Vera Sans Mono-10")
+					  :font "Bitstream Vera Sans Mono-10")
   ;; Setting Chinese Font
   (dolist (charset '(kana han symbol cjk-misc bopomofo)) 
-    (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" 
-								     :size 12))))
+	(set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" 
+																	 :size 12))))
 (if window-system (m-set-font))
 
 ;;; `tip'
@@ -301,9 +301,9 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 ;;; title
 (setq frame-title-format '("%Z  - " 
-			   (:eval (cond (buffer-read-only "(Read-Only)"))) 
-			   (:eval (cond ((buffer-modified-p) "*")))
-			   "%b" "  | (%m) |  %f"))
+						   (:eval (cond (buffer-read-only "(Read-Only)"))) 
+						   (:eval (cond ((buffer-modified-p) "*")))
+						   "%b" "  | (%m) |  %f"))
 
 ;; (setq frame-title-format '("[%Z]    %m    "
 ;; 			   (:eval (cond (buffer-read-only "%%")
@@ -381,18 +381,19 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (require 'anzu)
 (global-anzu-mode +1)
 
-(set-face-attribute 'anzu-mode-line nil
-                    :foreground "goldenrod" :weight 'bold)
+(set-face-attribute 'anzu-mode-line nil 
+					:foreground "goldenrod" 
+					:weight 'bold)
 
-(custom-set-variables
- '(anzu-mode-lighter "")
- '(anzu-deactivate-region t)
- '(anzu-search-threshold 1000)
- '(anzu-replace-threshold 50)
- '(anzu-replace-to-string-separator " => "))
+(custom-set-variables '(anzu-mode-lighter "") 
+					  '(anzu-deactivate-region t) 
+					  '(anzu-search-threshold 1000) 
+					  '(anzu-replace-threshold 50) 
+					  '(anzu-replace-to-string-separator " => "))
 
 (define-key isearch-mode-map [remap isearch-query-replace]  #'anzu-isearch-query-replace)
-(define-key isearch-mode-map [remap isearch-query-replace-regexp] #'anzu-isearch-query-replace-regexp)
+(define-key isearch-mode-map [remap isearch-query-replace-regexp]
+  #'anzu-isearch-query-replace-regexp)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `mode-line': ocodo-svg-modelines
@@ -434,10 +435,10 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;; `nyan-mode'
 (package-require 'nyan-mode)
 (if (display-graphic-p) 
-    (progn 
-      (require 'nyan-mode) 
-      (nyan-start-animation) 
-      (nyan-mode 1)))
+	(progn 
+	  (require 'nyan-mode) 
+	  (nyan-start-animation) 
+	  (nyan-mode 1)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`buffer';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -466,7 +467,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (defun endless/colorize-compilation () 
   "Colorize from `compilation-filter-start' to `point'."
   (let ((inhibit-read-only t)) 
-    (ansi-color-apply-on-region compilation-filter-start (point))))
+	(ansi-color-apply-on-region compilation-filter-start (point))))
 
 (add-hook 'compilation-filter-hook #'endless/colorize-compilation)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -500,15 +501,16 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
   (delete-other-windows) 
   (undo-tree-visualize) 
   (if (< (/ (frame-height) 3) 
-	 (window-height)) 
-      (shrink-window (/ (window-height) 2))))
+		 (window-height)) 
+	  (shrink-window (/ (window-height) 2))))
 
 (global-set-key (kbd "C-x u") 'show-undo-tree)
 (define-key undo-tree-map (kbd "C-x u") 
   '(lambda () 
-     (interactive) 
-     (undo-tree-visualize) 
-     (undo-tree-visualize-undo))) 
+	 (interactive) 
+	 (undo-tree-visualize) 
+	 (undo-tree-visualize-undo)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -516,12 +518,15 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (require 'linum)
 (setq linum-mode t)
 (setq linum-format "%4d")
-(global-linum-mode) 
+(global-linum-mode)
+
 ;;; `column'
 (setq column-number-mode t)
+
 
 ;;; page width
 ;; (setq fill-column 100)
+
 
 ;;; fci-mode
 (package-require 'fill-column-indicator)
@@ -539,10 +544,11 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;; define `global-fci-mode'
 (define-globalized-minor-mode global-fci-mode fci-mode 
   (lambda () 
-    (fci-mode 1)))
+	(fci-mode 1)))
 
 ;;; open global-fci-mode
-(global-fci-mode 0) 
+(global-fci-mode 0)
+
 ;;; indent-guide
 (package-require 'indent-guide)
 (require 'indent-guide)
@@ -617,7 +623,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (require 'rainbow-mode)
 (define-globalized-minor-mode global-rainbow-mode rainbow-mode 
   (lambda () 
-    (rainbow-mode 1)))
+	(rainbow-mode 1)))
 (global-rainbow-mode t)
 
 ;;; `highlight-parentheses'
@@ -648,23 +654,23 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(rainbow-delimiters-depth-1-face ((t 
-				     (:foreground "white")))) 
+									 (:foreground "white")))) 
  '(rainbow-delimiters-depth-2-face ((t 
-				     (:foreground "LightGreen")))) 
+									 (:foreground "LightGreen")))) 
  '(rainbow-delimiters-depth-3-face ((t 
-				     (:foreground "SlateGray")))) 
+									 (:foreground "SlateGray")))) 
  '(rainbow-delimiters-depth-4-face ((t 
-				     (:foreground "khaki")))) 
+									 (:foreground "khaki")))) 
  '(rainbow-delimiters-depth-5-face ((t 
-				     (:foreground "HotPink2")))) 
+									 (:foreground "HotPink2")))) 
  '(rainbow-delimiters-depth-6-face ((t 
-				     (:foreground "DarkGreen")))) 
+									 (:foreground "DarkGreen")))) 
  '(rainbow-delimiters-depth-7-face ((t 
-				     (:foreground "DodgerBlue")))) 
+									 (:foreground "DodgerBlue")))) 
  '(rainbow-delimiters-depth-8-face ((t 
-				     (:foreground "orange")))) 
+									 (:foreground "orange")))) 
  '(rainbow-delimiters-depth-9-face ((t 
-				     (:foreground "brown")))))
+									 (:foreground "brown")))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Sexy tail
 ;; (package-require 'highlight-tail)
@@ -685,7 +691,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;; 3. highlight-tail-posterior-type控制渐变的方式
 ;; (setq highlight-tail-const-width 5)
 ;; (setq highlight-tail-posterior-type 'const)
-					;const :渐变highlight-tail-const-width指定固定长度 t:渐变所有修改
+										;const :渐变highlight-tail-const-width指定固定长度 t:渐变所有修改
 ;; (message "Highlight-tail loaded - now your Emacs will be even more sexy!")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -726,25 +732,24 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;`desktop' && `session' && `recentf';;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(package-require 'dashboard)
-(require 'dashboard)
-(dashboard-setup-startup-hook)
-(setq dashboard-banner-logo-title "DamonKwok's Emacs config")
-(setq dashboard-items '((projects . 15)
-						(recents  . 20)
-                        (bookmarks . 7)
-                        (agenda . 5)
-                        (registers . 5)
-))
-;; (add-to-list 'dashboard-items '(agenda) t)
+;; (package-require 'dashboard)
+;; (require 'dashboard)
+;; (dashboard-setup-startup-hook)
+;; (setq dashboard-banner-logo-title "DamonKwok's Emacs config")
+;; (setq dashboard-items '((projects . 15) 
+						;; (recents  . 20) 
+						;; (bookmarks . 7) 
+						;; (agenda . 5) 
+						;; (registers . 5)))
+
 ;;; session
 ;; (package-require 'session)
 ;; (require 'session)
 ;; (add-hook 'after-init-hook 'session-initialize)
 
 ;;; desktop
-;; (setq desktop-restore-frames nil)
-;; (desktop-save-mode 1)
+(setq desktop-restore-frames nil)
+(desktop-save-mode 1)
 
 ;;; recentf file list
 (recentf-mode t)
