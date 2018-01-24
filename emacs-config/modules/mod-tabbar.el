@@ -81,11 +81,6 @@
 (global-set-key (kbd "C-M-[") 'm-tabbar-forward-group)
 (global-set-key (kbd "C-M-/") 'm-tabbar-backward-group)
 
-(global-set-key (kbd "<backtab>") 
-		'(lambda () 
-		   (interactive) 
-		   (switch-to-buffer (other-buffer (current-buffer) 1))))
-
 ;; DarkGreen LightGoldenrod DarkGoldenrod gold DarkGreen #00B2BF #330000 gray60 grey gray #383838
 
 ;;; DarkBlue

@@ -48,10 +48,10 @@
 			 ;;("gnu" . "https://elpa.gnu.org/packages/")
 			 ;;("org" . "http://orgmode.org/elpa/")
 			 ;;("melpa" . "https://melpa.org/packages/")
-			 ;; ("popkit" . "http://elpa.popkit.org/packages/")
-			 ("gnu" . "http://elpa.emacs-china.org/gnu/") 
-			 ("melpa" . "http://elpa.emacs-china.org/melpa/") 
-			 ("org" . "http://elpa.emacs-china.org/org/")
+			 ;;
+			 ("gnu-china" . "http://elpa.emacs-china.org/gnu/") 
+			 ("melpa-china" . "http://elpa.emacs-china.org/melpa/") 
+			 ("org-china" . "http://elpa.emacs-china.org/org/")
 			 ;;
 			 ))
 ;; (add-to-list 'package-archives '("popkit" . "http://elpa.popkit.org/packages/"))

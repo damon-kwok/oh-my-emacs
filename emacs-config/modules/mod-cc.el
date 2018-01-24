@@ -40,6 +40,9 @@
 (autoload 'shader-mode "shader" nil t) ;;(require 'shader-mode)
 (add-to-list 'auto-mode-alist '("\\.shader$" . shader-mode))
 
+;; `company'
+;; (package-require 'company-c-headers)
+;; (add-to-list 'company-backends 'company-c-headers)
 
 ;; `rtags'
 (package-require 'rtags)
@@ -80,8 +83,8 @@
 (define-key c-mode-base-map (kbd "C-M-,") 'rtags-find-references)
 ;; (define-key c-mode-base-map (kbd "M-?") 'rtags-find-virtuals-at-point)
 (define-key c-mode-base-map (kbd "M-.") 'rtags-find-symbol-at-point)
-(define-key c-mode-base-map (kbd "M-,") 'rtags-find-references-at-point)
-(define-key c-mode-base-map (kbd "M-?") 'rtags-find-file)
+(define-key c-mode-base-map (kbd "M-?") 'rtags-find-references-at-point)
+;; (define-key c-mode-base-map (kbd "M-?") 'rtags-find-file)
 (define-key c-mode-base-map (kbd "M-i") 'rtags-imenu)
 
 (defun rtags-open-file () 
@@ -371,7 +374,15 @@
 (add-hook 'c-mode-hook 'gen-rtags-indexes)
 (add-hook 'c++-mode-hook 'gen-rtags-indexes)
 (add-hook 'objc-mode-hook 'gen-rtags-indexes)
+
+;; `disaster'
+(package-require 'disaster)
+(require 'disaster)
+(define-key c-mode-map (kbd "C-c d") 'disaster)
+(define-key c++-mode-map (kbd "C-c d") 'disaster)
+(define-key objc-mode-map (kbd "C-c d") 'disaster)
 
+
 ;; (define-key run-mode-map (kbd "RET") '(lambda (&optional EVENT)
 ;; (interactive)
 ;; (delete-other-windows)

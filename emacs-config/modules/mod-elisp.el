@@ -94,9 +94,9 @@
 (define-key emacs-lisp-mode-map (kbd "C-c C-k")  'eval-buffer)
 (define-key emacs-lisp-mode-map (kbd "C-M-\\")  'elisp-code-format)
 
-(package-require 'elisp-refs)
-(require 'elisp-refs)
-(define-key emacs-lisp-mode-map (kbd "M-.")  'elisp-refs-function)
+;; (package-require 'elisp-refs)
+;; (require 'elisp-refs)
+;; (define-key emacs-lisp-mode-map (kbd "M-.")  'elisp-refs-function)
 
 (package-require 'macrostep)
 (require 'macrostep)

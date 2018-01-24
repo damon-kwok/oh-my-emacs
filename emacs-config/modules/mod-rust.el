@@ -39,6 +39,12 @@
 (require 'rust-mode)
 (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
 (setq company-tooltip-align-annotations t)
+
+;; `keybinding'
+(define-key rust-mode-map [f5] 
+  '(lambda () 
+	 (interactive) 
+	 (m-run-command "cargo build")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-rust)
 ;; mod-rust.el ends here

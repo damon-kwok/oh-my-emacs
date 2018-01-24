@@ -5,10 +5,13 @@ export LOCAL_BIN=/home/`whoami`/.local/bin
 export ROSWELL_BIN=/home/`whoami`/.roswell/bin
 export CATKIN_WS_BIN=/home/`whoami`/catkin_ws/bin
 export OPAM_BIN=/home/`whoami`/.opam/system/bin
-export PATH=$SHAMAN_BIN:$OPAM_BIN:$ROSWELL_BIN:$CATKIN_WS_BIN:$LOCAL_BIN:$PATH
+export CARGO_BIN=/home/`whoami`/.cargo/system/bin
+export PATH=$SHAMAN_BIN:$CARGO_BIN:$OPAM_BIN:$ROSWELL_BIN:$CATKIN_WS_BIN:$LOCAL_BIN:$PATH
+
+source $HOME/.cargo/env
 
 function upgrade {
-    sudo apt update && sudo apt dist-upgrade && sudo apt autoremove
+    sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && rosdep update
 }
 
 # find-str $2:str $1:file

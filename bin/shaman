@@ -30,28 +30,28 @@ DIR_LLVM=$SHAMAN_ROOT/dev/llvm
 function find-str {    
     grep $1 $2 >/dev/null
     if [ $? -eq 0 ]; then
-	return $(( 1 ));
+		return $(( 1 ));
     else
-	return $(( 0 ));
+		return $(( 0 ));
     fi
 }
 
 function readp {
     read -p "$1(Y/n)" c
     if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
-	return $(( 1 ));
+		return $(( 1 ));
     elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
-	return $(( 0 ));
+		return $(( 0 ));
     else
-	echo "invalid input:$c"
-	readp "$1"
+		echo "invalid input:$c"
+		readp "$1"
     fi
 }
 
 ################################################################################
 function run-emacs {
     if [ ! -f $HOME/.emacs ]; then
-	link-init-el
+		link-init-el
     fi
 
     emacs --debug-init
@@ -60,7 +60,7 @@ function run-emacs {
 
 function run-emacs-nw {
     if [ ! -f $HOME/.emacs ]; then
-	link-init-el
+		link-init-el
     fi
 
     emacs -nw --debug-init
@@ -80,21 +80,21 @@ function pull-blog {
 
     echo blog
     if [ ! -d $DIR_BLOG ]; then
-	cd $SHAMAN_ROOT
-	git clone https://github.com/damon-kwok/damon-kwok.github.io.git $DIR_BLOG
+		cd $SHAMAN_ROOT
+		git clone https://github.com/damon-kwok/damon-kwok.github.io.git $DIR_BLOG
     else
-	cd $DIR_BLOG
-	git pull
+		cd $DIR_BLOG
+		git pull
     fi
 
     echo workspace
     if [ ! -d $DIR_WORKSPACE ]; then
-	cd $SHAMAN_ROOT
-	svn co svn://www.svn999.com/guowangwei.workspace workspace
+		cd $SHAMAN_ROOT
+		svn co svn://www.svn999.com/guowangwei.workspace workspace
     else
-	cd $DIR_WORKSPACE
-	svn cleanup .
-	svn up
+		cd $DIR_WORKSPACE
+		svn cleanup .
+		svn up
     fi
 
 }
@@ -107,23 +107,23 @@ function link-init-el() {
     mkdir -p $bkdir
 
     if [ -f ~/.emacs ]; then
-	mv ~/.emacs $bkdir
+		mv ~/.emacs $bkdir
     fi
 
     if [ -f ~/.emacs.d ]; then
-	mv -a ~/.emacs.d $bkdir
+		mv -a ~/.emacs.d $bkdir
     fi
 
     if [ -e ~/emacs-config ]; then
-	mv ~/emacs-config $bkdir
+		mv ~/emacs-config $bkdir
     fi
 
     if [ -e ~/workspace ]; then
-	mv ~/workspace $bkdir
+		mv ~/workspace $bkdir
     fi
     
     if [ -e ~/blog ]; then
-	mv ~/blog $bkdir
+		mv ~/blog $bkdir
     fi
 
     #for linux
@@ -138,18 +138,18 @@ function link-init-el() {
 
     find-str "my-emacs-config" ~/.bashrc
     if [ $? -eq 0 ]; then
-	echo "" >> ~/.bashrc
-	# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.bashrc
-	echo "source $SHAMAN_BIN/setup.sh" >> ~/.bashrc
-	#source ~/.bashrc
+		echo "" >> ~/.bashrc
+		# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.bashrc
+		echo "source $SHAMAN_BIN/setup.sh" >> ~/.bashrc
+		#source ~/.bashrc
     fi
 
     find-str "my-emacs-config" ~/.zshrc
     if [ $? -eq 0 ]; then
-	echo "" >> ~/.zshrc
-	# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.zshrc
-	echo "source $SHAMAN_BIN/setup.sh" >> ~/.zshrc
-	#source ~/.zshrc
+		echo "" >> ~/.zshrc
+		# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.zshrc
+		echo "source $SHAMAN_BIN/setup.sh" >> ~/.zshrc
+		#source ~/.zshrc
     fi
     source $SHAMAN_BIN/setup.sh
 
@@ -184,10 +184,10 @@ function svn-commit {
     
     readp "auto commit?"
     if [ $? -eq 1 ]; then
-	svn commit -m `date +%Y-%m-%d@%H-%M-%S`
+		svn commit -m `date +%Y-%m-%d@%H-%M-%S`
     else
-	read -p "please enter commit message:" msg
-	svn commit -m "$msg"
+		read -p "please enter commit message:" msg
+		svn commit -m "$msg"
     fi
 }
 
@@ -208,10 +208,10 @@ function push {
 
     readp "auto commit?"
     if [ $? -eq 1 ]; then
-	git commit -m `date +%Y-%m-%d@%H-%M-%S`
+		git commit -m `date +%Y-%m-%d@%H-%M-%S`
     else
-	read -p "please enter commit message:" msg
-	git commit -m "$msg"
+		read -p "please enter commit message:" msg
+		git commit -m "$msg"
     fi
     git push -u origin master
 }
@@ -276,9 +276,9 @@ function pushapp {
 function getapp {
     echo "func::getapp"
     if [ ! -d $APP_HOME ]; then
-	if [ ! -d $ZIPHOME ]; then
-	    echo pass
-	fi
+		if [ ! -d $ZIPHOME ]; then
+			echo pass
+		fi
     fi
 }
 
@@ -294,69 +294,69 @@ function install-toolchain {
 
     read -p "please enter your choice:" item
     case $item in
-	1)  #Debian/Ubuntu/LinuxMint
-	    sudo apt update
-	    sudo apt install -y build-essential coreutils diffutils zsh wget curl zip unzip git subversion silversearcher-ag
-	    sudo apt install -y python-pip perl ruby nodejs-legacy ocaml haskell-stack elixir cargo rebar openjdk-8-jdk
-	    sudo apt install -y ttf-bitstream-vera #zmq ghostscript
+		1)  #Debian/Ubuntu/LinuxMint
+			sudo apt update
+			sudo apt install -y build-essential coreutils diffutils zsh wget curl zip unzip git subversion silversearcher-ag
+			sudo apt install -y python-pip perl ruby nodejs-legacy ocaml haskell-stack elixir cargo rebar openjdk-8-jdk
+			sudo apt install -y ttf-bitstream-vera #zmq ghostscript
 
-	    #oh-my-zsh
-	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+			#oh-my-zsh
+			sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-	    # Bazel
-	    sudo apt -y install pkg-config zip g++ zlib1g-dev unzip python
-	    echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
-	    curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
-	    sudo apt-get update && sudo apt-get install -y bazel
-	    ;;
-	2)  #ArchLinux/Manjaro
-	    yaourt -Syyu
-	    yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
-	    yaourt -S python2-pip perl rubygems nodejs ocaml haskell-stack-git elixir cargo rebar3 openjdk-8-jdk ttf-bitstream-vera-dummy oh-my-zsh-git #leiningen
-	    ;;
-	3)  #Fedora/Redhat/CentOS
-	    sudo dnf update
-	    sudo dnf groupinstall "Development Tools and Libraries"
-	    sudo dnf install coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
-	    sudo dnf install python2-pip perl rubygems nodejs-legacy ocaml haskell-stack elixir cargo rebar3  openjdk-8-jdk ttf-bitstream-vera #leiningen
+			# Bazel
+			sudo apt -y install pkg-config zip g++ zlib1g-dev unzip python
+			echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
+			curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
+			sudo apt-get update && sudo apt-get install -y bazel
+			;;
+		2)  #ArchLinux/Manjaro
+			yaourt -Syyu
+			yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
+			yaourt -S python2-pip perl rubygems nodejs ocaml haskell-stack-git elixir cargo rebar3 openjdk-8-jdk ttf-bitstream-vera-dummy oh-my-zsh-git #leiningen
+			;;
+		3)  #Fedora/Redhat/CentOS
+			sudo dnf update
+			sudo dnf groupinstall "Development Tools and Libraries"
+			sudo dnf install coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
+			sudo dnf install python2-pip perl rubygems nodejs-legacy ocaml haskell-stack elixir cargo rebar3  openjdk-8-jdk ttf-bitstream-vera #leiningen
 
-	    #oh-my-zsh
-	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	    ;;
-	4)
-	    brew update
-	    brew install coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
-	    brew install python2-pip perl rubygems nodejs-legacy ocaml haskell-stack elixir cargo rebar3 openjdk-8-jdk ttf-bitstream-vera #leiningen
+			#oh-my-zsh
+			sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+			;;
+		4)
+			brew update
+			brew install coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
+			brew install python2-pip perl rubygems nodejs-legacy ocaml haskell-stack elixir cargo rebar3 openjdk-8-jdk ttf-bitstream-vera #leiningen
 
-	    #oh-my-zsh
-	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	    ;;
-	5)
-	    pacman -Syyu
-	    pacman -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
-	    pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-nodejs
-	    pacman -S mingw-w64-x86_64-ocaml ttf-bitstream-vera #mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
+			#oh-my-zsh
+			sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+			;;
+		5)
+			pacman -Syyu
+			pacman -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
+			pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-nodejs
+			pacman -S mingw-w64-x86_64-ocaml ttf-bitstream-vera #mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
 
-	    # install: lien
-	    # cd $LOCAL_BIN
-	    # curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
-	    # curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-	    # chmod +x ./lein
+			# install: lien
+			# cd $LOCAL_BIN
+			# curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+			# curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+			# chmod +x ./lein
 
-	    # install: cargo
+			# install: cargo
 
-	    # install: elixir && erlang-nox
+			# install: elixir && erlang-nox
 
-	    # rebar3
-	    # cd $LOCAL_BIN
-	    # wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
+			# rebar3
+			# cd $LOCAL_BIN
+			# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
 
-	    # oh-my-zsh
-	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+			# oh-my-zsh
+			sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-	    ;;
-	r | R) ask-menu;;
-	*) ask-repl;;
+			;;
+		r | R) ask-menu;;
+		*) ask-repl;;
     esac
 
     # pip
@@ -405,20 +405,20 @@ function ask-blog {
 
     read -p "please enter your choice:" item
     case $item in
-	1) pull-blog;;
-	2) push-blog;;
-	3)
-	    mkdir -p ~/tmp/
-	    mv $DIR_WORKSPACE/catkin_ws/.git/ ~/tmp/
-	    rm -rf  $DIR_WORKSPACE/catkin_ws/src/adsim/rtags_indexes
-	    rm -rf $DIR_WORKSPACE/catkin_ws/build/
-	    rm -rf $DIR_WORKSPACE/catkin_ws/devel/lib/
-	    rm -rf $DIR_WORKSPACE/catkin_ws/devel/share/
+		1) pull-blog;;
+		2) push-blog;;
+		3)
+			# mkdir -p ~/tmp/
+			# mv $DIR_WORKSPACE/catkin_ws/.git/ ~/tmp/
+			# rm -rf  $DIR_WORKSPACE/catkin_ws/src/adsim/rtags_indexes
+			# rm -rf $DIR_WORKSPACE/catkin_ws/build/
+			# rm -rf $DIR_WORKSPACE/catkin_ws/devel/lib/
+			# rm -rf $DIR_WORKSPACE/catkin_ws/devel/share/
+			
+			cd $DIR_WORKSPACE
+			svn-commit
 	    
-	    cd $DIR_WORKSPACE
-	    svn-commit
-	    
-	    mv ~/tmp/.git/ $DIR_WORKSPACE/catkin_ws/
+	    # mv ~/tmp/.git/ $DIR_WORKSPACE/catkin_ws/
 	    ;;
 	s|S) zsh;;
 	r|R) ask-menu;;

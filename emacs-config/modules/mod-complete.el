@@ -168,10 +168,12 @@
 
 (define-auto-insert "\\.erl\\'" "erlang-mode/auto-insert")
 (define-auto-insert "\\.ex\\'" "elixir-mode/auto-insert")
+
 (define-auto-insert "\\.\\(clj\\|cljs\\|cljc\\|clje\\)\\'" "clojure-mode/auto-insert")
 (define-auto-insert "\\.\\(lisp\\|cl\\|ros\\)\\'" "lisp-mode/auto-insert")
 (define-auto-insert "\\.\\(scm\\|ss\\)\\'" "scheme-mode/auto-insert")
 (define-auto-insert "\\.lsp\\'" "newlisp-mode/auto-insert")
+
 (define-auto-insert "\\.hs\\'" "haskell-mode/auto-insert")
 (define-auto-insert "\\.rs\\'" "rust-mode/auto-insert")
 (define-auto-insert "\\.go\\'" "go-mode/auto-insert")

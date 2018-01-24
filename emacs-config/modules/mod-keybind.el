@@ -36,18 +36,20 @@
   (m-show-compilation "*shell*") 
   (shell) 
   (switch-to-buffer-other-window temp-global-buffer-name) 
-  (m-show-compilation "*shell*" t))
+  (m-show-compilation "*shell*" t)
+  )
 
 (defun show-global-workbuffer() 
   (interactive) 
   (switch-to-buffer-other-window temp-global-buffer-name) 
   (delete-other-windows) 
   (show-global-shell) 
-  (switch-to-buffer-other-window temp-global-buffer-name))
+  (switch-to-buffer-other-window temp-global-buffer-name)
+  )
 
 (add-hook 'sh-mode-hook '(lambda()
-			   ;;	     (message (concat "you opened cc file:" (buffer-name)))
-			   (define-key sh-mode-map (kbd "C-c C-z")  'show-global-shell)))
+						   ;;	     (message (concat "you opened cc file:" (buffer-name)))
+						   (define-key sh-mode-map (kbd "C-c C-z")  'show-global-shell)))
 
 (global-set-key (kbd "C-M-w") 'm-copy-line)
 (global-set-key (kbd "C-M-z") 'm-mark-line)
@@ -56,6 +58,11 @@
 (global-set-key (kbd "C-c C-z") 'show-global-shell)
 (define-key shell-mode-map (kbd "C-c C-z")  'show-global-workbuffer)
 (define-key shell-mode-map (kbd "C-c C-`")  'show-global-workbuffer)
+
+(global-set-key (kbd "M-,") ;;<backtab>
+				'(lambda () 
+				   (interactive) 
+				   (switch-to-buffer (other-buffer (current-buffer) 1))))
 
 (package-require 'mwim)
 (require 'mwim)
@@ -67,18 +74,26 @@
 (global-set-key (kbd "<C-return>")       'wand:execute)
 ;; (global-set-key (kbd "<C-mouse-1>")      'wand:execute)
 ;; (global-set-key (kbd "<C-down-mouse-1>")  nil)
-(wand:add-rule-by-pattern :match "\\$ "
-                          :capture :after
-                          :action popup-shell-command)
-(wand:add-rule-by-pattern :match "https?://"
-                          :capture :whole
-                          :action browse-url)
-(wand:add-rule-by-pattern :match "file:"
-                          :capture :after
-                          :action find-file)
-(wand:add-rule-by-pattern :match "#> "
-                          :capture :after
-                          :action add-bracket-and-eval)
+(wand:add-rule-by-pattern :match "\\$ " 
+						  :capture 
+
+						  :after 
+						  :action popup-shell-command)
+(wand:add-rule-by-pattern :match "https?://" 
+						  :capture 
+
+						  :whole 
+						  :action browse-url)
+(wand:add-rule-by-pattern :match "file:" 
+						  :capture 
+
+						  :after 
+						  :action find-file)
+(wand:add-rule-by-pattern :match "#> " 
+						  :capture 
+
+						  :after 
+						  :action add-bracket-and-eval)
 
 ;; `folding'
 ;; (package-require 'vimish-fold)
@@ -101,17 +116,18 @@
 (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp)
 
 (set-face-attribute 'anzu-mode-line nil 
-		    :foreground "yellow" 
-		    :weight 'bold)
+					:foreground "yellow" 
+					:weight 'bold)
 
 (custom-set-variables '(anzu-mode-lighter "") 
-		      '(anzu-deactivate-region t) 
-		      '(anzu-search-threshold 1000) 
-		      '(anzu-replace-threshold 50) 
-		      '(anzu-replace-to-string-separator " => "))
+					  '(anzu-deactivate-region t) 
+					  '(anzu-search-threshold 1000) 
+					  '(anzu-replace-threshold 50) 
+					  '(anzu-replace-to-string-separator " => "))
 
 (define-key isearch-mode-map [remap isearch-query-replace] #'anzu-isearch-query-replace)
-(define-key isearch-mode-map [remap isearch-query-replace-regexp] #'anzu-isearch-query-replace-regexp)
+(define-key isearch-mode-map [remap isearch-query-replace-regexp]
+  #'anzu-isearch-query-replace-regexp)
 
 
 (global-set-key (kbd "M-RET") 'toggle-frame-fullscreen)
@@ -184,7 +200,7 @@
 (require 'window-numbering)
 (window-numbering-mode)
 (setq window-numbering-assign-func (lambda () 
-				     (when (equal (buffer-name) "*Calculator*") 9)))
+									 (when (equal (buffer-name) "*Calculator*") 9)))
 
 ;; `page-break-lines'
 (package-require 'page-break-lines)
@@ -265,7 +281,8 @@
 
 ;;; `buffer'
 (defhydra hydra-show-buffer 
-  (:color blue)
+  (:color blue
+		  )
   "
 ^Cmooand^            ^Buffer1^         ^Buffer2^
 ^^^^^^^^-------------------------------------------------------------------------
@@ -294,7 +311,8 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 
 ;;; `hydra-open-module'
 (defhydra hydra-open-config 
-  (:color blue)
+  (:color blue
+		  )
   "
 ^Basic^            ^Layout^         ^Editor^          ^Language^      ^Other^
 ^^^^^^^^-------------------------------------------------------------------------
@@ -348,11 +366,13 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ;; (global-set-key (kbd "C-c c") 'hydra-open-config/body)
 
 (defun compile-all-modules() 
-  (byte-recompile-directory (expand-file-name (concat (getenv "ROOT") "/emacs-config/modules")) 0))
+  (byte-recompile-directory (expand-file-name (concat (getenv "ROOT") "/emacs-config/modules")) 0)
+  )
 
 ;;; `hydra-open-url'
 (defhydra hydra-open-url 
-  (:color blue)
+  (:color blue
+		  )
   "
 ^News^       ^Search^          ^Tut^                 ^Awesome^          ^site^
 ^^^^^^^^------------------------------------------------------------------------------
@@ -367,13 +387,12 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 ("3" (m-open-url "https://www.taobao.com/") "Taobao")
 ("4" (m-open-url "http://www.amazon.cn/") "Amazon")
 ("5" (m-open-url
-      "http://weibo.com/p/100808169bafefac5c96e7ad8b1714ec46c585?k=Emacs&from=501&_from_=huati_topic") "WeiBo #Emacs#")
+	  "http://weibo.com/p/100808169bafefac5c96e7ad8b1714ec46c585?k=Emacs&from=501&_from_=huati_topic") "WeiBo #Emacs#")
 ("6" (m-open-url "http://www.tuicool.com/topics") "tuicool")
 ("7" (m-open-url "http://www.oschina.net/news") "oschina")
 ("8" (m-open-url "http://www.3dmgame.com/news/") "3dm-news")
 ("x" (m-open-url "http://ergoemacs.org/emacs/elisp.html") "Xahlee Elisp")
-("m" (m-open-url "http://www.gnu.org/software/emacs/manual/html_node/elisp/index.html#SEC_Contents")
- "Manual")
+("m" (m-open-url "http://www.gnu.org/software/emacs/manual/html_node/elisp/index.html#SEC_Contents") "Manual")
 ("k" (m-open-url "http://tuhdo.github.io/emacs-tutor.html") "emacs-tutor")
 ("l" (m-open-url "https://masteringemacs.org/book") "MasteringEmacs")
 ("a" (m-open-url "https://github.com/bayandin/awesome-awesomeness") "awesome-awesomeness")
@@ -392,8 +411,9 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 
 ;;; `hydra-open-file'
 (defhydra hydra-open-file 
-  (:color blue)
-  "
+(:color blue
+)
+ "
 ^Editor^        ^Export^                ^Docs^              ^Docs^
 ^^^^^^^^-----------------------------------------------------------------
 _r_:rename      _p_: htmlize-buffer     _h_: README.org      _n_: note.org
@@ -420,7 +440,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("G" (m-open-doc "game.org") "game.org")
 ("N" (m-open-doc "news.org") "news.org")
 ("<tab>" helm-keyboard-quit "back" 
- :exit t)
+:exit t)
 ("0" (calendar) "calendar")
 ("<tab>" (hydra-do-super/body) "BACK")
 ("q" nil "Quit")
@@ -428,79 +448,82 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ;; (global-set-key (kbd "C-c f") 'hydra-open-file/body)
 
 (defun major-do () 
-  (let ((mod-name (symbol-name major-mode))) 
-    (cond ((string= mod-name "clojure-mode") 123) 
-	  ((string= mod-name "emacs-lisp--mode") 456) 
-	  ((string= mod-name "sh-mode") 789))))
+(let ((mod-name (symbol-name major-mode))) 
+(cond ((string= mod-name "clojure-mode") 123) 
+((string= mod-name "emacs-lisp--mode") 456) 
+((string= mod-name "sh-mode") 789)))
+)
 
 (defun m-project-wizard(lang) 
-  (cond ((string= lang "clojure") 
-	 (m-create-project "lein new %s" "project.clj")) 
-	((string= lang "elixir") 
-	 (m-create-project "mix new %s" "mix.exs")) 
-	((string= lang "haskell") 
-	 (m-create-project "stack new %s" "src/Main.hs")) 
-	((string= lang "rust") 
-	 (m-create-project "cargo new %s --bin" "Cargo.toml")) 
-	((string= lang "go") 
-	 (m-create-project "glide create %s" "glide.yaml")) 
-	((string= lang "ros") 
-	 (m-create-project "rosman %s " "src/main.cpp"))))
+(cond ((string= lang "clojure") 
+(m-create-project "lein new %s" "project.clj")) 
+((string= lang "elixir") 
+(m-create-project "mix new %s" "mix.exs")) 
+((string= lang "haskell") 
+(m-create-project "stack new %s" "src/Main.hs")) 
+((string= lang "rust") 
+(m-create-project "cargo new %s --bin" "Cargo.toml")) 
+((string= lang "go") 
+(m-create-project "glide create %s" "glide.yaml")) 
+((string= lang "ros") 
+(m-create-project "rosman %s " "src/main.cpp")))
+)
 
 
 (defun m-run-*project () 
-  (let ((mod-name (symbol-name major-mode))) 
-    (cond ((string= mod-name "clojure-mode") 
-	   (m-run-command "lein run")) 
-	  ((string= mod-name "elixir-mode") 
-	   (m-run-command "mix run")) 
-	  ((string= mod-name "haskell-mode") 
-	   (m-run-command "stack exec Main")) 
-	  ((string= mod-name "rust-mode") 
-	   (m-run-command "cargo run")) 
-	  ((string= mod-name "sh-mode") 
-	   (m-run-command (concat "bash " (buffer-file-name)))) 
-	  ((string= mod-name "bat-mode") 
-	   (m-run-command (concat "cmd.exe " (buffer-file-name)))) 
-	  ((string= mod-name "emacs-lisp-mode") 
-	   (message "hello,emacs")) )))
+(let ((mod-name (symbol-name major-mode))) 
+(cond ((string= mod-name "clojure-mode") 
+(m-run-command "lein run")) 
+((string= mod-name "elixir-mode") 
+(m-run-command "mix run")) 
+((string= mod-name "haskell-mode") 
+(m-run-command "stack exec Main")) 
+((string= mod-name "rust-mode") 
+(m-run-command "cargo run")) 
+((string= mod-name "sh-mode") 
+(m-run-command (concat "bash " (buffer-file-name)))) 
+((string= mod-name "bat-mode") 
+(m-run-command (concat "cmd.exe " (buffer-file-name)))) 
+((string= mod-name "emacs-lisp-mode") 
+(message "hello,emacs")) ))
+)
 
 (defun m-test-*project() 
-  (let ((mod-name (symbol-name major-mode))) 
-    (cond ((string= mod-name "clojure-mode") 
-	   (m-run-command "lein test")) 
-	  ((string= mod-name "elixir-mode") 
-	   (m-run-command "mix test")) 
-	  ((string= mod-name "haskell-mode") 
-	   (m-run-command "stack test")) 
-	  ((string= mod-name "rust-mode") 
-	   (m-run-command "cargo test")) 
-	  ((string= mod-name "emacs-lisp-mode") 
-	   (compile-current-buffer)))))
+(let ((mod-name (symbol-name major-mode))) 
+(cond ((string= mod-name "clojure-mode") 
+(m-run-command "lein test")) 
+((string= mod-name "elixir-mode") 
+(m-run-command "mix test")) 
+((string= mod-name "haskell-mode") 
+(m-run-command "stack test")) 
+((string= mod-name "rust-mode") 
+(m-run-command "cargo test")) 
+((string= mod-name "emacs-lisp-mode") 
+(compile-current-buffer))))
+)
 
 (defun m-build-*project() 
-  (let ((mod-name (symbol-name major-mode))) 
-    (cond ((string= mod-name "clojure-mode") 
-	   (m-run-command "lein compile")) 
-	  ((string= mod-name "elixir-mode") 
-	   (m-run-command "mix compile")) 
-	  ((string= mod-name "haskell-mode") 
-	   (m-run-command "stack build")) 
-	  ((string= mod-name "rust-mode") 
-	   (m-run-command "cargo build")) 
-	  ((string= mod-name "emacs-lisp-mode") 
-	   (compile-current-buffer)))))
+(let ((mod-name (symbol-name major-mode))) 
+(cond ((string= mod-name "clojure-mode") 
+(m-run-command "lein compile")) 
+((string= mod-name "elixir-mode") 
+(m-run-command "mix compile")) 
+((string= mod-name "haskell-mode") 
+(m-run-command "stack build")) 
+((string= mod-name "rust-mode") 
+(m-run-command "cargo build")) 
+((string= mod-name "emacs-lisp-mode") 
+(compile-current-buffer))))
+)
 
 (defun get-major-mode-name () 
-  (symbol-name major-mode))
+(symbol-name major-mode)
+)
 
 (setq current-major-mode-name (symbol-name major-mode))
 
 (defun get-super-menu-string() 
-  (concat
-   "^SPC^            ^Buffer^               ^Search^              ^UI|View^        ^AppWizard^^   "
-   (get-major-mode-name)
-   "
+(concat "^SPC^            ^Buffer^               ^Search^              ^UI|View^        ^AppWizard^^   " (get-major-mode-name) "
 ^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
 _`_: Email       _>_: goto-char-f       _G_: grep-project     _;_: <-Tab       _6_: Clojure   _1_:run   ^^
 _b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->       _7_: Elixir    ^^ test   ^^
@@ -510,64 +533,65 @@ _u_: URLs  =>    _e_: mc/mark-all       _>_: goto-char-f      _=_: scale-inc   ^
 _l_: Bookmarks   _r_: Reload|Refresh    _<_: goto-char-b      _-_: scale-dec   ^^Erlang       ^^        ^^
 _<tab>_: recent  _o_: kill-other-buffer _s_: replace-string   _z_: smart-do    ^^Kotlin       ^^        ^^
 ^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
-_<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^^             ^^        ^^"))
+_<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^^             ^^        ^^")
+)
 
 ;;; `C-SPC'
 (defhydra hydra-do-super 
-  (:color blue) 
-  (concat "" (get-super-menu-string))
-  ("`" (mu4e) "Email")
+(:color blue
+) 
+(concat "" (get-super-menu-string)) 
+("`" (mu4e) "Email")
   ;; ("`" mu4e~headers-jump-to-maildir "Email")
   ("b" (hydra-show-buffer/body) "buffer") 
-  ("f" (hydra-open-file/body) "file") 
-  ("m" (hydra-open-config/body) "module") 
-  ("c" (hydra-open-config/body) "module") 
-  ("u" (hydra-open-url/body) "url")
-  ("l" helm-bookmarks "bookmarks")
-  ("<tab>" helm-recentf "(helm-recentf)") 
-  ("w" m-copy-line "copy-line")
-  (">" m-go-to-char-forward "go-to-char-forward") 
-  ("<" m-go-to-char-backward "go-to-char-backward") 
-  ("s" replace-string "replace-string") 
-  ("S" query-replace "query-replace") 
-  ("e" (m-mark-all-like-this) "mc/mark-all-like-this") 
-  ("r" (m-buffer-reload) "Refresh") 
-  ("o" (m-kill-other-buffers) "KillOtherBuffers") 
-  ("G" my-grep-project "projectile-project-root") 
-  ("g" my-grep-directory "projectile-directory-root") 
-  ("d" bing-dict-brief "bing-dict-brief") 
-  ("D" m-bing-dict-brief-web "bing-dict-brief-web") 
-  (";" tabbar-backward "tabbar-backward") 
-  ("'" tabbar-forward "tabbar-forward") 
-  ("[" m-tabbar-backward-group "tabbar-up") 
-  ("/" m-tabbar-forward-group "tabbar-down") 
-  ("=" text-scale-increase "text-scale-increase") 
-  ("-" text-scale-decrease "text-scale-decrease") 
-  ("1" (m-run-*project) "run project") 
-  ("2" (message "smart-do")) 
-  ("3" (message "smart-do")) 
-  ("4" (message "smart-do")) 
-  ("5" (message "smart-do")) 
-  ("6" (m-project-wizard "clojure") "smart-do") 
-  ("7" (m-project-wizard "elixir") "smart-do") 
-  ("8" (m-project-wizard "rust") "smart-do") 
-  ("9" (m-project-wizard "ros") "smart-do") 
-  ("z" (message "smart-do")) 
-  ("0" (calendar) "calendar")
-  ("!" (m-open-url "http://wttr.in/") "wego")
-  ("<SPC>" nil "quit") 
-  ("q" nil "quit") 
-  ("<escape>" nil "quit"))
+("f" (hydra-open-file/body) "file") 
+("m" (hydra-open-config/body) "module") 
+("c" (hydra-open-config/body) "module") 
+("u" (hydra-open-url/body) "url") 
+("l" helm-bookmarks "bookmarks") 
+("<tab>" helm-recentf "(helm-recentf)") 
+("w" m-copy-line "copy-line") 
+(">" m-go-to-char-forward "go-to-char-forward") 
+("<" m-go-to-char-backward "go-to-char-backward") 
+("s" replace-string "replace-string") 
+("S" query-replace "query-replace") 
+("e" (m-mark-all-like-this) "mc/mark-all-like-this") 
+("r" (m-buffer-reload) "Refresh") 
+("o" (m-kill-other-buffers) "KillOtherBuffers") 
+("G" my-grep-project "projectile-project-root") 
+("g" my-grep-directory "projectile-directory-root") 
+("d" bing-dict-brief "bing-dict-brief") 
+("D" m-bing-dict-brief-web "bing-dict-brief-web") 
+(";" tabbar-backward "tabbar-backward") 
+("'" tabbar-forward "tabbar-forward") 
+("[" m-tabbar-backward-group "tabbar-up") 
+("/" m-tabbar-forward-group "tabbar-down") 
+("=" text-scale-increase "text-scale-increase") 
+("-" text-scale-decrease "text-scale-decrease") 
+("1" (m-run-*project) "run project") 
+("2" (message "smart-do")) 
+("3" (message "smart-do")) 
+("4" (message "smart-do")) 
+("5" (message "smart-do")) 
+("6" (m-project-wizard "clojure") "smart-do") 
+("7" (m-project-wizard "elixir") "smart-do") 
+("8" (m-project-wizard "rust") "smart-do") 
+("9" (m-project-wizard "ros") "smart-do") 
+("z" (message "smart-do")) 
+("0" (calendar) "calendar") 
+("!" (m-open-url "http://wttr.in/") "wego") 
+("<SPC>" nil "quit") 
+("q" nil "quit") 
+("<escape>" nil "quit"))
 
 
 ;; (global-set-key (kbd "C-SPC") 'hydra-do-super/body)
 (global-set-key (kbd "M-SPC") 'hydra-do-super/body)
 (global-set-key (kbd "M-z") 
-		(lambda () 
-		  (interactive) 
-		  (setq current-major-mode-name (get-major-mode-name)) 
-		  (hydra-do-super/body)))
-
+(lambda () 
+(interactive) 
+(setq current-major-mode-name (get-major-mode-name)) 
+(hydra-do-super/body))) 
 ;;; `comment-toggle' M-;
 (global-set-key [remap comment-dwim] 'm-comment-or-uncomment-region-or-line)
 
@@ -596,8 +620,7 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 ;;; `which-key'
 (package-require 'which-key)
 (require 'which-key)
-(which-key-mode)
-
+(which-key-mode) 
 ;;; `paredit'
 (package-require 'paredit)
 (require 'paredit)
@@ -611,14 +634,12 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 (global-set-key (kbd "C-h f") #'helpful-callable)
 (global-set-key (kbd "C-h v") #'helpful-variable)
 (global-set-key (kbd "C-h k") #'helpful-key)
-(global-set-key (kbd "C-c C-d") #'helpful-at-point)
-
+(global-set-key (kbd "C-c C-d") #'helpful-at-point) 
 (package-require 'xkcd)
 (require 'xkcd)
-
+ 
 (package-require 'weechat)
 (require 'weechat)
-
 
 ;;
 (provide 'mod-keybind)
