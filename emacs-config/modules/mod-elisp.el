@@ -27,7 +27,6 @@
 ;;
 ;; (package-require 'suggest)
 ;; (require 'suggest)
-
 
 (package-require 'paredit)
 (require 'paredit)
@@ -60,40 +59,48 @@
   (save-current-buffer) 
   (message "format complete!"))
 
-(defun show-elisp-repl() 
-  (interactive) 
-  (setq temp-elisp-buffer-name (buffer-name (current-buffer))) 
-  (m-show-compilation "*ielm*") 
-  (ielm) 
-  (switch-to-buffer-other-window temp-elisp-buffer-name) 
+(define-key emacs-lisp-mode-map (kbd "C-M-\\")  'elisp-code-format)
+
+(require 'ielm)
+(package-require 'el-spice)
+(require 'el-spice)
+
+(add-hook 'emacs-lisp-mode-hook 'el-spice-mode)
+(add-hook 'lisp-interaction-mode-hook 'el-spice-mode)
+
+
+(defun show-elisp-repl()
+  (interactive)
+  (setq temp-elisp-buffer-name (buffer-name (current-buffer)))
+  (m-show-compilation "*ielm*")
+  (ielm)
+  (switch-to-buffer-other-window temp-elisp-buffer-name)
   (m-show-compilation "*ielm*" t))
 
-(defun show-elisp-workbuffer() 
-  (interactive) 
-  (switch-to-buffer-other-window temp-elisp-buffer-name) 
-  (delete-other-windows) 
-  (show-elisp-repl) 
+(defun show-elisp-workbuffer()
+  (interactive)
+  (switch-to-buffer-other-window temp-elisp-buffer-name)
+  (delete-other-windows)
+  (show-elisp-repl)
   (switch-to-buffer-other-window temp-elisp-buffer-name))
 
 ;;
-(defun compile-current-buffer() 
-  (interactive) 
-  (kill-buffer (get-buffer "*Compile-Log*")) 
-  (save-buffer) 
-  (delete-other-windows) 
-  (byte-compile-file (buffer-file-name)) 
+(defun compile-current-buffer()
+  (interactive)
+  (kill-buffer (get-buffer "*Compile-Log*"))
+  (save-buffer)
+  (delete-other-windows)
+  (byte-compile-file (buffer-file-name))
   (delete-file (concat (buffer-file-name) "c"))
   ;;(m-show-compilation "*Warnings*")
   (m-show-compilation "*Compile-Log*"))
 
-(require 'ielm)
 (define-key ielm-map (kbd "C-c C-z") 'show-elisp-workbuffer)
 
 (define-key emacs-lisp-mode-map (kbd "C-c C-z")  'show-elisp-repl)
 (define-key emacs-lisp-mode-map (kbd "C-c C-c")  'compile-current-buffer)
-(define-key emacs-lisp-mode-map (kbd "C-c C-k")  'eval-buffer)
-(define-key emacs-lisp-mode-map (kbd "C-M-\\")  'elisp-code-format)
-
+;; (define-key emacs-lisp-mode-map (kbd "C-c C-k")  'eval-buffer)
+
 ;; (package-require 'elisp-refs)
 ;; (require 'elisp-refs)
 ;; (define-key emacs-lisp-mode-map (kbd "M-.")  'elisp-refs-function)
