@@ -25,6 +25,8 @@
 ;; Code:
 (require 'mod-package)
 ;;
+(require 'ielm)
+;;
 ;; (package-require 'suggest)
 ;; (require 'suggest)
 
@@ -33,6 +35,7 @@
 ;; enable paredit for elisp
 (add-hook 'emacs-mode-hook 'enable-paredit-mode)
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+(add-hook 'ielm-mode-hook 'paredit-mode)
 
 ;;(package-require 'rainbow-delimiters)
 ;;(global-rainbow-delimiters-mode)
@@ -61,7 +64,6 @@
 
 (define-key emacs-lisp-mode-map (kbd "C-M-\\")  'elisp-code-format)
 
-(require 'ielm)
 (package-require 'el-spice)
 (require 'el-spice)
 
@@ -97,6 +99,7 @@
 
 (define-key ielm-map (kbd "C-c C-z") 'show-elisp-workbuffer)
 
+(define-key el-spice-mode-map (kbd "C-c C-z")  'show-elisp-repl)
 (define-key emacs-lisp-mode-map (kbd "C-c C-z")  'show-elisp-repl)
 (define-key emacs-lisp-mode-map (kbd "C-c C-c")  'compile-current-buffer)
 ;; (define-key emacs-lisp-mode-map (kbd "C-c C-k")  'eval-buffer)

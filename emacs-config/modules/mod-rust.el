@@ -40,11 +40,21 @@
 (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
 (setq company-tooltip-align-annotations t)
 
+
+(defun m-open-or-close-cargofile () 
+  (interactive) 
+  (if (eq major-mode 'rust-mode) 
+	  (m-smart-find-file "Cargo.toml" t) 
+	(if (eq major-mode 'conf-toml-mode)
+		(kill-this-buffer))))
+
 ;; `keybinding'
 (define-key rust-mode-map [f5] 
   '(lambda () 
 	 (interactive) 
 	 (m-run-command "cargo build")))
+(define-key rust-mode-map [f6] 'm-open-or-close-cargofile)
+(define-key conf-toml-mode-map [f6] 'm-open-or-close-cargofile)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-rust)
 ;; mod-rust.el ends here
