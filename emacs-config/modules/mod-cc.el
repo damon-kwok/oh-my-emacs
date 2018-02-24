@@ -56,29 +56,26 @@
 (unless (rtags-executable-find rtags-rc) 
   (rtags-install))
 
-(setq rtags-path (file-name-directory (rtags-executable-find rtags-rc)))
-(message rtags-path)
-
-(setenv "PATH" (concat (file-name-directory rtags-path) ":" (getenv "PATH")))
-
-;; 
+(add-hook 'after-init-hook '(lambda () 
+							  (setq rtags-path (file-name-directory (rtags-executable-find
+																	 rtags-rc)))
+							  (message rtags-path)
+							  (setenv "PATH" (concat (file-name-directory rtags-path) ":" (getenv
+																						   "PATH")))) t)
+;;
 (setq rtags-completions-enabled t)
 (eval-after-load 'company '(add-to-list 'company-backends 'company-rtags))
 (setq rtags-autostart-diagnostics t)
 (rtags-enable-standard-keybindings)
-
 (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
 (add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
 (add-hook 'objc-mode-hook 'rtags-start-process-unless-running)
-
 (package-require 'company-rtags)
 (require 'company-rtags)
-
 (package-require 'helm-rtags)
 (require 'helm-rtags)
 ;; (setq rtags-use-helm nil)
 (setq rtags-display-result-backend 'helm)
-
 (define-key c-mode-base-map (kbd "C-M-.") 'rtags-find-symbol)
 (define-key c-mode-base-map (kbd "C-M-,") 'rtags-find-references)
 ;; (define-key c-mode-base-map (kbd "M-?") 'rtags-find-virtuals-at-point)
@@ -86,7 +83,6 @@
 (define-key c-mode-base-map (kbd "M-?") 'rtags-find-references-at-point)
 ;; (define-key c-mode-base-map (kbd "M-?") 'rtags-find-file)
 (define-key c-mode-base-map (kbd "M-i") 'rtags-imenu)
-
 (defun rtags-open-file () 
   (interactive) 
   (rtags-select-other-window) 
@@ -105,22 +101,19 @@
   (show-rtags-buffer) 
   (switch-to-buffer-other-window temp-cc-buffer-name))
 
-
 (define-key rtags-mode-map (kbd "RET") 'rtags-open-file)
 (define-key rtags-mode-map (kbd "M-RET") 'rtags-select)
 (define-key rtags-mode-map [mouse-1] 'rtags-open-file)
 (define-key rtags-mode-map [mouse-2] 'rtags-open-file)
-
 (define-key rtags-mode-map (kbd "C-c C-z") 'show-cc-buffer)
 (define-key c-mode-base-map (kbd "C-c C-z") 'show-rtags-buffer)
-
+
 
 ;; `irony'
 (package-require 'irony)
 (autoload 'irony "irony" nil t)
 ;; (require 'irony)
 ;; (unless (file-exists-p "/home/damon/.emacs.d/elpa/irony/bin/irony-server") (irony-install-server))
-
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
@@ -130,7 +123,6 @@
 (defun my-irony-mode-hook () 
   (define-key irony-mode-map [remap completion-at-point] 'irony-completion-at-point-async) 
   (define-key irony-mode-map [remap complete-symbol] 'irony-completion-at-point-async))
-
 (add-hook 'irony-mode-hook 'my-irony-mode-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
@@ -144,7 +136,7 @@
 ;; `ironyeldoc'
 (package-require 'irony-eldoc)
 (add-hook 'irony-mode-hook #'irony-eldoc)
-
+
 
 ;;`company-irony'
 (package-require 'company-irony)
@@ -158,16 +150,14 @@
 ;;   '(add-to-list
 ;;     'company-backends '(company-irony-c-headers company-irony)))
 
-
 (setq company-idle-delay 0)
 ;; (define-key c-mode-map [(tab)] 'company-complete)
 ;; (define-key c++-mode-map [(tab)] 'company-complete)
 ;; (define-key objc-mode-map [(tab)] 'company-complete)
-
 (define-key c-mode-map (kbd "M-/")  'company-complete)
 (define-key c++-mode-map (kbd "M-/")  'company-complete)
 (define-key objc-mode-map (kbd "M-/")  'company-complete)
-
+
 
 ;; `flycheck'
 (package-require 'flycheck)
@@ -178,7 +168,6 @@
 ;; `flycheck-rtags'
 (package-require 'flycheck-rtags)
 (require 'flycheck-rtags)
-
 (defun my-flycheck-rtags-setup () 
   (flycheck-select-checker 'rtags) 
   (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
@@ -202,12 +191,12 @@
 ;; `flycheck-clang-tidy'
 (package-require 'flycheck-clang-tidy)
 (eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
-
+
 
 ;; `cmake-ide'
 ;; (package-require 'cmake-ide)
 ;; (cmake-ide-setup)
-
+
 ;; cmake `font-lock'
 (package-require 'cmake-font-lock)
 (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
@@ -223,7 +212,6 @@
 		(setq parent (m-parent-dirpath from)) 
 		(if (or (eq parent nil) 
 				(string= parent "/")) nil (m-search-file filename parent))))))
-
 (defun m-smart-find-file (filename &optional create) 
   " create cmake file with current directory!" 
   (interactive) 
@@ -250,15 +238,13 @@
 	  (m-smart-find-file "package.xml") 
 	(if (eq major-mode 'nxml-mode) 
 		(kill-this-buffer))))
-
 (defun find-cc-file (dir basename ext) 
   (let ((filename (concat dir "/" basename "." ext))) 
 	(if (file-exists-p filename) 
 		(find-file filename)
-      ;; (progn (message "not found:%s" filename) nil)
-      nil								;
-      )))
-
+	  ;; (progn (message "not found:%s" filename) nil)
+	  nil								;
+	  )))
 (defun check-header (dir basename) 
   (cond ((find-cc-file dir basename "h") t) 
 		((find-cc-file dir basename "H") t) 
@@ -266,7 +252,6 @@
 		((find-cc-file dir basename "hpp") t) 
 		((find-cc-file dir basename "h++") t) 
 		((find-cc-file dir basename "hxx") t)))
-
 (defun check-source (dir basename) 
   (cond ((find-cc-file dir basename "c") t) 
 		((find-cc-file dir basename "C") t) 
@@ -274,7 +259,6 @@
 		((find-cc-file dir basename "cpp") t) 
 		((find-cc-file dir basename "c++") t) 
 		((find-cc-file dir basename "cxx") t)))
-
 (defun m-switch-cc-source-and-header () 
   (interactive) 
   (setq basename (m-bufname-no-ext)) 
@@ -293,38 +277,34 @@
 	(add-to-list 'dirs (concat (m-parent-dirpath dir0) "../" postfix)) 
 	(add-to-list 'dirs (concat (m-parent-dirpath dir0) "../" dir0-name)) 
 	(add-to-list 'dirs (concat (m-parent-dirpath dir0) "../" postfix "/" dir0-name))
-    ;;
-    ) 
+	;;
+	) 
   (if (s-contains? "h" extname) 
 	  (dolist (dir dirs) 
 		(check-source dir basename)) 
 	(dolist (dir dirs) 
 	  (check-header dir basename))))
-
 (require 'cmake-mode)
 (define-key c-mode-map [f6] 'm-open-or-close-cmakefile)
 (define-key c++-mode-map [f6] 'm-open-or-close-cmakefile)
 (define-key cmake-mode-map [f6] 'm-open-or-close-cmakefile)
-
 (define-key c-mode-map [f7] 'm-open-or-close-packagexml)
 (define-key c++-mode-map [f7] 'm-open-or-close-packagexml)
-
 (define-key c-mode-map [f12] 'm-switch-cc-source-and-header)
 (define-key c++-mode-map [f12] 'm-switch-cc-source-and-header)
-
 (define-key c++-mode-map [f5] 
   '(lambda () 
 	 (interactive) 
 	 (m-run-command "/home/damon/catkin_ws/bin/build_adsim")))
-
 (require 'nxml-mode)
 (define-key nxml-mode-map [f7] 'm-open-or-close-packagexml)
-
+
 
 ;;; Syntax highlighting support for "`Modern.C++'" - until `C++17' and Technical Specification.
 (package-require 'modern-cpp-font-lock)
 (require 'modern-cpp-font-lock)
-(modern-c++-font-lock-global-mode t) 
+(modern-c++-font-lock-global-mode t)
+
 
 ;; `format'
 (package-require 'clang-format)
@@ -333,11 +313,9 @@
 (define-key c-mode-map (kbd "C-c C-f")  'clang-format-buffer)
 (define-key c++-mode-map (kbd "C-c C-f")  'clang-format-buffer)
 (define-key objc-mode-map (kbd "C-c C-f")  'clang-format-buffer)
-
 (define-key c-mode-map (kbd "C-M-\\")  'clang-format-region)
 (define-key c++-mode-map (kbd "C-M-\\")  'clang-format-region)
 (define-key objc-mode-map (kbd "C-M-\\")  'clang-format-region)
-
 (setq-default c-basic-offset 4 tab-width 4 indent-tabs-mode t)
 (setq c-default-style "linux")
 ;; (package-require 'google-c-style)
@@ -347,13 +325,13 @@
 ;; (setq tab-width 4)
 
 ;; (add-hook 'c-mode-common-hook 'google-set-c-style)
-
 
 (defun gen-rtags-indexes ()
   ;; (message (concat "you opened cc file:" (buffer-name)))
   ;; find CmakeLists.txt & gen rtags indexes
-  (shell-command (concat (getenv "HOME")  "/my-emacs-config/bin/gen-rtags")))
-
+  (add-hook 'after-init-hook ;;
+			'(lambda () 
+			   (shell-command (concat (getenv "HOME") "/my-emacs-config/bin/gen-rtags"))) t))
 
 (defun gen-rtags-indexes-with-elisp () 
   (setq dir (m-buf-dirpath)) 
@@ -370,11 +348,10 @@
 		(shell-command
 		 "bash -c \"source /opt/ros/kinetic/setup.bash && cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 && rc -J .\"") 
 		(setq default-directory old-default-directory)))))
-
 (add-hook 'c-mode-hook 'gen-rtags-indexes)
 (add-hook 'c++-mode-hook 'gen-rtags-indexes)
 (add-hook 'objc-mode-hook 'gen-rtags-indexes)
-
+
 ;; `disaster'
 (package-require 'disaster)
 (require 'disaster)
@@ -382,7 +359,6 @@
 (define-key c++-mode-map (kbd "C-c d") 'disaster)
 (define-key objc-mode-map (kbd "C-c d") 'disaster)
 
-
 ;; (define-key run-mode-map (kbd "RET") '(lambda (&optional EVENT)
 ;; (interactive)
 ;; (delete-other-windows)
@@ -395,7 +371,6 @@
 (defvar all-overlays ())
 (defun delete-this-overlay(overlay is-after begin end &optional len) 
   (delete-overlay overlay))
-
 (defun highlight-current-line() 
   (interactive) 
   (setq current-point (point)) 
@@ -412,11 +387,9 @@
   (overlay-put error-line-overlay 'modification-hooks (list 'delete-this-overlay)) 
   (move-overlay error-line-overlay beg end) 
   (goto-char current-point))
-
 (defun delete-all-overlays() 
   (while all-overlays (delete-overlay (car all-overlays)) 
 		 (setq all-overlays (cdr all-overlays))))
-
 (defun highlight-error-lines(compilation-buffer process-result) 
   (interactive) 
   (delete-all-overlays) 
@@ -426,10 +399,9 @@
 	 nil)))
 
 ;; (setq compilation-finish-function 'highlight-error-lines)
-
+
 ;; `realgud'
 (package-require 'realgud)
 (require 'realgud)
-
 ;;
 (provide 'mod-cc)

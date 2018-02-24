@@ -77,8 +77,6 @@
 (module-require 'mod-java)
 ;; (module-require 'mod-cquery)
 
-(module-require 'mod-java)
-
 (if (and (executable-find "ipython")
 	 (executable-find "jupyter")) 
     (module-require 'mod-py))
