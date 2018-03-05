@@ -69,11 +69,11 @@
 (if (executable-find "cargo") 
     (module-require 'mod-rust))
 
-;; (if (and (unless system-type 'windows-nt)
-	;; (unless system-type 'ms-dos)) 
-    ;; (module-require 'mod-cc))
+;; (module-require 'mod-cc)
+(if (and (unless system-type 'windows-nt)
+	(unless system-type 'ms-dos)) 
+    (module-require 'mod-cc))
 
-(module-require 'mod-cc)
 (module-require 'mod-java)
 ;; (module-require 'mod-cquery)
 
