@@ -69,15 +69,16 @@
 (if (executable-find "cargo") 
     (module-require 'mod-rust))
 
-;; (module-require 'mod-cc)
-(if (and (unless system-type 'windows-nt)
-	(unless system-type 'ms-dos)) 
+(if (eq system-type 'gnu/linux) 
     (module-require 'mod-cc))
+;; (if (and (unless system-type 'windows-nt)
+;; (unless system-type 'ms-dos))
+;; (module-require 'mod-cc))
 
 (module-require 'mod-java)
 ;; (module-require 'mod-cquery)
 
-(if (and (executable-find "ipython")
+(if (and (executable-find "ipython") 
 	 (executable-find "jupyter")) 
     (module-require 'mod-py))
 
@@ -93,9 +94,9 @@
 ;; (executable-find "mu"))
 ;; (module-require 'mod-email))
 
-;; (if (or (unless system-type 'windows-nt) 
-	;; (unless system-type 'ms-dos)) 
-    ;; (module-require 'mod-email))
+;; (if (or (unless system-type 'windows-nt)
+;; (unless system-type 'ms-dos))
+;; (module-require 'mod-email))
 
 (module-require 'mod-email)
 
