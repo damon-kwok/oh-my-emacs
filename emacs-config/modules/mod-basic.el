@@ -375,8 +375,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (package-require 'smart-mode-line-powerline-theme)
 ;; (require 'smart-mode-line-powerline-theme)
 ;; (setq sml/theme 'powerline)
-(sml/setup)
-
+(sml/setup) 
 (package-require 'anzu)
 (require 'anzu)
 (global-anzu-mode +1)
@@ -510,6 +509,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 	 (interactive) 
 	 (undo-tree-visualize) 
 	 (undo-tree-visualize-undo)))
+;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
@@ -519,14 +519,15 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (setq linum-mode t)
 (setq linum-format "%4d")
 (global-linum-mode)
+;
 
 ;;; `column'
 (setq column-number-mode t)
-
+;
 
 ;;; page width
 ;; (setq fill-column 100)
-
+;
 
 ;;; fci-mode
 (package-require 'fill-column-indicator)
@@ -547,7 +548,8 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 	(fci-mode 1)))
 
 ;;; open global-fci-mode
-(global-fci-mode 0)
+(global-fci-mode 1)
+;
 
 ;;; indent-guide
 (package-require 'indent-guide)
@@ -736,11 +738,11 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (require 'dashboard)
 ;; (dashboard-setup-startup-hook)
 ;; (setq dashboard-banner-logo-title "DamonKwok's Emacs config")
-;; (setq dashboard-items '((projects . 15) 
-						;; (recents  . 20) 
-						;; (bookmarks . 7) 
-						;; (agenda . 5) 
-						;; (registers . 5)))
+;; (setq dashboard-items '((projects . 15)
+;; (recents  . 20)
+;; (bookmarks . 7)
+;; (agenda . 5)
+;; (registers . 5)))
 
 ;;; session
 ;; (package-require 'session)
@@ -814,6 +816,12 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 ;;; `eldoc'
 (global-eldoc-mode 1)
+
+;;; `large-file
+(package-require 'vlf)
+(require 'vlf-setup)
+
+(custom-set-variables '(vlf-application 'dont-ask))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 (provide 'mod-basic)

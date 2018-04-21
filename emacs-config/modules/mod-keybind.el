@@ -634,12 +634,13 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 (global-set-key (kbd "C-h f") #'helpful-callable)
 (global-set-key (kbd "C-h v") #'helpful-variable)
 (global-set-key (kbd "C-h k") #'helpful-key)
-(global-set-key (kbd "C-c C-d") #'helpful-at-point) 
+(global-set-key (kbd "C-c C-d") #'helpful-at-point)
+
 (package-require 'xkcd)
 (require 'xkcd)
  
-(package-require 'weechat)
-(require 'weechat)
+;; (package-require 'weechat)
+;; (require 'weechat)
 
 ;;
 (provide 'mod-keybind)

@@ -21,7 +21,7 @@ REM along with this program.  If not, see <http:REMwww.gnu.org/licenses/>.
 REM					 
 REM Code:
 REM
-export LANG="en_US.UTF-8"
+REM export LANG="en_US.UTF-8"
 cd /d %~dp0%
 set SHAMAN_ROOT=%CD%\..
 set SHAMAN_BIN=%SHAMAN_ROOT%\bin
@@ -86,11 +86,11 @@ set PATH=%OCAML_BIN%;%PATH%
 
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem Haskell-Stack
-if not exist %APPDATA%\stack ( mkdir %APPDATA%\stack )
-if not exist %APPDATA%\stack\config.yaml ( copy /y %DIR_CACHE%\bin\config.yaml %APPDATA%\stack\ )
-set STACK_HOME=%APP_HOME%\stack
-set STACK_BIN=%STACK_HOME%\bin
-set PATH=%STACK_BIN%;%PATH%
+rem if not exist %APPDATA%\stack ( mkdir %APPDATA%\stack )
+rem if not exist %APPDATA%\stack\config.yaml ( copy /y %DIR_CACHE%\bin\config.yaml %APPDATA%\stack\ )
+rem set STACK_HOME=%APP_HOME%\stack
+rem set STACK_BIN=%STACK_HOME%\bin
+rem set PATH=%STACK_BIN%;%PATH%
 
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rem omnisharp
