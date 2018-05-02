@@ -30,8 +30,8 @@
 (with-no-warnings 
   (require 'cl))
 
-(require 'package)
-(package-initialize)
+;; (require 'package)
+;; (package-initialize)
 
 ;; (setq package-user-dir (concat dotfiles-dir "elpa"))
 ;; (setq package-user-dir "~/elpa")
@@ -60,8 +60,6 @@
 
 
 ;; To get the package manager going, we invoke its initialise function.
-(package-initialize)
-
 (defun package-require(pkg) 
   (when (not package-archive-contents) 
     (package-refresh-contents)) 
