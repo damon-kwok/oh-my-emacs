@@ -50,8 +50,8 @@
 ;; (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
 ;;; mnemonic for utf-8 is "U", which is defined in the mule.el
-(setq eol-mnemonic-mac ":CR")
-(setq eol-mnemonic-dos ":CRLF")
+(setq eol-mnemonic-mac ":LF") ;;CR
+(setq eol-mnemonic-dos ":LF") ;;CRLF
 (setq eol-mnemonic-unix ":LF")
 (setq eol-mnemonic-undecided ":?")
 
