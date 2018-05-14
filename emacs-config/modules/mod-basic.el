@@ -442,6 +442,10 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`buffer';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tab
+(setq default-tab-width 4)
+(setq-default indent-tabs-mode nil)
+
 ;; when file modify with other program: auto update buffer
 (global-auto-revert-mode 1)
 (setq view-read-only t)
