@@ -1,3 +1,6 @@
 #!/bin/bash
 
-sudo openconnect tokyo.link.ac.cn:4433
+# sudo openconnect tokyo.link.ac.cn:4433
+# sudo openconnect tokyo2.link.ac.cn
+sudo openconnect tokyo3.link.ac.cn
+# sudo openconnect hk2.link.ac.cn:4433
