@@ -13,17 +13,22 @@ export SHELL_NAME=ps |  grep $$  |  awk '{print $4}'
 # User Settings
 export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
-
 # ROS
-if [ "$SHELL_NAME" == "zsh" ]; then
-	source /opt/ros/kinetic/setup.zsh
-	source $HOME/catkin_ws/devel/setup.zsh
-else
-	source /opt/ros/kinetic/setup.bash
-	source $HOME/catkin_ws/devel/setup.bash
-fi
+case "$SHELL_NAME" in
+	"zsh")
+		source /opt/ros/kinetic/env.zsh
+		source $HOME/catkin_ws/devel/env.zsh
+		;;
+	"bash")
+		source /opt/ros/kinetic/env.bash
+		source $HOME/catkin_ws/devel/env.bash
+		;;
+esac
 
 export PATH=$PATH:$HOME/catkin_ws/bin
+
+# Cyberman
+export PATH=$HOME/Cyberman:$PATH
 
 # Golang
 export GOROOT=/usr/lib/go
@@ -36,11 +41,25 @@ source $HOME/.cargo/env
 # Nim-lang
 export PATH=$HOME/.nimble/bin:$PATH
 
-# Cyberman
-export PATH=$HOME/Cyberman:$PATH
+# Elixir
+# export PATH=$HOME/dev/elixir-1.5.2/bin:/usr/local/bin:$PATH
+
+# Ocaml: OPAM configuration
+case "$SHELL_NAME" in
+	"zsh")
+		. $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+		;;
+	"bash")
+		. $HOME/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+		;;
+	"csh")
+		. $HOME/.opam/opam-init/init.csh > /dev/null 2> /dev/null || true
+		;;
+esac
+
 ################################################################################
 function upgrade() {
-    sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && rosdep update
+    sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && rosdep update && bash-it update && upgrade_oh_my_zsh
 }
 
 # find-str $2:str $1:file
@@ -48,14 +67,35 @@ function upgrade() {
 # find-str "/opt/ros/kinetic/" ~/.bashrc
 # result=$?
 # echo $result
-function find-str() {    
-    grep $1 $2 >/dev/null
+function find-str() {
+	local STR=$1
+	local FILE=$2
+	
+    grep $STR $FILE >/dev/null
     if [ $? -eq 0 ]; then
+		echo "found!"
 		return $(( 1 ));
     else
+		echo "not found!"
 		return $(( 0 ));
     fi
 }
+
+function find-str() {
+	local str=$1
+	local file=$2
+	
+    grep $str $file >/dev/null
+	
+    if [ $? -eq 0 ]; then
+		echo "found:$str"
+		return $(( 1 ));
+    else
+		echo "not found:$str"
+		return $(( 0 ));
+    fi
+}
+
 
 # smart-rtags $void
 function auto-gen-rtags() {
@@ -123,4 +163,3 @@ function auto-gen-rtags() {
 # readp "$1"
 # fi
 # }
-

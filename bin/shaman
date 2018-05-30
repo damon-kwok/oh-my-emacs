@@ -132,26 +132,32 @@ function link-init-el() {
     ln -s $SHAMAN_ROOT/emacs-config ~/emacs-config
     ln -s $SHAMAN_ROOT/workspace ~/workspace
     ln -s $SHAMAN_ROOT/blog ~/blog
+	
     # if [ ! -f /usr/bin/shaman ]; then
     # sudo ln -s $SHAMAN_ROOT/shaman /usr/bin/shaman
     # fi
 
-    find-str "my-emacs-config" ~/.bashrc
-    if [ $? -eq 0 ]; then
-		echo "" >> ~/.bashrc
-		# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.bashrc
-		echo "source $SHAMAN_BIN/setup.sh" >> ~/.bashrc
-		#source ~/.bashrc
-    fi
+    # find-str "my-emacs-config" ~/.bashrc
+    # if [ $? -eq 0 ]; then
+		# echo "" >> ~/.bashrc
+		# echo "source $SHAMAN_BIN/env.sh" >> ~/.bashrc
+    # fi
 
-    find-str "my-emacs-config" ~/.zshrc
+    # find-str "my-emacs-config" ~/.zshrc
+    # if [ $? -eq 0 ]; then
+		# echo "" >> ~/.zshrc
+		# echo "source $SHAMAN_BIN/env.sh" >> ~/.zshrc
+    # fi
+
+	find-str "my-emacs-config" ~/.profile
     if [ $? -eq 0 ]; then
-		echo "" >> ~/.zshrc
-		# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.zshrc
-		echo "source $SHAMAN_BIN/setup.sh" >> ~/.zshrc
-		#source ~/.zshrc
+		echo "" >> ~/.profile 
+		# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.profile 
+		echo "source $SHAMAN_BIN/env.sh" >> ~/.profile 
     fi
-    source $SHAMAN_BIN/setup.sh
+    
+    source $SHAMAN_BIN/env.sh
+	
 
     pull-blog
 }
@@ -300,10 +306,7 @@ function install-toolchain {
 			sudo apt install -y python-pip perl ruby nodejs-legacy ocaml haskell-stack elixir cargo rebar openjdk-8-jdk
 			sudo apt install -y ttf-bitstream-vera #zmq ghostscript
 
-			#oh-my-zsh
-			sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-			# Bazel
+			# - Bazel---Build and test software of any size, quickly and reliably
 			sudo apt -y install pkg-config zip g++ zlib1g-dev unzip python
 			echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
 			curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
@@ -312,24 +315,18 @@ function install-toolchain {
 		2)  #ArchLinux/Manjaro
 			yaourt -Syyu
 			yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
-			yaourt -S python2-pip perl rubygems nodejs ocaml haskell-stack-git elixir cargo rebar3 openjdk-8-jdk ttf-bitstream-vera-dummy oh-my-zsh-git #leiningen
+			yaourt -S python2-pip perl rubygems nodejs ocaml haskell-stack-git elixir cargo rebar3 openjdk-8-jdk ttf-bitstream-vera-dummy #leiningen
 			;;
 		3)  #Fedora/Redhat/CentOS
 			sudo dnf update
 			sudo dnf groupinstall "Development Tools and Libraries"
 			sudo dnf install coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
 			sudo dnf install python2-pip perl rubygems nodejs-legacy ocaml haskell-stack elixir cargo rebar3  openjdk-8-jdk ttf-bitstream-vera #leiningen
-
-			#oh-my-zsh
-			sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 			;;
 		4)
 			brew update
 			brew install coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
 			brew install python2-pip perl rubygems nodejs-legacy ocaml haskell-stack elixir cargo rebar3 openjdk-8-jdk ttf-bitstream-vera #leiningen
-
-			#oh-my-zsh
-			sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 			;;
 		5)
 			pacman -Syyu
@@ -350,15 +347,18 @@ function install-toolchain {
 			# rebar3
 			# cd $LOCAL_BIN
 			# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
-
-			# oh-my-zsh
-			sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
 			;;
 		r | R) ask-menu;;
 		*) ask-repl;;
     esac
 
+	# oh-my-zsh
+	# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+	# Bash-it
+	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+	~/.bash_it/install.sh
+	
     # pip
     pip install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
 
@@ -391,6 +391,9 @@ function install-toolchain {
     chmod +x ./ediff3
     chmod +x ./ediff-merge
     chmod +x ./pfind
+
+	# link
+	link-init-el
 }
 
 function ask-blog {
