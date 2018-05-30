@@ -187,7 +187,7 @@
 (defun m-copy-line () 
   "copy a line" 
   (interactive) 
-  (let ((pos (point)))
+  (let ((pos (point))) 
 	(beginning-of-visual-line) 
 	(kill-visual-line) 
 	(yank) 
@@ -197,32 +197,46 @@
   "copy a line" 
   (interactive) 
   (beginning-of-visual-line) 
-  (let ((pos (point)))
-    (set-mark pos)
-    (end-of-visual-line)))
+  (let ((pos (point))) 
+	(set-mark pos) 
+	(end-of-visual-line)))
 
-(defun m-quick-copy-line ()
-      "Copy the whole line that point is on and move to the beginning of the next line.
+(defun m-quick-copy-line () 
+  "Copy the whole line that point is on and move to the beginning of the next line.
     Consecutive calls to this command append each line to the
-    kill-ring."
-      (interactive)
-      (let ((beg (line-beginning-position 1))
-            (end (line-beginning-position 2)))
-        (if (eq last-command 'quick-copy-line)
-            (kill-append (buffer-substring beg end) (< end beg))
-          (kill-new (buffer-substring beg end))))
-      (beginning-of-line 2))
+    kill-ring." 
+  (interactive) 
+  (let ((beg (line-beginning-position 1)) 
+		(end (line-beginning-position 2))) 
+	(if (eq last-command 'quick-copy-line) 
+		(kill-append 
+		 (buffer-substring 
+		  beg
+		  end) 
+		 (< end beg)) 
+	  (kill-new 
+	   (buffer-substring 
+		beg
+		end)))) 
+  (beginning-of-line 2))
 
-(defun m-quick-cut-line ()
-  "Cut the whole line that point is on.  Consecutive calls to this command append each line to the kill-ring."
-  (interactive)
-  (let ((beg (line-beginning-position 1))
-	(end (line-beginning-position 2)))
-    (if (eq last-command 'quick-cut-line)
-	(kill-append (buffer-substring beg end) (< end beg))
-      (kill-new (buffer-substring beg end)))
-    (delete-region beg end))
-  (beginning-of-line 1)
+(defun m-quick-cut-line () 
+  "Cut the whole line that point is on.  Consecutive calls to this command append each line to the kill-ring." 
+  (interactive) 
+  (let ((beg (line-beginning-position 1)) 
+		(end (line-beginning-position 2))) 
+	(if (eq last-command 'quick-cut-line) 
+		(kill-append 
+		 (buffer-substring 
+		  beg
+		  end) 
+		 (< end beg)) 
+	  (kill-new 
+	   (buffer-substring 
+		beg
+		end))) 
+	(delete-region beg end)) 
+  (beginning-of-line 1) 
   (setq this-command 'quick-cut-line))
 
 ;; comment or uncomment
@@ -262,6 +276,12 @@ occurence of CHAR."
   "Kill all other buffers." 
   (interactive) 
   (mapcar 'kill-buffer (buffer-list)))
+
+;; kill buffer by name
+;; (defun m-kill-buffer-by-name (NAME) 
+  ;; (let ((buf (get-buffer NAME))) 
+	;; (if buf (kill-buffer buf t) 
+	  ;; (message "buffer '%s' not exist!" NAME))))
 
 ;; close all buffer but this
 (defun m-kill-other-buffers () 

@@ -442,6 +442,10 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`buffer';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Kill process buffer without confirmation?
+;; ref: https://emacs.stackexchange.com/questions/14509/kill-process-buffer-without-confirmation
+(setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
+
 ;; tab
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
