@@ -21,12 +21,14 @@ source $HOME/.cargo/env
 
 # ROS
 source /opt/ros/kinetic/setup.bash
-source ~/catkin_ws/devel/setup.bash
-export PATH=$PATH:/home/damon/catkin_ws/bin
+source $HOME/catkin_ws/devel/setup.bash
+export PATH=$PATH:$HOME/catkin_ws/bin
 
 # Nim-lang
-export PATH=/home/damon/.nimble/bin:$PATH
+export PATH=$HOME/.nimble/bin:$PATH
 
+# Cyberman
+export PATH=$HOME/Cyberman:$PATH
 ################################################################################
 function upgrade {
     sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && rosdep update
