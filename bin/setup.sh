@@ -8,8 +8,26 @@ export OPAM_BIN=/home/`whoami`/.opam/system/bin
 export CARGO_BIN=/home/`whoami`/.cargo/system/bin
 export PATH=$SHAMAN_BIN:$CARGO_BIN:$OPAM_BIN:$ROSWELL_BIN:$CATKIN_WS_BIN:$LOCAL_BIN:$PATH
 
+# User Settings
+export PATH=$HOME/bin:$HOME/.local/bin:$PATH
+
+# Golang
+export GOROOT=/usr/lib/go
+export GOPATH=$HOME/goprojects
+export PATH=$PATH:$GOPATH/bin
+
+# Rust
 source $HOME/.cargo/env
 
+# ROS
+source /opt/ros/kinetic/setup.bash
+source ~/catkin_ws/devel/setup.bash
+export PATH=$PATH:/home/damon/catkin_ws/bin
+
+# Nim-lang
+export PATH=/home/damon/.nimble/bin:$PATH
+
+################################################################################
 function upgrade {
     sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && rosdep update
 }

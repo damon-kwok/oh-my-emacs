@@ -24,8 +24,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'company)
-(require 'company)                                   ; load company mode
+;; env
+(setenv "GOROOT" "/usr/lib/go")
+(setenv "GOPATH" (concat (getenv "HOME") "/goprojects"))
+(setenv "PATH" (concat (getenv "PATH") ":" (getenv "GOPATH") "/bin"))
+
 
 (package-require 'company-go)
 (require 'company-go)                                ; load company mode go backend
@@ -35,7 +38,13 @@
 (setq company-idle-delay .3)                         ; decrease delay before autocompletion popup shows
 (setq company-echo-delay 0)                          ; remove annoying blinking
 (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; lsp-server
+(require 'mod-lsp)
+(package-require 'lsp-go)
+(require 'lsp-go)
 
+(add-hook 'go-mode-hook #'lsp-go-enable)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-go)
 ;; mod-go.el ends here

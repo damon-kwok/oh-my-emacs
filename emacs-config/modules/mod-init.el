@@ -57,6 +57,7 @@
 (module-require 'mod-slime)
 ;; (module-require 'mod-sly)
 ;; (module-require 'mod-csharp)
+(module-require 'mod-go)
 
 ;; (module-require 'mod-ocaml)
 
