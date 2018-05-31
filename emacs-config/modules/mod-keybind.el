@@ -36,24 +36,19 @@
   (m-show-compilation "*shell*") 
   (shell) 
   (switch-to-buffer-other-window temp-global-buffer-name) 
-  (m-show-compilation "*shell*" t)
-  )
+  (m-show-compilation "*shell*" t))
 
 (defun show-global-shell-new() 
   (interactive) 
-  (kill-buffer "*shell*") 
-  (show-global-shell)
-  )
+  (m-kill-buffer-by-name "*shell*") 
+  (show-global-shell))
 
 (defun show-global-workbuffer() 
   (interactive) 
   (switch-to-buffer-other-window temp-global-buffer-name) 
   (delete-other-windows) 
   (show-global-shell) 
-  (switch-to-buffer-other-window temp-global-buffer-name)
-  )
-
-
+  (switch-to-buffer-other-window temp-global-buffer-name))
 
 (global-set-key (kbd "C-c `") 'show-global-shell)
 (define-key shell-mode-map (kbd "C-c `")  'show-global-workbuffer)
@@ -85,26 +80,27 @@
 (global-set-key (kbd "<C-return>")       'wand:execute)
 ;; (global-set-key (kbd "<C-mouse-1>")      'wand:execute)
 ;; (global-set-key (kbd "<C-down-mouse-1>")  nil)
-(wand:add-rule-by-pattern :match "\\$ "
-						  :capture 
+(wand:add-rule-by-pattern :match "\\$ " 
 
+						  :capture
 						  :after 
 						  :action popup-shell-command)
-(wand:add-rule-by-pattern :match "https?://"
-						  :capture 
+(wand:add-rule-by-pattern :match "https?://" 
 
+						  :capture
 						  :whole 
 						  :action browse-url)
-(wand:add-rule-by-pattern :match "file:"
-						  :capture 
+(wand:add-rule-by-pattern :match "file:" 
 
+						  :capture
 						  :after 
 						  :action find-file)
-(wand:add-rule-by-pattern :match "#> "
-						  :capture 
+(wand:add-rule-by-pattern :match "#> " 
 
+						  :capture
 						  :after 
-						  :action add-bracket-and-eval)
+						  :action 
+						  add-bracket-and-eval)
 
 ;; `folding'
 ;; (package-require 'vimish-fold)

@@ -30,21 +30,54 @@
 (setenv "PATH" (concat (getenv "PATH") ":" (getenv "GOPATH") "/bin"))
 
 
-(package-require 'company-go)
-(require 'company-go)                                ; load company mode go backend
+(add-hook 'go-mode-hook #'flycheck-mode)
+
+;; (package-require 'company-go)
+;; (require 'company-go)                                ; load company mode go backend
 
 ;; Possible improvements
-(setq company-tooltip-limit 20)                      ; bigger popup window
-(setq company-idle-delay .3)                         ; decrease delay before autocompletion popup shows
-(setq company-echo-delay 0)                          ; remove annoying blinking
-(setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
+;; (setq company-tooltip-limit 20)                      ; bigger popup window
+;; (setq company-idle-delay .3)                         ; decrease delay before autocompletion popup shows
+;; (setq company-echo-delay 0)                          ; remove annoying blinking
+;; (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lsp-server
 (require 'mod-lsp)
 (package-require 'lsp-go)
 (require 'lsp-go)
 
-(add-hook 'go-mode-hook #'lsp-go-enable)
+
+
+
+
+(package-require 'company-lsp)
+(require 'company-lsp)
+
+;; (yas-expand-snippet "fmt.Print(${1:a ...interface{\}})$0")
+
+(defun company-lsp--go-completion-snippet (item) 
+  "Function providing snippet with the go language.
+It parses the function's signature in ITEM (a CompletionItem)
+to expand its arguments."
+  ;; (yas-expand-snippet item)
+  (message "11111111111111111111111111111")
+  (message item)
+  )
+
+;; (defvar company-lsp-enable-snippet t)
+;; (defvar company-lsp-cache-candidates t)
+;; (defvar company-lsp--snippet-functions '(("go" . company-lsp--go-completion-snippet))
+  ;; "Alist of functions to insert our snippets for each language.")
+
+
+;; (add-hook 'go-mode-hook #'lsp-go-enable)
+;; (add-hook 'after-init-hook #'(lambda ()
+(add-hook 'go-mode-hook #'(lambda ()
+							(lsp-go-enable)
+							(add-to-list 'company-lsp--snippet-functions '("go" . company-lsp--go-completion-snippet))
+							(push 'company-lsp company-backends)
+							))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-go)
 ;; mod-go.el ends here

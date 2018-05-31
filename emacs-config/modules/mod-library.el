@@ -282,6 +282,10 @@ occurence of CHAR."
   ;; (let ((buf (get-buffer NAME))) 
 	;; (if buf (kill-buffer buf t) 
 	  ;; (message "buffer '%s' not exist!" NAME))))
+(defun m-kill-buffer-by-name (NAME) 
+  (if (get-buffer NAME)
+	  (kill-buffer NAME) 
+	(message "buffer '%s' not exist!" NAME)))
 
 ;; close all buffer but this
 (defun m-kill-other-buffers () 
