@@ -40,7 +40,7 @@
 ;; (module-require 'mod-dired)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `docs'
-;; (module-require 'mod-csv)
+(module-require 'mod-csv)
 (module-require 'mod-protobuf)
 (module-require 'mod-markdown)
 (module-require 'mod-orgmode)
@@ -56,6 +56,9 @@
 ;; (module-require 'mod-sly)
 ;; (module-require 'mod-csharp)
 (module-require 'mod-go)
+(module-require 'mod-cquery)
+(module-require 'mod-java)
+(module-require 'mod-lsp-py)
 
 ;; (module-require 'mod-ocaml)
 
@@ -68,28 +71,26 @@
 (if (executable-find "cargo")
     (module-require 'mod-rust))
 
+(if (executable-find "stack")
+    (module-require ' mod-haskell))
+
+(if (executable-find "git")
+    (module-require 'mod-git))
+
+(module-require 'mod-email)
+(module-require 'mod-input)
+(module-require 'mod-calendar)
+
 ;; (if (eq system-type 'gnu/linux)
     ;; (module-require 'mod-cc))
 ;; (if (and (unless system-type 'windows-nt)
 ;; (unless system-type 'ms-dos))
 ;; (module-require 'mod-cc))
 
-(module-require 'mod-cquery)
+;; (if (and (executable-find "ipython")
+	 ;; (executable-find "jupyter"))
+;; (module-require 'mod-py))
 
-(module-require 'mod-java)
-;; (module-require 'mod-cquery)
-
-(if (and (executable-find "ipython")
-	 (executable-find "jupyter"))
-    (module-require 'mod-py))
-
-;; (module-require 'mod-lsp-py)
-
-(if (executable-find "stack")
-    (module-require ' mod-haskell))
-
-(if (executable-find "git")
-    (module-require 'mod-git))
 
 ;; (if (and (executable-find "offlineimap")
 ;; (executable-find "mu"))
@@ -99,28 +100,7 @@
 ;; (unless system-type 'ms-dos))
 ;; (module-require 'mod-email))
 
-(module-require 'mod-email)
-(module-require 'mod-input)
-(module-require 'mod-calendar)
-
 ;; (module-require 'mod-tree)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;(if (or (eq system-type 'windows-nt)
-;;	(eq system-type 'ms-dos))
-;;   (setq dir-medusa-config "~/emacs-config")
-;;  (setq dir-medusa-config "~/emacs-config"))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (standard-display-european t)
-;; (load-library "iso-transl")
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `eclim'
-;;(custom-set-variables
-;;  '(eclim-eclipse-dirs '("C:/SOFT/application/eclipse-jee-mars-1-win32-x86_64/eclipse"))
-;;  '(eclim-executable "C:/SOFT/application/eclipse-jee-mars-1-win32-x86_64/eclipse/eclim"))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `eide'
-;;(package-require 'eide)
-;;(eide-start)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `music'
 ;; (package-require 'emms)

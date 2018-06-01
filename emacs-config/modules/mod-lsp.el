@@ -35,16 +35,22 @@
 (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
 (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
 
+;; don't include type signature in the child frame
+(setq lsp-ui-doc-include-signature nil)
+
+;; don't show symbol on the right of info
+(setq lsp-ui-sideline-show-symbol nil)
+
 ;; (lsp-ui-peek-jump-backward)
 ;; (lsp-ui-peek-jump-forward)
-
+
 ;;yasnippet
 (require 'mod-complete)
 
 ;; company
 (package-require 'company)
-(require 'company)                                   ; load company mode
-
+(require 'company)
+
 (package-require 'company-lsp)
 (require 'company-lsp)
 (push 'company-lsp company-backends)
@@ -54,6 +60,8 @@
 (setq company-lsp-async t)
 (setq company-lsp-enable-snippet t)
 (setq company-lsp-enable-recompletion t)
+
+(define-key lsp-ui-mode-map [f10] 'lsp-ui-sideline-toggle-symbols-info)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-lsp)
 ;; mod-lsp.el ends here

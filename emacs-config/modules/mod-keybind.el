@@ -65,7 +65,7 @@
 (global-set-key (kbd "C-M-z") 'm-mark-line)
 
 
-(global-set-key (kbd "M-,") ;;<backtab>
+(global-set-key (kbd "C-,") ;;<backtab>
 				'(lambda () 
 				   (interactive) 
 				   (switch-to-buffer (other-buffer (current-buffer) 1))))

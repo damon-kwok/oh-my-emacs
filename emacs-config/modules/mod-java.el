@@ -24,33 +24,46 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'lsp-mode)
-(require 'lsp-mode)
+(require 'mod-lsp)
 
-;; `company'
-(package-require 'company-lsp)
-(require 'company-lsp)
-(push 'company-lsp company-backends)
 
-;; `lsp-ui'
-(package-require 'lsp-ui)
-(require 'lsp-ui)
-(add-hook 'lsp-mode-hook 'lsp-ui-mode)
-
-(package-require 'helm-xref)
-(require 'helm-xref)
-(setq xref-show-xrefs-function 'helm-xref-show-xrefs)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(package-require 'lsp-javacomp)
-(require 'lsp-javacomp)
+;; `lsp-javacomp'
+;; (package-require 'lsp-javacomp)
+;; (require 'lsp-javacomp)
+;; (define-key java-mode-map (kbd "C-M-i") 'completion-at-point)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `eclipse.jdt.ls' Eclipse JDT Language Server
+(package-require 'lsp-java)
+(require 'lsp-java)
+(add-hook 'java-mode-hook #'lsp-java-enable)
 
-(package-require 'company)
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
+;; set the projects that are going to be imported into the workspace.
+(setq lsp-java--workspace-folders (list (concat (getenv "HOME") "/projects/java")
+                                        (concat (getenv "HOME") "/eclipse-workspace")))
 
-(push 'company-capf company-backends)
+(setq  lsp-java-server-install-dir "/home/damon/jdt-language-server-latest")
 
-(define-key java-mode-map (kbd "C-M-i") 'completion-at-point)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `lsp-intellij' Exposes IntelliJ IDEA features through the Language Server Protocol.
+;; (package-require 'lsp-intellij)
+
+;; (with-eval-after-load 'lsp-mode
+  ;; (require 'lsp-intellij)
+  ;; (add-hook 'java-mode-hook #'lsp-intellij-enable))
+
+;; (require 'lsp-ui)
+;; (add-hook 'lsp-after-open-hook #'lsp-ui-mode)
+
+;; (require 'company-lsp)
+;; (setq company-lsp-enable-snippet t
+      ;; company-lsp-cache-candidates t)
+;; (push 'company-lsp company-backends)
+;; (push 'java-mode company-global-modes)
+
+;; if using Kotlin
+;; (push 'kotlin-mode company-global-modes)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-java)
 ;; mod-java.el ends here

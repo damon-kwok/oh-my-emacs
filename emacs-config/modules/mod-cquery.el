@@ -24,6 +24,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
+
+;; https://maskray.me/blog/2017-12-03-c++-language-server-cquery
+;; https://github.com/cquery-project/cquery/wiki/Emacs
 (require 'mod-lsp)
 
 ;; `company'
@@ -72,14 +75,10 @@
   (lsp-ui-peek-find-custom 'base "$cquery/base") 
   (lsp-ui-peek-find-custom 'callers "$cquery/callers")
   (lsp-ui-peek-find-custom 'random "$cquery/random") ;; jump to a random declaration
-  ;; (lsp-ui-peek-find-custom "$cquery/derived") 
-  ;; (lsp-ui-peek-find-custom "$cquery/vars")
+  (lsp-ui-peek-find-custom "$cquery/derived") 
+  (lsp-ui-peek-find-custom "$cquery/vars")
   ;; ......
-  ;; don't include type signature in the child frame
-  (setq lsp-ui-doc-include-signature t)
-
-  ;; don't show symbol on the right of info
-  (setq lsp-ui-sideline-show-symbol t))
+)
 
 (add-hook 'c-mode-hook 'cquery-setup)
 (add-hook 'c++-mode-hook 'cquery-setup)

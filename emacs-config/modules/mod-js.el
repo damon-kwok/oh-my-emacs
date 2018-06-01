@@ -24,22 +24,34 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-;; (package-require 'lsp-mode)
-;; (require 'lsp-mode)
-
-;; (package-require 'lsp-ui)
-;; (require 'lsp-ui)
-;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+(require 'mod-lsp)
 
 ;; `lsp-js'
-;; (package-require 'lsp-javascript-typescript)
-;; (require 'lsp-javascript-typescript)
+(package-require 'lsp-javascript-typescript)
+(require 'lsp-javascript-typescript)
 ;; (add-hook 'js-mode-hook #'lsp-javascript-typescript-enable)
 ;; (add-hook 'typescript-mode-hook #'lsp-javascript-typescript-enable) ;; for typescript support
 ;; (add-hook 'js2-mode-hook #'lsp-javascript-typescript-enable) ;; for js2-mode support
 ;; (add-hook 'js3-mode-hook #'lsp-javascript-typescript-enable) ;; for js3-mode support
 ;; (add-hook 'rjsx-mode #'lsp-javascript-typescript-enable) ;; for rjsx-mode support
 
+(defun my-company-transformer (candidates)
+  (let ((completion-ignore-case t))
+    (all-completions (company-grab-symbol) candidates)))
+
+(defun my-js-hook nil
+  (make-local-variable 'company-transformers)
+  (push 'my-company-transformer company-transformers))
+
+;; (add-hook 'js-mode-hook 'my-js-hook)
+
+;; (package-require 'lsp-typescript)
+;; (require 'lsp-typescript)
+;; (add-hook 'js-mode-hook #'lsp-typescript-enable)
+;; (add-hook 'js2-mode-hook #'lsp-typescript-enable) ;; for js2-mode support
+;; (add-hook 'rjsx-mode #'lsp-typescript-enable) ;; for rjsx-mode support
+
+
 ;; `nodejs-repl'
 (package-require 'nodejs-repl)
 (require 'nodejs-repl)
