@@ -26,6 +26,8 @@ DIR_LLVM_WHERE=$SHAMAN_ROOT/dev
 DIR_LLVM=$SHAMAN_ROOT/dev/llvm
 
 ################################################################################
+source $SHAMAN_BIN/env.sh
+################################################################################
 
 function find-str {    
     grep $1 $2 >/dev/null
@@ -46,6 +48,29 @@ function readp {
 		echo "invalid input:$c"
 		readp "$1"
     fi
+}
+
+function github-init() {
+	local project=$1
+	local dir=$2
+
+	if [ "$GIT_USE_SECRET_KEY" == "1" ]; then		
+		local url="git@github.com:${project}.git --recursive"
+	else
+		local url="https://github.com/${project}.git --recursive"
+	fi
+	
+	if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
+		tip "clone $project"
+		git clone $url $dir
+	else
+		cd $dir
+		tip "update $project"
+		# if [ "$PULL_FOR_BUILD" == "1" ]; then
+		git pull
+		git submodule update
+		# fi
+	fi
 }
 
 ################################################################################
@@ -302,8 +327,8 @@ function install-toolchain {
     case $item in
 		1)  #Debian/Ubuntu/LinuxMint
 			sudo apt update
-			sudo apt install -y build-essential coreutils diffutils zsh wget curl zip unzip git subversion silversearcher-ag
-			sudo apt install -y python-pip perl ruby nodejs-legacy ocaml haskell-stack elixir cargo rebar openjdk-8-jdk
+			sudo apt install -y build-essential coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
+			sudo apt install -y python-pip perl ruby ocaml haskell-stack elixir cargo rebar openjdk-8-jdk
 			sudo apt install -y ttf-bitstream-vera #zmq ghostscript
 
 			# - Bazel---Build and test software of any size, quickly and reliably
@@ -311,45 +336,49 @@ function install-toolchain {
 			echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
 			curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
 			sudo apt-get update && sudo apt-get install -y bazel
+
+			# - Golang LTS PPA
+			sudo add-apt-repository ppa:longsleep/golang-backports
+			sudo apt-get update
+			sudo apt-get install golang-go			
 			;;
+		
 		2)  #ArchLinux/Manjaro
 			yaourt -Syyu
-			yaourt -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
-			yaourt -S python2-pip perl rubygems nodejs ocaml haskell-stack-git elixir cargo rebar3 openjdk-8-jdk ttf-bitstream-vera-dummy #leiningen
+			yaourt -S base-devel coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+			yaourt -S python2-pip perl rubygems ocaml haskell-stack-git elixir cargo rebar3 openjdk-8-jdk golang
+			yaourt -S ttf-bitstream-vera-dummy			
 			;;
+		
 		3)  #Fedora/Redhat/CentOS
 			sudo dnf update
 			sudo dnf groupinstall "Development Tools and Libraries"
-			sudo dnf install coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
-			sudo dnf install python2-pip perl rubygems nodejs-legacy ocaml haskell-stack elixir cargo rebar3  openjdk-8-jdk ttf-bitstream-vera #leiningen
+			sudo dnf install coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+			sudo dnf install python2-pip perl rubygems ocaml haskell-stack elixir cargo rebar3  openjdk-8-jdk golang
+			sudo dnf install ttf-bitstream-vera
 			;;
+		
 		4)
 			brew update
-			brew install coreutils diffutils zsh wget curl zip unzip git subversion the_silver_searcher
-			brew install python2-pip perl rubygems nodejs-legacy ocaml haskell-stack elixir cargo rebar3 openjdk-8-jdk ttf-bitstream-vera #leiningen
+			brew install coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+			brew install python2-pip perl rubygems ocaml haskell-stack elixir cargo rebar3 openjdk-8-jdk golang
+			brew install ttf-bitstream-vera
 			;;
+		
 		5)
 			pacman -Syyu
-			pacman -S base-devel coreutils diffutils zsh wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
-			pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-nodejs
-			pacman -S mingw-w64-x86_64-ocaml ttf-bitstream-vera #mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
-
-			# install: lien
-			# cd $LOCAL_BIN
-			# curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
-			# curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-			# chmod +x ./lein
-
-			# install: cargo
-
-			# install: elixir && erlang-nox
-
-			# rebar3
-			# cd $LOCAL_BIN
-			# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
+			pacman -S base-devel coreutils diffutils wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
+			pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-ocaml golang
+			pacman -S ttf-bitstream-vera
+			#mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
 			;;
-		r | R) ask-menu;;
-		*) ask-repl;;
+		
+		r | R)
+			ask-menu
+			;;
+		*)
+			ask-repl
+			;;
     esac
 
 	# oh-my-zsh
@@ -358,9 +387,30 @@ function install-toolchain {
 	# Bash-it
 	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 	~/.bash_it/install.sh
+
+	# cquery
+	mkdir -p ~/dev
+	cd ~/dev
+	git clone https://github.com/cquery-project/cquery.git --recursive
+	mkdir -p ~/dev/cuqery/build
+	cd ~/dev/cquery/build
+	cmake .. -DCMAKE_INSTALL_PREFIX=release -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
+	make install
 	
+	# golang
+	go get -u github.com/sourcegraph/go-langserver
+	
+	# nodejs
+	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+	nvm install node
+	npm i -g javascript-typescript-langserver
+	npm i -g flow-language-server
+	npm i -g typescript-language-server
+		
     # pip
-    pip install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
+    # pip install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
+	pip install -U sphinx # ebook compile build: sphinx-build
+	pip install -U
 
     #haskell
     # if [ ! -d "~/.stack/" ]; then
@@ -372,14 +422,21 @@ function install-toolchain {
 
     #clojure
     cd $SHAMAN_BIN
+	# curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+	# curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
     chmod +x ./lein
     lein upgrade
     
     #erlang
     cd $SHAMAN_BIN
+	# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
     chmod +x ./rebar3
     rebar3 update
     rebar3 upgrade
+
+	# install: cargo
+
+	# install: elixir && erlang-nox
 
     #shaman
     cd $SHAMAN_BIN
@@ -423,7 +480,7 @@ function ask-blog {
 	    
 	    # mv ~/tmp/.git/ $DIR_WORKSPACE/catkin_ws/
 	    ;;
-	s|S) zsh;;
+	s|S) bash;;
 	r|R) ask-menu;;
 	*) ask-blog;;
     esac
@@ -502,7 +559,7 @@ function ask-menu {
 	c|C) compile-elc;;
 	l|L) link-init-el;;
 	d|D) delete-elc;;
-	s|S) zsh;;
+	s|S) bash;;
 	z|Z) ask-repl;;
 	q|Q) exit;;
 	*) ask-menu;;	    

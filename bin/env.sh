@@ -30,6 +30,11 @@ export PATH=$PATH:$HOME/catkin_ws/bin
 # Cyberman
 export PATH=$HOME/Cyberman:$PATH
 
+# Nodejs
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # Golang
 export GOROOT=/usr/lib/go
 export GOPATH=$HOME/goprojects
