@@ -95,16 +95,6 @@
 (define-key company-active-map (kbd "C-n")  'company-select-next)
 (define-key company-active-map (kbd "C-p")  'company-select-previous)
 
-;; don't super tty
-;; (package-require 'company-quickhelp)
-;; (company-quickhelp-mode 1)
-;; (setq company-quickhelp-delay 0.5)
-
-;;; `helm-company'
-(package-require 'helm-company)
-(autoload 'helm-company "helm-company") ;; Not necessary if using ELPA package
-(eval-after-load 'company '(progn (define-key company-mode-map (kbd "C-:") 'helm-company) 
-				  (define-key company-active-map (kbd "C-:") 'helm-company)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `yasnippet'
 (package-require 'yasnippet)

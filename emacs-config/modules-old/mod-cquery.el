@@ -33,16 +33,15 @@
 
 
 
-;; (add-to-list 'load-path "/home/damon/dev/emacs-cquery")
-(package-require 'cquery)
+(add-to-list 'load-path "~/dev/cquery/emacs")
 (require 'cquery)
 
-;; (setq cquery-executable "~/.local/stow/cquery/bin/cquery")
-;; (setq cquery-resource-dir (expand-file-name
-			   ;; "~/.local/stow/cquery/lib/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-14.04"))
-(setq cquery-executable "/home/damon/dev/cquery/build/release/bin/cquery")
-
-(setq cquery-extra-init-params '(:index (:comments 2) :cacheFormat "msgpack" :completion (:detailedLabel t)))
+(setq cquery-executable "~/.local/stow/cquery/bin/cquery")
+(setq cquery-resource-dir (expand-file-name
+			   "~/.local/stow/cquery/lib/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-14.04"))
+(setq cquery-extra-init-params 
+      '(:enableComments 2 
+			:cacheFormat "msgpack"))
 
 (with-eval-after-load 'projectile
   (setq projectile-project-root-files-top-down-recurring
@@ -50,19 +49,11 @@
                   ".cquery")
                 projectile-project-root-files-top-down-recurring)))
 
-(defun cquery//enable ()
-  (condition-case nil
-      (lsp-cquery-enable)
-    (user-error nil)))
 
-;; Also see lsp-project-whitelist lsp-project-blacklist cquery-root-matchers
 
 (defun cquery-setup () 
   (interactive) 
-  ;; (lsp-cquery-enable)
-  (cquery//enable)
-  (push 'company-lsp company-backends)
-  ;;
+  (lsp-cquery-enable) 
   (cquery-xref-find-custom "$cquery/base") 
   (cquery-xref-find-custom "$cquery/callers") 
   (cquery-xref-find-custom "$cquery/derived") 
@@ -70,27 +61,21 @@
 
   ;; Alternatively, use lsp-ui-peek interface
   (lsp-ui-peek-find-custom 'base "$cquery/base") 
-  (lsp-ui-peek-find-custom 'callers "$cquery/callers")
-  (lsp-ui-peek-find-custom 'random "$cquery/random") ;; jump to a random declaration
-  ;; (lsp-ui-peek-find-custom "$cquery/derived") 
-  ;; (lsp-ui-peek-find-custom "$cquery/vars")
+  (lsp-ui-peek-find-custom 'callers "$cquery/callers") 
+  (lsp-ui-peek-find-custom "$cquery/derived") 
+  (lsp-ui-peek-find-custom "$cquery/vars")
   ;; ......
   ;; don't include type signature in the child frame
-  (setq lsp-ui-doc-include-signature t)
+  (setq lsp-ui-doc-include-signature nil)
 
   ;; don't show symbol on the right of info
-  (setq lsp-ui-sideline-show-symbol t))
+  (setq lsp-ui-sideline-show-symbol nil))
 
 (add-hook 'c-mode-hook 'cquery-setup)
 (add-hook 'c++-mode-hook 'cquery-setup)
 (add-hook 'objc-mode-hook 'cquery-setup)
 
-(setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)
-(setq cquery-sem-highlight-method 'font-lock)
-;; alternatively, (setq cquery-sem-highlight-method 'overlay)
 
-;; For rainbow semantic highlighting
-(cquery-use-default-rainbow-sem-highlight)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; cmake `font-lock'
@@ -239,9 +224,9 @@
 ;; (define-key c-mode-base-map (kbd "M-,") 'lsp-ui-peek-find-references)
 
 ;; xref-find-definitions xref-find-references,xref-find-apropos.
-;; (define-key c-mode-base-map (kbd "M-.") 'xref-find-definitions)
-;; (define-key c-mode-base-map (kbd "M-,") 'xref-find-references)
-;; (define-key c-mode-base-map (kbd "M-?") 'xref-find-apropos)
+(define-key c-mode-base-map (kbd "M-.") 'xref-find-definitions)
+(define-key c-mode-base-map (kbd "M-,") 'xref-find-references)
+(define-key c-mode-base-map (kbd "M-?") 'xref-find-apropos)
 
 ;; (define-key c-mode-base-map (kbd "M-.") 'rtags-find-symbol-at-point)
 ;; (define-key c-mode-base-map (kbd "M-,") 'rtags-find-references-at-point)

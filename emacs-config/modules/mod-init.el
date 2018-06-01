@@ -33,13 +33,11 @@
 (module-require 'mod-basic)
 (module-require 'mod-library)
 (module-require 'mod-mouse)
-(module-require 'mod-helm)
-(module-require 'mod-complete)
 (module-require 'mod-tabbar)
-(module-require 'mod-input)
-(module-require 'mod-calendar)
-;; (module-require 'mod-dired)
+(module-require 'mod-complete)
+(module-require 'mod-helm)
 (module-require 'mod-speedbar)
+;; (module-require 'mod-dired)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `docs'
 ;; (module-require 'mod-csv)
@@ -61,34 +59,36 @@
 
 ;; (module-require 'mod-ocaml)
 
-(if (executable-find "lein") 
+(if (executable-find "lein")
     (module-require 'mod-clojure))
 
-(if (executable-find "mix") 
+(if (executable-find "mix")
     (module-require 'mod-elixir))
 
-(if (executable-find "cargo") 
+(if (executable-find "cargo")
     (module-require 'mod-rust))
 
-(if (eq system-type 'gnu/linux) 
-    (module-require 'mod-cc))
+;; (if (eq system-type 'gnu/linux)
+    ;; (module-require 'mod-cc))
 ;; (if (and (unless system-type 'windows-nt)
 ;; (unless system-type 'ms-dos))
 ;; (module-require 'mod-cc))
 
+(module-require 'mod-cquery)
+
 (module-require 'mod-java)
 ;; (module-require 'mod-cquery)
 
-(if (and (executable-find "ipython") 
-	 (executable-find "jupyter")) 
+(if (and (executable-find "ipython")
+	 (executable-find "jupyter"))
     (module-require 'mod-py))
 
 ;; (module-require 'mod-lsp-py)
 
-(if (executable-find "stack") 
+(if (executable-find "stack")
     (module-require ' mod-haskell))
 
-(if (executable-find "git") 
+(if (executable-find "git")
     (module-require 'mod-git))
 
 ;; (if (and (executable-find "offlineimap")
@@ -100,6 +100,8 @@
 ;; (module-require 'mod-email))
 
 (module-require 'mod-email)
+(module-require 'mod-input)
+(module-require 'mod-calendar)
 
 ;; (module-require 'mod-tree)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

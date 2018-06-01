@@ -71,12 +71,6 @@
 
 ;;; If you would like to remove bookmark after jump to it by bm-next or bm-previous:
 ;; (setq temporary-bookmark-p t)
-
-;; `helm-bm'
-;; (package-require 'helm-bm)
-;; (require 'helm-bm)
-;; (global-set-key (kbd "C-c b") 'helm-bm)
-
 
 ;; `bookmark'
 (global-set-key (kbd "C-x r l") 'helm-bookmarks)
@@ -163,12 +157,13 @@
 ;;; Keybinding
 (define-key helm-map (kbd "<tab>")  'helm-execute-persistent-action)
 (define-key helm-map (kbd "<escape>")  'helm-keyboard-quit)
-;;; helm-bm
+
+;;; `helm-bm'
 (package-require 'helm-bm)
 (require 'helm-bm) ;;; Not necessary if using ELPA package
 (global-set-key (kbd "C-c b") 'helm-bm)
 
-;;; helm-ag (need ag)
+;;; `helm-ag' (need ag)
 (package-require 'helm-ag)
 (require 'helm-ag)
 
@@ -190,6 +185,22 @@
 ;;; helm-pages
 (package-require 'helm-pages)
 (require 'helm-pages)
+
+;;; helm-xref
+(package-require 'helm-xref)
+(require 'helm-xref)
+(setq xref-show-xrefs-function 'helm-xref-show-xrefs)
+
+;;; `helm-company'
+(package-require 'helm-company)
+(autoload 'helm-company "helm-company") ;; Not necessary if using ELPA package
+(eval-after-load 'company '(progn (define-key company-mode-map (kbd "C-:") 'helm-company) 
+								  (define-key company-active-map (kbd "C-:") 'helm-company)))
+
+;; don't super tty
+;; (package-require 'company-quickhelp)
+;; (company-quickhelp-mode 1)
+;; (setq company-quickhelp-delay 0.5)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 (provide 'mod-helm)
