@@ -4,13 +4,9 @@ if ! command -v valgrind >/dev/null 2>&1; then
 	sudo apt install valgrind
 fi
 
-
 valgrind --tool=memcheck --leak-check=full --track-origins=yes \
 		 --leak-resolution=high --show-reachable=yes --log-file=memcheck.log $1 # > /dev/null 2>&1
 echo ""
 echo ""
 echo "================================================================================"
 cat ./memcheck.log
-
-
-
