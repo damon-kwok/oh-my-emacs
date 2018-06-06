@@ -1,22 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# DIRNAME=`dirname "$0"`
-# SHAMAN_ROOT=`cd "$DIRNAME"; pwd`
-# echo "SHAMAN_ROOT="`pwd`
-SHAMAN_DIR_NAME=my-emacs-config
-SHAMAN_ROOT=`cd ~/$SHAMAN_DIR_NAME; pwd`
-SHAMAN_BIN=$SHAMAN_ROOT/bin
-LOCAL_BIN=/home/`whoami`/.local/bin
-PATH=$SHAMAN_BIN:$LOCAL_BIN:$PATH
-
-CACHE=$SHAMAN_ROOT/cache
-APP_HOME=$CACHE/apps
-ZIP_HOME=$CACHE/apps-zip
-# export PATH=$CACHE/bin:$PATH
-
-# if [ ! -d $CACHE ]; then
-# mkdir $CACHE
-# fi
+################################################################################
+CURRENT_DIR=$(dirname $(readlink -f $0))
+source $CURRENT_DIR/env
+################################################################################
 
 PROJECT_BLOG=demo-kwok.github.io
 
@@ -24,54 +11,6 @@ DIR_BLOG=$SHAMAN_ROOT/blog
 DIR_WORKSPACE=$SHAMAN_ROOT/workspace
 DIR_LLVM_WHERE=$SHAMAN_ROOT/dev
 DIR_LLVM=$SHAMAN_ROOT/dev/llvm
-
-################################################################################
-source $SHAMAN_BIN/env.sh
-################################################################################
-
-function find-str {    
-    grep $1 $2 >/dev/null
-    if [ $? -eq 0 ]; then
-		return $(( 1 ));
-    else
-		return $(( 0 ));
-    fi
-}
-
-function readp {
-    read -p "$1(Y/n)" c
-    if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
-		return $(( 1 ));
-    elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
-		return $(( 0 ));
-    else
-		echo "invalid input:$c"
-		readp "$1"
-    fi
-}
-
-function github-init() {
-	local project=$1
-	local dir=$2
-
-	if [ "$GIT_USE_SECRET_KEY" == "1" ]; then		
-		local url="git@github.com:${project}.git --recursive"
-	else
-		local url="https://github.com/${project}.git --recursive"
-	fi
-	
-	if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
-		tip "clone $project"
-		git clone $url $dir
-	else
-		cd $dir
-		tip "update $project"
-		# if [ "$PULL_FOR_BUILD" == "1" ]; then
-		git pull
-		git submodule update
-		# fi
-	fi
-}
 
 ################################################################################
 function run-emacs {
@@ -97,45 +36,18 @@ function delete-etc {
     cd $SHAMAN_ROOT
 }
 
-function pull-blog {
-    echo "func::pull-blog"
-    cd $SHAMAN_ROOT
-    git reset
-    git pull
-
-    echo blog
-    if [ ! -d $DIR_BLOG ]; then
-		cd $SHAMAN_ROOT
-		git clone https://github.com/damon-kwok/damon-kwok.github.io.git $DIR_BLOG
-    else
-		cd $DIR_BLOG
-		git pull
-    fi
-
-    echo workspace
-    if [ ! -d $DIR_WORKSPACE ]; then
-		cd $SHAMAN_ROOT
-		svn co svn://www.svn999.com/guowangwei.workspace workspace
-    else
-		cd $DIR_WORKSPACE
-		svn cleanup .
-		svn up
-    fi
-
-}
-
 function link-init-el() {
-    echo "func::link"
+    tip "link"
     # cp -rf $SHAMAN_ROOT/emacs-config/init.el $HOME/.emacs
 
     bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
     mkdir -p $bkdir
 
-    if [ -f ~/.emacs ]; then
+    if [ -e ~/.emacs ]; then
 		mv ~/.emacs $bkdir
     fi
 
-    if [ -f ~/.emacs.d ]; then
+    if [ -e ~/.emacs.d ]; then
 		mv -a ~/.emacs.d $bkdir
     fi
 
@@ -151,8 +63,13 @@ function link-init-el() {
 		mv ~/blog $bkdir
     fi
 
+    rm ~/.emacs
+    rm ~/emacs-config
+    rm ~/workspace
+    rm ~/blog
+
     #for linux
-    echo link
+    tip "link .emacs"
     cp -a $SHAMAN_ROOT/emacs-config/init.el ~/.emacs 
     ln -s $SHAMAN_ROOT/emacs-config ~/emacs-config
     ln -s $SHAMAN_ROOT/workspace ~/workspace
@@ -162,28 +79,27 @@ function link-init-el() {
     # sudo ln -s $SHAMAN_ROOT/shaman /usr/bin/shaman
     # fi
 
-    # find-str "my-emacs-config" ~/.bashrc
-    # if [ $? -eq 0 ]; then
-		# echo "" >> ~/.bashrc
-		# echo "source $SHAMAN_BIN/env.sh" >> ~/.bashrc
-    # fi
+    find-str "my-emacs-config" ~/.bashrc
+    if [ $? -eq 0 ]; then
+		echo "" >> ~/.bashrc
+		echo "source $SHAMAN_BIN/env" >> ~/.bashrc
+    fi
 
     # find-str "my-emacs-config" ~/.zshrc
     # if [ $? -eq 0 ]; then
 		# echo "" >> ~/.zshrc
-		# echo "source $SHAMAN_BIN/env.sh" >> ~/.zshrc
+		# echo "source $SHAMAN_BIN/env" >> ~/.zshrc
     # fi
 
 	find-str "my-emacs-config" ~/.profile
     if [ $? -eq 0 ]; then
 		echo "" >> ~/.profile 
 		# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.profile 
-		echo "source $SHAMAN_BIN/env.sh" >> ~/.profile 
+		echo "source $SHAMAN_BIN/env" >> ~/.profile 
     fi
     
-    source $SHAMAN_BIN/env.sh
+    # source $SHAMAN_BIN/env.sh
 	
-
     pull-blog
 }
 
@@ -204,13 +120,13 @@ function svn-cancel-add {
 }
 
 function svn-commit {
-    echo "check lose files"
+    tip "check lose files"
     svn-remove-lose
 
-    echo "check new files"
+    tip "check new files"
     svn-add-new
 
-    echo "show status"
+    tip "show status"
     svn status
     
     readp "auto commit?"
@@ -223,14 +139,16 @@ function svn-commit {
 }
 
 function pull {
-    echo "func::pull"
+    tip "pull"
     cd $SHAMAN_ROOT
     git reset
     git pull
+
+	chmod +x $SHAMAN_ROOT/bin/*
 }
 
 function push {
-    echo "func:push"
+    tip "func:push"
     cd $SHAMAN_ROOT
     git reset
     git pull
@@ -248,7 +166,7 @@ function push {
 }
 
 function push-a {
-    echo "func::push-a"
+    tip "push-a"
     cd $SHAMAN_ROOT
     git reset
     git pull
@@ -259,8 +177,34 @@ function push-a {
     git push -u origin master
 }
 
+function pull-blog {
+    # cd $SHAMAN_ROOT
+    # git reset
+    # git pull
+
+    tip "blog"
+    if [ ! -d $DIR_BLOG ]; then
+		cd $SHAMAN_ROOT
+		git clone https://github.com/damon-kwok/damon-kwok.github.io.git $DIR_BLOG
+    else
+		cd $DIR_BLOG
+		git pull
+    fi
+
+    tip "pull workspace"
+    if [ ! -d $DIR_WORKSPACE ]; then
+		cd $SHAMAN_ROOT
+		svn co svn://www.svn999.com/guowangwei.workspace workspace
+    else
+		cd $DIR_WORKSPACE
+		svn cleanup .
+		svn up
+    fi
+
+}
+
 function push-blog {
-    echo "func::push-blog"
+    tip "push-blog"
     cd $SHAMAN_ROOT/blog
     git reset
     git pull
@@ -271,7 +215,7 @@ function push-blog {
 }
 
 function zipapp {
-    echo "func::zipapp"
+    tip "zipapp"
     cd $CACHE
     zip -r apps.zip apps
     mv apps.zip $ZIP_HOME/apps.zip
@@ -285,7 +229,7 @@ function zipapp {
 }
 
 function unzipapp {
-    echo "func::unzipapp"
+    tip "unzipapp"
     cd $ZIP_HOME
     ls
     cat *.zip.* > apps.zip
@@ -298,14 +242,14 @@ function unzipapp {
 }
 
 function pushapp {
-    echo "func::pushapp"
+    tip "pushapp"
     cd $ZIP_HOME
     zipapp
     push
 }
 
 function getapp {
-    echo "func::getapp"
+    tip "getapp"
     if [ ! -d $APP_HOME ]; then
 		if [ ! -d $ZIPHOME ]; then
 			echo pass
@@ -314,7 +258,7 @@ function getapp {
 }
 
 function install-toolchain {
-    echo "please choose your os:"
+    tip "please choose your os:"
     echo "    1) debian/ubuntu/mint"
     echo "    2) archlinux/manjaro"
     echo "    3) fedora22+"
@@ -325,15 +269,23 @@ function install-toolchain {
 
     read -p "please enter your choice:" item
     case $item in
-		1)  #Debian/Ubuntu/LinuxMint
+		1)  # Debian / Ubuntu / LinuxMint
+			wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
+				&& sudo dpkg -i erlang-solutions_1.0_all.deb
 			sudo apt update
 			sudo apt install -y build-essential coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
 			sudo apt install -y python-pip perl ruby ocaml haskell-stack elixir cargo rebar openjdk-8-jdk
 			sudo apt install -y ttf-bitstream-vera #zmq ghostscript
 
+			# - Erlang 
+			sudo apt-get update
+			sudo apt-get install esl-erlang
+			sudo apt-get install elixir
+
 			# - Bazel---Build and test software of any size, quickly and reliably
 			sudo apt -y install pkg-config zip g++ zlib1g-dev unzip python
-			echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
+			echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | \
+				sudo tee /etc/apt/sources.list.d/bazel.list
 			curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
 			sudo apt-get update && sudo apt-get install -y bazel
 
@@ -343,14 +295,14 @@ function install-toolchain {
 			sudo apt-get install golang-go			
 			;;
 		
-		2)  #ArchLinux/Manjaro
+		2)  # ArchLinux / Manjaro
 			yaourt -Syyu
 			yaourt -S base-devel coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
 			yaourt -S python2-pip perl rubygems ocaml haskell-stack-git elixir cargo rebar3 openjdk-8-jdk golang
 			yaourt -S ttf-bitstream-vera-dummy			
 			;;
 		
-		3)  #Fedora/Redhat/CentOS
+		3)  # Fedora / Redhat / CentOS
 			sudo dnf update
 			sudo dnf groupinstall "Development Tools and Libraries"
 			sudo dnf install coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
@@ -358,14 +310,14 @@ function install-toolchain {
 			sudo dnf install ttf-bitstream-vera
 			;;
 		
-		4)
+		4) # macOS
 			brew update
 			brew install coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
 			brew install python2-pip perl rubygems ocaml haskell-stack elixir cargo rebar3 openjdk-8-jdk golang
 			brew install ttf-bitstream-vera
 			;;
 		
-		5)
+		5) # msys2
 			pacman -Syyu
 			pacman -S base-devel coreutils diffutils wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
 			pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-ocaml golang
@@ -381,37 +333,37 @@ function install-toolchain {
 			;;
     esac
 
-	# oh-my-zsh
+	# tip "install oh-my-zsh"
 	# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-	# Bash-it
+	tip "install Bash-it"
 	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 	~/.bash_it/install.sh
 
-	# cquery
-	mkdir -p ~/dev
-	cd ~/dev
-	git clone https://github.com/cquery-project/cquery.git --recursive
-	mkdir -p ~/dev/cuqery/build
-	cd ~/dev/cquery/build
-	cmake .. -DCMAKE_INSTALL_PREFIX=release -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
+	tip "install cquery"
+	github-init cquery-project/cquery $HOME/dev/cquery
+	mkdir -p $HOME/dev/cquery/build
+	cd $HOME/dev/cquery/build/
+	cmake .. \
+		  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
+		  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
+		  -DCMAKE_BUILD_TYPE=Release
 	make install
 	
-	# golang
+	tip "install golang"
 	go get -u github.com/sourcegraph/go-langserver
 	
-	# nodejs
+	tip "install nvm + nodejs"
 	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 	nvm install node
 	npm i -g javascript-typescript-langserver
 	npm i -g flow-language-server
 	npm i -g typescript-language-server
 		
-    # pip
+    tip "install ebook build tool: sphinx-build"
     # pip install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
-	pip install -U sphinx # ebook compile build: sphinx-build
-	pip install -U
-
+	pip install -U sphinx
+	
     #haskell
     # if [ ! -d "~/.stack/" ]; then
     # mkdir ~/.stack/
@@ -420,42 +372,36 @@ function install-toolchain {
     # stack update
     # stack upgrade
 
-    #clojure
+    tip "install lein + clojure"
     cd $SHAMAN_BIN
 	# curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
 	# curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
     chmod +x ./lein
     lein upgrade
     
-    #erlang
+	# tip "install elixir + erlang-nox"	
+    tip "install rebar3 for erlang"
     cd $SHAMAN_BIN
 	# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
     chmod +x ./rebar3
     rebar3 update
     rebar3 upgrade
 
-	# install: cargo
+	tip "install cargo + rust"
 
-	# install: elixir && erlang-nox
-
-    #shaman
+	tip "install nim"
+	
+    tip "chmod +x shaman/bin/*"
     cd $SHAMAN_BIN
-    chmod +x ./shaman
-    chmod +x ./rosman
-    chmod +x ./gen-rtags
-    chmod +x ./ed
-    chmod +x ./ediff
-    chmod +x ./ediff3
-    chmod +x ./ediff-merge
-    chmod +x ./pfind
+    chmod +x ./*
 
-	# link
+	tip "link .emacs"
 	link-init-el
 }
 
 function ask-blog {
     echo ""
-    echo "please choose your choice:"
+    tip "please choose your choice:"
     echo "    1) pull-blog"
     echo "    2) push-blog"
     echo "    3) commit-workspace"
@@ -488,7 +434,7 @@ function ask-blog {
 
 function ask-repl {
     echo ""
-    echo "please choose your choice:"
+    tip "please choose your choice:"
     echo "    1) clojure"
     echo "    2) haskell"
     echo "    3) elixir"
@@ -509,7 +455,7 @@ function ask-repl {
 
 function ask-menu {
     cd $SHAMAN_ROOT
-    #echo "func::ask-menu"
+    #echo "ask-menu"
     # echo "    0) ask-blog"
     echo "=============================="
     echo "    1) pull"

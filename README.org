@@ -22,7 +22,8 @@ this is damon kwok's emacs config
 - [[http://www.msys2.org/][msys2]] (windows)
 
 * Install
-- sh <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/INSTALL)
+# - sh <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/INSTALL)
+curl https://github.com/damon-kwok/my-emacs-config/install.sh -sSf | sh
 
 * Keybind
 ** global

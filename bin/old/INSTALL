@@ -1,4 +1,4 @@
-#!bin/bash
+#!/usr/bin/env bash
 
 SHAMAN_DIR_NAME=my-emacs-config
 SHAMAN_ROOT=`cd ~/$SHAMAN_DIR_NAME; pwd`

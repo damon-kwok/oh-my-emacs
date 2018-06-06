@@ -23,7 +23,7 @@
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (module-require 'mod-package)
-;;;
+;;
 (module-require 'mod-coding)
 (module-require 'mod-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -55,6 +55,9 @@
 (module-require 'mod-slime)
 ;; (module-require 'mod-sly)
 ;; (module-require 'mod-csharp)
+(module-require 'mod-nim)
+(module-require 'mod-hy)
+
 (module-require 'mod-go)
 (module-require 'mod-cquery)
 (module-require 'mod-java)
