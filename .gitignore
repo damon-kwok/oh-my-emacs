@@ -4,7 +4,7 @@
 # .#*
 
 # white list anything that's a directort
-!INSTALL
+!install.sh
 !*.el
 !install
 !README.org
