@@ -9,4 +9,4 @@ fi
 
 chmod +x $HOME/.shaman/bin/*
 
-$HOME/.shaman/bin/shaman $@
+$HOME/.shaman/bin/shaman install

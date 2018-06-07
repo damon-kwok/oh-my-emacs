@@ -79,19 +79,19 @@ function link-init-el() {
     # sudo ln -s $SHAMAN_ROOT/shaman /usr/bin/shaman
     # fi
 
-    find-str "my-emacs-config" ~/.bashrc
+    find-str ".shaman" ~/.bashrc
     if [ $? -eq 0 ]; then
 		echo "" >> ~/.bashrc
 		echo "source $SHAMAN_BIN/env" >> ~/.bashrc
     fi
 
-    # find-str "my-emacs-config" ~/.zshrc
+    # find-str ".shaman" ~/.zshrc
     # if [ $? -eq 0 ]; then
 		# echo "" >> ~/.zshrc
 		# echo "source $SHAMAN_BIN/env" >> ~/.zshrc
     # fi
 
-	find-str "my-emacs-config" ~/.profile
+	find-str ".shaman" ~/.profile
     if [ $? -eq 0 ]; then
 		echo "" >> ~/.profile 
 		# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.profile 
@@ -355,7 +355,10 @@ function install-toolchain {
 	
 	tip "install nvm + nodejs"
 	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-	nvm install node
+	nvm install 8 #LFS
+	# nvm install node # lastest version
+
+	tip "install js language server"
 	npm i -g javascript-typescript-langserver
 	npm i -g flow-language-server
 	npm i -g typescript-language-server

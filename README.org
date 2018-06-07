@@ -12,7 +12,6 @@ this is damon kwok's emacs config
 - wget
 - zip
 - unzip
-- zsh
 - pip (pip isnatll ipython)
 - roswell (ros install sbcl)
 - npm
@@ -23,7 +22,7 @@ this is damon kwok's emacs config
 
 * Install
 # - sh <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/INSTALL)
-curl https://github.com/damon-kwok/my-emacs-config/install.sh -sSf | sh
+curl https://raw.githubusercontent.com/damon-kwok/my-emacs-config/master/install.sh -sSf | sh
 
 * Keybind
 ** global

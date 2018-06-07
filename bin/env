@@ -25,9 +25,9 @@ export CQUERY_BIN=$HOME/.cquery
 export PATH=$CQUERY_BIN:$PATH
 
 # Nodejs
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Golang
 export GOROOT=/usr/lib/go
@@ -35,9 +35,10 @@ export GOPATH=$HOME/goprojects
 export PATH=$PATH:$GOPATH/bin
 
 # Rust
-if [ ! -e $HOME/.cargo/env ]; then
-	source $HOME/.cargo/env
-fi
+# if [ ! -e $HOME/.cargo/env ]; then
+	# source $HOME/.cargo/env
+# fi
+[ -s "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
 
 # Nim-lang
 export PATH=$HOME/.nimble/bin:$PATH
@@ -80,7 +81,7 @@ export PATH=$HOME/Cyberman:$PATH
 
 ################################################################################
 
-function echo-kv {
+function echo-kv() {
 	echo -e $(tput setaf 14)"$1:"$(tput sgr0) $(tput setaf 10)"$2"$(tput sgr0)
 }
 
@@ -141,9 +142,12 @@ function readp {
 }
 
 function upgrade() {
-    sudo apt update && sudo apt dist-upgrade && sudo apt autoremove \
-		&& rosdep update && bash-it update #&& upgrade_oh_my_zsh
-	
+    sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && \
+		rosdep update && bash-it update && \ #nvm upgrade && \
+		rebar3 local upgrade && \
+		lein upgrade
+																   
+	#&& upgrade_oh_my_zsh
 }
 
 # find-str $2:str $1:file
