@@ -46,4 +46,6 @@
 !/emacs-config/*/*/*/*/*/*/*/*/*/*/*
 target/
 **/*.rs.bk
+
 Cargo.lock
+rebar.lock
