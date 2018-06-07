@@ -38,6 +38,8 @@
 (setq libs-user-dir "~/.emacs.d/libs")
 (make-directory libs-user-dir t)
 
+(setq dev-user-dir "~/.dev")
+(make-directory dev-user-dir t)
 ;; (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
 ;;                         ("org" . "http://orgmode.org/elpa/")))
 ;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)

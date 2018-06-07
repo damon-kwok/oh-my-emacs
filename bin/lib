@@ -1,0 +1,502 @@
+#!/usr/bin/env bash
+function ask() {
+    read -p $(tput setaf 5)"$1 "$(tput sgr0)
+}
+function warning-ask() {
+    read -p $(tput setaf 3)"$1 "$(tput sgr0)
+}
+
+function echo-success() {
+    echo -e $(tput setaf 10)"$1"$(tput sgr0) #2
+}
+function echo-warning() {
+    echo -e $(tput setaf 11)"$1"$(tput sgr0) #3 dark yellow
+}
+function echo-error() {
+    echo -e $(tput setaf 1)"$1"$(tput sgr0)
+}
+function echo-tip() {
+    echo -e $(tput setaf 14)"$1"$(tput sgr0) #6
+}
+function echo-debug() {
+    echo -e $(tput setaf 8)"$1"$(tput sgr0)
+}
+function echo-waiting() {
+    echo -e $(tput setaf 4)"$1"$(tput sgr0)
+}
+
+function echo-kv() {
+	echo -e $(tput setaf 14)"$1:"$(tput sgr0) $(tput setaf 10)"$2"$(tput sgr0)
+}
+
+function title() {
+	echo -e $(tput setaf 14)"=================================================================="\
+		 $(tput sgr0)
+	echo -e $(tput setaf 14)"= $1:"$(tput sgr0)
+}
+
+function tip() {
+	echo -e $(tput setaf 10)"--------------------------------"$(tput sgr0)
+	echo -e $(tput setaf 10)"-- $1:"$(tput sgr0)
+}
+
+function github-init() {
+	local project=$1
+	local dir=$2
+
+	if [ "$GIT_USE_SECRET_KEY" == "1" ]; then		
+		local url="git@github.com:${project}.git --recursive"
+	else
+		local url="https://github.com/${project}.git --recursive"
+	fi
+	
+	if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
+		tip "clone $project"
+		git clone --depth=1 $url $dir
+	else
+		cd $dir
+		tip "update $project"
+		if [ "$PULL_FOR_BUILD" == "1" ]; then
+			# git pull
+			# git submodule update
+			git pull --recurse-submodules=1
+		fi
+	fi
+}
+
+function readp {
+	local str=$1
+	
+    read -p "$str(Y/n)" c
+    if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
+		return $(( 1 ));
+    elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
+		return $(( 0 ));
+    else
+		echo "invalid input:$c"
+		readp "$1"
+    fi
+}
+
+# find-str $2:str $1:file
+# example:
+# find-str "/opt/ros/kinetic/" ~/.bashrc
+# result=$?
+# echo $result
+function find-str() {
+	local str=$1
+	local file=$2
+	
+    grep $str $file >/dev/null
+	
+    if [ $? -eq 0 ]; then
+		echo "found:$str"
+		return $(( 1 ));
+    else
+		echo "not found:$str"
+		return $(( 0 ));
+    fi
+}
+
+# smart-rtags $void
+function auto-gen-rtags() {
+    local dir=`pwd`
+    # echo "check dir:$dir"
+
+    if [ -f "$dir/CMakeLists.txt" ]; then
+		if [ ! -d "$dir/rtags_indexes" ]; then
+			echo "$dir/rtags_indexes is creating..."
+			mkdir -p $dir/rtags_indexes
+			cd rtags_indexes/
+			cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+			rc -J .
+			cd ..
+		else
+			echo "$dir/rtags_indexes is exist!"
+		fi
+    else
+		cd ..
+		if [ ! "/" == "$dir" ]; then
+			auto-gen-rtags	    
+		fi
+    fi
+}
+
+function dns-init() {
+	local ip=$1
+	
+	tip "Add '$ip' to /etc/network/interfaces"
+	find-str $ip /etc/network/interfaces
+	if [ $? -eq 0 ]; then
+		sudo bash -c "echo 'dns-nameservers  $ip' >> /etc/network/interfaces"
+	else
+		echo "skip!"
+	fi
+}
+
+function host-init() {
+	local ip=$1
+	local name=$2
+
+	tip "Add '$ip $name' to /etc/hosts"
+	find-str $name /etc/hosts
+	if [ $? -eq 0 ]; then
+		sudo bash -c "echo '$ip $name' >> /etc/hosts"
+	else
+		echo "skip!"
+	fi
+}
+
+function apt-repo-init() {
+	local arch=$1
+	local url=$2
+	tip "Add docker apt repository"
+	find-str "$url" /etc/apt/sources.list.d/additional-repositories.list
+	if [ $? -eq 0 ]; then
+		sudo add-apt-repository \
+			 "deb [arch=$arch] $url xenial stable"
+		sudo apt update
+	fi
+	# "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable"
+}
+
+function dir-init() {
+	local src=$1
+	local dst=$2
+
+	if [ ! -d $dst ] || [ "$PULL_FOR_BUILD" == "1" ]; then
+		rm -rf $dst
+		cp -r $src $dst
+		# cp -r $dir1/. $dir2
+	fi	
+}
+
+function link-init() {
+	local src=$1
+	local dst=$2
+
+	rm -rf $dst
+	ln -s $src $dst
+}
+
+function git-pull {
+    tip "git-pull"
+    cd $SHAMAN_ROOT
+    git reset
+    git pull
+
+	chmod +x $SHAMAN_ROOT/bin/*
+}
+
+function git-push {
+    tip "git-push"
+    cd $SHAMAN_ROOT
+    git reset
+    git pull
+    git add .
+    git status
+
+    readp "auto commit?"
+    if [ $? -eq 1 ]; then
+		git commit -m `date +%Y-%m-%d@%H-%M-%S`
+    else
+		read -p "please enter commit message:" msg
+		git commit -m "$msg"
+    fi
+    git push -u origin master
+}
+
+function git-push-a {
+    tip "git-push-a"
+    
+    git reset
+    git pull
+    git add .
+    git status
+    # git commit -m "upgrade by "`uname -n`
+    git commit -m `date +%Y-%m-%d@%H-%M-%S` # "upgrade by "`uname -n`
+    git push -u origin master
+}
+
+function svn-remove-lose {
+    # svn status grep "^!" awk '{print $2}' xargs svn rm
+    svn st | grep '^\!' | cut -c 9- | xargs -r svn rm
+	# --depth infinity
+}
+
+function svn-add-new {
+    # svn status grep "^\?" awk '{print $2}' xargs svn add
+    svn st | grep '^\?' | cut -c 9- | xargs -r svn add --depth infinity
+}
+
+function svn-cancel-add {
+    # svn st |grep '^A' | cut -c 9- | awk '{print $2}' | xargs -r svn revert
+    svn st | grep '^A' | cut -c 9- | xargs -r svn revert --depth infinity
+}
+
+function svn-commit {
+    tip "check lose files"
+    svn-remove-lose
+
+    tip "check new files"
+    svn-add-new
+
+    tip "show status"
+    svn status
+    
+    readp "auto commit?"
+    if [ $? -eq 1 ]; then
+		svn commit -m `date +%Y-%m-%d@%H-%M-%S`
+    else
+		read -p "please enter commit message:" msg
+		svn commit -m "$msg"
+    fi
+}
+
+
+# check install:rtags irony-server
+# function find-camke {
+# echo 111
+# }
+
+# function kill-process {
+# echo 222
+# }
+
+# function find-file {
+# echo 333
+# }
+
+# function dirp {
+# dir=`pwd`
+# if [ ! "/" == "$DIR" ]; then
+# echo "dir is "`pwd`
+# else
+# echo "dir is root"
+# fi
+# }
+
+# dirp
+
+# find-str "devel" ~/.bashrc
+# if [ $? -eq 1 ]; then
+# echo "found:"$?
+# else
+# echo "not-found:"$?
+# fi
+
+# function readp- {
+# read -p "$1(Y/n)" c
+# if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
+# return $(( 1 ));
+# elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
+# return $(( 0 ));
+# else
+# echo "invalid input:$c"
+# readp "$1"
+# fi
+# }
+
+function install-toolchain {
+    tip "please choose your os:"
+    echo "    1) debian/ubuntu/mint"
+    echo "    2) archlinux/manjaro"
+    echo "    3) fedora22+"
+    echo "    4) macOS"
+    echo "    5) msys2"
+    echo "    -------------------------"
+    echo "    r) return"
+
+    read -p "please enter your choice:" item
+    case $item in
+		1)  # Debian / Ubuntu / LinuxMint
+			# Erlang
+			# wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
+				# && sudo dpkg -i erlang-solutions_1.0_all.deb
+
+			# Golang
+			sudo add-apt-repository ppa:longsleep/golang-backports
+			
+			sudo apt update
+			sudo apt dist-upgrade
+			
+			sudo apt install -y build-essential autoscan aclocal autoconf autoheader automake \
+				 coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
+			sudo apt install -y python-pip perl ruby ocaml haskell-stack elixir cargo rebar openjdk-8-jdk
+			sudo apt install -y ttf-bitstream-vera #zmq ghostscript
+
+			# - Erlang 			
+			# sudo apt install libssl-dev libwxbase3.0-dev libwxgtk3.0-dev esl-erlang
+			# sudo apt install erlang-nox
+			# sudo apt install elixir
+
+			# - Bazel---Build and test software of any size, quickly and reliably
+			# sudo apt -y install pkg-config zip g++ zlib1g-dev unzip python
+			# echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | \
+				# sudo tee /etc/apt/sources.list.d/bazel.list
+			# curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
+			# sudo apt-get update && sudo apt-get install -y bazel
+			
+			# - Golang LTS PPA
+			sudo apt-get install golang-go			
+			;;
+		
+		2)  # ArchLinux / Manjaro
+			yaourt -Syyu
+			yaourt -S base-devel autoscan aclocal autoconf autoheader automake \
+				   coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+			yaourt -S python2-pip perl rubygems ocaml haskell-stack-git elixir cargo rebar3 openjdk-8-jdk golang
+			yaourt -S ttf-bitstream-vera-dummy			
+			;;
+		
+		3)  # Fedora / Redhat / CentOS
+			sudo dnf update
+			sudo dnf upgrade --refresh
+			
+			sudo dnf groupinstall "Development Tools and Libraries"
+			sudo dnf install autoscan aclocal autoconf autoheader automake \
+				 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+			sudo dnf install python2-pip perl rubygems ocaml haskell-stack elixir cargo rebar3  openjdk-8-jdk golang
+			sudo dnf install ttf-bitstream-vera
+			;;
+		
+		4) # macOS
+			brew update
+			brew upgrade
+			
+			brew install autoscan aclocal autoconf autoheader automake \
+				 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+			brew install python2-pip perl rubygems ocaml haskell-stack elixir cargo rebar3 openjdk-8-jdk golang
+			brew install ttf-bitstream-vera
+			;;
+		
+		5) # msys2
+			pacman -Syyu
+			
+			pacman -S base-devel autoscan aclocal autoconf autoheader automake \
+				   coreutils diffutils wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
+			pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-ocaml golang
+			pacman -S ttf-bitstream-vera
+			#mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
+			;;
+		
+		r | R)
+			ask-menu
+			;;
+		*)
+			ask-repl
+			;;
+    esac
+
+	# tip "install oh-my-zsh"
+	# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+	tip "install Bash-it"
+	if command -v git >/dev/null 2>&1; then
+		bash-it update
+	else
+		# git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+		github-init Bash-it/bash-it ~/.bash_it
+		~/.bash_it/install.sh
+	fi
+	
+	tip "install cquery"
+	github-init cquery-project/cquery $DEV_ROOT/cquery
+	mkdir -p $DEV_ROOT/cquery/build
+	cd $DEV_ROOT/cquery/build/
+	cmake .. \
+		  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
+		  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
+		  -DCMAKE_BUILD_TYPE=Release
+	make install
+	
+	tip "install golang"
+	go get -u github.com/sourcegraph/go-langserver
+	
+	tip "install nvm + nodejs"
+	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+	nvm install 8 #LFS
+	# nvm install node # lastest version
+
+	tip "install js language server"
+	npm i -g javascript-typescript-langserver
+	npm i -g flow-language-server
+	npm i -g typescript-language-server
+
+	tip "install erlang"
+	# git clone https://github.com/erlang/otp.git
+	github-init erlang/otp $DEV_ROOT/erlang_otp
+	cd erlang_otp
+	./otp_build autoconf
+	/configure --prefix=$HOME/.erlang_otp
+	make
+	# make install
+
+	tip "install elixir"
+	# https://github.com/elixir-lang/elixir.git
+	github-init elixir-lang/elixir $DEV_ROOT/elixir
+	cd $DEV_ROOT/elixir
+	make clean test
+	
+    tip "install ebook build tool: sphinx-build"
+    # pip install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
+	pip install --user -U sphinx
+	
+    #haskell
+    # if [ ! -d "~/.stack/" ]; then
+    # mkdir ~/.stack/
+    # cp $SHAMAN_ROOT/cache/bin/config.yaml ~/.stack/
+    # fi
+    # stack update
+    # stack upgrade
+
+    tip "install lein + clojure"
+    cd $SHAMAN_BIN
+	# curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+	# curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+    chmod +x ./lein
+    lein upgrade
+    
+	# tip "install elixir + erlang-nox"	
+    tip "install rebar3 for erlang"
+    cd $SHAMAN_BIN
+	# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
+    chmod +x ./rebar3
+	rebar3 local upgrade
+    rebar3 update
+    rebar3 upgrade
+
+	tip "install cargo + rust"
+	curl https://sh.rustup.rs -sSf | sh	
+	cargo update
+	rustup toolchain add nightly
+	rustup component add rust-src
+	cargo install racer
+	
+	tip "install nim"
+	curl https://nim-lang.org/choosenim/init.sh -sSf | sh
+
+	tip "install mu4e"
+	# https://github.com/djcb/mu.git
+	# github-init djcb/mu $DEV_ROOT/mu
+	# cd $DEV_ROOT/mu
+	# ./configure --prefix=$HOME/.mu
+	# make install
+
+	tip "install offlineiamp"
+	pip install --user -U offlineimap	
+	
+    tip "chmod +x shaman/bin/*"
+    cd $SHAMAN_BIN
+    chmod +x ./*
+}
+
+function upgrade() {
+    # sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && \
+		# rosdep update && bash-it update && \ #nvm upgrade && \
+		# rebar3 local upgrade && lein upgrade && \
+		# cargo update && rustup component add rust-src && cargo install racer
+																   
+	#&& upgrade_oh_my_zsh
+	install-toolchain
+}

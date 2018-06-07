@@ -75,7 +75,7 @@
     (module-require 'mod-rust))
 
 (if (executable-find "stack")
-    (module-require ' mod-haskell))
+    (module-require 'mod-haskell))
 
 (if (executable-find "git")
     (module-require 'mod-git))

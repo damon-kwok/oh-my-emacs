@@ -8,6 +8,8 @@ export SHAMAN_ROOT=$HOME/.shaman
 export SHAMAN_BIN=$SHAMAN_ROOT/bin
 export PATH=$SHAMAN_BIN:$PATH
 
+export DEV_ROOT=$HOME/.dev
+
 export CACHE=$SHAMAN_ROOT/cache
 export APP_HOME=$CACHE/apps
 export ZIP_HOME=$CACHE/apps-zip
@@ -19,33 +21,6 @@ export SHELL_NAME=ps |  grep $$  |  awk '{print $4}'
 export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
 ################################################################################
-
-# Cpp: cquery
-export CQUERY_BIN=$HOME/.cquery
-export PATH=$CQUERY_BIN:$PATH
-
-# Nodejs
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Golang
-export GOROOT=/usr/lib/go
-export GOPATH=$HOME/goprojects
-export PATH=$PATH:$GOPATH/bin
-
-# Rust
-# if [ ! -e $HOME/.cargo/env ]; then
-	# source $HOME/.cargo/env
-# fi
-[ -s "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
-
-# Nim-lang
-export PATH=$HOME/.nimble/bin:$PATH
-
-# Elixir
-# export PATH=$HOME/dev/elixir-1.5.2/bin:/usr/local/bin:$PATH
-
 # Ocaml: OPAM configuration
 case "$SHELL_NAME" in
 	"zsh")
@@ -78,177 +53,42 @@ export PATH=$PATH:$HOME/catkin_ws/bin
 
 # Cyberman
 export PATH=$HOME/Cyberman:$PATH
+################################################################################
+# Cpp: cquery
+export CQUERY_BIN=$HOME/.cquery
+export PATH=$CQUERY_BIN:$PATH
 
+# Nodejs
+# export NVM_DIR=""
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Golang
+export GOROOT=/usr/lib/go
+export GOPATH=$HOME/goprojects
+export PATH=$PATH:$GOPATH/bin
+
+# Rust
+# [ -s "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
+if [ ! -e $HOME/.cargo/env ]; then
+	source $HOME/.cargo/env
+	export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+fi
+
+# Nim-lang
+export PATH=$HOME/.nimble/bin:$PATH
+
+# Erlang
+export PATH=$DEV_ROOT/erlang_otp/bin:$PATH
+
+# Elixir
+export PATH=$DEV_ROOT/elixir/bin:$PATH
+
+# mu4e
+export PATH=$HOME/.mu/bin:$PATH
 ################################################################################
 
-function echo-kv() {
-	echo -e $(tput setaf 14)"$1:"$(tput sgr0) $(tput setaf 10)"$2"$(tput sgr0)
-}
-
-function title() {
-	echo -e $(tput setaf 14)"=================================================================="\
-		 $(tput sgr0)
-	echo -e $(tput setaf 14)"= $1:"$(tput sgr0)
-}
-
-function tip() {
-	echo -e $(tput setaf 10)"--------------------------------"$(tput sgr0)
-	echo -e $(tput setaf 10)"-- $1:"$(tput sgr0)
-}
-
-function github-init() {
-	local project=$1
-	local dir=$2
-
-	if [ "$GIT_USE_SECRET_KEY" == "1" ]; then		
-		local url="git@github.com:${project}.git --recursive"
-	else
-		local url="https://github.com/${project}.git --recursive"
-	fi
-	
-	if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
-		tip "clone $project"
-		git clone $url $dir
-	else
-		cd $dir
-		tip "update $project"
-		if [ "$PULL_FOR_BUILD" == "1" ]; then
-			# git pull
-			# git submodule update
-			git pull --recurse-submodules=1
-		fi
-	fi
-}
-
-function find-str {    
-    grep $1 $2 >/dev/null
-    if [ $? -eq 0 ]; then
-		return $(( 1 ));
-    else
-		return $(( 0 ));
-    fi
-}
-
-function readp {
-    read -p "$1(Y/n)" c
-    if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
-		return $(( 1 ));
-    elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
-		return $(( 0 ));
-    else
-		echo "invalid input:$c"
-		readp "$1"
-    fi
-}
-
-function upgrade() {
-    sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && \
-		rosdep update && bash-it update && \ #nvm upgrade && \
-		rebar3 local upgrade && \
-		lein upgrade
-																   
-	#&& upgrade_oh_my_zsh
-}
-
-# find-str $2:str $1:file
-# example:
-# find-str "/opt/ros/kinetic/" ~/.bashrc
-# result=$?
-# echo $result
-function find-str() {
-	local STR=$1
-	local FILE=$2
-	
-    grep $STR $FILE >/dev/null
-    if [ $? -eq 0 ]; then
-		echo "found!"
-		return $(( 1 ));
-    else
-		echo "not found!"
-		return $(( 0 ));
-    fi
-}
-
-function find-str() {
-	local str=$1
-	local file=$2
-	
-    grep $str $file >/dev/null
-	
-    if [ $? -eq 0 ]; then
-		echo "found:$str"
-		return $(( 1 ));
-    else
-		echo "not found:$str"
-		return $(( 0 ));
-    fi
-}
-
-
-# smart-rtags $void
-function auto-gen-rtags() {
-    DIR=`pwd`
-    # echo "check dir:$DIR"
-
-    if [ -f "$DIR/CMakeLists.txt" ]; then
-		if [ ! -d "$DIR/rtags_indexes" ]; then
-			echo "$DIR/rtags_indexes is creating..."
-			mkdir -p $DIR/rtags_indexes
-			cd rtags_indexes/
-			cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
-			rc -J .
-			cd ..
-		else
-			echo "$DIR/rtags_indexes is exist!"
-		fi
-    else
-		cd ..
-		if [ ! "/" == "$DIR" ]; then
-			auto-gen-rtags	    
-		fi
-    fi
-}
-
-# check install:rtags irony-server
-# function find-camke {
-# echo 111
-# }
-
-# function kill-process {
-# echo 222
-# }
-
-# function find-file {
-# echo 333
-# }
-
-# function dirp {
-# DIR=`pwd`
-# if [ ! "/" == "$DIR" ]; then
-# echo "dir is "`pwd`
-# else
-# echo "dir is root"
-# fi
-# }
-
-# dirp
-
-# find-str "devel" ~/.bashrc
-# if [ $? -eq 1 ]; then
-# echo "found:"$?
-# else
-# echo "not-found:"$?
-# fi
-
-# function readp- {
-# read -p "$1(Y/n)" c
-# if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
-# return $(( 1 ));
-# elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
-# return $(( 0 ));
-# else
-# echo "invalid input:$c"
-# readp "$1"
-# fi
-# }
-
+# CURRENT_DIR=$(dirname $(readlink -f $0))
+# echo $CURRENT_DIR
+source lib

@@ -24,7 +24,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(setq mu4e-root (concat (expand-file-name libs-user-dir) "/" "mu-0.9.18/mu4e"))
+;; (setq mu4e-root (concat (expand-file-name libs-user-dir) "/" "mu-0.9.18/mu4e"))
+(setq mu4e-root (concat (expand-file-name libs-user-dir) "/" "mu-1.0/mu4e"))
+;; (setq mu4e-root (concat (expand-file-name dev-user-dir) "/" "mu/mu4e"))
 (add-to-list 'load-path mu4e-root)
 (require 'mu4e)
 

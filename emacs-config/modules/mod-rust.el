@@ -26,10 +26,13 @@
 ;;
 (package-require 'racer)
 (require 'racer)
+(package-require 'cargo)
+(require 'cargo)
 
 ;; Configure Emacs to activate racer when rust-mode starts:
 
 (add-hook 'rust-mode-hook #'racer-mode)
+(add-hook 'rust-mode-hook 'cargo-minor-mode)
 (add-hook 'racer-mode-hook #'eldoc-mode)
 
 ;; For completions, install company with M-x package-install RET company RET. A sample configuration:
