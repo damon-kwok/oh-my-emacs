@@ -12,7 +12,7 @@ damon-kwok's emacs config!
 # - [[http://www.msys2.org/][msys2]] (windows)
 * Install
 # - sh <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/INSTALL)
-curl [[https://raw.githubusercontent.com/damon-kwok/oh-my-emacs/master/install.sh]] -sSf | sh
+curl [[https://raw.githubusercontent.com/damon-kwok/oh-my-emacs/master/install.sh]] -sSf | bash
 
 * Keybind
 ** global
