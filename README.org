@@ -1,28 +1,18 @@
-#+TITLE: My emacs config
+#+TITLE: Oh My Emacs
 #+STARTUP: inlineimages
-this is damon kwok's emacs config
+damon-kwok's emacs config!
 
 # [[file:https://imgs.xkcd.com/comics/blanket_fort.png]]
 [[https://imgs.xkcd.com/comics/real_programmers.png]]
 
-* Require
-- git
-- subversion
-- curl
-- wget
-- zip
-- unzip
-- pip (pip isnatll ipython)
-- roswell (ros install sbcl)
-- npm
-- [[https://github.com/djcb/mu][mu-0.9.18]]
-- [[https://github.com/OfflineIMAP/offlineimap][offlineimap]]
-- [[http://www.imagemagick.org/script/index.php][imagemagick]]
-- [[http://www.msys2.org/][msys2]] (windows)
-
+# * Require
+# - curl
+# - git
+# - [[http://www.imagemagick.org/script/index.php][imagemagick]]
+# - [[http://www.msys2.org/][msys2]] (windows)
 * Install
 # - sh <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/INSTALL)
-curl https://raw.githubusercontent.com/damon-kwok/my-emacs-config/master/install.sh -sSf | sh
+curl [[https://raw.githubusercontent.com/damon-kwok/oh-my-emacs/master/install.sh]] -sSf | sh
 
 * Keybind
 ** global
