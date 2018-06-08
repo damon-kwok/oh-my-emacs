@@ -315,15 +315,16 @@ function install-toolchain {
 				# && sudo dpkg -i erlang-solutions_1.0_all.deb
 
 			# Golang
-			sudo add-apt-repository ppa:longsleep/golang-backports
+			# sudo add-apt-repository ppa:longsleep/golang-backports
 			
-			sudo apt update
-			sudo apt dist-upgrade
+			# sudo apt update
+			# sudo apt dist-upgrade
 			
-			sudo apt install -y build-essential autoscan aclocal autoconf autoheader automake \
-				 coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
-			sudo apt install -y python-pip perl ruby ocaml haskell-stack elixir cargo rebar openjdk-8-jdk
-			sudo apt install -y ttf-bitstream-vera #zmq ghostscript
+			# sudo apt install -y build-essential autoscan aclocal autoconf autoheader automake \
+				 # coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
+			# sudo apt install -y python-pip perl ruby ocaml haskell-stack elixir cargo rebar openjdk-8-jdk
+			# sudo apt install -y ttf-bitstream-vera #zmq ghostscript
+			# sudo apt install -y i3 #i3-wm i3status i3lock dmenu feh xcompmgr roxterm
 
 			# - Erlang 			
 			# sudo apt install libssl-dev libwxbase3.0-dev libwxgtk3.0-dev esl-erlang
@@ -346,7 +347,8 @@ function install-toolchain {
 			yaourt -S base-devel autoscan aclocal autoconf autoheader automake \
 				   coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
 			yaourt -S python2-pip perl rubygems ocaml haskell-stack-git elixir cargo rebar3 openjdk-8-jdk golang
-			yaourt -S ttf-bitstream-vera-dummy			
+			yaourt -S ttf-bitstream-vera-dummy
+			yaourt -S i3-wm i3lock i3status dmenu
 			;;
 		
 		3)  # Fedora / Redhat / CentOS
@@ -392,7 +394,8 @@ function install-toolchain {
 	# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 	tip "install Bash-it"
-	if command -v git >/dev/null 2>&1; then
+	
+	if command -v bash_it >/dev/null 2>&1; then
 		bash-it update
 	else
 		# git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
@@ -414,9 +417,25 @@ function install-toolchain {
 	go get -u github.com/sourcegraph/go-langserver
 	
 	tip "install nvm + nodejs"
-	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-	nvm install 8 #LFS
-	# nvm install node # lastest version
+	# github-init creationix/nvm $HOME/.nvm
+	# curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+	if command -v nvm >/dev/null 2>&1; then
+		export NVM_DIR="$HOME/.nvm" && (
+		# (
+			git clone https://github.com/creationix/nvm.git "$NVM_DIR"
+			cd "$NVM_DIR"
+			git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+		) && \. "$NVM_DIR/nvm.sh"
+	else		
+		(
+			cd "$NVM_DIR"
+			git fetch --tags origin
+			git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+		) && \. "$NVM_DIR/nvm.sh"
+		
+		nvm install 8 #LFS
+		# nvm install node # lastest version
+	fi
 
 	tip "install js language server"
 	npm i -g javascript-typescript-langserver
@@ -426,18 +445,27 @@ function install-toolchain {
 	tip "install erlang"
 	# git clone https://github.com/erlang/otp.git
 	github-init erlang/otp $DEV_ROOT/erlang_otp
-	cd erlang_otp
+	cd $DEV_ROOT/erlang_otp
 	./otp_build autoconf
-	/configure --prefix=$HOME/.erlang_otp
+	./configure --prefix=$HOME/.erlang_otp
 	make
 	# make install
+
+    tip "install rebar3 for erlang"
+    cd $SHAMAN_BIN
+	# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
+    chmod +x ./rebar3
+	rebar3 local upgrade DEBUG=1
+    rebar3 update
+    rebar3 upgrade
 
 	tip "install elixir"
 	# https://github.com/elixir-lang/elixir.git
 	github-init elixir-lang/elixir $DEV_ROOT/elixir
 	cd $DEV_ROOT/elixir
-	make clean test
-	
+	make
+	# make clean test
+
     tip "install ebook build tool: sphinx-build"
     # pip install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
 	pip install --user -U sphinx
@@ -452,26 +480,23 @@ function install-toolchain {
 
     tip "install lein + clojure"
     cd $SHAMAN_BIN
+	# if command -v bash-it >/dev/null 2>&1; then
 	# curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
 	# curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
     chmod +x ./lein
     lein upgrade
     
-	# tip "install elixir + erlang-nox"	
-    tip "install rebar3 for erlang"
-    cd $SHAMAN_BIN
-	# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
-    chmod +x ./rebar3
-	rebar3 local upgrade
-    rebar3 update
-    rebar3 upgrade
-
 	tip "install cargo + rust"
-	curl https://sh.rustup.rs -sSf | sh	
-	cargo update
-	rustup toolchain add nightly
-	rustup component add rust-src
-	cargo install racer
+	if command -v rustup >/dev/null 2>&1; then
+		rustup self update
+		rustup update
+	else
+		curl https://sh.rustup.rs -sSf | sh	
+		cargo update
+		rustup toolchain add nightly
+		rustup component add rust-src
+		cargo install racer
+	fi
 	
 	tip "install nim"
 	curl https://nim-lang.org/choosenim/init.sh -sSf | sh
@@ -479,9 +504,21 @@ function install-toolchain {
 	tip "install mu4e"
 	# https://github.com/djcb/mu.git
 	# github-init djcb/mu $DEV_ROOT/mu
-	# cd $DEV_ROOT/mu
-	# ./configure --prefix=$HOME/.mu
-	# make install
+	if [ ! -d $HOME/.emacs.d/libs/mu-1.0 ]; then
+		echo "no"
+		cd $HOME/.emacs.d/libs/
+		
+		# curl -O https://github.com/djcb/mu/releases/download/v1.0/mu-1.0.tar.xz
+
+		cp -f $SHAMAN_ROOT/tool/mu-1.0.tar.xz $HOME/.emacs.d/libs/ 
+		tar xpvf mu-1.0.tar.xz -C .
+		cd $HOME/.emacs.d/libs/mu-1.0/
+		./configure --prefix=$HOME/.mu/1.0
+		make install
+	else
+		echo "yes"
+	fi
+
 
 	tip "install offlineiamp"
 	pip install --user -U offlineimap	
@@ -489,6 +526,13 @@ function install-toolchain {
     tip "chmod +x shaman/bin/*"
     cd $SHAMAN_BIN
     chmod +x ./*
+
+	find-str ".shaman/bin/env" ~/.bashrc
+	if [ $? -eq 0 ]; then
+		echo "source $HOME/.shaman/bin/env" >> ~/.bashrc
+	fi
+
+	source ~/.bashrc
 }
 
 function upgrade() {
@@ -496,7 +540,7 @@ function upgrade() {
 		# rosdep update && bash-it update && \ #nvm upgrade && \
 		# rebar3 local upgrade && lein upgrade && \
 		# cargo update && rustup component add rust-src && cargo install racer
-																   
+	
 	#&& upgrade_oh_my_zsh
 	install-toolchain
 }

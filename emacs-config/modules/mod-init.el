@@ -84,6 +84,11 @@
 (module-require 'mod-input)
 (module-require 'mod-calendar)
 
+;; (package-require 'exwm)
+;; (require 'exwm)
+;; (require 'exwm-config)
+;; (exwm-config-default)
+
 ;; (if (eq system-type 'gnu/linux)
     ;; (module-require 'mod-cc))
 ;; (if (and (unless system-type 'windows-nt)

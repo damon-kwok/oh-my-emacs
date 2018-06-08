@@ -43,7 +43,7 @@
 ;; (setq cquery-executable "~/.local/stow/cquery/bin/cquery")
 ;; (setq cquery-resource-dir (expand-file-name
 			   ;; "~/.local/stow/cquery/lib/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-14.04"))
-(setq cquery-executable "/home/damon/dev/cquery/build/release/bin/cquery")
+(setq cquery-executable "/home/damon/.cquery/bin/cquery")
 
 (setq cquery-extra-init-params '(:index (:comments 2) :cacheFormat "msgpack" :completion (:detailedLabel t)))
 
