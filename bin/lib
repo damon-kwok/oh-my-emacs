@@ -315,16 +315,16 @@ function install-toolchain {
 				# && sudo dpkg -i erlang-solutions_1.0_all.deb
 
 			# Golang
-			# sudo add-apt-repository ppa:longsleep/golang-backports
+			sudo add-apt-repository ppa:longsleep/golang-backports
 			
-			# sudo apt update
-			# sudo apt dist-upgrade
+			sudo apt update
+			sudo apt dist-upgrade
 			
-			# sudo apt install -y build-essential autoscan aclocal autoconf autoheader automake \
-				 # coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
-			# sudo apt install -y python-pip perl ruby ocaml haskell-stack elixir cargo rebar openjdk-8-jdk
-			# sudo apt install -y ttf-bitstream-vera #zmq ghostscript
-			# sudo apt install -y i3 #i3-wm i3status i3lock dmenu feh xcompmgr roxterm
+			sudo apt install -y build-essential autoscan aclocal autoconf autoheader automake \
+				 coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
+			sudo apt install -y python-pip perl ruby ocaml haskell-stack elixir cargo rebar openjdk-8-jdk
+			sudo apt install -y ttf-bitstream-vera #zmq ghostscript
+			sudo apt install -y i3 #i3-wm i3status i3lock dmenu feh xcompmgr roxterm
 
 			# - Erlang 			
 			# sudo apt install libssl-dev libwxbase3.0-dev libwxgtk3.0-dev esl-erlang
@@ -510,7 +510,8 @@ function install-toolchain {
 		echo "no"
 		cd $HOME/.emacs.d/libs/
 		
-		cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/ 
+		cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/
+		mkdir -p mu
 		tar xpvf mu.tar.xz -C .
 		cd $HOME/.emacs.d/libs/mu/
 		./configure --prefix=$HOME/.mu
