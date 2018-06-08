@@ -8,3 +8,10 @@ else
 fi
 
 chmod +x $HOME/.oh-my-emacs/bin/*
+
+find-str ".oh-my-emacs/bin/env" ~/.bashrc
+if [ $? -eq 0 ]; then
+	echo "source $HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
+fi
+
+source ~/.bashrc
