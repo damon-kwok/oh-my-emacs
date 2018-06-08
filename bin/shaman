@@ -8,10 +8,10 @@ source $CURRENT_DIR/lib
 
 PROJECT_BLOG=demo-kwok.github.io
 
-DIR_BLOG=$SHAMAN_ROOT/blog
-DIR_WORKSPACE=$SHAMAN_ROOT/workspace
-DIR_LLVM_WHERE=$SHAMAN_ROOT/dev
-DIR_LLVM=$SHAMAN_ROOT/dev/llvm
+DIR_BLOG=$OME_ROOT/blog
+DIR_WORKSPACE=$OME_ROOT/workspace
+DIR_LLVM_WHERE=$OME_ROOT/dev
+DIR_LLVM=$OME_ROOT/dev/llvm
 
 ################################################################################
 function run-emacs {
@@ -32,14 +32,14 @@ function run-emacs-nw {
 }
 
 function delete-etc {
-    cd $SHAMAN_ROOT/emacs-config/modules
+    cd $OME_ROOT/emacs-config/modules
     rm -rf *.elc
-    cd $SHAMAN_ROOT
+    cd $OME_ROOT
 }
 
 function link-init-el() {
     tip "link"
-    # cp -rf $SHAMAN_ROOT/emacs-config/init.el $HOME/.emacs
+    # cp -rf $OME_ROOT/emacs-config/init.el $HOME/.emacs
 
     bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
     mkdir -p $bkdir
@@ -71,47 +71,47 @@ function link-init-el() {
 
     #for linux
     tip "link .emacs"
-    cp -a $SHAMAN_ROOT/emacs-config/init.el ~/.emacs 
-    ln -s $SHAMAN_ROOT/emacs-config ~/emacs-config
-    ln -s $SHAMAN_ROOT/workspace ~/workspace
-    ln -s $SHAMAN_ROOT/blog ~/blog
+    cp -a $OME_ROOT/emacs-config/init.el ~/.emacs 
+    ln -s $OME_ROOT/emacs-config ~/emacs-config
+    ln -s $OME_ROOT/workspace ~/workspace
+    ln -s $OME_ROOT/blog ~/blog
 	
-    # if [ ! -f /usr/bin/shaman ]; then
-    # sudo ln -s $SHAMAN_ROOT/shaman /usr/bin/shaman
+    # if [ ! -f /usr/bin/oh-my-emacs ]; then
+    # sudo ln -s $OME_ROOT/oh-my-emacs /usr/bin/oh-my-emacs
     # fi
 
-    find-str ".shaman" ~/.bashrc
-    if [ $? -eq 0 ]; then
-		echo "" >> ~/.bashrc
-		echo "source $SHAMAN_BIN/env" >> ~/.bashrc
-    fi
+    # find-str ".oh-my-emacs" ~/.bashrc
+    # if [ $? -eq 0 ]; then
+		# echo "" >> ~/.bashrc
+		# echo "source $OME_BIN/env" >> ~/.bashrc
+    # fi
 
-    # find-str ".shaman" ~/.zshrc
+    # find-str ".oh-my-emacs" ~/.zshrc
     # if [ $? -eq 0 ]; then
 		# echo "" >> ~/.zshrc
-		# echo "source $SHAMAN_BIN/env" >> ~/.zshrc
+		# echo "source $OME_BIN/env" >> ~/.zshrc
     # fi
 
-	find-str ".shaman" ~/.profile
-    if [ $? -eq 0 ]; then
-		echo "" >> ~/.profile 
-		# echo "export PATH=$SHAMAN_ROOT:$SHAMAN_BIN:\$PATH" >> ~/.profile 
-		echo "source $SHAMAN_BIN/env" >> ~/.profile 
-    fi
+	# find-str ".oh-my-emacs" ~/.profile
+    # if [ $? -eq 0 ]; then
+		# echo "" >> ~/.profile 
+		# echo "export PATH=$OME_ROOT:$OME_BIN:\$PATH" >> ~/.profile 
+		# echo "source $OME_BIN/env" >> ~/.profile 
+    # fi
     
-    # source $SHAMAN_BIN/env.sh
+    # source $OME_BIN/env.sh
 	
-    pull-blog
+    # pull-blog
 }
 
 function pull-blog {
-    # cd $SHAMAN_ROOT
+    # cd $OME_ROOT
     # git reset
     # git pull
 
     tip "blog"
     if [ ! -d $DIR_BLOG ]; then
-		cd $SHAMAN_ROOT
+		cd $OME_ROOT
 		git clone https://github.com/damon-kwok/damon-kwok.github.io.git $DIR_BLOG
     else
 		cd $DIR_BLOG
@@ -120,7 +120,7 @@ function pull-blog {
 
     tip "pull workspace"
     if [ ! -d $DIR_WORKSPACE ]; then
-		cd $SHAMAN_ROOT
+		cd $OME_ROOT
 		svn co svn://www.svn999.com/guowangwei.workspace workspace
     else
 		cd $DIR_WORKSPACE
@@ -132,7 +132,7 @@ function pull-blog {
 
 function push-blog {
     tip "push-blog"
-    cd $SHAMAN_ROOT/blog
+    cd $OME_ROOT/blog
     git reset
     git pull
     git add .
@@ -152,7 +152,7 @@ function zipapp {
     sleep 1s
     rm -rf apps.zip
 
-    cd $SHAMAN_ROOT
+    cd $OME_ROOT
 }
 
 function unzipapp {
@@ -165,7 +165,7 @@ function unzipapp {
     rm -rf apps.zip
     mv apps ..
 
-    cd $SHAMAN_ROOT
+    cd $OME_ROOT
 }
 
 function pushapp {
@@ -239,7 +239,7 @@ function ask-repl {
 }
 
 function ask-menu {
-    cd $SHAMAN_ROOT
+    cd $OME_ROOT
     #echo "ask-menu"
     # echo "    0) ask-blog"
     echo "=============================="
@@ -262,7 +262,7 @@ function ask-menu {
     echo "    z) REPL"
     echo "    q) quit"
 
-	cd $SHAMAN_ROOT
+	cd $OME_ROOT
     read -p "please enter your choice:" item
     case $item in
 	0) ask-blog;;

@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-# Shaman
-# export SHAMAN_BIN=$(dirname $(readlink -f $0))
-# export SHAMAN_ROOT=$SHAMAN_BIN/..
+# Oh-My-Emacs
+# export OME_BIN=$(dirname $(readlink -f $0))
+# export OME_ROOT=$OME_BIN/..
 
-export SHAMAN_ROOT=$HOME/.shaman
-export SHAMAN_BIN=$SHAMAN_ROOT/bin
-export PATH=$SHAMAN_BIN:$PATH
+export OME_ROOT=$HOME/.oh-my-emacs
+export OME_BIN=$OME_ROOT/bin
+export PATH=$OME_BIN:$PATH
 
 export DEV_ROOT=$HOME/.dev
 
-export CACHE=$SHAMAN_ROOT/cache
+export CACHE=$OME_ROOT/cache
 export APP_HOME=$CACHE/apps
 export ZIP_HOME=$CACHE/apps-zip
 
