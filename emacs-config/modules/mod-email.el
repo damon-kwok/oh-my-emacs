@@ -24,15 +24,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-;; (setq mu4e-root (concat (expand-file-name libs-user-dir) "/" "mu-0.9.18/mu4e"))
-(setq mu4e-root (concat (expand-file-name libs-user-dir) "/" "mu-1.0/mu4e"))
-;; (setq mu4e-root (concat (expand-file-name dev-user-dir) "/" "mu/mu4e"))
+(setq mu4e-root (concat (expand-file-name libs-user-dir) "/mu/mu4e"))
 (add-to-list 'load-path mu4e-root)
 (require 'mu4e)
 
 (if (or (string= system-type 'windows-nt) 
 	(string= system-type 'ms-dos))
-    (setq mu4e-mu-binary (concat (expand-file-name libs-user-dir) "/" "mu-0.9.18/mu/mu.exe")))
+    (setq mu4e-mu-binary (concat (expand-file-name libs-user-dir) "/mu/mu.exe")))
 
 ;; `extensions'
 (package-require 'mu4e-maildirs-extension)

@@ -503,17 +503,17 @@ function install-toolchain {
 
 	tip "install mu4e"
 	# https://github.com/djcb/mu.git
+	# curl -O https://github.com/djcb/mu/releases/download/v1.0/mu-1.0.tar.xz
 	# github-init djcb/mu $DEV_ROOT/mu
-	if [ ! -d $HOME/.emacs.d/libs/mu-1.0 ]; then
+	github-init damon-kwok/resources $OME_ROOT/resources
+	if [ ! -d $HOME/.emacs.d/libs/mu ]; then
 		echo "no"
 		cd $HOME/.emacs.d/libs/
 		
-		# curl -O https://github.com/djcb/mu/releases/download/v1.0/mu-1.0.tar.xz
-
-		cp -f $OME_ROOT/tool/mu-1.0.tar.xz $HOME/.emacs.d/libs/ 
-		tar xpvf mu-1.0.tar.xz -C .
-		cd $HOME/.emacs.d/libs/mu-1.0/
-		./configure --prefix=$HOME/.mu/1.0
+		cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/ 
+		tar xpvf mu.tar.xz -C .
+		cd $HOME/.emacs.d/libs/mu/
+		./configure --prefix=$HOME/.mu
 		make install
 	else
 		echo "yes"
