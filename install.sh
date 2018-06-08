@@ -9,7 +9,7 @@ fi
 
 chmod +x $HOME/.oh-my-emacs/bin/*
 
-find-str ".oh-my-emacs/bin/env" ~/.bashrc
+grep ".oh-my-emacs/bin/env" ~/.bashrc >/dev/null
 if [ $? -eq 0 ]; then
 	echo "source $HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
 fi
