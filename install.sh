@@ -9,9 +9,12 @@ fi
 
 chmod +x $HOME/.oh-my-emacs/bin/*
 
-grep ".oh-my-emacs/bin/env" ~/.bashrc >/dev/null
-if [ $? -eq 0 ]; then
-	echo "source $HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
+grep ".oh-my-emacs/bin/env" $HOME/.bashrc >/dev/null
+if [ $? -eq 0 ]; then	
+	echo "found env!"
+else
+	echo "not fdound env!"
+	echo "source $HOME/.oh-my-emacs/bin/env" >> $HOME/.bashrc
 fi
 
-source ~/.bashrc
+source $HOME/.bashrc
