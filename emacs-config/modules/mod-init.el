@@ -66,7 +66,7 @@
 ;; (module-require 'mod-ocaml)
 
 (if (executable-find "lein")
-    (module-require 'mod-clojure))
+   (module-require 'mod-clojure))
 
 (if (executable-find "mix")
     (module-require 'mod-elixir))
