@@ -59,17 +59,11 @@ export CQUERY_BIN=$HOME/.cquery
 export PATH=$CQUERY_BIN:$PATH
 
 # Nodejs
-<<<<<<< HEAD
 # if ! command -v nvm >/dev/null 2>&1; then
 	# export NVM_DIR="$HOME/.nvm"
 	# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 	# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # fi
-=======
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
->>>>>>> b1c1e9b422f22c1782c9c2025c0ffc5e40b2ad19
 
 # Golang
 export GOROOT=/usr/lib/go

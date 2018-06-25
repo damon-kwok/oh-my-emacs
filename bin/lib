@@ -419,23 +419,11 @@ function install-toolchain {
 	
 	tip "install nvm + nodejs"	
 	# curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-<<<<<<< HEAD
 	local NVM_DIR="$HOME/.nvm"
 	if command -v nvm >/dev/null 2>&1; then
 		git clone https://github.com/creationix/nvm.git "$NVM_DIR"
 		cd "$NVM_DIR"
 		git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
-=======
-	github-init creationix/nvm $HOME/.nvm
-	export NVM_DIR="$HOME/.nvm"
-	if command -v nvm >/dev/null 2>&1; then
-		(
-			# (
-			git clone https://github.com/creationix/nvm.git "$NVM_DIR"
-			cd "$NVM_DIR"
-			git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
-		) && \. "$NVM_DIR/nvm.sh"
->>>>>>> b1c1e9b422f22c1782c9c2025c0ffc5e40b2ad19
 	else		
 		cd "$NVM_DIR"
 		git fetch --tags origin
