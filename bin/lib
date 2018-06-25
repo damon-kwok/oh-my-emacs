@@ -315,16 +315,16 @@ function install-toolchain {
 				# && sudo dpkg -i erlang-solutions_1.0_all.deb
 
 			# Golang
-			# sudo add-apt-repository ppa:longsleep/golang-backports
+			sudo add-apt-repository ppa:longsleep/golang-backports
 			
-			# sudo apt update
-			# sudo apt dist-upgrade
+			sudo apt update
+			sudo apt dist-upgrade
 			
-			# sudo apt install -y build-essential autoscan aclocal autoconf autoheader automake \
-				 # coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
-			# sudo apt install -y python-pip perl ruby ocaml haskell-stack elixir cargo rebar openjdk-8-jdk
-			# sudo apt install -y ttf-bitstream-vera #zmq ghostscript
-			# sudo apt install -y i3 #i3-wm i3status i3lock dmenu feh xcompmgr roxterm
+			sudo apt install -y build-essential autoscan aclocal autoconf autoheader automake \
+				 coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
+			sudo apt install -y python-pip perl ruby ocaml haskell-stack openjdk-8-jdk
+			sudo apt install -y ttf-bitstream-vera #zmq ghostscript
+			sudo apt install -y i3 #i3-wm i3status i3lock dmenu feh xcompmgr roxterm
 
 			# - Erlang 			
 			# sudo apt install libssl-dev libwxbase3.0-dev libwxgtk3.0-dev esl-erlang
@@ -344,10 +344,9 @@ function install-toolchain {
 		
 		2)  # ArchLinux / Manjaro
 			yaourt -Syyu
-			yaourt -S base-devel autoscan aclocal autoconf autoheader automake \
-				   coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
-			yaourt -S python2-pip perl rubygems ocaml haskell-stack-git elixir cargo rebar3 openjdk-8-jdk golang
-			yaourt -S ttf-bitstream-vera-dummy
+			yaourt -S base-devel coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+			yaourt -S python2-pip rubygems ocaml haskell-stack-git jdk go-bin
+			yaourt -S nerd-fonts-bitstream-vera-mono
 			yaourt -S i3-wm i3lock i3status dmenu
 			;;
 		
@@ -358,7 +357,7 @@ function install-toolchain {
 			sudo dnf groupinstall "Development Tools and Libraries"
 			sudo dnf install autoscan aclocal autoconf autoheader automake \
 				 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
-			sudo dnf install python2-pip perl rubygems ocaml haskell-stack elixir cargo rebar3  openjdk-8-jdk golang
+			sudo dnf install python2-pip perl rubygems ocaml haskell-stack openjdk-8-jdk golang
 			sudo dnf install ttf-bitstream-vera
 			;;
 		
@@ -368,7 +367,7 @@ function install-toolchain {
 			
 			brew install autoscan aclocal autoconf autoheader automake \
 				 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
-			brew install python2-pip perl rubygems ocaml haskell-stack elixir cargo rebar3 openjdk-8-jdk golang
+			brew install python2-pip perl rubygems ocaml haskell-stack openjdk-8-jdk golang
 			brew install ttf-bitstream-vera
 			;;
 		
@@ -410,20 +409,33 @@ function install-toolchain {
 	cmake .. \
 		  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
 		  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-		  -DCMAKE_BUILD_TYPE=Release
+		  -DCMAKE_BUILD_TYPE=Release \
+		  -DSYSTEM_CLANG=1
 	make install
+	cd $OME_ROOT
 	
 	tip "install golang"
 	go get -u github.com/sourcegraph/go-langserver
 	
-	tip "install nvm + nodejs"
-	# github-init creationix/nvm $HOME/.nvm
+	tip "install nvm + nodejs"	
 	# curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+<<<<<<< HEAD
 	local NVM_DIR="$HOME/.nvm"
 	if command -v nvm >/dev/null 2>&1; then
 		git clone https://github.com/creationix/nvm.git "$NVM_DIR"
 		cd "$NVM_DIR"
 		git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+=======
+	github-init creationix/nvm $HOME/.nvm
+	export NVM_DIR="$HOME/.nvm"
+	if command -v nvm >/dev/null 2>&1; then
+		(
+			# (
+			git clone https://github.com/creationix/nvm.git "$NVM_DIR"
+			cd "$NVM_DIR"
+			git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+		) && \. "$NVM_DIR/nvm.sh"
+>>>>>>> b1c1e9b422f22c1782c9c2025c0ffc5e40b2ad19
 	else		
 		cd "$NVM_DIR"
 		git fetch --tags origin
@@ -511,15 +523,13 @@ function install-toolchain {
 		echo "no"
 		cd $HOME/.emacs.d/libs/
 		
-		cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/ 
+		cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/
+		mkdir -p mu
 		tar xpvf mu.tar.xz -C .
-		cd $HOME/.emacs.d/libs/mu/
-		./configure --prefix=$HOME/.mu
-		make install
-	else
-		echo "yes"
 	fi
-
+	cd $HOME/.emacs.d/libs/mu/
+	./configure --prefix=$HOME/.mu
+	make install
 
 	tip "install offlineiamp"
 	pip install --user -U offlineimap	

@@ -29,11 +29,6 @@
 (require 'clojure-mode)
 
 
-;;; `clj-refactor'
-(package-require 'clj-refactor)
-(require 'clj-refactor)
-
-
 (defun my-clojure-mode-hook () 
   (clj-refactor-mode 1) 
   (yas-minor-mode 1)	    ; for adding require/use/import statements
@@ -80,6 +75,10 @@
 (package-require 'helm-cider)
 (require 'helm-cider)
 (helm-cider-mode 1)
+
+;;; `clj-refactor'
+(package-require 'clj-refactor)
+(require 'clj-refactor)
 
 (package-require 'helm-cider-history)
 (require 'helm-cider-history)

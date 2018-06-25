@@ -59,11 +59,17 @@ export CQUERY_BIN=$HOME/.cquery
 export PATH=$CQUERY_BIN:$PATH
 
 # Nodejs
+<<<<<<< HEAD
 # if ! command -v nvm >/dev/null 2>&1; then
 	# export NVM_DIR="$HOME/.nvm"
 	# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 	# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # fi
+=======
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+>>>>>>> b1c1e9b422f22c1782c9c2025c0ffc5e40b2ad19
 
 # Golang
 export GOROOT=/usr/lib/go
@@ -72,10 +78,15 @@ export PATH=$PATH:$GOPATH/bin
 
 # Rust
 # [ -s "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
+<<<<<<< HEAD
 if [ -e $HOME/.cargo/env ]; then
 	source $HOME/.cargo/env
 	export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 fi
+=======
+export PATH=$HOME/.cargo/bin:$PATH
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+>>>>>>> b1c1e9b422f22c1782c9c2025c0ffc5e40b2ad19
 
 # Nim-lang
 export PATH=$HOME/.nimble/bin:$PATH
