@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+echo "aaa:$@"
 function hello() {
     echo "hello,shaman!"
 }

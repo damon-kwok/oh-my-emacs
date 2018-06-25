@@ -80,9 +80,9 @@
   ;; ......
 )
 
-(add-hook 'c-mode-hook 'cquery-setup)
-(add-hook 'c++-mode-hook 'cquery-setup)
-(add-hook 'objc-mode-hook 'cquery-setup)
+;; (add-hook 'c-mode-hook 'cquery-setup)
+;; (add-hook 'c++-mode-hook 'cquery-setup)
+;; (add-hook 'objc-mode-hook 'cquery-setup)
 
 (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)
 (setq cquery-sem-highlight-method 'font-lock)

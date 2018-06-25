@@ -47,15 +47,15 @@
 
 
 (setq package-archives '(;;
-			 ;;("gnu" . "https://elpa.gnu.org/packages/")
-			 ;;("org" . "http://orgmode.org/elpa/")
-			 ;;("melpa" . "https://melpa.org/packages/")
-			 ;;
-			 ("gnu-china" . "http://elpa.emacs-china.org/gnu/") 
-			 ("melpa-china" . "http://elpa.emacs-china.org/melpa/") 
-			 ("org-china" . "http://elpa.emacs-china.org/org/")
-			 ;;
-			 ))
+						 ;;("gnu" . "https://elpa.gnu.org/packages/")
+						 ;;("org" . "http://orgmode.org/elpa/")
+						 ;;("melpa" . "https://melpa.org/packages/")
+						 ;;
+						 ("gnu-china" . "http://elpa.emacs-china.org/gnu/") 
+						 ("melpa-china" . "http://elpa.emacs-china.org/melpa/") 
+						 ("org-china" . "http://elpa.emacs-china.org/org/")
+						 ;;
+						 ))
 ;; (add-to-list 'package-archives '("popkit" . "http://elpa.popkit.org/packages/"))
 ;;(add-to-list 'load-path "~/emacs-config/elpa-mirror")
 ;;(require 'elpa-mirror)
@@ -64,9 +64,9 @@
 ;; To get the package manager going, we invoke its initialise function.
 (defun package-require(pkg) 
   (when (not package-archive-contents) 
-    (package-refresh-contents)) 
+	(package-refresh-contents)) 
   (when (not (package-installed-p pkg)) 
-    (package-install pkg)))
+	(package-install pkg)))
 
 (defun package-require-git(lib-name path)
   ;; (setq dir-lib-name (expand-file-name libs-user-dir ))
@@ -78,12 +78,12 @@
   (make-directory libs-user-dir t) 
   (message dir-name) 
   (if (file-exists-p dir-name) 
-      (progn 
-	(setq default-directory dir-name) 
-	(call-process-shell-command cmd-update nil t)) 
-    (progn 
-      (setq default-directory libs-user-dir) 
-      (call-process-shell-command cmd-clone nil nil t))))
+	  (progn 
+		(setq default-directory dir-name) 
+		(call-process-shell-command cmd-update nil t)) 
+	(progn 
+	  (setq default-directory libs-user-dir) 
+	  (call-process-shell-command cmd-clone nil nil t))))
 
 (defun package-require-svn(lib-name path)
   ;;(setq dir-lib-name (expand-file-name libs-user-dir ))
@@ -95,12 +95,12 @@
   (make-directory libs-user-dir t) 
   (message dir-name) 
   (if (file-exists-p dir-name) 
-      (progn 
-	(setq default-directory dir-name) 
-	(call-process-shell-command cmd-update nil t)) 
-    (progn 
-      (setq default-directory libs-user-dir) 
-      (call-process-shell-command cmd-clone nil nil t))))
+	  (progn 
+		(setq default-directory dir-name) 
+		(call-process-shell-command cmd-update nil t)) 
+	(progn 
+	  (setq default-directory libs-user-dir) 
+	  (call-process-shell-command cmd-clone nil nil t))))
 
 
 (defun package-require-curl(dir-name file-name url)
@@ -113,7 +113,7 @@
   (setq cmd (concat "curl -O " url)) 
   (add-to-list 'load-path dir) 
   (unless (file-exists-p full-name) 
-    (call-process-shell-command cmd nil nil t)))
+	(call-process-shell-command cmd nil nil t)))
 
 ;; (defun package-require-curl(dir-name file-name url)
 ;;   ;; (setq dir-lib-name (expand-file-name libs-user-dir ))
@@ -144,20 +144,20 @@
 (defun package-update() 
   (interactive) 
   (save-window-excursion (package-list-packages t) 
-			 (package-refresh-contents)))
+						 (package-refresh-contents)))
 
 (defun package-upgrade() 
   (interactive)
   ;; upgrade installed
   (save-window-excursion (package-list-packages t) 
-			 (package-menu-mark-upgrades) 
-			 (package-menu-mark-obsolete-for-deletion) 
-			 (package-menu-execute t)))
+						 (package-menu-mark-upgrades) 
+						 (package-menu-mark-obsolete-for-deletion) 
+						 (package-menu-execute t)))
 
 (defun package-dist-upgrade() 
   (interactive) 
   (package-update) 
-  (package-autoremove)
+  (package-autoremove) 
   (package-upgrade))
 
 ;; `use-package'

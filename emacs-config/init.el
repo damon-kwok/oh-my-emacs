@@ -1,5 +1,5 @@
-;; (require 'package)
-;; (package-initialize)
+(require 'package)
+(package-initialize)
 
 (toggle-debug-on-error)
 ;; (toggle-debug-on-quit)
