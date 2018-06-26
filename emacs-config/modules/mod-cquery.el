@@ -204,6 +204,12 @@
 (modern-c++-font-lock-global-mode t)
 
 
+;; Put c++-mode as default for *.h files (improves parsing):
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.hpp\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.hxx\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.cxx\\'" . c++-mode))
+
 ;; `format'
 (package-require 'clang-format)
 (require 'clang-format)
@@ -222,28 +228,6 @@
 
 (setq-default c-basic-offset 4 tab-width 4 indent-tabs-mode t)
 (setq c-default-style "linux")
-;; (package-require 'google-c-style)
-;; (require 'google-c-style)
-;; (setq indent-tabs-mode nil)
-;; (setq default-tab-width 4)
-;; (setq tab-width 4)
-
-;; (add-hook 'c-mode-common-hook 'google-set-c-style)
-
-
-;; (define-key c-mode-base-map (kbd "M-.") 'lsp-ui-peek-find-definitions)
-;; (define-key c-mode-base-map (kbd "M-,") 'lsp-ui-peek-find-references)
-
-;; xref-find-definitions xref-find-references,xref-find-apropos.
-;; (define-key c-mode-base-map (kbd "M-.") 'xref-find-definitions)
-;; (define-key c-mode-base-map (kbd "M-,") 'xref-find-references)
-;; (define-key c-mode-base-map (kbd "M-?") 'xref-find-apropos)
-
-;; (define-key c-mode-base-map (kbd "M-.") 'rtags-find-symbol-at-point)
-;; (define-key c-mode-base-map (kbd "M-,") 'rtags-find-references-at-point)
-;; (define-key c-mode-base-map (kbd "M-?") 'rtags-find-file)
-;; (define-key c-mode-base-map (kbd "M-i") 'rtags-imenu)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-cquery)
