@@ -33,39 +33,33 @@
 (package-require 'company-lsp)
 (require 'company-lsp)
 (push 'company-lsp company-backends)
-
 
-
-;; (add-to-list 'load-path "/home/damon/dev/emacs-cquery")
 (package-require 'cquery)
 (require 'cquery)
 
-;; (setq cquery-executable "~/.local/stow/cquery/bin/cquery")
-;; (setq cquery-resource-dir (expand-file-name
-			   ;; "~/.local/stow/cquery/lib/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-14.04"))
 (setq cquery-executable "/home/damon/.cquery/bin/cquery")
 
-(setq cquery-extra-init-params '(:index (:comments 2) :cacheFormat "msgpack" :completion (:detailedLabel t)))
+(setq cquery-extra-init-params 
+	  '(:index (:comments 2) 
+			   :cacheFormat "msgpack" 
+			   :completion (:detailedLabel t)))
 
-(with-eval-after-load 'projectile
-  (setq projectile-project-root-files-top-down-recurring
-        (append '("compile_commands.json"
-                  ".cquery")
-                projectile-project-root-files-top-down-recurring)))
+(with-eval-after-load 'projectile 
+  (setq projectile-project-root-files-top-down-recurring (append '("compile_commands.json"
+																   ".cquery")
+																 projectile-project-root-files-top-down-recurring)))
 
-(defun cquery//enable ()
-  (condition-case nil
-      (lsp-cquery-enable)
-    (user-error nil)))
+(defun cquery//enable () 
+  (condition-case nil (lsp-cquery-enable) 
+	(user-error 
+	 nil)))
 
 ;; Also see lsp-project-whitelist lsp-project-blacklist cquery-root-matchers
 
 (defun cquery-setup () 
   (interactive) 
-  ;; (lsp-cquery-enable)
-  (cquery//enable)
-  (push 'company-lsp company-backends)
-  ;;
+  (cquery//enable) 
+  (push 'company-lsp company-backends) 
   (cquery-xref-find-custom "$cquery/base") 
   (cquery-xref-find-custom "$cquery/callers") 
   (cquery-xref-find-custom "$cquery/derived") 
@@ -73,18 +67,17 @@
 
   ;; Alternatively, use lsp-ui-peek interface
   (lsp-ui-peek-find-custom 'base "$cquery/base") 
-  (lsp-ui-peek-find-custom 'callers "$cquery/callers")
+  (lsp-ui-peek-find-custom 'callers "$cquery/callers") 
   (lsp-ui-peek-find-custom 'random "$cquery/random") ;; jump to a random declaration
-  (lsp-ui-peek-find-custom "$cquery/derived") 
-  (lsp-ui-peek-find-custom "$cquery/vars")
-  ;; ......
-)
+  )
 
 ;; (add-hook 'c-mode-hook 'cquery-setup)
 ;; (add-hook 'c++-mode-hook 'cquery-setup)
 ;; (add-hook 'objc-mode-hook 'cquery-setup)
 
 (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)
+(setq cquery-extra-init-params 
+	  '(:completion (:detailedLabel t)))
 (setq cquery-sem-highlight-method 'font-lock)
 ;; alternatively, (setq cquery-sem-highlight-method 'overlay)
 
@@ -100,13 +93,13 @@
 ;; `create-or-open-cmake-file'
 (defun m-search-file (filename &optional path) 
   (let ((from (if path path (m-buf-dirpath)))) 
-    (message (concat "check:" from)) 
-    (if (file-exists-p (concat from filename)) 
-	(progn (message from) from) 
-      (progn 
-	(setq parent (m-parent-dirpath from)) 
-	(if (or (eq parent nil) 
-		(string= parent "/")) nil (m-search-file filename parent))))))
+	(message (concat "check:" from)) 
+	(if (file-exists-p (concat from filename)) 
+		(progn (message from) from) 
+	  (progn 
+		(setq parent (m-parent-dirpath from)) 
+		(if (or (eq parent nil) 
+				(string= parent "/")) nil (m-search-file filename parent))))))
 
 (defun m-smart-find-file (filename &optional create) 
   " create cmake file with current directory!" 
@@ -114,50 +107,50 @@
   (setq dir (m-buf-dirpath)) 
   (setq cmake-dir (m-search-file filename dir)) 
   (if (eq cmake-dir nil) 
-      (if create (find-file filename)) 
-    (find-file (concat cmake-dir filename))))
+	  (if create (find-file filename)) 
+	(find-file (concat cmake-dir filename))))
 
 ;; switch 'cmake buffer' and 'code buffer'
 (defun m-open-or-close-cmakefile () 
   (interactive) 
   (if (or (eq major-mode 'c-mode) 
-	  (eq major-mode 'c++-mode)) 
-      (m-smart-find-file "CMakeLists.txt" t) 
-    (if (eq major-mode 'cmake-mode) ;;(if (equal buffer-name "CMakeLists.txt")
-	(kill-this-buffer))))
+		  (eq major-mode 'c++-mode)) 
+	  (m-smart-find-file "CMakeLists.txt" t) 
+	(if (eq major-mode 'cmake-mode) ;;(if (equal buffer-name "CMakeLists.txt")
+		(kill-this-buffer))))
 
 ;; switch 'package-xml buffer' and 'code buffer'
 (defun m-open-or-close-packagexml () 
   (interactive) 
   (if (or (eq major-mode 'c-mode) 
-	  (eq major-mode 'c++-mode)) 
-      (m-smart-find-file "package.xml") 
-    (if (eq major-mode 'nxml-mode) 
-	(kill-this-buffer))))
+		  (eq major-mode 'c++-mode)) 
+	  (m-smart-find-file "package.xml") 
+	(if (eq major-mode 'nxml-mode) 
+		(kill-this-buffer))))
 
 (defun find-cc-file (dir basename ext) 
   (let ((filename (concat dir "/" basename "." ext))) 
-    (if (file-exists-p filename) 
-	(find-file filename)
+	(if (file-exists-p filename) 
+		(find-file filename)
       ;; (progn (message "not found:%s" filename) nil)
-      nil				;
+      nil								;
       )))
 
 (defun check-header (dir basename) 
   (cond ((find-cc-file dir basename "h") t) 
-	((find-cc-file dir basename "H") t) 
-	((find-cc-file dir basename "hh") t) 
-	((find-cc-file dir basename "hpp") t) 
-	((find-cc-file dir basename "h++") t) 
-	((find-cc-file dir basename "hxx") t)))
+		((find-cc-file dir basename "H") t) 
+		((find-cc-file dir basename "hh") t) 
+		((find-cc-file dir basename "hpp") t) 
+		((find-cc-file dir basename "h++") t) 
+		((find-cc-file dir basename "hxx") t)))
 
 (defun check-source (dir basename) 
   (cond ((find-cc-file dir basename "c") t) 
-	((find-cc-file dir basename "C") t) 
-	((find-cc-file dir basename "cc") t) 
-	((find-cc-file dir basename "cpp") t) 
-	((find-cc-file dir basename "c++") t) 
-	((find-cc-file dir basename "cxx") t)))
+		((find-cc-file dir basename "C") t) 
+		((find-cc-file dir basename "cc") t) 
+		((find-cc-file dir basename "cpp") t) 
+		((find-cc-file dir basename "c++") t) 
+		((find-cc-file dir basename "cxx") t)))
 
 (defun m-switch-cc-source-and-header () 
   (interactive) 
@@ -171,19 +164,19 @@
   (setq dirs ()) 
   (add-to-list 'dirs dir0) 
   (dolist (postfix postfixes) 
-    (add-to-list 'dirs (concat (m-parent-dirpath dir0) postfix)) 
-    (add-to-list 'dirs (concat (m-parent-dirpath dir0) dir0-name)) 
-    (add-to-list 'dirs (concat (m-parent-dirpath dir0) postfix "/" dir0-name)) 
-    (add-to-list 'dirs (concat (m-parent-dirpath dir0) "../" postfix)) 
-    (add-to-list 'dirs (concat (m-parent-dirpath dir0) "../" dir0-name)) 
-    (add-to-list 'dirs (concat (m-parent-dirpath dir0) "../" postfix "/" dir0-name))
+	(add-to-list 'dirs (concat (m-parent-dirpath dir0) postfix)) 
+	(add-to-list 'dirs (concat (m-parent-dirpath dir0) dir0-name)) 
+	(add-to-list 'dirs (concat (m-parent-dirpath dir0) postfix "/" dir0-name)) 
+	(add-to-list 'dirs (concat (m-parent-dirpath dir0) "../" postfix)) 
+	(add-to-list 'dirs (concat (m-parent-dirpath dir0) "../" dir0-name)) 
+	(add-to-list 'dirs (concat (m-parent-dirpath dir0) "../" postfix "/" dir0-name))
     ;;
     ) 
   (if (s-contains? "h" extname) 
-      (dolist (dir dirs) 
-	(check-source dir basename)) 
-    (dolist (dir dirs) 
-      (check-header dir basename))))
+	  (dolist (dir dirs) 
+		(check-source dir basename)) 
+	(dolist (dir dirs) 
+	  (check-header dir basename))))
 
 (require 'cmake-mode)
 (define-key c-mode-map [f6] 'm-open-or-close-cmakefile)
@@ -198,8 +191,8 @@
 
 (define-key c++-mode-map [f5] 
   '(lambda () 
-     (interactive) 
-     (m-run-command "/home/damon/catkin_ws/bin/build_adsim")))
+	 (interactive) 
+	 (m-run-command "/home/damon/catkin_ws/bin/build_adsim")))
 
 (require 'nxml-mode)
 (define-key nxml-mode-map [f7] 'm-open-or-close-packagexml)
@@ -222,6 +215,10 @@
 (define-key c-mode-map (kbd "C-M-\\")  'clang-format-region)
 (define-key c++-mode-map (kbd "C-M-\\")  'clang-format-region)
 (define-key objc-mode-map (kbd "C-M-\\")  'clang-format-region)
+
+(define-key c-mode-map (kbd "C-c C-z")  'cquery-setup)
+(define-key c++-mode-map (kbd "C-c C-z")  'cquery-setup)
+(define-key objc-mode-map (kbd "C-c C-z")  'cquery-setup)
 
 (setq-default c-basic-offset 4 tab-width 4 indent-tabs-mode t)
 (setq c-default-style "linux")

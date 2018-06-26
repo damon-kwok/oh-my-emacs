@@ -31,7 +31,42 @@
 (package-require 'lsp-ui)
 (require 'lsp-ui)
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-(add-hook 'lsp-mode-hook 'flycheck-mode)
+
+;; don't include type signature in the child frame
+(setq lsp-ui-doc-include-signature nil)
+
+;; don't show symbol on the right of info
+(setq lsp-ui-sideline-show-symbol nil)
+
+
+;; "Whether or not to enable ‘lsp-ui-sideline’."
+(setq lsp-ui-sideline-enable nil)
+
+;; "Control to ignore duplicates when there is a same symbol with the same contents."
+(setq lsp-ui-sideline-ignore-duplicate nil)
+
+;;"When t, show the symbol name on the right of the information."
+(setq lsp-ui-sideline-show-symbol t)
+
+;; "Whether to show hover messages in sideline."
+(setq lsp-ui-sideline-show-hover t)
+
+;; "Whether to show flycheck messages in sideline."
+(setq lsp-ui-sideline-show-flycheck t)
+
+;; "Whether to show code actions in sideline."
+(setq lsp-ui-sideline-show-code-actions t)
+
+;; Define the mode for updating sideline information. choice: line point
+(setq lsp-ui-sideline-update-mode 'line)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `flycheck'
+(package-require 'flycheck)
+;; (add-hook 'after-init-hook #'global-flycheck-mode)
+(setq flycheck-idle-change-delay 2)		; in seconds
+
+;; (add-hook 'lsp-mode-hook 'flycheck-mode)
 (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
 (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
 

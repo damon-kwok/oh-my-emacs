@@ -33,12 +33,6 @@
 ;; (ido-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `flycheck'
-(package-require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(setq flycheck-idle-change-delay 2)		; in seconds
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `auto-complete'
 ;;-(package-require 'auto-complete)
 ;;-(require 'auto-complete)
