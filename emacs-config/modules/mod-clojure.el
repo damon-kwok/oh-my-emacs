@@ -69,9 +69,6 @@
 (package-require 'cider)
 (require 'cider)
 
-(package-require 'cider-hydra)
-(require 'cider-hydra)
-
 (package-require 'helm-cider)
 (require 'helm-cider)
 (helm-cider-mode 1)
@@ -80,8 +77,12 @@
 (package-require 'clj-refactor)
 (require 'clj-refactor)
 
-(package-require 'helm-cider-history)
-(require 'helm-cider-history)
+;;(package-require 'cider-hydra)
+;;(require 'cider-hydra)
+;;(cider-hydra-on)
+
+;;(package-require 'helm-cider-history)
+;;(require 'helm-cider-history)
 
 ;; provides minibuffer documentation for the code you're typing into the repl
 (add-hook 'cider-mode-hook 'eldoc-mode)

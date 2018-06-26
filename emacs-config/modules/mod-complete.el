@@ -36,7 +36,7 @@
 ;;; `flycheck'
 (package-require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
-(setq flycheck-idle-change-delay 2) ; in seconds
+(setq flycheck-idle-change-delay 2)		; in seconds
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `auto-complete'
@@ -99,19 +99,21 @@
 ;;; `yasnippet'
 (package-require 'yasnippet)
 (require 'yasnippet)
+(yas-global-mode 1)
 
-;; (setq yas-snippet-dirs '(yas-installed-snippets-dir (expand-file-name "~/config/snippets/")))
-;; (setq yas-snippet-dirs (expand-file-name "~/emacs-config/snippets/"))
+(package-require 'yasnippet-snippets)
+(require 'yasnippet-snippets)
 
 (setq dir-medusa-snippets "~/emacs-config/snippets/")
-;; (setq dir-medusa-snippets2 "~/my-emacs-config/emacs-config/snippets/")
 
-(if (file-exists-p dir-medusa-snippets)
-    (add-to-list 'yas-snippet-dirs (expand-file-name dir-medusa-snippets)))
-;; (if (file-exists-p dir-medusa-snippets2) 
-    ;; (add-to-list 'yas-snippet-dirs (expand-file-name dir-medusa-snippets2)))
+;; yas-snippet-dirs
+;; yasnippet-snippets-dir
+;; (yas-load-directory yasnippet-snippets-dir t)
 
-(yas-global-mode 1)
+(if (file-exists-p dir-medusa-snippets) 
+	(add-to-list 'yas-snippet-dirs (expand-file-name dir-medusa-snippets)))
+
+
 
 (defun yas-open-snippet-file(file-name) 
   (interactive "sEnter snippet file name:") 
@@ -129,18 +131,19 @@
 (defun yasnippet-current-line () ;; C-c TAB
   (interactive) 
   (let ((current-line (string-trim-right (thing-at-point 'line t)))) 
-    (end-of-line) 
-    (newline-and-indent) 
-    (yas-expand-snippet (yasnippet-string-to-template (string-trim current-line)))))
+	(end-of-line) 
+	(newline-and-indent) 
+	(yas-expand-snippet (yasnippet-string-to-template (string-trim current-line)))))
 
 (defun yasnippet-string-to-template (string) 
   (let ((count 1)) 
-    (cl-labels ((rep (text) 
-		     (let ((replace (format "${%d:%s}" count text))) 
-		       (incf count) replace))) 
-      (replace-regexp-in-string "[a-zA-Z0-9]+" #'rep string))))
+	(cl-labels ((rep (text) 
+					 (let ((replace (format "${%d:%s}" count text))) 
+					   (incf count) replace))) 
+	  (replace-regexp-in-string "[a-zA-Z0-9]+" #'rep string))))
 
 (global-set-key (kbd "C-c TAB") 'yasnippet-current-line)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `auto-insert-mode'
 (setq-default auto-insert-directory dir-medusa-snippets)
@@ -177,17 +180,18 @@
   "expand auto-inserted content as yasnippet templete,
   so that we could use yasnippet in autoinsert mode"
   (let ((is-new-file (and (not buffer-read-only) 
-			  (or (eq this-command 'auto-insert) 
-			      (and auto-insert 
-				   (bobp) 
-				   (eobp)))))) ad-do-it (let ((old-point-max (point-max))) 
-					 (when is-new-file (goto-char old-point-max) 
-					       (yas-expand-snippet 
-						(buffer-substring-no-properties 
-						 (point-min) 
-						 (point-max))) 
-					       (delete-region (point-min) old-point-max) 
-					       (elisp-code-format)))))
+						  (or (eq this-command 'auto-insert) 
+							  (and auto-insert 
+								   (bobp) 
+								   (eobp)))))) ad-do-it (let ((old-point-max (point-max))) 
+										 (when is-new-file (goto-char old-point-max) 
+											   (yas-expand-snippet 
+												(buffer-substring-no-properties 
+												 (point-min) 
+												 (point-max))) 
+											   (delete-region (point-min) old-point-max) 
+											   (elisp-code-format)))))
+
 ;;
 (provide 'mod-complete)
 ;; mod-complete.el ends here

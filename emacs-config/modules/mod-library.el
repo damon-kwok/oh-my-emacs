@@ -156,7 +156,7 @@
 ;; (file-name-base "222/111.el") ;;==> 111
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (browse-url
-;;  (concat "http://www.bing.com/dict/search?q="
+;;  (concat "https://www.bing.com/dict/search?q="
 ;; 	 (url-hexify-string
 ;; 	  (read-string "Query: "))))
 
@@ -165,7 +165,7 @@
   ;;(interactive)
   (m-show-compilation "*Messages*") 
   (other-window 1) 
-  (eww (concat "http://www.bing.com/dict/search?q=" arg)))
+  (eww (concat "https://www.bing.com/dict/search??mkt=zh-cn&q=" arg)))
 
 (defun m-bing-dict-brief-web (word) 
   "Show the explanation of WORD from Bing in the echo area." 
