@@ -98,11 +98,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `yasnippet'
 (package-require 'yasnippet)
-(require 'yasnippet)
-(yas-global-mode 1)
-
 (package-require 'yasnippet-snippets)
+(require 'yasnippet)
 (require 'yasnippet-snippets)
+;; (yas-global-mode 1)
 
 (setq dir-medusa-snippets "~/emacs-config/snippets/")
 
@@ -112,6 +111,11 @@
 
 (if (file-exists-p dir-medusa-snippets) 
 	(add-to-list 'yas-snippet-dirs (expand-file-name dir-medusa-snippets)))
+
+(yas-reload-all)
+(add-hook 'c-mode-hook #'yas-minor-mode)
+(add-hook 'c++-mode-hook #'yas-minor-mode)
+(add-hook 'objc-mode-hook #'yas-minor-mode)
 
 
 

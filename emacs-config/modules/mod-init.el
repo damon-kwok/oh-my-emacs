@@ -30,8 +30,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `base'
-(module-require 'mod-basic)
 (module-require 'mod-library)
+(module-require 'mod-email)
+(module-require 'mod-basic)
 (module-require 'mod-mouse)
 (module-require 'mod-tabbar)
 (module-require 'mod-complete)
@@ -80,7 +81,6 @@
 (if (executable-find "git")
     (module-require 'mod-git))
 
-(module-require 'mod-email)
 (module-require 'mod-input)
 (module-require 'mod-calendar)
 

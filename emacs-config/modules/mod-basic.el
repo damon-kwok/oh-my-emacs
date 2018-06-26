@@ -63,10 +63,10 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (setq tool-bar-style 'both) ;;opt:text image both
 
 ;; toolbar (0:disable 1:show) (0:disable 1:show)
-										;(tool-bar-mode 0)
+;; (tool-bar-mode 0)
 
 ;;; menu-bar (0:disable 1:show)
-										;(menu-bar-mode 0)
+;; (menu-bar-mode 1)
 
 ;;; scroll setttings (nil 'left 'right)
 (require 'scroll-bar)
@@ -498,7 +498,9 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;; max delete history (undo)
 (setq kill-ring-max 200)
 
-(package-require 'undo-tree)
+;; (package-require 'undo-tree)
+(package-require-curl "undo-tree-0.6.6" "undo-tree.el"
+					  "https://raw.githubusercontent.com/emacs-lisp/undo-tree/master/undo-tree.el")
 (require 'undo-tree)
 (global-undo-tree-mode)
 
@@ -517,7 +519,6 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 	 (interactive) 
 	 (undo-tree-visualize) 
 	 (undo-tree-visualize-undo)))
-;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;

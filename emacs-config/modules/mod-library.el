@@ -278,12 +278,12 @@ occurence of CHAR."
   (mapcar 'kill-buffer (buffer-list)))
 
 ;; kill buffer by name
-;; (defun m-kill-buffer-by-name (NAME) 
-  ;; (let ((buf (get-buffer NAME))) 
-	;; (if buf (kill-buffer buf t) 
-	  ;; (message "buffer '%s' not exist!" NAME))))
+;; (defun m-kill-buffer-by-name (NAME)
+;; (let ((buf (get-buffer NAME)))
+;; (if buf (kill-buffer buf t)
+;; (message "buffer '%s' not exist!" NAME))))
 (defun m-kill-buffer-by-name (NAME) 
-  (if (get-buffer NAME)
+  (if (get-buffer NAME) 
 	  (kill-buffer NAME) 
 	(message "buffer '%s' not exist!" NAME)))
 
@@ -596,7 +596,8 @@ occurence of CHAR."
 
 (package-require-curl "multi-term" "multi-term.el"
 					  "https://www.emacswiki.org/emacs/download/multi-term.el")
-(setq multi-term-program "/bin/zsh")
+
+(setq multi-term-program "/bin/bash")
 ;; (package-require-git "window-layout" "https://github.com/kiwanami/emacs-window-layout.git")
 ;; (package-require-git "E2WM" "https://github.com/kiwanami/emacs-window-manager.git")
 
