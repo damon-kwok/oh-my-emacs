@@ -496,9 +496,9 @@ function install-toolchain {
 		cargo update
 		rustup toolchain add nightly
 		rustup component add rust-src
-		cargo install racer
 	fi
-	
+	cargo install racer
+
 	tip "install nim"
 	curl https://nim-lang.org/choosenim/init.sh -sSf | sh
 
