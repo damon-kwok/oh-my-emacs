@@ -63,8 +63,8 @@
 
 ;; To get the package manager going, we invoke its initialise function.
 (defun package-require(pkg)
-  (when (not package-archive-contents)
-    (package-refresh-contents))
+  ;; (when (not package-archive-contents)
+    ;; (package-refresh-contents))
   (when (not (package-installed-p pkg)) 
 	(package-install pkg)))
 
