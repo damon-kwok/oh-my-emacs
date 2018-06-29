@@ -315,12 +315,12 @@ function install-toolchain {
 				# && sudo dpkg -i erlang-solutions_1.0_all.deb
 
 			# Golang
-			sudo add-apt-repository ppa:longsleep/golang-backports
+			sudo add-apt-repository -y ppa:longsleep/golang-backports
 			
 			sudo apt update
 			sudo apt dist-upgrade
 			
-			sudo apt install -y build-essential autoscan aclocal autoconf autoheader automake \
+			sudo apt install -y build-essential texinfo libtool autoscan aclocal autoconf autoheader automake \
 				 coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
 			sudo apt install -y python-pip perl ruby ocaml haskell-stack openjdk-8-jdk
 			sudo apt install -y ttf-bitstream-vera #zmq ghostscript
@@ -392,9 +392,8 @@ function install-toolchain {
 	# tip "install oh-my-zsh"
 	# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-	tip "install Bash-it"
-	
-	if command -v bash_it >/dev/null 2>&1; then
+	tip "install Bash-it"	
+	if command -v bash-it >/dev/null 2>&1; then
 		bash-it update
 	else
 		# git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
@@ -409,8 +408,8 @@ function install-toolchain {
 	cmake .. \
 		  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
 		  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-		  -DCMAKE_BUILD_TYPE=Release \
-		  -DSYSTEM_CLANG=1
+		  -DCMAKE_BUILD_TYPE=Release
+		  # -DSYSTEM_CLANG=1
 	make install
 	cd $OME_ROOT
 	
@@ -503,19 +502,22 @@ function install-toolchain {
 	tip "install nim"
 	curl https://nim-lang.org/choosenim/init.sh -sSf | sh
 
-	tip "install mu4e"
-	# https://github.com/djcb/mu.git
-	# curl -O https://github.com/djcb/mu/releases/download/v1.0/mu-1.0.tar.xz
-	# github-init djcb/mu $DEV_ROOT/mu
-	github-init damon-kwok/resources $OME_ROOT/resources
-	if [ ! -d $HOME/.emacs.d/libs/mu ]; then
-		echo "no"
-		cd $HOME/.emacs.d/libs/
+	# tip "install mu4e-release"
+	# github-init damon-kwok/resources $OME_ROOT/resources
+	# if [ ! -d $HOME/.emacs.d/libs/mu ]; then
+		# echo "no"
+		# cd $HOME/.emacs.d/libs/
 		
-		cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/
-		mkdir -p mu
-		tar xpvf mu.tar.xz -C .
-	fi
+		# cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/
+		# mkdir -p mu
+		# tar xpvf mu.tar.xz -C .
+	# fi
+	# cd $HOME/.emacs.d/libs/mu/
+	# ./configure --prefix=$HOME/.mu
+	# make install
+
+	tip "install mu4e-git"
+	github-init djcb/mu $HOME $HOME/.emacs.d/libs/
 	cd $HOME/.emacs.d/libs/mu/
 	./configure --prefix=$HOME/.mu
 	make install

@@ -30,13 +30,6 @@
 ;; (package-require 'suggest)
 ;; (require 'suggest)
 
-(package-require 'paredit)
-(require 'paredit)
-;; enable paredit for elisp
-(add-hook 'emacs-mode-hook 'enable-paredit-mode)
-(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
-(add-hook 'ielm-mode-hook 'paredit-mode)
-
 ;;(package-require 'rainbow-delimiters)
 ;;(global-rainbow-delimiters-mode)
 ;;(require 'rainbow-delimiters)
@@ -69,7 +62,6 @@
 
 (add-hook 'emacs-lisp-mode-hook 'el-spice-mode)
 (add-hook 'lisp-interaction-mode-hook 'el-spice-mode)
-
 
 (defun show-elisp-repl()
   (interactive)
@@ -111,9 +103,6 @@
 (package-require 'macrostep)
 (require 'macrostep)
 (define-key emacs-lisp-mode-map (kbd "C-c e") 'macrostep-expand)
-
-;; `comment-toggle' M-;
-(define-key paredit-mode-map (kbd "M-;") 'm-comment-or-uncomment-region-or-line)
 
 ;;
 (provide 'mod-elisp)

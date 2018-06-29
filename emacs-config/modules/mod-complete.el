@@ -107,9 +107,20 @@
 	(add-to-list 'yas-snippet-dirs (expand-file-name dir-medusa-snippets)))
 
 (yas-reload-all)
-(add-hook 'c-mode-hook #'yas-minor-mode)
-(add-hook 'c++-mode-hook #'yas-minor-mode)
-(add-hook 'objc-mode-hook #'yas-minor-mode)
+
+(define-globalized-minor-mode global-yas-minor-mode fci-mode 
+  (lambda () 
+	(if (and (not (string-match "^\*.*\*$" (buffer-name))) 
+			 (not (eq major-mode 'dired-mode)) 
+			 (not (eq major-mode 'speedbar-mode))) 
+		(yas-minor-mode 1))))
+
+;;; open global-fci-mode
+(global-yas-minor-mode 1)
+
+;; (add-hook 'c-mode-hook #'yas-minor-mode)
+;; (add-hook 'c++-mode-hook #'yas-minor-mode)
+;; (add-hook 'objc-mode-hook #'yas-minor-mode)
 
 
 

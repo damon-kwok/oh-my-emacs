@@ -635,7 +635,27 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 (define-key paredit-mode-map (kbd "C-<left>") 'paredit-backward-slurp-sexp)
 (define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
 (define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
-(define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp) 
+(define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
+
+;; `comment-toggle' M-;
+(define-key paredit-mode-map (kbd "M-;") 'm-comment-or-uncomment-region-or-line)
+
+
+;;; enable paredit for *
+(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+(add-hook 'emacs-mode-hook            #'enable-paredit-mode)
+(add-hook 'inferior-emacs-mode-hook   #'enable-paredit-mode)
+(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+(add-hook 'common-lisp-mode-hook      #'enable-paredit-mode)
+(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+(add-hook 'hy-mode-hook               #'enable-paredit-mode)
+(add-hook 'newlisp-mode-hook          #'enable-paredit-mode)
+(add-hook 'hy-mode-hook               #'enable-paredit-mode)
+
+
 (package-require 'helpful)
 (require 'helpful)
 (global-set-key (kbd "C-h f") #'helpful-callable)

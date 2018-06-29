@@ -39,7 +39,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
   (setq-default gc-cons-threshold (* 1024 1024 NUM) gc-cons-percentage PER))
 
 ;;(message (concat "gc:" gc-cons-threshold " pre:" gc-cons-percentage))
-(my-optimize-gc 512 0.2)
+(my-optimize-gc 256 0.2)
 (add-hook 'after-init-hook (lambda () 
 							 (my-optimize-gc 16 0.2)))
 
@@ -444,7 +444,8 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Kill process buffer without confirmation?
 ;; ref: https://emacs.stackexchange.com/questions/14509/kill-process-buffer-without-confirmation
-(setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
+(setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function
+										kill-buffer-query-functions))
 
 ;; tab
 (setq default-tab-width 4)
@@ -518,8 +519,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
   '(lambda () 
 	 (interactive) 
 	 (undo-tree-visualize) 
-	 (undo-tree-visualize-undo)))
-
+	 (undo-tree-visualize-undo))) 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -528,21 +528,22 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (setq linum-mode t)
 (setq linum-format "%4d")
 (global-linum-mode)
-;
+										;
 
 ;;; `column'
 (setq column-number-mode t)
-;
+										;
 
 ;;; page width
 ;; (setq fill-column 100)
-;
+										;
 
 ;;; fci-mode
 (package-require 'fill-column-indicator)
 (require 'fill-column-indicator)
 (setq whitespace-style '(face trailing))
 (setq fci-rule-column 80)
+(setq fci-handle-truncate-lines nil)
 (setq fci-rule-width 1)
 (setq fci-rule-color "grey30") ;; "white" "grey30"
 
@@ -552,13 +553,28 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;-- (setq fci-rule-cinharacter-color "DarkBlue")
 
 ;;; define `global-fci-mode'
+;; (define-globalized-minor-mode global-fci-mode fci-mode
+;; (lambda ()
+;; (fci-mode 1)))
+
 (define-globalized-minor-mode global-fci-mode fci-mode 
   (lambda () 
-	(fci-mode 1)))
+	(if (and (not (string-match "^\*.*\*$" (buffer-name))) 
+			 (not (eq major-mode 'dired-mode)) 
+			 (not (eq major-mode 'speedbar-mode))) 
+		(fci-mode 1))))
 
 ;;; open global-fci-mode
 (global-fci-mode 1)
-;
+
+;; (defun auto-fci-mode 
+	;; (&optional 
+	 ;; unused) 
+  ;; (if (> (window-width) fci-rule-column) 
+	  ;; (fci-mode 1) 
+	;; (fci-mode 0)))
+;; (add-hook 'after-change-major-mode-hook 'auto-fci-mode)
+;; (add-hook 'window-configuration-change-hook 'auto-fci-mode)
 
 ;;; indent-guide
 (package-require 'indent-guide)
@@ -743,15 +759,15 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;`desktop' && `session' && `recentf';;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (package-require 'dashboard)
-;; (require 'dashboard)
-;; (dashboard-setup-startup-hook)
-;; (setq dashboard-banner-logo-title "DamonKwok's Emacs config")
-;; (setq dashboard-items '((projects . 15)
-;; (recents  . 20)
-;; (bookmarks . 7)
-;; (agenda . 5)
-;; (registers . 5)))
+(package-require 'dashboard)
+(require 'dashboard)
+(dashboard-setup-startup-hook)
+(setq dashboard-banner-logo-title "Oh My Emacs!")
+(setq dashboard-items '((projects . 15)
+(recents  . 20)
+(bookmarks . 7)
+(agenda . 5)
+(registers . 5)))
 
 ;;; session
 ;; (package-require 'session)
@@ -759,8 +775,8 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (add-hook 'after-init-hook 'session-initialize)
 
 ;;; desktop
-(setq desktop-restore-frames nil)
-(desktop-save-mode 1)
+;; (setq desktop-restore-frames nil)
+;; (desktop-save-mode 1)
 
 ;;; recentf file list
 (recentf-mode t)
