@@ -546,3 +546,4 @@ function upgrade() {
 	#&& upgrade_oh_my_zsh
 	install-toolchain
 }
+

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+rm -rf ~/.emacs.d/eclipse.jdt.ls/server/
+mkdir -p ~/.emacs.d/eclipse.jdt.ls/server/
+# wget http://mirror.switch.ch/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz  -O /tmp/jdt-latest.tar
+wget http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz -O /tmp/jdt-latest.tar
+tar xf /tmp/jdt-latest.tar -C ~/.emacs.d/eclipse.jdt.ls/server/

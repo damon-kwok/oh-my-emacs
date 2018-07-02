@@ -39,25 +39,34 @@
 (add-hook 'java-mode-hook #'lsp-java-enable)
 
 ;; set the projects that are going to be imported into the workspace.
-(setq lsp-java--workspace-folders (list (concat (getenv "HOME") "/projects/java")
-                                        (concat (getenv "HOME") "/eclipse-workspace")))
+(setq lsp-java--workspace-folders (list (concat (getenv "HOME") "/projects/java") 
+										(concat (getenv "HOME") "/workspace") 
+										(concat (getenv "HOME") "/eclipse-workspace")))
+;; (unless (executable-find "ipython")
+;; (m-run-command "install-java-lsp-server"))
 
-(setq  lsp-java-server-install-dir "/home/damon/jdt-language-server-latest")
+(setq  lsp-java-server-install-dir "~/.emacs.d/eclipse.jdt.ls/server/")
+
+(defun install-lsp-java-server () 
+  "install java lsp server" 
+  (interactive) 
+  (m-run-command "install-lsp-java-server"))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `lsp-intellij' Exposes IntelliJ IDEA features through the Language Server Protocol.
 ;; (package-require 'lsp-intellij)
 
 ;; (with-eval-after-load 'lsp-mode
-  ;; (require 'lsp-intellij)
-  ;; (add-hook 'java-mode-hook #'lsp-intellij-enable))
+;; (require 'lsp-intellij)
+;; (add-hook 'java-mode-hook #'lsp-intellij-enable))
 
 ;; (require 'lsp-ui)
 ;; (add-hook 'lsp-after-open-hook #'lsp-ui-mode)
 
 ;; (require 'company-lsp)
 ;; (setq company-lsp-enable-snippet t
-      ;; company-lsp-cache-candidates t)
+;; company-lsp-cache-candidates t)
 ;; (push 'company-lsp company-backends)
 ;; (push 'java-mode company-global-modes)
 

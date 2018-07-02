@@ -29,10 +29,6 @@
 ;; https://github.com/cquery-project/cquery/wiki/Emacs
 (require 'mod-lsp)
 
-;; `company'
-(package-require 'company-lsp)
-(require 'company-lsp)
-(push 'company-lsp company-backends)
 
 (package-require 'cquery)
 (require 'cquery)

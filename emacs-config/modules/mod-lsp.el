@@ -63,7 +63,7 @@
 
 
 ;; Whether or not to enable lsp-ui-doc.
-(setq lsp-ui-doc-enable t)
+(setq lsp-ui-doc-enable nil)
 ;;{{{
 ;; Whether or not to enable the header which display the symbol string.
 (setq lsp-ui-doc-header nil)

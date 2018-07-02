@@ -564,7 +564,6 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 			 (not (eq major-mode 'speedbar-mode))) 
 		(fci-mode 1))))
 
-;;; open global-fci-mode
 (global-fci-mode 1)
 
 ;; (defun auto-fci-mode 
