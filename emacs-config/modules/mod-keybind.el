@@ -474,6 +474,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c f") 'hydra-open-file/body)
+;;
 
 (defun major-do ()
   (let ((mod-name (symbol-name major-mode)))
