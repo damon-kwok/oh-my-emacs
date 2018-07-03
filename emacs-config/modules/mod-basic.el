@@ -42,7 +42,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (my-optimize-gc 256 0.2)
 (add-hook 'after-init-hook (lambda () 
 							 (my-optimize-gc 16 0.2)))
-
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`frame';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -375,7 +375,10 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (package-require 'smart-mode-line-powerline-theme)
 ;; (require 'smart-mode-line-powerline-theme)
 ;; (setq sml/theme 'powerline)
-(sml/setup) 
+(sml/setup)
+
+
+
 (package-require 'anzu)
 (require 'anzu)
 (global-anzu-mode +1)
@@ -427,9 +430,18 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (tdd-status-global-mode)
 
 ;;; `mode-icons'
-(package-require 'mode-icons)
-(require 'mode-icons)
-(mode-icons-mode)
+;; (package-require 'mode-icons)
+;; (require 'mode-icons)
+;; (mode-icons-mode)
+
+;; (package-require 'all-the-icons)
+;; (require 'all-the-icons)
+;; (set-frame-font "all-the-icons" t)
+;; (all-the-icons-icon-for-buffer)
+;; (set-frame-font "Source Code Pro" t) ) 
+;; (all-the-icons-icon-for-file)
+;; (all-the-icons-icon-for-mode)
+;; (setq inhibit-compacting-font-caches t)
 
 ;;; `nyan-mode'
 (package-require 'nyan-mode)

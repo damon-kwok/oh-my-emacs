@@ -1,7 +1,7 @@
 (require 'package)
 (package-initialize)
 
-(toggle-debug-on-error)
+;; (toggle-debug-on-error)
 ;; (toggle-debug-on-quit)
 
 (add-to-list 'load-path "~/emacs-config")

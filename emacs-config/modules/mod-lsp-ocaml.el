@@ -24,22 +24,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'lsp-mode)
-(require 'lsp-mode)
-
-;; `company'
-(package-require 'company-lsp)
-(require 'company-lsp)
-(push 'company-lsp company-backends)
-
-;; `lsp-ui'
-(package-require 'lsp-ui)
-(require 'lsp-ui)
-(add-hook 'lsp-mode-hook 'lsp-ui-mode)
-
-(package-require 'helm-xref)
-(require 'helm-xref)
-(setq xref-show-xrefs-function 'helm-xref-show-xrefs)
+(require 'mod-lsp)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require 'lsp-ocaml)
 (require 'lsp-ocaml)

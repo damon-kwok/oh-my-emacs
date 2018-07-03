@@ -27,6 +27,22 @@
 ;;
 (require 'ielm)
 ;;
+
+;; scratch settings
+(package-require 'persistent-scratch)
+(require 'persistent-scratch)
+;;
+(add-to-list 'auto-mode-alist '("*scratch*" . emacs-lisp-mode))
+(setq initial-major-mode 'emacs-lisp-mode)
+(setq initial-scratch-message "\
+;;                          !!!Oh My Emacs!!!
+;; This buffer is for notes you don't want to save, and for Elisp code.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+
+")
+;;
+
 ;; (package-require 'suggest)
 ;; (require 'suggest)
 
@@ -38,7 +54,7 @@
 ;;(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
 ;;(add-hook 'emacs-lisp-mode-hook 'highlight-parentheses-mode)
 
-;;(add-to-list 'auto-mode-alist '("*scratch*" . emacs-lisp-mode))
+;;
 
 ;; (package-require 'lispy)
 ;; (require 'lispy)
@@ -104,7 +120,8 @@
 (package-require 'macrostep)
 (require 'macrostep)
 (define-key emacs-lisp-mode-map (kbd "C-c e") 'macrostep-expand)
-
+;;
+
 ;;
 (provide 'mod-elisp)
 ;; emacs-settings.el ends here
