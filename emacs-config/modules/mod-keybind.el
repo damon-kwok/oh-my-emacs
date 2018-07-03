@@ -437,15 +437,15 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 (defhydra hydra-open-file
 (:color blue)
  "
-^Editor^        ^Export^                ^Docs^              ^Docs^
-^^^^^^^^-----------------------------------------------------------------
-_r_:rename      _p_: htmlize-buffer     _h_: README.org      _n_: note.org
-_d_:delete      _P_: htmlize-file       _d_: diary.org       _p_: problem.org
-_k_:close-all   _C_: complie-modules    _t_: todo.org        _s_: passwd.org
-_o_:kill-other  ^^                      _b_: book.org        _G_: game.org
-^^              ^^                      _N_: NEWS.org        ^^
-^^^^^^^^-----------------------------------------------------------------
-_0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
+^Editor^        ^Export^                ^Docs^              ^Docs^             ^Config^
+^^^^^^^^^^--------------------------------------------------------------------------------
+_r_:rename      _p_: htmlize-buffer     _h_: README.org      _n_: note.org      _1_:env
+_d_:delete      _P_: htmlize-file       _d_: diary.org       _p_: problem.org   _2_:lib
+_k_:close-all   _C_: complie-modules    _t_: todo.org        _s_: passwd.org    _3_:.bashrc
+_o_:kill-other  ^^                      _b_: book.org        _G_: game.org      _4_:.xbindkeysrc.scm
+^^              ^^                      _N_: NEWS.org        ^^                 _._:.emacs
+^^^^^^^^^^--------------------------------------------------------------------------------
+_0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 " ("r" m-rename-file-and-buffer "rename-file-and-buffer")
 ("d" m-delete-file-and-buffer "delete-file-and-buffer")
 ("k" m-kill-all-buffers "kill-all-buffers")
@@ -453,7 +453,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("p" htmlize-buffer "htmlize-buffer")
 ("P" htmlize-file "htmlize-file")
 ("C" (byte-recompile-directory "~/emacs-config") "byte-recomplie-directory")
-("h" (m-open-file "~/my-emacs-config/README.org") "README.org")
+("h" (m-open-file "~/.oh-my-emacs/README.org") "README.org")
 ("g" (m-open-doc "gtd.org") "GTD.org")
 ("t" (m-open-doc "todo.org") "todo.org")
 ("b" (m-open-doc "book.org") "book.org")
@@ -462,6 +462,11 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 ("s" (m-open-doc "passwd.org") "passwd.org")
 ("G" (m-open-doc "game.org") "game.org")
 ("N" (m-open-doc "news.org") "news.org")
+("1" (m-open-file "~/.oh-my-emacs/bin/env") "env")
+("2" (m-open-file "~/.oh-my-emacs/bin/lib") "lib")
+("3" (m-open-file "~/.bashrc") ".bashrc")
+("4" (m-open-file "~/.xbindkeysrc.scm") ".xbindkeysrc.scm")
+("." (m-open-file "~/.emacs") ".emacs")
 ("<tab>" helm-keyboard-quit "back"
 :exit t)
 ("0" (calendar) "calendar")
