@@ -108,14 +108,13 @@
 
 (yas-reload-all)
 
-(define-globalized-minor-mode global-yas-minor-mode fci-mode 
+(define-globalized-minor-mode global-yas-minor-mode yas-minor-mode 
   (lambda () 
 	(if (and (not (string-match "^\*.*\*$" (buffer-name))) 
 			 (not (eq major-mode 'dired-mode)) 
 			 (not (eq major-mode 'speedbar-mode))) 
 		(yas-minor-mode 1))))
 
-;;; open global-fci-mode
 (global-yas-minor-mode 1)
 
 ;; (add-hook 'c-mode-hook #'yas-minor-mode)

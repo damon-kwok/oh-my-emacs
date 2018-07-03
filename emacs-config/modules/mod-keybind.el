@@ -537,8 +537,6 @@ _<tab>_: recent  _o_: kill-other-buffer _s_: replace-string   _z_: smart-do    ^
 ^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
 _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^^             ^^        ^^"))
 
-(defun def-super-menu ()
-"define super menu"
 (defhydra hydra-do-super
 (:color blue)
 (concat "" (get-super-menu-string))
@@ -583,15 +581,12 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 ("!" (m-open-url "http://wttr.in/") "wego")
 ("<SPC>" nil "quit")
 ("q" nil "quit")
-("<escape>" nil "quit")))
-
-;; (def-super-menu)
+("<escape>" nil "quit"))
 
 (defun show-super-menu ()
   "docstring"
   (interactive)
   (load "mod-keybind.el")
-  (def-super-menu)
   (hydra-do-super/body))
 
 ;; (global-set-key (kbd "C-SPC") 'hydra-do-super/body)

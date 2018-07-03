@@ -412,7 +412,16 @@ function install-toolchain {
 		  # -DSYSTEM_CLANG=1
 	make install
 	cd $OME_ROOT
-	
+
+	tip "install sdkman"
+	if command -v sdk >/dev/null 2>&1; then
+		curl -s "https://get.sdkman.io" | bash
+		source $HOME/.sdkman/bin/sdkman-init.sh
+	fi
+	sdk selfupdate
+	sdk update
+	sdk upgrade
+		
 	tip "install golang"
 	go get -u github.com/sourcegraph/go-langserver
 	

@@ -519,7 +519,8 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
   '(lambda () 
 	 (interactive) 
 	 (undo-tree-visualize) 
-	 (undo-tree-visualize-undo))) 
+	 (undo-tree-visualize-undo)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -528,15 +529,15 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (setq linum-mode t)
 (setq linum-format "%4d")
 (global-linum-mode)
-										;
+
 
 ;;; `column'
 (setq column-number-mode t)
-										;
+
 
 ;;; page width
 ;; (setq fill-column 100)
-										;
+
 
 ;;; fci-mode
 (package-require 'fill-column-indicator)
@@ -553,25 +554,25 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;-- (setq fci-rule-cinharacter-color "DarkBlue")
 
 ;;; define `global-fci-mode'
-;; (define-globalized-minor-mode global-fci-mode fci-mode
-;; (lambda ()
-;; (fci-mode 1)))
+;; (define-globalized-minor-mode global-fci-mode fci-mode 
+  ;; (lambda () 
+	;; (fci-mode 1)))
 
-(define-globalized-minor-mode global-fci-mode fci-mode 
-  (lambda () 
+(define-globalized-minor-mode global-fci-mode fci-mode
+  (lambda ()
 	(if (and
-		 ;; (not (string-match "^\*.*\*$" (buffer-name))) 
-			 (not (eq major-mode 'dired-mode)) 
-			 (not (eq major-mode 'speedbar-mode))) 
+		 (not (string-match "^\*.*\*$" (buffer-name)))
+		 (not (eq major-mode 'dired-mode))
+		 (not (eq major-mode 'speedbar-mode)))
 		(fci-mode 1))))
 
 (global-fci-mode 1)
 
-;; (defun auto-fci-mode 
-	;; (&optional 
-	 ;; unused) 
-  ;; (if (> (window-width) fci-rule-column) 
-	  ;; (fci-mode 1) 
+;; (defun auto-fci-mode
+	;; (&optional
+	 ;; unused)
+  ;; (if (> (window-width) fci-rule-column)
+	  ;; (fci-mode 1)
 	;; (fci-mode 0)))
 ;; (add-hook 'after-change-major-mode-hook 'auto-fci-mode)
 ;; (add-hook 'window-configuration-change-hook 'auto-fci-mode)
@@ -763,11 +764,11 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (require 'dashboard)
 (dashboard-setup-startup-hook)
 (setq dashboard-banner-logo-title "Oh My Emacs!")
-(setq dashboard-items '((projects . 15)
-(recents  . 20)
-(bookmarks . 7)
-(agenda . 5)
-(registers . 5)))
+(setq dashboard-items '((projects . 15) 
+						(recents  . 20) 
+						(bookmarks . 7) 
+						(agenda . 5) 
+						(registers . 5)))
 
 ;;; session
 ;; (package-require 'session)

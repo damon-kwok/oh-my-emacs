@@ -34,6 +34,9 @@ case "$SHELL_NAME" in
 		;;
 esac
 
+# SDKMAN
+source $HOME/.sdkman/bin/sdkman-init.sh
+
 # Roswell
 export ROSWELL_BIN=/home/`whoami`/.roswell/bin
 export PATH=$ROSWELL_BIN:$PATH
