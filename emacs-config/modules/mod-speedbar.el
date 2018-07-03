@@ -51,7 +51,7 @@
 (require 'projectile-speedbar)
 
 ;; Sometimes, when I am deep in a project tree, I like to use this shortcut to see full context:
-(global-set-key (kbd "C-M-s") 'projectile-speedbar-toggle)
+;; (global-set-key (kbd "C-c s") 'projectile-speedbar-toggle)
 ;; (global-set-key (kbd "C-M-z") 'projectile-speedbar-open-current-buffer-in-tree)
 
 ;; You can also disable the feature completely:

@@ -49,6 +49,9 @@
 (module-require 'mod-ros)
 (module-require 'mod-js)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `debug'
+(module-require 'mod-gud)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `programming-languages'
 (module-require 'mod-elisp)
 ;; (module-require 'mod-erlang)

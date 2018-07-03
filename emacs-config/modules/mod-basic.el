@@ -559,7 +559,8 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 (define-globalized-minor-mode global-fci-mode fci-mode 
   (lambda () 
-	(if (and (not (string-match "^\*.*\*$" (buffer-name))) 
+	(if (and
+		 ;; (not (string-match "^\*.*\*$" (buffer-name))) 
 			 (not (eq major-mode 'dired-mode)) 
 			 (not (eq major-mode 'speedbar-mode))) 
 		(fci-mode 1))))
