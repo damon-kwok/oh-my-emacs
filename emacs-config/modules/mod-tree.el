@@ -108,8 +108,8 @@ If no treemacs buffer exists call `treemacs'."
      (treemacs-projectile)]
     [_ (error "[Treemacs] Invalid visibility value: %s" (treemacs--current-visibility))]))
 
-(global-set-key [f1] 'm-treemacs-toggle)
-(global-set-key (kbd "C-c t") 'm-treemacs-toggle)
+(global-set-key [f1] 'ome-treemacs-toggle)
+(global-set-key (kbd "C-c t") 'ome-treemacs-toggle)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-tree)
 ;; mod-tree.el ends here

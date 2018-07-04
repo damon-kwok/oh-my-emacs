@@ -56,8 +56,8 @@
   '(lambda () 
 	 (interactive) 
 	 (ome-run-command "cargo build")))
-(define-key rust-mode-map [f6] 'm-open-or-close-cargofile)
-;; (define-key conf-toml-mode-map [f6] 'm-open-or-close-cargofile)
+(define-key rust-mode-map [f6] 'ome-open-or-close-cargofile)
+;; (define-key conf-toml-mode-map [f6] 'ome-open-or-close-cargofile)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-rust)
 ;; mod-rust.el ends here

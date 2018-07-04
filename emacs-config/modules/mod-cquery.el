@@ -175,15 +175,15 @@
 	  (check-header dir basename))))
 
 (require 'cmake-mode)
-(define-key c-mode-map [f6] 'm-open-or-close-cmakefile)
-(define-key c++-mode-map [f6] 'm-open-or-close-cmakefile)
-(define-key cmake-mode-map [f6] 'm-open-or-close-cmakefile)
+(define-key c-mode-map [f6] 'ome-open-or-close-cmakefile)
+(define-key c++-mode-map [f6] 'ome-open-or-close-cmakefile)
+(define-key cmake-mode-map [f6] 'ome-open-or-close-cmakefile)
 
-(define-key c-mode-map [f7] 'm-open-or-close-packagexml)
-(define-key c++-mode-map [f7] 'm-open-or-close-packagexml)
+(define-key c-mode-map [f7] 'ome-open-or-close-packagexml)
+(define-key c++-mode-map [f7] 'ome-open-or-close-packagexml)
 
-(define-key c-mode-map [f12] 'm-switch-cc-source-and-header)
-(define-key c++-mode-map [f12] 'm-switch-cc-source-and-header)
+(define-key c-mode-map [f12] 'ome-switch-cc-source-and-header)
+(define-key c++-mode-map [f12] 'ome-switch-cc-source-and-header)
 
 (define-key c++-mode-map [f5] 
   '(lambda () 
@@ -191,7 +191,7 @@
 	 (ome-run-command "/home/damon/catkin_ws/bin/build_adsim")))
 
 (require 'nxml-mode)
-(define-key nxml-mode-map [f7] 'm-open-or-close-packagexml)
+(define-key nxml-mode-map [f7] 'ome-open-or-close-packagexml)
 
 
 ;;; Syntax highlighting support for "`Modern.C++'" - until `C++17' and Technical Specification.

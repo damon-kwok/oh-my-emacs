@@ -67,8 +67,8 @@
 						   ;;	     (message (concat "you opened cc file:" (buffer-name)))
 						   (define-key sh-mode-map (kbd "C-c C-z")  'show-global-shell)))
 
-(global-set-key (kbd "C-M-w") 'm-copy-line)
-(global-set-key (kbd "C-M-z") 'm-mark-line)
+(global-set-key (kbd "C-M-w") 'ome-copy-line)
+(global-set-key (kbd "C-M-z") 'ome-mark-line)
 
 
 (global-set-key (kbd "C-,") ;;<backtab>
@@ -193,7 +193,7 @@
 
 ;;;
 (global-set-key (kbd "C-M-d") 'delete-backward-char)
-(global-set-key (kbd "C-x C-c") 'm-exit) ;;[(control x) (control c)]
+(global-set-key (kbd "C-x C-c") 'ome-exit) ;;[(control x) (control c)]
 
 (global-set-key (kbd "C--") 'shrink-window)
 (global-set-key (kbd "C-=") 'enlarge-window)
@@ -257,11 +257,11 @@
 (setq bing-dict-pronunciation-style 'us) ;;us | uk
 (setq bing-dict-save-search-result t)
 (setq bing-dict-org-file (concat (getenv "HOME") "/workspace/vocabulary.org"))
-;; (global-set-key (kbd "C-c d") 'm-bing-dict-brief)
-;; (global-set-key (kbd "C-c D") 'm-bing-dict-brief-web)
+;; (global-set-key (kbd "C-c d") 'ome-bing-dict-brief)
+;; (global-set-key (kbd "C-c D") 'ome-bing-dict-brief-web)
 
-(define-key global-map (kbd "C-c f") 'm-go-to-char-forward)
-(define-key global-map (kbd "C-c b") 'm-go-to-char-backward)
+(define-key global-map (kbd "C-c f") 'ome-go-to-char-forward)
+(define-key global-map (kbd "C-c b") 'ome-go-to-char-backward)
 
 (package-require 'multiple-cursors)
 (require 'multiple-cursors)
@@ -272,8 +272,8 @@
 (global-set-key (kbd "C-M->") 'mc/mark-all-like-this)
 
 ;; C-x r (file rename)
-;; (global-set-key (kbd "C-c r") 'm-rename-file-and-buffer)
-;; (global-set-key (kbd "C-c x") 'm-delete-file-and-buffer)
+;; (global-set-key (kbd "C-c r") 'ome-rename-file-and-buffer)
+;; (global-set-key (kbd "C-c x") 'ome-delete-file-and-buffer)
 
 ;;; string replace
 ;; (global-set-key (kbd "C-M-s") 'replace-string)
@@ -282,8 +282,8 @@
 ;; (define-key sh-mode-map (kbd "C-c C-r") 'replace-string)
 ;; (add-hook 'shell-mode-hook (lambda () (local-set-key (kbd "M-s") 'replace-string)))
 
-;; (global-set-key (kbd "C-x M-k") 'm-kill-all-buffers)
-(global-set-key (kbd "C-x M-k") 'm-kill-other-buffers)
+;; (global-set-key (kbd "C-x M-k") 'ome-kill-all-buffers)
+(global-set-key (kbd "C-x M-k") 'ome-kill-other-buffers)
 
 ;;; `hydra'
 (package-require 'hydra)
@@ -617,7 +617,7 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 (global-set-key (kbd "C-c z") 'show-super-menu)
 
 ;;; `comment-toggle' M-;
-(global-set-key [remap comment-dwim] 'm-comment-or-uncomment-region-or-line)
+(global-set-key [remap comment-dwim] 'ome-comment-or-uncomment-region-or-line)
 
 ;; (package-require 'smart-comment)
 ;; (require 'smart-comment)
@@ -702,7 +702,7 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 
 ;;
 ;; `comment-toggle' M-;
-(define-key paredit-mode-map (kbd "M-;") 'm-comment-or-uncomment-region-or-line)
+(define-key paredit-mode-map (kbd "M-;") 'ome-comment-or-uncomment-region-or-line)
 
 
 (package-require 'helpful)

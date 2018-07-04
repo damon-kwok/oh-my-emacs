@@ -46,6 +46,29 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`frame';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (defun no-split-window ()
+  ;; (interactive)
+  ;; nil)
+;; (setq split-window-preferred-function 'no-split-window)
+
+;; (setq compilation-window-height 1000)
+;; (setq compilation-window-width 1000)
+;; (setq same-window-regexps '("."))
+
+;; (defun kill-compile-buffer-if-successful (buffer string) 
+  ;; " kill a compilation buffer if succeeded without warnings " 
+  ;; (if (and 
+       ;; (string-match "compilation" (buffer-name buffer)) 
+       ;; (string-match "finished" string) 
+       ;; (not 
+        ;; (with-current-buffer buffer 
+          ;; (search-forward "warning" nil t)))) 
+      ;; (run-with-timer 1 nil 
+                      ;; 'kill-buffer 
+                      ;; buffer)))
+;; (add-hook 'compilation-finish-functions 'kill-compile-buffer-if-successful)
+
+(set-window-dedicated-p (selected-window) nil)
 
 ;;(bgex-set-image-default "~/gnuemacsref.png" nil)
 
@@ -182,8 +205,8 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;(enable-theme 'django)
 
 ;;; xemacs
-;;(load-theme 'm-xemacs t t)
-;;(enable-theme 'm-xemacs)
+;;(load-theme 'ome-xemacs t t)
+;;(enable-theme 'ome-xemacs)
 
 ;;(package-require 'monokai-theme)
 ;;(load-theme 'monokai t t)
