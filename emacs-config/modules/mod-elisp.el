@@ -83,10 +83,10 @@
 (defun show-elisp-repl() 
   (interactive) 
   (setq temp-elisp-buffer-name (buffer-name (current-buffer))) 
-  (m-show-compilation "*ielm*") 
+  (ome-show-compilation "*ielm*") 
   (ielm) 
   (switch-to-buffer-other-window temp-elisp-buffer-name) 
-  (m-show-compilation "*ielm*" t))
+  (ome-show-compilation "*ielm*" t))
 
 (defun show-elisp-workbuffer() 
   (interactive) 
@@ -103,8 +103,8 @@
   (delete-other-windows) 
   (byte-compile-file (buffer-file-name)) 
   (delete-file (concat (buffer-file-name) "c"))
-  ;;(m-show-compilation "*Warnings*")
-  (m-show-compilation "*Compile-Log*"))
+  ;;(ome-show-compilation "*Warnings*")
+  (ome-show-compilation "*Compile-Log*"))
 
 (define-key ielm-map (kbd "C-c C-z") 'show-elisp-workbuffer)
 

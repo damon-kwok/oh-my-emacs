@@ -44,10 +44,10 @@
 (setq company-tooltip-align-annotations t)
 
 
-(defun m-open-or-close-cargofile () 
+(defun ome-open-or-close-cargofile () 
   (interactive) 
   (if (eq major-mode 'rust-mode) 
-	  (m-smart-find-file "Cargo.toml" t) 
+	  (ome-smart-find-file "Cargo.toml" t) 
 	(if (eq major-mode 'conf-toml-mode)
 		(kill-this-buffer))))
 
@@ -55,7 +55,7 @@
 (define-key rust-mode-map [f5] 
   '(lambda () 
 	 (interactive) 
-	 (m-run-command "cargo build")))
+	 (ome-run-command "cargo build")))
 (define-key rust-mode-map [f6] 'm-open-or-close-cargofile)
 ;; (define-key conf-toml-mode-map [f6] 'm-open-or-close-cargofile)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

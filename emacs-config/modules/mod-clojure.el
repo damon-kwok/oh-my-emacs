@@ -119,7 +119,7 @@
 ;;===================================================
 (defun show-clojure-repl() 
   (interactive)
-  ;;(m-show-compilation "*Messages*")
+  ;;(ome-show-compilation "*Messages*")
   (delete-other-windows) 
   (cider-switch-to-repl-buffer) 
   (if (< (/ (frame-height) 3) 
@@ -178,13 +178,13 @@
 (defun my-jack-in () 
   (interactive) 
   (delete-other-windows)
-  ;;(m-show-compilation "*cider-repl Server**")
+  ;;(ome-show-compilation "*cider-repl Server**")
   (cider-jack-in))
 ;;(define-key clojure-mode-map (kbd "C-c M-j") 'my-jack-in)
 
 (defun my-run-project () 
   (interactive) 
-  (m-run-command "lein run"))
+  (ome-run-command "lein run"))
 
 ;; `cljs'
 (defun cljs-client-start () 

@@ -30,58 +30,58 @@
 ;;; cycle: `tabs' `groups' `default'
 (setq tabbar-cycle-scope 'tabs)
 
-;;(m-keymap-unset-key (kbd "C-c C-<home>") "tabbar-mode")
-;;(m-keymap-unset-key (kbd "C-c <C-f10>") "tabbar-mode")
-;;(m-keymap-unset-key (kbd "C-c <C-left>") "tabbar-mode")
-;;(m-keymap-unset-key (kbd "C-c <C-right>") "tabbar-mode")
-;;(m-keymap-unset-key (kbd "C-c <C-up>") "tabbar-mode")
-;;(m-keymap-unset-key (kbd "C-c <C-down>") "tabbar-mode")
-;;(m-keymap-unset-key (kbd "C-c <C-prior>") "tabbar-mode")
-;;(m-keymap-unset-key (kbd "C-c <C-next>") "tabbar-mode")
+;;(ome-keymap-unset-key (kbd "C-c C-<home>") "tabbar-mode")
+;;(ome-keymap-unset-key (kbd "C-c <C-f10>") "tabbar-mode")
+;;(ome-keymap-unset-key (kbd "C-c <C-left>") "tabbar-mode")
+;;(ome-keymap-unset-key (kbd "C-c <C-right>") "tabbar-mode")
+;;(ome-keymap-unset-key (kbd "C-c <C-up>") "tabbar-mode")
+;;(ome-keymap-unset-key (kbd "C-c <C-down>") "tabbar-mode")
+;;(ome-keymap-unset-key (kbd "C-c <C-prior>") "tabbar-mode")
+;;(ome-keymap-unset-key (kbd "C-c <C-next>") "tabbar-mode")
 
-(defun m-number 
+(defun ome-number 
 	(&optional 
 	 num) 
   (if (numberp num) num 0))
 
-(defun m-inc 
+(defun ome-inc 
 	(&optional 
 	 num) 
   (if (numberp num) 
 	  (+ 1 num) 1))
 
-(defun m-dec 
+(defun ome-dec 
 	(&optional 
 	 num) 
   (if (numberp num) 
 	  (- num 1) -1))
 
-(defun m-tabbar-forward-group 
+(defun ome-tabbar-forward-group 
 	(&optional 
 	 num) 
   (interactive) 
   (tabbar-forward-group)
-  ;; (message (concat "--group:" (m-number num)))
+  ;; (message (concat "--group:" (ome-number num)))
   (if (and (or (s-match "^*" (buffer-name)) 
 			   (s-match "^:" (buffer-name))) 
-		   (< (m-number num) 5)) 
-	  (m-tabbar-forward-group (m-inc num))))
+		   (< (ome-number num) 5)) 
+	  (ome-tabbar-forward-group (ome-inc num))))
 
-(defun m-tabbar-backward-group 
+(defun ome-tabbar-backward-group 
 	(&optional 
 	 num) 
   (interactive) 
   (tabbar-backward-group) 
   (if (and (or (s-match "^*" (buffer-name)) 
 			   (s-match "^:" (buffer-name))) 
-		   (< (m-number num) 5)) 
-	  (m-tabbar-backward-group (m-inc num))))
+		   (< (ome-number num) 5)) 
+	  (ome-tabbar-backward-group (ome-inc num))))
 
 (global-set-key (kbd "C-M-'") 'tabbar-forward)
 (global-set-key (kbd "C-M-;") 'tabbar-backward)
 
-(global-set-key (kbd "C-M-[") 'm-tabbar-forward-group)
-(global-set-key (kbd "C-M-/") 'm-tabbar-backward-group)
+(global-set-key (kbd "C-M-[") 'ome-tabbar-forward-group)
+(global-set-key (kbd "C-M-/") 'ome-tabbar-backward-group)
 
 ;; DarkGreen LightGoldenrod DarkGoldenrod gold DarkGreen #00B2BF #330000 gray60 grey gray #383838
 

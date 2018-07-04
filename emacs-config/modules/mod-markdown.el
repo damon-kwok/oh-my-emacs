@@ -36,10 +36,10 @@
 (defun show-markdown-output()
   (interactive)
   (setq temp-buffer-name (buffer-name (current-buffer)))
-  (m-show-compilation "*markdown-output*")
+  (ome-show-compilation "*markdown-output*")
   (markdown)
   (switch-to-buffer-other-window temp-buffer-name)
-  (m-show-compilation "*markdown-output*"))
+  (ome-show-compilation "*markdown-output*"))
 
 (defun markdown-custom-settings ()
   "markdown-mode-hook"

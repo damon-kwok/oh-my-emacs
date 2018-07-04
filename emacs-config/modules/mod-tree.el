@@ -90,7 +90,7 @@ the project from among `projectile-known-projects'."
     (treemacs--init (projectile-project-root)))
    (t (treemacs))))
 
-(defun m-treemacs-toggle ()
+(defun ome-treemacs-toggle ()
   "If a treemacs buffer exists and is visible hide it.
 If a treemacs buffer exists, but is not visible bring it to the foreground
 and select it.

@@ -125,7 +125,7 @@
 ;;   (setq cmd (concat "curl -O " url))
 ;;   (add-to-list 'load-path dir)
 ;;   (unless (file-exists-p full-name)
-;;     (m-run-command cmd)))
+;;     (ome-run-command cmd)))
 
 ;; (defun package-require-curl(file-name path)
 ;;   ;; (setq dir-lib-name (expand-file-name libs-user-dir ))
@@ -137,7 +137,7 @@
 ;;   (add-to-list 'load-path dir-name)
 ;;   (make-directory dir-name t)
 ;;   (unless (file-exists-p full-name)
-;;     (m-run-command cmd)))
+;;     (ome-run-command cmd)))
 
 ;; (auto-install-from-url "https://raw.github.com/aki2o/guide-key-tip/master/guide-key-tip.el")
 

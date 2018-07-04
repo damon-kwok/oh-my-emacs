@@ -86,10 +86,10 @@
 (defun show-elixir-mode-repl() 
   (interactive) 
   (setq temp-elixir-buffer-name (buffer-name (current-buffer))) 
-  (m-show-compilation "*Alchemist-IEx*") 
+  (ome-show-compilation "*Alchemist-IEx*") 
   (alchemist-iex-run) 
   (switch-to-buffer-other-window temp-elixir-buffer-name) 
-  (m-show-compilation "*Alchemist-IEx*" t))
+  (ome-show-compilation "*Alchemist-IEx*" t))
 
 (defun show-elixir-mode-workbuffer() 
    (interactive) 

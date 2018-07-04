@@ -43,14 +43,14 @@
 										(concat (getenv "HOME") "/workspace") 
 										(concat (getenv "HOME") "/eclipse-workspace")))
 ;; (unless (executable-find "ipython")
-;; (m-run-command "install-java-lsp-server"))
+;; (ome-run-command "install-java-lsp-server"))
 
 (setq  lsp-java-server-install-dir "~/.emacs.d/eclipse.jdt.ls/server/")
 
 (defun install-lsp-java-server () 
   "install java lsp server" 
   (interactive) 
-  (m-run-command "install-lsp-java-server"))
+  (ome-run-command "install-lsp-java-server"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

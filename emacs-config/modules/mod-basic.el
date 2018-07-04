@@ -261,7 +261,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 ;; ============================================================
 
-(defun m-set-font()
+(defun ome-set-font()
   ;; Setting English Font
   (set-face-attribute 'default nil 
 					  :font "Bitstream Vera Sans Mono-10")
@@ -269,7 +269,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
   (dolist (charset '(kana han symbol cjk-misc bopomofo)) 
 	(set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" 
 																	 :size 12))))
-(if window-system (m-set-font))
+(if window-system (ome-set-font))
 
 ;;; `tip'
 ;;; set error tips:blink or beep ?(t:blink nil:beep)
@@ -519,7 +519,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 (defun show-undo-tree() 
   (interactive) 
-  (m-show-compilation "*Messages*") 
+  (ome-show-compilation "*Messages*") 
   (delete-other-windows) 
   (undo-tree-visualize) 
   (if (< (/ (frame-height) 3) 

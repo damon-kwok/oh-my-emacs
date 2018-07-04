@@ -30,10 +30,10 @@
 ;; (projectile-project-p)
 ;; (projectile-project-root)
 ;; (projectile-get-project-directories)
-;; (m-run-command (concat "grep -n --include=\"*.el\" \"buffer-\" -R ./"));; (projectile-project-root)))
+;; (ome-run-command (concat "grep -n --include=\"*.el\" \"buffer-\" -R ./"));; (projectile-project-root)))
 
-;;(m-run-command (concat "grep -n --include=\"*.el\" \"buffer-\" -R ./" (projectile-project-root)))
-;;(m-run-command (concat "grep -n \"buffer-\" -r ./" (projectile-project-root)))
+;;(ome-run-command (concat "grep -n --include=\"*.el\" \"buffer-\" -R ./" (projectile-project-root)))
+;;(ome-run-command (concat "grep -n \"buffer-\" -r ./" (projectile-project-root)))
 
 ;;(require 'dash)
 ;;(require 'json)
@@ -67,13 +67,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `keymap-unset-key'
 
-(defun m-keymap-unset-key (key keymap) 
+(defun ome-keymap-unset-key (key keymap) 
   "Remove binding of KEY in a keymap
     KEY is a string or vector representing a sequence of keystrokes.
 
     Example:
-    (m-keymap-unset-key (kbd \"C-c <C-left>\") \"tabbar-mode\")
-    (m-keymap-unset-key [C-c <C-left>] \"tabbar-mode\")" 
+    (ome-keymap-unset-key (kbd \"C-c <C-left>\") \"tabbar-mode\")
+    (ome-keymap-unset-key [C-c <C-left>] \"tabbar-mode\")" 
   (interactive (list (call-interactively #'get-key-combo) 
 					 (completing-read "Which map: " minor-mode-map-alist nil t))) 
   (let ((map (rest (assoc (intern keymap) minor-mode-map-alist)))) 
@@ -82,46 +82,46 @@
 
 
 ;; http://www.ergoemacs.org/emacs/elisp_idioms_prompting_input.html
-(defun m-query-user (x y) 
+(defun ome-query-user (x y) 
   (interactive "sEnter friend's name: \nnEnter friend's age: ") 
   (message "Name is: %s, Age is: %d" x y))
 
-(defun m-is-in-terminal() 
+(defun ome-is-in-terminal() 
   (not (display-graphic-p)))
 
 (defmacro when-terminal 
 	(&rest 
 	 body)
   "Works just like `progn' but will only evaluate expressions in VAR when Emacs is running in a terminal else just nil."
-  `(when (m-is-in-terminal) ,@body))
+  `(when (ome-is-in-terminal) ,@body))
 
 
-(defun m-buf-dirpath() 
+(defun ome-buf-dirpath() 
   (directory-file-name (file-name-directory buffer-file-name)))
 
-(defun m-buf-dirname() 
-  (nth 0 (last (split-string (m-buf-dirpath) "/") 1)))
+(defun ome-buf-dirname() 
+  (nth 0 (last (split-string (ome-buf-dirpath) "/") 1)))
 
-;; (defun m-bufname-no-ext()
+;; (defun ome-bufname-no-ext()
 ;; (first (split-string (buffer-name) "\\."))) ;;file-name-base
-(defun m-bufname-no-ext() 
+(defun ome-bufname-no-ext() 
   (file-name-base (buffer-name)))
 
-(defun m-filename-no-ext() 
+(defun ome-filename-no-ext() 
   (file-name-sans-extension (buffer-file-name)))
 
-(defun m-buf-ext() 
+(defun ome-buf-ext() 
   (let ((ext-name (nth 0 (last (split-string (buffer-name) "\\.")))) 
 		(buf-name (buffer-name))) 
 	(if (string= ext-name buf-name) "" ext-name)))
 
-(defun m-project-root() 
-  (let ((fist-char (substring (m-bufname-no-ext) 0 1))) 
+(defun ome-project-root() 
+  (let ((fist-char (substring (ome-bufname-no-ext) 0 1))) 
 	(if (string= fist-char "*") "./" (if (projectile-project-p) 
 										 (projectile-project-root) 
-									   (m-buf-dirpath)))))
+									   (ome-buf-dirpath)))))
 
-(defun m-parent-dirpath (path) 
+(defun ome-parent-dirpath (path) 
   (file-name-directory (directory-file-name path)))
 
 (defun f-filename-no-ext (path) 
@@ -134,24 +134,24 @@
 ;; (file-name-nondirectory "/home/damon/docs/hello.txt") ;;=> "hello.txt"
 ;; (file-name-directory "/home/damon/docs/1/2/3") ;;=> "home/damon/dacs/1/2/"
 ;; (file-name-directory "/home/damon/docs/1/2/");;=> "/home/damon/docs/1/2/" oooooooooooh!no!
-;; (m-file-directory "/home/damon/docs/1/2/") ;;=> "/home/damon/docs/1/" nice:)
+;; (ome-file-directory "/home/damon/docs/1/2/") ;;=> "/home/damon/docs/1/" nice:)
 ;; (f-dirname "path/to/file.ext/") ;;=> "path/to/"
 
 
 ;; (f-filename-no-ext "path/to/file.txt") ;;=> "file"
 
-;; (m-filename-no-ext) ;;=>"file”
-;; (m-bufname-no-ext);;=>"file"
-;; (m-parent-dirpath "/path/to/hello.txt")
-;; (m-parent-dirpath "C:/")
-;; (m-buf-dirpath)                ;;=> "/home/damon/docs"
-;; (m-buf-dirname)      ;;=> "docs"
-;; (m-buffer-name-sans-extension) ;;=> "hello"
-;; (m-buffer-file-name-sans-extension) ;;=> "/home/damon/docs/hello"
+;; (ome-filename-no-ext) ;;=>"file”
+;; (ome-bufname-no-ext);;=>"file"
+;; (ome-parent-dirpath "/path/to/hello.txt")
+;; (ome-parent-dirpath "C:/")
+;; (ome-buf-dirpath)                ;;=> "/home/damon/docs"
+;; (ome-buf-dirname)      ;;=> "docs"
+;; (ome-buffer-name-sans-extension) ;;=> "hello"
+;; (ome-buffer-file-name-sans-extension) ;;=> "/home/damon/docs/hello"
 ;; (file-name-directory "/home/damon/docs/hello.txt");;=> "/home/damon/docs"
-;; (m-buf-ext)      ;;=> "el"
+;; (ome-buf-ext)      ;;=> "el"
 
-;; (m-project-root)               ;;=> "/home/damon/docs"
+;; (ome-project-root)               ;;=> "/home/damon/docs"
 ;; (file-name-sans-extension "222/111.el") ;;==>222/111
 ;; (file-name-base "222/111.el") ;;==> 111
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -160,14 +160,14 @@
 ;; 	 (url-hexify-string
 ;; 	  (read-string "Query: "))))
 
-(defun m-bing-dict-brief-eww (arg) 
+(defun ome-bing-dict-brief-eww (arg) 
   "compile project"
   ;;(interactive)
-  (m-show-compilation "*Messages*") 
+  (ome-show-compilation "*Messages*") 
   (other-window 1) 
   (eww (concat "https://www.bing.com/dict/search??mkt=zh-cn&q=" arg)))
 
-(defun m-bing-dict-brief-web (word) 
+(defun ome-bing-dict-brief-web (word) 
   "Show the explanation of WORD from Bing in the echo area." 
   (interactive (let* ((default (if (use-region-p) 
 								   (buffer-substring-no-properties 
@@ -180,11 +180,11 @@
 								"Search Bing web dict: ")) 
 					  (string (read-string prompt nil 'bing-dict-history default))) 
 				 (list string))) 
-  (save-match-data (m-bing-dict-brief-eww word)))
+  (save-match-data (ome-bing-dict-brief-eww word)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; copy a line
-(defun m-copy-line () 
+(defun ome-copy-line () 
   "copy a line" 
   (interactive) 
   (let ((pos (point))) 
@@ -193,7 +193,7 @@
 	(yank) 
 	(goto-char pos)))
 
-(defun m-mark-line () 
+(defun ome-mark-line () 
   "copy a line" 
   (interactive) 
   (beginning-of-visual-line) 
@@ -201,7 +201,7 @@
 	(set-mark pos) 
 	(end-of-visual-line)))
 
-(defun m-quick-copy-line () 
+(defun ome-quick-copy-line () 
   "Copy the whole line that point is on and move to the beginning of the next line.
     Consecutive calls to this command append each line to the
     kill-ring." 
@@ -220,7 +220,7 @@
 		end)))) 
   (beginning-of-line 2))
 
-(defun m-quick-cut-line () 
+(defun ome-quick-cut-line () 
   "Cut the whole line that point is on.  Consecutive calls to this command append each line to the kill-ring." 
   (interactive) 
   (let ((beg (line-beginning-position 1)) 
@@ -240,7 +240,7 @@
   (setq this-command 'quick-cut-line))
 
 ;; comment or uncomment
-(defun m-comment-or-uncomment-region-or-line () 
+(defun ome-comment-or-uncomment-region-or-line () 
   "Comments or uncomments the region or the current line if there's no active region." 
   (interactive) 
   (let (beg end) 
@@ -250,7 +250,7 @@
 	(comment-or-uncomment-region beg end) 
 	(next-line)))
 
-(defun m-go-to-char-forward (n char) 
+(defun ome-go-to-char-forward (n char) 
   "Move forward to Nth occurence of CHAR.
 Typing `wy-go-to-char-key' again will move forwad to the next Nth
 occurence of CHAR." 
@@ -260,7 +260,7 @@ occurence of CHAR."
 	(search-forward (string char) nil nil n)) 
   (setq unread-command-events (list last-input-event)))
 
-(defun m-go-to-char-backward (n char) 
+(defun ome-go-to-char-backward (n char) 
   "Move forward to Nth occurence of CHAR.
 Typing `wy-go-to-char-key' again will move forwad to the next Nth
 occurence of CHAR." 
@@ -272,23 +272,23 @@ occurence of CHAR."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; close all buffer
-(defun m-kill-all-buffers () 
+(defun ome-kill-all-buffers () 
   "Kill all other buffers." 
   (interactive) 
   (mapcar 'kill-buffer (buffer-list)))
 
 ;; kill buffer by name
-;; (defun m-kill-buffer-by-name (NAME)
+;; (defun ome-kill-buffer-by-name (NAME)
 ;; (let ((buf (get-buffer NAME)))
 ;; (if buf (kill-buffer buf t)
 ;; (message "buffer '%s' not exist!" NAME))))
-(defun m-kill-buffer-by-name (NAME) 
+(defun ome-kill-buffer-by-name (NAME) 
   (if (get-buffer NAME) 
 	  (kill-buffer NAME) 
 	(message "buffer '%s' not exist!" NAME)))
 
 ;; close all buffer but this
-(defun m-kill-other-buffers () 
+(defun ome-kill-other-buffers () 
   "Kill all other buffers." 
   (interactive) 
   (delete-other-windows) 
@@ -296,7 +296,7 @@ occurence of CHAR."
 						   (remove-if-not 'buffer-file-name (buffer-list)))))
 
 ;; delete current buffer && file
-(defun m-delete-file-and-buffer() 
+(defun ome-delete-file-and-buffer() 
   (interactive) 
   (cond ((y-or-n-p (concat "delete'" (buffer-name) "'?")) 
 		 ((progn) 
@@ -304,7 +304,7 @@ occurence of CHAR."
 					   (kill-this-buffer))))))
 
 ;; Originally from stevey, adapted to support moving to a new directory.
-(defun m-rename-file-and-buffer (new-name) 
+(defun ome-rename-file-and-buffer (new-name) 
   "Renames both current buffer and file it's visiting to NEW-NAME." 
   (interactive (progn (if (not (buffer-file-name)) 
 						  (error 
@@ -348,12 +348,12 @@ occurence of CHAR."
     (save-buffer) 
 	(message "Renamed to %s" new-name)))
 
-(defun m-rename-file-and-buffer-ext (ext-name) 
+(defun ome-rename-file-and-buffer-ext (ext-name) 
   "rename extname with file and buffer"
-  (m-rename-file-and-buffer (concat (m-bufname-no-ext) "." ext-name)))
+  (ome-rename-file-and-buffer (concat (ome-bufname-no-ext) "." ext-name)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; define function to shutdown emacs server instance
-(defun m-server-shutdown () 
+(defun ome-server-shutdown () 
   "Save buffers, Quit, and Shutdown (kill) server" 
   (interactive) 
   (save-some-buffers) 
@@ -370,7 +370,7 @@ occurence of CHAR."
 
 ;; exit
 ;; prevent kill emacs by mistake
-(defun m-play-exit-animate () 
+(defun ome-play-exit-animate () 
   "say bye-bye !" 
   (interactive)
   ;;(if (sr-speedbar-exist-p)
@@ -389,64 +389,64 @@ occurence of CHAR."
 ;;`remove' the prompt for killing emacsclient buffers
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
 
-(defun m-exit-animate() 
+(defun ome-exit-animate() 
   (interactive) 
   (cond ((y-or-n-p "Exit? ") 
 		 (medusa-bye) 
 		 (save-buffers-kill-emacs))))
 
-(defun m-exit() 
+(defun ome-exit() 
   (interactive) 
   (cond ((y-or-n-p "Exit? ") ;;(y-or-n-p "Relax...? ")
 		 (save-buffers-kill-emacs))))
 
-(defun m-open-file(file-name) 
+(defun ome-open-file(file-name) 
   (interactive) 
   (delete-other-windows) 
-  (m-show-compilation "*Messages*") 
+  (ome-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
   (find-file file-name) 
   (delete-other-windows))
 
-(defun m-open-mod(mod-name) 
+(defun ome-open-mod(mod-name) 
   (interactive) 
   (delete-other-windows) 
-  (m-show-compilation "*Messages*") 
+  (ome-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
   (find-file (concat "~/emacs-config/modules/mod-" mod-name ".el")) 
   (delete-other-windows))
 
-(defun m-open-doc(doc-name) 
+(defun ome-open-doc(doc-name) 
   (interactive) 
   (delete-other-windows) 
-  (m-show-compilation "*Messages*") 
+  (ome-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
   (find-file (concat (getenv "HOME") "/docs/" doc-name)) 
   (delete-other-windows))
 
-(defun m-open-blog(doc-name) 
+(defun ome-open-blog(doc-name) 
   (interactive) 
   (delete-other-windows) 
-  (m-show-compilation "*Messages*") 
+  (ome-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
   (find-file (concat (getenv "HOME") "/docs/github-pages/" doc-name)) 
   (delete-other-windows))
 
-(defun m-open-url(url) 
+(defun ome-open-url(url) 
   (interactive) 
   ( m-show-compilation "*eww*") 
   (other-window 1) 
   (eww url))
 
 
-(defun m-find-file-doc() 
+(defun ome-find-file-doc() 
   (interactive) 
   (setq old-default-directory default-directory) 
   (setq default-directory  (concat (getenv "HOME") "/workspace/docs/")) 
   (helm-find-files nil) 
   (setq default-directory old-default-directory))
 
-(defun m-find-file-blog() 
+(defun ome-find-file-blog() 
   (interactive) 
   (setq old-default-directory default-directory) 
   (setq default-directory  (concat (getenv "HOME") "/workspace/docs/github-pages/")) 
@@ -454,7 +454,7 @@ occurence of CHAR."
   (setq default-directory old-default-directory))
 
 
-(defun m-show-compilation(buffer-name &optional dont-return-old-buffer) 
+(defun ome-show-compilation(buffer-name &optional dont-return-old-buffer) 
   "shrink compile window, avoid compile window occupy 1/2 hight of whole window" 
   (interactive) 
   (delete-other-windows) 
@@ -465,26 +465,26 @@ occurence of CHAR."
 	  (shrink-window (/ (window-height) 2))) 
   (if dont-return-old-buffer nil (switch-to-buffer-other-window temp-buffer-name)))
 
-(defun m-run-command (command) 
+(defun ome-run-command (command) 
   "compile project"
-  (m-show-compilation "*compilation*") ;;
+  (ome-show-compilation "*compilation*") ;;
   (compile command))
 
 
-;; (defun m-run-command (command)
+;; (defun ome-run-command (command)
 ;;   "compile project"
 ;;   (setq temp-elisp-buffer-name (buffer-name (current-buffer)))
-;;   (m-show-compilation "*compilation*")
+;;   (ome-show-compilation "*compilation*")
 ;;   (switch-to-buffer-other-window temp-elisp-buffer-name)
 ;;   (compile command)
-;;   (m-show-compilation "*compilation*" t))
+;;   (ome-show-compilation "*compilation*" t))
 
-;; (defun m-run-command (command)
+;; (defun ome-run-command (command)
 ;;   "compile project"
-;;   (m-show-compilation "*Shell Command Output*")
+;;   (ome-show-compilation "*Shell Command Output*")
 ;;   (shell-command command))
 
-(defun m-create-project(command openfile) 
+(defun ome-create-project(command openfile) 
   (let  ((project-path (read-file-name "choice project path:" nil default-directory nil))) 
 	(message project-path) 
 	(setq default-directory (f-dirname project-path)) 
@@ -495,7 +495,7 @@ occurence of CHAR."
 			   (message (concat "created new project '" (f-filename project-path) "' succeed:)"))) 
 	  (message (concat "creat new project '" (f-filename project-path) "' failed:(")))))
 
-(defun m-buffer-reload() 
+(defun ome-buffer-reload() 
   (interactive) 
   (save-buffer) 
   (setq old-pos (point)) 
@@ -503,7 +503,7 @@ occurence of CHAR."
   (find-alternate-file (buffer-file-name)) 
   (goto-char old-pos))
 
-(defun m-mark-all-like-this () 
+(defun ome-mark-all-like-this () 
   "Find and mark all the parts of the buffer matching the currently active region" 
   (interactive) 
   (condition-case err (progn (mc/mark-all-like-this)) 
@@ -522,7 +522,7 @@ occurence of CHAR."
 								  (format "grep (default \"%s\"): " default) "grep: ")) 
 					  (string (read-string prompt nil nil default))) 
 				 (list string))) 
-  (save-match-data (m-grep-project  word) 
+  (save-match-data (ome-grep-project  word) 
 				   (other-window 1)))
 
 (defun my-grep-directory (word) 
@@ -537,20 +537,20 @@ occurence of CHAR."
 								  (format "grep (default \"%s\"): " default) "grep: ")) 
 					  (string (read-string prompt nil nil default))) 
 				 (list string))) 
-  (save-match-data (m-grep-directory  word) 
+  (save-match-data (ome-grep-directory  word) 
 				   (other-window 1)))
 
-(defun m-grep-project (str) 
+(defun ome-grep-project (str) 
   (if (stringp str) 
-	  (m-run-command (concat "grep -n " "\"" str "\"" " -r " (m-project-root)))))
+	  (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (ome-project-root)))))
 
-(defun m-grep-directory (str) 
+(defun ome-grep-directory (str) 
   (message (concat "grep-dir:" str)) 
   (if (stringp str) 
-	  (m-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory
+	  (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory
 															  buffer-file-name)))))
 
-(defun m-open-reddit-channel (word) 
+(defun ome-open-reddit-channel (word) 
   "Show the explanation of WORD from Bing in the echo area." 
   (interactive (let* ((default (if (use-region-p) 
 								   (buffer-substring-no-properties 
@@ -562,9 +562,9 @@ occurence of CHAR."
 								  (format "reddit (default \"%s\"): " default) "reddit: ")) 
 					  (string (read-string prompt nil nil default))) 
 				 (list string))) 
-  (m-open-url (concat "https://www.reddit.com/r/" word "/")))
+  (ome-open-url (concat "https://www.reddit.com/r/" word "/")))
 
-(defun m-open-stackoverflow-channel (word) 
+(defun ome-open-stackoverflow-channel (word) 
   "Show the explanation of WORD from Bing in the echo area." 
   (interactive (let* ((default (if (use-region-p) 
 								   (buffer-substring-no-properties 
@@ -577,7 +577,7 @@ occurence of CHAR."
 								"StackOverflow: ")) 
 					  (string (read-string prompt nil nil default))) 
 				 (list string))) 
-  (m-open-url (concat "http://stackoverflow.com/questions/tagged/" word)))
+  (ome-open-url (concat "http://stackoverflow.com/questions/tagged/" word)))
 ;; http://stackoverflow.com/questions/tagged/f%23
 
 
