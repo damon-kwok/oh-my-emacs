@@ -8,8 +8,8 @@ exec ros -Q -- \$0 "$@"
   ;;#+quicklisp (ql:quickload '() :silent t)
   )
 
-(defpackage :ros.script.`(s-snake-case (m-bufname-no-ext))` (:use :cl))
-(in-package :ros.script.`(s-snake-case (m-bufname-no-ext))`)
+(defpackage :ros.script.`(s-snake-case (ome-bufname-no-ext))` (:use :cl))
+(in-package :ros.script.`(s-snake-case (ome-bufname-no-ext))`)
 
 (defun main 
 	(&rest 

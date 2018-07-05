@@ -5,7 +5,7 @@ if ! command -v valgrind >/dev/null 2>&1; then
 fi
 
 valgrind --tool=memcheck --leak-check=full --track-origins=yes \
-		 --leak-resolution=high --show-reachable=yes --log-file=memcheck.log $1 # > /dev/null 2>&1
+		 --leak-resolution=high --show-reachable=yes --log-file=memcheck.log $1 $2 # > /dev/null 2>&1
 echo ""
 echo ""
 echo "================================================================================"

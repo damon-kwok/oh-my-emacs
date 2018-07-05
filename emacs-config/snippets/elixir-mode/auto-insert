@@ -1,4 +1,4 @@
-## `(s-join "" (-map 's-capitalize (s-split "_"  (m-bufname-no-ext))))` --- This is where you apply your OCD.
+## `(s-join "" (-map 's-capitalize (s-split "_"  (ome-bufname-no-ext))))` --- This is where you apply your OCD.
 ##
 ## Copyright (C) 2009-`(format-time-string "%Y")` damon-kwok
 ##
@@ -19,9 +19,9 @@
 ## You should have received a copy of the GNU General Public License
 ## along with this program.  If not, see <http:##www.gnu.org/licenses/>.
 
-defmodule `(s-join "" (-map 's-capitalize (s-split "_"  (m-bufname-no-ext))))` do
+defmodule `(s-join "" (-map 's-capitalize (s-split "_"  (ome-bufname-no-ext))))` do
   @moduledoc """
-  Documentation for `(s-join "" (-map 's-capitalize (s-split "_"  (m-bufname-no-ext))))`.
+  Documentation for `(s-join "" (-map 's-capitalize (s-split "_"  (ome-bufname-no-ext))))`.
   """
 
   @doc """
@@ -29,7 +29,7 @@ defmodule `(s-join "" (-map 's-capitalize (s-split "_"  (m-bufname-no-ext))))` d
 
   ## Examples
 
-      iex> `(s-join "" (-map 's-capitalize (s-split "_"  (m-bufname-no-ext))))`.$1
+      iex> `(s-join "" (-map 's-capitalize (s-split "_"  (ome-bufname-no-ext))))`.$1
       :world
 
   """

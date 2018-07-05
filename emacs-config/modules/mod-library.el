@@ -434,7 +434,7 @@ occurence of CHAR."
 
 (defun ome-open-url(url) 
   (interactive) 
-  ( m-show-compilation "*eww*") 
+  (ome-show-compilation "*eww*") 
   (other-window 1) 
   (eww url))
 

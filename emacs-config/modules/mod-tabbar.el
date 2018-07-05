@@ -121,42 +121,42 @@
 ;; 		    :weight 'bold)
 
 ;;; pink-bliss
-;; (setq m-color-bg-s "deep pink")
-;; (setq m-color-fg-s "pink")
-;; (setq m-color-bg "pink")
-;; (setq m-color-fg "deep pink")
+;; (setq ome-color-bg-s "deep pink")
+;; (setq ome-color-fg-s "pink")
+;; (setq ome-color-bg "pink")
+;; (setq ome-color-fg "deep pink")
 ;; (set-face-attribute 'tabbar-default nil
 ;; 		    ;; :family "DejaVu Sans Mono"
 ;; 		    ;;:inherit 'tabbar-default
-;; 		    :background m-color-bg
+;; 		    :background ome-color-bg
 ;; 		    :height 1.0)
 
 ;; (set-face-attribute 'tabbar-button nil
 ;; 		    :inherit 'tabbar-default
-;; 		    :background m-color-bg
+;; 		    :background ome-color-bg
 ;; 		    :box '(:line-width 1
-;; 				       :color m-color-fg)
-;; 		    :overline m-color-fg
-;; 		    :underline m-color-bg) ;;down
+;; 				       :color ome-color-fg)
+;; 		    :overline ome-color-fg
+;; 		    :underline ome-color-bg) ;;down
 
 ;; (set-face-attribute 'tabbar-unselected nil
 ;; 		    :inherit 'tabbar-default
-;; 		    :foreground m-color-fg
-;; 		    :background m-color-bg
+;; 		    :foreground ome-color-fg
+;; 		    :background ome-color-bg
 ;; 		    :box '(:line-width 1
-;; 				       :color m-color-bg)
-;; 		    :overline m-color-fg
-;; 		    :underline m-color-fg ;;down
+;; 				       :color ome-color-bg)
+;; 		    :overline ome-color-fg
+;; 		    :underline ome-color-fg ;;down
 ;; 		    :weight 'bold)
 
 ;; (set-face-attribute 'tabbar-selected nil
 ;; 		    :inherit 'tabbar-default
-;; 		    :foreground m-color-fg-s
-;; 		    :background m-color-bg-s
+;; 		    :foreground ome-color-fg-s
+;; 		    :background ome-color-bg-s
 ;; 		    :box '(:line-width 1 ;;
-;; 				       :color m-color-bg-s)
-;; 		    :overline m-color-fg-s
-;; 		    :underline m-color-bg-s
+;; 				       :color ome-color-bg-s)
+;; 		    :overline ome-color-fg-s
+;; 		    :underline ome-color-bg-s
 ;; 		    :weight 'bold)
 
 ;;; xemacs
@@ -196,7 +196,6 @@
 ;; 		    :overline "#330000"
 ;; 		    :underline "navy"
 ;; 		    :weight 'bold)
-
 
 ;;; python
 ;; (set-face-attribute 'tabbar-default nil
@@ -231,7 +230,6 @@
 ;; 		    :overline "#263238"
 ;; 		    :underline "#263238" ;;#9ccc65
 ;; 		    :weight 'bold)
-
 
 
 (defmacro def-tabbar-color 

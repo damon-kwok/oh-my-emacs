@@ -20,12 +20,20 @@
 //						 
 // Code:
 //
-#ifndef __`(upcase (m-bufname-no-ext))`_H__
-#define __`(upcase (m-bufname-no-ext))`_H__
+#ifndef __`(upcase (ome-bufname-no-ext))`_H__
+#define __`(upcase (ome-bufname-no-ext))`_H__
+//
+#ifdef __cplusplus
+extern "C" {
+#endif
 //
 $0
 //
-#endif //#ifndef __`(upcase (m-bufname-no-ext))`_H__
+#ifdef __cplusplus
+}
+#endif
+//
+#endif //#ifndef __`(upcase (ome-bufname-no-ext))`_H__
 //`(buffer-name)` ends here
 
 

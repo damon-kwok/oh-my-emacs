@@ -85,20 +85,20 @@
 
 ;; `create-or-open-cmake-file'
 (defun m-search-file (filename &optional path) 
-  (let ((from (if path path (m-buf-dirpath)))) 
+  (let ((from (if path path (ome-buf-dirpath)))) 
     (message (concat "check:" from)) 
     (if (file-exists-p (concat from filename)) 
 	(progn (message from) from) 
       (progn 
-	(setq parent (m-parent-dirpath from)) 
+	(setq parent (ome-parent-dirpath from)) 
 	(if (or (eq parent nil) 
-		(string= parent "/")) nil (m-search-file filename parent))))))
+		(string= parent "/")) nil (ome-search-file filename parent))))))
 
 (defun m-smart-find-file (filename &optional create) 
   " create cmake file with current directory!" 
   (interactive) 
-  (setq dir (m-buf-dirpath)) 
-  (setq cmake-dir (m-search-file filename dir)) 
+  (setq dir (ome-buf-dirpath)) 
+  (setq cmake-dir (ome-search-file filename dir)) 
   (if (eq cmake-dir nil) 
       (if create (find-file filename)) 
     (find-file (concat cmake-dir filename))))
@@ -108,7 +108,7 @@
   (interactive) 
   (if (or (eq major-mode 'c-mode) 
 	  (eq major-mode 'c++-mode)) 
-      (m-smart-find-file "CMakeLists.txt" t) 
+      (ome-smart-find-file "CMakeLists.txt" t) 
     (if (eq major-mode 'cmake-mode) ;;(if (equal buffer-name "CMakeLists.txt")
 	(kill-this-buffer))))
 
@@ -117,7 +117,7 @@
   (interactive) 
   (if (or (eq major-mode 'c-mode) 
 	  (eq major-mode 'c++-mode)) 
-      (m-smart-find-file "package.xml") 
+      (ome-smart-find-file "package.xml") 
     (if (eq major-mode 'nxml-mode) 
 	(kill-this-buffer))))
 
@@ -147,22 +147,22 @@
 
 (defun m-switch-cc-source-and-header () 
   (interactive) 
-  (setq basename (m-bufname-no-ext)) 
-  (setq dir0 (m-buf-dirpath)) 
-  (setq dir0-name (m-buf-dirname)) 
-  (setq extname (m-buf-ext)) 
-  (concat (m-parent-dirpath dir0) dir0-name)
+  (setq basename (ome-bufname-no-ext)) 
+  (setq dir0 (ome-buf-dirpath)) 
+  (setq dir0-name (ome-buf-dirname)) 
+  (setq extname (ome-buf-ext)) 
+  (concat (ome-parent-dirpath dir0) dir0-name)
   ;; (setq postfixes '(".." "include" "src" "Classes" "Public" "Private" "../include" "../src" "../Classes" "../Public" "../Private"))
   (setq postfixes '("include" "src" "Classes" "Public" "Private")) 
   (setq dirs ()) 
   (add-to-list 'dirs dir0) 
   (dolist (postfix postfixes) 
-    (add-to-list 'dirs (concat (m-parent-dirpath dir0) postfix)) 
-    (add-to-list 'dirs (concat (m-parent-dirpath dir0) dir0-name)) 
-    (add-to-list 'dirs (concat (m-parent-dirpath dir0) postfix "/" dir0-name)) 
-    (add-to-list 'dirs (concat (m-parent-dirpath dir0) "../" postfix)) 
-    (add-to-list 'dirs (concat (m-parent-dirpath dir0) "../" dir0-name)) 
-    (add-to-list 'dirs (concat (m-parent-dirpath dir0) "../" postfix "/" dir0-name))
+    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) postfix)) 
+    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) dir0-name)) 
+    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) postfix "/" dir0-name)) 
+    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../" postfix)) 
+    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../" dir0-name)) 
+    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../" postfix "/" dir0-name))
     ;;
     ) 
   (if (s-contains? "h" extname) 
@@ -172,23 +172,23 @@
       (check-header dir basename))))
 
 (require 'cmake-mode)
-(define-key c-mode-map [f6] 'm-open-or-close-cmakefile)
-(define-key c++-mode-map [f6] 'm-open-or-close-cmakefile)
-(define-key cmake-mode-map [f6] 'm-open-or-close-cmakefile)
+(define-key c-mode-map [f6] 'ome-open-or-close-cmakefile)
+(define-key c++-mode-map [f6] 'ome-open-or-close-cmakefile)
+(define-key cmake-mode-map [f6] 'ome-open-or-close-cmakefile)
 
-(define-key c-mode-map [f7] 'm-open-or-close-packagexml)
-(define-key c++-mode-map [f7] 'm-open-or-close-packagexml)
+(define-key c-mode-map [f7] 'ome-open-or-close-packagexml)
+(define-key c++-mode-map [f7] 'ome-open-or-close-packagexml)
 
-(define-key c-mode-map [f12] 'm-switch-cc-source-and-header)
-(define-key c++-mode-map [f12] 'm-switch-cc-source-and-header)
+(define-key c-mode-map [f12] 'ome-switch-cc-source-and-header)
+(define-key c++-mode-map [f12] 'ome-switch-cc-source-and-header)
 
 (define-key c++-mode-map [f5] 
   '(lambda () 
      (interactive) 
-     (m-run-command "/home/damon/catkin_ws/bin/build_adsim")))
+     (ome-run-command "/home/damon/catkin_ws/bin/build_adsim")))
 
 (require 'nxml-mode)
-(define-key nxml-mode-map [f7] 'm-open-or-close-packagexml)
+(define-key nxml-mode-map [f7] 'ome-open-or-close-packagexml)
 
 
 ;;; Syntax highlighting support for "`Modern.C++'" - until `C++17' and Technical Specification.

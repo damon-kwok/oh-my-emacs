@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class `(m-bufname-no-ext)` : MonoBehaviour
+public class `(ome-bufname-no-ext)` : MonoBehaviour
 {
     Button button__${1:name1} = null;
 	Button button__${2:name2} = null;

@@ -22,4 +22,4 @@
 ;; Code:
 $0
 ;;
-(provide '`(m-bufname-no-ext)`)
+(provide '`(ome-bufname-no-ext)`)

@@ -20,8 +20,8 @@
 //						 
 // Code:
 //
-#ifndef __`(upcase (m-bufname-no-ext))`_H__
-#define __`(upcase (m-bufname-no-ext))`_H__
+#ifndef __`(upcase (ome-bufname-no-ext))`_H__
+#define __`(upcase (ome-bufname-no-ext))`_H__
 //
 namespace ${1:Namespace}
 {
@@ -35,6 +35,6 @@ namespace ${1:Namespace}
   };
 }
 //
-#endif //#ifndef __`(upcase (m-bufname-no-ext))`_H__
+#endif //#ifndef __`(upcase (ome-bufname-no-ext))`_H__
 //`(buffer-name)` ends here
 
