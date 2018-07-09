@@ -20,10 +20,8 @@
 //						 
 // Code:
 //
-int main(int argc, char* argv[])
-{
-    $0
-    return 0;
-}
+#include "`(ome-bufname-no-ext)`.h"
+
+$0
 //
 //`(buffer-name)` ends here

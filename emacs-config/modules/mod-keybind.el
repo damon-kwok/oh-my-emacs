@@ -369,7 +369,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ("2" (ome-open-mod "clojure") "clojure")
 ("3" (ome-open-mod "csharp") "csharp")
 ("4" (ome-open-mod "javascript") "javascript")
-("5" (ome-open-mod "cc") "cc")
+("5" (ome-open-mod "cquery") "cquery")
 ("6" (ome-open-mod "elixir") "elixir")
 
 ;;("w" (ome-open-mod "web") "web")
@@ -650,56 +650,56 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 (which-key-mode)
 
 ;;; `paredit'
-;; (package-require 'paredit)
-;; (require 'paredit)
+(package-require 'paredit)
+(require 'paredit)
 
-;; (define-key paredit-mode-map (kbd "C-<left>") 'paredit-backward-slurp-sexp)
-;; (define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
-;; (define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
-;; (define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
+(define-key paredit-mode-map (kbd "C-<left>") 'paredit-backward-slurp-sexp)
+(define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
+(define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
+(define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
 ;;; enable paredit for *
-;; (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-;; (add-hook 'emacs-mode-hook            #'enable-paredit-mode)
-;; (add-hook 'inferior-emacs-mode-hook   #'enable-paredit-mode)
-;; (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-;; (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-;; (add-hook 'common-lisp-mode-hook      #'enable-paredit-mode)
-;; (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-;; (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-;; (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
-;; (add-hook 'hy-mode-hook               #'enable-paredit-mode)
-;; (add-hook 'newlisp-mode-hook          #'enable-paredit-mode)
-;; (add-hook 'hy-mode-hook               #'enable-paredit-mode)
+(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+(add-hook 'emacs-mode-hook            #'enable-paredit-mode)
+(add-hook 'inferior-emacs-mode-hook   #'enable-paredit-mode)
+(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+(add-hook 'common-lisp-mode-hook      #'enable-paredit-mode)
+(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+(add-hook 'hy-mode-hook               #'enable-paredit-mode)
+(add-hook 'newlisp-mode-hook          #'enable-paredit-mode)
+(add-hook 'hy-mode-hook               #'enable-paredit-mode)
 ;;
 
 ;;
-(use-package smartparens-config
-    :ensure smartparens
-    :config
-    (progn
-      (show-smartparens-global-mode t)))
+;; (use-package smartparens-config
+    ;; :ensure smartparens
+    ;; :config
+    ;; (progn
+      ;; (show-smartparens-global-mode t)))
 
-(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-(add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+;; (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
 
-(defmacro def-pairs (pairs)
-  `(progn
-     ,@(loop for (key . val) in pairs
-          collect
-            `(defun ,(read (concat
-                            "wrap-with-"
-                            (prin1-to-string key)
-                            "s"))
-                 (&optional arg)
-               (interactive "p")
-               (sp-wrap-with-pair ,val)))))
+;; (defmacro def-pairs (pairs)
+  ;; `(progn
+     ;; ,@(loop for (key . val) in pairs
+          ;; collect
+            ;; `(defun ,(read (concat
+                            ;; "wrap-with-"
+                            ;; (prin1-to-string key)
+                            ;; "s"))
+                 ;; (&optional arg)
+               ;; (interactive "p")
+               ;; (sp-wrap-with-pair ,val)))))
 
-(def-pairs ((paren . "(")
-            (bracket . "[")
-            (brace . "{")
-            (single-quote . "'")
-            (double-quote . "\"")
-            (back-quote . "`")))
+;; (def-pairs ((paren . "(")
+            ;; (bracket . "[")
+            ;; (brace . "{")
+            ;; (single-quote . "'")
+            ;; (double-quote . "\"")
+            ;; (back-quote . "`")))
 
 ;;
 

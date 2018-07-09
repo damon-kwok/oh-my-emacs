@@ -26,6 +26,9 @@
 (require 'mod-package)
 ;;
 (require 'ielm)
+
+(add-to-list 'auto-mode-alist '("\\.els\\'" . emacs-lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.els.el\\'" . emacs-lisp-mode))
 ;;
 
 ;; scratch settings
