@@ -266,7 +266,10 @@ function ask-menu {
     read -p "please enter your choice:" item
     case $item in
 	0) ask-blog;;
-	1) git-pull;;
+	1)
+		git-pull
+		source ~/.bashrc
+	   ;;
 	2) git-push;;
 	3) git-push-a;;
 	# 2) getapp;;

@@ -306,7 +306,7 @@ function cquery_init() {
 		  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
 		  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
 		  -DCMAKE_BUILD_TYPE=Release
-		  # -DSYSTEM_CLANG=1
+	# -DSYSTEM_CLANG=1
 	make install
 	cd $OME_ROOT
 }
@@ -315,12 +315,12 @@ function mu4e_init() {
     # tip "install mu4e-release"
 	# github-init damon-kwok/resources $OME_ROOT/resources
 	# if [ ! -d $HOME/.emacs.d/libs/mu ]; then
-		# echo "no"
-		# cd $HOME/.emacs.d/libs/
-		
-		# cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/
-		# mkdir -p mu
-		# tar xpvf mu.tar.xz -C .
+	# echo "no"
+	# cd $HOME/.emacs.d/libs/
+	
+	# cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/
+	# mkdir -p mu
+	# tar xpvf mu.tar.xz -C .
 	# fi
 	# cd $HOME/.emacs.d/libs/mu/
 	# ./configure --prefix=$HOME/.mu
@@ -339,6 +339,25 @@ function mu4e_init() {
     tip "chmod +x $OME_ROOT/bin/*"
     cd $OME_BIN
     chmod +x ./*
+}
+
+function erlang_init() {
+	tip "install erlang"
+	# git clone https://github.com/erlang/otp.git
+	github-init erlang/otp $DEV_ROOT/erlang_otp
+	cd $DEV_ROOT/erlang_otp
+	./otp_build autoconf
+	./configure --prefix=$HOME/.erlang_otp
+	make
+	# make install
+
+    tip "install rebar3 for erlang"
+    cd $OME_BIN
+	# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
+    chmod +x ./rebar3
+	rebar3 local upgrade DEBUG=1
+    rebar3 update
+    rebar3 upgrade
 }
 
 function install-toolchain {
@@ -456,8 +475,8 @@ function install-toolchain {
 	sdk selfupdate
 	sdk update
 	sdk upgrade
-		
-	tip "install golang"
+	
+	tip "install go language server"
 	go get -u github.com/sourcegraph/go-langserver
 	
 	tip "install nvm + nodejs"	
@@ -486,22 +505,8 @@ function install-toolchain {
 	npm i -g flow-language-server
 	npm i -g typescript-language-server
 
-	tip "install erlang"
-	# git clone https://github.com/erlang/otp.git
-	github-init erlang/otp $DEV_ROOT/erlang_otp
-	cd $DEV_ROOT/erlang_otp
-	./otp_build autoconf
-	./configure --prefix=$HOME/.erlang_otp
-	make
-	# make install
-
-    tip "install rebar3 for erlang"
-    cd $OME_BIN
-	# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
-    chmod +x ./rebar3
-	rebar3 local upgrade DEBUG=1
-    rebar3 update
-    rebar3 upgrade
+	#install erlang
+	erlang_init
 
 	tip "install elixir"
 	# https://github.com/elixir-lang/elixir.git
