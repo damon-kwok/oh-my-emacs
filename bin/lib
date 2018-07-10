@@ -297,6 +297,50 @@ function svn-commit {
 # fi
 # }
 
+function cquery_init() {
+	tip "install cquery"
+	github-init cquery-project/cquery $DEV_ROOT/cquery
+	mkdir -p $DEV_ROOT/cquery/build
+	cd $DEV_ROOT/cquery/build/
+	cmake .. \
+		  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
+		  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
+		  -DCMAKE_BUILD_TYPE=Release
+		  # -DSYSTEM_CLANG=1
+	make install
+	cd $OME_ROOT
+}
+
+function mu4e_init() {
+    # tip "install mu4e-release"
+	# github-init damon-kwok/resources $OME_ROOT/resources
+	# if [ ! -d $HOME/.emacs.d/libs/mu ]; then
+		# echo "no"
+		# cd $HOME/.emacs.d/libs/
+		
+		# cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/
+		# mkdir -p mu
+		# tar xpvf mu.tar.xz -C .
+	# fi
+	# cd $HOME/.emacs.d/libs/mu/
+	# ./configure --prefix=$HOME/.mu
+	# make install
+
+	tip "install mu4e-git"
+	github-init djcb/mu $HOME/.emacs.d/libs/mu-git
+	cd $HOME/.emacs.d/libs/mu-git/
+	./autogen.sh
+	./configure --prefix=$HOME/.mu
+	make install
+
+	tip "install offlineiamp"
+	pip install --user -U offlineimap	
+	
+    tip "chmod +x $OME_ROOT/bin/*"
+    cd $OME_BIN
+    chmod +x ./*
+}
+
 function install-toolchain {
     tip "please choose your os:"
     echo "    1) debian/ubuntu/mint"
@@ -401,17 +445,8 @@ function install-toolchain {
 		~/.bash_it/install.sh
 	fi
 	
-	tip "install cquery"
-	github-init cquery-project/cquery $DEV_ROOT/cquery
-	mkdir -p $DEV_ROOT/cquery/build
-	cd $DEV_ROOT/cquery/build/
-	cmake .. \
-		  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
-		  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-		  -DCMAKE_BUILD_TYPE=Release
-		  # -DSYSTEM_CLANG=1
-	make install
-	cd $OME_ROOT
+	#cquery
+	cquery_init
 
 	tip "install sdkman"
 	if command -v sdk >/dev/null 2>&1; then
@@ -511,33 +546,11 @@ function install-toolchain {
 	tip "install nim"
 	curl https://nim-lang.org/choosenim/init.sh -sSf | sh
 
-	# tip "install mu4e-release"
-	# github-init damon-kwok/resources $OME_ROOT/resources
-	# if [ ! -d $HOME/.emacs.d/libs/mu ]; then
-		# echo "no"
-		# cd $HOME/.emacs.d/libs/
-		
-		# cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/
-		# mkdir -p mu
-		# tar xpvf mu.tar.xz -C .
-	# fi
-	# cd $HOME/.emacs.d/libs/mu/
-	# ./configure --prefix=$HOME/.mu
-	# make install
+	#mu4e
+	mu4e_init
 
-	tip "install mu4e-git"
-	github-init djcb/mu $HOME $HOME/.emacs.d/libs/
-	cd $HOME/.emacs.d/libs/mu/
-	./configure --prefix=$HOME/.mu
-	make install
-
-	tip "install offlineiamp"
-	pip install --user -U offlineimap	
-	
-    tip "chmod +x $OME_ROOT/bin/*"
-    cd $OME_BIN
-    chmod +x ./*
-
+	#bashrc
+	#
 	find-str ".oh-my-emacs/bin/env" ~/.bashrc
 	if [ $? -eq 0 ]; then
 		echo "source $HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
