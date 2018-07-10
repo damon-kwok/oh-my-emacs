@@ -31,7 +31,7 @@
 (package-require 'projectile)
 (require 'projectile)
 ;;; 默认全局使用
-(projectile-global-mode)
+(projectile-mode 1)
 
 ;;; 默认打开缓存
 (setq projectile-enable-caching t)

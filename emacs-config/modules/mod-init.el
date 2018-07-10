@@ -32,6 +32,7 @@
 ;;; `base'
 (module-require 'mod-library)
 (module-require 'mod-email)
+(module-require 'mod-feed)
 (module-require 'mod-basic)
 (module-require 'mod-mouse)
 (module-require 'mod-tabbar)

@@ -24,7 +24,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(setq mu4e-root (concat (expand-file-name libs-user-dir) "/mu/mu4e"))
+(setq mu4e-root (concat (expand-file-name libs-user-dir) "/mu-git/mu4e"))
 (add-to-list 'load-path mu4e-root)
 (require 'mu4e)
 
