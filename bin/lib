@@ -1,28 +1,28 @@
 #!/usr/bin/env bash
 function ask() {
-    read -p $(tput setaf 5)"$1 "$(tput sgr0)
+	read -p $(tput setaf 5)"$1 "$(tput sgr0)
 }
 function warning-ask() {
-    read -p $(tput setaf 3)"$1 "$(tput sgr0)
+	read -p $(tput setaf 3)"$1 "$(tput sgr0)
 }
 
 function echo-success() {
-    echo -e $(tput setaf 10)"$1"$(tput sgr0) #2
+	echo -e $(tput setaf 10)"$1"$(tput sgr0) #2
 }
 function echo-warning() {
-    echo -e $(tput setaf 11)"$1"$(tput sgr0) #3 dark yellow
+	echo -e $(tput setaf 11)"$1"$(tput sgr0) #3 dark yellow
 }
 function echo-error() {
-    echo -e $(tput setaf 1)"$1"$(tput sgr0)
+	echo -e $(tput setaf 1)"$1"$(tput sgr0)
 }
 function echo-tip() {
-    echo -e $(tput setaf 14)"$1"$(tput sgr0) #6
+	echo -e $(tput setaf 14)"$1"$(tput sgr0) #6
 }
 function echo-debug() {
-    echo -e $(tput setaf 8)"$1"$(tput sgr0)
+	echo -e $(tput setaf 8)"$1"$(tput sgr0)
 }
 function echo-waiting() {
-    echo -e $(tput setaf 4)"$1"$(tput sgr0)
+	echo -e $(tput setaf 4)"$1"$(tput sgr0)
 }
 
 function echo-kv() {
@@ -44,38 +44,41 @@ function github-init() {
 	local project=$1
 	local dir=$2
 
-	if [ "$GIT_USE_SECRET_KEY" == "1" ]; then		
-		local url="git@github.com:${project}.git --recursive"
-	else
-		local url="https://github.com/${project}.git --recursive"
-	fi
+	# if [ "$GIT_USE_SECRET_KEY" == "1" ]; then		
+	# local url="git@github.com:${project}.git --recursive"
+	# else
+	# local url="https://github.com/${project}.git --recursive"
+	# fi
+
+	local url="https://github.com/${project}.git --recursive"
 	
 	if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
 		tip "clone $project"
-		git clone --depth=1 $url $dir
+		# git clone --depth=1 $url $dir
+		git clone --recurse $url $dir
 	else
 		cd $dir
 		tip "update $project"
-		if [ "$PULL_FOR_BUILD" == "1" ]; then
-			# git pull
-			# git submodule update
-			git pull --recurse-submodules=1
-		fi
+		# if [ "$PULL_FOR_BUILD" == "1" ]; then
+		git pull
+		git submodule update
+		# git pull --recurse-submodules=1
+		# fi
 	fi
 }
 
 function readp {
 	local str=$1
 	
-    read -p "$str(Y/n)" c
-    if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
+	read -p "$str(Y/n)" c
+	if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
 		return $(( 1 ));
-    elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
+	elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
 		return $(( 0 ));
-    else
+	else
 		echo "invalid input:$c"
 		readp "$1"
-    fi
+	fi
 }
 
 # find-str $2:str $1:file
@@ -87,20 +90,20 @@ function find-str() {
 	local str=$1
 	local file=$2
 	
-    grep $str $file >/dev/null
+	grep $str $file >/dev/null
 	
-    if [ $? -eq 0 ]; then
+	if [ $? -eq 0 ]; then
 		echo "found:$str"
 		return $(( 1 ));
-    else
+	else
 		echo "not found:$str"
 		return $(( 0 ));
-    fi
+	fi
 }
 
 # smart-rtags $void
 function auto-gen-rtags() {
-    local dir=`pwd`
+	local dir=`pwd`
     # echo "check dir:$dir"
 
     if [ -f "$dir/CMakeLists.txt" ]; then
@@ -180,7 +183,7 @@ function link-init() {
 }
 
 function git-pull {
-    tip "git-pull"
+	tip "git-pull"
     cd $OME_ROOT
     git reset
     git pull
@@ -189,7 +192,7 @@ function git-pull {
 }
 
 function git-push {
-    tip "git-push"
+	tip "git-push"
     cd $OME_ROOT
     git reset
     git pull
@@ -207,7 +210,7 @@ function git-push {
 }
 
 function git-push-a {
-    tip "git-push-a"
+	tip "git-push-a"
     
     git reset
     git pull
@@ -219,23 +222,23 @@ function git-push-a {
 }
 
 function svn-remove-lose {
-    # svn status grep "^!" awk '{print $2}' xargs svn rm
+	# svn status grep "^!" awk '{print $2}' xargs svn rm
     svn st | grep '^\!' | cut -c 9- | xargs -r svn rm
 	# --depth infinity
 }
 
 function svn-add-new {
-    # svn status grep "^\?" awk '{print $2}' xargs svn add
+	# svn status grep "^\?" awk '{print $2}' xargs svn add
     svn st | grep '^\?' | cut -c 9- | xargs -r svn add --depth infinity
 }
 
 function svn-cancel-add {
-    # svn st |grep '^A' | cut -c 9- | awk '{print $2}' | xargs -r svn revert
+	# svn st |grep '^A' | cut -c 9- | awk '{print $2}' | xargs -r svn revert
     svn st | grep '^A' | cut -c 9- | xargs -r svn revert --depth infinity
 }
 
 function svn-commit {
-    tip "check lose files"
+	tip "check lose files"
     svn-remove-lose
 
     tip "check new files"
@@ -297,71 +300,8 @@ function svn-commit {
 # fi
 # }
 
-function cquery_init() {
-	tip "install cquery"
-	github-init cquery-project/cquery $DEV_ROOT/cquery
-	mkdir -p $DEV_ROOT/cquery/build
-	cd $DEV_ROOT/cquery/build/
-	cmake .. \
-		  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
-		  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-		  -DCMAKE_BUILD_TYPE=Release
-	# -DSYSTEM_CLANG=1
-	make install
-	cd $OME_ROOT
-}
-
-function mu4e_init() {
-    # tip "install mu4e-release"
-	# github-init damon-kwok/resources $OME_ROOT/resources
-	# if [ ! -d $HOME/.emacs.d/libs/mu ]; then
-	# echo "no"
-	# cd $HOME/.emacs.d/libs/
-	
-	# cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/
-	# mkdir -p mu
-	# tar xpvf mu.tar.xz -C .
-	# fi
-	# cd $HOME/.emacs.d/libs/mu/
-	# ./configure --prefix=$HOME/.mu
-	# make install
-
-	tip "install mu4e-git"
-	github-init djcb/mu $HOME/.emacs.d/libs/mu-git
-	cd $HOME/.emacs.d/libs/mu-git/
-	./autogen.sh
-	./configure --prefix=$HOME/.mu
-	make install
-
-	tip "install offlineiamp"
-	pip install --user -U offlineimap	
-	
-    tip "chmod +x $OME_ROOT/bin/*"
-    cd $OME_BIN
-    chmod +x ./*
-}
-
-function erlang_init() {
-	tip "install erlang"
-	# git clone https://github.com/erlang/otp.git
-	github-init erlang/otp $DEV_ROOT/erlang_otp
-	cd $DEV_ROOT/erlang_otp
-	./otp_build autoconf
-	./configure --prefix=$HOME/.erlang_otp
-	make
-	# make install
-
-    tip "install rebar3 for erlang"
-    cd $OME_BIN
-	# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
-    chmod +x ./rebar3
-	rebar3 local upgrade DEBUG=1
-    rebar3 update
-    rebar3 upgrade
-}
-
 function install-toolchain {
-    tip "please choose your os:"
+	tip "please choose your os:"
     echo "    1) debian/ubuntu/mint"
     echo "    2) archlinux/manjaro"
     echo "    3) fedora22+"
@@ -378,7 +318,7 @@ function install-toolchain {
 				# && sudo dpkg -i erlang-solutions_1.0_all.deb
 
 			# Golang
-			sudo add-apt-repository -y ppa:longsleep/golang-backports
+			# sudo add-apt-repository -y ppa:longsleep/golang-backports
 			
 			sudo apt update
 			sudo apt dist-upgrade
@@ -402,7 +342,7 @@ function install-toolchain {
 			# sudo apt-get update && sudo apt-get install -y bazel
 			
 			# - Golang LTS PPA
-			sudo apt-get install golang-go			
+			# sudo apt-get install golang-go			
 			;;
 		
 		2)  # ArchLinux / Manjaro
@@ -452,21 +392,101 @@ function install-toolchain {
 			;;
     esac
 
-	# tip "install oh-my-zsh"
-	# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-	tip "install Bash-it"	
-	if command -v bash-it >/dev/null 2>&1; then
-		bash-it update
-	else
-		# git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-		github-init Bash-it/bash-it ~/.bash_it
-		~/.bash_it/install.sh
-	fi
+	source ~/.bashrc
+}
+
+function cquery_init() {
+	tip "install cquery"
+	github-init cquery-project/cquery $DEV_ROOT/cquery
+	mkdir -p $DEV_ROOT/cquery/build
+	cd $DEV_ROOT/cquery/build/
+	cmake .. \
+		  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
+		  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
+		  -DCMAKE_BUILD_TYPE=Release
+	# -DSYSTEM_CLANG=1
+	make install
+	cd $OME_ROOT
+}
+
+function mu4e_init() {
+	# tip "install mu4e-release"
+	# github-init damon-kwok/resources $OME_ROOT/resources
+	# if [ ! -d $HOME/.emacs.d/libs/mu ]; then
+	# echo "no"
+	# cd $HOME/.emacs.d/libs/
 	
-	#cquery
-	cquery_init
+	# cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/
+	# mkdir -p mu
+	# tar xpvf mu.tar.xz -C .
+	# fi
+	# cd $HOME/.emacs.d/libs/mu/
+	# ./configure --prefix=$HOME/.mu
+	# make install
 
+	tip "install mu4e-git"
+	github-init djcb/mu $HOME/.emacs.d/libs/mu-git
+	cd $HOME/.emacs.d/libs/mu-git/
+	./autogen.sh
+	./configure --prefix=$HOME/.mu
+	make install
+
+	tip "install offlineiamp"
+	pip install --user -U offlineimap	
+	
+    tip "chmod +x $OME_ROOT/bin/*"
+    cd $OME_BIN
+    chmod +x ./*
+}
+
+function erlang_init() {
+	tip "install erlang"
+	# git clone https://github.com/erlang/otp.git
+	github-init erlang/otp $DEV_ROOT/erlang_otp
+	cd $DEV_ROOT/erlang_otp
+	./otp_build autoconf
+	./configure --prefix=$HOME/.erlang_otp
+	make
+	# make install
+
+	tip "install rebar3 for erlang"
+	cd $OME_BIN
+	# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
+	chmod +x ./rebar3
+	rebar3 local upgrade DEBUG=1
+	rebar3 update
+	rebar3 upgrade
+
+	tip "install elixir"
+	# https://github.com/elixir-lang/elixir.git
+	github-init elixir-lang/elixir $DEV_ROOT/elixir
+	cd $DEV_ROOT/elixir
+	make
+	# make clean test
+}
+
+function rust_init() {
+	tip "install cargo + rust"
+	if command -v rustup >/dev/null 2>&1; then
+		rustup self update
+		rustup update
+	else
+		curl https://sh.rustup.rs -sSf | sh	
+		cargo update
+		rustup toolchain add nightly
+		rustup component add rust-src
+	fi
+	cargo install --force racer
+	cargo install --force ripgrep
+}
+
+function nim-init() {
+	tip "install nim"
+	curl https://nim-lang.org/choosenim/init.sh -sSf | sh
+}
+
+function sdkman_init() {
 	tip "install sdkman"
 	if command -v sdk >/dev/null 2>&1; then
 		curl -s "https://get.sdkman.io" | bash
@@ -475,11 +495,11 @@ function install-toolchain {
 	sdk selfupdate
 	sdk update
 	sdk upgrade
-	
-	tip "install go language server"
-	go get -u github.com/sourcegraph/go-langserver
-	
-	tip "install nvm + nodejs"	
+	sdk install java clojure kotlin scala gradle 
+}
+
+function nvm_init() {
+    tip "install nvm + nodejs"	
 	# curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 	local NVM_DIR="$HOME/.nvm"
 	if command -v nvm >/dev/null 2>&1; then
@@ -497,73 +517,28 @@ function install-toolchain {
 		[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 		[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 	fi
+	
 	nvm install 8 #LFS
 	# nvm install node # lastest version
+	npm i -g npm
 	
 	tip "install js language server"
 	npm i -g javascript-typescript-langserver
 	npm i -g flow-language-server
 	npm i -g typescript-language-server
 
-	#install erlang
-	erlang_init
-
-	tip "install elixir"
-	# https://github.com/elixir-lang/elixir.git
-	github-init elixir-lang/elixir $DEV_ROOT/elixir
-	cd $DEV_ROOT/elixir
-	make
-	# make clean test
-
-    tip "install ebook build tool: sphinx-build"
-    # pip install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
-	pip install --user -U sphinx
-	
-    #haskell
-    # if [ ! -d "~/.stack/" ]; then
-    # mkdir ~/.stack/
-    # cp $OME_ROOT/cache/bin/config.yaml ~/.stack/
-    # fi
-    # stack update
-    # stack upgrade
-
-    tip "install lein + clojure"
-    cd $OME_BIN
-	# if command -v bash-it >/dev/null 2>&1; then
-	# curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
-	# curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-    chmod +x ./lein
-    lein upgrade
-    
-	tip "install cargo + rust"
-	if command -v rustup >/dev/null 2>&1; then
-		rustup self update
-		rustup update
-	else
-		curl https://sh.rustup.rs -sSf | sh	
-		cargo update
-		rustup toolchain add nightly
-		rustup component add rust-src
-	fi
-	cargo install --force racer
-	cargo install --force ripgrep
-
-	tip "install nim"
-	curl https://nim-lang.org/choosenim/init.sh -sSf | sh
-
-	#mu4e
-	mu4e_init
-
-	#bashrc
-	#
-	find-str ".oh-my-emacs/bin/env" ~/.bashrc
-	if [ $? -eq 0 ]; then
-		echo "source $HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
-	fi
-
-	source ~/.bashrc
 }
 
+function golang_init() {
+	github-init golang/go $DEV_ROOT/go
+	cd $DEV_ROOT/go/src
+	chmod +x ./all.bash
+	./all.bash
+	cd $HOME
+	
+    tip "install go language server"
+	go get -u github.com/sourcegraph/go-langserver
+}
 function upgrade() {
     # sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && \
 		# rosdep update && bash-it update && \ #nvm upgrade && \
@@ -571,6 +546,67 @@ function upgrade() {
 		# cargo update && rustup component add rust-src && cargo install racer
 	
 	#&& upgrade_oh_my_zsh
-	install-toolchain
-}
+	# install-toolchain
 
+	# tip "install oh-my-zsh"
+	# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+	tip "install Bash-it"	
+	if command -v bash-it >/dev/null 2>&1; then
+		bash-it update
+	else
+		# git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+		github-init Bash-it/bash-it ~/.bash_it
+		~/.bash_it/install.sh
+	fi
+	
+	#cquery
+	cquery_init
+
+	# install sdkman
+	sdkman_init
+	
+	# install golang
+	golang_init
+	
+	# install nvm & nodejs
+	nvm_init
+
+	#install erlang/elixir
+	erlang_init
+    
+	# install cargo + rust
+	rust_init
+	
+	# install nim
+
+	#mu4e
+	mu4e_init
+
+	#haskell
+    # if [ ! -d "~/.stack/" ]; then
+    # mkdir ~/.stack/
+    # cp $OME_ROOT/cache/bin/config.yaml ~/.stack/
+    # fi
+    # stack update
+    # stack upgrade
+
+    # tip "install lein + clojure"
+    # cd $OME_BIN
+	# # if command -v bash-it >/dev/null 2>&1; then
+	# # curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+	# # curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+    # chmod +x ./lein
+    # lein upgrade
+
+	tip "install ebook build tool: sphinx-build"
+    # pip install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
+	pip install --user -U sphinx
+	
+	#set .bashrc
+	#
+	find-str ".oh-my-emacs/bin/env" ~/.bashrc
+	if [ $? -eq 0 ]; then
+		echo "source $HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
+	fi
+}

@@ -69,9 +69,14 @@ export PATH=$CQUERY_BIN:$PATH
 # fi
 
 # Golang
-export GOROOT=/usr/lib/go
+export GOROOT=$DEV_ROOT/go
 export GOPATH=$HOME/goprojects
-export PATH=$PATH:$GOPATH/bin
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN:$GOROOT/bin
+
+# export GOROOT_BOOTSTRAP=$DEV_ROOT/go
+# export GOOS=linux
+# export GOARCH=amd64
 
 # Rust
 # [ -s "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
