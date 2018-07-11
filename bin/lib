@@ -104,9 +104,9 @@ function find-str() {
 # smart-rtags $void
 function auto-gen-rtags() {
 	local dir=`pwd`
-    # echo "check dir:$dir"
+	# echo "check dir:$dir"
 
-    if [ -f "$dir/CMakeLists.txt" ]; then
+	if [ -f "$dir/CMakeLists.txt" ]; then
 		if [ ! -d "$dir/rtags_indexes" ]; then
 			echo "$dir/rtags_indexes is creating..."
 			mkdir -p $dir/rtags_indexes
@@ -117,12 +117,12 @@ function auto-gen-rtags() {
 		else
 			echo "$dir/rtags_indexes is exist!"
 		fi
-    else
+	else
 		cd ..
 		if [ ! "/" == "$dir" ]; then
 			auto-gen-rtags	    
 		fi
-    fi
+	fi
 }
 
 function dns-init() {
@@ -184,41 +184,41 @@ function link-init() {
 
 function git-pull {
 	tip "git-pull"
-    cd $OME_ROOT
-    git reset
-    git pull
+	cd $OME_ROOT
+	git reset
+	git pull
 
 	chmod +x $OME_ROOT/bin/*
 }
 
 function git-push {
 	tip "git-push"
-    cd $OME_ROOT
-    git reset
-    git pull
-    git add .
-    git status
+	cd $OME_ROOT
+	git reset
+	git pull
+	git add .
+	git status
 
-    readp "auto commit?"
-    if [ $? -eq 1 ]; then
+	readp "auto commit?"
+	if [ $? -eq 1 ]; then
 		git commit -m `date +%Y-%m-%d@%H-%M-%S`
-    else
+	else
 		read -p "please enter commit message:" msg
 		git commit -m "$msg"
-    fi
-    git push -u origin master
+	fi
+	git push -u origin master
 }
 
 function git-push-a {
 	tip "git-push-a"
-    
-    git reset
-    git pull
-    git add .
-    git status
-    # git commit -m "upgrade by "`uname -n`
-    git commit -m `date +%Y-%m-%d@%H-%M-%S` # "upgrade by "`uname -n`
-    git push -u origin master
+	
+	git reset
+	git pull
+	git add .
+	git status
+	# git commit -m "upgrade by "`uname -n`
+	git commit -m `date +%Y-%m-%d@%H-%M-%S` # "upgrade by "`uname -n`
+	git push -u origin master
 }
 
 function svn-remove-lose {
@@ -239,21 +239,21 @@ function svn-cancel-add {
 
 function svn-commit {
 	tip "check lose files"
-    svn-remove-lose
+	svn-remove-lose
 
-    tip "check new files"
-    svn-add-new
+	tip "check new files"
+	svn-add-new
 
-    tip "show status"
-    svn status
-    
-    readp "auto commit?"
-    if [ $? -eq 1 ]; then
+	tip "show status"
+	svn status
+	
+	readp "auto commit?"
+	if [ $? -eq 1 ]; then
 		svn commit -m `date +%Y-%m-%d@%H-%M-%S`
-    else
+	else
 		read -p "please enter commit message:" msg
 		svn commit -m "$msg"
-    fi
+	fi
 }
 
 
@@ -302,16 +302,16 @@ function svn-commit {
 
 function install-toolchain {
 	tip "please choose your os:"
-    echo "    1) debian/ubuntu/mint"
-    echo "    2) archlinux/manjaro"
-    echo "    3) fedora22+"
-    echo "    4) macOS"
-    echo "    5) msys2"
-    echo "    -------------------------"
-    echo "    r) return"
+	echo "    1) debian/ubuntu/mint"
+	echo "    2) archlinux/manjaro"
+	echo "    3) fedora22+"
+	echo "    4) macOS"
+	echo "    5) msys2"
+	echo "    -------------------------"
+	echo "    r) return"
 
-    read -p "please enter your choice:" item
-    case $item in
+	read -p "please enter your choice:" item
+	case $item in
 		1)  # Debian / Ubuntu / LinuxMint
 			# Erlang
 			# wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
@@ -390,7 +390,7 @@ function install-toolchain {
 		*)
 			ask-repl
 			;;
-    esac
+	esac
 
 
 	source ~/.bashrc
@@ -408,6 +408,39 @@ function cquery_init() {
 	# -DSYSTEM_CLANG=1
 	make install
 	cd $OME_ROOT
+}
+
+function config_offlineimap() {
+	local del_force=$1
+	if [ "$del_force" == "1" ]; then
+		rm -rf ~/.offlineimaprc
+	fi
+	
+	if [ ! -e ~/.offlineimaprc ]; then		
+		echo "[general]" >> ~/.offlineimaprc 
+		echo "accounts = Gmail" >> ~/.offlineimaprc
+		echo "maxsyncaccounts = 3" >> ~/.offlineimaprc
+		echo "" >> ~/.offlineimaprc
+		echo "[Account Gmail]" >> ~/.offlineimaprc
+		echo "localrepository = Local" >> ~/.offlineimaprc
+		echo "remoterepository = Remote" >> ~/.offlineimaprc
+		echo "" >> ~/.offlineimaprc
+		echo "[Repository Local]" >> ~/.offlineimaprc
+		echo "type = Maildir" >> ~/.offlineimaprc
+		echo "localfolders = ~/Maildir" >> ~/.offlineimaprc
+		echo "" >> ~/.offlineimaprc
+		echo "[Repository Remote]" >> ~/.offlineimaprc
+		echo "type = IMAP" >> ~/.offlineimaprc
+		echo "remotehost = imap.263.net" >> ~/.offlineimaprc
+		echo "remoteport = 143" >> ~/.offlineimaprc
+		read -p "please input your email address:" email
+		echo "remoteuser = $email" >> ~/.offlineimaprc
+		read -p "please input your email password:" passwd
+		echo "remotepass = $passwd" >> ~/.offlineimaprc
+		echo "ssl = no" >> ~/.offlineimaprc
+		echo "maxconnections = 1" >> ~/.offlineimaprc
+		echo "realdelete = no" >> ~/.offlineimaprc
+	fi
 }
 
 function mu4e_init() {
@@ -438,6 +471,8 @@ function mu4e_init() {
     tip "chmod +x $OME_ROOT/bin/*"
     cd $OME_BIN
     chmod +x ./*
+
+	config_offlineimap
 }
 
 function erlang_init() {
@@ -486,6 +521,21 @@ function nim-init() {
 	curl https://nim-lang.org/choosenim/init.sh -sSf | sh
 }
 
+function install-elicpse-language-server() {
+    tip "install elicpse language server"	
+	local del_force=$1
+	if [ "$del_force" == "1" ]; then
+		rm -rf ~/.emacs.d/eclipse.jdt.ls/server/
+	fi
+	
+	if [ ! -e ~/.offlineimaprc ]; then
+		mkdir -p ~/.emacs.d/eclipse.jdt.ls/server/
+		# wget http://mirror.switch.ch/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz  -O /tmp/jdt-latest.tar
+		wget http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz -O /tmp/jdt-latest.tar
+		tar xf /tmp/jdt-latest.tar -C ~/.emacs.d/eclipse.jdt.ls/server/
+	fi
+}
+
 function sdkman_init() {
 	tip "install sdkman"
 	if command -v sdk >/dev/null 2>&1; then
@@ -495,11 +545,14 @@ function sdkman_init() {
 	sdk selfupdate
 	sdk update
 	sdk upgrade
-	sdk install java clojure kotlin scala gradle 
+	sdk install java clojure kotlin scala gradle
+
+	#lsp-java
+	install-eclipse-language-server
 }
 
 function nvm_init() {
-    tip "install nvm + nodejs"	
+	tip "install nvm + nodejs"	
 	# curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 	local NVM_DIR="$HOME/.nvm"
 	if command -v nvm >/dev/null 2>&1; then
@@ -536,11 +589,56 @@ function golang_init() {
 	./all.bash
 	cd $HOME
 	
-    tip "install go language server"
+	tip "install go language server"
 	go get -u github.com/sourcegraph/go-langserver
 }
+
+function projects_init() {
+	# C
+    github-init libuv/libuv $DEV_ROOT/libuv
+	github-init nodejs/http-parser $DEV_ROOT/http-parser
+	github-init json-c/json-c $DEV_ROOT/json-c
+	github-init protobuf-c/protobuf-c $DEV_ROOT/protobuf-c
+
+	github-init nanomsg/nanomsg $DEV_ROOT/nanomsg
+	github-init zeromq/libzmq $DEV_ROOT/libzmq
+		
+	# C++
+	github-init nodejs/http2 $DEV_ROOT/http2
+	github-init facebook/folly $DEV_ROOT/folly
+	github-init pocoproject/poco/ $DEV_ROOT/poco
+	
+	# C#
+
+	# Lisp
+	github-init kanaka/mal $DEV_ROOT/mal
+
+	# Clojure
+	github-init apache/storm $DEV_ROOT/storm
+	# https://github.com/apachecn/storm-doc-zh/
+	github-init riemann/riemann $DEV_ROOT/riemann
+	github-init ztellman/aleph $DEV_ROOT/aleph
+	# https://github.com/ztellman/byte-streams
+	# https://github.com/ztellman/lamina
+	# https://github.com/ztellman/gloss
+	# https://github.com/ztellman/manifold
+	
+	# Unity3d
+	github-init arcadia-unity/arcadia $DEV_ROOT/Arcadia
+
+	
+	# UE4
+
+	
+	# Data
+	github-init apache/thrift $DEV_ROOT/thrift
+	github-init apache/avro $DEV_ROOT/avro
+	github-init google/flatbuffers $DEV_ROOT/flatbuffers
+
+}
+
 function upgrade() {
-    # sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && \
+	# sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && \
 		# rosdep update && bash-it update && \ #nvm upgrade && \
 		# rebar3 local upgrade && lein upgrade && \
 		# cargo update && rustup component add rust-src && cargo install racer
@@ -609,4 +707,8 @@ function upgrade() {
 	if [ $? -eq 0 ]; then
 		echo "source $HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
 	fi
+}
+
+function .rc() {
+    source ~/.bashrc
 }
