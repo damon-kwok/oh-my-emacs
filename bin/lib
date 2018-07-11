@@ -472,7 +472,16 @@ function mu4e_init() {
     cd $OME_BIN
     chmod +x ./*
 
+	# offlineimap
 	config_offlineimap
+
+	# Maildir
+	mkdir -p ~/Maildir/Archive/
+	mkdir -p ~/Maildir/Draft/
+	mkdir -p ~/Maildir/INBOX/
+	mkdir -p ~/Maildir/Junk/
+	mkdir -p ~/Maildir/Sent/
+	mkdir -p ~/Maildir/Trash/	
 }
 
 function erlang_init() {
@@ -593,31 +602,31 @@ function golang_init() {
 	go get -u github.com/sourcegraph/go-langserver
 }
 
-function projects_init() {
+function project_init() {
 	# C
-    github-init libuv/libuv $DEV_ROOT/libuv
-	github-init nodejs/http-parser $DEV_ROOT/http-parser
-	github-init json-c/json-c $DEV_ROOT/json-c
-	github-init protobuf-c/protobuf-c $DEV_ROOT/protobuf-c
+    github-init libuv/libuv $PROJECT_ROOT/libuv
+	github-init nodejs/http-parser $PROJECT_ROOT/http-parser
+	github-init json-c/json-c $PROJECT_ROOT/json-c
+	github-init protobuf-c/protobuf-c $PROJECT_ROOT/protobuf-c
 
-	github-init nanomsg/nanomsg $DEV_ROOT/nanomsg
-	github-init zeromq/libzmq $DEV_ROOT/libzmq
+	github-init nanomsg/nanomsg $PROJECT_ROOT/nanomsg
+	github-init zeromq/libzmq $PROJECT_ROOT/libzmq
 		
 	# C++
-	github-init nodejs/http2 $DEV_ROOT/http2
-	github-init facebook/folly $DEV_ROOT/folly
-	github-init pocoproject/poco/ $DEV_ROOT/poco
+	github-init nodejs/http2 $PROJECT_ROOT/http2
+	github-init facebook/folly $PROJECT_ROOT/folly
+	github-init pocoproject/poco/ $PROJECT_ROOT/poco
 	
 	# C#
 
 	# Lisp
-	github-init kanaka/mal $DEV_ROOT/mal
+	github-init kanaka/mal $PROJECT_ROOT/mal
 
 	# Clojure
-	github-init apache/storm $DEV_ROOT/storm
+	github-init apache/storm $PROJECT_ROOT/storm
 	# https://github.com/apachecn/storm-doc-zh/
-	github-init riemann/riemann $DEV_ROOT/riemann
-	github-init ztellman/aleph $DEV_ROOT/aleph
+	github-init riemann/riemann $PROJECT_ROOT/riemann
+	github-init ztellman/aleph $PROJECT_ROOT/aleph
 	# https://github.com/ztellman/byte-streams
 	# https://github.com/ztellman/lamina
 	# https://github.com/ztellman/gloss
@@ -634,7 +643,15 @@ function projects_init() {
 	github-init apache/thrift $DEV_ROOT/thrift
 	github-init apache/avro $DEV_ROOT/avro
 	github-init google/flatbuffers $DEV_ROOT/flatbuffers
+	
+}
 
+function book_init() {
+# Book
+	# https://github.com/QianMo/Real-Time-Rendering-3rd-CN-Summary-Ebook
+	github-init QianMo/Real-Time-Rendering-3rd-CN-Summary-Ebook $BOOK_ROOT/Real-Time-Rendering-3rd-CN-Summary-Ebook
+	# https://github.com/huangz1990/real-world-haskell-cn
+    github-init huangz1990/real-world-haskell-cn $BOOK_ROOT/real-world-haskell-cn
 }
 
 function upgrade() {

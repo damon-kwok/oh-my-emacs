@@ -9,6 +9,8 @@ export OME_BIN=$OME_ROOT/bin
 export PATH=$OME_BIN:$PATH
 
 export DEV_ROOT=$HOME/.dev
+export BOOK_ROOT=$HOME/book
+export PROJECT_ROOT=$HOME/projects
 
 export CACHE=$OME_ROOT/cache
 export APP_HOME=$CACHE/apps
