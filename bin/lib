@@ -325,7 +325,7 @@ function install-toolchain {
 			
 			sudo apt install -y build-essential texinfo libtool autoscan aclocal autoconf autoheader automake \
 				 coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
-			sudo apt install -y python-pip perl ruby ocaml haskell-stack openjdk-8-jdk
+			sudo apt install -y python-pip perl ruby ocaml haskell-stack #openjdk-8-jdk
 			sudo apt install -y ttf-bitstream-vera #zmq ghostscript
 			sudo apt install -y i3 #i3-wm i3status i3lock dmenu feh xcompmgr roxterm
 
@@ -360,7 +360,7 @@ function install-toolchain {
 			sudo dnf groupinstall "Development Tools and Libraries"
 			sudo dnf install autoscan aclocal autoconf autoheader automake \
 				 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
-			sudo dnf install python2-pip perl rubygems ocaml haskell-stack openjdk-8-jdk golang
+			sudo dnf install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
 			sudo dnf install ttf-bitstream-vera
 			;;
 		
@@ -370,7 +370,7 @@ function install-toolchain {
 			
 			brew install autoscan aclocal autoconf autoheader automake \
 				 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
-			brew install python2-pip perl rubygems ocaml haskell-stack openjdk-8-jdk golang
+			brew install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
 			brew install ttf-bitstream-vera
 			;;
 		
@@ -396,7 +396,7 @@ function install-toolchain {
 	source ~/.bashrc
 }
 
-function cquery_init() {
+function cquery-init() {
 	tip "install cquery"
 	github-init cquery-project/cquery $DEV_ROOT/cquery
 	mkdir -p $DEV_ROOT/cquery/build
@@ -443,7 +443,7 @@ function config_offlineimap() {
 	fi
 }
 
-function mu4e_init() {
+function mu4e-init() {
 	# tip "install mu4e-release"
 	# github-init damon-kwok/resources $OME_ROOT/resources
 	# if [ ! -d $HOME/.emacs.d/libs/mu ]; then
@@ -484,7 +484,7 @@ function mu4e_init() {
 	mkdir -p ~/Maildir/Trash/	
 }
 
-function erlang_init() {
+function erlang-init() {
 	tip "install erlang"
 	# git clone https://github.com/erlang/otp.git
 	github-init erlang/otp $DEV_ROOT/erlang_otp
@@ -510,7 +510,7 @@ function erlang_init() {
 	# make clean test
 }
 
-function rust_init() {
+function rust-init() {
 	tip "install cargo + rust"
 	if command -v rustup >/dev/null 2>&1; then
 		rustup self update
@@ -530,6 +530,12 @@ function nim-init() {
 	curl https://nim-lang.org/choosenim/init.sh -sSf | sh
 }
 
+function crystal-init() {
+    github-init crystal-lang/crystal $DEV_ROOT/crystal
+	cd $DEV_ROOT/crystal
+	make
+}
+
 function install-elicpse-language-server() {
     tip "install elicpse language server"	
 	local del_force=$1
@@ -545,23 +551,46 @@ function install-elicpse-language-server() {
 	fi
 }
 
-function sdkman_init() {
+function sdkman-init() {
 	tip "install sdkman"
 	if command -v sdk >/dev/null 2>&1; then
 		curl -s "https://get.sdkman.io" | bash
 		source $HOME/.sdkman/bin/sdkman-init.sh
 	fi
+	# find-str "SDKMAN_DIR" ~/.bashrc
+	# if [ $? -eq 0 ]; then
+	# echo "#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!" >> ~/.bashrc
+	# echo "export SDKMAN_DIR=\"$HOME/.sdkman\"" >> ~/.bashrc
+	# echo "[[ -s \"$HOME/.sdkman/bin/sdkman-init.sh\" ]] && source \"$HOME/.sdkman/bin/sdkman-init.sh\"" >> ~/.bashrc
+	# fi
 	sdk selfupdate
 	sdk update
 	sdk upgrade
-	sdk install java clojure kotlin scala gradle
+	
+	sdk install java
+	sdk install kotlin
+	sdk install scala
+	sdk install groovy	
+	sdk install leiningen
+	sdk install maven
+	sdk isntall gradle
+	sdk install sbt
 
 	#lsp-java
-	install-eclipse-language-server
+	install-elicpse-language-server
 }
 
-function nvm_init() {
-	tip "install nvm + nodejs"	
+function nvm-init() {
+	tip "install nvm + nodejs"
+	find-str "# Nodejs" ~/.bashrc
+	if [ $? -eq 0 ]; then
+		echo "" >> ~/.bashrc
+		echo "# Nodejs" >> ~/.bashrc
+		echo "export NVM_DIR=\"$HOME/.nvm\"" >> ~/.bashrc
+		echo "[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\"" >> ~/.bashrc
+		echo "[ -s \"$NVM_DIR/bash_completion\" ] && \. \"$NVM_DIR/bash_completion\"" >> ~/.bashrc
+	fi
+	
 	# curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 	local NVM_DIR="$HOME/.nvm"
 	if command -v nvm >/dev/null 2>&1; then
@@ -574,24 +603,24 @@ function nvm_init() {
 		git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`		
 	fi
 
-	if ! command -v nvm >/dev/null 2>&1; then
-		export NVM_DIR="$HOME/.nvm"
-		[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-		[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-	fi
+	# if ! command -v nvm >/dev/null 2>&1; then
+		# export NVM_DIR="$HOME/.nvm"
+		# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+		# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+	# fi
 	
 	nvm install 8 #LFS
 	# nvm install node # lastest version
+	
 	npm i -g npm
 	
 	tip "install js language server"
 	npm i -g javascript-typescript-langserver
 	npm i -g flow-language-server
-	npm i -g typescript-language-server
-
+	npm i -g typescript-language-server				
 }
 
-function golang_init() {
+function golang-init() {
 	github-init golang/go $DEV_ROOT/go
 	cd $DEV_ROOT/go/src
 	chmod +x ./all.bash
@@ -602,16 +631,17 @@ function golang_init() {
 	go get -u github.com/sourcegraph/go-langserver
 }
 
-function project_init() {
+function project-init() {
 	# C
     github-init libuv/libuv $PROJECT_ROOT/libuv
 	github-init nodejs/http-parser $PROJECT_ROOT/http-parser
 	github-init json-c/json-c $PROJECT_ROOT/json-c
 	github-init protobuf-c/protobuf-c $PROJECT_ROOT/protobuf-c
 
-	github-init nanomsg/nanomsg $PROJECT_ROOT/nanomsg
-	github-init zeromq/libzmq $PROJECT_ROOT/libzmq
-		
+	# github-init nanomsg/nanomsg $PROJECT_ROOT/nanomsg
+	# github-init zeromq/libzmq $PROJECT_ROOT/libzmq
+	github-init libcheck/check $PROJECT_ROOT/libcheck
+	
 	# C++
 	github-init nodejs/http2 $PROJECT_ROOT/http2
 	github-init facebook/folly $PROJECT_ROOT/folly
@@ -646,8 +676,8 @@ function project_init() {
 	
 }
 
-function book_init() {
-# Book
+function book-init() {
+	# Book
 	# https://github.com/QianMo/Real-Time-Rendering-3rd-CN-Summary-Ebook
 	github-init QianMo/Real-Time-Rendering-3rd-CN-Summary-Ebook $BOOK_ROOT/Real-Time-Rendering-3rd-CN-Summary-Ebook
 	# https://github.com/huangz1990/real-world-haskell-cn
@@ -676,27 +706,27 @@ function upgrade() {
 	fi
 	
 	#cquery
-	cquery_init
+	cquery-init
 
 	# install sdkman
-	sdkman_init
+	sdkman-init
 	
 	# install golang
-	golang_init
+	golang-init
 	
 	# install nvm & nodejs
-	nvm_init
+	nvm-init
 
 	#install erlang/elixir
-	erlang_init
+	erlang-init
     
 	# install cargo + rust
-	rust_init
+	rust-init
 	
 	# install nim
 
 	#mu4e
-	mu4e_init
+	mu4e-init
 
 	#haskell
     # if [ ! -d "~/.stack/" ]; then
