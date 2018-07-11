@@ -573,7 +573,7 @@ function sdkman-init() {
 	sdk install groovy	
 	sdk install leiningen
 	sdk install maven
-	sdk isntall gradle
+	sdk install gradle
 	sdk install sbt
 
 	#lsp-java
