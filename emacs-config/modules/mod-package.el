@@ -163,6 +163,13 @@
 ;; `use-package'
 (package-require 'use-package)
 (require 'use-package)
+
+
+
+;; `quelpa'
+(package-require 'quelpa)
+(require 'quelpa)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 (provide 'mod-package)

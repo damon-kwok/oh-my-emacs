@@ -483,6 +483,15 @@ function mu4e-init() {
 	mkdir -p ~/Maildir/Trash/	
 }
 
+function elixir-init() {
+    tip "install elixir"
+	# https://github.com/elixir-lang/elixir.git
+	github-init elixir-lang/elixir $DEV_ROOT/elixir
+	cd $DEV_ROOT/elixir
+	make
+	# make clean test
+}
+
 function erlang-init() {
 	tip "install erlang"
 	# git clone https://github.com/erlang/otp.git
@@ -499,14 +508,7 @@ function erlang-init() {
 	chmod +x ./rebar3
 	rebar3 local upgrade DEBUG=1
 	rebar3 update
-	rebar3 upgrade
-
-	tip "install elixir"
-	# https://github.com/elixir-lang/elixir.git
-	github-init elixir-lang/elixir $DEV_ROOT/elixir
-	cd $DEV_ROOT/elixir
-	make
-	# make clean test
+	rebar3 upgrade	
 }
 
 function rust-init() {
@@ -699,14 +701,16 @@ function install-toolchain() {
 	#
 	find-str ".oh-my-emacs/bin/env" ~/.bashrc
 	if [ $? -eq 0 ]; then
-		echo "source $HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
+		echo "# oh-my-emacs" >> ~/.bashrc
+		echo "source \$HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
 	fi
 	
 	cquery-init
 	sdkman-init	
 	golang-init	
 	nvm-init
-	erlang-init    
+	erlang-init
+	elixir-init
 	rust-init	
 	nim-init	
 	mu4e-init
@@ -749,3 +753,30 @@ function upgrade() {
 function .rc() {
     source ~/.bashrc
 }
+
+function steam-on-freebsd() {
+	# home: https://github.com/SteamOnFreeBSD/SteamOnFreeBSD
+	cd $HOME
+	
+    pkg install deb2targz rpm2cpio doas
+	if [ ! -e /usr/local/etc/doas.conf ]; then
+		touch /usr/local/etc/doas.conf
+		echo 'permit nopass keepenv yourusername >> /usr/local/etc/doas.conf'
+	fi
+
+	if [ ! -e steam.deb ]; then		
+		fetch http://media.steampowered.com/client/installer/steam.deb
+	fi
+
+	deb2targz steam.deb
+	tar -zxvf steam.tar.gz -C /
+	# git clone https://github.com/SteamOnFreeBSD/SteamOnFreeBSD.git
+	github-init SteamOnFreeBSD/SteamOnFreeBSD $HOME/SteamOnFreeBSD
+	cd $HOME/SteamOnFreeBSD
+	
+	./install.sh
+	./steamrun
+
+}
+
+# fop xsltproc

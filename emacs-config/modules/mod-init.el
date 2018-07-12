@@ -55,6 +55,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `programming-languages'
 (module-require 'mod-elisp)
+(module-require 'mod-asm)
 ;; (module-require 'mod-erlang)
 ;; (module-require 'mod-ess)
 (module-require 'mod-slime)

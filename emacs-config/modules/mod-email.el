@@ -102,6 +102,8 @@
 ;; (mu4e)))
 
 ;; something about ourselves
+(setq  mu4e-compose-signature-auto-include t)
+
 (setq user-mail-address "guowangwei@51hitech.com"	    ;
       user-full-name  "郭王伟"				    ;
       mu4e-compose-signature (concat "郭王伟\n51World4AD\n" ;
