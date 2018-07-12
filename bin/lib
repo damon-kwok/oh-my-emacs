@@ -256,7 +256,6 @@ function svn-commit {
 	fi
 }
 
-
 # check install:rtags irony-server
 # function find-camke {
 # echo 111
@@ -536,14 +535,14 @@ function crystal-init() {
 	make
 }
 
-function install-elicpse-language-server() {
-    tip "install elicpse language server"	
+function install-eclipse-language-server() {
+    tip "install eclipse language server"	
 	local del_force=$1
 	if [ "$del_force" == "1" ]; then
 		rm -rf ~/.emacs.d/eclipse.jdt.ls/server/
 	fi
 	
-	if [ ! -e ~/.offlineimaprc ]; then
+	if [ ! -d ~/.emacs.d/eclipse.jdt.ls/server/ ]; then
 		mkdir -p ~/.emacs.d/eclipse.jdt.ls/server/
 		# wget http://mirror.switch.ch/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz  -O /tmp/jdt-latest.tar
 		wget http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz -O /tmp/jdt-latest.tar
@@ -557,12 +556,12 @@ function sdkman-init() {
 		curl -s "https://get.sdkman.io" | bash
 		source $HOME/.sdkman/bin/sdkman-init.sh
 	fi
-	# find-str "SDKMAN_DIR" ~/.bashrc
-	# if [ $? -eq 0 ]; then
-	# echo "#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!" >> ~/.bashrc
-	# echo "export SDKMAN_DIR=\"$HOME/.sdkman\"" >> ~/.bashrc
-	# echo "[[ -s \"$HOME/.sdkman/bin/sdkman-init.sh\" ]] && source \"$HOME/.sdkman/bin/sdkman-init.sh\"" >> ~/.bashrc
-	# fi
+	find-str "SDKMAN_DIR" ~/.bashrc
+	if [ $? -eq 0 ]; then
+		echo "#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!" >> ~/.bashrc
+		echo "export SDKMAN_DIR=\"\$HOME/.sdkman\"" >> ~/.bashrc
+		echo "[[ -s \"\$HOME/.sdkman/bin/sdkman-init.sh\" ]] && source \"\$HOME/.sdkman/bin/sdkman-init.sh\"" >> ~/.bashrc
+	fi
 	sdk selfupdate
 	sdk update
 	sdk upgrade
@@ -577,23 +576,24 @@ function sdkman-init() {
 	sdk install sbt
 
 	#lsp-java
-	install-elicpse-language-server
+	install-eclipse-language-server
 }
 
 function nvm-init() {
 	tip "install nvm + nodejs"
-	find-str "# Nodejs" ~/.bashrc
+	find-str "NVM_DIR" ~/.bashrc
 	if [ $? -eq 0 ]; then
 		echo "" >> ~/.bashrc
-		echo "# Nodejs" >> ~/.bashrc
+		echo "Nodejs" >> ~/.bashrc
 		echo "export NVM_DIR=\"$HOME/.nvm\"" >> ~/.bashrc
-		echo "[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\"" >> ~/.bashrc
-		echo "[ -s \"$NVM_DIR/bash_completion\" ] && \. \"$NVM_DIR/bash_completion\"" >> ~/.bashrc
+		echo "[ -s \"\\$NVM_DIR/nvm.sh\" ] && \\. \"\$NVM_DIR/nvm.sh\"" >> ~/.bashrc
+		echo "[ -s \"\\$NVM_DIR/bash_completion\" ] && \\. \"\4$NVM_DIR/bash_completion\"" >> ~/.bashrc
 	fi
 	
 	# curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 	local NVM_DIR="$HOME/.nvm"
-	if command -v nvm >/dev/null 2>&1; then
+	# if command -v nvm >/dev/null 2>&1; then
+	if [ ! -d $NVM_DIR ]; then		
 		git clone https://github.com/creationix/nvm.git "$NVM_DIR"
 		cd "$NVM_DIR"
 		git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
@@ -603,11 +603,7 @@ function nvm-init() {
 		git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`		
 	fi
 
-	# if ! command -v nvm >/dev/null 2>&1; then
-		# export NVM_DIR="$HOME/.nvm"
-		# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-		# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-	# fi
+	\. "$NVM_DIR/nvm.sh"
 	
 	nvm install 8 #LFS
 	# nvm install node # lastest version
@@ -690,11 +686,20 @@ function install-toolchain() {
 
 	tip "install Bash-it"	
 	if command -v bash-it >/dev/null 2>&1; then
+		echo "----------------bash-it---update mode!!!!!!"
 		bash-it update
 	else
+		echo "----------------bash-it---net install mode!!!!!!"
 		# git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 		github-init Bash-it/bash-it ~/.bash_it
 		~/.bash_it/install.sh
+	fi
+
+	#set .bashrc
+	#
+	find-str ".oh-my-emacs/bin/env" ~/.bashrc
+	if [ $? -eq 0 ]; then
+		echo "source $HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
 	fi
 	
 	cquery-init
@@ -729,14 +734,7 @@ function install-toolchain() {
 	pip install --user -U pygments
 	pip install --user -U sphinx
 	pip install --user -U docutils
-	pip install --user -U wsgiref
-	
-	#set .bashrc
-	#
-	find-str ".oh-my-emacs/bin/env" ~/.bashrc
-	if [ $? -eq 0 ]; then
-		echo "source $HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
-	fi
+	pip install --user -U wsgiref   	
 }
 
 function upgrade() {

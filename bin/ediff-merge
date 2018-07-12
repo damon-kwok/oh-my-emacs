@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 emacsclient -a "" -c -n --eval "(require 'ediff)" --eval "(ediff-merge-files-with-ancestor \"$1\" \"$2\" \"$3\" nil \"$4\")"

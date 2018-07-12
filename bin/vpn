@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # sudo openconnect tokyo.link.ac.cn:4433
 # sudo openconnect tokyo2.link.ac.cn
