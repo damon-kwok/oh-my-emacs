@@ -704,6 +704,9 @@ function install-toolchain() {
 		echo "# oh-my-emacs" >> ~/.bashrc
 		echo "source \$HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
 	fi
+
+	github-init damon-kwok/resources ~/.emacs.d/resources
+	chmod +x ~/.emacs.d/resources/rebar3
 	
 	cquery-init
 	sdkman-init	

@@ -9,6 +9,7 @@ export OME_BIN=$OME_ROOT/bin
 export PATH=$OME_BIN:$PATH
 
 export DEV_ROOT=$HOME/.dev
+export RESOURCE_ROOT=$HOME/.emacs.d/resources
 export BOOK_ROOT=$HOME/book
 export PROJECT_ROOT=$HOME/projects
 
@@ -20,7 +21,7 @@ export ZIP_HOME=$CACHE/apps-zip
 export SHELL_NAME=ps |  grep $$  |  awk '{print $4}'
 
 # User Settings
-export PATH=$HOME/bin:$HOME/.local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$PATH:$RESOURCE_ROOT
 
 ################################################################################
 # Ocaml: OPAM configuration
