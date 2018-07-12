@@ -519,7 +519,7 @@ function rust-init() {
 	else
 		curl https://sh.rustup.rs -sSf | sh	
 		cargo update
-		rustup toolchain add nightly
+		rustup toolchain add beta
 		rustup component add rust-src
 	fi
 	cargo install --force racer
@@ -631,46 +631,46 @@ function golang-init() {
 
 function project-init() {
 	# C
-    github-init libuv/libuv $PROJECT_ROOT/libuv
-	github-init nodejs/http-parser $PROJECT_ROOT/http-parser
-	github-init json-c/json-c $PROJECT_ROOT/json-c
-	github-init protobuf-c/protobuf-c $PROJECT_ROOT/protobuf-c
+    github-init libuv/libuv $PROJECT_ROOT/c/libuv
+	github-init nodejs/http-parser $PROJECT_ROOT/c/http-parser
+	github-init json-c/json-c $PROJECT_ROOT/c/json-c
+	github-init protobuf-c/protobuf-c $PROJECT_ROOT/c/protobuf-c
 
-	# github-init nanomsg/nanomsg $PROJECT_ROOT/nanomsg
-	# github-init zeromq/libzmq $PROJECT_ROOT/libzmq
-	github-init libcheck/check $PROJECT_ROOT/libcheck
+	# github-init nanomsg/nanomsg $PROJECT_ROOT/c/nanomsg
+	# github-init zeromq/libzmq $PROJECT_ROOT/c/libzmq
+	github-init libcheck/check $PROJECT_ROOT/c/libcheck
 	
 	# C++
-	github-init nodejs/http2 $PROJECT_ROOT/http2
-	github-init facebook/folly $PROJECT_ROOT/folly
-	github-init pocoproject/poco/ $PROJECT_ROOT/poco
+	github-init nodejs/http2 $PROJECT_ROOT/cpp/http2
+	github-init facebook/folly $PROJECT_ROOT/cpp/folly
+	github-init pocoproject/poco/ $PROJECT_ROOT/cpp/poco
 	
 	# C#
 
 	# Lisp
-	github-init kanaka/mal $PROJECT_ROOT/mal
+	github-init kanaka/mal $PROJECT_ROOT/lisp/mal
 
 	# Clojure
-	github-init apache/storm $PROJECT_ROOT/storm
+	github-init apache/storm $PROJECT_ROOT/clj/storm
 	# https://github.com/apachecn/storm-doc-zh/
-	github-init riemann/riemann $PROJECT_ROOT/riemann
-	github-init ztellman/aleph $PROJECT_ROOT/aleph
+	github-init riemann/riemann $PROJECT_ROOT/clj/riemann
+	github-init ztellman/aleph $PROJECT_ROOT/clj/aleph
 	# https://github.com/ztellman/byte-streams
 	# https://github.com/ztellman/lamina
 	# https://github.com/ztellman/gloss
 	# https://github.com/ztellman/manifold
 	
 	# Unity3d
-	github-init arcadia-unity/arcadia $DEV_ROOT/Arcadia
+	github-init arcadia-unity/arcadia $DEV_ROOT/unity3d/Arcadia
 
 	
 	# UE4
 
 	
 	# Data
-	github-init apache/thrift $DEV_ROOT/thrift
-	github-init apache/avro $DEV_ROOT/avro
-	github-init google/flatbuffers $DEV_ROOT/flatbuffers
+	github-init apache/thrift $DEV_ROOT/data/thrift
+	github-init apache/avro $DEV_ROOT/data/avro
+	github-init google/flatbuffers $DEV_ROOT/data/flatbuffers
 	
 }
 
