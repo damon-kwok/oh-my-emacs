@@ -50,21 +50,21 @@ function github-init() {
 	# local url="https://github.com/${project}.git --recursive"
 	# fi
 
-	local url="https://github.com/${project}.git --recursive"
+	local url="https://github.com/${project}.git"
 	
 	if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
 		tip "clone $project"
-		# git clone --depth=1 $url $dir
-		git clone --recurse $url $dir
+		git clone --depth=1 $url $dir
+		# git clone --recurse $url $dir
 	else
 		cd $dir
 		tip "update $project"
 		# if [ "$PULL_FOR_BUILD" == "1" ]; then
 		git pull
-		git submodule update
 		# git pull --recurse-submodules=1
 		# fi
 	fi
+		git submodule update
 }
 
 function readp {
