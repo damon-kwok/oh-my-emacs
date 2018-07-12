@@ -491,7 +491,10 @@ function elixir-init() {
 	make
 	# make clean test
 }
-
+function resource-init() {
+    github-init damon-kwok/resources ~/.emacs.d/resources
+	chmod +x ~/.emacs.d/resources/rebar3
+}
 function erlang-init() {
 	tip "install erlang"
 	# git clone https://github.com/erlang/otp.git
@@ -503,9 +506,10 @@ function erlang-init() {
 	# make install
 
 	tip "install rebar3 for erlang"
-	cd $OME_BIN
+	# cd $OME_BIN
 	# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
-	chmod +x ./rebar3
+	# chmod +x ./rebar3
+	resource-init
 	rebar3 local upgrade DEBUG=1
 	rebar3 update
 	rebar3 upgrade	
@@ -705,9 +709,7 @@ function install-toolchain() {
 		echo "source \$HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
 	fi
 
-	github-init damon-kwok/resources ~/.emacs.d/resources
-	chmod +x ~/.emacs.d/resources/rebar3
-	
+	resource-init	
 	cquery-init
 	sdkman-init	
 	golang-init	
