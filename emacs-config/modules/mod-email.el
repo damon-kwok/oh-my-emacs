@@ -24,14 +24,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(setq mu4e-root (concat (expand-file-name libs-user-dir) "/mu-git/mu4e"))
+(setq mu4e-root (concat (expand-file-name ome-lib-dir) "/mu-git/mu4e"))
 (add-to-list 'load-path mu4e-root)
 (require 'mu4e)
 
-(setq mu4e-mu-binary (concat (expand-file-name libs-user-dir) "/mu-git/mu/mu"))
+(setq mu4e-mu-binary (concat (expand-file-name ome-lib-dir) "/mu-git/mu/mu"))
 (if (or (string= system-type 'windows-nt) 
-	(string= system-type 'ms-dos))
-    (setq mu4e-mu-binary (concat (expand-file-name libs-user-dir) "/mu-git/mu/mu.exe")))
+		(string= system-type 'ms-dos)) 
+	(setq mu4e-mu-binary (concat (expand-file-name ome-lib-dir) "/mu-git/mu/mu.exe")))
 
 ;; `extensions'
 (package-require 'mu4e-maildirs-extension)
@@ -47,6 +47,7 @@
 ;; '(("%junk" . "maildir:/Junk OR subject:SPAM")
 ;; ("%hidden" . "flag:trashed OR %junk")))
 ;; (setq mu4e-query-fragments-append "AND NOT %hidden")
+
 
 
 ;; attempt to show images when viewing messages
@@ -63,6 +64,7 @@
 (setq mu4e-view-prefer-html t)
 (require 'mu4e-contrib)
 (setq mu4e-html2text-command 'mu4e-shr2text)
+
 
 (setq mu4e-drafts-folder "/Draft")
 (setq mu4e-sent-folder   "/Sent")
@@ -80,22 +82,22 @@
 ;; the 'All Mail' folder by pressing ``ma''.
 
 (setq mu4e-maildir-shortcuts '( ("/INBOX" . ?i) 
-				("/INBOX/News" . ?1) 
-				("/INBOX/Notification" . ?2) 
-				("/INBOX/NewMember" . ?3) 
-				("/INBOX/JIRA" . ?4) 
-				("/INBOX/Meeting" . ?m) 
-				("/INBOX/MeetingSummary" . ?M) 
-				("/INBOX/Wage" . ?w) 
-				("/Sent" . ?s) 
-				("/Trash" . ?t) 
-				("/Junk" . ?j)))
+								("/INBOX/News" . ?1) 
+								("/INBOX/Notification" . ?2) 
+								("/INBOX/NewMember" . ?3) 
+								("/INBOX/JIRA" . ?4) 
+								("/INBOX/Meeting" . ?m) 
+								("/INBOX/MeetingSummary" . ?M) 
+								("/INBOX/Wage" . ?w) 
+								("/Sent" . ?s) 
+								("/Trash" . ?t) 
+								("/Junk" . ?j)))
 
 (setq mu4e-index-cleanup nil   ;; don't do a full cleanup check
       mu4e-index-lazy-check t) ;; don't consider up-to-date dirs
 
 (setq mu4e-get-mail-command "offlineimap" ;; or fetchmail, or ...
-      mu4e-update-interval 300)		  ;; update every 1 minutes
+      mu4e-update-interval 300)			  ;; update every 1 minutes
 
 ;; (add-hook 'mu4e-index-updated-hook
 ;; (defun new-mail-sound ()
@@ -105,13 +107,13 @@
 ;; something about ourselves
 (setq  mu4e-compose-signature-auto-include t)
 
-(setq user-mail-address "guowangwei@51hitech.com"	    ;
-      user-full-name  "郭王伟"				    ;
+(setq user-mail-address "guowangwei@51hitech.com"			;
+      user-full-name  "郭王伟"								;
       mu4e-compose-signature (concat "郭王伟\n51World4AD\n" ;
-				     "----------------------------------------\n" ;
-				     "手机：＋86 18201863387\n"	;
-				     "地址：长宁区长宁路1436号 倍格老船坞 F2-05\n" ;
-				     "----------------------------------------"))
+									 "----------------------------------------\n" ;
+									 "手机：＋86 18201863387\n"	;
+									 "地址：长宁区长宁路1436号 倍格老船坞 F2-05\n" ;
+									 "----------------------------------------"))
 
 ;; sending mail -- replace USERNAME with your gmail username
 ;; also, make sure the gnutls command line utils are installed
@@ -120,13 +122,14 @@
 (require 'smtpmail)
 ;; alternatively, for emacs-24 you can use:
 (setq message-send-mail-function 'smtpmail-send-it ;
-      smtpmail-stream-type 'ssl			   ;
+      smtpmail-stream-type 'ssl					   ;
       smtpmail-default-smtp-server "smtp.263.net"  ;
-      smtpmail-smtp-server "smtp.263.net"	   ;
+      smtpmail-smtp-server "smtp.263.net"		   ;
       smtpmail-smtp-service 465)
 
 ;; don't keep message buffers around
 (setq message-kill-buffer-on-exit t)
+
 
 ;; (define-key mu4e-headers-mode-map (kbd "SPC") ;;RET
 ;;   '(lambda ()
@@ -135,6 +138,7 @@
 ;;      (mu4e-headers-view-message)
 ;;      (sit-for 0.1)
 ;;      (switch-window)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-email)
