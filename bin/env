@@ -37,6 +37,10 @@ case "$SHELL_NAME" in
 		;;
 esac
 
+# Cmake
+export CMAKE_BIN=$DEV_ROOT/cmake/bin
+export PATH=$CMAKE_BIN:$PATH
+
 # SDKMAN
 source $HOME/.sdkman/bin/sdkman-init.sh
 

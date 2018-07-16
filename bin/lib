@@ -40,6 +40,34 @@ function tip() {
 	echo -e $(tput setaf 10)"-- $1:"$(tput sgr0)
 }
 
+function git-init() {
+	local site=$1
+	local project=$2
+	local dir=$3
+
+	# if [ "$GIT_USE_SECRET_KEY" == "1" ]; then		
+	# local url="git@github.com:${project}.git --recursive"
+	# else
+	# local url="https://github.com/${project}.git --recursive"
+	# fi
+
+	local url="$site/${project}.git"
+	
+	if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
+		tip "clone $project"
+		git clone --depth=1 $url $dir
+		# git clone --recurse $url $dir
+	else
+		cd $dir
+		tip "update $project"
+		# if [ "$PULL_FOR_BUILD" == "1" ]; then
+		git pull
+		# git pull --recurse-submodules=1
+		# fi
+	fi
+		git submodule update
+}
+
 function github-init() {
 	local project=$1
 	local dir=$2
@@ -685,7 +713,14 @@ function book-init() {
 	# https://github.com/huangz1990/real-world-haskell-cn
     github-init huangz1990/real-world-haskell-cn $BOOK_ROOT/real-world-haskell-cn
 }
-
+function cmake-init() {
+    git-init "https://gitlab.kitware.com" "cmake/cmake" $DEV_ROOT/cmake
+	cd $DEV_ROOT/cmake/
+	./bootstrap
+	# mkdir -p $DEV_ROOT/cmake/build
+	# cmake ..
+	make	
+}
 function install-toolchain() {	
 	# tip "install oh-my-zsh"
 	# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"

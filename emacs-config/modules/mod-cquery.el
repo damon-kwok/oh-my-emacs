@@ -29,7 +29,6 @@
 ;; https://github.com/cquery-project/cquery/wiki/Emacs
 (require 'mod-lsp)
 
-
 (package-require 'cquery)
 (require 'cquery)
 
@@ -165,7 +164,10 @@
 	(add-to-list 'dirs (concat (ome-parent-dirpath dir0) postfix "/" dir0-name)) 
 	(add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../" postfix)) 
 	(add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../" dir0-name)) 
-	(add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../" postfix "/" dir0-name))
+	(add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../" postfix "/" dir0-name)) 
+	(add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../../" postfix)) 
+	(add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../../" dir0-name)) 
+	(add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../../" postfix "/" dir0-name))
     ;;
     ) 
   (if (s-contains? "h" extname) 
@@ -192,13 +194,13 @@
 
 (require 'nxml-mode)
 (define-key nxml-mode-map [f7] 'ome-open-or-close-packagexml)
-
+
 
 ;;; Syntax highlighting support for "`Modern.C++'" - until `C++17' and Technical Specification.
 (package-require 'modern-cpp-font-lock)
 (require 'modern-cpp-font-lock)
 (modern-c++-font-lock-global-mode t)
-
+
 
 ;; Put c++-mode as default for *.h files (improves parsing):
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
