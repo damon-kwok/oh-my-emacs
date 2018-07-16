@@ -538,7 +538,7 @@ function erlang-init() {
 	# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
 	# chmod +x ./rebar3
 	resource-init
-	rebar3 local upgrade DEBUG=1
+	# rebar3 local upgrade DEBUG=1
 	rebar3 update
 	rebar3 upgrade	
 }
