@@ -38,8 +38,8 @@
 (setq ome-lib-dir "~/.emacs.d/libs")
 (make-directory ome-lib-dir t)
 
-(setq dev-user-dir "~/.dev")
-(make-directory dev-user-dir t)
+(setq ome-dev-dir "~/.dev")
+(make-directory ome-dev-dir t)
 ;; (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
 ;;                         ("org" . "http://orgmode.org/elpa/")))
 ;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
@@ -60,11 +60,21 @@
 ;;(add-to-list 'load-path "~/emacs-config/elpa-mirror")
 ;;(require 'elpa-mirror)
 
+(defun online? () 
+  (if (and (functionp 'network-interface-list) 
+		   (network-interface-list)) 
+	  (some (lambda (iface) 
+			  (unless (equal "lo" (car iface)) 
+				(member 'up (first (last (network-interface-info (car iface))))))) 
+			(network-interface-list)) t))
+
+(when (online?) 
+  (unless package-archive-contents (package-refresh-contents)))
 
 ;; To get the package manager going, we invoke its initialise function.
 (defun package-require(pkg)
   ;;(when (not package-archive-contents)
-   ;; (package-refresh-contents))
+  ;; (package-refresh-contents))
   (when (not (package-installed-p pkg)) 
 	(package-install pkg)))
 
@@ -159,6 +169,7 @@
   (package-update) 
   (package-autoremove) 
   (package-upgrade))
+
 
 ;; `use-package'
 (package-require 'use-package)
