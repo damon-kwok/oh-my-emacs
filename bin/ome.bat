@@ -135,7 +135,7 @@ set CLASSPATH=.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;
 set PATH=%JAVA_BIN%;%LEIN_JAVA_CMD%;%PATH%
 rem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-rem bash shaman
+rem bash ome
 rem goto:quit
 goto:init
 
@@ -201,7 +201,7 @@ call:got-admin-auth
 rem regedit.exe /S %SHAMAN_ROOT%\emacs.reg
 rem reg import %SHAMAN_ROOT%\emacs.reg
 rem REG ADD "HKEY_CLASSES_ROOT\*\shell\Edit with Emacs\command" /ve /t REG_SZ /d "\"%SHAMAN_ROOT%\cache\apps\emacs\bin\emacsclientw.exe\" --no-wait --server-file \"%SHAMAN_ROOT%\.emacs.d\server\server\" --alternate-editor=\"%SHAMAN_ROOT%\cache\apps\emacs\bin\runemacs.exe\" \"%%1\"" /f
-REG ADD "HKEY_CLASSES_ROOT\*\shell\Edit with Emacs\command" /ve /t REG_SZ /d "\"%SHAMAN_ROOT%\shaman.bat\" \"%%1\"" /f
+REG ADD "HKEY_CLASSES_ROOT\*\shell\Edit with Emacs\command" /ve /t REG_SZ /d "\"%SHAMAN_ROOT%\ome.bat\" \"%%1\"" /f
 goto:eof
 
 :emacs

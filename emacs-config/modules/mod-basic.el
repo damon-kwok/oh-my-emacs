@@ -186,9 +186,9 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
     ;;
     ))
 
-;;; shaman
-;;(load-theme 'shaman t t)
-;;(enable-theme 'shaman)
+;;; oh-my-emacs theme
+;;(load-theme 'ome t t)
+;;(enable-theme 'ome)
 
 ;;; jazz
 ;; (package-require 'jazz-theme)

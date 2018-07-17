@@ -40,7 +40,7 @@ function tip() {
 	echo -e $(tput setaf 10)"-- $1:"$(tput sgr0)
 }
 
-function git-init() {
+function git-upgrade() {
 	local site=$1
 	local project=$2
 	local dir=$3
@@ -68,7 +68,7 @@ function git-init() {
 		git submodule update
 }
 
-function github-init() {
+function github-upgrade() {
 	local project=$1
 	local dir=$2
 
@@ -153,7 +153,7 @@ function auto-gen-rtags() {
 	fi
 }
 
-function dns-init() {
+function dns-upgrade() {
 	local ip=$1
 	
 	tip "Add '$ip' to /etc/network/interfaces"
@@ -165,7 +165,7 @@ function dns-init() {
 	fi
 }
 
-function host-init() {
+function host-upgrade() {
 	local ip=$1
 	local name=$2
 
@@ -178,7 +178,7 @@ function host-init() {
 	fi
 }
 
-function apt-repo-init() {
+function apt-repo-upgrade() {
 	local arch=$1
 	local url=$2
 	tip "Add docker apt repository"
@@ -191,7 +191,7 @@ function apt-repo-init() {
 	# "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable"
 }
 
-function dir-init() {
+function dir-upgrade() {
 	local src=$1
 	local dst=$2
 
@@ -202,7 +202,7 @@ function dir-init() {
 	fi	
 }
 
-function link-init() {
+function link-upgrade() {
 	local src=$1
 	local dst=$2
 
@@ -423,9 +423,9 @@ function install-basedevel {
 	source ~/.bashrc
 }
 
-function cquery-init() {
+function cquery-upgrade() {
 	tip "install cquery"
-	github-init cquery-project/cquery $DEV_ROOT/cquery
+	github-upgrade cquery-project/cquery $DEV_ROOT/cquery
 	mkdir -p $DEV_ROOT/cquery/build
 	cd $DEV_ROOT/cquery/build/
 	cmake .. \
@@ -470,9 +470,9 @@ function config_offlineimap() {
 	fi
 }
 
-function mu4e-init() {
+function mu4e-upgrade() {
 	# tip "install mu4e-release"
-	# github-init damon-kwok/resources $OME_ROOT/resources
+	# github-upgrade damon-kwok/resources $OME_ROOT/resources
 	# if [ ! -d $HOME/.emacs.d/libs/mu ]; then
 	# echo "no"
 	# cd $HOME/.emacs.d/libs/
@@ -486,7 +486,7 @@ function mu4e-init() {
 	# make install
 
 	tip "install mu4e-git"
-	github-init djcb/mu $HOME/.emacs.d/libs/mu-git
+	github-upgrade djcb/mu $HOME/.emacs.d/libs/mu-git
 	cd $HOME/.emacs.d/libs/mu-git/
 	./autogen.sh
 	./configure --prefix=$HOME/.mu
@@ -511,22 +511,22 @@ function mu4e-init() {
 	mkdir -p ~/Maildir/Trash/	
 }
 
-function elixir-init() {
+function elixir-upgrade() {
     tip "install elixir"
 	# https://github.com/elixir-lang/elixir.git
-	github-init elixir-lang/elixir $DEV_ROOT/elixir
+	github-upgrade elixir-lang/elixir $DEV_ROOT/elixir
 	cd $DEV_ROOT/elixir
 	make
 	# make clean test
 }
-function resource-init() {
-    github-init damon-kwok/resources ~/.emacs.d/resources
+function resource-upgrade() {
+    github-upgrade damon-kwok/resources ~/.emacs.d/resources
 	chmod +x ~/.emacs.d/resources/rebar3
 }
-function erlang-init() {
+function erlang-upgrade() {
 	tip "install erlang"
 	# git clone https://github.com/erlang/otp.git
-	github-init erlang/otp $DEV_ROOT/erlang_otp
+	github-upgrade erlang/otp $DEV_ROOT/erlang_otp
 	cd $DEV_ROOT/erlang_otp
 	./otp_build autoconf
 	./configure --prefix=$HOME/.erlang_otp
@@ -537,13 +537,13 @@ function erlang-init() {
 	# cd $OME_BIN
 	# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
 	# chmod +x ./rebar3
-	resource-init
+	resource-upgrade
 	# rebar3 local upgrade DEBUG=1
 	rebar3 update
 	rebar3 upgrade	
 }
 
-function rust-init() {
+function rust-upgrade() {
 	tip "install cargo + rust"
 	if command -v rustup >/dev/null 2>&1; then
 		rustup self update
@@ -558,13 +558,13 @@ function rust-init() {
 	cargo install --force ripgrep
 }
 
-function nim-init() {
+function nim-upgrade() {
 	tip "install nim"
 	curl https://nim-lang.org/choosenim/init.sh -sSf | sh
 }
 
-function crystal-init() {
-    github-init crystal-lang/crystal $DEV_ROOT/crystal
+function crystal-upgrade() {
+    github-upgrade crystal-lang/crystal $DEV_ROOT/crystal
 	cd $DEV_ROOT/crystal
 	make
 }
@@ -584,7 +584,7 @@ function install-eclipse-language-server() {
 	fi
 }
 
-function sdkman-init() {
+function sdkman-upgrade() {
 	tip "install sdkman"
 	if command -v sdk >/dev/null 2>&1; then
 		curl -s "https://get.sdkman.io" | bash
@@ -613,7 +613,7 @@ function sdkman-init() {
 	install-eclipse-language-server
 }
 
-function nvm-init() {
+function nvm-upgrade() {
 	tip "install nvm + nodejs"
 	find-str "NVM_DIR" ~/.bashrc
 	if [ $? -eq 0 ]; then
@@ -650,8 +650,8 @@ function nvm-init() {
 	npm i -g typescript-language-server				
 }
 
-function golang-init() {
-	github-init golang/go $DEV_ROOT/go
+function golang-upgrade() {
+	github-upgrade golang/go $DEV_ROOT/go
 	cd $DEV_ROOT/go/src
 	chmod +x ./all.bash
 	./all.bash
@@ -661,60 +661,63 @@ function golang-init() {
 	go get -u github.com/sourcegraph/go-langserver
 }
 
-function project-init() {
+function project-upgrade() {
 	# C
-    github-init libuv/libuv $PROJECT_ROOT/c/libuv
-	github-init nodejs/http-parser $PROJECT_ROOT/c/http-parser
-	github-init json-c/json-c $PROJECT_ROOT/c/json-c
-	github-init protobuf-c/protobuf-c $PROJECT_ROOT/c/protobuf-c
+    github-upgrade libuv/libuv $PROJECT_ROOT/c/libuv
+	github-upgrade damon-kwok/libknife $PROJECT_ROOT/c/libknife
+	
+	github-upgrade nodejs/http-parser $PROJECT_ROOT/c/http-parser
+	github-upgrade json-c/json-c $PROJECT_ROOT/c/json-c
+	github-upgrade protobuf-c/protobuf-c $PROJECT_ROOT/c/protobuf-c
 
-	# github-init nanomsg/nanomsg $PROJECT_ROOT/c/nanomsg
-	# github-init zeromq/libzmq $PROJECT_ROOT/c/libzmq
-	github-init libcheck/check $PROJECT_ROOT/c/libcheck
+	# github-upgrade nanomsg/nanomsg $PROJECT_ROOT/c/nanomsg
+	# github-upgrade zeromq/libzmq $PROJECT_ROOT/c/libzmq
+	github-upgrade libcheck/check $PROJECT_ROOT/c/libcheck
 	
 	# C++
-	github-init nodejs/http2 $PROJECT_ROOT/cpp/http2
-	github-init facebook/folly $PROJECT_ROOT/cpp/folly
-	github-init pocoproject/poco/ $PROJECT_ROOT/cpp/poco
+	github-upgrade emilk/loguru $PROJECT_ROOT/cpp/loguru
+	github-upgrade nodejs/http2 $PROJECT_ROOT/cpp/http2
+	github-upgrade facebook/folly $PROJECT_ROOT/cpp/folly
+	github-upgrade pocoproject/poco/ $PROJECT_ROOT/cpp/poco
 	
 	# C#
 
 	# Lisp
-	github-init kanaka/mal $PROJECT_ROOT/lisp/mal
+	github-upgrade kanaka/mal $PROJECT_ROOT/lisp/mal
 
 	# Clojure
-	github-init apache/storm $PROJECT_ROOT/clj/storm
+	github-upgrade apache/storm $PROJECT_ROOT/clj/storm
 	# https://github.com/apachecn/storm-doc-zh/
-	github-init riemann/riemann $PROJECT_ROOT/clj/riemann
-	github-init ztellman/aleph $PROJECT_ROOT/clj/aleph
+	github-upgrade riemann/riemann $PROJECT_ROOT/clj/riemann
+	github-upgrade ztellman/aleph $PROJECT_ROOT/clj/aleph
 	# https://github.com/ztellman/byte-streams
 	# https://github.com/ztellman/lamina
 	# https://github.com/ztellman/gloss
 	# https://github.com/ztellman/manifold
 	
 	# Unity3d
-	github-init arcadia-unity/arcadia $DEV_ROOT/unity3d/Arcadia
+	github-upgrade arcadia-unity/arcadia $DEV_ROOT/unity3d/Arcadia
 
 	
 	# UE4
 
 	
 	# Data
-	github-init apache/thrift $DEV_ROOT/data/thrift
-	github-init apache/avro $DEV_ROOT/data/avro
-	github-init google/flatbuffers $DEV_ROOT/data/flatbuffers
+	github-upgrade apache/thrift $DEV_ROOT/data/thrift
+	github-upgrade apache/avro $DEV_ROOT/data/avro
+	github-upgrade google/flatbuffers $DEV_ROOT/data/flatbuffers
 	
 }
 
-function book-init() {
+function book-upgrade() {
 	# Book
 	# https://github.com/QianMo/Real-Time-Rendering-3rd-CN-Summary-Ebook
-	github-init QianMo/Real-Time-Rendering-3rd-CN-Summary-Ebook $BOOK_ROOT/Real-Time-Rendering-3rd-CN-Summary-Ebook
+	github-upgrade QianMo/Real-Time-Rendering-3rd-CN-Summary-Ebook $BOOK_ROOT/Real-Time-Rendering-3rd-CN-Summary-Ebook
 	# https://github.com/huangz1990/real-world-haskell-cn
-    github-init huangz1990/real-world-haskell-cn $BOOK_ROOT/real-world-haskell-cn
+    github-upgrade huangz1990/real-world-haskell-cn $BOOK_ROOT/real-world-haskell-cn
 }
-function cmake-init() {
-    git-init "https://gitlab.kitware.com" "cmake/cmake" $DEV_ROOT/cmake
+function cmake-upgrade() {
+    git-upgrade "https://gitlab.kitware.com" "cmake/cmake" $DEV_ROOT/cmake
 	cd $DEV_ROOT/cmake/
 	./bootstrap
 	# mkdir -p $DEV_ROOT/cmake/build
@@ -732,7 +735,7 @@ function install-toolchain() {
 	else
 		echo "----------------bash-it---net install mode!!!!!!"
 		# git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-		github-init Bash-it/bash-it ~/.bash_it
+		github-upgrade Bash-it/bash-it ~/.bash_it
 		~/.bash_it/install.sh
 	fi
 
@@ -744,16 +747,16 @@ function install-toolchain() {
 		echo "source \$HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
 	fi
 
-	resource-init	
-	cquery-init
-	sdkman-init	
-	golang-init	
-	nvm-init
-	erlang-init
-	elixir-init
-	rust-init	
-	nim-init	
-	mu4e-init
+	resource-upgrade	
+	cquery-upgrade
+	sdkman-upgrade	
+	golang-upgrade	
+	nvm-upgrade
+	erlang-upgrade
+	elixir-upgrade
+	rust-upgrade	
+	nim-upgrade	
+	mu4e-upgrade
 
 	#haskell
     # if [ ! -d "~/.stack/" ]; then
@@ -790,6 +793,29 @@ function upgrade() {
 	install-toolchain
 }
 
+function daily-upgrade() {
+    erlang-upgrade
+	elixir-upgrade
+	cquery-upgrade
+	mu4e-upgrade
+	project-upgrade
+	book-upgrade
+}
+
+function me-upgrade() {
+	tip "upgrade libknife"
+    github-upgrade damon-kwok/libknife $PROJECT_ROOT/c/libknife
+	cd $PROJECT_ROOT/c/libknife
+	mkdir -p build
+	cd build
+	rm -rf ./*
+	cmake ..
+	make
+
+	tip "upgrade oh-my-emacs"
+	cd ~/.oh-my-emacs/
+	git pull
+}
 function .rc() {
     source ~/.bashrc
 }
@@ -811,7 +837,7 @@ function steam-on-freebsd() {
 	deb2targz steam.deb
 	tar -zxvf steam.tar.gz -C /
 	# git clone https://github.com/SteamOnFreeBSD/SteamOnFreeBSD.git
-	github-init SteamOnFreeBSD/SteamOnFreeBSD $HOME/SteamOnFreeBSD
+	github-upgrade SteamOnFreeBSD/SteamOnFreeBSD $HOME/SteamOnFreeBSD
 	cd $HOME/SteamOnFreeBSD
 	
 	./install.sh

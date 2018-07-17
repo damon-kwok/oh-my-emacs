@@ -2,7 +2,7 @@
 
 echo "aaa:$@"
 function hello() {
-    echo "hello,shaman!"
+    echo "hello,emacs!"
 }
 
 FUNC_NAME="hello"
