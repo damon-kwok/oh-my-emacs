@@ -65,7 +65,7 @@ function git-upgrade() {
 		# git pull --recurse-submodules=1
 		# fi
 	fi
-		git submodule update
+	git submodule update
 }
 
 function github-upgrade() {
@@ -92,7 +92,7 @@ function github-upgrade() {
 		# git pull --recurse-submodules=1
 		# fi
 	fi
-		git submodule update
+	git submodule update
 }
 
 function readp {
@@ -793,17 +793,8 @@ function upgrade() {
 	install-toolchain
 }
 
-function daily-upgrade() {
-    erlang-upgrade
-	elixir-upgrade
-	cquery-upgrade
-	mu4e-upgrade
-	project-upgrade
-	book-upgrade
-}
-
 function me-upgrade() {
-	tip "upgrade libknife"
+	# upgrade libknife
     github-upgrade damon-kwok/libknife $PROJECT_ROOT/c/libknife
 	cd $PROJECT_ROOT/c/libknife
 	mkdir -p build
@@ -815,9 +806,33 @@ function me-upgrade() {
 	tip "upgrade oh-my-emacs"
 	cd ~/.oh-my-emacs/
 	git pull
+
+	tip "reload profile"
+	.rc
 }
+
+function daily-upgrade() {
+	me-upgrade
+    # erlang-upgrade
+	# elixir-upgrade
+	cquery-upgrade
+	mu4e-upgrade
+	project-upgrade
+	book-upgrade
+}
+
 function .rc() {
-    source ~/.bashrc
+	if [ ! -e ~/.profile ]; then
+		source ~/.profile
+	fi
+
+	if [ ! -e ~/.bashrc ]; then
+		source ~/.bashrc
+	fi
+
+	if [ ! -e ~/.zshrc ]; then
+		source ~/.zshrc
+	fi
 }
 
 function steam-on-freebsd() {
