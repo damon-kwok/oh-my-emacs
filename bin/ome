@@ -280,16 +280,16 @@ function ask-menu {
 	b|B) install-basedevel;;
 	i|I) install-toolchain;;
 	g|G)
-	    git config --global color.ui true
-	    git config --global core.editor "ed"
+	    # git config --global color.ui true
+	    # git config --global core.editor "ed"
 	    
-	    git config --global merge.tool ediff-merge
-	    git config --global mergetool.diffmerge.cmd "ediff-merge \$LOCAL \$REMOTE \$BASE \$MERGED"
-	    git config --global mergetool.keepBackup false
+	    # git config --global merge.tool ediff-merge
+	    # git config --global mergetool.diffmerge.cmd "ediff-merge \$LOCAL \$REMOTE \$BASE \$MERGED"
+	    # git config --global mergetool.keepBackup false
 
-	    git config --global diff.tool ediff
-	    git config --global difftool.ediff.cmd "ediff \"\$LOCAL\" \"\$REMOTE\""
-	    git config --global difftool.prompt false
+	    # git config --global diff.tool ediff
+	    # git config --global difftool.ediff.cmd "ediff \"\$LOCAL\" \"\$REMOTE\""
+	    # git config --global difftool.prompt false
 	    ;;
 	e|E) run-emacs;;
 	n|N) run-emacs-nw;;

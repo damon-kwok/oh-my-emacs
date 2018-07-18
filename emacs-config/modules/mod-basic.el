@@ -797,7 +797,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require 'dashboard)
 (require 'dashboard)
-(dashboard-setup-startup-hook)
+;; (dashboard-setup-startup-hook)
 (setq dashboard-banner-logo-title "Oh My Emacs!")
 (setq dashboard-items '((projects . 15) 
 						(recents  . 20) 

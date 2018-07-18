@@ -1,0 +1,10 @@
+#include <pthread.h>
+
+void *thread_fn(void *arg) {
+	$0
+	return ((void *)0);
+}
+pthread_t tid = 0;
+void *ret = NULL;
+pthread_create(&tid, NULL, thread_fn, NULL);
+pthread_join(tid, ret);
