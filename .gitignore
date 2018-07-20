@@ -5,12 +5,13 @@
 
 # white list anything that's a directort
 !.gitignore
-!install.sh
-!*.el
 !install
+!install.sh
+!logo.png
 !README.org
 !shaman
 !shaman.bat
+!*.el
 
 # !/cache/
 # !/cache/bin/
