@@ -95,6 +95,45 @@ function github-upgrade() {
 	git submodule update
 }
 
+function svn-upgrade() {
+	local url=$1
+	local dir=$2
+	# svn co svn://www.svn999.com/guowangwei.workspace workspace
+	
+    if [ ! -d $DIR_WORKSPACE ]; then
+		cd $OME_ROOT
+		svn co $url $dir
+    else
+		cd $dir
+		svn cleanup .
+		svn up
+    fi
+}
+
+function svn-remove-lose() {
+	svn status grep "^!" awk `{print $2}` xargs svn rm
+}
+
+function svn-add-new() {
+	svn status grep "^\?" awk `{print $2}` xargs svn add
+}
+
+function svn-commit() {
+	svn-remove-lose
+	svn-add-new
+	
+	svn status
+	readp "auto commit?"
+	if [ $? -eq 1 ]; then
+        svn commit -m `date +%Y-%m-%d@%H-%M-%S`
+    else
+        read -p "please enter commit message:" msg
+        svn commit -m "$msg"
+    fi
+	# set msg=%date:~0,4%-%date:~5,2%-%date:~8,2%@%time:~0,2%-%time:~3,2%-%time:~6,2%
+	svn commit -m "%msg%"
+}
+
 function readp {
 	local str=$1
 	
@@ -683,6 +722,7 @@ function project-upgrade() {
 	# github-upgrade nanomsg/nanomsg $PROJECT_ROOT/c/nanomsg
 	# github-upgrade zeromq/libzmq $PROJECT_ROOT/c/libzmq
 	github-upgrade libcheck/check $PROJECT_ROOT/c/libcheck
+	svn-upgrade svn://vcs.exim.org/pcre2/code/trunk $PROJECT_ROOT/c/pcre2
 	
 	# C++
 	github-upgrade emilk/loguru $PROJECT_ROOT/cpp/loguru
@@ -757,6 +797,10 @@ function install-toolchain() {
 		echo "source \$HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
 	fi
 
+	git-upgrade "https://gitlab.kitware.com" cmake/cmake $DEV_ROOT/cmake
+	git-upgrade "https://gitlab.com" ita1024/waf $DEV_ROOT/waf
+	github-upgrade chromium/gyp $DEV_ROOT/gyp
+	
 	resource-upgrade	
 	cquery-upgrade
 	sdkman-upgrade	

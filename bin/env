@@ -41,6 +41,10 @@ esac
 export CMAKE_BIN=$DEV_ROOT/cmake/bin
 export PATH=$CMAKE_BIN:$PATH
 
+# gyp
+export GYP_BIN=$DEV_ROOT/gyp
+export PATH=$GYP_BIN:$PATH
+
 # SDKMAN
 source $HOME/.sdkman/bin/sdkman-init.sh
 
