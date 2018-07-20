@@ -47,25 +47,25 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`frame';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (defun no-split-window ()
-  ;; (interactive)
-  ;; nil)
+;; (interactive)
+;; nil)
 ;; (setq split-window-preferred-function 'no-split-window)
 
 ;; (setq compilation-window-height 1000)
 ;; (setq compilation-window-width 1000)
 ;; (setq same-window-regexps '("."))
 
-;; (defun kill-compile-buffer-if-successful (buffer string) 
-  ;; " kill a compilation buffer if succeeded without warnings " 
-  ;; (if (and 
-       ;; (string-match "compilation" (buffer-name buffer)) 
-       ;; (string-match "finished" string) 
-       ;; (not 
-        ;; (with-current-buffer buffer 
-          ;; (search-forward "warning" nil t)))) 
-      ;; (run-with-timer 1 nil 
-                      ;; 'kill-buffer 
-                      ;; buffer)))
+;; (defun kill-compile-buffer-if-successful (buffer string)
+;; " kill a compilation buffer if succeeded without warnings "
+;; (if (and
+;; (string-match "compilation" (buffer-name buffer))
+;; (string-match "finished" string)
+;; (not
+;; (with-current-buffer buffer
+;; (search-forward "warning" nil t))))
+;; (run-with-timer 1 nil
+;; 'kill-buffer
+;; buffer)))
 ;; (add-hook 'compilation-finish-functions 'kill-compile-buffer-if-successful)
 
 (set-window-dedicated-p (selected-window) nil)
@@ -265,13 +265,6 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (setq global-mark-ring-max 1024)        ;设置最大的全局标记容量
 ;; (setq history-delete-duplicates t)      ;删除minibuffer的重复历史
 
-;;; enable/disable loading page (t:disable nil:enable)
-(setq inhibit-startup-message t)
-(setq inhibit-startup-screen t)
-
-;;; `'default-mode'
-(setq major-mode 'text-mode) ;;set default major mode {sh-mode | text-mode}
-
 ;;; set font 1 : look:http://www.linuxsir.org/bbs/thread326299.html
 ;; (set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
 ;; (add-to-list 'default-frame-alist '(font, "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1"))
@@ -400,7 +393,6 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (setq sml/theme 'powerline)
 (sml/setup)
 
-
 
 (package-require 'anzu)
 (require 'anzu)
@@ -461,7 +453,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; (require 'all-the-icons)
 ;; (set-frame-font "all-the-icons" t)
 ;; (all-the-icons-icon-for-buffer)
-;; (set-frame-font "Source Code Pro" t) ) 
+;; (set-frame-font "Source Code Pro" t) )
 ;; (all-the-icons-icon-for-file)
 ;; (all-the-icons-icon-for-mode)
 ;; (setq inhibit-compacting-font-caches t)
@@ -481,6 +473,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;; ref: https://emacs.stackexchange.com/questions/14509/kill-process-buffer-without-confirmation
 (setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function
 										kill-buffer-query-functions))
+(setq kill-buffer-query-functions nil)
 
 ;; tab
 (setq default-tab-width 4)
@@ -554,8 +547,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
   '(lambda () 
 	 (interactive) 
 	 (undo-tree-visualize) 
-	 (undo-tree-visualize-undo)))
-
+	 (undo-tree-visualize-undo))) 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -565,15 +557,12 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (setq linum-format "%4d")
 (global-linum-mode)
 
-
 ;;; `column'
 (setq column-number-mode t)
 
-
 ;;; page width
 ;; (setq fill-column 100)
 
-
 ;;; fci-mode
 (package-require 'fill-column-indicator)
 (require 'fill-column-indicator)
@@ -589,29 +578,28 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;-- (setq fci-rule-cinharacter-color "DarkBlue")
 
 ;;; define `global-fci-mode'
-;; (define-globalized-minor-mode global-fci-mode fci-mode 
-  ;; (lambda () 
-	;; (fci-mode 1)))
+;; (define-globalized-minor-mode global-fci-mode fci-mode
+;; (lambda ()
+;; (fci-mode 1)))
 
-(define-globalized-minor-mode global-fci-mode fci-mode
-  (lambda ()
-	(if (and
-		 (not (string-match "^\*.*\*$" (buffer-name)))
-		 (not (eq major-mode 'dired-mode))
-		 (not (eq major-mode 'speedbar-mode)))
+(define-globalized-minor-mode global-fci-mode fci-mode 
+  (lambda () 
+	(if (and (not (string-match "^\*.*\*$" (buffer-name))) 
+			 (not (eq major-mode 'dired-mode)) 
+			 (not (eq major-mode 'speedbar-mode))) 
 		(fci-mode 1))))
 
 (global-fci-mode 1)
 
 ;; (defun auto-fci-mode
-	;; (&optional
-	 ;; unused)
-  ;; (if (> (window-width) fci-rule-column)
-	  ;; (fci-mode 1)
-	;; (fci-mode 0)))
+;; (&optional
+;; unused)
+;; (if (> (window-width) fci-rule-column)
+;; (fci-mode 1)
+;; (fci-mode 0)))
 ;; (add-hook 'after-change-major-mode-hook 'auto-fci-mode)
 ;; (add-hook 'window-configuration-change-hook 'auto-fci-mode)
-
+
 ;;; indent-guide
 (package-require 'indent-guide)
 (require 'indent-guide)
@@ -797,13 +785,31 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require 'dashboard)
 (require 'dashboard)
-;; (dashboard-setup-startup-hook)
+(dashboard-setup-startup-hook)
 (setq dashboard-banner-logo-title "Oh My Emacs!")
 (setq dashboard-items '((projects . 15) 
 						(recents  . 20) 
 						(bookmarks . 7) 
 						(agenda . 5) 
 						(registers . 5)))
+
+(setq dashboard-startup-banner "~/.oh-my-emacs/logo.png")
+
+(add-to-list 'dashboard-items '(agenda) t)
+(setq show-week-agenda-p t)
+
+
+
+
+
+;;; enable/disable loading page (t:disable nil:enable)
+(setq inhibit-startup-message t)
+(setq inhibit-startup-screen t)
+(setq inhibit-splash-screen t)
+
+
+;;; `'default-mode'
+(setq major-mode 'org-mode) ;;set default major mode {sh-mode | text-mode}
 
 ;;; session
 ;; (package-require 'session)

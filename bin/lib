@@ -443,30 +443,40 @@ function config_offlineimap() {
 		rm -rf ~/.offlineimaprc
 	fi
 	
-	if [ ! -e ~/.offlineimaprc ]; then		
-		echo "[general]" >> ~/.offlineimaprc 
-		echo "accounts = Gmail" >> ~/.offlineimaprc
-		echo "maxsyncaccounts = 3" >> ~/.offlineimaprc
-		echo "" >> ~/.offlineimaprc
-		echo "[Account Gmail]" >> ~/.offlineimaprc
-		echo "localrepository = Local" >> ~/.offlineimaprc
-		echo "remoterepository = Remote" >> ~/.offlineimaprc
-		echo "" >> ~/.offlineimaprc
-		echo "[Repository Local]" >> ~/.offlineimaprc
-		echo "type = Maildir" >> ~/.offlineimaprc
-		echo "localfolders = ~/Maildir" >> ~/.offlineimaprc
-		echo "" >> ~/.offlineimaprc
-		echo "[Repository Remote]" >> ~/.offlineimaprc
-		echo "type = IMAP" >> ~/.offlineimaprc
-		echo "remotehost = imap.263.net" >> ~/.offlineimaprc
-		echo "remoteport = 143" >> ~/.offlineimaprc
+	if [ ! -e ~/.offlineimaprc ] || [ ! -e ~/.authinfo ]; then
+
 		read -p "please input your email address:" email
-		echo "remoteuser = $email" >> ~/.offlineimaprc
 		read -p "please input your email password:" passwd
-		echo "remotepass = $passwd" >> ~/.offlineimaprc
-		echo "ssl = no" >> ~/.offlineimaprc
-		echo "maxconnections = 1" >> ~/.offlineimaprc
-		echo "realdelete = no" >> ~/.offlineimaprc
+		
+		# offlineimap: offlineimaprc
+		if [ ! -e ~/.offlineimaprc ]; then
+			echo "[general]" >> ~/.offlineimaprc 
+			echo "accounts = Gmail" >> ~/.offlineimaprc
+			echo "maxsyncaccounts = 3" >> ~/.offlineimaprc
+			echo "" >> ~/.offlineimaprc
+			echo "[Account Gmail]" >> ~/.offlineimaprc
+			echo "localrepository = Local" >> ~/.offlineimaprc
+			echo "remoterepository = Remote" >> ~/.offlineimaprc
+			echo "" >> ~/.offlineimaprc
+			echo "[Repository Local]" >> ~/.offlineimaprc
+			echo "type = Maildir" >> ~/.offlineimaprc
+			echo "localfolders = ~/Maildir" >> ~/.offlineimaprc
+			echo "" >> ~/.offlineimaprc
+			echo "[Repository Remote]" >> ~/.offlineimaprc
+			echo "type = IMAP" >> ~/.offlineimaprc
+			echo "remotehost = imap.263.net" >> ~/.offlineimaprc
+			echo "remoteport = 143" >> ~/.offlineimaprc
+			echo "remoteuser = $email" >> ~/.offlineimaprc
+			echo "remotepass = $passwd" >> ~/.offlineimaprc
+			echo "ssl = no" >> ~/.offlineimaprc
+			echo "maxconnections = 1" >> ~/.offlineimaprc
+			echo "realdelete = no" >> ~/.offlineimaprc
+		fi
+
+		# gnus: .authinfo
+		if [ ! -e ~/.authinfo ]; then
+			echo "machine smtp.263.net login $email port 465 password $passwd" >> ~/.authinfo
+		fi
 	fi
 }
 
@@ -794,6 +804,13 @@ function upgrade() {
 }
 
 function me-upgrade() {
+	tip "upgrade oh-my-emacs"
+	cd ~/.oh-my-emacs/
+	git pull
+
+	tip "reload profile"
+	.rc
+	
 	# upgrade libknife
     github-upgrade damon-kwok/libknife $PROJECT_ROOT/c/libknife
 	cd $PROJECT_ROOT/c/libknife
@@ -803,12 +820,9 @@ function me-upgrade() {
 	cmake ..
 	make
 
-	tip "upgrade oh-my-emacs"
-	cd ~/.oh-my-emacs/
-	git pull
-
-	tip "reload profile"
-	.rc
+	# damon-kwok/awesome-package-manager
+	github-upgrade damon-kwok/awesome-package-manager $PROJECT_ROOT/me/awesome-package-manager
+	
 }
 
 function daily-upgrade() {
