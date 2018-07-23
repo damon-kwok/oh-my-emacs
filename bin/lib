@@ -55,7 +55,7 @@ function git-upgrade() {
 	
 	if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
 		tip "clone $project"
-		git clone --depth=1 $url $dir
+		git clone $url $dir --single-branch --depth=1
 		# git clone --recurse $url $dir
 	else
 		cd $dir
@@ -65,6 +65,7 @@ function git-upgrade() {
 		# git pull --recurse-submodules=1
 		# fi
 	fi
+	cd $dir
 	git submodule update
 }
 
@@ -82,7 +83,7 @@ function github-upgrade() {
 	
 	if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
 		tip "clone $project"
-		git clone --depth=1 $url $dir
+		git clone $url $dir --single-branch --depth=1
 		# git clone --recurse $url $dir
 	else
 		cd $dir
@@ -92,7 +93,8 @@ function github-upgrade() {
 		# git pull --recurse-submodules=1
 		# fi
 	fi
-	git submodule update
+	cd $dir
+	git submodule update --init
 }
 
 function svn-upgrade() {
