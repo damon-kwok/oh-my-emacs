@@ -516,7 +516,7 @@ function config_offlineimap() {
 
 		# gnus: .authinfo
 		if [ ! -e ~/.authinfo ]; then
-			echo "machine smtp.263.net login $email port 465 password $passwd" >> ~/.authinfo
+			echo "machine smtp.263.net port 465 login $emailpassword $passwd" >> ~/.authinfo
 		fi
 	fi
 }
