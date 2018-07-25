@@ -20,10 +20,11 @@
 //
 // Code:
 //
-#ifndef __AUTO-INSERT_H__
-#define __AUTO-INSERT_H__
+#ifndef __`(upcase (s-snake-case (ome-bufname-no-ext)))`_H__
+#define __`(upcase (s-snake-case (ome-bufname-no-ext)))`_H__
+
 //
 
 //
-#endif	//#ifndef __AUTO-INSERT_H__
+#endif	//#ifndef __`(upcase (s-snake-case (ome-bufname-no-ext)))`_H__
 //auto-insert.h ends here

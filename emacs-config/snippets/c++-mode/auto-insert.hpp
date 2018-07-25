@@ -20,21 +20,34 @@
 //						 
 // Code:
 //
-#ifndef __`(upcase (ome-bufname-no-ext))`_H__
-#define __`(upcase (ome-bufname-no-ext))`_H__
+#ifndef __`(upcase (s-snake-case (ome-bufname-no-ext)))`_H__
+#define __`(upcase (s-snake-case (ome-bufname-no-ext)))`_H__
+
+// #pragma once
+
 //
-namespace ${1:Namespace}
+#include <cstdio>
+//
+// namespace ${1:Namespace}
+//{
+class ${2:`(ome-bufname-no-ext)`} final
 {
-  class ${2:ClassName}  
-  {
-  public:
+public:
+	$2(const $2 &) = delete;
+	$2 &operator=(const $2 &) = delete;
     $2(){}
 
-  private:
+public:
+	void trace() const
+	{
+		std::cout<<"`(buffer-name)`-$2: trace"<<std::endl;
+	}
+	
+private:
     $0
-  };
-}
+};
+// }
 //
-#endif //#ifndef __`(upcase (ome-bufname-no-ext))`_H__
+#endif //#ifndef __`(upcase (s-snake-case (ome-bufname-no-ext)))`_H__
 //`(buffer-name)` ends here
 

@@ -161,8 +161,8 @@
 (define-auto-insert "\\.org\\'" "org-mode/auto-insert")
 
 (define-auto-insert "\\.\\(c\\|cc|\\|cpp\\|cxx\\)\\'" "cc-mode/auto-insert.c")
-(define-auto-insert "\\.\\(h\\|hh\\)\\'" "cc-mode/auto-insert.h")
-(define-auto-insert "\\.\\(hpp\\|hxx\\)\\'" "cc-mode/auto-insert.hpp")
+(define-auto-insert "\\.\\(h\\)\\'" "cc-mode/auto-insert.h")
+(define-auto-insert "\\.\\(hh\\|hpp\\|hxx\\)\\'" "c++-mode/auto-insert.hpp")
 
 (define-auto-insert "\\.el\\'" "emacs-lisp-mode/auto-insert")
 (define-auto-insert "\\.els\\'" "emacs-lisp-mode/auto-insert.els")

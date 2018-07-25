@@ -97,6 +97,10 @@ function github-upgrade() {
 	git submodule update --init
 }
 
+function git-complete-upgrade() {
+    git fetch --unshallow origin
+}
+
 function svn-upgrade() {
 	local url=$1
 	local dir=$2
@@ -724,6 +728,7 @@ function project-upgrade() {
 	# github-upgrade nanomsg/nanomsg $PROJECT_ROOT/c/nanomsg
 	# github-upgrade zeromq/libzmq $PROJECT_ROOT/c/libzmq
 	github-upgrade libcheck/check $PROJECT_ROOT/c/libcheck
+	github-upgrade lcm-proj/lcm $PROJECT_ROOT/c/lcm
 	svn-upgrade svn://vcs.exim.org/pcre2/code/trunk $PROJECT_ROOT/c/pcre2
 	
 	# C++

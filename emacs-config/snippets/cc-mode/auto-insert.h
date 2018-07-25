@@ -20,8 +20,8 @@
 //						 
 // Code:
 //
-#ifndef __`(upcase (ome-bufname-no-ext))`_H__
-#define __`(upcase (ome-bufname-no-ext))`_H__
+#ifndef __`(upcase (s-snake-case (ome-bufname-no-ext)))`_H__
+#define __`(upcase (s-snake-case (ome-bufname-no-ext)))`_H__
 //
 #ifdef __cplusplus
 extern "C" {
@@ -33,7 +33,7 @@ $0
 }
 #endif
 //
-#endif //#ifndef __`(upcase (ome-bufname-no-ext))`_H__
+#endif //#ifndef __`(upcase (s-snake-case (ome-bufname-no-ext)))`_H__
 //`(buffer-name)` ends here
 
 
