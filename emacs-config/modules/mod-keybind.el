@@ -75,11 +75,18 @@
 				'(lambda ()
 				   (interactive)
 				   (switch-to-buffer (other-buffer (current-buffer) 1))))
+;;
 
 (package-require 'mwim)
 (require 'mwim)
 (global-set-key (kbd "C-a") 'mwim-beginning)
 (global-set-key (kbd "C-e") 'mwim-end)
+
+
+;;
+(package-require 'ripgrep)
+(require 'ripgrep)
+;;
 
 (package-require 'wand)
 (require 'wand)
@@ -582,8 +589,8 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 ("e" (ome-mark-all-like-this) "mc/mark-all-like-this")
 ("r" (ome-buffer-reload) "Refresh")
 ("o" (ome-kill-other-buffers) "KillOtherBuffers")
-("G" my-grep-project "projectile-project-root")
-("g" my-grep-directory "projectile-directory-root")
+("G" projectile-ripgrep "projectile-project-root")
+("g" ome-grep-directory "projectile-directory-root")
 ("d" bing-dict-brief "bing-dict-brief")
 ("D" ome-bing-dict-brief-web "bing-dict-brief-web")
 (";" tabbar-backward "tabbar-backward")

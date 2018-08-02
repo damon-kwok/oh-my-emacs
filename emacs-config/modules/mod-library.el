@@ -510,7 +510,7 @@ occurence of CHAR."
 	(error 
 	 (message "error: %s"(car (cdr err))))))
 
-(defun my-grep-project (word) 
+(defun ome-grep-project (word) 
   "Show the explanation of WORD from Bing in the echo area." 
   (interactive (let* ((default (if (use-region-p) 
 								   (buffer-substring-no-properties 
@@ -525,7 +525,7 @@ occurence of CHAR."
   (save-match-data (ome-grep-project  word) 
 				   (other-window 1)))
 
-(defun my-grep-directory (word) 
+(defun ome-grep-directory (word) 
   "Show the explanation of WORD from Bing in the echo area." 
   (interactive (let* ((default (if (use-region-p) 
 								   (buffer-substring-no-properties 

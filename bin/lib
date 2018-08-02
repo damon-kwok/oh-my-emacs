@@ -724,6 +724,7 @@ function project-upgrade() {
 	github-upgrade nodejs/http-parser $PROJECT_ROOT/c/http-parser
 	github-upgrade json-c/json-c $PROJECT_ROOT/c/json-c
 	github-upgrade protobuf-c/protobuf-c $PROJECT_ROOT/c/protobuf-c
+	github-upgrade Snaipe/libcsptr $PROJECT_ROOT/c/libcsptr
 
 	# github-upgrade nanomsg/nanomsg $PROJECT_ROOT/c/nanomsg
 	# github-upgrade zeromq/libzmq $PROJECT_ROOT/c/libzmq
@@ -753,16 +754,16 @@ function project-upgrade() {
 	# https://github.com/ztellman/manifold
 	
 	# Unity3d
-	github-upgrade arcadia-unity/arcadia $DEV_ROOT/unity3d/Arcadia
+	github-upgrade arcadia-unity/arcadia $DEV_ROOT/u3d/Arcadia
 
 	
 	# UE4
-
-	
+	# https://github.com/EpicGames/UnrealEngine.git
+	github-upgrade EpicGames/UnrealEngine $PROJECT_ROOT/ue4/UnrealEngine
 	# Data
-	github-upgrade apache/thrift $DEV_ROOT/data/thrift
-	github-upgrade apache/avro $DEV_ROOT/data/avro
-	github-upgrade google/flatbuffers $DEV_ROOT/data/flatbuffers
+	github-upgrade apache/thrift $PROJECT_ROOT/data/thrift
+	github-upgrade apache/avro $PROJECT_ROOT/data/avro
+	github-upgrade google/flatbuffers $PROJECT_ROOT/data/flatbuffers
 	
 }
 
@@ -781,7 +782,10 @@ function cmake-upgrade() {
 	# cmake ..
 	make	
 }
-function install-toolchain() {	
+function install-toolchain() {
+	tip "pip upgrade"
+	pip install --user -U pip
+	
 	# tip "install oh-my-zsh"
 	# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
@@ -854,29 +858,32 @@ function upgrade() {
 	install-toolchain
 }
 
-function me-upgrade() {
-	tip "upgrade oh-my-emacs"
-	cd ~/.oh-my-emacs/
-	git pull
-
-	tip "reload profile"
-	.rc
-	
+function me-upgrade() {   	
 	# upgrade libknife
     github-upgrade damon-kwok/libknife $PROJECT_ROOT/c/libknife
 	cd $PROJECT_ROOT/c/libknife
 	mkdir -p build
 	cd build
-	rm -rf ./*
+	# rm -rf ./*
 	cmake ..
-	make
+	make	
+}
+
+function daily-upgrade() {
+	# tip "upgrade oh-my-emacs"
+	cd ~/.oh-my-emacs/
+	git pull
+
+	# tip "reload profile"
+	.rc
 
 	# damon-kwok/awesome-package-manager
 	github-upgrade damon-kwok/awesome-package-manager $PROJECT_ROOT/me/awesome-package-manager
 	
-}
 
-function daily-upgrade() {
+	tip "pip upgrade"
+	pip install --user -U pip
+	
 	me-upgrade
     # erlang-upgrade
 	# elixir-upgrade
@@ -923,6 +930,13 @@ function steam-on-freebsd() {
 	./install.sh
 	./steamrun
 
+}
+
+function wine-upgrade() {
+    sudo dpkg --add-architecture i386
+	wget -nc https://dl.winehq.org/wine-builds/Release.key
+	sudo apt-key add Release.key
+	sudo apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/
 }
 
 # fop xsltproc

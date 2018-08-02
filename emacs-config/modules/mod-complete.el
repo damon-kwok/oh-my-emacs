@@ -135,7 +135,9 @@
 ;; (define-key yas-minor-mode-map [backtab] 'yas-expand)
 (global-set-key (kbd "C-x y f") 'yas-open-snippet-file)
 (global-set-key (kbd "C-x y a") 'yas-open-snippet-template)
-
+;;
+
+;;
 (defun yasnippet-current-line () ;; C-c TAB
   (interactive) 
   (let ((current-line (string-trim-right (thing-at-point 'line t)))) 
@@ -151,6 +153,7 @@
 	  (replace-regexp-in-string "[a-zA-Z0-9]+" #'rep string))))
 
 (global-set-key (kbd "C-c TAB") 'yasnippet-current-line)
+;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `auto-insert-mode'

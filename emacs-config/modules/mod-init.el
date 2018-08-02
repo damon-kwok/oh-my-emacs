@@ -94,6 +94,8 @@
 
 (module-require 'mod-input)
 (module-require 'mod-calendar)
+(module-require 'mod-profiler)
+(module-require 'mod-format)
 
 ;; (package-require 'exwm)
 ;; (require 'exwm)

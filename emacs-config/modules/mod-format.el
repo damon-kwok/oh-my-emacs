@@ -1,11 +1,11 @@
 ;; -*- lexical-binding: t -*-
-;; mod-git.el --- This is where you apply your OCD.
+;; mod-format.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2017 damon-kwok
+;; Copyright (C) 2009-2018 damon-kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2017-11-07
-;; Modify: 2017-11-07
+;; Create: 2018-08-02
+;; Modify: 2018-08-02
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -18,26 +18,15 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'magit)
-(require 'magit)
+(package-require 'format-all)
+(require 'format-all)
 
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
-;;
-
-;;
-;; `magithub'
-;; (use-package magithub
-  ;; :after magit
-  ;; :config
-  ;; (magithub-feature-autoinject t)
-  ;; (setq magithub-clone-default-directory "~/github"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(provide 'mod-git)
-;; mod-git.el ends here
+(provide 'mod-format)
+;; mod-format.el ends here
