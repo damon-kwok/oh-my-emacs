@@ -41,6 +41,7 @@ function tip() {
 }
 
 function git-upgrade() {
+	local curdir=`pwd`
 	local site=$1
 	local project=$2
 	local dir=$3
@@ -66,10 +67,13 @@ function git-upgrade() {
 		# fi
 	fi
 	cd $dir
-	git submodule update
+	# git submodule foreach --recursive 'git fetch --tags'
+	git submodule update --init --depth=1
+	cd $curdir
 }
 
 function github-upgrade() {
+	local curdir=`pwd`
 	local project=$1
 	local dir=$2
 
@@ -94,7 +98,9 @@ function github-upgrade() {
 		# fi
 	fi
 	cd $dir
-	git submodule update --init
+	# git submodule foreach --recursive 'git fetch --tags'
+	git submodule update --init --depth=1
+	cd $curdir
 }
 
 function git-complete-upgrade() {
@@ -478,7 +484,21 @@ function cquery-upgrade() {
 		  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
 		  -DCMAKE_BUILD_TYPE=Release
 	# -DSYSTEM_CLANG=1
+	make
+	cd $OME_ROOT
+}
+
+# PATH=/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin:$PATH
+function ccls-upgrade() {
+	tip "install ccls"
+	github-upgrade MaskRay/ccls $DEV_ROOT/ccls
+	mkdir -p $HOME/.ccls
+	mkdir -p $DEV_ROOT/ccls/build
+	cd $DEV_ROOT/ccls/build/
+	cmake .. -DSYSTEM_CLANG=0 -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CXX_EXTENSIONS=OFF -DCMAKE_CXX_STANDARD=17 -DCMAKE_CXX_STANDARD_REQUIRED=ON -DCMAKE_CXX_EXTENSIONS=OFF -DCMAKE_INSTALL_PREFIX=$HOME/.ccls -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin"
+		  # -DSYSTEM_CLANG=0
 	make install
+	
 	cd $OME_ROOT
 }
 
@@ -731,12 +751,15 @@ function project-upgrade() {
 	github-upgrade libcheck/check $PROJECT_ROOT/c/libcheck
 	github-upgrade lcm-proj/lcm $PROJECT_ROOT/c/lcm
 	svn-upgrade svn://vcs.exim.org/pcre2/code/trunk $PROJECT_ROOT/c/pcre2
+	github-upgrade Tencent/libco $PROJECT_ROOT/libco
 	
 	# C++
 	github-upgrade emilk/loguru $PROJECT_ROOT/cpp/loguru
 	github-upgrade nodejs/http2 $PROJECT_ROOT/cpp/http2
 	github-upgrade facebook/folly $PROJECT_ROOT/cpp/folly
-	github-upgrade pocoproject/poco/ $PROJECT_ROOT/cpp/poco
+	github-upgrade pocoproject/poco $PROJECT_ROOT/cpp/poco
+	github-upgrade 01org/tbb $PROJECT_ROOT/tbb
+	github-upgrade Tencent/rapidjson $PROJECT_ROOT/rapidjson
 	
 	# C#
 
@@ -873,7 +896,7 @@ function daily-upgrade() {
 	# tip "upgrade oh-my-emacs"
 	cd ~/.oh-my-emacs/
 	git pull
-
+	
 	# tip "reload profile"
 	.rc
 
@@ -887,7 +910,8 @@ function daily-upgrade() {
 	me-upgrade
     # erlang-upgrade
 	# elixir-upgrade
-	cquery-upgrade
+	# cquery-upgrade
+	ccls-upgrade
 	mu4e-upgrade
 	project-upgrade
 	book-upgrade
