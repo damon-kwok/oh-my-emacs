@@ -35,19 +35,19 @@
 (setq cquery-executable "/home/damon/.cquery/bin/cquery")
 
 (setq cquery-extra-init-params 
-	  '(:index (:comments 2) 
-			   :cacheFormat "msgpack" 
-			   :completion (:detailedLabel t)))
+      '(:index (:comments 2) 
+               :cacheFormat "msgpack" 
+               :completion (:detailedLabel t)))
 
 (with-eval-after-load 'projectile 
   (setq projectile-project-root-files-top-down-recurring (append '("compile_commands.json"
-																   ".cquery")
-																 projectile-project-root-files-top-down-recurring)))
+                                                                   ".cquery")
+                                                                 projectile-project-root-files-top-down-recurring)))
 
 (defun cquery//enable () 
   (condition-case nil (lsp-cquery-enable) 
-	(user-error 
-	 nil)))
+    (user-error 
+     nil)))
 
 ;; Also see lsp-project-whitelist lsp-project-blacklist cquery-root-matchers
 
@@ -66,9 +66,9 @@
   (lsp-ui-peek-find-custom 'random "$cquery/random") ;; jump to a random declaration
   )
 
-(add-hook 'c-mode-hook 'cquery-setup)
-(add-hook 'c++-mode-hook 'cquery-setup)
-(add-hook 'objc-mode-hook 'cquery-setup)
+;; (add-hook 'c-mode-hook 'cquery-setup)
+;; (add-hook 'c++-mode-hook 'cquery-setup)
+;; (add-hook 'objc-mode-hook 'cquery-setup)
 
 (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)
 
@@ -78,6 +78,10 @@
 
 ;; For rainbow semantic highlighting
 (cquery-use-default-rainbow-sem-highlight)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define-key c-mode-map (kbd "C-c C-z")  'cquery-setup)
+(define-key c++-mode-map (kbd "C-c C-z")  'cquery-setup)
+(define-key objc-mode-map (kbd "C-c C-z")  'cquery-setup)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-cquery)
 ;; mod-cquery.el ends here

@@ -491,12 +491,22 @@ function cquery-upgrade() {
 # PATH=/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin:$PATH
 function ccls-upgrade() {
 	tip "install ccls"
-	github-upgrade MaskRay/ccls $DEV_ROOT/ccls
+	# github-upgrade MaskRay/ccls $DEV_ROOT/ccls
+	github-upgrade damon-kwok/ccls $DEV_ROOT/ccls
 	mkdir -p $HOME/.ccls
 	mkdir -p $DEV_ROOT/ccls/build
 	cd $DEV_ROOT/ccls/build/
-	cmake .. -DSYSTEM_CLANG=0 -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CXX_EXTENSIONS=OFF -DCMAKE_CXX_STANDARD=17 -DCMAKE_CXX_STANDARD_REQUIRED=ON -DCMAKE_CXX_EXTENSIONS=OFF -DCMAKE_INSTALL_PREFIX=$HOME/.ccls -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin"
-		  # -DSYSTEM_CLANG=0
+	cmake .. \
+		  -DSYSTEM_CLANG=0 \
+		  -DCMAKE_CXX_COMPILER=clang++ \
+		  -DCMAKE_CXX_EXTENSIONS=OFF \
+		  -DCMAKE_CXX_STANDARD=17 \
+		  -DCMAKE_CXX_STANDARD_REQUIRED=ON \
+		  -DCMAKE_CXX_EXTENSIONS=OFF \
+		  -DCMAKE_INSTALL_PREFIX=$HOME/.ccls \
+		  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
+		  -DCMAKE_BUILD_TYPE=Release \
+		  -DSYSTEM_CLANG=1
 	make install
 	
 	cd $OME_ROOT
