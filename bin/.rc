@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+if [ -e ~/.profile ]; then
+	source ~/.profile
+fi
+
+if [ -e ~/.bashrc ]; then
+   echo "source ~/.bashrc"
+   source ~/.bashrc
+fi
+
+if [ -e ~/.zshrc ]; then
+	source ~/.zshrc
+fi

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 function ask() {
 	read -p $(tput setaf 5)"$1 "$(tput sgr0)
 }
@@ -907,8 +908,8 @@ function daily-upgrade() {
 	cd ~/.oh-my-emacs/
 	git pull
 	
-	# tip "reload profile"
-	.rc
+	tip "pip upgrade"
+	pip install --user -U pip
 
 	# damon-kwok/awesome-package-manager
 	github-upgrade damon-kwok/awesome-package-manager $PROJECT_ROOT/me/awesome-package-manager
@@ -920,25 +921,37 @@ function daily-upgrade() {
 	me-upgrade
     # erlang-upgrade
 	# elixir-upgrade
-	# cquery-upgrade
-	ccls-upgrade
+	llvm-upgrade
+	cquery-upgrade
+	# ccls-upgrade
 	mu4e-upgrade
 	project-upgrade
 	book-upgrade
 }
 
-function .rc() {
-	if [ ! -e ~/.profile ]; then
-		source ~/.profile
-	fi
-
-	if [ ! -e ~/.bashrc ]; then
-		source ~/.bashrc
-	fi
-
-	if [ ! -e ~/.zshrc ]; then
-		source ~/.zshrc
-	fi
+function llvm-upgrade() {
+    git-upgrade "https://git.llvm.org" "git/llvm" $DEV_ROOT/llvm
+	git-upgrade "https://git.llvm.org" "git/clang" $DEV_ROOT/llvm/tools/clang
+	git-upgrade "https://git.llvm.org" "git/clang-tools-extra" $DEV_ROOT/llvm/tools/clang/tools/extra
+	git-upgrade "https://git.llvm.org" "git/lld" $DEV_ROOT/llvm/tools/lld
+	git-upgrade "https://git.llvm.org" "git/lldb" $DEV_ROOT/llvm/tools/lldb
+	git-upgrade "https://git.llvm.org" "git/polly" $DEV_ROOT/llvm/tools/polly
+	git-upgrade "https://git.llvm.org" "git/compiler-rt" $DEV_ROOT/llvm/projects/compiler-rt
+	git-upgrade "https://git.llvm.org" "git/openmp" $DEV_ROOT/llvm/projects/openmp
+	git-upgrade "https://git.llvm.org" "git/libcxx" $DEV_ROOT/llvm/projects/libcxx
+	git-upgrade "https://git.llvm.org" "git/libcxxabi" $DEV_ROOT/llvm/projects/libcxxabi
+	# git-upgrade "https://git.llvm.org" "git/test-suite" $DEV_ROOT/llvm/projects/test-suite
+	cd $DEV_ROOT/llvm/
+	git config branch.master.rebase true
+	
+	mkdir -p $DEV_ROOT/llvm/build
+	# mkdir -p $DEV_ROOT/lldb
+	cd $DEV_ROOT/llvm/build/
+	cmake .. \
+		  -DCMAKE_INSTALL_PREFIX=$HOME/.llvm \
+		  -DCMAKE_BUILD_TYPE=Release
+		  # -DLLVM_ENABLE_PROJECTS="lldb" \
+	make -j4
 }
 
 function steam-on-freebsd() {
