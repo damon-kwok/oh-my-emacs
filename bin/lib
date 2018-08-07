@@ -1,107 +1,107 @@
 #!/usr/bin/env bash
 
 function ask() {
-	read -p $(tput setaf 5)"$1 "$(tput sgr0)
+    read -p $(tput setaf 5)"$1 "$(tput sgr0)
 }
 function warning-ask() {
-	read -p $(tput setaf 3)"$1 "$(tput sgr0)
+    read -p $(tput setaf 3)"$1 "$(tput sgr0)
 }
 
 function echo-success() {
-	echo -e $(tput setaf 10)"$1"$(tput sgr0) #2
+    echo -e $(tput setaf 10)"$1"$(tput sgr0) #2
 }
 function echo-warning() {
-	echo -e $(tput setaf 11)"$1"$(tput sgr0) #3 dark yellow
+    echo -e $(tput setaf 11)"$1"$(tput sgr0) #3 dark yellow
 }
 function echo-error() {
-	echo -e $(tput setaf 1)"$1"$(tput sgr0)
+    echo -e $(tput setaf 1)"$1"$(tput sgr0)
 }
 function echo-tip() {
-	echo -e $(tput setaf 14)"$1"$(tput sgr0) #6
+    echo -e $(tput setaf 14)"$1"$(tput sgr0) #6
 }
 function echo-debug() {
-	echo -e $(tput setaf 8)"$1"$(tput sgr0)
+    echo -e $(tput setaf 8)"$1"$(tput sgr0)
 }
 function echo-waiting() {
-	echo -e $(tput setaf 4)"$1"$(tput sgr0)
+    echo -e $(tput setaf 4)"$1"$(tput sgr0)
 }
 
 function echo-kv() {
-	echo -e $(tput setaf 14)"$1:"$(tput sgr0) $(tput setaf 10)"$2"$(tput sgr0)
+    echo -e $(tput setaf 14)"$1:"$(tput sgr0) $(tput setaf 10)"$2"$(tput sgr0)
 }
 
 function title() {
-	echo -e $(tput setaf 14)"=================================================================="\
-		 $(tput sgr0)
-	echo -e $(tput setaf 14)"= $1:"$(tput sgr0)
+    echo -e $(tput setaf 14)"=================================================================="\
+	 $(tput sgr0)
+    echo -e $(tput setaf 14)"= $1:"$(tput sgr0)
 }
 
 function tip() {
-	echo -e $(tput setaf 10)"--------------------------------"$(tput sgr0)
-	echo -e $(tput setaf 10)"-- $1:"$(tput sgr0)
+    echo -e $(tput setaf 10)"--------------------------------"$(tput sgr0)
+    echo -e $(tput setaf 10)"-- $1:"$(tput sgr0)
 }
 
 function git-upgrade() {
-	local curdir=`pwd`
-	local site=$1
-	local project=$2
-	local dir=$3
+    local curdir=`pwd`
+    local site=$1
+    local project=$2
+    local dir=$3
 
-	# if [ "$GIT_USE_SECRET_KEY" == "1" ]; then		
-	# local url="git@github.com:${project}.git --recursive"
-	# else
-	# local url="https://github.com/${project}.git --recursive"
-	# fi
+    # if [ "$GIT_USE_SECRET_KEY" == "1" ]; then		
+    # local url="git@github.com:${project}.git --recursive"
+    # else
+    # local url="https://github.com/${project}.git --recursive"
+    # fi
 
-	local url="$site/${project}.git"
-	
-	if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
-		tip "clone $project"
-		git clone $url $dir --single-branch --depth=1
-		# git clone --recurse $url $dir
-	else
-		cd $dir
-		tip "update $project"
-		# if [ "$PULL_FOR_BUILD" == "1" ]; then
-		git pull
-		# git pull --recurse-submodules=1
-		# fi
-	fi
+    local url="$site/${project}.git"
+    
+    if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
+	tip "clone $project"
+	git clone $url $dir --single-branch --depth=1
+	# git clone --recurse $url $dir
+    else
 	cd $dir
-	# git submodule foreach --recursive 'git fetch --tags'
-	git submodule update --init --depth=1
-	cd $curdir
+	tip "update $project"
+	# if [ "$PULL_FOR_BUILD" == "1" ]; then
+	git pull
+	# git pull --recurse-submodules=1
+	# fi
+    fi
+    cd $dir
+    # git submodule foreach --recursive 'git fetch --tags'
+    git submodule update --init --depth=1
+    cd $curdir
 }
 
 function github-upgrade() {
-	local curdir=`pwd`
-	local project=$1
-	local dir=$2
+    local curdir=`pwd`
+    local project=$1
+    local dir=$2
 
-	# if [ "$GIT_USE_SECRET_KEY" == "1" ]; then		
-	# local url="git@github.com:${project}.git --recursive"
-	# else
-	# local url="https://github.com/${project}.git --recursive"
-	# fi
+    # if [ "$GIT_USE_SECRET_KEY" == "1" ]; then		
+    # local url="git@github.com:${project}.git --recursive"
+    # else
+    # local url="https://github.com/${project}.git --recursive"
+    # fi
 
-	local url="https://github.com/${project}.git"
-	
-	if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
-		tip "clone $project"
-		git clone $url $dir --single-branch --depth=1
-		# git clone --recurse $url $dir
-	else
-		cd $dir
-		tip "update $project"
-		# if [ "$PULL_FOR_BUILD" == "1" ]; then
-		git pull
-		# git pull --recurse-submodules=1
-		# fi
-	fi
+    local url="https://github.com/${project}.git"
+    
+    if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
+	tip "clone $project"
+	git clone $url $dir --single-branch --depth=1
+	# git clone --recurse $url $dir
+    else
 	cd $dir
-	# git submodule foreach --recursive 'git fetch --tags'
-	git submodule update --init --depth=1
-	cd $curdir
+	tip "update $project"
+	# if [ "$PULL_FOR_BUILD" == "1" ]; then
+	git pull
+	# git pull --recurse-submodules=1
+	# fi
+    fi
+    cd $dir
+    # git submodule foreach --recursive 'git fetch --tags'
+    git submodule update --init --depth=1
+    cd $curdir
 }
 
 function git-complete-upgrade() {
@@ -109,56 +109,56 @@ function git-complete-upgrade() {
 }
 
 function svn-upgrade() {
-	local url=$1
-	local dir=$2
-	# svn co svn://www.svn999.com/guowangwei.workspace workspace
-	
+    local url=$1
+    local dir=$2
+    # svn co svn://www.svn999.com/guowangwei.workspace workspace
+    
     if [ ! -d $DIR_WORKSPACE ]; then
-		cd $OME_ROOT
-		svn co $url $dir
+	cd $OME_ROOT
+	svn co $url $dir
     else
-		cd $dir
-		svn cleanup .
-		svn up
+	cd $dir
+	svn cleanup .
+	svn up
     fi
 }
 
 function svn-remove-lose() {
-	svn status grep "^!" awk `{print $2}` xargs svn rm
+    svn status grep "^!" awk `{print $2}` xargs svn rm
 }
 
 function svn-add-new() {
-	svn status grep "^\?" awk `{print $2}` xargs svn add
+    svn status grep "^\?" awk `{print $2}` xargs svn add
 }
 
 function svn-commit() {
-	svn-remove-lose
-	svn-add-new
-	
-	svn status
-	readp "auto commit?"
-	if [ $? -eq 1 ]; then
+    svn-remove-lose
+    svn-add-new
+    
+    svn status
+    readp "auto commit?"
+    if [ $? -eq 1 ]; then
         svn commit -m `date +%Y-%m-%d@%H-%M-%S`
     else
         read -p "please enter commit message:" msg
         svn commit -m "$msg"
     fi
-	# set msg=%date:~0,4%-%date:~5,2%-%date:~8,2%@%time:~0,2%-%time:~3,2%-%time:~6,2%
-	svn commit -m "%msg%"
+    # set msg=%date:~0,4%-%date:~5,2%-%date:~8,2%@%time:~0,2%-%time:~3,2%-%time:~6,2%
+    svn commit -m "%msg%"
 }
 
 function readp {
-	local str=$1
-	
-	read -p "$str(Y/n)" c
-	if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
-		return $(( 1 ));
-	elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
-		return $(( 0 ));
-	else
-		echo "invalid input:$c"
-		readp "$1"
-	fi
+    local str=$1
+    
+    read -p "$str(Y/n)" c
+    if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
+	return $(( 1 ));
+    elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
+	return $(( 0 ));
+    else
+	echo "invalid input:$c"
+	readp "$1"
+    fi
 }
 
 # find-str $2:str $1:file
@@ -167,173 +167,173 @@ function readp {
 # result=$?
 # echo $result
 function find-str() {
-	local str=$1
-	local file=$2
-	
-	grep $str $file >/dev/null
-	
-	if [ $? -eq 0 ]; then
-		echo "found:$str"
-		return $(( 1 ));
-	else
-		echo "not found:$str"
-		return $(( 0 ));
-	fi
+    local str=$1
+    local file=$2
+    
+    grep $str $file >/dev/null
+    
+    if [ $? -eq 0 ]; then
+	echo "found:$str"
+	return $(( 1 ));
+    else
+	echo "not found:$str"
+	return $(( 0 ));
+    fi
 }
 
 # smart-rtags $void
 function auto-gen-rtags() {
-	local dir=`pwd`
-	# echo "check dir:$dir"
+    local dir=`pwd`
+    # echo "check dir:$dir"
 
-	if [ -f "$dir/CMakeLists.txt" ]; then
-		if [ ! -d "$dir/rtags_indexes" ]; then
-			echo "$dir/rtags_indexes is creating..."
-			mkdir -p $dir/rtags_indexes
-			cd rtags_indexes/
-			cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
-			rc -J .
-			cd ..
-		else
-			echo "$dir/rtags_indexes is exist!"
-		fi
+    if [ -f "$dir/CMakeLists.txt" ]; then
+	if [ ! -d "$dir/rtags_indexes" ]; then
+	    echo "$dir/rtags_indexes is creating..."
+	    mkdir -p $dir/rtags_indexes
+	    cd rtags_indexes/
+	    cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+	    rc -J .
+	    cd ..
 	else
-		cd ..
-		if [ ! "/" == "$dir" ]; then
-			auto-gen-rtags	    
-		fi
+	    echo "$dir/rtags_indexes is exist!"
 	fi
+    else
+	cd ..
+	if [ ! "/" == "$dir" ]; then
+	    auto-gen-rtags	    
+	fi
+    fi
 }
 
 function dns-upgrade() {
-	local ip=$1
-	
-	tip "Add '$ip' to /etc/network/interfaces"
-	find-str $ip /etc/network/interfaces
-	if [ $? -eq 0 ]; then
-		sudo bash -c "echo 'dns-nameservers  $ip' >> /etc/network/interfaces"
-	else
-		echo "skip!"
-	fi
+    local ip=$1
+    
+    tip "Add '$ip' to /etc/network/interfaces"
+    find-str $ip /etc/network/interfaces
+    if [ $? -eq 0 ]; then
+	sudo bash -c "echo 'dns-nameservers  $ip' >> /etc/network/interfaces"
+    else
+	echo "skip!"
+    fi
 }
 
 function host-upgrade() {
-	local ip=$1
-	local name=$2
+    local ip=$1
+    local name=$2
 
-	tip "Add '$ip $name' to /etc/hosts"
-	find-str $name /etc/hosts
-	if [ $? -eq 0 ]; then
-		sudo bash -c "echo '$ip $name' >> /etc/hosts"
-	else
-		echo "skip!"
-	fi
+    tip "Add '$ip $name' to /etc/hosts"
+    find-str $name /etc/hosts
+    if [ $? -eq 0 ]; then
+	sudo bash -c "echo '$ip $name' >> /etc/hosts"
+    else
+	echo "skip!"
+    fi
 }
 
 function apt-repo-upgrade() {
-	local arch=$1
-	local url=$2
-	tip "Add docker apt repository"
-	find-str "$url" /etc/apt/sources.list.d/additional-repositories.list
-	if [ $? -eq 0 ]; then
-		sudo add-apt-repository \
-			 "deb [arch=$arch] $url xenial stable"
-		sudo apt update
-	fi
-	# "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable"
+    local arch=$1
+    local url=$2
+    tip "Add docker apt repository"
+    find-str "$url" /etc/apt/sources.list.d/additional-repositories.list
+    if [ $? -eq 0 ]; then
+	sudo add-apt-repository \
+	     "deb [arch=$arch] $url xenial stable"
+	sudo apt update
+    fi
+    # "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable"
 }
 
 function dir-upgrade() {
-	local src=$1
-	local dst=$2
+    local src=$1
+    local dst=$2
 
-	if [ ! -d $dst ] || [ "$PULL_FOR_BUILD" == "1" ]; then
-		rm -rf $dst
-		cp -r $src $dst
-		# cp -r $dir1/. $dir2
-	fi	
+    if [ ! -d $dst ] || [ "$PULL_FOR_BUILD" == "1" ]; then
+	rm -rf $dst
+	cp -r $src $dst
+	# cp -r $dir1/. $dir2
+    fi	
 }
 
 function link-upgrade() {
-	local src=$1
-	local dst=$2
+    local src=$1
+    local dst=$2
 
-	rm -rf $dst
-	ln -s $src $dst
+    rm -rf $dst
+    ln -s $src $dst
 }
 
 function git-pull {
-	tip "git-pull"
-	cd $OME_ROOT
-	git reset
-	git pull
+    tip "git-pull"
+    cd $OME_ROOT
+    git reset
+    git pull
 
-	chmod +x $OME_ROOT/bin/*
+    chmod +x $OME_ROOT/bin/*
 }
 
 function git-push {
-	tip "git-push"
-	cd $OME_ROOT
-	git reset
-	git pull
-	git add .
-	git status
+    tip "git-push"
+    cd $OME_ROOT
+    git reset
+    git pull
+    git add .
+    git status
 
-	readp "auto commit?"
-	if [ $? -eq 1 ]; then
-		git commit -m `date +%Y-%m-%d@%H-%M-%S`
-	else
-		read -p "please enter commit message:" msg
-		git commit -m "$msg"
-	fi
-	git push -u origin master
+    readp "auto commit?"
+    if [ $? -eq 1 ]; then
+	git commit -m `date +%Y-%m-%d@%H-%M-%S`
+    else
+	read -p "please enter commit message:" msg
+	git commit -m "$msg"
+    fi
+    git push -u origin master
 }
 
 function git-push-a {
-	tip "git-push-a"
-	
-	git reset
-	git pull
-	git add .
-	git status
-	# git commit -m "upgrade by "`uname -n`
-	git commit -m `date +%Y-%m-%d@%H-%M-%S` # "upgrade by "`uname -n`
-	git push -u origin master
+    tip "git-push-a"
+    
+    git reset
+    git pull
+    git add .
+    git status
+    # git commit -m "upgrade by "`uname -n`
+    git commit -m `date +%Y-%m-%d@%H-%M-%S` # "upgrade by "`uname -n`
+    git push -u origin master
 }
 
 function svn-remove-lose {
-	# svn status grep "^!" awk '{print $2}' xargs svn rm
+    # svn status grep "^!" awk '{print $2}' xargs svn rm
     svn st | grep '^\!' | cut -c 9- | xargs -r svn rm
-	# --depth infinity
+    # --depth infinity
 }
 
 function svn-add-new {
-	# svn status grep "^\?" awk '{print $2}' xargs svn add
+    # svn status grep "^\?" awk '{print $2}' xargs svn add
     svn st | grep '^\?' | cut -c 9- | xargs -r svn add --depth infinity
 }
 
 function svn-cancel-add {
-	# svn st |grep '^A' | cut -c 9- | awk '{print $2}' | xargs -r svn revert
+    # svn st |grep '^A' | cut -c 9- | awk '{print $2}' | xargs -r svn revert
     svn st | grep '^A' | cut -c 9- | xargs -r svn revert --depth infinity
 }
 
 function svn-commit {
-	tip "check lose files"
-	svn-remove-lose
+    tip "check lose files"
+    svn-remove-lose
 
-	tip "check new files"
-	svn-add-new
+    tip "check new files"
+    svn-add-new
 
-	tip "show status"
-	svn status
-	
-	readp "auto commit?"
-	if [ $? -eq 1 ]; then
-		svn commit -m `date +%Y-%m-%d@%H-%M-%S`
-	else
-		read -p "please enter commit message:" msg
-		svn commit -m "$msg"
-	fi
+    tip "show status"
+    svn status
+    
+    readp "auto commit?"
+    if [ $? -eq 1 ]; then
+	svn commit -m `date +%Y-%m-%d@%H-%M-%S`
+    else
+	read -p "please enter commit message:" msg
+	svn commit -m "$msg"
+    fi
 }
 
 # check install:rtags irony-server
@@ -380,484 +380,484 @@ function svn-commit {
 # }
 
 function install-basedevel {
-	tip "please choose your os:"
-	echo "    1) debian/ubuntu/mint"
-	echo "    2) archlinux/manjaro"
-	echo "    3) fedora22+"
-	echo "    4) macOS"
-	echo "    5) msys2"
-	echo "    -------------------------"
-	echo "    r) return"
+    tip "please choose your os:"
+    echo "    1) debian/ubuntu/mint"
+    echo "    2) archlinux/manjaro"
+    echo "    3) fedora22+"
+    echo "    4) macOS"
+    echo "    5) msys2"
+    echo "    -------------------------"
+    echo "    r) return"
 
-	read -p "please enter your choice:" item
-	case $item in
-		1)  # Debian / Ubuntu / LinuxMint
-			# Erlang
-			# wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
-				# && sudo dpkg -i erlang-solutions_1.0_all.deb
+    read -p "please enter your choice:" item
+    case $item in
+	1)  # Debian / Ubuntu / LinuxMint
+	    # Erlang
+	    # wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
+		# && sudo dpkg -i erlang-solutions_1.0_all.deb
 
-			# Golang
-			# sudo add-apt-repository -y ppa:longsleep/golang-backports
-			
-			sudo apt update
-			sudo apt dist-upgrade
-			
-			sudo apt install -y build-essential texinfo libtool autoscan aclocal autoconf autoheader automake \
-				 coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
-			sudo apt install -y python-pip perl ruby ocaml haskell-stack #openjdk-8-jdk
-			sudo apt install -y ttf-bitstream-vera #zmq ghostscript
-			sudo apt install -y i3 #i3-wm i3status i3lock dmenu feh xcompmgr roxterm
+	    # Golang
+	    # sudo add-apt-repository -y ppa:longsleep/golang-backports
+	    
+	    sudo apt update
+	    sudo apt dist-upgrade
+	    
+	    sudo apt install -y build-essential texinfo libtool autoscan aclocal autoconf autoheader automake \
+		 coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
+	    sudo apt install -y python-pip perl ruby ocaml haskell-stack #openjdk-8-jdk
+	    sudo apt install -y ttf-bitstream-vera #zmq ghostscript
+	    sudo apt install -y i3 #i3-wm i3status i3lock dmenu feh xcompmgr roxterm
 
-			# - Erlang 			
-			# sudo apt install libssl-dev libwxbase3.0-dev libwxgtk3.0-dev esl-erlang
-			# sudo apt install erlang-nox
-			# sudo apt install elixir
+	    # - Erlang 			
+	    # sudo apt install libssl-dev libwxbase3.0-dev libwxgtk3.0-dev esl-erlang
+	    # sudo apt install erlang-nox
+	    # sudo apt install elixir
 
-			# - Bazel---Build and test software of any size, quickly and reliably
-			# sudo apt -y install pkg-config zip g++ zlib1g-dev unzip python
-			# echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | \
-				# sudo tee /etc/apt/sources.list.d/bazel.list
-			# curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
-			# sudo apt-get update && sudo apt-get install -y bazel
-			
-			# - Golang LTS PPA
-			# sudo apt-get install golang-go			
-			;;
-		
-		2)  # ArchLinux / Manjaro
-			yaourt -Syyu
-			yaourt -S base-devel coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
-			yaourt -S python2-pip rubygems ocaml haskell-stack-git jdk go-bin
-			yaourt -S nerd-fonts-bitstream-vera-mono
-			yaourt -S i3-wm i3lock i3status dmenu
-			;;
-		
-		3)  # Fedora / Redhat / CentOS
-			sudo dnf update
-			sudo dnf upgrade --refresh
-			
-			sudo dnf groupinstall "Development Tools and Libraries"
-			sudo dnf install autoscan aclocal autoconf autoheader automake \
-				 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
-			sudo dnf install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
-			sudo dnf install ttf-bitstream-vera
-			;;
-		
-		4) # macOS
-			brew update
-			brew upgrade
-			
-			brew install autoscan aclocal autoconf autoheader automake \
-				 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
-			brew install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
-			brew install ttf-bitstream-vera
-			;;
-		
-		5) # msys2
-			pacman -Syyu
-			
-			pacman -S base-devel autoscan aclocal autoconf autoheader automake \
-				   coreutils diffutils wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
-			pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-ocaml golang
-			pacman -S ttf-bitstream-vera
-			#mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
-			;;
-		
-		r | R)
-			ask-menu
-			;;
-		*)
-			ask-repl
-			;;
-	esac
+	    # - Bazel---Build and test software of any size, quickly and reliably
+	    # sudo apt -y install pkg-config zip g++ zlib1g-dev unzip python
+	    # echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | \
+		# sudo tee /etc/apt/sources.list.d/bazel.list
+	    # curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
+	    # sudo apt-get update && sudo apt-get install -y bazel
+	    
+	    # - Golang LTS PPA
+	    # sudo apt-get install golang-go			
+	    ;;
+	
+	2)  # ArchLinux / Manjaro
+	    yaourt -Syyu
+	    yaourt -S base-devel coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+	    yaourt -S python2-pip rubygems ocaml haskell-stack-git jdk go-bin
+	    yaourt -S nerd-fonts-bitstream-vera-mono
+	    yaourt -S i3-wm i3lock i3status dmenu
+	    ;;
+	
+	3)  # Fedora / Redhat / CentOS
+	    sudo dnf update
+	    sudo dnf upgrade --refresh
+	    
+	    sudo dnf groupinstall "Development Tools and Libraries"
+	    sudo dnf install autoscan aclocal autoconf autoheader automake \
+		 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+	    sudo dnf install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
+	    sudo dnf install ttf-bitstream-vera
+	    ;;
+	
+	4) # macOS
+	    brew update
+	    brew upgrade
+	    
+	    brew install autoscan aclocal autoconf autoheader automake \
+		 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+	    brew install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
+	    brew install ttf-bitstream-vera
+	    ;;
+	
+	5) # msys2
+	    pacman -Syyu
+	    
+	    pacman -S base-devel autoscan aclocal autoconf autoheader automake \
+		   coreutils diffutils wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
+	    pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-ocaml golang
+	    pacman -S ttf-bitstream-vera
+	    #mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
+	    ;;
+	
+	r | R)
+	    ask-menu
+	    ;;
+	*)
+	    ask-repl
+	    ;;
+    esac
 
 
-	source ~/.bashrc
+    source ~/.bashrc
 }
 
 function cquery-upgrade() {
-	tip "install cquery"
-	github-upgrade cquery-project/cquery $DEV_ROOT/cquery
-	mkdir -p $DEV_ROOT/cquery/build
-	cd $DEV_ROOT/cquery/build/
-	cmake .. \
-		  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
-		  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-		  -DCMAKE_BUILD_TYPE=Release
-	# -DSYSTEM_CLANG=1
-	make
-	cd $OME_ROOT
+    tip "install cquery"
+    github-upgrade cquery-project/cquery $DEV_ROOT/cquery
+    mkdir -p $DEV_ROOT/cquery/build
+    cd $DEV_ROOT/cquery/build/
+    cmake .. \
+	  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
+	  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
+	  -DCMAKE_BUILD_TYPE=Release
+    # -DSYSTEM_CLANG=1
+    make
+    cd $OME_ROOT
 }
-
-# PATH=/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin:$PATH
+PATH=/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin:$PATH
 function ccls-upgrade() {
-	tip "install ccls"
-	# github-upgrade MaskRay/ccls $DEV_ROOT/ccls
-	github-upgrade damon-kwok/ccls $DEV_ROOT/ccls
-	mkdir -p $HOME/.ccls
-	mkdir -p $DEV_ROOT/ccls/build
-	cd $DEV_ROOT/ccls/build/
-	cmake .. \
-		  -DSYSTEM_CLANG=0 \
-		  -DCMAKE_CXX_COMPILER=clang++ \
-		  -DCMAKE_CXX_EXTENSIONS=OFF \
-		  -DCMAKE_CXX_STANDARD=17 \
-		  -DCMAKE_CXX_STANDARD_REQUIRED=ON \
-		  -DCMAKE_CXX_EXTENSIONS=OFF \
+    tip "install ccls"
+    github-upgrade MaskRay/ccls $DEV_ROOT/ccls
+    # github-upgrade damon-kwok/ccls $DEV_ROOT/ccls
+    mkdir -p $HOME/.ccls
+    mkdir -p $DEV_ROOT/ccls/build
+    cd $DEV_ROOT/ccls/build/
+    # -DCMAKE_CXX_EXTENSIONS=OFF 
+          # -DCMAKE_PREFIX_PATH=$HOME/.llvm \
+          # -DCMAKE_CXX_COMPILER="/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin/clang++"
+          # -DCMAKE_CXX_STANDARD=17 \
+		  # -DCMAKE_CXX_STANDARD_REQUIRED=ON \
+		  # -DCMAKE_CXX_EXTENSIONS=OFF \
+    cmake .. \
+		  -DSYSTEM_CLANG=ON \
+		  -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \ 
 		  -DCMAKE_INSTALL_PREFIX=$HOME/.ccls \
 		  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-		  -DCMAKE_BUILD_TYPE=Release \
-		  -DSYSTEM_CLANG=1
-	make install
-	
-	cd $OME_ROOT
+		  -DCMAKE_BUILD_TYPE=Release
+    make
+    
+    cd $OME_ROOT
 }
 
 function config_offlineimap() {
-	local del_force=$1
-	if [ "$del_force" == "1" ]; then
-		rm -rf ~/.offlineimaprc
-	fi
+    local del_force=$1
+    if [ "$del_force" == "1" ]; then
+	rm -rf ~/.offlineimaprc
+    fi
+    
+    if [ ! -e ~/.offlineimaprc ] || [ ! -e ~/.authinfo ]; then
+
+	read -p "please input your email address:" email
+	read -p "please input your email password:" passwd
 	
-	if [ ! -e ~/.offlineimaprc ] || [ ! -e ~/.authinfo ]; then
-
-		read -p "please input your email address:" email
-		read -p "please input your email password:" passwd
-		
-		# offlineimap: offlineimaprc
-		if [ ! -e ~/.offlineimaprc ]; then
-			echo "[general]" >> ~/.offlineimaprc 
-			echo "accounts = Gmail" >> ~/.offlineimaprc
-			echo "maxsyncaccounts = 3" >> ~/.offlineimaprc
-			echo "" >> ~/.offlineimaprc
-			echo "[Account Gmail]" >> ~/.offlineimaprc
-			echo "localrepository = Local" >> ~/.offlineimaprc
-			echo "remoterepository = Remote" >> ~/.offlineimaprc
-			echo "" >> ~/.offlineimaprc
-			echo "[Repository Local]" >> ~/.offlineimaprc
-			echo "type = Maildir" >> ~/.offlineimaprc
-			echo "localfolders = ~/Maildir" >> ~/.offlineimaprc
-			echo "" >> ~/.offlineimaprc
-			echo "[Repository Remote]" >> ~/.offlineimaprc
-			echo "type = IMAP" >> ~/.offlineimaprc
-			echo "remotehost = imap.263.net" >> ~/.offlineimaprc
-			echo "remoteport = 143" >> ~/.offlineimaprc
-			echo "remoteuser = $email" >> ~/.offlineimaprc
-			echo "remotepass = $passwd" >> ~/.offlineimaprc
-			echo "ssl = no" >> ~/.offlineimaprc
-			echo "maxconnections = 1" >> ~/.offlineimaprc
-			echo "realdelete = no" >> ~/.offlineimaprc
-		fi
-
-		# gnus: .authinfo
-		if [ ! -e ~/.authinfo ]; then
-			echo "machine smtp.263.net port 465 login $emailpassword $passwd" >> ~/.authinfo
-		fi
+	# offlineimap: offlineimaprc
+	if [ ! -e ~/.offlineimaprc ]; then
+	    echo "[general]" >> ~/.offlineimaprc 
+	    echo "accounts = Gmail" >> ~/.offlineimaprc
+	    echo "maxsyncaccounts = 3" >> ~/.offlineimaprc
+	    echo "" >> ~/.offlineimaprc
+	    echo "[Account Gmail]" >> ~/.offlineimaprc
+	    echo "localrepository = Local" >> ~/.offlineimaprc
+	    echo "remoterepository = Remote" >> ~/.offlineimaprc
+	    echo "" >> ~/.offlineimaprc
+	    echo "[Repository Local]" >> ~/.offlineimaprc
+	    echo "type = Maildir" >> ~/.offlineimaprc
+	    echo "localfolders = ~/Maildir" >> ~/.offlineimaprc
+	    echo "" >> ~/.offlineimaprc
+	    echo "[Repository Remote]" >> ~/.offlineimaprc
+	    echo "type = IMAP" >> ~/.offlineimaprc
+	    echo "remotehost = imap.263.net" >> ~/.offlineimaprc
+	    echo "remoteport = 143" >> ~/.offlineimaprc
+	    echo "remoteuser = $email" >> ~/.offlineimaprc
+	    echo "remotepass = $passwd" >> ~/.offlineimaprc
+	    echo "ssl = no" >> ~/.offlineimaprc
+	    echo "maxconnections = 1" >> ~/.offlineimaprc
+	    echo "realdelete = no" >> ~/.offlineimaprc
 	fi
+
+	# gnus: .authinfo
+	if [ ! -e ~/.authinfo ]; then
+	    echo "machine smtp.263.net port 465 login $emailpassword $passwd" >> ~/.authinfo
+	fi
+    fi
 }
 
 function mu4e-upgrade() {
-	# tip "install mu4e-release"
-	# github-upgrade damon-kwok/resources $OME_ROOT/resources
-	# if [ ! -d $HOME/.emacs.d/libs/mu ]; then
-	# echo "no"
-	# cd $HOME/.emacs.d/libs/
-	
-	# cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/
-	# mkdir -p mu
-	# tar xpvf mu.tar.xz -C .
-	# fi
-	# cd $HOME/.emacs.d/libs/mu/
-	# ./configure --prefix=$HOME/.mu
-	# make install
+    # tip "install mu4e-release"
+    # github-upgrade damon-kwok/resources $OME_ROOT/resources
+    # if [ ! -d $HOME/.emacs.d/libs/mu ]; then
+    # echo "no"
+    # cd $HOME/.emacs.d/libs/
+    
+    # cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/
+    # mkdir -p mu
+    # tar xpvf mu.tar.xz -C .
+    # fi
+    # cd $HOME/.emacs.d/libs/mu/
+    # ./configure --prefix=$HOME/.mu
+    # make install
 
-	tip "install mu4e-git"
-	github-upgrade djcb/mu $HOME/.emacs.d/libs/mu-git
-	cd $HOME/.emacs.d/libs/mu-git/
-	./autogen.sh
-	./configure --prefix=$HOME/.mu
-	make install
+    tip "install mu4e-git"
+    github-upgrade djcb/mu $HOME/.emacs.d/libs/mu-git
+    cd $HOME/.emacs.d/libs/mu-git/
+    ./autogen.sh
+    ./configure --prefix=$HOME/.mu
+    make install
 
-	tip "install offlineiamp"
-	pip install --user -U offlineimap	
-	
+    tip "install offlineiamp"
+    pip install --user -U offlineimap	
+    
     tip "chmod +x $OME_ROOT/bin/*"
     cd $OME_BIN
     chmod +x ./*
 
-	# offlineimap
-	config_offlineimap
+    # offlineimap
+    config_offlineimap
 
-	# Maildir
-	mkdir -p ~/Maildir/Archive/
-	mkdir -p ~/Maildir/Draft/
-	mkdir -p ~/Maildir/INBOX/
-	mkdir -p ~/Maildir/Junk/
-	mkdir -p ~/Maildir/Sent/
-	mkdir -p ~/Maildir/Trash/	
+    # Maildir
+    mkdir -p ~/Maildir/Archive/
+    mkdir -p ~/Maildir/Draft/
+    mkdir -p ~/Maildir/INBOX/
+    mkdir -p ~/Maildir/Junk/
+    mkdir -p ~/Maildir/Sent/
+    mkdir -p ~/Maildir/Trash/	
 }
 
 function elixir-upgrade() {
     tip "install elixir"
-	# https://github.com/elixir-lang/elixir.git
-	github-upgrade elixir-lang/elixir $DEV_ROOT/elixir
-	cd $DEV_ROOT/elixir
-	make
-	# make clean test
+    # https://github.com/elixir-lang/elixir.git
+    github-upgrade elixir-lang/elixir $DEV_ROOT/elixir
+    cd $DEV_ROOT/elixir
+    make
+    # make clean test
 }
 function resource-upgrade() {
     github-upgrade damon-kwok/resources ~/.emacs.d/resources
-	chmod +x ~/.emacs.d/resources/rebar3
+    chmod +x ~/.emacs.d/resources/rebar3
 }
 function erlang-upgrade() {
-	tip "install erlang"
-	# git clone https://github.com/erlang/otp.git
-	github-upgrade erlang/otp $DEV_ROOT/erlang_otp
-	cd $DEV_ROOT/erlang_otp
-	./otp_build autoconf
-	./configure --prefix=$HOME/.erlang_otp
-	make
-	# make install
+    tip "install erlang"
+    # git clone https://github.com/erlang/otp.git
+    github-upgrade erlang/otp $DEV_ROOT/erlang_otp
+    cd $DEV_ROOT/erlang_otp
+    ./otp_build autoconf
+    ./configure --prefix=$HOME/.erlang_otp
+    make
+    # make install
 
-	tip "install rebar3 for erlang"
-	# cd $OME_BIN
-	# wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
-	# chmod +x ./rebar3
-	resource-upgrade
-	# rebar3 local upgrade DEBUG=1
-	rebar3 update
-	rebar3 upgrade	
+    tip "install rebar3 for erlang"
+    # cd $OME_BIN
+    # wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
+    # chmod +x ./rebar3
+    resource-upgrade
+    # rebar3 local upgrade DEBUG=1
+    rebar3 update
+    rebar3 upgrade	
 }
 
 function rust-upgrade() {
-	tip "install cargo + rust"
-	if command -v rustup >/dev/null 2>&1; then
-		rustup self update
-		rustup update
-	else
-		curl https://sh.rustup.rs -sSf | sh	
-		cargo update
-		rustup toolchain add beta
-		rustup component add rust-src
-	fi
-	cargo install --force racer
-	cargo install --force ripgrep
+    tip "install cargo + rust"
+    if command -v rustup >/dev/null 2>&1; then
+	rustup self update
+	rustup update
+    else
+	curl https://sh.rustup.rs -sSf | sh	
+	cargo update
+	rustup toolchain add beta
+	rustup component add rust-src
+    fi
+    cargo install --force racer
+    cargo install --force ripgrep
 }
 
 function nim-upgrade() {
-	tip "install nim"
-	curl https://nim-lang.org/choosenim/init.sh -sSf | sh
+    tip "install nim"
+    curl https://nim-lang.org/choosenim/init.sh -sSf | sh
 }
 
 function crystal-upgrade() {
     github-upgrade crystal-lang/crystal $DEV_ROOT/crystal
-	cd $DEV_ROOT/crystal
-	make
+    cd $DEV_ROOT/crystal
+    make
 }
 
 function install-eclipse-language-server() {
     tip "install eclipse language server"	
-	local del_force=$1
-	if [ "$del_force" == "1" ]; then
-		rm -rf ~/.emacs.d/eclipse.jdt.ls/server/
-	fi
-	
-	if [ ! -d ~/.emacs.d/eclipse.jdt.ls/server/ ]; then
-		mkdir -p ~/.emacs.d/eclipse.jdt.ls/server/
-		# wget http://mirror.switch.ch/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz  -O /tmp/jdt-latest.tar
-		wget http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz -O /tmp/jdt-latest.tar
-		tar xf /tmp/jdt-latest.tar -C ~/.emacs.d/eclipse.jdt.ls/server/
-	fi
+    local del_force=$1
+    if [ "$del_force" == "1" ]; then
+	rm -rf ~/.emacs.d/eclipse.jdt.ls/server/
+    fi
+    
+    if [ ! -d ~/.emacs.d/eclipse.jdt.ls/server/ ]; then
+	mkdir -p ~/.emacs.d/eclipse.jdt.ls/server/
+	# wget http://mirror.switch.ch/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz  -O /tmp/jdt-latest.tar
+	wget http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz -O /tmp/jdt-latest.tar
+	tar xf /tmp/jdt-latest.tar -C ~/.emacs.d/eclipse.jdt.ls/server/
+    fi
 }
 
 function sdkman-upgrade() {
-	tip "install sdkman"
-	if command -v sdk >/dev/null 2>&1; then
-		curl -s "https://get.sdkman.io" | bash
-		source $HOME/.sdkman/bin/sdkman-init.sh
-	fi
-	find-str "SDKMAN_DIR" ~/.bashrc
-	if [ $? -eq 0 ]; then
-		echo "#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!" >> ~/.bashrc
-		echo "export SDKMAN_DIR=\"\$HOME/.sdkman\"" >> ~/.bashrc
-		echo "[[ -s \"\$HOME/.sdkman/bin/sdkman-init.sh\" ]] && source \"\$HOME/.sdkman/bin/sdkman-init.sh\"" >> ~/.bashrc
-	fi
-	sdk selfupdate
-	sdk update
-	sdk upgrade
-	
-	sdk install java
-	sdk install kotlin
-	sdk install scala
-	sdk install groovy	
-	sdk install leiningen
-	sdk install maven
-	sdk install gradle
-	sdk install sbt
+    tip "install sdkman"
+    if command -v sdk >/dev/null 2>&1; then
+	curl -s "https://get.sdkman.io" | bash
+	source $HOME/.sdkman/bin/sdkman-init.sh
+    fi
+    find-str "SDKMAN_DIR" ~/.bashrc
+    if [ $? -eq 0 ]; then
+	echo "#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!" >> ~/.bashrc
+	echo "export SDKMAN_DIR=\"\$HOME/.sdkman\"" >> ~/.bashrc
+	echo "[[ -s \"\$HOME/.sdkman/bin/sdkman-init.sh\" ]] && source \"\$HOME/.sdkman/bin/sdkman-init.sh\"" >> ~/.bashrc
+    fi
+    sdk selfupdate
+    sdk update
+    sdk upgrade
+    
+    sdk install java
+    sdk install kotlin
+    sdk install scala
+    sdk install groovy	
+    sdk install leiningen
+    sdk install maven
+    sdk install gradle
+    sdk install sbt
 
-	#lsp-java
-	install-eclipse-language-server
+    #lsp-java
+    install-eclipse-language-server
 }
 
 function nvm-upgrade() {
-	tip "install nvm + nodejs"
-	find-str "NVM_DIR" ~/.bashrc
-	if [ $? -eq 0 ]; then
-		echo "" >> ~/.bashrc
-		echo "Nodejs" >> ~/.bashrc
-		echo "export NVM_DIR=\"$HOME/.nvm\"" >> ~/.bashrc
-		echo "[ -s \"\\$NVM_DIR/nvm.sh\" ] && \\. \"\$NVM_DIR/nvm.sh\"" >> ~/.bashrc
-		echo "[ -s \"\\$NVM_DIR/bash_completion\" ] && \\. \"\4$NVM_DIR/bash_completion\"" >> ~/.bashrc
-	fi
-	
-	# curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-	local NVM_DIR="$HOME/.nvm"
-	# if command -v nvm >/dev/null 2>&1; then
-	if [ ! -d $NVM_DIR ]; then		
-		git clone https://github.com/creationix/nvm.git "$NVM_DIR"
-		cd "$NVM_DIR"
-		git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
-	else		
-		cd "$NVM_DIR"
-		git fetch --tags origin
-		git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`		
-	fi
+    tip "install nvm + nodejs"
+    find-str "NVM_DIR" ~/.bashrc
+    if [ $? -eq 0 ]; then
+	echo "" >> ~/.bashrc
+	echo "Nodejs" >> ~/.bashrc
+	echo "export NVM_DIR=\"$HOME/.nvm\"" >> ~/.bashrc
+	echo "[ -s \"\\$NVM_DIR/nvm.sh\" ] && \\. \"\$NVM_DIR/nvm.sh\"" >> ~/.bashrc
+	echo "[ -s \"\\$NVM_DIR/bash_completion\" ] && \\. \"\4$NVM_DIR/bash_completion\"" >> ~/.bashrc
+    fi
+    
+    # curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+    local NVM_DIR="$HOME/.nvm"
+    # if command -v nvm >/dev/null 2>&1; then
+    if [ ! -d $NVM_DIR ]; then		
+	git clone https://github.com/creationix/nvm.git "$NVM_DIR"
+	cd "$NVM_DIR"
+	git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+    else		
+	cd "$NVM_DIR"
+	git fetch --tags origin
+	git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`		
+    fi
 
-	\. "$NVM_DIR/nvm.sh"
-	
-	nvm install 8 #LFS
-	# nvm install node # lastest version
-	
-	npm i -g npm
-	
-	tip "install js language server"
-	npm i -g javascript-typescript-langserver
-	npm i -g flow-language-server
-	npm i -g typescript-language-server				
+    \. "$NVM_DIR/nvm.sh"
+    
+    nvm install 8 #LFS
+    # nvm install node # lastest version
+    
+    npm i -g npm
+    
+    tip "install js language server"
+    npm i -g javascript-typescript-langserver
+    npm i -g flow-language-server
+    npm i -g typescript-language-server				
 }
 
 function golang-upgrade() {
-	github-upgrade golang/go $DEV_ROOT/go
-	cd $DEV_ROOT/go/src
-	chmod +x ./all.bash
-	./all.bash
-	cd $HOME
-	
-	tip "install go language server"
-	go get -u github.com/sourcegraph/go-langserver
+    github-upgrade golang/go $DEV_ROOT/go
+    cd $DEV_ROOT/go/src
+    chmod +x ./all.bash
+    ./all.bash
+    cd $HOME
+    
+    tip "install go language server"
+    go get -u github.com/sourcegraph/go-langserver
 }
 
 function project-upgrade() {
-	# C
+    # C
     github-upgrade libuv/libuv $PROJECT_ROOT/c/libuv
-	github-upgrade damon-kwok/libknife $PROJECT_ROOT/c/libknife
-	
-	github-upgrade nodejs/http-parser $PROJECT_ROOT/c/http-parser
-	github-upgrade json-c/json-c $PROJECT_ROOT/c/json-c
-	github-upgrade protobuf-c/protobuf-c $PROJECT_ROOT/c/protobuf-c
-	github-upgrade Snaipe/libcsptr $PROJECT_ROOT/c/libcsptr
+    github-upgrade damon-kwok/libknife $PROJECT_ROOT/c/libknife
+    
+    github-upgrade nodejs/http-parser $PROJECT_ROOT/c/http-parser
+    github-upgrade json-c/json-c $PROJECT_ROOT/c/json-c
+    github-upgrade protobuf-c/protobuf-c $PROJECT_ROOT/c/protobuf-c
+    github-upgrade Snaipe/libcsptr $PROJECT_ROOT/c/libcsptr
 
-	# github-upgrade nanomsg/nanomsg $PROJECT_ROOT/c/nanomsg
-	# github-upgrade zeromq/libzmq $PROJECT_ROOT/c/libzmq
-	github-upgrade libcheck/check $PROJECT_ROOT/c/libcheck
-	github-upgrade lcm-proj/lcm $PROJECT_ROOT/c/lcm
-	svn-upgrade svn://vcs.exim.org/pcre2/code/trunk $PROJECT_ROOT/c/pcre2
-	github-upgrade Tencent/libco $PROJECT_ROOT/libco
-	
-	# C++
-	github-upgrade emilk/loguru $PROJECT_ROOT/cpp/loguru
-	github-upgrade nodejs/http2 $PROJECT_ROOT/cpp/http2
-	github-upgrade facebook/folly $PROJECT_ROOT/cpp/folly
-	github-upgrade pocoproject/poco $PROJECT_ROOT/cpp/poco
-	github-upgrade 01org/tbb $PROJECT_ROOT/tbb
-	github-upgrade Tencent/rapidjson $PROJECT_ROOT/rapidjson
-	
-	# C#
+    # github-upgrade nanomsg/nanomsg $PROJECT_ROOT/c/nanomsg
+    # github-upgrade zeromq/libzmq $PROJECT_ROOT/c/libzmq
+    github-upgrade libcheck/check $PROJECT_ROOT/c/libcheck
+    github-upgrade lcm-proj/lcm $PROJECT_ROOT/c/lcm
+    svn-upgrade svn://vcs.exim.org/pcre2/code/trunk $PROJECT_ROOT/c/pcre2
+    github-upgrade Tencent/libco $PROJECT_ROOT/libco
+    
+    # C++
+    github-upgrade emilk/loguru $PROJECT_ROOT/cpp/loguru
+    github-upgrade nodejs/http2 $PROJECT_ROOT/cpp/http2
+    github-upgrade facebook/folly $PROJECT_ROOT/cpp/folly
+    github-upgrade pocoproject/poco $PROJECT_ROOT/cpp/poco
+    github-upgrade 01org/tbb $PROJECT_ROOT/tbb
+    github-upgrade Tencent/rapidjson $PROJECT_ROOT/rapidjson
+    
+    # C#
 
-	# Lisp
-	github-upgrade kanaka/mal $PROJECT_ROOT/lisp/mal
+    # Lisp
+    github-upgrade kanaka/mal $PROJECT_ROOT/lisp/mal
 
-	# Clojure
-	github-upgrade apache/storm $PROJECT_ROOT/clj/storm
-	# https://github.com/apachecn/storm-doc-zh/
-	github-upgrade riemann/riemann $PROJECT_ROOT/clj/riemann
-	github-upgrade ztellman/aleph $PROJECT_ROOT/clj/aleph
-	# https://github.com/ztellman/byte-streams
-	# https://github.com/ztellman/lamina
-	# https://github.com/ztellman/gloss
-	# https://github.com/ztellman/manifold
-	
-	# Unity3d
-	github-upgrade arcadia-unity/arcadia $DEV_ROOT/u3d/Arcadia
+    # Clojure
+    github-upgrade apache/storm $PROJECT_ROOT/clj/storm
+    # https://github.com/apachecn/storm-doc-zh/
+    github-upgrade riemann/riemann $PROJECT_ROOT/clj/riemann
+    github-upgrade ztellman/aleph $PROJECT_ROOT/clj/aleph
+    # https://github.com/ztellman/byte-streams
+    # https://github.com/ztellman/lamina
+    # https://github.com/ztellman/gloss
+    # https://github.com/ztellman/manifold
+    
+    # Unity3d
+    github-upgrade arcadia-unity/arcadia $DEV_ROOT/u3d/Arcadia
 
-	
-	# UE4
-	# https://github.com/EpicGames/UnrealEngine.git
-	github-upgrade EpicGames/UnrealEngine $PROJECT_ROOT/ue4/UnrealEngine
-	# Data
-	github-upgrade apache/thrift $PROJECT_ROOT/data/thrift
-	github-upgrade apache/avro $PROJECT_ROOT/data/avro
-	github-upgrade google/flatbuffers $PROJECT_ROOT/data/flatbuffers
-	
+    
+    # UE4
+    # https://github.com/EpicGames/UnrealEngine.git
+    github-upgrade EpicGames/UnrealEngine $PROJECT_ROOT/ue4/UnrealEngine
+    # Data
+    github-upgrade apache/thrift $PROJECT_ROOT/data/thrift
+    github-upgrade apache/avro $PROJECT_ROOT/data/avro
+    github-upgrade google/flatbuffers $PROJECT_ROOT/data/flatbuffers
+    
 }
 
 function book-upgrade() {
-	# Book
-	# https://github.com/QianMo/Real-Time-Rendering-3rd-CN-Summary-Ebook
-	github-upgrade QianMo/Real-Time-Rendering-3rd-CN-Summary-Ebook $BOOK_ROOT/Real-Time-Rendering-3rd-CN-Summary-Ebook
-	# https://github.com/huangz1990/real-world-haskell-cn
+    # Book
+    # https://github.com/QianMo/Real-Time-Rendering-3rd-CN-Summary-Ebook
+    github-upgrade QianMo/Real-Time-Rendering-3rd-CN-Summary-Ebook $BOOK_ROOT/Real-Time-Rendering-3rd-CN-Summary-Ebook
+    # https://github.com/huangz1990/real-world-haskell-cn
     github-upgrade huangz1990/real-world-haskell-cn $BOOK_ROOT/real-world-haskell-cn
 }
 function cmake-upgrade() {
     git-upgrade "https://gitlab.kitware.com" "cmake/cmake" $DEV_ROOT/cmake
-	cd $DEV_ROOT/cmake/
-	./bootstrap
-	# mkdir -p $DEV_ROOT/cmake/build
-	# cmake ..
-	make	
+    cd $DEV_ROOT/cmake/
+    ./bootstrap
+    # mkdir -p $DEV_ROOT/cmake/build
+    # cmake ..
+    make	
 }
 function install-toolchain() {
-	tip "pip upgrade"
-	pip install --user -U pip
-	
-	# tip "install oh-my-zsh"
-	# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    tip "pip upgrade"
+    pip install --user -U pip
+    
+    # tip "install oh-my-zsh"
+    # sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-	tip "install Bash-it"	
-	if command -v bash-it >/dev/null 2>&1; then
-		echo "----------------bash-it---update mode!!!!!!"
-		bash-it update
-	else
-		echo "----------------bash-it---net install mode!!!!!!"
-		# git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-		github-upgrade Bash-it/bash-it ~/.bash_it
-		~/.bash_it/install.sh
-	fi
+    tip "install Bash-it"	
+    if command -v bash-it >/dev/null 2>&1; then
+	echo "----------------bash-it---update mode!!!!!!"
+	bash-it update
+    else
+	echo "----------------bash-it---net install mode!!!!!!"
+	# git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+	github-upgrade Bash-it/bash-it ~/.bash_it
+	~/.bash_it/install.sh
+    fi
 
-	#set .bashrc
-	#
-	find-str ".oh-my-emacs/bin/env" ~/.bashrc
-	if [ $? -eq 0 ]; then
-		echo "# oh-my-emacs" >> ~/.bashrc
-		echo "source \$HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
-	fi
+    #set .bashrc
+    #
+    find-str ".oh-my-emacs/bin/env" ~/.bashrc
+    if [ $? -eq 0 ]; then
+	echo "# oh-my-emacs" >> ~/.bashrc
+	echo "source \$HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
+    fi
 
-	git-upgrade "https://gitlab.kitware.com" cmake/cmake $DEV_ROOT/cmake
-	git-upgrade "https://gitlab.com" ita1024/waf $DEV_ROOT/waf
-	github-upgrade chromium/gyp $DEV_ROOT/gyp
-	
-	resource-upgrade	
-	cquery-upgrade
-	sdkman-upgrade	
-	golang-upgrade	
-	nvm-upgrade
-	erlang-upgrade
-	elixir-upgrade
-	rust-upgrade	
-	nim-upgrade	
-	mu4e-upgrade
+    git-upgrade "https://gitlab.kitware.com" cmake/cmake $DEV_ROOT/cmake
+    git-upgrade "https://gitlab.com" ita1024/waf $DEV_ROOT/waf
+    github-upgrade chromium/gyp $DEV_ROOT/gyp
+    
+    resource-upgrade	
+    cquery-upgrade
+    sdkman-upgrade	
+    golang-upgrade	
+    nvm-upgrade
+    erlang-upgrade
+    elixir-upgrade
+    rust-upgrade	
+    nim-upgrade	
+    mu4e-upgrade
 
-	#haskell
+    #haskell
     # if [ ! -d "~/.stack/" ]; then
     # mkdir ~/.stack/
     # cp $OME_ROOT/cache/bin/config.yaml ~/.stack/
@@ -867,123 +867,123 @@ function install-toolchain() {
 
     # tip "install lein + clojure"
     # cd $OME_BIN
-	# # if command -v bash-it >/dev/null 2>&1; then
-	# # curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
-	# # curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+    # # if command -v bash-it >/dev/null 2>&1; then
+    # # curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+    # # curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
     # chmod +x ./lein
     # lein upgrade
 
-	tip "install ebook build tool: sphinx-build"
+    tip "install ebook build tool: sphinx-build"
     # pip install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
-	pip install --user -U jinja2
-	pip install --user -U markupsafe
-	pip install --user -U pygments
-	pip install --user -U sphinx
-	pip install --user -U docutils
-	pip install --user -U wsgiref   	
+    pip install --user -U jinja2
+    pip install --user -U markupsafe
+    pip install --user -U pygments
+    pip install --user -U sphinx
+    pip install --user -U docutils
+    pip install --user -U wsgiref   	
 }
 
 function upgrade() {
     sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && \
-		rosdep update && bash-it update && \
-		rebar3 local upgrade && lein upgrade && \
-		cargo update && rustup component add rust-src && cargo install --force racer
+	rosdep update && bash-it update && \
+	rebar3 local upgrade && lein upgrade && \
+	cargo update && rustup component add rust-src && cargo install --force racer
 
-	install-toolchain
+    install-toolchain
 }
 
 function me-upgrade() {   	
-	# upgrade libknife
+    # upgrade libknife
     github-upgrade damon-kwok/libknife $PROJECT_ROOT/c/libknife
-	cd $PROJECT_ROOT/c/libknife
-	mkdir -p build
-	cd build
-	# rm -rf ./*
-	cmake ..
-	make	
+    cd $PROJECT_ROOT/c/libknife
+    mkdir -p build
+    cd build
+    # rm -rf ./*
+    cmake ..
+    make	
 }
 
 function daily-upgrade() {
-	# tip "upgrade oh-my-emacs"
-	cd ~/.oh-my-emacs/
-	git pull
-	
-	tip "pip upgrade"
-	pip install --user -U pip
+    # tip "upgrade oh-my-emacs"
+    cd ~/.oh-my-emacs/
+    git pull
+    
+    tip "pip upgrade"
+    pip install --user -U pip
 
-	# damon-kwok/awesome-package-manager
-	github-upgrade damon-kwok/awesome-package-manager $PROJECT_ROOT/me/awesome-package-manager
-	
+    # damon-kwok/awesome-package-manager
+    github-upgrade damon-kwok/awesome-package-manager $PROJECT_ROOT/me/awesome-package-manager
+    
 
-	tip "pip upgrade"
-	pip install --user -U pip
-	
-	me-upgrade
+    tip "pip upgrade"
+    pip install --user -U pip
+    
+    me-upgrade
     # erlang-upgrade
-	# elixir-upgrade
-	llvm-upgrade
-	cquery-upgrade
-	# ccls-upgrade
-	mu4e-upgrade
-	project-upgrade
-	book-upgrade
+    # elixir-upgrade
+    llvm-upgrade
+    cquery-upgrade
+    # ccls-upgrade
+    mu4e-upgrade
+    project-upgrade
+    book-upgrade
 }
 
 function llvm-upgrade() {
     git-upgrade "https://git.llvm.org" "git/llvm" $DEV_ROOT/llvm
-	git-upgrade "https://git.llvm.org" "git/clang" $DEV_ROOT/llvm/tools/clang
-	git-upgrade "https://git.llvm.org" "git/clang-tools-extra" $DEV_ROOT/llvm/tools/clang/tools/extra
-	git-upgrade "https://git.llvm.org" "git/lld" $DEV_ROOT/llvm/tools/lld
-	git-upgrade "https://git.llvm.org" "git/lldb" $DEV_ROOT/llvm/tools/lldb
-	git-upgrade "https://git.llvm.org" "git/polly" $DEV_ROOT/llvm/tools/polly
-	git-upgrade "https://git.llvm.org" "git/compiler-rt" $DEV_ROOT/llvm/projects/compiler-rt
-	git-upgrade "https://git.llvm.org" "git/openmp" $DEV_ROOT/llvm/projects/openmp
-	git-upgrade "https://git.llvm.org" "git/libcxx" $DEV_ROOT/llvm/projects/libcxx
-	git-upgrade "https://git.llvm.org" "git/libcxxabi" $DEV_ROOT/llvm/projects/libcxxabi
-	# git-upgrade "https://git.llvm.org" "git/test-suite" $DEV_ROOT/llvm/projects/test-suite
-	cd $DEV_ROOT/llvm/
-	git config branch.master.rebase true
-	
-	mkdir -p $DEV_ROOT/llvm/build
-	# mkdir -p $DEV_ROOT/lldb
-	cd $DEV_ROOT/llvm/build/
-	cmake .. \
-		  -DCMAKE_INSTALL_PREFIX=$HOME/.llvm \
-		  -DCMAKE_BUILD_TYPE=Release
-		  # -DLLVM_ENABLE_PROJECTS="lldb" \
-	make -j4
+    git-upgrade "https://git.llvm.org" "git/clang" $DEV_ROOT/llvm/tools/clang
+    git-upgrade "https://git.llvm.org" "git/clang-tools-extra" $DEV_ROOT/llvm/tools/clang/tools/extra
+    git-upgrade "https://git.llvm.org" "git/lld" $DEV_ROOT/llvm/tools/lld
+    git-upgrade "https://git.llvm.org" "git/lldb" $DEV_ROOT/llvm/tools/lldb
+    git-upgrade "https://git.llvm.org" "git/polly" $DEV_ROOT/llvm/tools/polly
+    git-upgrade "https://git.llvm.org" "git/compiler-rt" $DEV_ROOT/llvm/projects/compiler-rt
+    git-upgrade "https://git.llvm.org" "git/openmp" $DEV_ROOT/llvm/projects/openmp
+    git-upgrade "https://git.llvm.org" "git/libcxx" $DEV_ROOT/llvm/projects/libcxx
+    git-upgrade "https://git.llvm.org" "git/libcxxabi" $DEV_ROOT/llvm/projects/libcxxabi
+    # git-upgrade "https://git.llvm.org" "git/test-suite" $DEV_ROOT/llvm/projects/test-suite
+    cd $DEV_ROOT/llvm/
+    git config branch.master.rebase true
+    
+    mkdir -p $DEV_ROOT/llvm/build
+    # mkdir -p $DEV_ROOT/lldb
+    cd $DEV_ROOT/llvm/build/
+    cmake .. \
+	  -DCMAKE_INSTALL_PREFIX=$HOME/.llvm \
+	  -DCMAKE_BUILD_TYPE=Release
+    # -DLLVM_ENABLE_PROJECTS="lldb" 
+    make -j4 install
 }
 
 function steam-on-freebsd() {
-	# home: https://github.com/SteamOnFreeBSD/SteamOnFreeBSD
-	cd $HOME
-	
+    # home: https://github.com/SteamOnFreeBSD/SteamOnFreeBSD
+    cd $HOME
+    
     pkg install deb2targz rpm2cpio doas
-	if [ ! -e /usr/local/etc/doas.conf ]; then
-		touch /usr/local/etc/doas.conf
-		echo 'permit nopass keepenv yourusername >> /usr/local/etc/doas.conf'
-	fi
+    if [ ! -e /usr/local/etc/doas.conf ]; then
+	touch /usr/local/etc/doas.conf
+	echo 'permit nopass keepenv yourusername >> /usr/local/etc/doas.conf'
+    fi
 
-	if [ ! -e steam.deb ]; then		
-		fetch http://media.steampowered.com/client/installer/steam.deb
-	fi
+    if [ ! -e steam.deb ]; then		
+	fetch http://media.steampowered.com/client/installer/steam.deb
+    fi
 
-	deb2targz steam.deb
-	tar -zxvf steam.tar.gz -C /
-	# git clone https://github.com/SteamOnFreeBSD/SteamOnFreeBSD.git
-	github-upgrade SteamOnFreeBSD/SteamOnFreeBSD $HOME/SteamOnFreeBSD
-	cd $HOME/SteamOnFreeBSD
-	
-	./install.sh
-	./steamrun
+    deb2targz steam.deb
+    tar -zxvf steam.tar.gz -C /
+    # git clone https://github.com/SteamOnFreeBSD/SteamOnFreeBSD.git
+    github-upgrade SteamOnFreeBSD/SteamOnFreeBSD $HOME/SteamOnFreeBSD
+    cd $HOME/SteamOnFreeBSD
+    
+    ./install.sh
+    ./steamrun
 
 }
 
 function wine-upgrade() {
     sudo dpkg --add-architecture i386
-	wget -nc https://dl.winehq.org/wine-builds/Release.key
-	sudo apt-key add Release.key
-	sudo apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/
+    wget -nc https://dl.winehq.org/wine-builds/Release.key
+    sudo apt-key add Release.key
+    sudo apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/
 }
 
 # fop xsltproc
