@@ -980,10 +980,10 @@ function llvm-upgrade() {
 }
 
 function rtags-upgrade() {
-    github-upgrade Andersbakken/rtags $DEV_ROOT/rtags 0
+    github-upgrade Andersbakken/rtags $DEV_ROOT/rtags
 	mkdir -p $DEV_ROOT/rtags/build
 	cd $DEV_ROOT/rtags/build/
-	cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
+	cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 	make
 }
 
