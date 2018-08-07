@@ -284,8 +284,9 @@ occurence of CHAR."
 ;; (message "buffer '%s' not exist!" NAME))))
 (defun ome-kill-buffer-by-name (NAME) 
   (if (get-buffer NAME) 
-	  (kill-buffer NAME) 
-	(message "buffer '%s' not exist!" NAME)))
+	  (kill-buffer NAME)
+	;; (message "buffer '%s' not exist!" NAME)
+	))
 
 ;; close all buffer but this
 (defun ome-kill-other-buffers () 
@@ -437,7 +438,7 @@ occurence of CHAR."
   (ome-show-compilation "*eww*") 
   (other-window 1) 
   (eww url))
-
+
 
 (defun ome-find-file-doc() 
   (interactive) 
@@ -452,7 +453,7 @@ occurence of CHAR."
   (setq default-directory  (concat (getenv "HOME") "/workspace/docs/github-pages/")) 
   (helm-find-files nil) 
   (setq default-directory old-default-directory))
-
+
 
 (defun ome-show-compilation(buffer-name &optional dont-return-old-buffer) 
   "shrink compile window, avoid compile window occupy 1/2 hight of whole window" 
@@ -548,7 +549,7 @@ occurence of CHAR."
   (message (concat "grep-dir:" str)) 
   (if (stringp str) 
 	  (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory
-															  buffer-file-name)))))
+																buffer-file-name)))))
 
 (defun ome-open-reddit-channel (word) 
   "Show the explanation of WORD from Bing in the echo area." 

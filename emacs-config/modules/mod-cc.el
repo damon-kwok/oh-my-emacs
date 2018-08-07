@@ -24,10 +24,46 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
+
+;; `function-args'
+(package-require 'function-args)
+;; (require 'function-args)
+;; (fa-config-default)
+
+;; Additional setup (optional)
+;; Put c++-mode as default for *.h files (improves parsing):
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c-mode))
+(add-to-list 'auto-mode-alist '("\\.c\\'" . c-mode))
+
+(add-to-list 'auto-mode-alist '("\\.hh\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.cc\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.hpp\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.hxx\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.cxx\\'" . c++-mode))
+
+;; Enable case-insensitive searching:
+;; (set-default 'semantic-case-fold t)
+
+;; `shader-mode'
+(package-require 'shader-mode)
+(autoload 'shader-mode "shader" nil t) ;;(require 'shader-mode)
+(add-to-list 'auto-mode-alist '("\\.shader$" . shader-mode))
+
+;; `company'
+;; (package-require 'company-c-headers)
+;; (add-to-list 'company-backends 'company-c-headers)
+
 ;; cmake `font-lock'
 (package-require 'cmake-font-lock)
 (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
 (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
+
+;;; Syntax highlighting support for "`Modern.C++'" - until `C++17' and Technical Specification.
+(package-require 'modern-cpp-font-lock)
+(require 'modern-cpp-font-lock)
+;; (add-hook 'c++-mode-hook #'modern-c++-font-lock-mode)
+;; or
+(modern-c++-font-lock-global-mode t)
 
 ;; `create-or-open-cmake-file'
 (defun ome-search-file (filename &optional path) 
@@ -136,15 +172,9 @@
 	 (interactive) 
 	 (ome-run-command "/home/damon/catkin_ws/bin/build_adsim")))
 
+
 (require 'nxml-mode)
 (define-key nxml-mode-map [f7] 'ome-open-or-close-packagexml)
-
-
-;;; Syntax highlighting support for "`Modern.C++'" - until `C++17' and Technical Specification.
-(package-require 'modern-cpp-font-lock)
-(require 'modern-cpp-font-lock)
-(modern-c++-font-lock-global-mode t)
-
 
 ;; Put c++-mode as default for *.h files (improves parsing):
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
@@ -166,6 +196,65 @@
 
 (setq-default c-basic-offset 4 tab-width 4 indent-tabs-mode t)
 (setq c-default-style "linux")
+
+;; `disaster'
+(package-require 'disaster)
+(require 'disaster)
+(define-key c-mode-map (kbd "C-c d") 'disaster)
+(define-key c++-mode-map (kbd "C-c d") 'disaster)
+(define-key objc-mode-map (kbd "C-c d") 'disaster)
+
+;; `cmake-ide'
+;; (package-require 'cmake-ide)
+;; (cmake-ide-setup)
+
+;; `realgud'
+;; (package-require 'realgud)
+;; (require 'realgud)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (define-key run-mode-map (kbd "RET") '(lambda (&optional EVENT)
+;; (interactive)
+;; (delete-other-windows)
+;; (compile-goto-error EVENT)
+;; ))
+
+;; Some code that will make it so the background color of the lines
+;; that gcc found errors on, should be in another color.
+(require 'custom)
+(defvar all-overlays ())
+(defun delete-this-overlay(overlay is-after begin end &optional len) 
+  (delete-overlay overlay))
+(defun highlight-current-line() 
+  (interactive) 
+  (setq current-point (point)) 
+  (beginning-of-line) 
+  (setq beg (point)) 
+  (forward-line 1) 
+  (setq end (point))
+  ;; Create and place the overlay
+  (setq error-line-overlay (make-overlay 1 1))
+
+  ;; Append to list of all overlays
+  (setq all-overlays (cons error-line-overlay all-overlays)) 
+  (overlay-put error-line-overlay 'face '(background-color . "pink")) 
+  (overlay-put error-line-overlay 'modification-hooks (list 'delete-this-overlay)) 
+  (move-overlay error-line-overlay beg end) 
+  (goto-char current-point))
+(defun delete-all-overlays() 
+  (while all-overlays (delete-overlay (car all-overlays)) 
+		 (setq all-overlays (cdr all-overlays))))
+(defun highlight-error-lines(compilation-buffer process-result) 
+  (interactive) 
+  (delete-all-overlays) 
+  (condition-case nil (while t (next-error) 
+							 (highlight-current-line)) 
+	(error 
+	 nil)))
+
+;; (setq compilation-finish-function 'highlight-error-lines)
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-cc)
 ;; mod-cc.el ends here

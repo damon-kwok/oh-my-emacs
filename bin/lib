@@ -187,22 +187,22 @@ function auto-gen-rtags() {
     # echo "check dir:$dir"
 
     if [ -f "$dir/CMakeLists.txt" ]; then
-	if [ ! -d "$dir/rtags_indexes" ]; then
+		# if [ ! -d "$dir/rtags_indexes" ]; then
 	    echo "$dir/rtags_indexes is creating..."
 	    mkdir -p $dir/rtags_indexes
 	    cd rtags_indexes/
 	    cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
-	    rc -J .
+	    $RTAGS_BIN/rc -J .
 	    cd ..
-	else
-	    echo "$dir/rtags_indexes is exist!"
-	fi
+		# else
+	    # echo "$dir/rtags_indexes is exist!"
+		# fi
     else
-	cd ..
-	if [ ! "/" == "$dir" ]; then
-	    auto-gen-rtags	    
+		cd ..
+		if [ ! "/" == "$dir" ]; then
+			auto-gen-rtags	    
+		fi
 	fi
-    fi
 }
 
 function dns-upgrade() {
@@ -488,7 +488,7 @@ function cquery-upgrade() {
     make
     cd $OME_ROOT
 }
-PATH=/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin:$PATH
+# PATH=/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin:$PATH
 function ccls-upgrade() {
     tip "install ccls"
     github-upgrade MaskRay/ccls $DEV_ROOT/ccls

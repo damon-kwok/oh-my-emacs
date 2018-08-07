@@ -125,6 +125,12 @@
 (setq company-lsp-enable-recompletion t)
 
 (define-key lsp-ui-mode-map [f10] 'lsp-ui-sideline-toggle-symbols-info)
+
+;;
+
+;; `company-cache'
+(setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-lsp)
 ;; mod-lsp.el ends here

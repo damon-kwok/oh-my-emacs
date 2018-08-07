@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 source /opt/ros/kinetic/setup.bash
-source ~/my-emacs-config/bin/setup.sh
+source ~/.oh-my-emacs/bin/env
 
 auto-gen-rtags

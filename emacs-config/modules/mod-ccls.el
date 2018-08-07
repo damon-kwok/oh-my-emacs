@@ -59,11 +59,8 @@
 (add-hook 'c++-mode-hook 'ccls-setup)
 ;; (add-hook 'objc-mode-hook 'ccls-setup)
 
-(setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)
-
 ;; alternatively, (setq cquery-sem-highlight-method 'overlay)
 (setq ccls-sem-highlight-method 'font-lock)
-
 ;; For rainbow semantic highlighting
 (ccls-use-default-rainbow-sem-highlight)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

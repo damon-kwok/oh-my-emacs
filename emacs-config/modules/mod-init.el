@@ -72,7 +72,8 @@
 
 (module-require 'mod-go)
 ;; (module-require 'mod-cquery)
-(module-require 'mod-ccls)
+;; (module-require 'mod-ccls)
+(module-require 'mod-rtags)
 (module-require 'mod-java)
 (module-require 'mod-lsp-py)
 

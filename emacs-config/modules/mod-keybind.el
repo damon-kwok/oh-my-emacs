@@ -71,7 +71,7 @@
 (global-set-key (kbd "C-M-z") 'ome-mark-line)
 
 
-(global-set-key (kbd "C-,") ;;<backtab>
+(global-set-key (kbd "M-,") ;;<backtab>
 				'(lambda ()
 				   (interactive)
 				   (switch-to-buffer (other-buffer (current-buffer) 1))))
@@ -376,7 +376,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ("2" (ome-open-mod "clojure") "clojure")
 ("3" (ome-open-mod "csharp") "csharp")
 ("4" (ome-open-mod "javascript") "javascript")
-("5" (ome-open-mod "cquery") "cquery")
+("5" (ome-open-mod "rtags") "rtags")
 ("6" (ome-open-mod "elixir") "elixir")
 
 ;;("w" (ome-open-mod "web") "web")
