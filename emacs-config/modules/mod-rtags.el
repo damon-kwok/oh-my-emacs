@@ -35,13 +35,13 @@
 (unless (rtags-executable-find rtags-rc) 
   (rtags-install))
 
-(add-hook 'after-init-hook '(lambda () 
-							  (setq rtags-path (file-name-directory (rtags-executable-find
-																	 rtags-rc))) 
-							  (message rtags-path) 
-							  (setenv "PATH" (concat (file-name-directory rtags-path) ":" (getenv
-																						   "PATH"))))
-		  t)
+;; (add-hook 'after-init-hook '(lambda () 
+							  ;; (setq rtags-path (file-name-directory (rtags-executable-find
+																	 ;; rtags-rc))) 
+							  ;; (message rtags-path) 
+							  ;; (setenv "PATH" (concat (file-name-directory rtags-path) ":" (getenv
+																						   ;; "PATH"))))
+		  ;; t)
 ;;
 (package-require 'helm-rtags)
 (require 'helm-rtags)
@@ -77,13 +77,11 @@
 (define-key rtags-mode-map [mouse-1] 'rtags-open-file)
 (define-key rtags-mode-map [mouse-2] 'rtags-open-file)
 
-(defun gen-rtags-indexes () 
-  (interactive)
-  ;; (message (concat "you opened cc file:" (buffer-name)))
-  ;; find CmakeLists.txt & gen rtags indexes
-  (add-hook 'after-init-hook ;;
-			'(lambda () 
-			   (shell-command (concat (getenv "HOME") "/.oh-my-emacs/bin/gen-rtags"))) t))
+;; (defun gen-rtags-indexes () 
+  ;; (interactive)
+  ;; (add-hook 'after-init-hook ;;
+			;; '(lambda () 
+			   ;; (shell-command (concat (getenv "HOME") "/.oh-my-emacs/bin/gen-rtags"))) t))
 
 (defun gen-rtags-indexes () 
   (interactive)
@@ -127,10 +125,9 @@
 							 "\"")) 
 	  (setq default-directory old-default-directory))))
 
-(add-hook 'c-mode-hook 'gen-rtags-indexes)
-(add-hook 'c++-mode-hook 'gen-rtags-indexes)
-(add-hook 'objc-mode-hook 'gen-rtags-indexes)
-
+;; (add-hook 'c-mode-hook 'gen-rtags-indexes)
+;; (add-hook 'c++-mode-hook 'gen-rtags-indexes)
+;; (add-hook 'objc-mode-hook 'gen-rtags-indexes)
 
 (defun show-rtags-buffer() 
   (interactive) 

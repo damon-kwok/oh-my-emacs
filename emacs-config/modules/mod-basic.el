@@ -563,63 +563,6 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;; page width
 ;; (setq fill-column 100)
 
-;;; fci-mode
-(package-require 'fill-column-indicator)
-(require 'fill-column-indicator)
-(setq whitespace-style '(face trailing))
-(setq fci-rule-column 80)
-(setq fci-handle-truncate-lines nil)
-(setq fci-rule-width 1)
-(setq fci-rule-color "grey30") ;; "white" "grey30"
-
-;;-- (setq fci-rule-use-dashes 111)
-;;-- (setq fci-dash-pattern 111)
-;;-- (setq fci-rule-character "%")
-;;-- (setq fci-rule-cinharacter-color "DarkBlue")
-
-;;; define `global-fci-mode'
-;; (define-globalized-minor-mode global-fci-mode fci-mode
-;; (lambda ()
-;; (fci-mode 1)))
-
-(define-globalized-minor-mode global-fci-mode fci-mode 
-  (lambda () 
-	(if (and (not (string-match "^\*.*\*$" (buffer-name))) 
-			 (not (eq major-mode 'dired-mode)) 
-			 (not (eq major-mode 'speedbar-mode))) 
-		(fci-mode 1))))
-
-(global-fci-mode 1)
-
-;; (defun auto-fci-mode
-;; (&optional
-;; unused)
-;; (if (> (window-width) fci-rule-column)
-;; (fci-mode 1)
-;; (fci-mode 0)))
-;; (add-hook 'after-change-major-mode-hook 'auto-fci-mode)
-;; (add-hook 'window-configuration-change-hook 'auto-fci-mode)
-
-;;; indent-guide
-(package-require 'indent-guide)
-(require 'indent-guide)
-
-;; and call command “M-x indent-guide-mode”.
-
-;; If you want to enable indent-guide-mode in all buffers, call function indent-guide-global-mode.
-(indent-guide-global-mode)
-
-;; Column lines are propertized with “indent-guide-face”. So you may configure this face to make lines more pretty in your colorscheme.
-;; (set-face-background 'indent-guide-face "dimgray")
-
-;; If you want indent-guide to show guide lines only in idle-time, you can set delay.
-;; (setq indent-guide-delay 0.1)
-
-;; To show not only one guide line but all guide lines recursively, set “indent-guide-recursive” non-nil.
-(setq indent-guide-recursive t)
-
-;; You may also change the character for guides.
-;; (setq indent-guide-char "|")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`cursor';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -809,7 +752,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 
 ;;; `'default-mode'
-(setq major-mode 'org-mode) ;;set default major mode {sh-mode | text-mode}
+(setq major-mode 'sh-mode) ;;set default major mode {sh-mode | text-mode}
 
 ;;; session
 ;; (package-require 'session)

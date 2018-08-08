@@ -71,7 +71,8 @@ function git-upgrade() {
     # git submodule foreach --recursive 'git fetch --tags'
 	
     if [ "$submodule" != "0" ]; then
-		git submodule update --init --depth=1		
+		# git submodule update --init --depth=1
+		git submodule update --depth=1		
 	fi
 	
     cd $curdir
@@ -106,7 +107,8 @@ function github-upgrade() {
     cd $dir
     # git submodule foreach --recursive 'git fetch --tags'
 	if [ "$submodule" != "0" ]; then
-		git submodule update --init --depth=1		
+		# git submodule update --init --depth=1
+		git submodule update --depth=1
 	fi
 
     cd $curdir
@@ -191,32 +193,36 @@ function find-str() {
 
 # smart-rtags $void
 function gen-rtags-impl() {
-	# if [ ! -d "$dir/rtags_indexes" ]; then
-	echo "$dir/rtags_indexes is creating..."
-	mkdir -p $dir/rtags_indexes
-	cd rtags_indexes/
-	cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
-	$RTAGS_BIN/rc -J .
-	cd ..
-	# else
-	# echo "$dir/rtags_indexes is exist!"
+	local curdir=$1
+	echo "curdir:$curdir"
+	# if [ "/" != "$curdir" ]; then
+		cd $curdir
+		# if [ ! -d "$dir/rtags_indexes" ]; then
+		echo "$dir/rtags_indexes is creating..."
+		mkdir -p $curdir/.rtags_indexes
+		cd $curdir/.rtags_indexes/
+		cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+		$RTAGS_BIN/rc -J .
+		cd ..
+		# else
+		# echo "$dir/rtags_indexes is exist!"
+		# fi
 	# fi
 }
 function auto-gen-rtags() {
-    local dir=`pwd`
-    # echo "check dir:$dir"
-
-    if [ -f "$dir/CMakeLists.txt" ]; then
+    local curdir=`pwd`
+    # echo "check curdir:$curdir"
+    if [ -f "$curdir/CMakeLists.txt" ]; then
+		gen-rtags-impl $curdir 
+	elif [ -f "$curdir/build/CMakeLists.txt" ]; then
+		gen-rtags-impl $curdir/build
+	elif [ -f "$curdir/Build/CMakeLists.txt" ]; then
 		gen-rtags-impl
-	elif [ -f "$dir/build/CMakeLists.txt" ]; then
-		gen-rtags-impl
-	elif [ -f "$dir/Build/CMakeLists.txt" ]; then
-		gen-rtags-impl
-	elif [ -f "$dir/cmake/CMakeLists.txt" ]; then
-		gen-rtags-impl
+	elif [ -f "$curdir/cmake/CMakeLists.txt" ]; then
+		gen-rtags-impl $curdir/cmake
 	else
 		cd ..
-		if [ ! "/" == "$dir" ]; then
+		if [ "/" != "$curdir" ]; then
 			auto-gen-rtags	    
 		fi
 	fi
@@ -260,7 +266,7 @@ function apt-repo-upgrade() {
     # "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable"
 }
 
-function dir-upgrade() {
+function curdir-upgrade() {
     local src=$1
     local dst=$2
 
@@ -985,6 +991,7 @@ function rtags-upgrade() {
 	cd $DEV_ROOT/rtags/build/
 	cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 	make
+	cp $DEV_ROOT/rtags/bin/* $DEV_ROOT/rtags/build/bin/
 }
 
 function steam-on-freebsd() {

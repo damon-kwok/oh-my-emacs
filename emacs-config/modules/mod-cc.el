@@ -26,12 +26,7 @@
 ;;
 
 ;; `function-args'
-(package-require 'function-args)
-;; (require 'function-args)
-;; (fa-config-default)
-
 ;; Additional setup (optional)
-;; Put c++-mode as default for *.h files (improves parsing):
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c-mode))
 (add-to-list 'auto-mode-alist '("\\.c\\'" . c-mode))
 

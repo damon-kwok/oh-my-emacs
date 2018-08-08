@@ -98,7 +98,7 @@
 (module-require 'mod-calendar)
 (module-require 'mod-profiler)
 (module-require 'mod-format)
-
+(module-require 'mod-highlight)
 ;; (package-require 'exwm)
 ;; (require 'exwm)
 ;; (require 'exwm-config)

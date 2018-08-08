@@ -46,7 +46,7 @@ export CMAKE_BIN=$DEV_ROOT/cmake/bin
 export PATH=$CMAKE_BIN:$PATH
 
 # rtags
-export RTAGS_BIN=$DEV_ROOT/rtags/build/
+export RTAGS_BIN=$DEV_ROOT/rtags/build/bin
 export PATH=$RTAGS_BIN:$PATH
 
 # gyp
