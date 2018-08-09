@@ -31,7 +31,7 @@
 					  "https://raw.githubusercontent.com/emacs-lsp/lsp-sh/master/lsp-sh.el")
 (require 'lsp-sh)
 
-(add-hook 'sh-mode-hook #'lsp-sh-enable)
+;; (add-hook 'sh-mode-hook #'lsp-sh-enable)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-sh)
 ;; mod-sh.el ends here

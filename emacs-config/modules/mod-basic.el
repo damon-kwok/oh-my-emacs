@@ -43,6 +43,41 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (add-hook 'after-init-hook (lambda () 
 							 (my-optimize-gc 16 0.2)))
 ;;
+
+;;(require 'indent-tabs-mode)
+;; Permanently force Emacs to indent with spaces, never with TABs:
+;;(define-globalized-minor-mode global-notab-mode indent-tabs-mode 
+;;  (lambda ()
+;;    (setq-default indent-tabs-mode nil)))
+;;(global-notab-mode t)
+
+
+;; `blank-mode'
+(require 'whitespace)
+
+(define-globalized-minor-mode ome-global-whitespace-mode whitespace-mode 
+  (lambda ()
+	;; Make whitespace-mode with very basic background coloring for whitespaces.
+	;; http://ergoemacs.org/emacs/whitespace-mode.html
+	(setq whitespace-style (quote (face spaces tabs newline space-mark tab-mark newline-mark )))
+
+	;; Make whitespace-mode and whitespace-newline-mode use “¶” for end of line char and “▷” for tab.
+	(setq whitespace-display-mappings
+      ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
+      '(
+        (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
+		;;
+        (newline-mark 10 [9166 10]) ; LINE FEED,
+		;;
+        (tab-mark 9 [9655 9] [92 9]) ; tab
+		;;
+        ))
+	(whitespace-mode 1)))
+
+(ome-global-whitespace-mode t)
+
+;; (global-whitespace-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`frame';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -469,11 +504,12 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`buffer';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Kill process buffer without confirmation?
-;; ref: https://emacs.stackexchange.com/questions/14509/kill-process-buffer-without-confirmation
-(setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function
-										kill-buffer-query-functions))
-(setq kill-buffer-query-functions nil)
+
+  ;; Kill process buffer without confirmation?
+  ;; ref: https://emacs.stackexchange.com/questions/14509/kill-process-buffer-without-confirmation
+  (setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function
+										  kill-buffer-query-functions))
+  (setq kill-buffer-query-functions nil)
 
 ;; tab
 (setq default-tab-width 4)
@@ -612,7 +648,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;(show-paren-mode nil) ;;(show-paren-mode 1)
 ;;(setq show-paren-style 'parentheses)
 
-;;; `rainbow-mode'
+;;; `whitespace-mode'
 (package-require 'rainbow-mode)
 (require 'rainbow-mode)
 (define-globalized-minor-mode global-rainbow-mode rainbow-mode 

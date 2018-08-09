@@ -597,6 +597,8 @@ occurence of CHAR."
 
 (package-require-curl "multi-term" "multi-term.el"
 					  "https://www.emacswiki.org/emacs/download/multi-term.el")
+(package-require-curl "visws" "visws.el"
+					  "https://www.emacswiki.org/emacs/download/visws.el")
 
 (setq multi-term-program "/bin/bash")
 ;; (package-require-git "window-layout" "https://github.com/kiwanami/emacs-window-layout.git")

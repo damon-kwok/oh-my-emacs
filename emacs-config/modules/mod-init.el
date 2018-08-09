@@ -23,11 +23,10 @@
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defcustom ome-logo (expand-file-name "~/.oh-my-emacs/logo.png")
-  "set ome logo. nil means official logo."
-:type 'string)
-(setq fancy-splash-image ome-logo)
-
+;; (defcustom ome-logo (expand-file-name "~/.oh-my-emacs/logo.png")
+  ;; "set ome logo. nil means official logo."
+;; :type 'string)
+;; (setq fancy-splash-image ome-logo)
 (module-require 'mod-package)
 ;;
 (module-require 'mod-coding)

@@ -180,6 +180,9 @@
 ;; `format'
 (package-require 'clang-format)
 (require 'clang-format)
+(setq-default c-basic-offset 4 tab-width 4 indent-tabs-mode nil)
+(setq c-default-style "Google") ;;linux
+
 ;; (define-key c++-mode-map (kbd "C-M-") 'clang-format-region)
 (define-key c-mode-map (kbd "C-c C-f")  'clang-format-buffer)
 (define-key c++-mode-map (kbd "C-c C-f")  'clang-format-buffer)
@@ -188,9 +191,6 @@
 (define-key c-mode-map (kbd "C-M-\\")  'clang-format-region)
 (define-key c++-mode-map (kbd "C-M-\\")  'clang-format-region)
 (define-key objc-mode-map (kbd "C-M-\\")  'clang-format-region)
-
-(setq-default c-basic-offset 4 tab-width 4 indent-tabs-mode t)
-(setq c-default-style "linux")
 
 ;; `disaster'
 (package-require 'disaster)

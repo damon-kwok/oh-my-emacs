@@ -38,7 +38,7 @@
   (lambda () 
 	(symbol-overlay-mode 1)))
 
-(global-symbol-overlay-mode 1)
+(global-symbol-overlay-mode nil)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `hl-todo
 ;; (package-require 'hl-todo)
