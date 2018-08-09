@@ -24,11 +24,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
+(require 'mod-cc)
 
 ;; https://maskray.me/blog/2017-12-03-c++-language-server-cquery
 ;; https://github.com/cquery-project/cquery/wiki/Emacs
-(require 'mod-lsp)
-
 (package-require 'cquery)
 (require 'cquery)
 

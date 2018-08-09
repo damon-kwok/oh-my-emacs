@@ -31,15 +31,15 @@
 
 (setq ccls-executable "/home/damon/.ccls/bin/ccls")
 (setq ccls-extra-init-params 
-	  '(:cacheFormat "msgpack"))
+      '(:cacheFormat "msgpack"))
 (with-eval-after-load 'projectile 
   (setq projectile-project-root-files-top-down-recurring (append '("compile_commands.json" ".ccls")
-																 projectile-project-root-files-top-down-recurring)))
+                                                                 projectile-project-root-files-top-down-recurring)))
 
 (defun ccls//enable () 
   (condition-case nil (lsp-ccls-enable) 
-	(user-error 
-	 nil)))
+    (user-error 
+     nil)))
 
 (defun ccls-setup () 
   (interactive) 

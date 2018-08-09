@@ -547,7 +547,7 @@ function clang-format-upgrade() {
         echo "PointerAlignment: Right" >> ~/.clang-format
         echo "# 缩进宽度" >> ~/.clang-format
         echo "IndentWidth: 4" >> ~/.clang-format
-        echo "# tab键盘的宽度" >> ~/.clang-format
+        echo "# tab的宽度" >> ~/.clang-format
         echo "TabWidth: 4" >> ~/.clang-format
         echo "# 使用Tab" >> ~/.clang-format
         echo "UseTab: Never" >> ~/.clang-format
