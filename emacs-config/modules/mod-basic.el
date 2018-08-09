@@ -41,7 +41,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;(message (concat "gc:" gc-cons-threshold " pre:" gc-cons-percentage))
 (my-optimize-gc 256 0.2)
 (add-hook 'after-init-hook (lambda () 
-							 (my-optimize-gc 16 0.2)))
+                             (my-optimize-gc 16 0.2)))
 ;;
 
 ;;(require 'indent-tabs-mode)
@@ -67,7 +67,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
       '(
         (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
 		;;
-        (newline-mark 10 [9166 10]) ; LINE FEED,
+        (newline-mark 10 [182 10]) ; LINE FEED,
 		;;
         (tab-mark 9 [9655 9] [92 9]) ; tab
 		;;

@@ -541,13 +541,24 @@ function clang-format-upgrade() {
         #echo "Language: Cpp" >> ~/.clang-format
         echo "# 基于哪个配置文件" >> ~/.clang-format
         echo "BasedOnStyle: LLVM" >> ~/.clang-format
+        echo "# BreakBeforeBraces: Attach" >> ~/.clang-format
+        echo "BreakBeforeBraces: Attach" >> ~/.clang-format
         echo "# 指针的*的挨着哪边" >> ~/.clang-format
         echo "PointerAlignment: Right" >> ~/.clang-format
         echo "# 缩进宽度" >> ~/.clang-format
         echo "IndentWidth: 4" >> ~/.clang-format
+        echo "# tab键盘的宽度" >> ~/.clang-format
+        echo "TabWidth: 4" >> ~/.clang-format
+        echo "# 使用Tab" >> ~/.clang-format
+        echo "UseTab: Never" >> ~/.clang-format
+        echo "# 行长度限制" >> ~/.clang-format
+        echo "ColumnLimit: 80" >> ~/.clang-format
+
+        echo "# 模板声明单独一行" >> ~/.clang-format
+        echo "AlwaysBreakTemplateDeclarations: true" >> ~/.clang-format
         echo "# 连续的空行保留几行" >> ~/.clang-format
         echo "MaxEmptyLinesToKeep: 1" >> ~/.clang-format
-        echo "# 在 @property 后面添加空格, \@property (readonly) 而不是 \@property(readonly)." >> ~/.clang-format
+        echo "# 在 @property 后面添加空格, @property (readonly) 而不是 @property(readonly)." >> ~/.clang-format
         echo "ObjCSpaceAfterProperty: true" >> ~/.clang-format
         echo "# OC block后面的缩进" >> ~/.clang-format
         echo "ObjCBlockIndentWidth: 4" >> ~/.clang-format
@@ -560,7 +571,7 @@ function clang-format-upgrade() {
         echo "# 换行的时候对齐操作符" >> ~/.clang-format
         echo "# AlignOperands: true" >> ~/.clang-format
         echo "# 中括号两边空格 [] " >> ~/.clang-format
-        echo "SpacesInSquareBrackets: true" >> ~/.clang-format
+        echo "SpacesInSquareBrackets: false" >> ~/.clang-format
         echo "# 小括号两边添加空格" >> ~/.clang-format
         echo "SpacesInParentheses : false" >> ~/.clang-format
         echo "# 多行声明语句按照=对齐" >> ~/.clang-format
@@ -581,11 +592,7 @@ function clang-format-upgrade() {
         echo "AllowAllParametersOfDeclarationOnNextLine: true" >> ~/.clang-format
         echo "# 括号后添加空格" >> ~/.clang-format
         echo "SpaceAfterCStyleCast: true" >> ~/.clang-format
-        echo "# tab键盘的宽度" >> ~/.clang-format
-        echo "TabWidth: 4" >> ~/.clang-format
-        echo "# 使用Tab" >> ~/.clang-format
-        echo "UseTab: Never" >> ~/.clang-format
-
+        
         echo "" >> ~/.clang-format
         echo "---" >> ~/.clang-format
         echo "Language: JavaScript" >> ~/.clang-format

@@ -180,8 +180,8 @@
 ;; `format'
 (package-require 'clang-format)
 (require 'clang-format)
-(setq-default c-basic-offset 4 tab-width 4 indent-tabs-mode nil)
-(setq c-default-style "Google") ;;linux
+;; (setq-default c-basic-offset 4 tab-width 4 indent-tabs-mode nil)
+;; (setq c-default-style "LLVM") ;;linux
 
 ;; (define-key c++-mode-map (kbd "C-M-") 'clang-format-region)
 (define-key c-mode-map (kbd "C-c C-f")  'clang-format-buffer)
