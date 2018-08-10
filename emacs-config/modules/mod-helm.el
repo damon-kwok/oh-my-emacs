@@ -26,22 +26,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`Projectile';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Install Projectile and activate it for all things.
-;;; Learn about Projectile: http://batsov.com/projectile/
-(package-require 'projectile)
-(require 'projectile)
-;;; 默认全局使用
-(projectile-mode 1)
-
-;;; 默认打开缓存
-(setq projectile-enable-caching t)
-
-;;; 使用f5键打开默认文件搜索
-(global-set-key [f5] 'projectile-find-file)
-
-;;; Use C-c C-f to find a file anywhere in the current project.
-;; (global-set-key (kbd "C-c C-f") 'projectile-find-file)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`bm';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

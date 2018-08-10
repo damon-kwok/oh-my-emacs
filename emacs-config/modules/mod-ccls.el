@@ -43,6 +43,7 @@
 
 (defun ccls-setup () 
   (interactive) 
+  (gen-cmake-file) 
   (ccls//enable) 
   (ccls-xref-find-custom "$ccls/base") 
   (ccls-xref-find-custom "$ccls/callers")

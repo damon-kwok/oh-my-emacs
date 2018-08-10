@@ -75,10 +75,10 @@
     (ome-keymap-unset-key (kbd \"C-c <C-left>\") \"tabbar-mode\")
     (ome-keymap-unset-key [C-c <C-left>] \"tabbar-mode\")" 
   (interactive (list (call-interactively #'get-key-combo) 
-					 (completing-read "Which map: " minor-mode-map-alist nil t))) 
+                     (completing-read "Which map: " minor-mode-map-alist nil t))) 
   (let ((map (rest (assoc (intern keymap) minor-mode-map-alist)))) 
-	(when map (define-key map key nil) 
-		  (message  "%s unbound for %s" key keymap))))
+    (when map (define-key map key nil) 
+          (message  "%s unbound for %s" key keymap))))
 
 
 ;; http://www.ergoemacs.org/emacs/elisp_idioms_prompting_input.html
@@ -90,8 +90,8 @@
   (not (display-graphic-p)))
 
 (defmacro when-terminal 
-	(&rest 
-	 body)
+    (&rest 
+     body)
   "Works just like `progn' but will only evaluate expressions in VAR when Emacs is running in a terminal else just nil."
   `(when (ome-is-in-terminal) ,@body))
 
@@ -112,14 +112,14 @@
 
 (defun ome-buf-ext() 
   (let ((ext-name (nth 0 (last (split-string (buffer-name) "\\.")))) 
-		(buf-name (buffer-name))) 
-	(if (string= ext-name buf-name) "" ext-name)))
+        (buf-name (buffer-name))) 
+    (if (string= ext-name buf-name) "" ext-name)))
 
 (defun ome-project-root() 
   (let ((fist-char (substring (ome-bufname-no-ext) 0 1))) 
-	(if (string= fist-char "*") "./" (if (projectile-project-p) 
-										 (projectile-project-root) 
-									   (ome-buf-dirpath)))))
+    (if (string= fist-char "*") "./" (if (projectile-project-p) 
+                                         (projectile-project-root) 
+                                       (ome-buf-dirpath)))))
 
 (defun ome-parent-dirpath (path) 
   (file-name-directory (directory-file-name path)))
@@ -170,16 +170,16 @@
 (defun ome-bing-dict-brief-web (word) 
   "Show the explanation of WORD from Bing in the echo area." 
   (interactive (let* ((default (if (use-region-p) 
-								   (buffer-substring-no-properties 
-									(region-beginning) 
-									(region-end)) 
-								 (let ((text (thing-at-point 'word))) 
-								   (if text (substring-no-properties text))))) 
-					  (prompt (if (stringp default) 
-								  (format "Search Bing web dict (default \"%s\"): " default)
-								"Search Bing web dict: ")) 
-					  (string (read-string prompt nil 'bing-dict-history default))) 
-				 (list string))) 
+                                   (buffer-substring-no-properties 
+                                    (region-beginning) 
+                                    (region-end)) 
+                                 (let ((text (thing-at-point 'word))) 
+                                   (if text (substring-no-properties text))))) 
+                      (prompt (if (stringp default) 
+                                  (format "Search Bing web dict (default \"%s\"): " default)
+                                "Search Bing web dict: ")) 
+                      (string (read-string prompt nil 'bing-dict-history default))) 
+                 (list string))) 
   (save-match-data (ome-bing-dict-brief-eww word)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -188,18 +188,18 @@
   "copy a line" 
   (interactive) 
   (let ((pos (point))) 
-	(beginning-of-visual-line) 
-	(kill-visual-line) 
-	(yank) 
-	(goto-char pos)))
+    (beginning-of-visual-line) 
+    (kill-visual-line) 
+    (yank) 
+    (goto-char pos)))
 
 (defun ome-mark-line () 
   "copy a line" 
   (interactive) 
   (beginning-of-visual-line) 
   (let ((pos (point))) 
-	(set-mark pos) 
-	(end-of-visual-line)))
+    (set-mark pos) 
+    (end-of-visual-line)))
 
 (defun ome-quick-copy-line () 
   "Copy the whole line that point is on and move to the beginning of the next line.
@@ -207,35 +207,35 @@
     kill-ring." 
   (interactive) 
   (let ((beg (line-beginning-position 1)) 
-		(end (line-beginning-position 2))) 
-	(if (eq last-command 'quick-copy-line) 
-		(kill-append 
-		 (buffer-substring 
-		  beg
-		  end) 
-		 (< end beg)) 
-	  (kill-new 
-	   (buffer-substring 
-		beg
-		end)))) 
+        (end (line-beginning-position 2))) 
+    (if (eq last-command 'quick-copy-line) 
+        (kill-append 
+         (buffer-substring 
+          beg
+          end) 
+         (< end beg)) 
+      (kill-new 
+       (buffer-substring 
+        beg
+        end)))) 
   (beginning-of-line 2))
 
 (defun ome-quick-cut-line () 
   "Cut the whole line that point is on.  Consecutive calls to this command append each line to the kill-ring." 
   (interactive) 
   (let ((beg (line-beginning-position 1)) 
-		(end (line-beginning-position 2))) 
-	(if (eq last-command 'quick-cut-line) 
-		(kill-append 
-		 (buffer-substring 
-		  beg
-		  end) 
-		 (< end beg)) 
-	  (kill-new 
-	   (buffer-substring 
-		beg
-		end))) 
-	(delete-region beg end)) 
+        (end (line-beginning-position 2))) 
+    (if (eq last-command 'quick-cut-line) 
+        (kill-append 
+         (buffer-substring 
+          beg
+          end) 
+         (< end beg)) 
+      (kill-new 
+       (buffer-substring 
+        beg
+        end))) 
+    (delete-region beg end)) 
   (beginning-of-line 1) 
   (setq this-command 'quick-cut-line))
 
@@ -244,11 +244,11 @@
   "Comments or uncomments the region or the current line if there's no active region." 
   (interactive) 
   (let (beg end) 
-	(if (region-active-p) 
-		(setq beg (region-beginning) end (region-end)) 
-	  (setq beg (line-beginning-position) end (line-end-position))) 
-	(comment-or-uncomment-region beg end) 
-	(next-line)))
+    (if (region-active-p) 
+        (setq beg (region-beginning) end (region-end)) 
+      (setq beg (line-beginning-position) end (line-end-position))) 
+    (comment-or-uncomment-region beg end) 
+    (next-line)))
 
 (defun ome-go-to-char-forward (n char) 
   "Move forward to Nth occurence of CHAR.
@@ -257,7 +257,7 @@ occurence of CHAR."
   (interactive "p\ncGo to char: ") 
   (search-forward (string char) nil nil n) 
   (while (char-equal (read-char) char) 
-	(search-forward (string char) nil nil n)) 
+    (search-forward (string char) nil nil n)) 
   (setq unread-command-events (list last-input-event)))
 
 (defun ome-go-to-char-backward (n char) 
@@ -267,7 +267,7 @@ occurence of CHAR."
   (interactive "p\ncGo to char: ") 
   (search-backward (string char) nil nil n) 
   (while (char-equal (read-char) char) 
-	(search-backward (string char) nil nil n)) 
+    (search-backward (string char) nil nil n)) 
   (setq unread-command-events (list last-input-event)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -284,9 +284,9 @@ occurence of CHAR."
 ;; (message "buffer '%s' not exist!" NAME))))
 (defun ome-kill-buffer-by-name (NAME) 
   (if (get-buffer NAME) 
-	  (kill-buffer NAME)
-	;; (message "buffer '%s' not exist!" NAME)
-	))
+      (kill-buffer NAME)
+    ;; (message "buffer '%s' not exist!" NAME)
+    ))
 
 ;; close all buffer but this
 (defun ome-kill-other-buffers () 
@@ -294,60 +294,60 @@ occurence of CHAR."
   (interactive) 
   (delete-other-windows) 
   (mapc 'kill-buffer (delq (current-buffer) 
-						   (remove-if-not 'buffer-file-name (buffer-list)))))
+                           (remove-if-not 'buffer-file-name (buffer-list)))))
 
 ;; delete current buffer && file
 (defun ome-delete-file-and-buffer() 
   (interactive) 
   (cond ((y-or-n-p (concat "delete'" (buffer-name) "'?")) 
-		 ((progn) 
-		  (delete-file (buffer-file-name) 
-					   (kill-this-buffer))))))
+         ((progn) 
+          (delete-file (buffer-file-name) 
+                       (kill-this-buffer))))))
 
 ;; Originally from stevey, adapted to support moving to a new directory.
 (defun ome-rename-file-and-buffer (new-name) 
   "Renames both current buffer and file it's visiting to NEW-NAME." 
   (interactive (progn (if (not (buffer-file-name)) 
-						  (error 
-						   "Buffer '%s' is not visiting a file!"
-						   (buffer-name))) 
-					  (list (read-file-name (format "Rename %s to: " (file-name-nondirectory
-																	  (buffer-file-name))))))) 
+                          (error 
+                           "Buffer '%s' is not visiting a file!"
+                           (buffer-name))) 
+                      (list (read-file-name (format "Rename %s to: " (file-name-nondirectory
+                                                                      (buffer-file-name))))))) 
   (if (equal new-name "") 
-	  (error 
-	   "Aborted rename")) 
+      (error 
+       "Aborted rename")) 
   (setq old-name-base (file-name-base (buffer-name))) 
   (setq new-name (if (file-directory-p new-name) 
-					 (expand-file-name (file-name-nondirectory (buffer-file-name)) new-name) 
-				   (expand-file-name new-name)))
+                     (expand-file-name (file-name-nondirectory (buffer-file-name)) new-name) 
+                   (expand-file-name new-name)))
   ;; If the file isn't saved yet, skip the file rename, but still update the
   ;; buffer name and visited file.
   (if (file-exists-p (buffer-file-name)) 
-	  (rename-file (buffer-file-name) new-name 1)) 
+      (rename-file (buffer-file-name) new-name 1)) 
   (let ((was-modified (buffer-modified-p)))
     ;; This also renames the buffer, and works with uniquify
     (set-visited-file-name new-name) 
-	(if was-modified (save-buffer)
+    (if was-modified (save-buffer)
       ;; Clear buffer-modified flag caused by set-visited-file-name
       (set-buffer-modified-p nil))
     ;;(message "Renamed to %s." new-name)))
     (setq new-name-base (file-name-base (buffer-name))) 
-	(setq old-line (line-number-at-pos)) 
-	(goto-char (point-min))
+    (setq old-line (line-number-at-pos)) 
+    (goto-char (point-min))
 
     ;;cc-mode(c c++)
     (replace-string (concat "_" (upcase old-name-base) "_") 
-					(concat "_" (upcase new-name-base) "_"))
+                    (concat "_" (upcase new-name-base) "_"))
 
     ;;other files
     (beginning-of-buffer) 
-	(replace-string (concat old-name-base) 
-					(concat new-name-base)) 
-	(goto-line old-line)
+    (replace-string (concat old-name-base) 
+                    (concat new-name-base)) 
+    (goto-line old-line)
 
     ;;save
     (save-buffer) 
-	(message "Renamed to %s" new-name)))
+    (message "Renamed to %s" new-name)))
 
 (defun ome-rename-file-and-buffer-ext (ext-name) 
   "rename extname with file and buffer"
@@ -393,13 +393,13 @@ occurence of CHAR."
 (defun ome-exit-animate() 
   (interactive) 
   (cond ((y-or-n-p "Exit? ") 
-		 (medusa-bye) 
-		 (save-buffers-kill-emacs))))
+         (medusa-bye) 
+         (save-buffers-kill-emacs))))
 
 (defun ome-exit() 
   (interactive) 
   (cond ((y-or-n-p "Exit? ") ;;(y-or-n-p "Relax...? ")
-		 (save-buffers-kill-emacs))))
+	 (save-buffers-kill-emacs))))
 
 (defun ome-open-file(file-name) 
   (interactive) 
@@ -462,8 +462,8 @@ occurence of CHAR."
   (setq temp-buffer-name (buffer-name (current-buffer))) 
   (switch-to-buffer-other-window buffer-name) 
   (if (< (/ (frame-height) 3) 
-		 (window-height)) 
-	  (shrink-window (/ (window-height) 2))) 
+         (window-height)) 
+      (shrink-window (/ (window-height) 2))) 
   (if dont-return-old-buffer nil (switch-to-buffer-other-window temp-buffer-name)))
 
 (defun ome-run-command (command) 
@@ -487,14 +487,14 @@ occurence of CHAR."
 
 (defun ome-create-project(command openfile) 
   (let  ((project-path (read-file-name "choice project path:" nil default-directory nil))) 
-	(message project-path) 
-	(setq default-directory (f-dirname project-path)) 
-	(f-mkdir default-directory) 
-	(if (= (shell-command (concat (s-replace "%s" (f-filename project-path) command))) 0) 
-		(progn (message (concat "shell-cmd:" )) 
-			   (find-file (concat project-path "/" openfile)) 
-			   (message (concat "created new project '" (f-filename project-path) "' succeed:)"))) 
-	  (message (concat "creat new project '" (f-filename project-path) "' failed:(")))))
+    (message project-path) 
+    (setq default-directory (f-dirname project-path)) 
+    (f-mkdir default-directory) 
+    (if (= (shell-command (concat (s-replace "%s" (f-filename project-path) command))) 0) 
+        (progn (message (concat "shell-cmd:" )) 
+               (find-file (concat project-path "/" openfile)) 
+               (message (concat "created new project '" (f-filename project-path) "' succeed:)"))) 
+      (message (concat "creat new project '" (f-filename project-path) "' failed:(")))))
 
 (defun ome-buffer-reload() 
   (interactive) 
@@ -508,76 +508,76 @@ occurence of CHAR."
   "Find and mark all the parts of the buffer matching the currently active region" 
   (interactive) 
   (condition-case err (progn (mc/mark-all-like-this)) 
-	(error 
-	 (message "error: %s"(car (cdr err))))))
+    (error 
+     (message "error: %s"(car (cdr err))))))
 
 (defun ome-grep-project (word) 
   "Show the explanation of WORD from Bing in the echo area." 
   (interactive (let* ((default (if (use-region-p) 
-								   (buffer-substring-no-properties 
-									(region-beginning) 
-									(region-end)) 
-								 (let ((text (thing-at-point 'word))) 
-								   (if text (substring-no-properties text))))) 
-					  (prompt (if (stringp default) 
-								  (format "grep (default \"%s\"): " default) "grep: ")) 
-					  (string (read-string prompt nil nil default))) 
-				 (list string))) 
+                                   (buffer-substring-no-properties 
+                                    (region-beginning) 
+                                    (region-end)) 
+                                 (let ((text (thing-at-point 'word))) 
+                                   (if text (substring-no-properties text))))) 
+                      (prompt (if (stringp default) 
+                                  (format "grep (default \"%s\"): " default) "grep: ")) 
+                      (string (read-string prompt nil nil default))) 
+                 (list string))) 
   (save-match-data (ome-grep-project  word) 
-				   (other-window 1)))
+                   (other-window 1)))
 
 (defun ome-grep-directory (word) 
   "Show the explanation of WORD from Bing in the echo area." 
   (interactive (let* ((default (if (use-region-p) 
-								   (buffer-substring-no-properties 
-									(region-beginning) 
-									(region-end)) 
-								 (let ((text (thing-at-point 'word))) 
-								   (if text (substring-no-properties text))))) 
-					  (prompt (if (stringp default) 
-								  (format "grep (default \"%s\"): " default) "grep: ")) 
-					  (string (read-string prompt nil nil default))) 
-				 (list string))) 
+                                   (buffer-substring-no-properties 
+                                    (region-beginning) 
+                                    (region-end)) 
+                                 (let ((text (thing-at-point 'word))) 
+                                   (if text (substring-no-properties text))))) 
+                      (prompt (if (stringp default) 
+                                  (format "grep (default \"%s\"): " default) "grep: ")) 
+                      (string (read-string prompt nil nil default))) 
+                 (list string))) 
   (save-match-data (ome-grep-directory  word) 
-				   (other-window 1)))
+                   (other-window 1)))
 
 (defun ome-grep-project (str) 
   (if (stringp str) 
-	  (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (ome-project-root)))))
+      (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (ome-project-root)))))
 
 (defun ome-grep-directory (str) 
   (message (concat "grep-dir:" str)) 
   (if (stringp str) 
-	  (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory
-																buffer-file-name)))))
+      (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory
+                                                                buffer-file-name)))))
 
 (defun ome-open-reddit-channel (word) 
   "Show the explanation of WORD from Bing in the echo area." 
   (interactive (let* ((default (if (use-region-p) 
-								   (buffer-substring-no-properties 
-									(region-beginning) 
-									(region-end)) 
-								 (let ((text (thing-at-point 'word))) 
-								   (if text (substring-no-properties text))))) 
-					  (prompt (if (stringp default) 
-								  (format "reddit (default \"%s\"): " default) "reddit: ")) 
-					  (string (read-string prompt nil nil default))) 
-				 (list string))) 
+                                   (buffer-substring-no-properties 
+                                    (region-beginning) 
+                                    (region-end)) 
+                                 (let ((text (thing-at-point 'word))) 
+                                   (if text (substring-no-properties text))))) 
+                      (prompt (if (stringp default) 
+                                  (format "reddit (default \"%s\"): " default) "reddit: ")) 
+                      (string (read-string prompt nil nil default))) 
+                 (list string))) 
   (ome-open-url (concat "https://www.reddit.com/r/" word "/")))
 
 (defun ome-open-stackoverflow-channel (word) 
   "Show the explanation of WORD from Bing in the echo area." 
   (interactive (let* ((default (if (use-region-p) 
-								   (buffer-substring-no-properties 
-									(region-beginning) 
-									(region-end)) 
-								 (let ((text (thing-at-point 'word))) 
-								   (if text (substring-no-properties text))))) 
-					  (prompt (if (stringp default) 
-								  (format "StackOverflow (default \"%s\"): " default)
-								"StackOverflow: ")) 
-					  (string (read-string prompt nil nil default))) 
-				 (list string))) 
+                                   (buffer-substring-no-properties 
+                                    (region-beginning) 
+                                    (region-end)) 
+                                 (let ((text (thing-at-point 'word))) 
+                                   (if text (substring-no-properties text))))) 
+                      (prompt (if (stringp default) 
+                                  (format "StackOverflow (default \"%s\"): " default)
+                                "StackOverflow: ")) 
+                      (string (read-string prompt nil nil default))) 
+                 (list string))) 
   (ome-open-url (concat "http://stackoverflow.com/questions/tagged/" word)))
 ;; http://stackoverflow.com/questions/tagged/f%23
 
@@ -586,19 +586,18 @@ occurence of CHAR."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require-curl "elisp-format" "elisp-format.el"
-					  "https://www.emacswiki.org/emacs/download/elisp-format.el")
+                      "https://www.emacswiki.org/emacs/download/elisp-format.el")
 (package-require-curl "xcowsay" "xcowsay.el" "https://www.emacswiki.org/emacs/download/xcowsay.el")
 (package-require-curl "pink-bliss" "pink-bliss-theme.el"
-					  "https://raw.githubusercontent.com/kensanata/elisp/master/pink-bliss-theme.el")
+                      "https://raw.githubusercontent.com/kensanata/elisp/master/pink-bliss-theme.el")
 (package-require-curl "pink-bliss" "pink-bliss.el"
-					  "https://www.emacswiki.org/emacs/download/pink-bliss.el")
+                      "https://www.emacswiki.org/emacs/download/pink-bliss.el")
 (package-require-curl "pink-bliss" "pink-gnu.xpm"
-					  "http://www.emacswiki.org/emacs/download/pink-gnu.xpm")
+                      "http://www.emacswiki.org/emacs/download/pink-gnu.xpm")
 
 (package-require-curl "multi-term" "multi-term.el"
-					  "https://www.emacswiki.org/emacs/download/multi-term.el")
-(package-require-curl "visws" "visws.el"
-					  "https://www.emacswiki.org/emacs/download/visws.el")
+                      "https://www.emacswiki.org/emacs/download/multi-term.el")
+(package-require-curl "visws" "visws.el" "https://www.emacswiki.org/emacs/download/visws.el")
 
 (setq multi-term-program "/bin/bash")
 ;; (package-require-git "window-layout" "https://github.com/kiwanami/emacs-window-layout.git")

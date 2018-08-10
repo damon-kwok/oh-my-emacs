@@ -32,7 +32,7 @@ function echo-kv() {
 
 function title() {
     echo -e $(tput setaf 14)"=================================================================="\
-		 $(tput sgr0)
+	 $(tput sgr0)
     echo -e $(tput setaf 14)"= $1:"$(tput sgr0)
 }
 
@@ -46,7 +46,16 @@ function git-upgrade() {
     local site=$1
     local project=$2
     local dir=$3
-	local submodule=$4
+    local submodule=$4
+    # local branch=$4
+
+    if [ "$1" == "" ]; then
+        local branch=""
+    else
+        local branch="-b $5"
+    fi
+    
+    echo "result:$bran"
     # if [ "$GIT_USE_SECRET_KEY" == "1" ]; then		
     # local url="git@github.com:${project}.git --recursive"
     # else
@@ -56,62 +65,33 @@ function git-upgrade() {
     local url="$site/${project}.git"
     
     if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
-		tip "clone $project"
-		git clone $url $dir --single-branch --depth=1
-		# git clone --recurse $url $dir
+	tip "clone $project"
+	git clone $url $dir --single-branch --depth=1 $branch
     else
-		cd $dir
-		tip "update $project"
-		# if [ "$PULL_FOR_BUILD" == "1" ]; then
-		git pull
-		# git pull --recurse-submodules=1
-		# fi
+	cd $dir
+	tip "update $project"
+	git pull
     fi
     cd $dir
     # git submodule foreach --recursive 'git fetch --tags'
-	
+    
     if [ "$submodule" != "0" ]; then
-		# git submodule update --init --depth=1
-		git submodule update --depth=1		
-	fi
-	
+	# git submodule update --init --depth=1
+	git submodule update --depth=1		
+    fi
+    
     cd $curdir
 }
 
 function github-upgrade() {
     local curdir=`pwd`
+    local site="https://github.com"
     local project=$1
     local dir=$2
-	local submodule=$3
+    local submodule=$3
+    local branch=$4
 
-    # if [ "$GIT_USE_SECRET_KEY" == "1" ]; then		
-    # local url="git@github.com:${project}.git --recursive"
-    # else
-    # local url="https://github.com/${project}.git --recursive"
-    # fi
-
-    local url="https://github.com/${project}.git"
-    
-    if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
-		tip "clone $project"
-		git clone $url $dir --single-branch --depth=1
-		# git clone --recurse $url $dir
-    else
-		cd $dir
-		tip "update $project"
-		# if [ "$PULL_FOR_BUILD" == "1" ]; then
-		git pull
-		# git pull --recurse-submodules=1
-		# fi
-    fi
-    cd $dir
-    # git submodule foreach --recursive 'git fetch --tags'
-	if [ "$submodule" != "0" ]; then
-		# git submodule update --init --depth=1
-		git submodule update --depth=1
-	fi
-
-    cd $curdir
+    git-upgrade $site $project $dir $submodule $branch
 }
 
 function git-complete-upgrade() {
@@ -124,12 +104,12 @@ function svn-upgrade() {
     # svn co svn://www.svn999.com/guowangwei.workspace workspace
     
     if [ ! -d $DIR_WORKSPACE ]; then
-		cd $OME_ROOT
-		svn co $url $dir
+	cd $OME_ROOT
+	svn co $url $dir
     else
-		cd $dir
-		svn cleanup .
-		svn up
+	cd $dir
+	svn cleanup .
+	svn up
     fi
 }
 
@@ -162,12 +142,12 @@ function readp {
     
     read -p "$str(Y/n)" c
     if [ "$c" == "y" ] || [ "$c" == "Y" ] || [ "$c" == "" ]; then
-		return $(( 1 ));
+	return $(( 1 ));
     elif [ "$c" == "n" ] || [ "$c" == "N" ]; then
-		return $(( 0 ));
+	return $(( 0 ));
     else
-		echo "invalid input:$c"
-		readp "$1"
+	echo "invalid input:$c"
+	readp "$1"
     fi
 }
 
@@ -183,49 +163,115 @@ function find-str() {
     grep $str $file >/dev/null
     
     if [ $? -eq 0 ]; then
-		echo "found:$str"
-		return $(( 1 ));
+	echo "found:$str"
+	return $(( 1 ));
     else
-		echo "not found:$str"
-		return $(( 0 ));
+	echo "not found:$str"
+	return $(( 0 ));
     fi
+}
+
+function auto-gen-cmakefile() {
+    local projdir=$1
+    echo $1
+    if [ ! -f "$projdir/CMakeLists.txt" ]; then
+        echo "cmake_minimum_required(VERSION 3.0)" >> $projdir/CMakeLists.txt
+        echo "project(libexample)" >> $projdir/CMakeLists.txt
+        echo "" >> $projdir/CMakeLists.txt
+        echo "if (UNIX)" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_C_COMPILER             \"clang\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_C_FLAGS                \"-Wall -std=gnu89\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_C_FLAGS_DEBUG          \"-g\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_C_FLAGS_MINSIZEREL     \"-Os -DNDEBUG\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_C_FLAGS_RELEASE        \"-O4 -DNDEBUG\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_C_FLAGS_RELWITHDEBINFO \"-O2 -g\")" >> $projdir/CMakeLists.txt
+        echo "" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_CXX_COMPILER             \"clang++\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_CXX_FLAGS                \"-Wall -std=gnu++98\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_CXX_FLAGS_DEBUG          \"-g\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_CXX_FLAGS_MINSIZEREL     \"-Os -DNDEBUG\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_CXX_FLAGS_RELEASE        \"-O4 -DNDEBUG\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_CXX_FLAGS_RELWITHDEBINFO \"-O2 -g\")" >> $projdir/CMakeLists.txt
+        echo "" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_AR      \"/usr/bin/llvm-ar\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_LINKER  \"/usr/bin/llvm-ld\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_NM      \"/usr/bin/llvm-nm\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_OBJDUMP \"/usr/bin/llvm-objdump\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_RANLIB  \"/usr/bin/llvm-ranlib\")" >> $projdir/CMakeLists.txt
+        echo "" >> $projdir/CMakeLists.txt
+        echo "set(CMAKE_CXX_FLAGS \"\${CMAKE_CXX_FLAGS} -stdlib=libc++ -I/usr/include/libcxxabi\")" >> $projdir/CMakeLists.txt
+        echo "set(CMAKE_LINKER_FLAGS \"\${CMAKE_LINKER_FLAGS} -stdlib=libc++ -lc++abi\")" >> $projdir/CMakeLists.txt
+        echo "endif(UNIX)" >> $projdir/CMakeLists.txt
+        echo "" >> $projdir/CMakeLists.txt
+        echo "set(ROOT \${CMAKE_CURRENT_LIST_DIR})" >> $projdir/CMakeLists.txt
+        echo "" >> $projdir/CMakeLists.txt
+        echo "# include_directories(\"\${ROOT}/Core/\")" >> $projdir/CMakeLists.txt
+        echo "" >> $projdir/CMakeLists.txt
+        echo "file(GLOB_RECURSE example_srcs *.h *.hh *i *.hpp *.c *.cc *.cpp)" >> $projdir/CMakeLists.txt
+        echo "" >> $projdir/CMakeLists.txt
+        echo "# target_sources(example PRIVATE \${example_srcs})" >> $projdir/CMakeLists.txt
+        echo "# source_group(Source FILES \${example_srcs})" >> $projdir/CMakeLists.txt
+        echo "" >> $projdir/CMakeLists.txt
+
+        echo "# add_library(pro_a STATIC \${example_srcs})" >> $projdir/CMakeLists.txt
+        echo "# add_library(pro SHARED \${example_srcs})" >> $projdir/CMakeLists.txt
+        echo "" >> $projdir/CMakeLists.txt
+        echo "add_executable(pro \${example_srcs})" >> $projdir/CMakeLists.txt
+        echo "target_link_libraries(pro pro_a)" >> $projdir/CMakeLists.txt
+    fi
+    mkdir -p $projdir/build
+    cd $projdir/build/
+    cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
+    cd $projdir
+    ln -s build/compile_commands.json
+}
+
+function cmake-export-commands() {
+    cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
+}
+
+function auto-gen-rtags() {
+    local projdir=$1
+    auto-gen-cmakefile $projdir
+    cd $projdir
+    $RTAGS_BIN/rc -J .
 }
 
 # smart-rtags $void
 function gen-rtags-impl() {
-	local curdir=$1
-	echo "curdir:$curdir"
-	# if [ "/" != "$curdir" ]; then
-	cd $curdir
-	# if [ ! -d "$dir/rtags_indexes" ]; then
-	echo "$dir/rtags_indexes is creating..."
-	mkdir -p $curdir/.rtags_indexes
-	cd $curdir/.rtags_indexes/
-	cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
-	$RTAGS_BIN/rc -J .
-	cd ..
-	# else
-	# echo "$dir/rtags_indexes is exist!"
-	# fi
-	# fi
+    local curdir=$1
+    echo "curdir:$curdir"
+    # if [ "/" != "$curdir" ]; then
+    cd $curdir
+    # if [ ! -d "$dir/rtags_indexes" ]; then
+    echo "$dir/rtags_indexes is creating..."
+    mkdir -p $curdir/.rtags_indexes
+    cd $curdir/.rtags_indexes/
+    cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+    $RTAGS_BIN/rc -J .
+    cd ..
+    # else
+    # echo "$dir/rtags_indexes is exist!"
+    # fi
+    # fi
 }
-function auto-gen-rtags() {
+function auto-gen-rtags2() {
     local curdir=`pwd`
     # echo "check curdir:$curdir"
     if [ -f "$curdir/CMakeLists.txt" ]; then
-		gen-rtags-impl $curdir 
-	elif [ -f "$curdir/build/CMakeLists.txt" ]; then
-		gen-rtags-impl $curdir/build
-	elif [ -f "$curdir/Build/CMakeLists.txt" ]; then
-		gen-rtags-impl
-	elif [ -f "$curdir/cmake/CMakeLists.txt" ]; then
-		gen-rtags-impl $curdir/cmake
-	else
-		cd ..
-		if [ "/" != "$curdir" ]; then
-			auto-gen-rtags	    
-		fi
+	gen-rtags-impl $curdir 
+    elif [ -f "$curdir/build/CMakeLists.txt" ]; then
+	gen-rtags-impl $curdir/build
+    elif [ -f "$curdir/Build/CMakeLists.txt" ]; then
+	gen-rtags-impl
+    elif [ -f "$curdir/cmake/CMakeLists.txt" ]; then
+	gen-rtags-impl $curdir/cmake
+    else
+	cd ..
+	if [ "/" != "$curdir" ]; then
+	    auto-gen-rtags	    
 	fi
+    fi
 }
 
 function dns-upgrade() {
@@ -234,9 +280,9 @@ function dns-upgrade() {
     tip "Add '$ip' to /etc/network/interfaces"
     find-str $ip /etc/network/interfaces
     if [ $? -eq 0 ]; then
-		sudo bash -c "echo 'dns-nameservers  $ip' >> /etc/network/interfaces"
+	sudo bash -c "echo 'dns-nameservers  $ip' >> /etc/network/interfaces"
     else
-		echo "skip!"
+	echo "skip!"
     fi
 }
 
@@ -247,9 +293,9 @@ function host-upgrade() {
     tip "Add '$ip $name' to /etc/hosts"
     find-str $name /etc/hosts
     if [ $? -eq 0 ]; then
-		sudo bash -c "echo '$ip $name' >> /etc/hosts"
+	sudo bash -c "echo '$ip $name' >> /etc/hosts"
     else
-		echo "skip!"
+	echo "skip!"
     fi
 }
 
@@ -259,9 +305,9 @@ function apt-repo-upgrade() {
     tip "Add docker apt repository"
     find-str "$url" /etc/apt/sources.list.d/additional-repositories.list
     if [ $? -eq 0 ]; then
-		sudo add-apt-repository \
-			 "deb [arch=$arch] $url xenial stable"
-		sudo apt update
+	sudo add-apt-repository \
+	     "deb [arch=$arch] $url xenial stable"
+	sudo apt update
     fi
     # "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable"
 }
@@ -271,9 +317,9 @@ function curdir-upgrade() {
     local dst=$2
 
     if [ ! -d $dst ] || [ "$PULL_FOR_BUILD" == "1" ]; then
-		rm -rf $dst
-		cp -r $src $dst
-		# cp -r $dir1/. $dir2
+	rm -rf $dst
+	cp -r $src $dst
+	# cp -r $dir1/. $dir2
     fi	
 }
 
@@ -304,10 +350,10 @@ function git-push {
 
     readp "auto commit?"
     if [ $? -eq 1 ]; then
-		git commit -m `date +%Y-%m-%d@%H-%M-%S`
+	git commit -m `date +%Y-%m-%d@%H-%M-%S`
     else
-		read -p "please enter commit message:" msg
-		git commit -m "$msg"
+	read -p "please enter commit message:" msg
+	git commit -m "$msg"
     fi
     git push -u origin master
 }
@@ -352,10 +398,10 @@ function svn-commit {
     
     readp "auto commit?"
     if [ $? -eq 1 ]; then
-		svn commit -m `date +%Y-%m-%d@%H-%M-%S`
+	svn commit -m `date +%Y-%m-%d@%H-%M-%S`
     else
-		read -p "please enter commit message:" msg
-		svn commit -m "$msg"
+	read -p "please enter commit message:" msg
+	svn commit -m "$msg"
     fi
 }
 
@@ -414,88 +460,101 @@ function install-basedevel {
 
     read -p "please enter your choice:" item
     case $item in
-		1)  # Debian / Ubuntu / LinuxMint
-			# Erlang
-			# wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
-				# && sudo dpkg -i erlang-solutions_1.0_all.deb
+	1)  # Debian / Ubuntu / LinuxMint
+	    # Erlang
+	    # wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
+		# && sudo dpkg -i erlang-solutions_1.0_all.deb
 
-			# Golang
-			# sudo add-apt-repository -y ppa:longsleep/golang-backports
-			
-			sudo apt update
-			sudo apt dist-upgrade
-			
-			sudo apt install -y build-essential texinfo libtool autoscan aclocal autoconf autoheader automake \
-				 coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
-			sudo apt install -y python-pip perl ruby ocaml haskell-stack #openjdk-8-jdk
-			sudo apt install -y ttf-bitstream-vera #zmq ghostscript
-			sudo apt install -y i3 #i3-wm i3status i3lock dmenu feh xcompmgr roxterm
+	    # Golang
+	    # sudo add-apt-repository -y ppa:longsleep/golang-backports
+	    
+	    sudo apt update
+	    sudo apt dist-upgrade
+	    
+	    sudo apt install -y build-essential texinfo libtool autoscan aclocal autoconf autoheader automake \
+		 coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
+	    sudo apt install -y python-pip perl ruby ocaml haskell-stack #openjdk-8-jdk
+	    sudo apt install -y ttf-bitstream-vera #zmq ghostscript
+	    sudo apt install -y i3 #i3-wm i3status i3lock dmenu feh xcompmgr roxterm
 
-			# - Erlang 			
-			# sudo apt install libssl-dev libwxbase3.0-dev libwxgtk3.0-dev esl-erlang
-			# sudo apt install erlang-nox
-			# sudo apt install elixir
+	    # - Erlang 			
+	    # sudo apt install libssl-dev libwxbase3.0-dev libwxgtk3.0-dev esl-erlang
+	    # sudo apt install erlang-nox
+	    # sudo apt install elixir
 
-			# - Bazel---Build and test software of any size, quickly and reliably
-			# sudo apt -y install pkg-config zip g++ zlib1g-dev unzip python
-			# echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | \
-				# sudo tee /etc/apt/sources.list.d/bazel.list
-			# curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
-			# sudo apt-get update && sudo apt-get install -y bazel
-			
-			# - Golang LTS PPA
-			# sudo apt-get install golang-go			
-			;;
-		
-		2)  # ArchLinux / Manjaro
-			yaourt -Syyu
-			yaourt -S base-devel coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
-			yaourt -S python2-pip rubygems ocaml haskell-stack-git jdk go-bin
-			yaourt -S nerd-fonts-bitstream-vera-mono
-			yaourt -S i3-wm i3lock i3status dmenu
-			;;
-		
-		3)  # Fedora / Redhat / CentOS
-			sudo dnf update
-			sudo dnf upgrade --refresh
-			
-			sudo dnf groupinstall "Development Tools and Libraries"
-			sudo dnf install autoscan aclocal autoconf autoheader automake \
-				 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
-			sudo dnf install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
-			sudo dnf install ttf-bitstream-vera
-			;;
-		
-		4) # macOS
-			brew update
-			brew upgrade
-			
-			brew install autoscan aclocal autoconf autoheader automake \
-				 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
-			brew install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
-			brew install ttf-bitstream-vera
-			;;
-		
-		5) # msys2
-			pacman -Syyu
-			
-			pacman -S base-devel autoscan aclocal autoconf autoheader automake \
-				   coreutils diffutils wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
-			pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-ocaml golang
-			pacman -S ttf-bitstream-vera
-			#mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
-			;;
-		
-		r | R)
-			ask-menu
-			;;
-		*)
-			ask-repl
-			;;
+	    # - Bazel---Build and test software of any size, quickly and reliably
+	    # sudo apt -y install pkg-config zip g++ zlib1g-dev unzip python
+	    # echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | \
+		# sudo tee /etc/apt/sources.list.d/bazel.list
+	    # curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
+	    # sudo apt-get update && sudo apt-get install -y bazel
+	    
+	    # - Golang LTS PPA
+	    # sudo apt-get install golang-go			
+	    ;;
+	
+	2)  # ArchLinux / Manjaro
+	    yaourt -Syyu
+	    yaourt -S base-devel coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+	    yaourt -S python2-pip rubygems ocaml haskell-stack-git jdk go-bin
+	    yaourt -S nerd-fonts-bitstream-vera-mono
+	    yaourt -S i3-wm i3lock i3status dmenu
+	    ;;
+	
+	3)  # Fedora / Redhat / CentOS
+	    sudo dnf update
+	    sudo dnf upgrade --refresh
+	    
+	    sudo dnf groupinstall "Development Tools and Libraries"
+	    sudo dnf install autoscan aclocal autoconf autoheader automake \
+		 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+	    sudo dnf install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
+	    sudo dnf install ttf-bitstream-vera
+	    ;;
+	
+	4) # macOS
+	    brew update
+	    brew upgrade
+	    
+	    brew install autoscan aclocal autoconf autoheader automake \
+		 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+	    brew install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
+	    brew install ttf-bitstream-vera
+	    ;;
+	
+	5) # msys2
+	    pacman -Syyu
+	    
+	    pacman -S base-devel autoscan aclocal autoconf autoheader automake \
+		   coreutils diffutils wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
+	    pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-ocaml golang
+	    pacman -S ttf-bitstream-vera
+	    #mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
+	    ;;
+	
+	r | R)
+	    ask-menu
+	    ;;
+	*)
+	    ask-repl
+	    ;;
     esac
 
 
     source ~/.bashrc
+}
+
+function ue4-upgrade() {
+    github-upgrade EpicGames/UnrealEngine $DEV_ROOT/ue4/UnrealEngine 1 4.20
+    cd $DEV_ROOT/ue4/UnrealEngine/
+    ./Setup.sh
+    ./GenerateProjectFiles.sh
+    
+}
+
+function search-dir() {
+    local str=$1
+    grep -n $str -r .
 }
 
 function cquery-upgrade() {
@@ -504,9 +563,9 @@ function cquery-upgrade() {
     mkdir -p $DEV_ROOT/cquery/build
     cd $DEV_ROOT/cquery/build/
     cmake .. \
-		  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
-		  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-		  -DCMAKE_BUILD_TYPE=Release
+	  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
+	  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
+	  -DCMAKE_BUILD_TYPE=Release
     # -DSYSTEM_CLANG=1
     make
     cd $OME_ROOT
@@ -519,22 +578,23 @@ function ccls-upgrade() {
     mkdir -p $HOME/.ccls
     mkdir -p $DEV_ROOT/ccls/build
     cd $DEV_ROOT/ccls/build/
-	# -DCMAKE_CXX_EXTENSIONS=OFF 
+    # -DCMAKE_CXX_EXTENSIONS=OFF 
     # -DCMAKE_PREFIX_PATH=$HOME/.llvm 
-	# -DCMAKE_CXX_COMPILER="/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin/clang++"
+    # -DCMAKE_CXX_COMPILER="/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin/clang++"
     # -DCMAKE_CXX_STANDARD=17
-	# -DCMAKE_CXX_STANDARD_REQUIRED=ON 
-	# -DCMAKE_CXX_EXTENSIONS=OFF 
-	cmake .. \
-		  -DSYSTEM_CLANG=ON \
-		  -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
+    # -DCMAKE_CXX_STANDARD_REQUIRED=ON 
+    # -DCMAKE_CXX_EXTENSIONS=OFF 
+    cmake .. \
+	  -DSYSTEM_CLANG=ON \
+	  -DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
           -DCMAKE_INSTALL_PREFIX=$HOME/.ccls \
           -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
           -DCMAKE_BUILD_TYPE=Release
-	make
+    make
     
-	cd $OME_ROOT
+    cd $OME_ROOT
 }
+
 
 function clang-format-upgrade() {
     if [ ! -e ~/.clang-format ]; then
@@ -603,43 +663,43 @@ function clang-format-upgrade() {
 function config_offlineimap() {
     local del_force=$1
     if [ "$del_force" == "1" ]; then
-		rm -rf ~/.offlineimaprc
+	rm -rf ~/.offlineimaprc
     fi
     
     if [ ! -e ~/.offlineimaprc ] || [ ! -e ~/.authinfo ]; then
 
-		read -p "please input your email address:" email
-		read -p "please input your email password:" passwd
-		
-		# offlineimap: offlineimaprc
-		if [ ! -e ~/.offlineimaprc ]; then
-			echo "[general]" >> ~/.offlineimaprc 
-			echo "accounts = Gmail" >> ~/.offlineimaprc
-			echo "maxsyncaccounts = 3" >> ~/.offlineimaprc
-			echo "" >> ~/.offlineimaprc
-			echo "[Account Gmail]" >> ~/.offlineimaprc
-			echo "localrepository = Local" >> ~/.offlineimaprc
-			echo "remoterepository = Remote" >> ~/.offlineimaprc
-			echo "" >> ~/.offlineimaprc
-			echo "[Repository Local]" >> ~/.offlineimaprc
-			echo "type = Maildir" >> ~/.offlineimaprc
-			echo "localfolders = ~/Maildir" >> ~/.offlineimaprc
-			echo "" >> ~/.offlineimaprc
-			echo "[Repository Remote]" >> ~/.offlineimaprc
-			echo "type = IMAP" >> ~/.offlineimaprc
-			echo "remotehost = imap.263.net" >> ~/.offlineimaprc
-			echo "remoteport = 143" >> ~/.offlineimaprc
-			echo "remoteuser = $email" >> ~/.offlineimaprc
-			echo "remotepass = $passwd" >> ~/.offlineimaprc
-			echo "ssl = no" >> ~/.offlineimaprc
-			echo "maxconnections = 1" >> ~/.offlineimaprc
-			echo "realdelete = no" >> ~/.offlineimaprc
-		fi
+	read -p "please input your email address:" email
+	read -p "please input your email password:" passwd
+	
+	# offlineimap: offlineimaprc
+	if [ ! -e ~/.offlineimaprc ]; then
+	    echo "[general]" >> ~/.offlineimaprc 
+	    echo "accounts = Gmail" >> ~/.offlineimaprc
+	    echo "maxsyncaccounts = 3" >> ~/.offlineimaprc
+	    echo "" >> ~/.offlineimaprc
+	    echo "[Account Gmail]" >> ~/.offlineimaprc
+	    echo "localrepository = Local" >> ~/.offlineimaprc
+	    echo "remoterepository = Remote" >> ~/.offlineimaprc
+	    echo "" >> ~/.offlineimaprc
+	    echo "[Repository Local]" >> ~/.offlineimaprc
+	    echo "type = Maildir" >> ~/.offlineimaprc
+	    echo "localfolders = ~/Maildir" >> ~/.offlineimaprc
+	    echo "" >> ~/.offlineimaprc
+	    echo "[Repository Remote]" >> ~/.offlineimaprc
+	    echo "type = IMAP" >> ~/.offlineimaprc
+	    echo "remotehost = imap.263.net" >> ~/.offlineimaprc
+	    echo "remoteport = 143" >> ~/.offlineimaprc
+	    echo "remoteuser = $email" >> ~/.offlineimaprc
+	    echo "remotepass = $passwd" >> ~/.offlineimaprc
+	    echo "ssl = no" >> ~/.offlineimaprc
+	    echo "maxconnections = 1" >> ~/.offlineimaprc
+	    echo "realdelete = no" >> ~/.offlineimaprc
+	fi
 
-		# gnus: .authinfo
-		if [ ! -e ~/.authinfo ]; then
-			echo "machine smtp.263.net port 465 login $emailpassword $passwd" >> ~/.authinfo
-		fi
+	# gnus: .authinfo
+	if [ ! -e ~/.authinfo ]; then
+	    echo "machine smtp.263.net port 465 login $emailpassword $passwd" >> ~/.authinfo
+	fi
     fi
 }
 
@@ -719,13 +779,13 @@ function erlang-upgrade() {
 function rust-upgrade() {
     tip "install cargo + rust"
     if command -v rustup >/dev/null 2>&1; then
-		rustup self update
-		rustup update
+	rustup self update
+	rustup update
     else
-		curl https://sh.rustup.rs -sSf | sh	
-		cargo update
-		rustup toolchain add beta
-		rustup component add rust-src
+	curl https://sh.rustup.rs -sSf | sh	
+	cargo update
+	rustup toolchain add beta
+	rustup component add rust-src
     fi
     cargo install --force racer
     cargo install --force ripgrep
@@ -746,28 +806,28 @@ function install-eclipse-language-server() {
     tip "install eclipse language server"	
     local del_force=$1
     if [ "$del_force" == "1" ]; then
-		rm -rf ~/.emacs.d/eclipse.jdt.ls/server/
+	rm -rf ~/.emacs.d/eclipse.jdt.ls/server/
     fi
     
     if [ ! -d ~/.emacs.d/eclipse.jdt.ls/server/ ]; then
-		mkdir -p ~/.emacs.d/eclipse.jdt.ls/server/
-		# wget http://mirror.switch.ch/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz  -O /tmp/jdt-latest.tar
-		wget http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz -O /tmp/jdt-latest.tar
-		tar xf /tmp/jdt-latest.tar -C ~/.emacs.d/eclipse.jdt.ls/server/
+	mkdir -p ~/.emacs.d/eclipse.jdt.ls/server/
+	# wget http://mirror.switch.ch/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz  -O /tmp/jdt-latest.tar
+	wget http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz -O /tmp/jdt-latest.tar
+	tar xf /tmp/jdt-latest.tar -C ~/.emacs.d/eclipse.jdt.ls/server/
     fi
 }
 
 function sdkman-upgrade() {
     tip "install sdkman"
     if command -v sdk >/dev/null 2>&1; then
-		curl -s "https://get.sdkman.io" | bash
-		source $HOME/.sdkman/bin/sdkman-init.sh
+	curl -s "https://get.sdkman.io" | bash
+	source $HOME/.sdkman/bin/sdkman-init.sh
     fi
     find-str "SDKMAN_DIR" ~/.bashrc
     if [ $? -eq 0 ]; then
-		echo "#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!" >> ~/.bashrc
-		echo "export SDKMAN_DIR=\"\$HOME/.sdkman\"" >> ~/.bashrc
-		echo "[[ -s \"\$HOME/.sdkman/bin/sdkman-init.sh\" ]] && source \"\$HOME/.sdkman/bin/sdkman-init.sh\"" >> ~/.bashrc
+	echo "#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!" >> ~/.bashrc
+	echo "export SDKMAN_DIR=\"\$HOME/.sdkman\"" >> ~/.bashrc
+	echo "[[ -s \"\$HOME/.sdkman/bin/sdkman-init.sh\" ]] && source \"\$HOME/.sdkman/bin/sdkman-init.sh\"" >> ~/.bashrc
     fi
     sdk selfupdate
     sdk update
@@ -790,24 +850,24 @@ function nvm-upgrade() {
     tip "install nvm + nodejs"
     find-str "NVM_DIR" ~/.bashrc
     if [ $? -eq 0 ]; then
-		echo "" >> ~/.bashrc
-		echo "Nodejs" >> ~/.bashrc
-		echo "export NVM_DIR=\"$HOME/.nvm\"" >> ~/.bashrc
-		echo "[ -s \"\\$NVM_DIR/nvm.sh\" ] && \\. \"\$NVM_DIR/nvm.sh\"" >> ~/.bashrc
-		echo "[ -s \"\\$NVM_DIR/bash_completion\" ] && \\. \"\4$NVM_DIR/bash_completion\"" >> ~/.bashrc
+	echo "" >> ~/.bashrc
+	echo "Nodejs" >> ~/.bashrc
+	echo "export NVM_DIR=\"$HOME/.nvm\"" >> ~/.bashrc
+	echo "[ -s \"\\$NVM_DIR/nvm.sh\" ] && \\. \"\$NVM_DIR/nvm.sh\"" >> ~/.bashrc
+	echo "[ -s \"\\$NVM_DIR/bash_completion\" ] && \\. \"\4$NVM_DIR/bash_completion\"" >> ~/.bashrc
     fi
     
     # curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
     local NVM_DIR="$HOME/.nvm"
     # if command -v nvm >/dev/null 2>&1; then
     if [ ! -d $NVM_DIR ]; then		
-		git clone https://github.com/creationix/nvm.git "$NVM_DIR"
-		cd "$NVM_DIR"
-		git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+	git clone https://github.com/creationix/nvm.git "$NVM_DIR"
+	cd "$NVM_DIR"
+	git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
     else		
-		cd "$NVM_DIR"
-		git fetch --tags origin
-		git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`		
+	cd "$NVM_DIR"
+	git fetch --tags origin
+	git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`		
     fi
 
     \. "$NVM_DIR/nvm.sh"
@@ -912,21 +972,21 @@ function install-toolchain() {
 
     tip "install Bash-it"	
     if command -v bash-it >/dev/null 2>&1; then
-		echo "----------------bash-it---update mode!!!!!!"
-		bash-it update
+	echo "----------------bash-it---update mode!!!!!!"
+	bash-it update
     else
-		echo "----------------bash-it---net install mode!!!!!!"
-		# git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-		github-upgrade Bash-it/bash-it ~/.bash_it
-		~/.bash_it/install.sh
+	echo "----------------bash-it---net install mode!!!!!!"
+	# git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+	github-upgrade Bash-it/bash-it ~/.bash_it
+	~/.bash_it/install.sh
     fi
 
     #set .bashrc
     #
     find-str ".oh-my-emacs/bin/env" ~/.bashrc
     if [ $? -eq 0 ]; then
-		echo "# oh-my-emacs" >> ~/.bashrc
-		echo "source \$HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
+	echo "# oh-my-emacs" >> ~/.bashrc
+	echo "source \$HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
     fi
 
     git-upgrade "https://gitlab.kitware.com" cmake/cmake $DEV_ROOT/cmake
@@ -972,9 +1032,9 @@ function install-toolchain() {
 
 function upgrade() {
     sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && \
-		rosdep update && bash-it update && \
-		rebar3 local upgrade && lein upgrade && \
-		cargo update && rustup component add rust-src && cargo install --force racer
+	rosdep update && bash-it update && \
+	rebar3 local upgrade && lein upgrade && \
+	cargo update && rustup component add rust-src && cargo install --force racer
 
     install-toolchain
 }
@@ -1009,8 +1069,8 @@ function daily-upgrade() {
     # erlang-upgrade
     # elixir-upgrade
     # llvm-upgrade
-	rtags-upgrade
-    # cquery-upgrade
+    # rtags-upgrade
+    cquery-upgrade
     # ccls-upgrade
     mu4e-upgrade
     project-upgrade
@@ -1018,8 +1078,8 @@ function daily-upgrade() {
 }
 
 function ide-upgrade() {
-    rtags-upgrade
-    # cquery-upgrade
+    # rtags-upgrade
+    cquery-upgrade
     # ccls-upgrade
     mu4e-upgrade
 }
@@ -1043,19 +1103,19 @@ function llvm-upgrade() {
     # mkdir -p $DEV_ROOT/lldb
     cd $DEV_ROOT/llvm/build/
     cmake .. \
-		  -DCMAKE_INSTALL_PREFIX=$HOME/.llvm \
-		  -DCMAKE_BUILD_TYPE=Release
+	  -DCMAKE_INSTALL_PREFIX=$HOME/.llvm \
+	  -DCMAKE_BUILD_TYPE=Release
     # -DLLVM_ENABLE_PROJECTS="lldb" 
     make -j4 install
 }
 
 function rtags-upgrade() {
     github-upgrade Andersbakken/rtags $DEV_ROOT/rtags
-	mkdir -p $DEV_ROOT/rtags/build
-	cd $DEV_ROOT/rtags/build/
-	cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
-	make
-	cp $DEV_ROOT/rtags/bin/* $DEV_ROOT/rtags/build/bin/
+    mkdir -p $DEV_ROOT/rtags/build
+    cd $DEV_ROOT/rtags/build/
+    cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+    make
+    cp $DEV_ROOT/rtags/bin/* $DEV_ROOT/rtags/build/bin/
 }
 
 function steam-on-freebsd() {
@@ -1064,12 +1124,12 @@ function steam-on-freebsd() {
     
     pkg install deb2targz rpm2cpio doas
     if [ ! -e /usr/local/etc/doas.conf ]; then
-		touch /usr/local/etc/doas.conf
-		echo 'permit nopass keepenv yourusername >> /usr/local/etc/doas.conf'
+	touch /usr/local/etc/doas.conf
+	echo 'permit nopass keepenv yourusername >> /usr/local/etc/doas.conf'
     fi
 
     if [ ! -e steam.deb ]; then		
-		fetch http://media.steampowered.com/client/installer/steam.deb
+	fetch http://media.steampowered.com/client/installer/steam.deb
     fi
 
     deb2targz steam.deb

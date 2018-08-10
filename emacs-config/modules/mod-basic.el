@@ -23,36 +23,7 @@
 ;;
 (require 'mod-package)
 ;;
-;;----------------------------------------------------------------------------
-;; Temporarily reduce garbage collection during startup
-;;----------------------------------------------------------------------------
-;; (defconst sanityinc/initial-gc-cons-threshold gc-cons-threshold
-;;   "Initial value of `gc-cons-threshold' at start-up time.")
-;; (setq gc-cons-threshold (* 256 1024 1024))
-;; (add-hook 'after-init-hook (lambda ()
-;; 			     (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
-
-(defun my-optimize-gc (NUM PER) 
-  "By default Emacs will initiate GC every 0.76 MB allocated (gc-cons-threshold == 800000).
-@see http://www.gnu.org/software/emacs/manual/html_node/elisp/Garbage-Collection.html
-We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
-  (setq-default gc-cons-threshold (* 1024 1024 NUM) gc-cons-percentage PER))
-
-;;(message (concat "gc:" gc-cons-threshold " pre:" gc-cons-percentage))
-(my-optimize-gc 256 0.2)
-(add-hook 'after-init-hook (lambda () 
-                             (my-optimize-gc 16 0.2)))
-;;
-
-;;(require 'indent-tabs-mode)
-;; Permanently force Emacs to indent with spaces, never with TABs:
-;;(define-globalized-minor-mode global-notab-mode indent-tabs-mode 
-;;  (lambda ()
-;;    (setq-default indent-tabs-mode nil)))
-;;(global-notab-mode t)
-
-
-;; `blank-mode'
+;; `whitespace-mode'
 (require 'whitespace)
 
 (define-globalized-minor-mode ome-global-whitespace-mode whitespace-mode 
@@ -762,29 +733,6 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;`desktop' && `session' && `recentf';;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(package-require 'dashboard)
-(require 'dashboard)
-(dashboard-setup-startup-hook)
-(setq dashboard-banner-logo-title "Oh My Emacs!")
-(setq dashboard-items '((projects . 15) 
-						(recents  . 20) 
-						(bookmarks . 7) 
-						(agenda . 5) 
-						(registers . 5)))
-
-(setq dashboard-startup-banner "~/.oh-my-emacs/logo.png")
-
-(add-to-list 'dashboard-items '(agenda) t)
-(setq show-week-agenda-p t)
-
-
-
-
-
-;;; enable/disable loading page (t:disable nil:enable)
-(setq inhibit-startup-message t)
-(setq inhibit-startup-screen t)
-(setq inhibit-splash-screen t)
 
 
 ;;; `'default-mode'

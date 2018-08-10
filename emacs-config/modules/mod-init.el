@@ -27,23 +27,25 @@
   ;; "set ome logo. nil means official logo."
 ;; :type 'string)
 ;; (setq fancy-splash-image ome-logo)
-(module-require 'mod-package)
-;;
+(module-require 'mod-gc)
 (module-require 'mod-coding)
 (module-require 'mod-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+(module-require 'mod-package)
+(module-require 'mod-library)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `base'
-(module-require 'mod-library)
-(module-require 'mod-email)
-(module-require 'mod-feed)
 (module-require 'mod-basic)
+(module-require 'mod-splash)
 (module-require 'mod-mouse)
 (module-require 'mod-tabbar)
 (module-require 'mod-complete)
 (module-require 'mod-helm)
+(module-require 'mod-projectile)
 (module-require 'mod-speedbar)
+
+(module-require 'mod-email)
+(module-require 'mod-feed)
 ;; (module-require 'mod-dired)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `docs'

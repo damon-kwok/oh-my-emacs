@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source /opt/ros/kinetic/setup.bash
+source ~/.oh-my-emacs/bin/env
+auto-gen-cmakefile $1

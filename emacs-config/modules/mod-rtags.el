@@ -81,7 +81,7 @@
   ;; (interactive)
   ;; (add-hook 'after-init-hook ;;
 			;; '(lambda () 
-			   ;; (shell-command (concat (getenv "HOME") "/.oh-my-emacs/bin/gen-rtags"))) t))
+;; (shell-command (concat (getenv "HOME") "/.oh-my-emacs/bin/gen-rtags"))) t))
 
 (defun gen-rtags-indexes () 
   (interactive)
