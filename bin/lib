@@ -42,42 +42,35 @@ function tip() {
 }
 
 function git-upgrade() {
+    echo-tip "$*"
     local curdir=`pwd`
     local site=$1
     local project=$2
     local dir=$3
     local submodule=$4
-    # local branch=$4
-
-    if [ "$1" == "" ]; then
+    if [ "$５" ]; then
         local branch=""
     else
         local branch="-b $5"
-    fi
-    
-    echo "result:$bran"
-    # if [ "$GIT_USE_SECRET_KEY" == "1" ]; then		
-    # local url="git@github.com:${project}.git --recursive"
-    # else
-    # local url="https://github.com/${project}.git --recursive"
-    # fi
-
+    fi    
     local url="$site/${project}.git"
     
     if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
 	tip "clone $project"
+        echo-success "git clone $url $dir --single-branch --depth=1 $branch"
 	git clone $url $dir --single-branch --depth=1 $branch
     else
 	cd $dir
 	tip "update $project"
+        echo-success "git pull"
 	git pull
     fi
     cd $dir
     # git submodule foreach --recursive 'git fetch --tags'
     
     if [ "$submodule" != "0" ]; then
-	# git submodule update --init --depth=1
-	git submodule update --depth=1		
+        echo-success "git submodule update --init --depth=1"
+	git submodule update --init --depth=1
     fi
     
     cd $curdir
@@ -175,7 +168,7 @@ function auto-gen-cmakefile() {
     local projdir=$1
     echo $1
     if [ ! -f "$projdir/CMakeLists.txt" ]; then
-        echo "cmake_minimum_required(VERSION 3.0)" >> $projdir/CMakeLists.txt
+        echo "cmake_minimum_required(VERSION 3.2)" >> $projdir/CMakeLists.txt
         echo "project(libexample)" >> $projdir/CMakeLists.txt
         echo "" >> $projdir/CMakeLists.txt
         echo "if (UNIX)" >> $projdir/CMakeLists.txt
@@ -199,8 +192,8 @@ function auto-gen-cmakefile() {
         echo "SET (CMAKE_OBJDUMP \"/usr/bin/llvm-objdump\")" >> $projdir/CMakeLists.txt
         echo "SET (CMAKE_RANLIB  \"/usr/bin/llvm-ranlib\")" >> $projdir/CMakeLists.txt
         echo "" >> $projdir/CMakeLists.txt
-        echo "set(CMAKE_CXX_FLAGS \"\${CMAKE_CXX_FLAGS} -stdlib=libc++ -I/usr/include/libcxxabi\")" >> $projdir/CMakeLists.txt
-        echo "set(CMAKE_LINKER_FLAGS \"\${CMAKE_LINKER_FLAGS} -stdlib=libc++ -lc++abi\")" >> $projdir/CMakeLists.txt
+        echo "# set(CMAKE_CXX_FLAGS \"\${CMAKE_CXX_FLAGS} -stdlib=libc++ -I/usr/include/libcxxabi\")" >> $projdir/CMakeLists.txt
+        echo "# set(CMAKE_LINKER_FLAGS \"\${CMAKE_LINKER_FLAGS} -stdlib=libc++ -lc++abi\")" >> $projdir/CMakeLists.txt
         echo "endif(UNIX)" >> $projdir/CMakeLists.txt
         echo "" >> $projdir/CMakeLists.txt
         echo "set(ROOT \${CMAKE_CURRENT_LIST_DIR})" >> $projdir/CMakeLists.txt
@@ -213,11 +206,11 @@ function auto-gen-cmakefile() {
         echo "# source_group(Source FILES \${example_srcs})" >> $projdir/CMakeLists.txt
         echo "" >> $projdir/CMakeLists.txt
 
-        echo "# add_library(pro_a STATIC \${example_srcs})" >> $projdir/CMakeLists.txt
+        echo "add_library(pro_a STATIC \${example_srcs})" >> $projdir/CMakeLists.txt
         echo "# add_library(pro SHARED \${example_srcs})" >> $projdir/CMakeLists.txt
         echo "" >> $projdir/CMakeLists.txt
-        echo "add_executable(pro \${example_srcs})" >> $projdir/CMakeLists.txt
-        echo "target_link_libraries(pro pro_a)" >> $projdir/CMakeLists.txt
+        echo "# add_executable(pro \${example_srcs})" >> $projdir/CMakeLists.txt
+        echo "# target_link_libraries(pro pro_a)" >> $projdir/CMakeLists.txt
     fi
     mkdir -p $projdir/build
     cd $projdir/build/
@@ -471,7 +464,7 @@ function install-basedevel {
 	    sudo apt update
 	    sudo apt dist-upgrade
 	    
-	    sudo apt install -y build-essential texinfo libtool autoscan aclocal autoconf autoheader automake \
+	    sudo apt install -y build-essential cppunit texinfo libtool autoscan aclocal autoconf autoheader automake \
 		 coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
 	    sudo apt install -y python-pip perl ruby ocaml haskell-stack #openjdk-8-jdk
 	    sudo apt install -y ttf-bitstream-vera #zmq ghostscript
@@ -495,7 +488,7 @@ function install-basedevel {
 	
 	2)  # ArchLinux / Manjaro
 	    yaourt -Syyu
-	    yaourt -S base-devel coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+	    yaourt -S base-devel cppunit coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
 	    yaourt -S python2-pip rubygems ocaml haskell-stack-git jdk go-bin
 	    yaourt -S nerd-fonts-bitstream-vera-mono
 	    yaourt -S i3-wm i3lock i3status dmenu
@@ -506,7 +499,7 @@ function install-basedevel {
 	    sudo dnf upgrade --refresh
 	    
 	    sudo dnf groupinstall "Development Tools and Libraries"
-	    sudo dnf install autoscan aclocal autoconf autoheader automake \
+	    sudo dnf install cppunit automake \
 		 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
 	    sudo dnf install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
 	    sudo dnf install ttf-bitstream-vera
@@ -516,7 +509,7 @@ function install-basedevel {
 	    brew update
 	    brew upgrade
 	    
-	    brew install autoscan aclocal autoconf autoheader automake \
+	    brew install cppunit automake \
 		 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
 	    brew install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
 	    brew install ttf-bitstream-vera
@@ -525,7 +518,7 @@ function install-basedevel {
 	5) # msys2
 	    pacman -Syyu
 	    
-	    pacman -S base-devel autoscan aclocal autoconf autoheader automake \
+	    pacman -S base-devel cppunit automake \
 		   coreutils diffutils wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
 	    pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-ocaml golang
 	    pacman -S ttf-bitstream-vera
@@ -802,7 +795,7 @@ function crystal-upgrade() {
     make
 }
 
-function install-eclipse-language-server() {
+function install-jdt-language-server() {
     tip "install eclipse language server"	
     local del_force=$1
     if [ "$del_force" == "1" ]; then
@@ -811,9 +804,9 @@ function install-eclipse-language-server() {
     
     if [ ! -d ~/.emacs.d/eclipse.jdt.ls/server/ ]; then
 	mkdir -p ~/.emacs.d/eclipse.jdt.ls/server/
-	# wget http://mirror.switch.ch/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz  -O /tmp/jdt-latest.tar
-	wget http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz -O /tmp/jdt-latest.tar
-	tar xf /tmp/jdt-latest.tar -C ~/.emacs.d/eclipse.jdt.ls/server/
+	wget http://mirror.switch.ch/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz  -O $HOME/jdt-language-server-latest.tar.gz
+	# wget http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz -O $HOME/jdt-language-server-latest.tar.gz
+	tar xf $HOME/jdt-language-server-latest.tar.gz -C ~/.emacs.d/eclipse.jdt.ls/server/
     fi
 }
 
@@ -825,6 +818,7 @@ function sdkman-upgrade() {
     fi
     find-str "SDKMAN_DIR" ~/.bashrc
     if [ $? -eq 0 ]; then
+        echo "" >> ~/.bashrc
 	echo "#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!" >> ~/.bashrc
 	echo "export SDKMAN_DIR=\"\$HOME/.sdkman\"" >> ~/.bashrc
 	echo "[[ -s \"\$HOME/.sdkman/bin/sdkman-init.sh\" ]] && source \"\$HOME/.sdkman/bin/sdkman-init.sh\"" >> ~/.bashrc
@@ -843,7 +837,7 @@ function sdkman-upgrade() {
     sdk install sbt
 
     #lsp-java
-    install-eclipse-language-server
+    install-jdt-language-server
 }
 
 function nvm-upgrade() {
@@ -851,7 +845,7 @@ function nvm-upgrade() {
     find-str "NVM_DIR" ~/.bashrc
     if [ $? -eq 0 ]; then
 	echo "" >> ~/.bashrc
-	echo "Nodejs" >> ~/.bashrc
+	echo "# Nodejs" >> ~/.bashrc
 	echo "export NVM_DIR=\"$HOME/.nvm\"" >> ~/.bashrc
 	echo "[ -s \"\\$NVM_DIR/nvm.sh\" ] && \\. \"\$NVM_DIR/nvm.sh\"" >> ~/.bashrc
 	echo "[ -s \"\\$NVM_DIR/bash_completion\" ] && \\. \"\4$NVM_DIR/bash_completion\"" >> ~/.bashrc
@@ -985,6 +979,7 @@ function install-toolchain() {
     #
     find-str ".oh-my-emacs/bin/env" ~/.bashrc
     if [ $? -eq 0 ]; then
+        echo "" >> ~/.bashrc
 	echo "# oh-my-emacs" >> ~/.bashrc
 	echo "source \$HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
     fi
