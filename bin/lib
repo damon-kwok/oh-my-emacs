@@ -1164,4 +1164,8 @@ function wine-upgrade() {
     sudo apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/
 }
 
+
+function sshkey-create() {
+    ssh-keygen -t rsa -C "$1"
+}
 # fop xsltproc
