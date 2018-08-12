@@ -16,7 +16,7 @@ DIR_LLVM=$OME_ROOT/dev/llvm
 ################################################################################
 function run-emacs {
     if [ ! -f $HOME/.emacs ]; then
-		link-init-el
+	link-init-el
     fi
 
     emacs --debug-init
@@ -25,7 +25,7 @@ function run-emacs {
 
 function run-emacs-nw {
     if [ ! -f $HOME/.emacs ]; then
-		link-init-el
+	link-init-el
     fi
 
     emacs -nw --debug-init
@@ -45,23 +45,23 @@ function link-init-el() {
     mkdir -p $bkdir
 
     if [ -e ~/.emacs ]; then
-		mv ~/.emacs $bkdir
+	mv ~/.emacs $bkdir
     fi
 
     if [ -e ~/.emacs.d ]; then
-		mv -a ~/.emacs.d $bkdir
+	mv -a ~/.emacs.d $bkdir
     fi
 
     if [ -e ~/emacs-config ]; then
-		mv ~/emacs-config $bkdir
+	mv ~/emacs-config $bkdir
     fi
 
     if [ -e ~/workspace ]; then
-		mv ~/workspace $bkdir
+	mv ~/workspace $bkdir
     fi
     
     if [ -e ~/blog ]; then
-		mv ~/blog $bkdir
+	mv ~/blog $bkdir
     fi
 
     rm ~/.emacs
@@ -75,32 +75,32 @@ function link-init-el() {
     ln -s $OME_ROOT/emacs-config ~/emacs-config
     ln -s $OME_ROOT/workspace ~/workspace
     ln -s $OME_ROOT/blog ~/blog
-	
+    
     # if [ ! -f /usr/bin/oh-my-emacs ]; then
     # sudo ln -s $OME_ROOT/oh-my-emacs /usr/bin/oh-my-emacs
     # fi
 
     # find-str ".oh-my-emacs" ~/.bashrc
     # if [ $? -eq 0 ]; then
-		# echo "" >> ~/.bashrc
-		# echo "source $OME_BIN/env" >> ~/.bashrc
+    # echo "" >> ~/.bashrc
+    # echo "source $OME_BIN/env" >> ~/.bashrc
     # fi
 
     # find-str ".oh-my-emacs" ~/.zshrc
     # if [ $? -eq 0 ]; then
-		# echo "" >> ~/.zshrc
-		# echo "source $OME_BIN/env" >> ~/.zshrc
+    # echo "" >> ~/.zshrc
+    # echo "source $OME_BIN/env" >> ~/.zshrc
     # fi
 
-	# find-str ".oh-my-emacs" ~/.profile
+    # find-str ".oh-my-emacs" ~/.profile
     # if [ $? -eq 0 ]; then
-		# echo "" >> ~/.profile 
-		# echo "export PATH=$OME_ROOT:$OME_BIN:\$PATH" >> ~/.profile 
-		# echo "source $OME_BIN/env" >> ~/.profile 
+    # echo "" >> ~/.profile 
+    # echo "export PATH=$OME_ROOT:$OME_BIN:\$PATH" >> ~/.profile 
+    # echo "source $OME_BIN/env" >> ~/.profile 
     # fi
     
     # source $OME_BIN/env.sh
-	
+    
     # pull-blog
 }
 
@@ -109,28 +109,41 @@ function pull-blog {
     # git reset
     # git pull
 
-    tip "blog"
-    if [ ! -d $DIR_BLOG ]; then
-		cd $OME_ROOT
-		git clone https://github.com/damon-kwok/damon-kwok.github.io.git $DIR_BLOG
-    else
-		cd $DIR_BLOG
-		git pull
-    fi
-
-    tip "pull workspace"
-    if [ ! -d $DIR_WORKSPACE ]; then
-		cd $OME_ROOT
-		svn co svn://www.svn999.com/guowangwei.workspace workspace
-    else
-		cd $DIR_WORKSPACE
-		svn cleanup .
-		svn up
-    fi
-
+    tip "pull blog"
+    github-upgrade damon-kwok/damon-kwok.github.io $DIR_BLOG
+    # if [ ! -d $DIR_BLOG ]; then
+    # cd $OME_ROOT
+    # git clone https://github.com/damon-kwok/damon-kwok.github.io.git $DIR_BLOG
+    # else
+    # cd $DIR_BLOG
+    # git pull
+    # fi
 }
 
 function push-blog {
+    tip "push-blog"
+    cd $OME_ROOT/blog
+    git reset
+    git pull
+    git add .
+    git status
+    git commit -m `date +%Y-%m-%d@%H-%M-%S` # "upgrade by "`uname -n`
+    git push -u origin master
+}
+
+function pull-workspace() {
+    tip "pull workspace"
+    github-upgrade damon-kwok/medusa $HOME/workspace
+    # if [ ! -d $DIR_WORKSPACE ]; then
+    # cd $OME_ROOT
+    # svn co svn://www.svn999.com/guowangwei.workspace workspace
+    # else
+    # cd $DIR_WORKSPACE
+    # svn cleanup .
+    # svn up
+    # fi
+}
+function push-workspace {
     tip "push-blog"
     cd $OME_ROOT/blog
     git reset
@@ -178,9 +191,9 @@ function pushapp {
 function getapp {
     tip "getapp"
     if [ ! -d $APP_HOME ]; then
-		if [ ! -d $ZIPHOME ]; then
-			echo pass
-		fi
+	if [ ! -d $ZIPHOME ]; then
+	    echo pass
+	fi
     fi
 }
 
@@ -189,32 +202,26 @@ function ask-blog {
     tip "please choose your choice:"
     echo "    1) pull-blog"
     echo "    2) push-blog"
-    echo "    3) commit-workspace"
+    echo "    3) pull-workspace"
+    echo "    4) push-workspace"
     echo "    s) shell"    
     echo ------------------------------------
     echo "    r) return"
 
     read -p "please enter your choice:" item
     case $item in
-		1) pull-blog;;
-		2) push-blog;;
-		3)
-			# mkdir -p ~/tmp/
-			# mv $DIR_WORKSPACE/catkin_ws/.git/ ~/tmp/
-			# rm -rf  $DIR_WORKSPACE/catkin_ws/src/adsim/rtags_indexes
-			# rm -rf $DIR_WORKSPACE/catkin_ws/build/
-			# rm -rf $DIR_WORKSPACE/catkin_ws/devel/lib/
-			# rm -rf $DIR_WORKSPACE/catkin_ws/devel/share/
-			
-			cd $DIR_WORKSPACE
-			svn-commit
-	    
-	    # mv ~/tmp/.git/ $DIR_WORKSPACE/catkin_ws/
-	    ;;
+	1) pull-blog;;
+	2) push-blog;;
+	# cd $DIR_WORKSPACE
+	# svn-commit
+	3) pull-workspace;;
+        4) push-workspace;;
 	s|S) bash;;
 	r|R) ask-menu;;
 	*) ask-blog;;
     esac
+
+    ask-blog
 }
 
 function ask-repl {
@@ -250,7 +257,7 @@ function ask-menu {
     # echo "    4) zipapp"
     # echo "    5) unzipapp"
     echo "    b) install basedevel"
-	echo "    i) install toolchain"
+    echo "    i) install toolchain"
     echo "    g) git config"
     echo "    e) emacs"
     echo "    n) emacs-nw"
@@ -263,14 +270,14 @@ function ask-menu {
     echo "    z) REPL"
     echo "    q) quit"
 
-	cd $OME_ROOT
+    cd $OME_ROOT
     read -p "please enter your choice:" item
     case $item in
 	0) ask-blog;;
 	1)
-		git-pull
-		source ~/.bashrc
-	   ;;
+	    git-pull
+	    source ~/.bashrc
+	    ;;
 	2) git-push;;
 	3) git-push-a;;
 	# 2) getapp;;
@@ -280,17 +287,17 @@ function ask-menu {
 	b|B) install-basedevel;;
 	i|I) install-toolchain;;
 	g|G)
-	    # git config --global color.ui true
-	    # git config --global core.editor "ed"
+	# git config --global color.ui true
+	# git config --global core.editor "ed"
 	    
-	    # git config --global merge.tool ediff-merge
-	    # git config --global mergetool.diffmerge.cmd "ediff-merge \$LOCAL \$REMOTE \$BASE \$MERGED"
-	    # git config --global mergetool.keepBackup false
+	# git config --global merge.tool ediff-merge
+	# git config --global mergetool.diffmerge.cmd "ediff-merge \$LOCAL \$REMOTE \$BASE \$MERGED"
+	# git config --global mergetool.keepBackup false
 
-	    # git config --global diff.tool ediff
-	    # git config --global difftool.ediff.cmd "ediff \"\$LOCAL\" \"\$REMOTE\""
-	    # git config --global difftool.prompt false
-	    ;;
+	# git config --global diff.tool ediff
+	# git config --global difftool.ediff.cmd "ediff \"\$LOCAL\" \"\$REMOTE\""
+	# git config --global difftool.prompt false
+	;;
 	e|E) run-emacs;;
 	n|N) run-emacs-nw;;
 	c|C) compile-elc;;
