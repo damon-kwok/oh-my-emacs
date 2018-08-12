@@ -1168,4 +1168,8 @@ function wine-upgrade() {
 function sshkey-create() {
     ssh-keygen -t rsa -C "$1"
 }
+
+function test-gitssh() {
+    ssh -T git@github.com
+}
 # fop xsltproc
