@@ -110,7 +110,7 @@ function pull-blog {
     # git pull
 
     tip "pull blog"
-    github-upgrade damon-kwok/damon-kwok.github.io $DIR_BLOG
+    github-ssh-upgrade damon-kwok/damon-kwok.github.io $DIR_BLOG
     # if [ ! -d $DIR_BLOG ]; then
     # cd $OME_ROOT
     # git clone https://github.com/damon-kwok/damon-kwok.github.io.git $DIR_BLOG
@@ -122,7 +122,7 @@ function pull-blog {
 
 function push-blog {
     tip "push-blog"
-    cd $OME_ROOT/blog
+    cd $OME_ROOT/blog/
     git reset
     git pull
     git add .
@@ -133,7 +133,7 @@ function push-blog {
 
 function pull-workspace() {
     tip "pull workspace"
-    github-upgrade damon-kwok/medusa $HOME/workspace
+    github-ssh-upgrade damon-kwok/workspace $HOME/workspace
     # if [ ! -d $DIR_WORKSPACE ]; then
     # cd $OME_ROOT
     # svn co svn://www.svn999.com/guowangwei.workspace workspace
@@ -144,8 +144,8 @@ function pull-workspace() {
     # fi
 }
 function push-workspace {
-    tip "push-blog"
-    cd $OME_ROOT/blog
+    tip "push-workspace"
+    cd $HOME/workspace/
     git reset
     git pull
     git add .

@@ -48,12 +48,48 @@ function git-upgrade() {
     local project=$2
     local dir=$3
     local submodule=$4
-    if [ "$５" ]; then
+    if [ ! -n "$5" ]; then
         local branch=""
     else
         local branch="-b $5"
     fi    
     local url="$site/${project}.git"
+    
+    if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
+	tip "clone $project"
+        echo-success "git clone $url $dir --single-branch --depth=1 $branch"
+	git clone $url $dir --single-branch --depth=1 $branch
+    else
+	cd $dir
+	tip "update $project"
+        echo-success "git pull"
+	git pull
+    fi
+    cd $dir
+    # git submodule foreach --recursive 'git fetch --tags'
+    
+    if [ "$submodule" != "0" ]; then
+        echo-success "git submodule update --init --depth=1"
+	git submodule update --init --depth=1
+    fi
+    
+    cd $curdir
+}
+
+function github-ssh-upgrade() {
+    echo-tip "$*"
+    local curdir=`pwd`
+    local project=$1
+    local dir=$2
+    local submodule=$3
+    echo "[$4]"
+    if [ ! -n "$4" ] ; then
+        local branch=""
+    else
+        local branch="-b $4"
+    fi
+    
+    local url="git@github.com:${project}.git"
     
     if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
 	tip "clone $project"
@@ -1055,13 +1091,15 @@ function upgrade() {
 
 function me-upgrade() {   	
     # upgrade libknife
-    github-upgrade damon-kwok/libknife $PROJECT_ROOT/c/libknife
+    github-upgrade damon-kwok/libknife $PROJECT_ROOT/c/libknife    
     cd $PROJECT_ROOT/c/libknife
     mkdir -p build
     cd build
     # rm -rf ./*
     cmake ..
-    make	
+    make
+
+    github-upgrade damon-kwok/medusa $PROJECT_ROOT/medusa
 }
 
 function daily-upgrade() {
