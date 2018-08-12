@@ -180,7 +180,7 @@ function auto-gen-cmakefile() {
         echo "SET (CMAKE_C_FLAGS_RELWITHDEBINFO \"-O2 -g\")" >> $projdir/CMakeLists.txt
         echo "" >> $projdir/CMakeLists.txt
         echo "SET (CMAKE_CXX_COMPILER             \"clang++\")" >> $projdir/CMakeLists.txt
-        echo "SET (CMAKE_CXX_FLAGS                \"-Wall -std=gnu++98\")" >> $projdir/CMakeLists.txt
+        echo "SET (CMAKE_CXX_FLAGS                \"-Wall -std=gnu++11\")" >> $projdir/CMakeLists.txt
         echo "SET (CMAKE_CXX_FLAGS_DEBUG          \"-g\")" >> $projdir/CMakeLists.txt
         echo "SET (CMAKE_CXX_FLAGS_MINSIZEREL     \"-Os -DNDEBUG\")" >> $projdir/CMakeLists.txt
         echo "SET (CMAKE_CXX_FLAGS_RELEASE        \"-O4 -DNDEBUG\")" >> $projdir/CMakeLists.txt
@@ -957,9 +957,35 @@ function cmake-upgrade() {
     # cmake ..
     make	
 }
-function install-toolchain() {
+
+function py-upgrade() {
+    # github-upgrade pyenv/pyenv $DEV_ROOT/pyenv
+    # pyenv install 2.7
+    
+    if test pip == "" ; then
+        tip "install pip"
+        cd $HOME
+        curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+        python get-pip.py
+    fi
+    
     tip "pip upgrade"
     pip install --user -U pip
+
+    tip "install python-language-server"
+    pip install --user -U python-language-server
+
+    # pip2.7 install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
+    tip "install ebook build tool:"
+    pip install --user -U jinja2
+    pip install --user -U markupsafe
+    pip install --user -U pygments
+    pip install --user -U sphinx
+    pip install --user -U docutils
+    pip install --user -U wsgiref
+    
+}
+function install-toolchain() {
     
     # tip "install oh-my-zsh"
     # sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -1015,14 +1041,7 @@ function install-toolchain() {
     # chmod +x ./lein
     # lein upgrade
 
-    tip "install ebook build tool: sphinx-build"
-    # pip install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
-    pip install --user -U jinja2
-    pip install --user -U markupsafe
-    pip install --user -U pygments
-    pip install --user -U sphinx
-    pip install --user -U docutils
-    pip install --user -U wsgiref   	
+       	
 }
 
 function upgrade() {

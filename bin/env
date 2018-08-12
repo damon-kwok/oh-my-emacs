@@ -49,6 +49,13 @@ export PATH=$CMAKE_BIN:$PATH
 export RTAGS_BIN=$DEV_ROOT/rtags/build/bin
 export PATH=$RTAGS_BIN:$PATH
 
+# Pyenv
+export PYENV_ROOT=$DEV_ROOT/pyenv
+export PATH=$PYENV_ROOT/bin:$PATH
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+
 # gyp
 export GYP_BIN=$DEV_ROOT/gyp
 export PATH=$GYP_BIN:$PATH

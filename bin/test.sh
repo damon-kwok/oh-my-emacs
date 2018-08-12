@@ -20,7 +20,15 @@ function haha() {
     echo "result:$bran"
 }
 
-haha
-haha 2.12
+# haha
+# haha 2.12
+
+echo "11111111111"
+echo `test "pip"`
+if test pip == "" ; then
+    echo "no pip"
+else
+    echo "has pip"
+fi
 
 
