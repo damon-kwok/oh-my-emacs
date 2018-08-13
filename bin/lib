@@ -69,8 +69,10 @@ function git-upgrade() {
     # git submodule foreach --recursive 'git fetch --tags'
     
     if [ "$submodule" != "0" ]; then
-        echo-success "git submodule update --init --depth=1"
-	git submodule update --init --depth=1
+        # echo-success "git submodule update --init --depth=1"
+	# git submodule update --init --depth=1
+        echo-success "git submodule update --init"
+	git submodule update --init
     fi
     
     cd $curdir
@@ -105,8 +107,8 @@ function github-ssh-upgrade() {
     # git submodule foreach --recursive 'git fetch --tags'
     
     if [ "$submodule" != "0" ]; then
-        echo-success "git submodule update --init --depth=1"
-	git submodule update --init --depth=1
+        echo-success "git submodule update --init"
+	git submodule update --init
     fi
     
     cd $curdir
@@ -1077,7 +1079,7 @@ function install-toolchain() {
     # chmod +x ./lein
     # lein upgrade
 
-       	
+    
 }
 
 function upgrade() {
