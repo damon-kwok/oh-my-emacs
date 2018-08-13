@@ -266,7 +266,7 @@
 (setq bing-dict-show-thesaurus 'both)
 (setq bing-dict-pronunciation-style 'us) ;;us | uk
 (setq bing-dict-save-search-result t)
-(setq bing-dict-org-file (concat (getenv "HOME") "/.oh-my-emacs/workspace/vocabulary.org"))
+(setq bing-dict-org-file (concat (getenv "HOME") "/workspace/vocabulary.org"))
 ;; (global-set-key (kbd "C-c d") 'ome-bing-dict-brief)
 ;; (global-set-key (kbd "C-c D") 'ome-bing-dict-brief-web)
 
