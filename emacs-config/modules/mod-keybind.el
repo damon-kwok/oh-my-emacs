@@ -450,21 +450,23 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 ^Editor^        ^Export^                ^Docs^              ^Docs^             ^Config^
 ^^^^^^^^^^--------------------------------------------------------------------------------
 _r_:rename      _p_: htmlize-buffer     _h_: README.org      _n_: note.org      _1_:env
-_d_:delete      _P_: htmlize-file       _d_: diary.org       _p_: problem.org   _2_:lib
+_D_:delete      _P_: htmlize-file       _d_: diary.org       _p_: problem.org   _2_:lib
 _k_:close-all   _C_: complie-modules    _t_: todo.org        _s_: passwd.org    _3_:.bashrc
-_o_:kill-other  ^^                      _b_: book.org        _G_: game.org      _4_:.xbindkeysrc.scm
+_o_:kill-other  _i_: blog-index.org     _b_: book.org        _G_: game.org      _4_:.xbindkeysrc.scm
 ^^              ^^                      _N_: NEWS.org        _w_: write-blog    _._:.emacs
 ^^^^^^^^^^--------------------------------------------------------------------------------
 _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 " ("r" ome-rename-file-and-buffer "rename-file-and-buffer")
-("d" ome-delete-file-and-buffer "delete-file-and-buffer")
+("D" ome-delete-file-and-buffer "delete-file-and-buffer")
 ("k" ome-kill-all-buffers "kill-all-buffers")
 ("o" ome-kill-other-buffers "kill-other-buffers")
 ("p" htmlize-buffer "htmlize-buffer")
 ("P" htmlize-file "htmlize-file")
 ("C" (byte-recompile-directory "~/emacs-config") "byte-recomplie-directory")
 ("h" (ome-open-file "~/.oh-my-emacs/README.org") "README.org")
+("i" (ome-open-blog "index.org") "index.org")
 ("g" (ome-open-doc "gtd.org") "GTD.org")
+("d" (ome-open-doc "diary.org") "diary.org")
 ("t" (ome-open-doc "todo.org") "todo.org")
 ("b" (ome-open-doc "book.org") "book.org")
 ("n" (ome-open-doc "note.org") "note.org")
@@ -562,8 +564,8 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 ^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
 _`_: Email       _>_: goto-char-f       _G_: grep-project     _;_: <-Tab       _6_: Clojure   _1_:run   ^^
 _b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->       _7_: Elixir    ^^ test   ^^
-_f_: File  =>    ^^                     _d_: bing-dict        _[_: <-Group     _8_: Rust      ^^ build  ^^
-_m_: Module=>    _w_: write-blog         _D_: bing-dict-web    _/_: Group->     _9_: Ros       ^^ clean  ^^
+_f_: File  =>    _p_: publish-blog      _d_: bing-dict        _[_: <-Group     _8_: Rust      ^^ build  ^^
+_m_: Module=>    _w_: write-blog        _D_: bing-dict-web    _/_: Group->     _9_: Ros       ^^ clean  ^^
 _u_: URLs  =>    _e_: mc/mark-all       _>_: goto-char-f      _=_: scale-inc   ^^Python       ^^        ^^
 _l_: Bookmarks   _r_: Reload|Refresh    _<_: goto-char-b      _-_: scale-dec   ^^Erlang       ^^        ^^
 _<tab>_: recent  _o_: kill-other-buffer _s_: replace-string   _z_: smart-do    ^^Kotlin       ^^        ^^
@@ -591,6 +593,7 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 ("e" (ome-mark-all-like-this) "mc/mark-all-like-this")
 ("r" (ome-buffer-reload) "Refresh")
 ("o" (ome-kill-other-buffers) "KillOtherBuffers")
+("p" (org-publish-project "blog") "publish-blog")
 ("G" projectile-ripgrep "projectile-project-root")
 ("g" ome-grep-directory "projectile-directory-root")
 ("d" bing-dict-brief "bing-dict-brief")

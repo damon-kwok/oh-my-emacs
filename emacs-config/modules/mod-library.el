@@ -430,12 +430,12 @@ occurence of CHAR."
   (delete-other-windows) 
   (ome-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
-  (find-file (concat (getenv "HOME") "/projects/blog/blogs/" doc-name)) 
+  (find-file (concat (getenv "HOME") "/workspace/blog/" doc-name)) 
   (delete-other-windows))
 
 (defun ome-new-blog() 
   (interactive) 
-  (setq default-directory (concat (getenv "HOME") "/projects/blog/blogs/")) 
+  (setq default-directory (concat (getenv "HOME") "/workspace/blog/")) 
   (helm-find-files nil))
 
 (defun ome-open-url(url) 

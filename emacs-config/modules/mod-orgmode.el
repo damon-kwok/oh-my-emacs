@@ -62,7 +62,7 @@
 (package-require 'ob-crystal)
 (package-require 'ob-go)
 (package-require 'ob-kotlin)
-(package-require 'ob-ipython)
+;; (package-require 'ob-ipython)
 (package-require 'ob-lfe)
 (package-require 'ob-crystal)
 (package-require 'ob-fsharp)
@@ -96,7 +96,7 @@
                                (js . t) 
                                (typescript . t) 
                                (python . t) 
-                               (ipython . t) 
+                               ;; (ipython . t) 
                                (perl . t) 
                                (ruby . t) 
                                (groovy . t) 
@@ -153,9 +153,9 @@
 				  ))
 (setq org-html-validation-link nil)
 
-(global-set-key (kbd "C-c C-b") #'(lambda () 
-                                    (interactive) 
-                                    (org-publish-project "blog")))
+;; (global-set-key (kbd "C-c C-b") #'(lambda () 
+                                    ;; (interactive) 
+                                    ;; (org-publish-project "blog")))
 
 ;;
 (provide 'mod-orgmode)
