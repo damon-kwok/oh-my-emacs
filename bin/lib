@@ -373,8 +373,7 @@ function link-upgrade() {
 }
 
 function git-pull {
-    tip "git-pull"
-    cd $OME_ROOT
+    tip "git-pull"    
     git reset
     git pull
 
@@ -382,8 +381,7 @@ function git-pull {
 }
 
 function git-push {
-    tip "git-push"
-    cd $OME_ROOT
+    tip "git-push"    
     git reset
     git pull
     git add .

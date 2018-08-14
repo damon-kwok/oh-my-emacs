@@ -131,7 +131,7 @@
                                   ;;
 				  ("blog-notes" :base-directory "~/workspace/blog/" 
 				   :base-extension "org" 
-				   :publishing-directory "~/blog/" 
+				   :publishing-directory "~/projects/me/blog/"
 				   :recursive t 
 				   :publishing-function org-html-publish-to-html 
 				   :headline-levels 4 ; Just the default for this project.
@@ -145,10 +145,10 @@
 				   :sitemap-sort-files anti-chronologically 
 				   :sitemap-file-entry-format "%d %t")
                                   ;;
-				  ("blog-static" :base-directory "~/workspace/github-pages/" 
+				  ("blog-static" :base-directory "~/workspace/blog/" 
 				   :base-extension
 				   "css\\|js\\|png\\|jpg\\|bmp\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|ico" 
-				   :publishing-directory "~/blog/" 
+				   :publishing-directory "~/projects/me/blog/" 
 				   :recursive t 
 				   :publishing-function org-publish-attachment)
                                   ;;

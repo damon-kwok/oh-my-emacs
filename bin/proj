@@ -7,42 +7,42 @@ DIR_LLVM=$OME_ROOT/dev/llvm
 
 function project-upgrade() {
     # C
-    github-upgrade libuv/libuv $PROJECT_ROOT/c/libuv
-    github-upgrade nodejs/http-parser $PROJECT_ROOT/c/http-parser
-    github-upgrade json-c/json-c $PROJECT_ROOT/c/json-c
-    github-upgrade protobuf-c/protobuf-c $PROJECT_ROOT/c/protobuf-c
-    github-upgrade Snaipe/libcsptr $PROJECT_ROOT/c/libcsptr
+    github-upgrade libuv/libuv $PROJ_ROOT/c/libuv
+    github-upgrade nodejs/http-parser $PROJ_ROOT/c/http-parser
+    github-upgrade json-c/json-c $PROJ_ROOT/c/json-c
+    github-upgrade protobuf-c/protobuf-c $PROJ_ROOT/c/protobuf-c
+    github-upgrade Snaipe/libcsptr $PROJ_ROOT/c/libcsptr
 
-    # github-upgrade nanomsg/nanomsg $PROJECT_ROOT/c/nanomsg
-    # github-upgrade zeromq/libzmq $PROJECT_ROOT/c/libzmq
-    github-upgrade libcheck/check $PROJECT_ROOT/c/libcheck
-    github-upgrade lcm-proj/lcm $PROJECT_ROOT/c/lcm
-    svn-upgrade svn://vcs.exim.org/pcre2/code/trunk $PROJECT_ROOT/c/pcre2
-    github-upgrade Tencent/libco $PROJECT_ROOT/libco
+    # github-upgrade nanomsg/nanomsg $PROJ_ROOT/c/nanomsg
+    # github-upgrade zeromq/libzmq $PROJ_ROOT/c/libzmq
+    github-upgrade libcheck/check $PROJ_ROOT/c/libcheck
+    github-upgrade lcm-proj/lcm $PROJ_ROOT/c/lcm
+    svn-upgrade svn://vcs.exim.org/pcre2/code/trunk $PROJ_ROOT/c/pcre2
+    github-upgrade Tencent/libco $PROJ_ROOT/libco
     
     # C++
-    github-upgrade emilk/loguru $PROJECT_ROOT/cpp/loguru
-    github-upgrade nodejs/http2 $PROJECT_ROOT/cpp/http2
-    github-upgrade facebook/folly $PROJECT_ROOT/cpp/folly
-    github-upgrade pocoproject/poco $PROJECT_ROOT/cpp/poco
-    github-upgrade 01org/tbb $PROJECT_ROOT/tbb
-    github-upgrade Tencent/rapidjson $PROJECT_ROOT/cpp/rapidjson
+    github-upgrade emilk/loguru $PROJ_ROOT/cpp/loguru
+    github-upgrade nodejs/http2 $PROJ_ROOT/cpp/http2
+    github-upgrade facebook/folly $PROJ_ROOT/cpp/folly
+    github-upgrade pocoproject/poco $PROJ_ROOT/cpp/poco
+    github-upgrade 01org/tbb $PROJ_ROOT/tbb
+    github-upgrade Tencent/rapidjson $PROJ_ROOT/cpp/rapidjson
 
-    github-upgrade emweb/wt $PROJECT_ROOT/cpp/wt
+    github-upgrade emweb/wt $PROJ_ROOT/cpp/wt
 
     # Java
-    github-upgrade emweb/jwt $PROJECT_ROOT/java/jwt
+    github-upgrade emweb/jwt $PROJ_ROOT/java/jwt
     
     # C#
 
     # Lisp
-    github-upgrade kanaka/mal $PROJECT_ROOT/lisp/mal
+    github-upgrade kanaka/mal $PROJ_ROOT/lisp/mal
 
     # Clojure
-    github-upgrade apache/storm $PROJECT_ROOT/clj/storm
+    github-upgrade apache/storm $PROJ_ROOT/clj/storm
     # https://github.com/apachecn/storm-doc-zh/
-    github-upgrade riemann/riemann $PROJECT_ROOT/clj/riemann
-    github-upgrade ztellman/aleph $PROJECT_ROOT/clj/aleph
+    github-upgrade riemann/riemann $PROJ_ROOT/clj/riemann
+    github-upgrade ztellman/aleph $PROJ_ROOT/clj/aleph
     # https://github.com/ztellman/byte-streams
     # https://github.com/ztellman/lamina
     # https://github.com/ztellman/gloss
@@ -53,12 +53,12 @@ function project-upgrade() {
     
     # UE4
     # https://github.com/EpicGames/UnrealEngine.git
-    github-upgrade EpicGames/UnrealEngine $PROJECT_ROOT/ue4/UnrealEngine
+    github-upgrade EpicGames/UnrealEngine $PROJ_ROOT/ue4/UnrealEngine
     
     # Data
-    github-upgrade apache/thrift $PROJECT_ROOT/data/thrift
-    github-upgrade apache/avro $PROJECT_ROOT/data/avro
-    github-upgrade google/flatbuffers $PROJECT_ROOT/data/flatbuffers
+    github-upgrade apache/thrift $PROJ_ROOT/data/thrift
+    github-upgrade apache/avro $PROJ_ROOT/data/avro
+    github-upgrade google/flatbuffers $PROJ_ROOT/data/flatbuffers
     
 }
 
@@ -76,15 +76,15 @@ function me-pull() {
     github-ssh-upgrade damon-kwok/workspace $HOME/workspace
     chmod +x $HOME/workspace/bin/*
 
-    github-ssh-upgrade damon-kwok/damon-kwok.github.io $PROJECT/me/blog
+    github-ssh-upgrade damon-kwok/damon-kwok.github.io $PROJ_ROOT/me/blog
     
-    github-ssh-upgrade damon-kwok/awesome-package-manager $PROJECT_ROOT/me/awesome-package-manager
-    github-ssh-upgrade damon-kwok/awesome-network-programming $PROJECT_ROOT/me/awesome-network-programming
+    github-ssh-upgrade damon-kwok/awesome-package-manager $PROJ_ROOT/me/awesome-package-manager
+    github-ssh-upgrade damon-kwok/awesome-network-programming $PROJ_ROOT/me/awesome-network-programming
     
-    github-ssh-upgrade damon-kwok/medusa $PROJECT_ROOT/me/medusa
+    github-ssh-upgrade damon-kwok/medusa $PROJ_ROOT/me/medusa
     
-    github-ssh-upgrade damon-kwok/libknife $PROJECT_ROOT/me/libknife    
-    # cd $PROJECT_ROOT/c/libknife
+    github-ssh-upgrade damon-kwok/libknife $PROJ_ROOT/me/libknife    
+    # cd $PROJ_ROOT/c/libknife
     # mkdir -p build
     # cd build
     # cmake ..
@@ -95,27 +95,37 @@ function me-push() {
     cd $HOME/.oh-my-emacs/
     git push
     
-    cd $PROJECT/me/blog
+    cd $PROJ_ROOT/me/blog
     git-push
     
     cd $HOME/workspace
     git-push
 
-    cd $PROJECT_ROOT/me/awesome-package-manager
+    cd $PROJ_ROOT/me/awesome-package-manager
     git-push
 
-    cd $PROJECT_ROOT/me/awesome-network-programming
+    cd $PROJ_ROOT/me/awesome-network-programming
     git-push
     
-    cd $PROJECT_ROOT/me/medusa
+    cd $PROJ_ROOT/me/medusa
     git-push
     
-    cd $PROJECT_ROOT/me/libknife
+    cd $PROJ_ROOT/me/libknife
+    git-push
+}
+
+function ome-push() {
+    cd $HOME/.oh-my-emacs/
     git-push
 }
 
 function blog-push() {
-    cd $PROJECT/me/blog
+    cd $PROJ_ROOT/me/blog
+    git-push
+}
+
+function ws-push() {
+    cd $HOME/workspace
     git-push
 }
 

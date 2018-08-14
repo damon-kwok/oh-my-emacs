@@ -11,7 +11,7 @@ export PATH=$OME_BIN:$PATH
 export DEV_ROOT=$HOME/.dev
 export WS_BIN=$HOME/workspace/bin
 export BOOK_ROOT=$HOME/book
-export PROJECT_ROOT=$HOME/projects
+export PROJ_ROOT=$HOME/projects
 
 export CACHE=$OME_ROOT/cache
 export APP_HOME=$CACHE/apps
