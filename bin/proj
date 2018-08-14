@@ -1,60 +1,9 @@
+#!/usr/bin/env bash
 
 PROJECT_BLOG=demo-kwok.github.io
 
-# DIR_BLOG=$OME_ROOT/blog
-# DIR_WORKSPACE=$OME_ROOT/workspace
 DIR_LLVM_WHERE=$OME_ROOT/dev
 DIR_LLVM=$OME_ROOT/dev/llvm
-
-function pull-blog {
-    # cd $OME_ROOT
-    # git reset
-    # git pull
-
-    tip "pull blog"
-    github-ssh-upgrade damon-kwok/damon-kwok.github.io $DIR_BLOG
-    # if [ ! -d $DIR_BLOG ]; then
-    # cd $OME_ROOT
-    # git clone https://github.com/damon-kwok/damon-kwok.github.io.git $DIR_BLOG
-    # else
-    # cd $DIR_BLOG
-    # git pull
-    # fi
-}
-
-function push-blog {
-    tip "push-blog"
-    cd $OME_ROOT/blog/
-    git reset
-    git pull
-    git add .
-    git status
-    git commit -m `date +%Y-%m-%d@%H-%M-%S` # "upgrade by "`uname -n`
-    git push -u origin master
-}
-
-function pull-workspace() {
-    tip "pull workspace"
-    github-ssh-upgrade damon-kwok/workspace $HOME/workspace
-    # if [ ! -d $DIR_WORKSPACE ]; then
-    # cd $OME_ROOT
-    # svn co svn://www.svn999.com/guowangwei.workspace workspace
-    # else
-    # cd $DIR_WORKSPACE
-    # svn cleanup .
-    # svn up
-    # fi
-}
-function push-workspace {
-    tip "push-workspace"
-    cd $HOME/workspace/
-    git reset
-    git pull
-    git add .
-    git status
-    git commit -m `date +%Y-%m-%d@%H-%M-%S` # "upgrade by "`uname -n`
-    git push -u origin master
-}
 
 function project-upgrade() {
     # C
@@ -77,7 +26,12 @@ function project-upgrade() {
     github-upgrade facebook/folly $PROJECT_ROOT/cpp/folly
     github-upgrade pocoproject/poco $PROJECT_ROOT/cpp/poco
     github-upgrade 01org/tbb $PROJECT_ROOT/tbb
-    github-upgrade Tencent/rapidjson $PROJECT_ROOT/rapidjson
+    github-upgrade Tencent/rapidjson $PROJECT_ROOT/cpp/rapidjson
+
+    github-upgrade emweb/wt $PROJECT_ROOT/cpp/wt
+
+    # Java
+    github-upgrade emweb/jwt $PROJECT_ROOT/java/jwt
     
     # C#
 
@@ -96,11 +50,11 @@ function project-upgrade() {
     
     # Unity3d
     github-upgrade arcadia-unity/arcadia $DEV_ROOT/u3d/Arcadia
-
     
     # UE4
     # https://github.com/EpicGames/UnrealEngine.git
     github-upgrade EpicGames/UnrealEngine $PROJECT_ROOT/ue4/UnrealEngine
+    
     # Data
     github-upgrade apache/thrift $PROJECT_ROOT/data/thrift
     github-upgrade apache/avro $PROJECT_ROOT/data/avro
@@ -118,8 +72,11 @@ function book-upgrade() {
 
 function me-pull() {   	
     
-    github-ssh-upgrade damon-kwok/damon-kwok.github.io $HOME/blog
+    
     github-ssh-upgrade damon-kwok/workspace $HOME/workspace
+    chmod +x $HOME/workspace/bin/*
+
+    github-ssh-upgrade damon-kwok/damon-kwok.github.io $PROJECT/me/blog
     
     github-ssh-upgrade damon-kwok/awesome-package-manager $PROJECT_ROOT/me/awesome-package-manager
     github-ssh-upgrade damon-kwok/awesome-network-programming $PROJECT_ROOT/me/awesome-network-programming
@@ -135,10 +92,10 @@ function me-pull() {
 }
 
 function me-push() {
-    cd ~/.oh-my-emacs/
+    cd $HOME/.oh-my-emacs/
     git push
     
-    cd $HOME/blog
+    cd $PROJECT/me/blog
     git-push
     
     cd $HOME/workspace
@@ -154,6 +111,11 @@ function me-push() {
     git-push
     
     cd $PROJECT_ROOT/me/libknife
+    git-push
+}
+
+function blog-push() {
+    cd $PROJECT/me/blog
     git-push
 }
 

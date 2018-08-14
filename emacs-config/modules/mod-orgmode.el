@@ -79,54 +79,57 @@
 (package-require 'ob-hy)
 (package-require 'ob-typescript)
 (package-require 'ob-sml)
-(org-babel-do-load-languages 'org-babel-load-languages '((shell . t)
-							 (octave . t) 
-							 (ditaa . t) 
-							 (dot . t) 
-							 (sql . t)
-							 (sqlite . t)
-							 (makefile . t)
-							 (org . t) 
-							 (latex . t)
-							 (browser . t)
-							 (java . t)
-							 (go . t)
-							 (crystal . t)
-							 (kotlin . t)
-							 (js . t)
-							 (typescript . t)
-							 (python . t)
-							 (ipython . t)
-							 (perl . t) 
-							 (ruby . t)
-							 (groovy . t)
-							 (matlab . t) 
-							 (R . t) 
-							 (lisp . t) 
-							 (emacs-lisp .t) 
-							 (clojure .t)
-							 (hy . t)
-							 (ocaml . t)
-							 (sml . t)
-							 (haskell . t)
-							 (elixir .t)
-							 (lfe . t)
-							 (fsharp . t)
-							 (http . t)
-							 (nim . t)
-							 ;(php . t)
-							 (prolog . t)
-							 (rust . t)
-							 (swift . t)
-							 (dart . t)
-							 (coffee . t)
-							 (coffeescript . t)))
+(org-babel-do-load-languages 'org-babel-load-languages ;;
+                             '((shell . t)
+			       (octave . t) 
+			       (ditaa . t) 
+			       (dot . t) 
+			       (sql . t)
+			       (sqlite . t)
+			       (makefile . t)
+			       (org . t) 
+			       (latex . t)
+			       (browser . t)
+			       (java . t)
+			       (go . t)
+			       (crystal . t)
+			       (kotlin . t)
+			       (js . t)
+			       (typescript . t)
+			       (python . t)
+			       (ipython . t)
+			       (perl . t) 
+			       (ruby . t)
+			       (groovy . t)
+			       (matlab . t) 
+			       (R . t) 
+			       (lisp . t) 
+			       (emacs-lisp .t) 
+			       (clojure .t)
+			       (hy . t)
+			       (ocaml . t)
+			       (sml . t)
+			       (haskell . t)
+			       (elixir .t)
+			       (lfe . t)
+			       (fsharp . t)
+			       (http . t)
+			       (nim . t)
+                                        ;(php . t)
+			       (prolog . t)
+			       (rust . t)
+			       (swift . t)
+			       (dart . t)
+			       (coffee . t)
+			       (coffeescript . t)))
 
 
 
 (require 'ox-publish)
-(setq org-publish-project-alist '(
-				  ("blog-notes" :base-directory "~/workspace/github-pages/" 
+(setq org-publish-project-alist '(;;
+                                  ("blog" :components ("blog-notes" "blog-static"))
+                                  ;;
+				  ("blog-notes" :base-directory "~/workspace/blog/" 
 				   :base-extension "org" 
 				   :publishing-directory "~/blog/" 
 				   :recursive t 
@@ -140,14 +143,16 @@
 				   :sitemap-filename "sitemap.org" ; ... call it sitemap.org (it's the default)...
 				   :sitemap-title "Sitemap" ; ... with title 'Sitemap'.
 				   :sitemap-sort-files anti-chronologically 
-				   :sitemap-file-entry-format "%d %t") 
+				   :sitemap-file-entry-format "%d %t")
+                                  ;;
 				  ("blog-static" :base-directory "~/workspace/github-pages/" 
 				   :base-extension
 				   "css\\|js\\|png\\|jpg\\|bmp\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|ico" 
 				   :publishing-directory "~/blog/" 
 				   :recursive t 
-				   :publishing-function org-publish-attachment) 
-				  ("blog" :components ("blog-notes" "blog-static"))))
+				   :publishing-function org-publish-attachment)
+                                  ;;
+				  ))
 (setq org-html-validation-link nil)
 ;;
 (provide 'mod-orgmode)

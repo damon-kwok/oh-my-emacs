@@ -9,7 +9,7 @@ export OME_BIN=$OME_ROOT/bin
 export PATH=$OME_BIN:$PATH
 
 export DEV_ROOT=$HOME/.dev
-export RESOURCE_ROOT=$HOME/.emacs.d/resources
+export WS_BIN=$HOME/workspace/bin
 export BOOK_ROOT=$HOME/book
 export PROJECT_ROOT=$HOME/projects
 
@@ -21,20 +21,20 @@ export ZIP_HOME=$CACHE/apps-zip
 export SHELL_NAME=ps |  grep $$  |  awk '{print $4}'
 
 # User Settings
-export PATH=$HOME/bin:$HOME/.local/bin:$PATH:$RESOURCE_ROOT
+export PATH=$HOME/bin:$HOME/.local/bin:$PATH:$WS_BIN
 
 ################################################################################
 # Ocaml: OPAM configuration
 case "$SHELL_NAME" in
-	"zsh")
-		. $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-		;;
-	"bash")
-		. $HOME/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-		;;
-	"csh")
-		. $HOME/.opam/opam-init/init.csh > /dev/null 2> /dev/null || true
-		;;
+    "zsh")
+	. $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+	;;
+    "bash")
+	. $HOME/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+	;;
+    "csh")
+	. $HOME/.opam/opam-init/init.csh > /dev/null 2> /dev/null || true
+	;;
 esac
 
 # LLVM
@@ -70,14 +70,14 @@ export PATH=$ROSWELL_BIN:$PATH
 
 # ROS
 case "$SHELL_NAME" in
-	"zsh")
-		source /opt/ros/kinetic/env.zsh
-		source $HOME/catkin_ws/devel/env.zsh
-		;;
-	"bash")
-		source /opt/ros/kinetic/env.bash
-		source $HOME/catkin_ws/devel/env.bash
-		;;
+    "zsh")
+	source /opt/ros/kinetic/env.zsh
+	source $HOME/catkin_ws/devel/env.zsh
+	;;
+    "bash")
+	source /opt/ros/kinetic/env.bash
+	source $HOME/catkin_ws/devel/env.bash
+	;;
 esac
 export PATH=$PATH:$HOME/catkin_ws/bin
 

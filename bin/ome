@@ -66,8 +66,8 @@ function link-init-el() {
     tip "link .emacs"
     cp -a $OME_ROOT/emacs-config/init.el ~/.emacs 
     ln -s $OME_ROOT/emacs-config ~/emacs-config
-    ln -s $OME_ROOT/workspace ~/workspace
-    ln -s $OME_ROOT/blog ~/blog   
+    # ln -s $OME_ROOT/workspace ~/workspace
+    # ln -s $OME_ROOT/blog ~/blog   
 }
 
 function ask-blog {

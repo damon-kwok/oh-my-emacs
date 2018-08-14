@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 function ome-upgrade() {
 
     # if [ ! -e "$HOME/.oh-my-emacs/.git/index" ]; then
@@ -290,10 +292,7 @@ function elixir-upgrade() {
     make
     # make clean test
 }
-function resource-upgrade() {
-    github-upgrade damon-kwok/resources ~/.emacs.d/resources
-    chmod +x ~/.emacs.d/resources/rebar3
-}
+
 function erlang-upgrade() {
     tip "install erlang"
     # git clone https://github.com/erlang/otp.git
@@ -536,9 +535,8 @@ function install-basedevel {
 	    ;;
 	
 	5) # msys2
-	    pacman -Syyu
-	    
-	    pacman -S base-devel cppunit automake \
+	    pacman -Syyu	    
+	    pacman -S base-devel msys2-devel cppunit automake \
 		   coreutils diffutils wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
 	    pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-ocaml golang
 	    pacman -S ttf-bitstream-vera
@@ -558,10 +556,9 @@ function install-basedevel {
     source ~/.bashrc
 }
 
-function install-toolchain() {
+function install-toolchain() {    
+    shell-upgrade
     
-
-
     cmake-upgrade
     gyp-upgrade
     waf-upgrade
@@ -599,9 +596,7 @@ function install-toolchain() {
     # # curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
     # # curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
     # chmod +x ./lein
-    # lein upgrade
-
-    
+    # lein upgrade    
 }
 
 function upgrade() {
@@ -612,4 +607,3 @@ function upgrade() {
 
     install-toolchain
 }
-

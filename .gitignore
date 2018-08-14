@@ -51,3 +51,4 @@ target/
 
 Cargo.lock
 rebar.lock
+rebar3.crashdump
