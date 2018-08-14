@@ -453,7 +453,7 @@ _r_:rename      _p_: htmlize-buffer     _h_: README.org      _n_: note.org      
 _d_:delete      _P_: htmlize-file       _d_: diary.org       _p_: problem.org   _2_:lib
 _k_:close-all   _C_: complie-modules    _t_: todo.org        _s_: passwd.org    _3_:.bashrc
 _o_:kill-other  ^^                      _b_: book.org        _G_: game.org      _4_:.xbindkeysrc.scm
-^^              ^^                      _N_: NEWS.org        ^^                 _._:.emacs
+^^              ^^                      _N_: NEWS.org        _w_: write-blog    _._:.emacs
 ^^^^^^^^^^--------------------------------------------------------------------------------
 _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 " ("r" ome-rename-file-and-buffer "rename-file-and-buffer")
@@ -471,6 +471,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 ("p" (ome-open-doc "problem.org") "problem.org")
 ("s" (ome-open-doc "passwd.org") "passwd.org")
 ("G" (ome-open-doc "game.org") "game.org")
+("w" ome-new-blog "write-blog")
 ("N" (ome-open-doc "news.org") "news.org")
 ("1" (ome-open-file "~/.oh-my-emacs/bin/env") "env")
 ("2" (ome-open-file "~/.oh-my-emacs/bin/lib") "lib")
@@ -562,7 +563,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 _`_: Email       _>_: goto-char-f       _G_: grep-project     _;_: <-Tab       _6_: Clojure   _1_:run   ^^
 _b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->       _7_: Elixir    ^^ test   ^^
 _f_: File  =>    ^^                     _d_: bing-dict        _[_: <-Group     _8_: Rust      ^^ build  ^^
-_m_: Module=>    _w_: copy-line         _D_: bing-dict-web    _/_: Group->     _9_: Ros       ^^ clean  ^^
+_m_: Module=>    _w_: write-blog         _D_: bing-dict-web    _/_: Group->     _9_: Ros       ^^ clean  ^^
 _u_: URLs  =>    _e_: mc/mark-all       _>_: goto-char-f      _=_: scale-inc   ^^Python       ^^        ^^
 _l_: Bookmarks   _r_: Reload|Refresh    _<_: goto-char-b      _-_: scale-dec   ^^Erlang       ^^        ^^
 _<tab>_: recent  _o_: kill-other-buffer _s_: replace-string   _z_: smart-do    ^^Kotlin       ^^        ^^
@@ -581,7 +582,8 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 ("u" (hydra-open-url/body) "url")
 ("l" helm-bookmarks "bookmarks")
 ("<tab>" helm-recentf "(helm-recentf)")
-("w" ome-copy-line "copy-line")
+;;("w" ome-copy-line "copy-line")
+("w" ome-new-blog "write-blog")
 (">" ome-go-to-char-forward "go-to-char-forward")
 ("<" ome-go-to-char-backward "go-to-char-backward")
 ("s" replace-string "replace-string")

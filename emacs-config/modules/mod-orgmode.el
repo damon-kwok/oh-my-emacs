@@ -29,32 +29,31 @@
 
 ;; 自动换行
 (add-hook 'org-mode-hook (lambda () 
-			   (setq truncate-lines nil)
-			   (setq org-startup-with-inline-images t)
-			   (org-display-inline-images t t)))
+                           (setq truncate-lines nil) 
+                           (setq org-startup-with-inline-images t) 
+                           (org-display-inline-images t t)))
 
 (setq org-todo-keywords '((sequence "TODO" "DOING" "DONE")))
 
 (setq org-todo-keyword-faces '(("TODO" . "red") 
-			       ("DOING" . "yellow") 
-			       ("DONE" . "green")))
+                               ("DOING" . "yellow") 
+                               ("DONE" . "green")))
 (setq org-log-done 'time)
 ;;(setq org-log-done 'note)
 
 (add-hook 'org-load-hook (lambda () 
-			   (org-defkey org-mode-map [(meta p)]    'org-metaup) 
-			   (org-defkey org-mode-map [(meta n)]  'org-metadown) 
-			   (org-defkey org-mode-map "\M-["    'org-metaup) 
-			   (org-defkey org-mode-map "\M-/"  'org-metadown) 
-			   (org-defkey org-mode-map "\M-;"    'org-metaleft) 
-			   (org-defkey org-mode-map "\M-'"  'org-metaright)))
+                           (org-defkey org-mode-map [(meta p)]    'org-metaup) 
+                           (org-defkey org-mode-map [(meta n)]  'org-metadown) 
+                           (org-defkey org-mode-map "\M-["    'org-metaup) 
+                           (org-defkey org-mode-map "\M-/"  'org-metadown) 
+                           (org-defkey org-mode-map "\M-;"    'org-metaleft) 
+                           (org-defkey org-mode-map "\M-'"  'org-metaright)))
 ;; (org-defkey org-mode-map "C-c C-z" 'org-export-dispatch)))
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
-
 
 
 ;; `Babel-Languages'
@@ -80,49 +79,48 @@
 (package-require 'ob-typescript)
 (package-require 'ob-sml)
 (org-babel-do-load-languages 'org-babel-load-languages ;;
-                             '((shell . t)
-			       (octave . t) 
-			       (ditaa . t) 
-			       (dot . t) 
-			       (sql . t)
-			       (sqlite . t)
-			       (makefile . t)
-			       (org . t) 
-			       (latex . t)
-			       (browser . t)
-			       (java . t)
-			       (go . t)
-			       (crystal . t)
-			       (kotlin . t)
-			       (js . t)
-			       (typescript . t)
-			       (python . t)
-			       (ipython . t)
-			       (perl . t) 
-			       (ruby . t)
-			       (groovy . t)
-			       (matlab . t) 
-			       (R . t) 
-			       (lisp . t) 
-			       (emacs-lisp .t) 
-			       (clojure .t)
-			       (hy . t)
-			       (ocaml . t)
-			       (sml . t)
-			       (haskell . t)
-			       (elixir .t)
-			       (lfe . t)
-			       (fsharp . t)
-			       (http . t)
-			       (nim . t)
+                             '((shell . t) 
+                               (octave . t) 
+                               (ditaa . t) 
+                               (dot . t) 
+                               (sql . t) 
+                               (sqlite . t) 
+                               (makefile . t) 
+                               (org . t) 
+                               (latex . t) 
+                               (browser . t) 
+                               (java . t) 
+                               (go . t) 
+                               (crystal . t) 
+                               (kotlin . t) 
+                               (js . t) 
+                               (typescript . t) 
+                               (python . t) 
+                               (ipython . t) 
+                               (perl . t) 
+                               (ruby . t) 
+                               (groovy . t) 
+                               (matlab . t) 
+                               (R . t) 
+                               (lisp . t) 
+                               (emacs-lisp .t) 
+                               (clojure .t) 
+                               (hy . t) 
+                               (ocaml . t) 
+                               (sml . t) 
+                               (haskell . t) 
+                               (elixir .t) 
+                               (lfe . t) 
+                               (fsharp . t) 
+                               (http . t) 
+                               (nim . t)
                                         ;(php . t)
-			       (prolog . t)
-			       (rust . t)
-			       (swift . t)
-			       (dart . t)
-			       (coffee . t)
-			       (coffeescript . t)))
-
+			       (prolog . t) 
+                               (rust . t) 
+                               (swift . t) 
+                               (dart . t) 
+                               (coffee . t) 
+                               (coffeescript . t)))
 
 
 (require 'ox-publish)
@@ -130,30 +128,35 @@
                                   ("blog" :components ("blog-notes" "blog-static"))
                                   ;;
 				  ("blog-notes" :base-directory "~/workspace/blog/" 
-				   :base-extension "org" 
-				   :publishing-directory "~/projects/me/blog/"
-				   :recursive t 
-				   :publishing-function org-html-publish-to-html 
-				   :headline-levels 4 ; Just the default for this project.
+                                   :base-extension "org" 
+                                   :publishing-directory "~/projects/me/blog/" 
+                                   :recursive t 
+                                   :publishing-function org-html-publish-to-html 
+                                   :headline-levels 4 ; Just the default for this project.
 				   :auto-preamble t 
-				   :section-numbers nil 
-				   :author "damon-kwok" 
-				   :email "damon-kwok@outlook.com" 
-				   :auto-sitemap t ; Generate sitemap.org automagically...
+                                   :section-numbers nil 
+                                   :author "damon-kwok" 
+                                   :email "damon-kwok@outlook.com" 
+                                   :auto-sitemap t ; Generate sitemap.org automagically...
 				   :sitemap-filename "sitemap.org" ; ... call it sitemap.org (it's the default)...
 				   :sitemap-title "Sitemap" ; ... with title 'Sitemap'.
 				   :sitemap-sort-files anti-chronologically 
-				   :sitemap-file-entry-format "%d %t")
+                                   :sitemap-file-entry-format "%d %t")
                                   ;;
 				  ("blog-static" :base-directory "~/workspace/blog/" 
-				   :base-extension
-				   "css\\|js\\|png\\|jpg\\|bmp\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|ico" 
-				   :publishing-directory "~/projects/me/blog/" 
-				   :recursive t 
-				   :publishing-function org-publish-attachment)
+                                   :base-extension
+                                   "css\\|js\\|png\\|jpg\\|bmp\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|ico" 
+                                   :publishing-directory "~/projects/me/blog/" 
+                                   :recursive t 
+                                   :publishing-function org-publish-attachment)
                                   ;;
 				  ))
 (setq org-html-validation-link nil)
+
+(global-set-key (kbd "C-c C-b") #'(lambda () 
+                                    (interactive) 
+                                    (org-publish-project "blog")))
+
 ;;
 (provide 'mod-orgmode)
 ;;; mod-orgmode.el ends here
