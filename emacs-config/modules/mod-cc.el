@@ -193,7 +193,7 @@
 (define-key objc-mode-map (kbd "C-c d") 'disaster)
 
 
-(defun gen-cmake-file ()
+(defun gen-cmake-file () 
   (shell-command (concat (getenv "HOME") "/.oh-my-emacs/bin/gen-cmake-file " (ome-project-root))))
 
 ;; (add-hook 'c-mode-hook 'gen-cmake-file)

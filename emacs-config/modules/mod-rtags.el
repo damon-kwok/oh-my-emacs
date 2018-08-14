@@ -28,20 +28,20 @@
 (require 'rtags)
 
 (if (or (eq system-type 'windows-nt) 
-		(eq system-type 'ms-dos)) 
-	(setq rtags-rc "rc.exe") 
+        (eq system-type 'ms-dos)) 
+    (setq rtags-rc "rc.exe") 
   (setq rtags-rc "rc"))
 
 (unless (rtags-executable-find rtags-rc) 
   (rtags-install))
 
-;; (add-hook 'after-init-hook '(lambda () 
-							  ;; (setq rtags-path (file-name-directory (rtags-executable-find
-																	 ;; rtags-rc))) 
-							  ;; (message rtags-path) 
-							  ;; (setenv "PATH" (concat (file-name-directory rtags-path) ":" (getenv
-																						   ;; "PATH"))))
-		  ;; t)
+;; (add-hook 'after-init-hook '(lambda ()
+;; (setq rtags-path (file-name-directory (rtags-executable-find
+;; rtags-rc)))
+;; (message rtags-path)
+;; (setenv "PATH" (concat (file-name-directory rtags-path) ":" (getenv
+;; "PATH"))))
+;; t)
 ;;
 (package-require 'helm-rtags)
 (require 'helm-rtags)
@@ -77,17 +77,17 @@
 (define-key rtags-mode-map [mouse-1] 'rtags-open-file)
 (define-key rtags-mode-map [mouse-2] 'rtags-open-file)
 
-;; (defun gen-rtags-indexes () 
-  ;; (interactive)
-  ;; (add-hook 'after-init-hook ;;
-			;; '(lambda () 
+;; (defun gen-rtags-indexes ()
+;; (interactive)
+;; (add-hook 'after-init-hook ;;
+;; '(lambda ()
 ;; (shell-command (concat (getenv "HOME") "/.oh-my-emacs/bin/gen-rtags"))) t))
 
 (defun gen-rtags-indexes () 
   (interactive)
   ;; (message (concat "you opened cc file:" (buffer-name)))
   ;; find CmakeLists.txt & gen rtags indexes
-  (shell-command (concat (getenv "HOME") "/.oh-my-emacs/bin/gen-rtags")))
+  (shell-command (concat (getenv "HOME") "/.oh-my-emacs/bin/gen-rtags " (ome-project-root))))
 
 (defun gen-rtags-indexes-with-elisp () 
   (interactive) 
@@ -95,16 +95,16 @@
   (setq cmake-dir (ome-search-file "CMakeLists.txt" dir)) 
   (setq index-dir (concat cmake-dir "rtags_indexes")) 
   (if (eq cmake-dir nil) 
-	  (message "not found 'CMakeLists.txt' file!") 
-	(if (file-exists-p index-dir) 
-		(message "rtags_indexes is exists.") 
-	  (progn 
-		(setq old-default-directory default-directory) 
-		(make-directory index-dir) 
-		(setq default-directory  index-dir) 
-		(shell-command
-		 "bash -c \"source /opt/ros/kinetic/setup.bash && cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 && rc -J .\"") 
-		(setq default-directory old-default-directory)))))
+      (message "not found 'CMakeLists.txt' file!") 
+    (if (file-exists-p index-dir) 
+        (message "rtags_indexes is exists.") 
+      (progn 
+        (setq old-default-directory default-directory) 
+        (make-directory index-dir) 
+        (setq default-directory  index-dir) 
+        (shell-command
+         "bash -c \"source /opt/ros/kinetic/setup.bash && cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 && rc -J .\"") 
+        (setq default-directory old-default-directory)))))
 
 (defun gen-rtags-indexes-with-elisp () 
   (interactive) 
@@ -112,18 +112,18 @@
   (setq cmake-dir (ome-search-file "CMakeLists.txt" dir)) 
   (setq index-dir (concat cmake-dir "rtags_indexes")) 
   (if (eq cmake-dir nil) 
-	  (message "not found 'CMakeLists.txt' file!") 
-	(if (file-exists-p index-dir) 
-		(message "rtags_indexes is exists.") 
-	  (make-directory index-dir)) 
-	(progn 
-	  (setq old-default-directory default-directory) 
-	  (setq default-directory  index-dir) 
-	  (message "indexdir:%s" index-dir) 
-	  (shell-command (concat "bash -c \"source /opt/ros/kinetic/setup.bash && "
-							 "cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 && " "rc -J " index-dir
-							 "\"")) 
-	  (setq default-directory old-default-directory))))
+      (message "not found 'CMakeLists.txt' file!") 
+    (if (file-exists-p index-dir) 
+        (message "rtags_indexes is exists.") 
+      (make-directory index-dir)) 
+    (progn 
+      (setq old-default-directory default-directory) 
+      (setq default-directory  index-dir) 
+      (message "indexdir:%s" index-dir) 
+      (shell-command (concat "bash -c \"source /opt/ros/kinetic/setup.bash && "
+                             "cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 && " "rc -J " index-dir
+                             "\"")) 
+      (setq default-directory old-default-directory))))
 
 ;; (add-hook 'c-mode-hook 'gen-rtags-indexes)
 ;; (add-hook 'c++-mode-hook 'gen-rtags-indexes)
@@ -132,7 +132,7 @@
 (defun show-rtags-buffer() 
   (interactive) 
   (setq temp-cc-buffer-name (buffer-name (current-buffer))) 
-  (ome-show-compilation "*Shell Command Output*") ;;*RTags* 
+  (ome-show-compilation "*Shell Command Output*") ;;*RTags*
   (shell) 
   (switch-to-buffer-other-window temp-cc-buffer-name) 
   (ome-show-compilation "*Shell Command Output*" t))

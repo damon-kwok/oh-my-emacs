@@ -1,0 +1,615 @@
+function ome-upgrade() {
+
+    # if [ ! -e "$HOME/.oh-my-emacs/.git/index" ]; then
+        # git clone git@github.com:damon-kwok/oh-my-emacs $HOME/.oh-my-emacs --depth=1        
+    # else
+        # cd $HOME/.oh-my-emacs
+        # git pull
+    # fi
+    github-ssh-upgrade damon-kwok/oh-my-emacs $HOME/.oh-my-emacs
+    
+    chmod +x $HOME/.oh-my-emacs/bin/*
+
+    find-str ".oh-my-emacs/bin/env" ~/.bashrc
+    if [ $? -eq 0 ]; then
+        echo "" >> ~/.bashrc
+	echo "# oh-my-emacs" >> ~/.bashrc
+	echo "source \$HOME/.oh-my-emacs/bin/env" >> ~/.bashrc
+    fi
+}
+
+function shell-upgrade() {
+    # tip "install oh-my-zsh"
+    # sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+    tip "install Bash-it"	
+    if command -v bash-it >/dev/null 2>&1; then
+	echo "----------------bash-it---update mode!!!!!!"
+	bash-it update
+    else
+	echo "----------------bash-it---net install mode!!!!!!"
+	# git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+	github-upgrade Bash-it/bash-it ~/.bash_it
+	~/.bash_it/install.sh
+    fi
+
+    #set .bashrc
+    
+}
+
+function cmake-upgrade() {
+    git-upgrade "https://gitlab.kitware.com" "cmake/cmake" $DEV_ROOT/cmake
+    cd $DEV_ROOT/cmake/
+    ./bootstrap
+    # mkdir -p $DEV_ROOT/cmake/build
+    # cmake ..
+    make	
+}
+
+function waf-upgrade() {
+    git-upgrade "https://gitlab.com" ita1024/waf $DEV_ROOT/waf        
+}
+
+function gyp-upgrade() {
+    github-upgrade chromium/gyp $DEV_ROOT/gyp    
+}
+
+function llvm-upgrade() {
+    git-upgrade "https://git.llvm.org" "git/llvm" $DEV_ROOT/llvm
+    git-upgrade "https://git.llvm.org" "git/clang" $DEV_ROOT/llvm/tools/clang
+    git-upgrade "https://git.llvm.org" "git/clang-tools-extra" $DEV_ROOT/llvm/tools/clang/tools/extra
+    git-upgrade "https://git.llvm.org" "git/lld" $DEV_ROOT/llvm/tools/lld
+    git-upgrade "https://git.llvm.org" "git/lldb" $DEV_ROOT/llvm/tools/lldb
+    git-upgrade "https://git.llvm.org" "git/polly" $DEV_ROOT/llvm/tools/polly
+    git-upgrade "https://git.llvm.org" "git/compiler-rt" $DEV_ROOT/llvm/projects/compiler-rt
+    git-upgrade "https://git.llvm.org" "git/openmp" $DEV_ROOT/llvm/projects/openmp
+    git-upgrade "https://git.llvm.org" "git/libcxx" $DEV_ROOT/llvm/projects/libcxx
+    git-upgrade "https://git.llvm.org" "git/libcxxabi" $DEV_ROOT/llvm/projects/libcxxabi
+    # git-upgrade "https://git.llvm.org" "git/test-suite" $DEV_ROOT/llvm/projects/test-suite
+    cd $DEV_ROOT/llvm/
+    git config branch.master.rebase true
+    
+    mkdir -p $DEV_ROOT/llvm/build
+    # mkdir -p $DEV_ROOT/lldb
+    cd $DEV_ROOT/llvm/build/
+    cmake .. \
+	  -DCMAKE_INSTALL_PREFIX=$HOME/.llvm \
+	  -DCMAKE_BUILD_TYPE=Release
+    # -DLLVM_ENABLE_PROJECTS="lldb" 
+    make -j4 install
+}
+
+function rtags-upgrade() {
+    github-upgrade Andersbakken/rtags $DEV_ROOT/rtags
+    mkdir -p $DEV_ROOT/rtags/build
+    cd $DEV_ROOT/rtags/build/
+    cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+    make
+    cp $DEV_ROOT/rtags/bin/* $DEV_ROOT/rtags/build/bin/
+}
+
+function cquery-upgrade() {
+    tip "install cquery"
+    github-upgrade cquery-project/cquery $DEV_ROOT/cquery
+    mkdir -p $DEV_ROOT/cquery/build
+    cd $DEV_ROOT/cquery/build/
+    cmake .. \
+	  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
+	  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
+	  -DCMAKE_BUILD_TYPE=Release
+    # -DSYSTEM_CLANG=1
+    make
+    cd $OME_ROOT
+}
+# PATH=/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin:$PATH
+function ccls-upgrade() {
+    tip "install ccls"
+    github-upgrade MaskRay/ccls $DEV_ROOT/ccls
+    # github-upgrade damon-kwok/ccls $DEV_ROOT/ccls
+    mkdir -p $HOME/.ccls
+    mkdir -p $DEV_ROOT/ccls/build
+    cd $DEV_ROOT/ccls/build/
+    # -DCMAKE_CXX_EXTENSIONS=OFF 
+    # -DCMAKE_PREFIX_PATH=$HOME/.llvm 
+    # -DCMAKE_CXX_COMPILER="/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin/clang++"
+    # -DCMAKE_CXX_STANDARD=17
+    # -DCMAKE_CXX_STANDARD_REQUIRED=ON 
+    # -DCMAKE_CXX_EXTENSIONS=OFF 
+    cmake .. \
+	  -DSYSTEM_CLANG=ON \
+	  -DCMAKE_CXX_COMPILER=clang++ \
+          -DCMAKE_INSTALL_PREFIX=$HOME/.ccls \
+          -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
+          -DCMAKE_BUILD_TYPE=Release
+    make
+    
+    cd $OME_ROOT
+}
+
+function ue4-upgrade() {
+    github-upgrade EpicGames/UnrealEngine $DEV_ROOT/ue4/UnrealEngine 1 4.20
+    cd $DEV_ROOT/ue4/UnrealEngine/
+    ./Setup.sh
+    ./GenerateProjectFiles.sh
+    
+}
+
+function clang-format-upgrade() {
+    if [ ! -e ~/.clang-format ]; then
+        #echo "Language: Cpp" >> ~/.clang-format
+        echo "# 基于哪个配置文件" >> ~/.clang-format
+        echo "BasedOnStyle: LLVM" >> ~/.clang-format
+        echo "# BreakBeforeBraces: Attach" >> ~/.clang-format
+        echo "BreakBeforeBraces: Attach" >> ~/.clang-format
+        echo "# 指针的*的挨着哪边" >> ~/.clang-format
+        echo "PointerAlignment: Right" >> ~/.clang-format
+        echo "# 缩进宽度" >> ~/.clang-format
+        echo "IndentWidth: 4" >> ~/.clang-format
+        echo "# tab的宽度" >> ~/.clang-format
+        echo "TabWidth: 4" >> ~/.clang-format
+        echo "# 使用Tab" >> ~/.clang-format
+        echo "UseTab: Never" >> ~/.clang-format
+        echo "# 行长度限制" >> ~/.clang-format
+        echo "ColumnLimit: 80" >> ~/.clang-format
+
+        echo "# 模板声明单独一行" >> ~/.clang-format
+        echo "AlwaysBreakTemplateDeclarations: true" >> ~/.clang-format
+        echo "# 连续的空行保留几行" >> ~/.clang-format
+        echo "MaxEmptyLinesToKeep: 1" >> ~/.clang-format
+        echo "# 在 @property 后面添加空格, @property (readonly) 而不是 @property(readonly)." >> ~/.clang-format
+        echo "ObjCSpaceAfterProperty: true" >> ~/.clang-format
+        echo "# OC block后面的缩进" >> ~/.clang-format
+        echo "ObjCBlockIndentWidth: 4" >> ~/.clang-format
+        echo "# 是否允许短方法单行" >> ~/.clang-format
+        echo "AllowShortFunctionsOnASingleLine: true" >> ~/.clang-format
+        echo "# 是否允许短if单行 If true, if (a) return; 可以放到同一行" >> ~/.clang-format
+        echo "AllowShortIfStatementsOnASingleLine: true" >> ~/.clang-format
+        echo "# 注释对齐" >> ~/.clang-format
+        echo "AlignTrailingComments: true" >> ~/.clang-format
+        echo "# 换行的时候对齐操作符" >> ~/.clang-format
+        echo "# AlignOperands: true" >> ~/.clang-format
+        echo "# 中括号两边空格 [] " >> ~/.clang-format
+        echo "SpacesInSquareBrackets: false" >> ~/.clang-format
+        echo "# 小括号两边添加空格" >> ~/.clang-format
+        echo "SpacesInParentheses : false" >> ~/.clang-format
+        echo "# 多行声明语句按照=对齐" >> ~/.clang-format
+        echo "AlignConsecutiveDeclarations: true" >> ~/.clang-format
+        echo "# 连续的赋值语句以 = 为中心对齐" >> ~/.clang-format
+        echo "AlignConsecutiveAssignments: true" >> ~/.clang-format
+        echo "# 等号两边的空格" >> ~/.clang-format
+        echo "SpaceBeforeAssignmentOperators: true" >> ~/.clang-format
+        echo "# 容器类的空格 例如 OC的字典" >> ~/.clang-format
+        echo "SpacesInContainerLiterals: true" >> ~/.clang-format
+        echo "# 缩进" >> ~/.clang-format
+        echo "IndentWrappedFunctionNames: true" >> ~/.clang-format
+        echo "# 在block从空行开始" >> ~/.clang-format
+        echo "KeepEmptyLinesAtTheStartOfBlocks: true" >> ~/.clang-format
+        echo "# 在构造函数初始化时按逗号断行，并以冒号对齐" >> ~/.clang-format
+        echo "BreakConstructorInitializersBeforeComma: true" >> ~/.clang-format
+        echo "# 函数参数换行" >> ~/.clang-format
+        echo "AllowAllParametersOfDeclarationOnNextLine: true" >> ~/.clang-format
+        echo "# 括号后添加空格" >> ~/.clang-format
+        echo "SpaceAfterCStyleCast: true" >> ~/.clang-format
+        
+        echo "" >> ~/.clang-format
+        echo "---" >> ~/.clang-format
+        echo "Language: JavaScript" >> ~/.clang-format
+        echo "# Use 100 columns for JS." >> ~/.clang-format
+        echo "ColumnLimit: 0" >> ~/.clang-format
+    fi
+}
+function config_offlineimap() {
+    local del_force=$1
+    if [ "$del_force" == "1" ]; then
+	rm -rf ~/.offlineimaprc
+    fi
+    
+    if [ ! -e ~/.offlineimaprc ] || [ ! -e ~/.authinfo ]; then
+
+	read -p "please input your email address:" email
+	read -p "please input your email password:" passwd
+	
+	# offlineimap: offlineimaprc
+	if [ ! -e ~/.offlineimaprc ]; then
+	    echo "[general]" >> ~/.offlineimaprc 
+	    echo "accounts = Gmail" >> ~/.offlineimaprc
+	    echo "maxsyncaccounts = 3" >> ~/.offlineimaprc
+	    echo "" >> ~/.offlineimaprc
+	    echo "[Account Gmail]" >> ~/.offlineimaprc
+	    echo "localrepository = Local" >> ~/.offlineimaprc
+	    echo "remoterepository = Remote" >> ~/.offlineimaprc
+	    echo "" >> ~/.offlineimaprc
+	    echo "[Repository Local]" >> ~/.offlineimaprc
+	    echo "type = Maildir" >> ~/.offlineimaprc
+	    echo "localfolders = ~/Maildir" >> ~/.offlineimaprc
+	    echo "" >> ~/.offlineimaprc
+	    echo "[Repository Remote]" >> ~/.offlineimaprc
+	    echo "type = IMAP" >> ~/.offlineimaprc
+	    echo "remotehost = imap.263.net" >> ~/.offlineimaprc
+	    echo "remoteport = 143" >> ~/.offlineimaprc
+	    echo "remoteuser = $email" >> ~/.offlineimaprc
+	    echo "remotepass = $passwd" >> ~/.offlineimaprc
+	    echo "ssl = no" >> ~/.offlineimaprc
+	    echo "maxconnections = 1" >> ~/.offlineimaprc
+	    echo "realdelete = no" >> ~/.offlineimaprc
+	fi
+
+	# gnus: .authinfo
+	if [ ! -e ~/.authinfo ]; then
+	    echo "machine smtp.263.net port 465 login $emailpassword $passwd" >> ~/.authinfo
+	fi
+    fi
+}
+
+function mu4e-upgrade() {
+    # tip "install mu4e-release"
+    # github-upgrade damon-kwok/resources $OME_ROOT/resources
+    # if [ ! -d $HOME/.emacs.d/libs/mu ]; then
+    # echo "no"
+    # cd $HOME/.emacs.d/libs/
+    
+    # cp -f $OME_ROOT/resources/mu.tar.xz $HOME/.emacs.d/libs/
+    # mkdir -p mu
+    # tar xpvf mu.tar.xz -C .
+    # fi
+    # cd $HOME/.emacs.d/libs/mu/
+    # ./configure --prefix=$HOME/.mu
+    # make install
+
+    tip "install mu4e-git"
+    github-upgrade djcb/mu $HOME/.emacs.d/libs/mu-git
+    cd $HOME/.emacs.d/libs/mu-git/
+    ./autogen.sh
+    ./configure --prefix=$HOME/.mu
+    make install
+
+    tip "install offlineiamp"
+    pip install --user -U offlineimap	
+    
+    tip "chmod +x $OME_ROOT/bin/*"
+    cd $OME_BIN
+    chmod +x ./*
+
+    # offlineimap
+    config_offlineimap
+
+    # Maildir
+    mkdir -p ~/Maildir/Archive/
+    mkdir -p ~/Maildir/Draft/
+    mkdir -p ~/Maildir/INBOX/
+    mkdir -p ~/Maildir/Junk/
+    mkdir -p ~/Maildir/Sent/
+    mkdir -p ~/Maildir/Trash/	
+}
+
+function elixir-upgrade() {
+    tip "install elixir"
+    # https://github.com/elixir-lang/elixir.git
+    github-upgrade elixir-lang/elixir $DEV_ROOT/elixir
+    cd $DEV_ROOT/elixir
+    make
+    # make clean test
+}
+function resource-upgrade() {
+    github-upgrade damon-kwok/resources ~/.emacs.d/resources
+    chmod +x ~/.emacs.d/resources/rebar3
+}
+function erlang-upgrade() {
+    tip "install erlang"
+    # git clone https://github.com/erlang/otp.git
+    github-upgrade erlang/otp $DEV_ROOT/erlang_otp
+    cd $DEV_ROOT/erlang_otp
+    ./otp_build autoconf
+    ./configure --prefix=$HOME/.erlang_otp
+    make
+    # make install
+
+    tip "install rebar3 for erlang"
+    # cd $OME_BIN
+    # wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
+    # chmod +x ./rebar3
+    resource-upgrade
+    # rebar3 local upgrade DEBUG=1
+    rebar3 update
+    rebar3 upgrade	
+}
+
+function rust-upgrade() {
+    tip "install cargo + rust"
+    if command -v rustup >/dev/null 2>&1; then
+	rustup self update
+	rustup update
+    else
+	curl https://sh.rustup.rs -sSf | sh	
+	cargo update
+	rustup toolchain add beta
+	rustup component add rust-src
+    fi
+    cargo install --force racer
+    cargo install --force ripgrep
+}
+
+function nim-upgrade() {
+    tip "install nim"
+    curl https://nim-lang.org/choosenim/init.sh -sSf | sh
+}
+
+function crystal-upgrade() {
+    github-upgrade crystal-lang/crystal $DEV_ROOT/crystal
+    cd $DEV_ROOT/crystal
+    make
+}
+
+function install-jdt-language-server() {
+    tip "install eclipse language server"	
+    local del_force=$1
+    if [ "$del_force" == "1" ]; then
+	rm -rf ~/.emacs.d/eclipse.jdt.ls/server/
+    fi
+    
+    if [ ! -d ~/.emacs.d/eclipse.jdt.ls/server/ ]; then
+	mkdir -p ~/.emacs.d/eclipse.jdt.ls/server/
+	wget http://mirror.switch.ch/eclipse/jdtls/snapshots/jdt-language-server-latest.tar.gz  -O $HOME/jdt-language-server-latest.tar.gz
+	# wget http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz -O $HOME/jdt-language-server-latest.tar.gz
+	tar xf $HOME/jdt-language-server-latest.tar.gz -C ~/.emacs.d/eclipse.jdt.ls/server/
+    fi
+}
+
+function sdkman-upgrade() {
+    tip "install sdkman"
+    if command -v sdk >/dev/null 2>&1; then
+	curl -s "https://get.sdkman.io" | bash
+	source $HOME/.sdkman/bin/sdkman-init.sh
+    fi
+    find-str "SDKMAN_DIR" ~/.bashrc
+    if [ $? -eq 0 ]; then
+        echo "" >> ~/.bashrc
+	echo "#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!" >> ~/.bashrc
+	echo "export SDKMAN_DIR=\"\$HOME/.sdkman\"" >> ~/.bashrc
+	echo "[[ -s \"\$HOME/.sdkman/bin/sdkman-init.sh\" ]] && source \"\$HOME/.sdkman/bin/sdkman-init.sh\"" >> ~/.bashrc
+    fi
+    sdk selfupdate
+    sdk update
+    sdk upgrade
+    
+    sdk install java
+    sdk install kotlin
+    sdk install scala
+    sdk install groovy	
+    sdk install leiningen
+    sdk install maven
+    sdk install gradle
+    sdk install sbt
+
+    #lsp-java
+    install-jdt-language-server
+}
+
+function nvm-upgrade() {
+    tip "install nvm + nodejs"
+    find-str "NVM_DIR" ~/.bashrc
+    if [ $? -eq 0 ]; then
+	echo "" >> ~/.bashrc
+	echo "# Nodejs" >> ~/.bashrc
+	echo "export NVM_DIR=\"$HOME/.nvm\"" >> ~/.bashrc
+	echo "[ -s \"\\$NVM_DIR/nvm.sh\" ] && \\. \"\$NVM_DIR/nvm.sh\"" >> ~/.bashrc
+	echo "[ -s \"\\$NVM_DIR/bash_completion\" ] && \\. \"\4$NVM_DIR/bash_completion\"" >> ~/.bashrc
+    fi
+    
+    # curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+    local NVM_DIR="$HOME/.nvm"
+    # if command -v nvm >/dev/null 2>&1; then
+    if [ ! -d $NVM_DIR ]; then		
+	git clone https://github.com/creationix/nvm.git "$NVM_DIR"
+	cd "$NVM_DIR"
+	git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+    else		
+	cd "$NVM_DIR"
+	git fetch --tags origin
+	git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`		
+    fi
+
+    \. "$NVM_DIR/nvm.sh"
+    
+    nvm install 8 #LFS
+    # nvm install node # lastest version
+    
+    npm i -g npm
+    
+    tip "install js language server"
+    npm i -g javascript-typescript-langserver
+    npm i -g flow-language-server
+    npm i -g typescript-language-server				
+}
+
+function py-upgrade() {
+    # github-upgrade pyenv/pyenv $DEV_ROOT/pyenv
+    # pyenv install 2.7
+    
+    if test pip == "" ; then
+        tip "install pip"
+        cd $HOME
+        curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+        python get-pip.py
+    fi
+    
+    tip "pip upgrade"
+    pip install --user -U pip
+
+    tip "install python-language-server"
+    pip install --user -U python-language-server
+
+    # pip2.7 install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
+    tip "install ebook build tool:"
+    pip install --user -U jinja2
+    pip install --user -U markupsafe
+    pip install --user -U pygments
+    pip install --user -U sphinx
+    pip install --user -U docutils
+    pip install --user -U wsgiref
+    
+}
+
+function golang-upgrade() {
+    github-upgrade golang/go $DEV_ROOT/go
+    cd $DEV_ROOT/go/src
+    chmod +x ./all.bash
+    ./all.bash
+    cd $HOME
+    
+    tip "install go language server"
+    go get -u github.com/sourcegraph/go-langserver
+}
+
+function install-basedevel {
+    tip "please choose your os:"
+    echo "    1) debian/ubuntu/mint"
+    echo "    2) archlinux/manjaro"
+    echo "    3) fedora22+"
+    echo "    4) macOS"
+    echo "    5) msys2"
+    echo "    -------------------------"
+    echo "    r) return"
+
+    read -p "please enter your choice:" item
+    case $item in
+	1)  # Debian / Ubuntu / LinuxMint
+	    # Erlang
+	    # wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
+		# && sudo dpkg -i erlang-solutions_1.0_all.deb
+
+	    # Golang
+	    # sudo add-apt-repository -y ppa:longsleep/golang-backports
+	    
+	    sudo apt update
+	    sudo apt dist-upgrade
+	    
+	    sudo apt install -y build-essential cppunit texinfo libtool autoscan aclocal autoconf autoheader automake \
+		 coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
+	    sudo apt install -y python-pip perl ruby ocaml haskell-stack #openjdk-8-jdk
+	    sudo apt install -y ttf-bitstream-vera #zmq ghostscript
+	    sudo apt install -y i3 #i3-wm i3status i3lock dmenu feh xcompmgr roxterm
+
+	    # - Erlang 			
+	    # sudo apt install libssl-dev libwxbase3.0-dev libwxgtk3.0-dev esl-erlang
+	    # sudo apt install erlang-nox
+	    # sudo apt install elixir
+
+	    # - Bazel---Build and test software of any size, quickly and reliably
+	    # sudo apt -y install pkg-config zip g++ zlib1g-dev unzip python
+	    # echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | \
+		# sudo tee /etc/apt/sources.list.d/bazel.list
+	    # curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
+	    # sudo apt-get update && sudo apt-get install -y bazel
+	    
+	    # - Golang LTS PPA
+	    # sudo apt-get install golang-go			
+	    ;;
+	
+	2)  # ArchLinux / Manjaro
+	    yaourt -Syyu
+	    yaourt -S base-devel cppunit coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+	    yaourt -S python2-pip rubygems ocaml haskell-stack-git jdk go-bin
+	    yaourt -S nerd-fonts-bitstream-vera-mono
+	    yaourt -S i3-wm i3lock i3status dmenu
+	    ;;
+	
+	3)  # Fedora / Redhat / CentOS
+	    sudo dnf update
+	    sudo dnf upgrade --refresh
+	    
+	    sudo dnf groupinstall "Development Tools and Libraries"
+	    sudo dnf install cppunit automake \
+		 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+	    sudo dnf install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
+	    sudo dnf install ttf-bitstream-vera
+	    ;;
+	
+	4) # macOS
+	    brew update
+	    brew upgrade
+	    
+	    brew install cppunit automake \
+		 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+	    brew install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
+	    brew install ttf-bitstream-vera
+	    ;;
+	
+	5) # msys2
+	    pacman -Syyu
+	    
+	    pacman -S base-devel cppunit automake \
+		   coreutils diffutils wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
+	    pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-ocaml golang
+	    pacman -S ttf-bitstream-vera
+	    #mingw-w64-x86_64-zeromq mingw-w64-x86_64-ghostscript
+	    ;;
+	
+	r | R)
+	    ask-menu
+	    ;;
+	*)
+	    ask-repl
+	    ;;
+    esac
+
+    # pdf compile tool: fop xsltproc
+    
+    source ~/.bashrc
+}
+
+function install-toolchain() {
+    
+
+
+    cmake-upgrade
+    gyp-upgrade
+    waf-upgrade
+    
+    nvm-upgrade
+    py-upgrade
+    sdkman-upgrade
+    
+    mu4e-upgrade    
+    
+    clang-format-upgrade
+    resource-upgrade
+    cquery-upgrade
+    ccls-upgrade
+    rtags-upgrade
+
+    ue4-upgrade
+    golang-upgrade
+    erlang-upgrade
+    elixir-upgrade
+    rust-upgrade
+    nim-upgrade
+
+    #haskell
+    # if [ ! -d "~/.stack/" ]; then
+    # mkdir ~/.stack/
+    # cp $OME_ROOT/cache/bin/config.yaml ~/.stack/
+    # fi
+    # stack update
+    # stack upgrade
+
+    # tip "install lein + clojure"
+    # cd $OME_BIN
+    # # if command -v bash-it >/dev/null 2>&1; then
+    # # curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+    # # curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+    # chmod +x ./lein
+    # lein upgrade
+
+    
+}
+
+function upgrade() {
+    sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && \
+	rosdep update && bash-it update && \
+	rebar3 local upgrade && lein upgrade && \
+	cargo update && rustup component add rust-src && cargo install --force racer
+
+    install-toolchain
+}
+

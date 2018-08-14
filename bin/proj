@@ -1,0 +1,178 @@
+
+PROJECT_BLOG=demo-kwok.github.io
+
+# DIR_BLOG=$OME_ROOT/blog
+# DIR_WORKSPACE=$OME_ROOT/workspace
+DIR_LLVM_WHERE=$OME_ROOT/dev
+DIR_LLVM=$OME_ROOT/dev/llvm
+
+function pull-blog {
+    # cd $OME_ROOT
+    # git reset
+    # git pull
+
+    tip "pull blog"
+    github-ssh-upgrade damon-kwok/damon-kwok.github.io $DIR_BLOG
+    # if [ ! -d $DIR_BLOG ]; then
+    # cd $OME_ROOT
+    # git clone https://github.com/damon-kwok/damon-kwok.github.io.git $DIR_BLOG
+    # else
+    # cd $DIR_BLOG
+    # git pull
+    # fi
+}
+
+function push-blog {
+    tip "push-blog"
+    cd $OME_ROOT/blog/
+    git reset
+    git pull
+    git add .
+    git status
+    git commit -m `date +%Y-%m-%d@%H-%M-%S` # "upgrade by "`uname -n`
+    git push -u origin master
+}
+
+function pull-workspace() {
+    tip "pull workspace"
+    github-ssh-upgrade damon-kwok/workspace $HOME/workspace
+    # if [ ! -d $DIR_WORKSPACE ]; then
+    # cd $OME_ROOT
+    # svn co svn://www.svn999.com/guowangwei.workspace workspace
+    # else
+    # cd $DIR_WORKSPACE
+    # svn cleanup .
+    # svn up
+    # fi
+}
+function push-workspace {
+    tip "push-workspace"
+    cd $HOME/workspace/
+    git reset
+    git pull
+    git add .
+    git status
+    git commit -m `date +%Y-%m-%d@%H-%M-%S` # "upgrade by "`uname -n`
+    git push -u origin master
+}
+
+function project-upgrade() {
+    # C
+    github-upgrade libuv/libuv $PROJECT_ROOT/c/libuv
+    github-upgrade nodejs/http-parser $PROJECT_ROOT/c/http-parser
+    github-upgrade json-c/json-c $PROJECT_ROOT/c/json-c
+    github-upgrade protobuf-c/protobuf-c $PROJECT_ROOT/c/protobuf-c
+    github-upgrade Snaipe/libcsptr $PROJECT_ROOT/c/libcsptr
+
+    # github-upgrade nanomsg/nanomsg $PROJECT_ROOT/c/nanomsg
+    # github-upgrade zeromq/libzmq $PROJECT_ROOT/c/libzmq
+    github-upgrade libcheck/check $PROJECT_ROOT/c/libcheck
+    github-upgrade lcm-proj/lcm $PROJECT_ROOT/c/lcm
+    svn-upgrade svn://vcs.exim.org/pcre2/code/trunk $PROJECT_ROOT/c/pcre2
+    github-upgrade Tencent/libco $PROJECT_ROOT/libco
+    
+    # C++
+    github-upgrade emilk/loguru $PROJECT_ROOT/cpp/loguru
+    github-upgrade nodejs/http2 $PROJECT_ROOT/cpp/http2
+    github-upgrade facebook/folly $PROJECT_ROOT/cpp/folly
+    github-upgrade pocoproject/poco $PROJECT_ROOT/cpp/poco
+    github-upgrade 01org/tbb $PROJECT_ROOT/tbb
+    github-upgrade Tencent/rapidjson $PROJECT_ROOT/rapidjson
+    
+    # C#
+
+    # Lisp
+    github-upgrade kanaka/mal $PROJECT_ROOT/lisp/mal
+
+    # Clojure
+    github-upgrade apache/storm $PROJECT_ROOT/clj/storm
+    # https://github.com/apachecn/storm-doc-zh/
+    github-upgrade riemann/riemann $PROJECT_ROOT/clj/riemann
+    github-upgrade ztellman/aleph $PROJECT_ROOT/clj/aleph
+    # https://github.com/ztellman/byte-streams
+    # https://github.com/ztellman/lamina
+    # https://github.com/ztellman/gloss
+    # https://github.com/ztellman/manifold
+    
+    # Unity3d
+    github-upgrade arcadia-unity/arcadia $DEV_ROOT/u3d/Arcadia
+
+    
+    # UE4
+    # https://github.com/EpicGames/UnrealEngine.git
+    github-upgrade EpicGames/UnrealEngine $PROJECT_ROOT/ue4/UnrealEngine
+    # Data
+    github-upgrade apache/thrift $PROJECT_ROOT/data/thrift
+    github-upgrade apache/avro $PROJECT_ROOT/data/avro
+    github-upgrade google/flatbuffers $PROJECT_ROOT/data/flatbuffers
+    
+}
+
+function book-upgrade() {
+    # Book
+    # https://github.com/QianMo/Real-Time-Rendering-3rd-CN-Summary-Ebook
+    github-upgrade QianMo/Real-Time-Rendering-3rd-CN-Summary-Ebook $BOOK_ROOT/Real-Time-Rendering-3rd-CN-Summary-Ebook
+    # https://github.com/huangz1990/real-world-haskell-cn
+    github-upgrade huangz1990/real-world-haskell-cn $BOOK_ROOT/real-world-haskell-cn
+}
+
+function me-pull() {   	
+    
+    github-ssh-upgrade damon-kwok/damon-kwok.github.io $HOME/blog
+    github-ssh-upgrade damon-kwok/workspace $HOME/workspace
+    
+    github-ssh-upgrade damon-kwok/awesome-package-manager $PROJECT_ROOT/me/awesome-package-manager
+    github-ssh-upgrade damon-kwok/awesome-network-programming $PROJECT_ROOT/me/awesome-network-programming
+    
+    github-ssh-upgrade damon-kwok/medusa $PROJECT_ROOT/me/medusa
+    
+    github-ssh-upgrade damon-kwok/libknife $PROJECT_ROOT/me/libknife    
+    # cd $PROJECT_ROOT/c/libknife
+    # mkdir -p build
+    # cd build
+    # cmake ..
+    # make
+}
+
+function me-push() {
+    cd ~/.oh-my-emacs/
+    git push
+    
+    cd $HOME/blog
+    git-push
+    
+    cd $HOME/workspace
+    git-push
+
+    cd $PROJECT_ROOT/me/awesome-package-manager
+    git-push
+
+    cd $PROJECT_ROOT/me/awesome-network-programming
+    git-push
+    
+    cd $PROJECT_ROOT/me/medusa
+    git-push
+    
+    cd $PROJECT_ROOT/me/libknife
+    git-push
+}
+
+function daily-upgrade() {
+    # tip "upgrade oh-my-emacs"
+    cd ~/.oh-my-emacs/
+    git pull
+    
+    tip "pip upgrade"
+    pip install --user -U pip
+    
+    # erlang-upgrade
+    # elixir-upgrade
+    # llvm-upgrade
+    # rtags-upgrade
+    cquery-upgrade
+    # ccls-upgrade
+    mu4e-upgrade
+    
+    # project-upgrade
+    # book-upgrade
+}

@@ -3,15 +3,8 @@
 ################################################################################
 CURRENT_DIR=$(dirname $(readlink -f $0))
 source $CURRENT_DIR/env
-source $CURRENT_DIR/lib
 ################################################################################
 
-PROJECT_BLOG=demo-kwok.github.io
-
-DIR_BLOG=$OME_ROOT/blog
-DIR_WORKSPACE=$OME_ROOT/workspace
-DIR_LLVM_WHERE=$OME_ROOT/dev
-DIR_LLVM=$OME_ROOT/dev/llvm
 
 ################################################################################
 function run-emacs {
@@ -74,127 +67,7 @@ function link-init-el() {
     cp -a $OME_ROOT/emacs-config/init.el ~/.emacs 
     ln -s $OME_ROOT/emacs-config ~/emacs-config
     ln -s $OME_ROOT/workspace ~/workspace
-    ln -s $OME_ROOT/blog ~/blog
-    
-    # if [ ! -f /usr/bin/oh-my-emacs ]; then
-    # sudo ln -s $OME_ROOT/oh-my-emacs /usr/bin/oh-my-emacs
-    # fi
-
-    # find-str ".oh-my-emacs" ~/.bashrc
-    # if [ $? -eq 0 ]; then
-    # echo "" >> ~/.bashrc
-    # echo "source $OME_BIN/env" >> ~/.bashrc
-    # fi
-
-    # find-str ".oh-my-emacs" ~/.zshrc
-    # if [ $? -eq 0 ]; then
-    # echo "" >> ~/.zshrc
-    # echo "source $OME_BIN/env" >> ~/.zshrc
-    # fi
-
-    # find-str ".oh-my-emacs" ~/.profile
-    # if [ $? -eq 0 ]; then
-    # echo "" >> ~/.profile 
-    # echo "export PATH=$OME_ROOT:$OME_BIN:\$PATH" >> ~/.profile 
-    # echo "source $OME_BIN/env" >> ~/.profile 
-    # fi
-    
-    # source $OME_BIN/env.sh
-    
-    # pull-blog
-}
-
-function pull-blog {
-    # cd $OME_ROOT
-    # git reset
-    # git pull
-
-    tip "pull blog"
-    github-ssh-upgrade damon-kwok/damon-kwok.github.io $DIR_BLOG
-    # if [ ! -d $DIR_BLOG ]; then
-    # cd $OME_ROOT
-    # git clone https://github.com/damon-kwok/damon-kwok.github.io.git $DIR_BLOG
-    # else
-    # cd $DIR_BLOG
-    # git pull
-    # fi
-}
-
-function push-blog {
-    tip "push-blog"
-    cd $OME_ROOT/blog/
-    git reset
-    git pull
-    git add .
-    git status
-    git commit -m `date +%Y-%m-%d@%H-%M-%S` # "upgrade by "`uname -n`
-    git push -u origin master
-}
-
-function pull-workspace() {
-    tip "pull workspace"
-    github-ssh-upgrade damon-kwok/workspace $HOME/workspace
-    # if [ ! -d $DIR_WORKSPACE ]; then
-    # cd $OME_ROOT
-    # svn co svn://www.svn999.com/guowangwei.workspace workspace
-    # else
-    # cd $DIR_WORKSPACE
-    # svn cleanup .
-    # svn up
-    # fi
-}
-function push-workspace {
-    tip "push-workspace"
-    cd $HOME/workspace/
-    git reset
-    git pull
-    git add .
-    git status
-    git commit -m `date +%Y-%m-%d@%H-%M-%S` # "upgrade by "`uname -n`
-    git push -u origin master
-}
-
-function zipapp {
-    tip "zipapp"
-    cd $CACHE
-    zip -r apps.zip apps
-    mv apps.zip $ZIP_HOME/apps.zip
-    cd $ZIP_HOME
-    rm -rf *.zip.*
-    split -d -b 3m apps.zip apps.zip.
-    sleep 1s
-    rm -rf apps.zip
-
-    cd $OME_ROOT
-}
-
-function unzipapp {
-    tip "unzipapp"
-    cd $ZIP_HOME
-    ls
-    cat *.zip.* > apps.zip
-    unzip apps.zip
-    sleep 1s
-    rm -rf apps.zip
-    mv apps ..
-
-    cd $OME_ROOT
-}
-
-function pushapp {
-    tip "pushapp"
-    cd $ZIP_HOME
-    zipapp
-    git-push
-}
-
-function getapp {
-    tip "getapp"
-    if [ ! -d $APP_HOME ]; then
-	if [ ! -d $ZIPHOME ]; then
-	    echo pass
-	fi
-    fi
+    ln -s $OME_ROOT/blog ~/blog   
 }
 
 function ask-blog {

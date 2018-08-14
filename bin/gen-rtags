@@ -3,4 +3,4 @@
 source /opt/ros/kinetic/setup.bash
 source ~/.oh-my-emacs/bin/env
 
-auto-gen-rtags
+auto-gen-rtags $1
