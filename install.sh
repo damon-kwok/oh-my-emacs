@@ -13,8 +13,6 @@ grep ".oh-my-emacs/bin/env" $HOME/.bashrc >/dev/null
 if [ $? -eq 0 ]; then	
     echo "found env!"
 else
-    echo "not fdound env!"
-    
     echo "" >> ~/.bashrc
     echo "# oh-my-emacs" >> ~/.bashrc
     echo "source \$HOME/.oh-my-emacs/bin/env" >> $HOME/.bashrc

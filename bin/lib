@@ -193,10 +193,10 @@ function find-str() {
     grep $str $file >/dev/null
     
     if [ $? -eq 0 ]; then
-	echo "found:$str"
+	# echo "found:$str"
 	return $(( 1 ));
     else
-	echo "not found:$str"
+	# echo "not found:$str"
 	return $(( 0 ));
     fi
 }
@@ -567,4 +567,8 @@ function sshkey-create() {
 
 function test-gitssh() {
     ssh -T git@github.com
+}
+
+function win-fix() {
+    sudo ntfsfix /dev/sda2
 }

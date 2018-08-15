@@ -586,8 +586,20 @@ occurence of CHAR."
   (ome-open-url (concat "http://stackoverflow.com/questions/tagged/" word)))
 ;; http://stackoverflow.com/questions/tagged/f%23
 
+(defun ome-load-file-to-string (path) 
+  "Return path's file content."
+  (with-temp-buffer (insert-file-contents path) 
+                    (buffer-string)))
 
+(defun ome-read-lines (path) 
+  "Return a list of lines of a file at path."
+  (if (file-exists-p path) 
+      (with-temp-buffer (insert-file-contents path) 
+                        (split-string (buffer-string) "\n" t)) ""))
 
+(defun ome-eval-string (string) 
+  "Evaluate elisp code stored in a string. (ome-eval-string \"(+ 1 2)\") is 3"
+  (eval (car (read-from-string string))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require-curl "elisp-format" "elisp-format.el"

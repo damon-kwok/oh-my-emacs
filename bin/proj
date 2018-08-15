@@ -71,7 +71,7 @@ function book-upgrade() {
 }
 
 function me-pull() {   	
-    
+    ome-upgrade
     
     github-ssh-upgrade damon-kwok/workspace $HOME/workspace
     chmod +x $HOME/workspace/bin/*
