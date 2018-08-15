@@ -243,13 +243,9 @@ function config_offlineimap() {
     fi
 
     if [ ! -e ~/.email.el ]; then
-        echo "(setq user-mail-address \"guowangwei@51hitech.com\";" >> ~/.email.el
-        echo "user-full-name  \"郭王伟\";" >> ~/.email.el
-        echo "mu4e-compose-signature (concat \"郭王伟\n51World\n\" ;" >> ~/.email.el
-	echo "			 \"----------------------------------------\n\";" >> ~/.email.el
-	echo "			 \"手机：＋86 18201863387\n\";" >> ~/.email.el
-	echo "			 \"地址：长宁区长宁路1436号 倍格老船坞 F2-05\n\";" >> ~/.email.el
-	echo "			 \"----------------------------------------\"))" >> ~/.email.el
+        echo "(setq user-mail-address \"yourname@xxx.com\";" >> ~/.email.el
+        echo "user-full-name  \"yourname\";" >> ~/.email.el
+        echo "mu4e-compose-signature \"hello,world!\"))" >> ~/.email.el	
     fi
 }
 
