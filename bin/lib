@@ -561,14 +561,22 @@ function wine-upgrade() {
     sudo apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/
 }
 
-function sshkey-create() {
+function ssh-gen() {
     ssh-keygen -t rsa -C "$1"
 }
 
-function test-gitssh() {
+function ssh-test() {
     ssh -T git@github.com
 }
 
-function win-fix() {
+function ntfs-fix() {
     sudo ntfsfix /dev/sda2
+}
+
+function neofetch-upgrade() {
+    # https://github.com/dylanaraps/neofetch/wiki/Installation
+    sudo add-apt-repository ppa:dawidd0811/neofetch
+    # sudo add-apt-repository ppa:dawidd0811/neofetch-daily
+    sudo apt update
+    sudo apt install neofetch
 }

@@ -245,7 +245,7 @@ function config_offlineimap() {
     if [ ! -e ~/.email.el ]; then
         echo "(setq user-mail-address \"yourname@xxx.com\";" >> ~/.email.el
         echo "user-full-name  \"yourname\";" >> ~/.email.el
-        echo "mu4e-compose-signature \"hello,world!\"))" >> ~/.email.el	
+        echo "mu4e-compose-signature \"hello,world!\")" >> ~/.email.el	
     fi
 }
 
