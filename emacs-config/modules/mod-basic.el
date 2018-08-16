@@ -43,7 +43,10 @@
         (tab-mark 9 [9655 9] [92 9]) ; tab
 		;;
         ))
-	(whitespace-mode 1)))
+        (if (and (not (string-match "^\*.*\*$" (buffer-name)))
+		 (not (eq major-mode 'dired-mode))
+		 (not (eq major-mode 'speedbar-mode)))
+	    (whitespace-mode 1))))
 
 (ome-global-whitespace-mode t)
 

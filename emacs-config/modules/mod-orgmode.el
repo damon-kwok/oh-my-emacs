@@ -95,8 +95,8 @@
                                (kotlin . t) 
                                (js . t) 
                                (typescript . t) 
-                               (python . t) 
-                               ;; (ipython . t) 
+                               (python . t)
+                               ;; (ipython . t)
                                (perl . t) 
                                (ruby . t) 
                                (groovy . t) 
@@ -127,7 +127,7 @@
 (setq org-publish-project-alist '(;;
                                   ("blog" :components ("blog-notes" "blog-static"))
                                   ;;
-				  ("blog-notes" :base-directory "~/workspace/blog/" 
+				  ("blog-notes" :base-directory "~/projects/me/blog/src/" 
                                    :base-extension "org" 
                                    :publishing-directory "~/projects/me/blog/" 
                                    :recursive t 
@@ -143,7 +143,7 @@
 				   :sitemap-sort-files anti-chronologically 
                                    :sitemap-file-entry-format "%d %t")
                                   ;;
-				  ("blog-static" :base-directory "~/workspace/blog/" 
+				  ("blog-static" :base-directory "~/projects/me/blog/src/" 
                                    :base-extension
                                    "css\\|js\\|png\\|jpg\\|bmp\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|ico" 
                                    :publishing-directory "~/projects/me/blog/" 
@@ -153,9 +153,28 @@
 				  ))
 (setq org-html-validation-link nil)
 
-;; (global-set-key (kbd "C-c C-b") #'(lambda () 
-                                    ;; (interactive) 
-                                    ;; (org-publish-project "blog")))
+;; (global-set-key (kbd "C-c C-b") #'(lambda ()
+;; (interactive)
+;; (org-publish-project "blog")))
+
+;;
+;; (org-remember-insinuate)
+;; (setq org-directory "~/journal/")
+;; (setq org-default-notes-file
+;; (concat org-directory (concat (format-time-string "%Y-%m") ".org.cpt"))
+;; )
+
+;; (define-key global-map "\C-cr" 'org-remember)
+
+(define-key global-map "\C-cc" 'org-capture)
+
+(define-key global-map "\C-cj"
+  (lambda () (interactive) (org-capture nil "j")))
+
+(setq org-capture-templates '(("t" "Todo" entry (file+headline "~/workspace//org/gtd.org" "Tasks")
+                               "* TODO %?\n  %i\n  %a") 
+                              ("j" "Journal" entry (file+olp+datetree "~/workspace/org/journal.org")
+                               "* %?\nEntered on %U\n  %i\n  %a")))
 
 ;;
 (provide 'mod-orgmode)
