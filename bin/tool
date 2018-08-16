@@ -465,6 +465,23 @@ function golang-upgrade() {
     tip "install go language server"
     go get -u github.com/sourcegraph/go-langserver
 }
+function mono-upgrade() {
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+    sudo apt install apt-transport-https
+    echo "deb https://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+    sudo apt update
+    sudo apt install mono-devel msbuild fsharp
+}
+function fsharp-upgrade() {
+    # github-upgrade fsharp/fsharp $DEV_ROOT/fsharp
+    # cd $DEV_ROOT/fsharp
+    # make
+    
+    github-upgrade georgewfraser/fsharp-language-server $DEV_ROOT/fsharp-language-server
+    cd $DEV_ROOT/fsharp-language-server
+    npm install
+    mono build -c Release
+}
 
 function install-basedevel {
     tip "please choose your os:"
