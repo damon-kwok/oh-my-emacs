@@ -510,20 +510,37 @@ function dptrp1-register() {
 
 function dptrp1-upload() {
     local ip=$1
-    local file=$2
+    local file="$2"
+    if [ ! -n "$3" ]; then
+        local folder=""
+    else
+        local folder="$3/"
+    fi
+    
     dptrp1 --client-id ~/workspace/dptrp1/deviceid.dat \
            --key ~/workspace/dptrp1/privatekey.dat \
            --addr $ip \
-           upload $file Document/Received/`basename $file`
+           upload "$file" "Document/Received/$folder`basename \"$file\"`"
 }
 
 function dptrp1-download() {
     local ip=$1
     local file=$2
+    
     dptrp1 --client-id ~/workspace/dptrp1/deviceid.dat \
            --key ~/workspace/dptrp1/privatekey.dat \
            --addr $ip \
-           download Document/Received/$file ~/Downloads/dptrp1/`basename $file` 
+           download "Document/Received/\"$file\"" "~/Downloads/dptrp1/`basename \"$file\"`" 
+}
+
+function dptrp1-delete() {
+    local ip=$1
+    local file=$2
+    
+    dptrp1 --client-id ~/workspace/dptrp1/deviceid.dat \
+           --key ~/workspace/dptrp1/privatekey.dat \
+           --addr $ip \
+           delete "Document/Received/\"$file\""
 }
 
 function install-basedevel {
