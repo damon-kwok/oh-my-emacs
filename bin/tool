@@ -486,7 +486,44 @@ function fsharp-upgrade() {
 function dptrp1-upgrade() {
     github-upgrade janten/dpt-rp1-py $DEV_ROOT/dpt-rp1-py
     cd $DEV_ROOT/dpt-rp1-py
-    sudo python3 setup.py install
+    # sudo python3 setup.py install
+    pip3 install --user .
+}
+
+function dptrp1-do() {
+    local ip=$1
+    local opt=$2
+    dptrp1 --client-id ~/workspace/dptrp1/deviceid.dat \
+           --key ~/workspace/dptrp1/privatekey.dat \
+           --addr $ip \
+           $opt $3 $4 $5 $6
+}
+
+function dptrp1-register() {
+    local ip=$1
+    local file=$2
+    dptrp1 --client-id ~/workspace/dptrp1/deviceid.dat \
+           --key ~/workspace/dptrp1/privatekey.dat \
+           --addr $ip \
+           register
+}
+
+function dptrp1-upload() {
+    local ip=$1
+    local file=$2
+    dptrp1 --client-id ~/workspace/dptrp1/deviceid.dat \
+           --key ~/workspace/dptrp1/privatekey.dat \
+           --addr $ip \
+           upload $file Document/Received/`basename $file`
+}
+
+function dptrp1-download() {
+    local ip=$1
+    local file=$2
+    dptrp1 --client-id ~/workspace/dptrp1/deviceid.dat \
+           --key ~/workspace/dptrp1/privatekey.dat \
+           --addr $ip \
+           download Document/Received/$file ~/Downloads/dptrp1/`basename $file` 
 }
 
 function install-basedevel {
