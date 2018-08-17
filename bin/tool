@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function ome-upgrade() {
+function ome-install() {
 
     # if [ ! -e "$HOME/.oh-my-emacs/.git/index" ]; then
     # git clone git@github.com:damon-kwok/oh-my-emacs $HOME/.oh-my-emacs --depth=1        
@@ -20,7 +20,7 @@ function ome-upgrade() {
     fi
 }
 
-function shell-upgrade() {
+function shell-install() {
     # tip "install oh-my-zsh"
     # sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
@@ -39,7 +39,7 @@ function shell-upgrade() {
     
 }
 
-function cmake-upgrade() {
+function cmake-install() {
     git-upgrade "https://gitlab.kitware.com" "cmake/cmake" $DEV_ROOT/cmake
     cd $DEV_ROOT/cmake/
     ./bootstrap
@@ -48,15 +48,15 @@ function cmake-upgrade() {
     make	
 }
 
-function waf-upgrade() {
+function waf-install() {
     git-upgrade "https://gitlab.com" ita1024/waf $DEV_ROOT/waf        
 }
 
-function gyp-upgrade() {
+function gyp-install() {
     github-upgrade chromium/gyp $DEV_ROOT/gyp    
 }
 
-function llvm-upgrade() {
+function llvm-install() {
     git-upgrade "https://git.llvm.org" "git/llvm" $DEV_ROOT/llvm
     git-upgrade "https://git.llvm.org" "git/clang" $DEV_ROOT/llvm/tools/clang
     git-upgrade "https://git.llvm.org" "git/clang-tools-extra" $DEV_ROOT/llvm/tools/clang/tools/extra
@@ -81,7 +81,7 @@ function llvm-upgrade() {
     make -j4 install
 }
 
-function rtags-upgrade() {
+function rtags-install() {
     github-upgrade Andersbakken/rtags $DEV_ROOT/rtags
     mkdir -p $DEV_ROOT/rtags/build
     cd $DEV_ROOT/rtags/build/
@@ -90,7 +90,7 @@ function rtags-upgrade() {
     cp $DEV_ROOT/rtags/bin/* $DEV_ROOT/rtags/build/bin/
 }
 
-function cquery-upgrade() {
+function cquery-install() {
     tip "install cquery"
     github-upgrade cquery-project/cquery $DEV_ROOT/cquery
     mkdir -p $DEV_ROOT/cquery/build
@@ -104,7 +104,7 @@ function cquery-upgrade() {
     cd $OME_ROOT
 }
 # PATH=/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin:$PATH
-function ccls-upgrade() {
+function ccls-install() {
     tip "install ccls"
     github-upgrade MaskRay/ccls $DEV_ROOT/ccls
     # github-upgrade damon-kwok/ccls $DEV_ROOT/ccls
@@ -128,7 +128,7 @@ function ccls-upgrade() {
     cd $OME_ROOT
 }
 
-function ue4-upgrade() {
+function ue4-install() {
     github-upgrade EpicGames/UnrealEngine $DEV_ROOT/ue4/UnrealEngine 1 4.20
     cd $DEV_ROOT/ue4/UnrealEngine/
     ./Setup.sh
@@ -136,7 +136,7 @@ function ue4-upgrade() {
     
 }
 
-function clang-format-upgrade() {
+function clang-format-install() {
     if [ ! -e ~/.clang-format ]; then
         #echo "Language: Cpp" >> ~/.clang-format
         echo "# 基于哪个配置文件" >> ~/.clang-format
@@ -249,7 +249,7 @@ function config_offlineimap() {
     fi
 }
 
-function mu4e-upgrade() {
+function mu4e-install() {
     # tip "install mu4e-release"
     # github-upgrade damon-kwok/resources $OME_ROOT/resources
     # if [ ! -d $HOME/.emacs.d/libs/mu ]; then
@@ -290,7 +290,7 @@ function mu4e-upgrade() {
     mkdir -p ~/Maildir/Trash/	
 }
 
-function elixir-upgrade() {
+function elixir-install() {
     tip "install elixir"
     # https://github.com/elixir-lang/elixir.git
     github-upgrade elixir-lang/elixir $DEV_ROOT/elixir
@@ -299,7 +299,7 @@ function elixir-upgrade() {
     # make clean test
 }
 
-function erlang-upgrade() {
+function erlang-install() {
     tip "install erlang"
     # git clone https://github.com/erlang/otp.git
     github-upgrade erlang/otp $DEV_ROOT/erlang_otp
@@ -313,13 +313,12 @@ function erlang-upgrade() {
     # cd $OME_BIN
     # wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3
     # chmod +x ./rebar3
-    resource-upgrade
     # rebar3 local upgrade DEBUG=1
     rebar3 update
     rebar3 upgrade	
 }
 
-function rust-upgrade() {
+function rust-install() {
     tip "install cargo + rust"
     if command -v rustup >/dev/null 2>&1; then
 	rustup self update
@@ -334,12 +333,12 @@ function rust-upgrade() {
     cargo install --force ripgrep
 }
 
-function nim-upgrade() {
+function nim-install() {
     tip "install nim"
     curl https://nim-lang.org/choosenim/init.sh -sSf | sh
 }
 
-function crystal-upgrade() {
+function crystal-install() {
     github-upgrade crystal-lang/crystal $DEV_ROOT/crystal
     cd $DEV_ROOT/crystal
     make
@@ -360,7 +359,7 @@ function install-jdt-language-server() {
     fi
 }
 
-function sdkman-upgrade() {
+function sdkman-install() {
     tip "install sdkman"
     if command -v sdk >/dev/null 2>&1; then
 	curl -s "https://get.sdkman.io" | bash
@@ -390,7 +389,7 @@ function sdkman-upgrade() {
     install-jdt-language-server
 }
 
-function nvm-upgrade() {
+function nvm-install() {
     tip "install nvm + nodejs"
     find-str "NVM_DIR" ~/.bashrc
     if [ $? -eq 0 ]; then
@@ -427,7 +426,7 @@ function nvm-upgrade() {
     npm i -g typescript-language-server				
 }
 
-function py-upgrade() {
+function py-install() {
     # github-upgrade pyenv/pyenv $DEV_ROOT/pyenv
     # pyenv install 2.7
     
@@ -455,7 +454,7 @@ function py-upgrade() {
     
 }
 
-function golang-upgrade() {
+function golang-install() {
     github-upgrade golang/go $DEV_ROOT/go
     cd $DEV_ROOT/go/src
     chmod +x ./all.bash
@@ -465,14 +464,14 @@ function golang-upgrade() {
     tip "install go language server"
     go get -u github.com/sourcegraph/go-langserver
 }
-function mono-upgrade() {
+function mono-install() {
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
     sudo apt install apt-transport-https
     echo "deb https://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
     sudo apt update
     sudo apt install mono-devel msbuild fsharp
 }
-function fsharp-upgrade() {
+function fsharp-install() {
     # github-upgrade fsharp/fsharp $DEV_ROOT/fsharp
     # cd $DEV_ROOT/fsharp
     # make
@@ -483,7 +482,7 @@ function fsharp-upgrade() {
     mono build -c Release
 }
 
-function dptrp1-upgrade() {
+function dptrp1-install() {
     github-upgrade janten/dpt-rp1-py $DEV_ROOT/dpt-rp1-py
     cd $DEV_ROOT/dpt-rp1-py
     # sudo python3 setup.py install
@@ -640,30 +639,29 @@ function install-basedevel {
 }
 
 function install-toolchain() {    
-    shell-upgrade
+    shell-install
     
-    cmake-upgrade
-    gyp-upgrade
-    waf-upgrade
+    cmake-install
+    gyp-install
+    waf-install
     
-    nvm-upgrade
-    py-upgrade
-    sdkman-upgrade
+    nvm-install
+    py-install
+    sdkman-install
     
-    mu4e-upgrade    
+    mu4e-install    
     
-    clang-format-upgrade
-    resource-upgrade
-    cquery-upgrade
-    ccls-upgrade
-    rtags-upgrade
+    clang-format-install
+    cquery-install
+    ccls-install
+    rtags-install
 
-    ue4-upgrade
-    golang-upgrade
-    erlang-upgrade
-    elixir-upgrade
-    rust-upgrade
-    nim-upgrade
+    ue4-install
+    golang-install
+    erlang-install
+    elixir-install
+    rust-install
+    nim-install
 
     #haskell
     # if [ ! -d "~/.stack/" ]; then

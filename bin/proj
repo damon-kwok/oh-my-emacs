@@ -70,8 +70,8 @@ function book-upgrade() {
     github-upgrade huangz1990/real-world-haskell-cn $BOOK_ROOT/real-world-haskell-cn
 }
 
-function me-pull() {   	
-    ome-upgrade
+function me-upgrade() {   	
+    ome-install
     
     github-ssh-upgrade damon-kwok/workspace $HOME/workspace
     chmod +x $HOME/workspace/bin/*
