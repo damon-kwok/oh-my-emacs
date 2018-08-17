@@ -59,6 +59,8 @@ function git-upgrade() {
 	tip "clone $project"
         echo-success "git clone $url $dir --single-branch --depth=1 $branch"
 	git clone $url $dir --single-branch --depth=1 $branch
+    # elif [ "`ls -A $DIRECTORY`" = "" ]; then
+        # echo "$DIRECTORY is indeed empty"
     else
 	cd $dir
 	tip "update $project"

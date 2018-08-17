@@ -483,6 +483,12 @@ function fsharp-upgrade() {
     mono build -c Release
 }
 
+function dptrp1-upgrade() {
+    github-upgrade janten/dpt-rp1-py $DEV_ROOT/dpt-rp1-py
+    cd $DEV_ROOT/dpt-rp1-py
+    sudo python3 setup.py install
+}
+
 function install-basedevel {
     tip "please choose your os:"
     echo "    1) debian/ubuntu/mint"
