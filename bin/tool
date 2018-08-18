@@ -427,21 +427,21 @@ function nvm-install() {
 }
 
 function py-install() {
-    # github-upgrade pyenv/pyenv $DEV_ROOT/pyenv
-    # pyenv install 2.7
-    
-    if test pip == "" ; then
+    if test pip3 == "" ; then
         tip "install pip"
         cd $HOME
         curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-        python get-pip.py
+        sudo python2 get-pip.py
+        sudo python3 get-pip.py
     fi
     
     tip "pip upgrade"
-    pip install --user -U pip
+    pip3 install --user -U pip
+    
+    pip3 install --user -U pipenv
 
     tip "install python-language-server"
-    pip install --user -U python-language-server
+    pip3 install --user -U python-language-server
 
     # pip2.7 install ipython jupyter rope jedi flake8 importmagic autopep8 yapf
     tip "install ebook build tool:"
@@ -489,7 +489,7 @@ function dptrp1-install() {
     pip3 install --user .
 }
 
-function dptrp1-do() {
+function dptrp1-run() {
     local ip=$1
     local opt=$2
     dptrp1 --client-id ~/workspace/dptrp1/deviceid.dat \
@@ -525,11 +525,12 @@ function dptrp1-upload() {
 function dptrp1-download() {
     local ip=$1
     local file=$2
-    
+    mkdir -p ~/Downloads/dptrp1/
+    echo "download" "Document/Received/$file" "$HOME/Downloads/dptrp1/`basename \"$file\"`"
     dptrp1 --client-id ~/workspace/dptrp1/deviceid.dat \
            --key ~/workspace/dptrp1/privatekey.dat \
            --addr $ip \
-           download "Document/Received/\"$file\"" "~/Downloads/dptrp1/`basename \"$file\"`" 
+           download "Document/Received/$file" "$HOME/Downloads/dptrp1/`basename \"$file\"`" 
 }
 
 function dptrp1-delete() {
@@ -539,7 +540,7 @@ function dptrp1-delete() {
     dptrp1 --client-id ~/workspace/dptrp1/deviceid.dat \
            --key ~/workspace/dptrp1/privatekey.dat \
            --addr $ip \
-           delete "Document/Received/\"$file\""
+           delete "Document/Received/$file"
 }
 
 function install-basedevel {
