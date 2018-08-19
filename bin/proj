@@ -80,7 +80,7 @@ function me-upgrade() {
     
     github-ssh-upgrade damon-kwok/awesome-package-manager $PROJ_ROOT/me/awesome-package-manager
     github-ssh-upgrade damon-kwok/awesome-network-programming $PROJ_ROOT/me/awesome-network-programming
-    
+    github-ssh-upgrade damon-kwok/awesome-web-scraping $PROJ_ROOT/me/awesome-web-scraping
     github-ssh-upgrade damon-kwok/medusa $PROJ_ROOT/me/medusa
     
     github-ssh-upgrade damon-kwok/libknife $PROJ_ROOT/me/libknife    
@@ -105,6 +105,9 @@ function me-push() {
     git-push
 
     cd $PROJ_ROOT/me/awesome-network-programming
+    git-push
+
+    cd $PROJ_ROOT/me/awesome-web-scraping
     git-push
     
     cd $PROJ_ROOT/me/medusa

@@ -447,7 +447,7 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 (defhydra hydra-open-file
 (:color blue)
  "
-^Editor^        ^Export^                ^Docs^              ^Docs^             ^Config^
+^Editor^        ^Export^                ^Blog^               ^Docs^             ^Config^
 ^^^^^^^^^^--------------------------------------------------------------------------------
 _r_:rename      _p_: htmlize-buffer     _h_: README.org      _n_: note.org      _1_:env
 _D_:delete      _P_: htmlize-file       _d_: diary.org       _p_: problem.org   _2_:lib
