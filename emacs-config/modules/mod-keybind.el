@@ -630,38 +630,59 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 
 
 (defhydra hydra-view-menu 
-  (:color pink 
-          :hint nil)
+  (:color pink)
   "View" ;;
   ("t" tool-bar-mode "Toolbar")
+  ("m" menu-bar-mode "Menubar")
+  ("s" projectile-speedbar-toggle "Speedbar")
+  ("d" dired-sidebar "DiredSideBar")
+
+  (";" tabbar-backward "tabbar-backward")
+  ("'" tabbar-forward "tabbar-forward")
+  ("[" ome-tabbar-backward-group "tabbar-up")
+  ("/" ome-tabbar-forward-group "tabbar-down")
+  ("=" text-scale-increase "text-scale-increase")
+  ("-" text-scale-decrease "text-scale-decrease")
+  
+  ("q" nil "quit")
+  ("<SPC>" nil "quit")
+  ("<escape>" nil "quit"))
+
+(defhydra hydra-new-menu 
+  (:color blue)
+  "New" ;;
+  ("e" mu4e-compose-new "Email")
   ("m" menu-bar-mode "Menubar")
   ("s" speedbar-mode "Speedbar")
   ("d" dired-sidebar "DiredSideBar")
 
-  ("q" nil "quit" 
-   :color blue))
+  ("q" nil "quit")
+  ("<SPC>" nil "quit")
+  ("<escape>" nil "quit"))
+
 
 (defhydra hydra-super-menu 
-  (:color green)
+  (:color blue)
     "
 _n_:New  _o_:Open  _s_:Search  _v_:View  _b_:Bookmarks  _e_:Email  _f_:Feed  _m_:Module
 "
-  ("n" (message "0000") "New" :color red) 
-  ("o" (message "1111") "Open" :color teal) 
-  ("s" (message "2222") "Search" :color amaranth) 
+  ("n" (hydra-new-menu/body) "New") 
+  ("o" (message "1111") "Open") 
+  ("s" (message "2222") "Search") 
   ("v" (hydra-view-menu/body) "View") 
   ("b" helm-bookmarks "Bookmarks") 
-  ("e" mu4e "Email" :color blue) 
-  ("f" elfeed "Feed" :color amaranth) 
+  ("e" mu4e "Email") 
+  ("f" elfeed "Feed") 
   ("m" helm-bookmarks "Module")
-  ("<SPC>" nil "quit")
+  
   ("q" nil "quit")
+  ("<SPC>" nil "quit")
   ("<escape>" nil "quit"))
 
 ;; (global-set-key (kbd "C-SPC") 'hydra-do-super/body)
-(global-set-key (kbd "M-SPC") 'show-super-menu)
-(global-set-key (kbd "M-z") 'show-super-menu)
-(global-set-key (kbd "C-c z") 'hydra-super-menu/body)
+;; (global-set-key (kbd "M-SPC") 'show-super-menu)
+;; (global-set-key (kbd "M-z") 'show-super-menu)
+(global-set-key (kbd "M-z") 'hydra-super-menu/body)
 
 ;;; `comment-toggle' M-;
 (global-set-key [remap comment-dwim] 'ome-comment-or-uncomment-region-or-line)
