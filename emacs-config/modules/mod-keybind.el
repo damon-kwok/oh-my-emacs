@@ -635,7 +635,7 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
   ("t" tool-bar-mode "Toolbar")
   ("m" menu-bar-mode "Menubar")
   ("s" projectile-speedbar-toggle "Speedbar")
-  ("d" dired-sidebar "DiredSideBar")
+  ("d" (dired-sidebar-toggle-sidebar nil) "DiredSideBar")
 
   (";" tabbar-backward "tabbar-backward")
   ("'" tabbar-forward "tabbar-forward")
@@ -674,14 +674,17 @@ _n_:New  _o_:Open  _s_:Search  _v_:View  _b_:Bookmarks  _e_:Email  _f_:Feed  _m_
   ("e" mu4e "Email") 
   ("f" elfeed "Feed") 
   ("m" helm-bookmarks "Module")
-  
+
+  ("<tab>" helm-recentf "(helm-recentf)")
+  ("c" (calendar) "calendar")
+  ("w" (ome-open-url "http://wttr.in/") "wego")
   ("q" nil "quit")
   ("<SPC>" nil "quit")
   ("<escape>" nil "quit"))
 
 ;; (global-set-key (kbd "C-SPC") 'hydra-do-super/body)
 ;; (global-set-key (kbd "M-SPC") 'show-super-menu)
-;; (global-set-key (kbd "M-z") 'show-super-menu)
+(global-set-key (kbd "C-M-z") 'show-super-menu)
 (global-set-key (kbd "M-z") 'hydra-super-menu/body)
 
 ;;; `comment-toggle' M-;
