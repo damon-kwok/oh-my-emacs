@@ -28,25 +28,29 @@
 
 (define-globalized-minor-mode ome-global-whitespace-mode whitespace-mode 
   (lambda ()
-	;; Make whitespace-mode with very basic background coloring for whitespaces.
-	;; http://ergoemacs.org/emacs/whitespace-mode.html
-	(setq whitespace-style (quote (face spaces tabs newline space-mark tab-mark newline-mark )))
+    ;; Make whitespace-mode with very basic background coloring for whitespaces.
+    ;; http://ergoemacs.org/emacs/whitespace-mode.html
+    (setq whitespace-style (quote (face spaces tabs newline space-mark tab-mark newline-mark )))
 
-	;; Make whitespace-mode and whitespace-newline-mode use “¶” for end of line char and “▷” for tab.
-	(setq whitespace-display-mappings
-      ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
-      '(
-        (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
-		;;
-        (newline-mark 10 [182 10]) ; LINE FEED,
-		;;
-        (tab-mark 9 [9655 9] [92 9]) ; tab
-		;;
-        ))
-        (if (and (not (string-match "^\*.*\*$" (buffer-name)))
-		 (not (eq major-mode 'dired-mode))
-		 (not (eq major-mode 'speedbar-mode)))
-	    (whitespace-mode 1))))
+    ;; Make whitespace-mode and whitespace-newline-mode use “¶” for end of line char and “▷” for tab.
+    (setq whitespace-display-mappings
+          ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
+          '((space-mark 32 [183] 
+                        [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
+	    ;;
+            (newline-mark 10 [182 10])  ; LINE FEED,
+	    ;;
+            (tab-mark 9 [9655 9] 
+                      [92 9])           ; tab
+	    ;;
+            )) 
+    (if (and (not (string-match "^\*.*\*$" (buffer-name))) 
+             (not (eq major-mode 'dired-mode)) 
+             (not (eq major-mode 'minibuffer-inactive-mode)) 
+             (not (eq major-mode 'speedbar-mode))) 
+        (progn
+          ;; (message (symbol-name major-mode))
+	  (whitespace-mode 1)))))
 
 (ome-global-whitespace-mode t)
 
@@ -85,11 +89,11 @@
 (setq ns-pop-up-frames nil)
 
 (setq default-frame-alist '((height . 40) 
-							(width . 130) 
-							(top . 25) 
-							(left . 18) 
-							(menu-bar-lines . 0) 
-							(tool-bar-lines . 0)))
+                            (width . 130) 
+                            (top . 25) 
+                            (left . 18) 
+                            (menu-bar-lines . 0) 
+                            (tool-bar-lines . 0)))
 
 ;;; set tool bar to text style (need emacs24)
 (setq tool-bar-style 'both) ;;opt:text image both
@@ -124,7 +128,7 @@
 
 ;;; set scroll speed (mormal:3 line | shift:1 line |control:1 page)
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1) 
-									((control))) mouse-wheel-progressive-speed nil scroll-step 1)
+                                    ((control))) mouse-wheel-progressive-speed nil scroll-step 1)
 
 ;;; when up/down move: if the cursor is 'end of line', keep it 'end of line'
 (setq track-eol t)
@@ -135,18 +139,18 @@
   (interactive)
   ;; move the cursor also
   (let ((tmp (current-column))) 
-	(scroll-down -1) 
-	(line-move-to-column tmp) 
-	(forward-line 1)))
+    (scroll-down -1) 
+    (line-move-to-column tmp) 
+    (forward-line 1)))
 
 (defun hold-line-scroll-down() 
   "Scroll the page with the cursor in the same line" 
   (interactive)
   ;; move the cursor also
   (let ((tmp (current-column))) 
-	(scroll-down 1) 
-	(line-move-to-column tmp) 
-	(forward-line -1)))
+    (scroll-down 1) 
+    (line-move-to-column tmp) 
+    (forward-line -1)))
 
 ;; (global-set-key (kbd "C-n") 'hold-line-scroll-up)
 ;; (global-set-key (kbd "C-p") 'hold-line-scroll-down)
@@ -174,14 +178,14 @@
 ;; (package-require 'color-theme-modern)
 
 (if (display-graphic-p) 
-	(progn ;;
+    (progn ;;
       ;;(load-theme 'gray30 t t)
       ;;(enable-theme 'gray30)
       ;;(load-theme 'deeper-blue)
       ;;(enable-theme 'deeper-blue)
       ;; load material theme
       (package-require 'material-theme) 
-	  (load-theme 'material t)
+      (load-theme 'material t)
       ;;
       ) 
   (progn
@@ -191,7 +195,7 @@
     ;;(load-theme 'deeper-blue)
     ;;(enable-theme 'deeper-blue)
     (package-require 'material-theme) 
-	(load-theme 'material t)
+    (load-theme 'material t)
     ;;
     ))
 
@@ -289,11 +293,11 @@
 (defun ome-set-font()
   ;; Setting English Font
   (set-face-attribute 'default nil 
-					  :font "Bitstream Vera Sans Mono-10")
+                      :font "Bitstream Vera Sans Mono-10")
   ;; Setting Chinese Font
   (dolist (charset '(kana han symbol cjk-misc bopomofo)) 
-	(set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" 
-																	 :size 12))))
+    (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" 
+                                                                     :size 12))))
 (if window-system (ome-set-font))
 
 ;;; `tip'
@@ -326,9 +330,9 @@
 
 ;;; title
 (setq frame-title-format '("%Z  - " 
-						   (:eval (cond (buffer-read-only "(Read-Only)"))) 
-						   (:eval (cond ((buffer-modified-p) "*")))
-						   "%b" "  | (%m) |  %f"))
+                           (:eval (cond (buffer-read-only "(Read-Only)"))) 
+                           (:eval (cond ((buffer-modified-p) "*")))
+                           "%b" "  | (%m) |  %f"))
 
 ;; (setq frame-title-format '("[%Z]    %m    "
 ;; 			   (:eval (cond (buffer-read-only "%%")
@@ -408,14 +412,14 @@
 (global-anzu-mode +1)
 
 (set-face-attribute 'anzu-mode-line nil 
-					:foreground "goldenrod" 
-					:weight 'bold)
+                    :foreground "goldenrod" 
+                    :weight 'bold)
 
 (custom-set-variables '(anzu-mode-lighter "") 
-					  '(anzu-deactivate-region t) 
-					  '(anzu-search-threshold 1000) 
-					  '(anzu-replace-threshold 50) 
-					  '(anzu-replace-to-string-separator " => "))
+                      '(anzu-deactivate-region t) 
+                      '(anzu-search-threshold 1000) 
+                      '(anzu-replace-threshold 50) 
+                      '(anzu-replace-to-string-separator " => "))
 
 (define-key isearch-mode-map [remap isearch-query-replace]  #'anzu-isearch-query-replace)
 (define-key isearch-mode-map [remap isearch-query-replace-regexp]
@@ -470,20 +474,20 @@
 ;;; `nyan-mode'
 (package-require 'nyan-mode)
 (if (display-graphic-p) 
-	(progn 
-	  (require 'nyan-mode) 
-	  (nyan-start-animation) 
-	  (nyan-mode 1)))
+    (progn 
+      (require 'nyan-mode) 
+      (nyan-start-animation) 
+      (nyan-mode 1)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`buffer';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  ;; Kill process buffer without confirmation?
-  ;; ref: https://emacs.stackexchange.com/questions/14509/kill-process-buffer-without-confirmation
-  (setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function
-										  kill-buffer-query-functions))
-  (setq kill-buffer-query-functions nil)
+;; Kill process buffer without confirmation?
+;; ref: https://emacs.stackexchange.com/questions/14509/kill-process-buffer-without-confirmation
+(setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function
+                                        kill-buffer-query-functions)) 
+(setq kill-buffer-query-functions nil)
 
 ;; tab
 (setq default-tab-width 4)
@@ -513,7 +517,7 @@
 (defun endless/colorize-compilation () 
   "Colorize from `compilation-filter-start' to `point'."
   (let ((inhibit-read-only t)) 
-	(ansi-color-apply-on-region compilation-filter-start (point))))
+    (ansi-color-apply-on-region compilation-filter-start (point))))
 
 (add-hook 'compilation-filter-hook #'endless/colorize-compilation)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -539,7 +543,7 @@
 
 ;; (package-require 'undo-tree)
 (package-require-curl "undo-tree-0.6.6" "undo-tree.el"
-					  "https://raw.githubusercontent.com/emacs-lisp/undo-tree/master/undo-tree.el")
+                      "https://raw.githubusercontent.com/emacs-lisp/undo-tree/master/undo-tree.el")
 (require 'undo-tree)
 (global-undo-tree-mode)
 
@@ -549,15 +553,16 @@
   (delete-other-windows) 
   (undo-tree-visualize) 
   (if (< (/ (frame-height) 3) 
-		 (window-height)) 
-	  (shrink-window (/ (window-height) 2))))
+         (window-height)) 
+      (shrink-window (/ (window-height) 2))))
 
 (global-set-key (kbd "C-x u") 'show-undo-tree)
 (define-key undo-tree-map (kbd "C-x u") 
   '(lambda () 
-	 (interactive) 
-	 (undo-tree-visualize) 
-	 (undo-tree-visualize-undo))) 
+     (interactive) 
+     (undo-tree-visualize) 
+     (undo-tree-visualize-undo)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -627,7 +632,7 @@
 (require 'rainbow-mode)
 (define-globalized-minor-mode global-rainbow-mode rainbow-mode 
   (lambda () 
-	(rainbow-mode 1)))
+    (rainbow-mode 1)))
 (global-rainbow-mode t)
 
 ;;; `highlight-parentheses'
@@ -658,23 +663,23 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(rainbow-delimiters-depth-1-face ((t 
-									 (:foreground "white")))) 
+                                     (:foreground "white")))) 
  '(rainbow-delimiters-depth-2-face ((t 
-									 (:foreground "LightGreen")))) 
+                                     (:foreground "LightGreen")))) 
  '(rainbow-delimiters-depth-3-face ((t 
-									 (:foreground "SlateGray")))) 
+                                     (:foreground "SlateGray")))) 
  '(rainbow-delimiters-depth-4-face ((t 
-									 (:foreground "khaki")))) 
+                                     (:foreground "khaki")))) 
  '(rainbow-delimiters-depth-5-face ((t 
-									 (:foreground "HotPink2")))) 
+                                     (:foreground "HotPink2")))) 
  '(rainbow-delimiters-depth-6-face ((t 
-									 (:foreground "DarkGreen")))) 
+                                     (:foreground "DarkGreen")))) 
  '(rainbow-delimiters-depth-7-face ((t 
-									 (:foreground "DodgerBlue")))) 
+                                     (:foreground "DodgerBlue")))) 
  '(rainbow-delimiters-depth-8-face ((t 
-									 (:foreground "orange")))) 
+                                     (:foreground "orange")))) 
  '(rainbow-delimiters-depth-9-face ((t 
-									 (:foreground "brown")))))
+                                     (:foreground "brown")))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Sexy tail
 ;; (package-require 'highlight-tail)
@@ -695,7 +700,7 @@
 ;;; 3. highlight-tail-posterior-type控制渐变的方式
 ;; (setq highlight-tail-const-width 5)
 ;; (setq highlight-tail-posterior-type 'const)
-										;const :渐变highlight-tail-const-width指定固定长度 t:渐变所有修改
+                                        ;const :渐变highlight-tail-const-width指定固定长度 t:渐变所有修改
 ;; (message "Highlight-tail loaded - now your Emacs will be even more sexy!")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

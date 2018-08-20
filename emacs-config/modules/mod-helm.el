@@ -18,7 +18,7 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
-;;						 
+;;
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
@@ -55,6 +55,7 @@
 
 ;;; If you would like to remove bookmark after jump to it by bm-next or bm-previous:
 ;; (setq temporary-bookmark-p t)
+
 
 ;; `bookmark'
 (global-set-key (kbd "C-x r l") 'helm-bookmarks)
@@ -126,17 +127,13 @@
 (helm-autoresize-mode 1)
 
 ;;; Make Helm look nice.
-(setq-default helm-display-header-line nil
-              helm-autoresize-min-height 20
-              helm-autoresize-max-height 35
-              helm-split-window-in-side-p t
-
-              helm-M-x-fuzzy-match t
-              helm-buffers-fuzzy-matching t
-              helm-recentf-fuzzy-match t
+(setq-default helm-display-header-line nil helm-autoresize-min-height 20 helm-autoresize-max-height
+              35 helm-split-window-in-side-p t
+              helm-M-x-fuzzy-match t helm-buffers-fuzzy-matching t helm-recentf-fuzzy-match t
               helm-apropos-fuzzy-match t)
 
-(set-face-attribute 'helm-source-header nil :height 0.75)
+(set-face-attribute 'helm-source-header nil 
+                    :height 0.75)
 
 ;;; Keybinding
 (define-key helm-map (kbd "<tab>")  'helm-execute-persistent-action)
@@ -179,7 +176,7 @@
 (package-require 'helm-company)
 (autoload 'helm-company "helm-company") ;; Not necessary if using ELPA package
 (eval-after-load 'company '(progn (define-key company-mode-map (kbd "C-:") 'helm-company) 
-								  (define-key company-active-map (kbd "C-:") 'helm-company)))
+                                  (define-key company-active-map (kbd "C-:") 'helm-company)))
 
 ;; don't super tty
 ;; (package-require 'company-quickhelp)

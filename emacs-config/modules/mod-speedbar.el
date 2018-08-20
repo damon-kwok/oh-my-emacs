@@ -23,16 +23,19 @@
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
+
 
-(use-package dired-sidebar
-  :ensure t
-  :commands (dired-sidebar-toggle-sidebar)
-  :config
-  (use-package all-the-icons-dired
-    ;; M-x all-the-icons-install-fonts
-    :ensure t
-    :commands (all-the-icons-dired-mode)))
+(use-package 
+  dired-sidebar 
+  :ensure t 
+  :commands (dired-sidebar-toggle-sidebar) 
+  :config (use-package 
+            all-the-icons-dired
+            ;; M-x all-the-icons-install-fonts
+            :ensure t 
+            :commands (all-the-icons-dired-mode)))
 ;;
+
 
 ;;
 ;; (package-require 'sublimity)
@@ -92,7 +95,7 @@
 ;;(setq sr-speedbar-delete-windows t)
 
 ;; width
-(setq sr-speedbar-max-width 30)	;;set max width
+(setq sr-speedbar-max-width 30) ;;set max width
 (setq sr-speedbar-width 30)	;;width
 
 ;; show all file
@@ -135,8 +138,8 @@
 		      ;; If this fails, then it is a non-standard click, and as such,
 		      ;; perfectly allowed.
 		      (if (re-search-forward "[]>?}] [^ ]" (line-end-position) t) 
-			  (progn (forward-char -1) 
-				 (speedbar-do-function-pointer)) nil)) 
+                          (progn (forward-char -1) 
+                                 (speedbar-do-function-pointer)) nil)) 
       (speedbar-do-function-pointer)) 
   (setq speedbar-is-opened (sr-speedbar-exist-p)) 
   (if speedbar-is-opened (sr-speedbar-close)) 

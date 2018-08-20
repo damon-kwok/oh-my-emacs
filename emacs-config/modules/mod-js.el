@@ -35,15 +35,16 @@
 ;; (add-hook 'js3-mode-hook #'lsp-javascript-typescript-enable) ;; for js3-mode support
 ;; (add-hook 'rjsx-mode #'lsp-javascript-typescript-enable) ;; for rjsx-mode support
 
-(defun my-company-transformer (candidates)
-  (let ((completion-ignore-case t))
+(defun my-company-transformer (candidates) 
+  (let ((completion-ignore-case t)) 
     (all-completions (company-grab-symbol) candidates)))
 
-(defun my-js-hook nil
-  (make-local-variable 'company-transformers)
+(defun my-js-hook nil 
+  (make-local-variable 'company-transformers) 
   (push 'my-company-transformer company-transformers))
 
 ;; (add-hook 'js-mode-hook 'my-js-hook)
+
 
 ;; (package-require 'lsp-typescript)
 ;; (require 'lsp-typescript)
@@ -56,13 +57,12 @@
 (package-require 'nodejs-repl)
 (require 'nodejs-repl)
 
-(add-hook 'js-mode-hook
-          (lambda ()
-            (define-key js-mode-map (kbd "C-x C-e") 'nodejs-repl-send-last-expression)
-            (define-key js-mode-map (kbd "C-c C-j") 'nodejs-repl-send-line)
-            (define-key js-mode-map (kbd "C-c C-r") 'nodejs-repl-send-region)
-            (define-key js-mode-map (kbd "C-c C-l") 'nodejs-repl-load-file)
-            (define-key js-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl)))
+(add-hook 'js-mode-hook (lambda () 
+                          (define-key js-mode-map (kbd "C-x C-e") 'nodejs-repl-send-last-expression) 
+                          (define-key js-mode-map (kbd "C-c C-j") 'nodejs-repl-send-line) 
+                          (define-key js-mode-map (kbd "C-c C-r") 'nodejs-repl-send-region) 
+                          (define-key js-mode-map (kbd "C-c C-l") 'nodejs-repl-load-file) 
+                          (define-key js-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl)))
 
 
 ;; `company'

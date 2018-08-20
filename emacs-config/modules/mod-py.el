@@ -29,12 +29,12 @@
 (elpy-enable)
 
 (package-require 'ein)
-(setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "-i --simple-prompt")
+(setq python-shell-interpreter "ipython" python-shell-interpreter-args "-i --simple-prompt")
 
 ;; use flycheck not flymake with elpy
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+(when 
+    (require 'flycheck nil t) 
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)) 
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 ;; enable autopep8 formatting on save

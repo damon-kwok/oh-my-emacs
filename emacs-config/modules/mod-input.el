@@ -34,16 +34,14 @@
 (setq pyim-default-scheme 'quanpin)
 
 ;; 设置 pyim 探针设置，这是 pyim 高级功能设置，可以实现 *无痛* 中英文切换 :-)
-(setq-default pyim-english-input-switch-functions
-              '(;;pyim-probe-dynamic-english ;;2. 当前字符为其他字符时，输入下一个字符时默认开启英文输入
-                pyim-probe-isearch-mode ;; 使用 isearch 搜索时，强制开启英文输入模式
-                ;; pyim-probe-program-mode ;;如果当前的 mode 衍生自 prog-mode，那么仅仅在字符串和 comment 中开启中文输入模式
-		pyim-probe-org-speed-commands  ;;解决 org-speed-commands 与 pyim 冲突问题
-                pyim-probe-org-structure-template)) ;;使用 org-structure-template 时，关闭中文输入模式
+(setq-default pyim-english-input-switch-functions '(;;pyim-probe-dynamic-english ;;2. 当前字符为其他字符时，输入下一个字符时默认开启英文输入
+                                                    pyim-probe-isearch-mode ;; 使用 isearch 搜索时，强制开启英文输入模式
+                                                    ;; pyim-probe-program-mode ;;如果当前的 mode 衍生自 prog-mode，那么仅仅在字符串和 comment 中开启中文输入模式
+		                                    pyim-probe-org-speed-commands ;;解决 org-speed-commands 与 pyim 冲突问题
+                                                    pyim-probe-org-structure-template)) ;;使用 org-structure-template 时，关闭中文输入模式
 
-(setq-default pyim-punctuation-half-width-functions
-              '(pyim-probe-punctuation-line-beginning ;;行首强制输入半角标点
-                pyim-probe-punctuation-after-punctuation)) ;;半角标点后强制输入半角标点
+(setq-default pyim-punctuation-half-width-functions '(pyim-probe-punctuation-line-beginning ;;行首强制输入半角标点
+                                                      pyim-probe-punctuation-after-punctuation)) ;;半角标点后强制输入半角标点
 
 ;; 开启：1/关闭：0 拼音搜索功能
 (pyim-isearch-mode 0)
@@ -62,24 +60,24 @@
 ;; 选词框显示5个候选词
 (setq pyim-page-length 9)
 
-;; 让 Emacs 启动时自动加载 pyim 词库 
+;; 让 Emacs 启动时自动加载 pyim 词库
 ;; (add-hook 'emacs-startup-hook
-          ;; #'(lambda () (pyim-restart-1 t)))
+;; #'(lambda () (pyim-restart-1 t)))
 
 ;; (setq pyim-dicts
-      ;; '((:name "dict2" :file "~/workspace/pyim-dicts/AutoCAD词汇.txt" :coding utf-8 :dict-type pinyin-dict)
-	;; (:name "dict3" :file "~/workspace/pyim-dicts/编程语言.txt" :coding utf-8 :dict-type pinyin-dict)
-	;; (:name "dict4" :file "~/workspace/pyim-dicts/财经金融词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-	;; (:name "dict5" :file "~/workspace/pyim-dicts/法律词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-	;; (:name "dict6" :file "~/workspace/pyim-dicts/计算机名词.txt" :coding utf-8 :dict-type pinyin-dict)
-	;; (:name "dict7" :file "~/workspace/pyim-dicts/计算机专业词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-	;; (:name "dict8" :file "~/workspace/pyim-dicts/汽车词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-	;; (:name "dict9" :file "~/workspace/pyim-dicts/前端工程师必备词库.txt" :coding utf-8 :dict-type pinyin-dict)
-	;; (:name "dict10" :file "~/workspace/pyim-dicts/数学词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
-	;; (:name "dict11" :file "~/workspace/pyim-dicts/虚拟现实技术.txt" :coding utf-8 :dict-type pinyin-dict)
-	;; (:name "dict12" :file "~/workspace/pyim-dicts/中国高等院校大全.txt" :coding utf-8 :dict-type pinyin-dict)
-	;; (:name "dict13" :file "~/workspace/pyim-dicts/中国医院大全.txt" :coding utf-8 :dict-type pinyin-dict)
-	;; (:name "dict14" :file "~/workspace/pyim-dicts/最详细的全国地名大全.txt" :coding utf-8 :dict-type pinyin-dict)))
+;; '((:name "dict2" :file "~/workspace/pyim-dicts/AutoCAD词汇.txt" :coding utf-8 :dict-type pinyin-dict)
+;; (:name "dict3" :file "~/workspace/pyim-dicts/编程语言.txt" :coding utf-8 :dict-type pinyin-dict)
+;; (:name "dict4" :file "~/workspace/pyim-dicts/财经金融词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+;; (:name "dict5" :file "~/workspace/pyim-dicts/法律词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+;; (:name "dict6" :file "~/workspace/pyim-dicts/计算机名词.txt" :coding utf-8 :dict-type pinyin-dict)
+;; (:name "dict7" :file "~/workspace/pyim-dicts/计算机专业词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+;; (:name "dict8" :file "~/workspace/pyim-dicts/汽车词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+;; (:name "dict9" :file "~/workspace/pyim-dicts/前端工程师必备词库.txt" :coding utf-8 :dict-type pinyin-dict)
+;; (:name "dict10" :file "~/workspace/pyim-dicts/数学词汇大全.txt" :coding utf-8 :dict-type pinyin-dict)
+;; (:name "dict11" :file "~/workspace/pyim-dicts/虚拟现实技术.txt" :coding utf-8 :dict-type pinyin-dict)
+;; (:name "dict12" :file "~/workspace/pyim-dicts/中国高等院校大全.txt" :coding utf-8 :dict-type pinyin-dict)
+;; (:name "dict13" :file "~/workspace/pyim-dicts/中国医院大全.txt" :coding utf-8 :dict-type pinyin-dict)
+;; (:name "dict14" :file "~/workspace/pyim-dicts/最详细的全国地名大全.txt" :coding utf-8 :dict-type pinyin-dict)))
 
 (global-set-key (kbd "C-\\") 'toggle-input-method)
 ;;

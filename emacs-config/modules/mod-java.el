@@ -40,8 +40,8 @@
 
 ;; set the projects that are going to be imported into the workspace.
 (setq lsp-java--workspace-folders (list (concat (getenv "HOME") "/projects/java") 
-										(concat (getenv "HOME") "/workspace") 
-										(concat (getenv "HOME") "/eclipse-workspace")))
+                                        (concat (getenv "HOME") "/workspace") 
+                                        (concat (getenv "HOME") "/eclipse-workspace")))
 ;; (unless (executable-find "ipython")
 ;; (ome-run-command "install-java-lsp-server"))
 

@@ -68,8 +68,8 @@
                 (member 'up (first (last (network-interface-info (car iface))))))) 
             (network-interface-list)) t))
 
-;; (when (online?) 
-  ;; (unless package-archive-contents (package-refresh-contents)))
+;; (when (online?)
+;; (unless package-archive-contents (package-refresh-contents)))
 
 ;; To get the package manager going, we invoke its initialise function.
 (defun package-require(pkg) 
@@ -168,10 +168,12 @@
   (package-update) 
   (package-autoremove) 
   (package-upgrade))
+
 
 ;; `use-package'
 (package-require 'use-package)
 (require 'use-package)
+
 
 
 ;; `quelpa'

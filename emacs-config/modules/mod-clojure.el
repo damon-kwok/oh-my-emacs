@@ -55,13 +55,13 @@
 
 ;; syntax hilighting for midje
 (add-hook 'clojure-mode-hook (lambda () 
-							   (setq inferior-lisp-program "lein repl") 
-							   (font-lock-add-keywords 
-								nil
-								'(("(\\(facts?\\)" (1 font-lock-keyword-face)) 
-								  ("(\\(background?\\)" (1 font-lock-keyword-face)))) 
-							   (define-clojure-indent (fact 1)) 
-							   (define-clojure-indent (facts 1))))
+                               (setq inferior-lisp-program "lein repl") 
+                               (font-lock-add-keywords 
+                                nil
+                                '(("(\\(facts?\\)" (1 font-lock-keyword-face)) 
+                                  ("(\\(background?\\)" (1 font-lock-keyword-face)))) 
+                               (define-clojure-indent (fact 1)) 
+                               (define-clojure-indent (facts 1))))
 
 ;;;;
 ;; Cider
@@ -123,8 +123,8 @@
   (delete-other-windows) 
   (cider-switch-to-repl-buffer) 
   (if (< (/ (frame-height) 3) 
-		 (window-height)) 
-	  (shrink-window (/ (window-height) 2))))
+         (window-height)) 
+      (shrink-window (/ (window-height) 2))))
 
 (defun show-clojure-workbuffer() 
   (interactive) 
@@ -139,9 +139,9 @@
   (interactive) 
   (cider-load-current-buffer) 
   (let ((ns (cider-current-ns))) 
-	(cider-repl-set-ns ns) 
-	(cider-interactive-eval (format "(println '(def server (%s/start))) (println 'server)" ns)) 
-	(cider-interactive-eval (format "(def server (%s/start)) (println server)" ns))))
+    (cider-repl-set-ns ns) 
+    (cider-interactive-eval (format "(println '(def server (%s/start))) (println 'server)" ns)) 
+    (cider-interactive-eval (format "(def server (%s/start)) (println server)" ns))))
 
 
 (defun cider-refresh () 
@@ -153,14 +153,14 @@
   (cider-repl-set-ns "user"))
 
 (eval-after-load 'cider '(progn (helm-cider-mode 1) 
-								(define-key clojure-mode-map (kbd "C-c C-v")
-								  'cider-start-http-server) 
-								(define-key clojure-mode-map (kbd "C-M-r") 'cider-refresh) 
-								(define-key clojure-mode-map (kbd "C-c u") 'cider-user-ns) 
-								(define-key cider-mode-map (kbd "C-c u") 'cider-user-ns) 
-								(define-key cider-mode-map (kbd "C-c C-z")  'show-clojure-repl) 
-								(define-key cider-repl-mode-map (kbd "C-c C-z")
-								  'show-clojure-workbuffer)))
+                                (define-key clojure-mode-map (kbd "C-c C-v")
+                                  'cider-start-http-server) 
+                                (define-key clojure-mode-map (kbd "C-M-r") 'cider-refresh) 
+                                (define-key clojure-mode-map (kbd "C-c u") 'cider-user-ns) 
+                                (define-key cider-mode-map (kbd "C-c u") 'cider-user-ns) 
+                                (define-key cider-mode-map (kbd "C-c C-z")  'show-clojure-repl) 
+                                (define-key cider-repl-mode-map (kbd "C-c C-z")
+                                  'show-clojure-workbuffer)))
 
 ;; (package-require 'clojure-cheatsheet)
 ;; (require 'clojure-cheatsheet)
@@ -190,9 +190,9 @@
 (defun cljs-client-start () 
   (interactive) 
   (progn (insert "(use 'figwheel-sidecar.repl-api)\n") 
-		 (insert "(cljs-repl)\n") 
-		 (sleep-for 2) 
-		 (rename-buffer (replace-regexp-in-string " " " CLJS " (buffer-name)))))
+         (insert "(cljs-repl)\n") 
+         (sleep-for 2) 
+         (rename-buffer (replace-regexp-in-string " " " CLJS " (buffer-name)))))
 
 (defun cljs-eval-sexp (sexp) 
   (interactive "sClJS-EVAL:") 

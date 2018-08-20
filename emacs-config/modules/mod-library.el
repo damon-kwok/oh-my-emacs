@@ -545,15 +545,15 @@ occurence of CHAR."
   (save-match-data (ome-grep-directory  word) 
                    (other-window 1)))
 
-(defun ome-grep-project (str) 
-  (if (stringp str) 
-      (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (ome-project-root)))))
+;; (defun ome-grep-project (str)
+;;   (if (stringp str)
+;;       (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (ome-project-root)))))
 
-(defun ome-grep-directory (str) 
-  (message (concat "grep-dir:" str)) 
-  (if (stringp str) 
-      (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory
-                                                                buffer-file-name)))))
+;; (defun ome-grep-directory (str)
+;;   (message (concat "grep-dir:" str))
+;;   (if (stringp str)
+;;       (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory
+;;                                                                 buffer-file-name)))))
 
 (defun ome-open-reddit-channel (word) 
   "Show the explanation of WORD from Bing in the echo area." 

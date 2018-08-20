@@ -60,23 +60,22 @@
 It parses the function's signature in ITEM (a CompletionItem)
 to expand its arguments."
   ;; (yas-expand-snippet item)
-  (message "11111111111111111111111111111")
-  (message item)
-  )
+  (message "11111111111111111111111111111") 
+  (message item))
 
 ;; (defvar company-lsp-enable-snippet t)
 ;; (defvar company-lsp-cache-candidates t)
 ;; (defvar company-lsp--snippet-functions '(("go" . company-lsp--go-completion-snippet))
-  ;; "Alist of functions to insert our snippets for each language.")
+;; "Alist of functions to insert our snippets for each language.")
 
 
 ;; (add-hook 'go-mode-hook #'lsp-go-enable)
 ;; (add-hook 'after-init-hook #'(lambda ()
-(add-hook 'go-mode-hook #'(lambda ()
-							(lsp-go-enable)
-							(add-to-list 'company-lsp--snippet-functions '("go" . company-lsp--go-completion-snippet))
-							(push 'company-lsp company-backends)
-							))
+(add-hook 'go-mode-hook #'(lambda () 
+                            (lsp-go-enable) 
+                            (add-to-list 'company-lsp--snippet-functions '("go" .
+                                                                           company-lsp--go-completion-snippet)) 
+                            (push 'company-lsp company-backends)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-go)

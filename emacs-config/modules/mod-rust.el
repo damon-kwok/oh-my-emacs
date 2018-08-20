@@ -47,15 +47,15 @@
 (defun ome-open-or-close-cargofile () 
   (interactive) 
   (if (eq major-mode 'rust-mode) 
-	  (ome-smart-find-file "Cargo.toml" t) 
-	(if (eq major-mode 'conf-toml-mode)
-		(kill-this-buffer))))
+      (ome-smart-find-file "Cargo.toml" t) 
+    (if (eq major-mode 'conf-toml-mode) 
+        (kill-this-buffer))))
 
 ;; `keybinding'
 (define-key rust-mode-map [f5] 
   '(lambda () 
-	 (interactive) 
-	 (ome-run-command "cargo build")))
+     (interactive) 
+     (ome-run-command "cargo build")))
 (define-key rust-mode-map [f6] 'ome-open-or-close-cargofile)
 ;; (define-key conf-toml-mode-map [f6] 'ome-open-or-close-cargofile)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

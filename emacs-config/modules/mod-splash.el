@@ -29,10 +29,10 @@
 (dashboard-setup-startup-hook)
 (setq dashboard-banner-logo-title "Oh My Emacs!")
 (setq dashboard-items '((projects . 15) 
-						(recents  . 20) 
-						(bookmarks . 7) 
-						(agenda . 5) 
-						(registers . 5)))
+                        (recents  . 20) 
+                        (bookmarks . 7) 
+                        (agenda . 5) 
+                        (registers . 5)))
 
 (setq dashboard-startup-banner "~/.oh-my-emacs/logo.png")
 

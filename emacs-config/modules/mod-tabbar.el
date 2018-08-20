@@ -196,6 +196,7 @@
 ;; 		    :overline "#330000"
 ;; 		    :underline "navy"
 ;; 		    :weight 'bold)
+
 
 ;;; python
 ;; (set-face-attribute 'tabbar-default nil
@@ -230,11 +231,12 @@
 ;; 		    :overline "#263238"
 ;; 		    :underline "#263238" ;;#9ccc65
 ;; 		    :weight 'bold)
+
 
 
 (defmacro def-tabbar-color 
     (foreground background foreground-selected background-selected boxcolor overline underline) 
-  (set-face-attribute 'tabbar-default nil 
+  (set-face-attribute 'tabbar-default nil
                       ;; :family "Bitstream Vera Sans Mono-8" ;;
 		      ;; :family "DejaVu Sans Mono"
 		      :inherit 'tabbar-defaultl 
@@ -265,8 +267,8 @@
 		      :overline overline   ;
 		      :underline underline ;
 		      ;; :weight 'normal
-                      :height 1.0)     ;
-  (set-face-attribute 'tabbar-selected nil
+                      :height 1.0)      ;
+  (set-face-attribute 'tabbar-selected nil 
                       :inherit 'tabbar-default        ;
 		      :foreground foreground-selected ;
                       :background background-selected ;
@@ -276,8 +278,8 @@
 					 ) ;
 		      :overline overline   ;
 		      :underline underline ;
-		      :weight 'bold
-                      :height 1.0))    ;;bold
+		      :weight 'bold 
+                      :height 1.0)) ;;bold
 
 ;; (set-face-attribute 'tabbar-separator nil
 ;; :weight 'bold)

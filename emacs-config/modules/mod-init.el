@@ -24,7 +24,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (defcustom ome-logo (expand-file-name "~/.oh-my-emacs/logo.png")
-  ;; "set ome logo. nil means official logo."
+;; "set ome logo. nil means official logo."
 ;; :type 'string)
 ;; (setq fancy-splash-image ome-logo)
 ;;(module-require 'mod-gc)
@@ -80,19 +80,19 @@
 
 ;; (module-require 'mod-ocaml)
 
-(if (executable-find "lein")
-   (module-require 'mod-clojure))
+(if (executable-find "lein") 
+    (module-require 'mod-clojure))
 
-(if (executable-find "mix")
+(if (executable-find "mix") 
     (module-require 'mod-elixir))
 
-(if (executable-find "cargo")
+(if (executable-find "cargo") 
     (module-require 'mod-rust))
 
-(if (executable-find "stack")
+(if (executable-find "stack") 
     (module-require 'mod-haskell))
 
-(if (executable-find "git")
+(if (executable-find "git") 
     (module-require 'mod-git))
 
 (module-require 'mod-input)
@@ -106,13 +106,13 @@
 ;; (exwm-config-default)
 
 ;; (if (eq system-type 'gnu/linux)
-    ;; (module-require 'mod-cc))
+;; (module-require 'mod-cc))
 ;; (if (and (unless system-type 'windows-nt)
 ;; (unless system-type 'ms-dos))
 ;; (module-require 'mod-cc))
 
 ;; (if (and (executable-find "ipython")
-	 ;; (executable-find "jupyter"))
+;; (executable-find "jupyter"))
 ;; (module-require 'mod-py))
 
 

@@ -43,9 +43,9 @@
 (setq Tex-output-view-style (quote (("^pdf$" "." "evince &o %(outpage)"))))
 
 (add-hook 'LaTex-mode-hook (lambda() 
-			     (add-to-list 'Tex-command-list '("XeLaTex" "%`xelatex%(mode)'%t"
-							      Tex-run-Tex nil t)) 
-			     (setq Tex-command-default "XeLaTex")))
+                             (add-to-list 'Tex-command-list '("XeLaTex" "%`xelatex%(mode)'%t"
+                                                              Tex-run-Tex nil t)) 
+                             (setq Tex-command-default "XeLaTex")))
 
 
 ;;; set org export tex template, can use chinese
@@ -58,19 +58,20 @@
 ;;	     '("article"
 ;;	       "\\documentclass{article} \\usepackage{ctex}"
 ;;	       ("\\section{%s}" . "\\section*{%s}")
-	       ;;("\\subsection{%s}" . "\\subsection{%s}")
-	       ;;("\\subsubsection{%s}" . "\\subsubsection{%s}")
+;;("\\subsection{%s}" . "\\subsection{%s}")
+;;("\\subsubsection{%s}" . "\\subsubsection{%s}")
 ;;	       ("\\paragraph{%s}" . "\\paragraph{%s}")
 ;;	       ("\\subparagraph{%s}" . "\\subparagraph{%s}")))
 
-(with-eval-after-load 'ox-latex
-   (add-to-list 'org-latex-classes
-                '("report"
-                  "\\documentclass{report}"
-                  ("\\chapter{%s}" . "\\chapter*{%s}")
-                  ("\\section{%s}" . "\\section*{%s}")
-                  ("\\subsection{%s}" . "\\subsection*{%s}")
-                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+(with-eval-after-load 'ox-latex (add-to-list 'org-latex-classes '("report" "\\documentclass{report}"
+                                                                  ("\\chapter{%s}" .
+                                                                   "\\chapter*{%s}") 
+                                                                  ("\\section{%s}" .
+                                                                   "\\section*{%s}") 
+                                                                  ("\\subsection{%s}" .
+                                                                   "\\subsection*{%s}") 
+                                                                  ("\\subsubsection{%s}" .
+                                                                   "\\subsubsection*{%s}"))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `cdlatex'
 (package-require 'cdlatex)

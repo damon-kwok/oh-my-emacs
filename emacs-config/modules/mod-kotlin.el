@@ -33,11 +33,11 @@
 ;; (require 'lsp-kotlin)
 
 ;; (lsp-define-stdio-client lsp-python "kotlin"
-			 ;; (lsp-make-traverser #'(lambda (dir)
-						 ;; (directory-files
-						  ;; dir
-						  ;; nil
-              ;; "setup.py\\|Pipfile\\|setup.cfg\\|tox.ini")))
+;; (lsp-make-traverser #'(lambda (dir)
+;; (directory-files
+;; dir
+;; nil
+;; "setup.py\\|Pipfile\\|setup.cfg\\|tox.ini")))
 ;; '("pyls"))
 
 ;; (add-hook 'kotlin-mode-hook #'lsp-kotlin-enable)

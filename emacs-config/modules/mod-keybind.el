@@ -19,6 +19,7 @@
 ;;
 ;; Code:
 ;;
+
 
 (require 'mod-package)
 
@@ -28,6 +29,7 @@
 ;; mac-command-key-is-meta t
 ;; mac-command-modifier 'meta
 ;; mac-option-modifier 'none)
+
 
 
 (global-set-key (kbd "C-c t") 'tool-bar-mode)
@@ -76,6 +78,7 @@
                    (interactive) 
                    (switch-to-buffer (other-buffer (current-buffer) 1))))
 ;;
+
 
 (package-require 'mwim)
 (require 'mwim)
@@ -86,32 +89,34 @@
 (package-require 'ripgrep)
 (require 'ripgrep)
 ;;
+
 
 (package-require 'wand)
 (require 'wand)
 (global-set-key (kbd "<C-return>")       'wand:execute)
 ;; (global-set-key (kbd "<C-mouse-1>")      'wand:execute)
 ;; (global-set-key (kbd "<C-down-mouse-1>")  nil)
-(wand:add-rule-by-pattern :match "\\$ "
-                          :capture 
+(wand:add-rule-by-pattern :match "\\$ " 
 
+                          :capture
                           :after 
                           :action popup-shell-command)
-(wand:add-rule-by-pattern :match "https?://"
-                          :capture 
+(wand:add-rule-by-pattern :match "https?://" 
 
+                          :capture
                           :whole 
                           :action browse-url)
-(wand:add-rule-by-pattern :match "file:"
-                          :capture 
+(wand:add-rule-by-pattern :match "file:" 
 
+                          :capture
                           :after 
                           :action find-file)
-(wand:add-rule-by-pattern :match "#> "
-                          :capture 
+(wand:add-rule-by-pattern :match "#> " 
 
+                          :capture
                           :after 
-                          :action add-bracket-and-eval)
+                          :action 
+                          add-bracket-and-eval)
 
 ;; `folding'
 ;; (package-require 'vimish-fold)
@@ -154,6 +159,7 @@
 (global-set-key (kbd "M-RET") 'toggle-frame-fullscreen)
 ;; (global-set-key (kbd "C-\\") 'toggle-input-method)
 ;; (global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-super ;; (global-set-key [?\S- ] 'set-mark-command)
+
 
 ;;; expand region
 (package-require 'expand-region)
@@ -172,6 +178,7 @@
 
 ;; (global-set-key (kbd "M-<up>") 'move-lines-up)
 ;; (global-set-key (kbd "M-<down>") 'move-lines-down)
+
 
 ;;; `move-text'
 (package-require 'move-text)
@@ -184,6 +191,7 @@
 (global-set-key (kbd "M-n") 'move-text-down)
 ;; (global-set-key (kbd "M-<up>") 'move-text-up)
 ;; (global-set-key (kbd "M-<down>") 'move-text-down)
+
 
 ;;; `buffer-move'
 (package-require 'buffer-move)
@@ -198,6 +206,7 @@
 ;;; instead of swapping the buffers of both windows.
 ;;; Set the following customization variable to 'move to activate this behavior:
 (setq buffer-move-behavior 'move)
+
 
 ;;;
 (global-set-key (kbd "C-M-d") 'delete-backward-char)
@@ -222,11 +231,13 @@
 (window-numbering-mode)
 (setq window-numbering-assign-func (lambda () 
                                      (when (equal (buffer-name) "*Calculator*") 9)))
+
 
 ;; `page-break-lines'
 (package-require 'page-break-lines)
 (require 'page-break-lines)
-(global-page-break-lines-mode) 
+(global-page-break-lines-mode)
+
 ;;; Swiper
 ;; (package-require 'swiper)
 ;; (require 'swiper)
@@ -250,12 +261,14 @@
 ;; (global-set-key (kbd "C-c k") 'counsel-ag)
 ;; (global-set-key (kbd "C-x l") 'counsel-locate)
 ;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+
 
 ;;; htmlize
 (package-require 'htmlize)
 (require 'htmlize)
 ;; (global-set-key (kbd "C-c p") 'htmlize-buffer)
 ;; (global-set-key (kbd "C-c C-p") 'htmlize-file)
+
 
 ;;; bing-dict
 (package-require 'bing-dict)
@@ -267,6 +280,7 @@
 (setq bing-dict-org-file (concat (getenv "HOME") "/workspace/vocabulary.org"))
 ;; (global-set-key (kbd "C-c d") 'ome-bing-dict-brief)
 ;; (global-set-key (kbd "C-c D") 'ome-bing-dict-brief-web)
+
 
 (define-key global-map (kbd "C-c f") 'ome-go-to-char-forward)
 (define-key global-map (kbd "C-c b") 'ome-go-to-char-backward)
@@ -282,6 +296,7 @@
 ;; C-x r (file rename)
 ;; (global-set-key (kbd "C-c r") 'ome-rename-file-and-buffer)
 ;; (global-set-key (kbd "C-c x") 'ome-delete-file-and-buffer)
+
 
 ;;; string replace
 ;; (global-set-key (kbd "C-M-s") 'replace-string)
@@ -289,6 +304,7 @@
 
 ;; (define-key sh-mode-map (kbd "C-c C-r") 'replace-string)
 ;; (add-hook 'shell-mode-hook (lambda () (local-set-key (kbd "M-s") 'replace-string)))
+
 
 ;; (global-set-key (kbd "C-x M-k") 'ome-kill-all-buffers)
 (global-set-key (kbd "C-x M-k") 'ome-kill-other-buffers)
@@ -296,9 +312,11 @@
 ;;; `hydra'
 (package-require 'hydra)
 (require 'hydra)
+
 
 ;;; `tty'
 ;; (defhydra hydra-show-tty
+
 
 (defun switch-to-scratch-buffer () 
   "Toggle between *scratch* buffer and the current buffer.
@@ -311,7 +329,7 @@
       (with-current-buffer (switch-to-buffer  scratch-buffer-name) 
         (when (functionp prev-major-mode) 
           (funcall prev-major-mode )) 
-        (when (equal major-mode 'fundamental-mode )
+        (when (equal major-mode 'fundamental-mode ) 
           (emacs-lisp-mode)) 
         (goto-char (point-max))))))
 ;;; `buffer'
@@ -343,6 +361,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c s") 'hydra-show-buffer/body)
+
 
 ;;; `hydra-open-module'
 (defhydra hydra-open-config 
@@ -401,6 +420,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 
 (defun compile-all-modules() 
   (byte-recompile-directory (expand-file-name (concat (getenv "ROOT") "/emacs-config/modules")) 0))
+
 
 ;;; `hydra-open-url'
 (defhydra hydra-open-url 
@@ -441,9 +461,10 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c w") 'hydra-open-url/body)
+
 
 ;;; `hydra-open-file'
-(defhydra hydra-open-file
+(defhydra hydra-open-file 
   (:color blue)
   "
 ^Editor^        ^Export^                ^Blog^               ^Docs^             ^Config^
@@ -479,7 +500,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 ("3" (ome-open-file "~/.bashrc") ".bashrc")
 ("4" (ome-open-file "~/.xbindkeysrc.scm") ".xbindkeysrc.scm")
 ("." (ome-open-file "~/.emacs") ".emacs")
-("<tab>" helm-keyboard-quit "back"
+("<tab>" helm-keyboard-quit "back" 
  :exit t)
 ("0" (calendar) "calendar")
 ("<tab>" (hydra-do-super/body) "BACK")
@@ -487,6 +508,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c f") 'hydra-open-file/body)
 ;;
+
 
 (defun major-do () 
   (let ((mod-name (symbol-name major-mode))) 
@@ -558,7 +580,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 
 (setq current-major-mode-name (symbol-name major-mode))
 
-(defun get-super-menu-string()
+(defun get-super-menu-string() 
   (concat
    "^SPC^            ^Buffer^               ^Search^              ^UI|View^        ^AppWizard^^   "
    (get-major-mode-name)
@@ -574,52 +596,52 @@ _<tab>_: recent  _o_: kill-other-buffer _s_: replace-string   _z_: smart-do    ^
 ^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
 _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^^             ^^        ^^"))
 
-(defhydra hydra-do-super
-  (:color blue)
-  (concat "" (get-super-menu-string))
+(defhydra hydra-do-super 
+  (:color blue) 
+  (concat "" (get-super-menu-string)) 
   ("`" (mu4e) "Email")
   ;; ("`" mu4e~headers-jump-to-maildir "Email")
-  ("b" (hydra-show-buffer/body) "buffer")
-  ("f" (hydra-open-file/body) "file")
-  ("m" (hydra-open-config/body) "module")
-  ("c" (hydra-open-config/body) "module")
-  ("u" (hydra-open-url/body) "url")
-  ("l" helm-bookmarks "bookmarks")
+  ("b" (hydra-show-buffer/body) "buffer") 
+  ("f" (hydra-open-file/body) "file") 
+  ("m" (hydra-open-config/body) "module") 
+  ("c" (hydra-open-config/body) "module") 
+  ("u" (hydra-open-url/body) "url") 
+  ("l" helm-bookmarks "bookmarks") 
   ("<tab>" helm-recentf "(helm-recentf)")
   ;;("w" ome-copy-line "copy-line")
-  ("w" ome-new-blog "write-blog")
-  (">" ome-go-to-char-forward "go-to-char-forward")
-  ("<" ome-go-to-char-backward "go-to-char-backward")
-  ("s" replace-string "replace-string")
-  ("S" query-replace "query-replace")
-  ("e" (ome-mark-all-like-this) "mc/mark-all-like-this")
-  ("r" (ome-buffer-reload) "Refresh")
-  ("o" (ome-kill-other-buffers) "KillOtherBuffers")
-  ("p" (org-publish-project "blog") "publish-blog")
-  ("G" projectile-ripgrep "projectile-project-root")
-  ("g" ome-grep-directory "projectile-directory-root")
-  ("d" bing-dict-brief "bing-dict-brief")
-  ("D" ome-bing-dict-brief-web "bing-dict-brief-web")
-  (";" tabbar-backward "tabbar-backward")
-  ("'" tabbar-forward "tabbar-forward")
-  ("[" ome-tabbar-backward-group "tabbar-up")
-  ("/" ome-tabbar-forward-group "tabbar-down")
-  ("=" text-scale-increase "text-scale-increase")
-  ("-" text-scale-decrease "text-scale-decrease")
-  ("1" (ome-run-*project) "run project")
-  ("2" (message "smart-do"))
-  ("3" (message "smart-do"))
-  ("4" (message "smart-do"))
-  ("5" (message "smart-do"))
-  ("6" (ome-project-wizard "clojure") "smart-do")
-  ("7" (ome-project-wizard "elixir") "smart-do")
-  ("8" (ome-project-wizard "rust") "smart-do")
-  ("9" (ome-project-wizard "ros") "smart-do")
-  ("z" (message "smart-do"))
-  ("0" (calendar) "calendar")
-  ("!" (ome-open-url "http://wttr.in/") "wego")
-  ("<SPC>" nil "quit")
-  ("q" nil "quit")
+  ("w" ome-new-blog "write-blog") 
+  (">" ome-go-to-char-forward "go-to-char-forward") 
+  ("<" ome-go-to-char-backward "go-to-char-backward") 
+  ("s" replace-string "replace-string") 
+  ("S" query-replace "query-replace") 
+  ("e" (ome-mark-all-like-this) "mc/mark-all-like-this") 
+  ("r" (ome-buffer-reload) "Refresh") 
+  ("o" (ome-kill-other-buffers) "KillOtherBuffers") 
+  ("p" (org-publish-project "blog") "publish-blog") 
+  ("G" projectile-ripgrep "projectile-project-root") 
+  ("g" ome-grep-directory "projectile-directory-root") 
+  ("d" bing-dict-brief "bing-dict-brief") 
+  ("D" ome-bing-dict-brief-web "bing-dict-brief-web") 
+  (";" tabbar-backward "tabbar-backward") 
+  ("'" tabbar-forward "tabbar-forward") 
+  ("[" ome-tabbar-backward-group "tabbar-up") 
+  ("/" ome-tabbar-forward-group "tabbar-down") 
+  ("=" text-scale-increase "text-scale-increase") 
+  ("-" text-scale-decrease "text-scale-decrease") 
+  ("1" (ome-run-*project) "run project") 
+  ("2" (message "smart-do")) 
+  ("3" (message "smart-do")) 
+  ("4" (message "smart-do")) 
+  ("5" (message "smart-do")) 
+  ("6" (ome-project-wizard "clojure") "smart-do") 
+  ("7" (ome-project-wizard "elixir") "smart-do") 
+  ("8" (ome-project-wizard "rust") "smart-do") 
+  ("9" (ome-project-wizard "ros") "smart-do") 
+  ("z" (message "smart-do")) 
+  ("0" (calendar) "calendar") 
+  ("!" (ome-open-url "http://wttr.in/") "wego") 
+  ("<SPC>" nil "quit") 
+  ("q" nil "quit") 
   ("<escape>" nil "quit"))
 
 (defun show-super-menu () 
@@ -632,58 +654,92 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 (defhydra hydra-view-menu 
   (:color pink)
   "View" ;;
-  ("t" tool-bar-mode "Toolbar")
-  ("m" menu-bar-mode "Menubar")
-  ("s" projectile-speedbar-toggle "Speedbar")
-  ("d" (dired-sidebar-toggle-sidebar nil) "DiredSideBar")
-
-  (";" tabbar-backward "tabbar-backward")
-  ("'" tabbar-forward "tabbar-forward")
-  ("[" ome-tabbar-backward-group "tabbar-up")
-  ("/" ome-tabbar-forward-group "tabbar-down")
-  ("=" text-scale-increase "text-scale-increase")
-  ("-" text-scale-decrease "text-scale-decrease")
-  
-  ("q" nil "quit")
-  ("<SPC>" nil "quit")
+  ("t" tool-bar-mode "Toolbar") 
+  ("m" menu-bar-mode "Menubar") 
+  ("s" projectile-speedbar-toggle "Speedbar") 
+  ("d" (dired-sidebar-toggle-sidebar nil) "DiredSideBar") 
+  (";" tabbar-backward "tabbar-backward") 
+  ("'" tabbar-forward "tabbar-forward") 
+  ("[" ome-tabbar-backward-group "tabbar-up") 
+  ("/" ome-tabbar-forward-group "tabbar-down") 
+  ("=" text-scale-increase "text-scale-increase") 
+  ("-" text-scale-decrease "text-scale-decrease") 
+  ("q" nil "quit") 
+  ("<SPC>" nil "quit") 
   ("<escape>" nil "quit"))
 
 (defhydra hydra-new-menu 
   (:color blue)
   "New" ;;
-  ("e" mu4e-compose-new "Email")
-  ("m" menu-bar-mode "Menubar")
-  ("s" speedbar-mode "Speedbar")
-  ("d" dired-sidebar "DiredSideBar")
-
-  ("q" nil "quit")
-  ("<SPC>" nil "quit")
+  ("e" mu4e-compose-new "Email") 
+  ("m" menu-bar-mode "Menubar") 
+  ("s" speedbar-mode "Speedbar") 
+  ("d" dired-sidebar "DiredSideBar") 
+  ("q" nil "quit") 
+  ("<SPC>" nil "quit") 
   ("<escape>" nil "quit"))
 
 
 (defhydra hydra-super-menu 
-  (:color blue)
-    "
-_n_:New  _o_:Open  _s_:Search  _v_:View  _b_:Bookmarks  _e_:Email  _f_:Feed  _m_:Module
-"
+  (:color blue 
+          :hint nil) 
+  (concat                               ;
+   "^Main^            ^Search^               ^View^              ^Magic^\n"
+   "^^^^^^^^--------------------------------------------------------------------\n"
+   "_n_:New           _>_:gochar-forward     _t_:Toolbar    ^^\n"
+   "_o_:Open          _<_:gochar-backward    _m_:Menubar    ^^\n"
+   "_b_:Bookmarks     _g_:grep-dir           _s_:Speedbar   ^^\n"
+   "_e_:Email         _G_:grep-proj          _S_:Sidebar    ^^\n"
+   "_f_:Feed          _d_:dict-bing          _=_:Scale+     ^^\n"
+   "_c_:Config        _D_:dict-bing-web      _-_:Scale-     ^^\n" "^^^^^^^^")
+  ;; Main
   ("n" (hydra-new-menu/body) "New") 
-  ("o" (message "1111") "Open") 
-  ("s" (message "2222") "Search") 
-  ("v" (hydra-view-menu/body) "View") 
+  ("o" (hydra-open-file/body) "Open") 
   ("b" helm-bookmarks "Bookmarks") 
   ("e" mu4e "Email") 
   ("f" elfeed "Feed") 
-  ("m" helm-bookmarks "Module")
+  ("c" (hydra-open-config/body) "Config")
 
+  ;; Search
+  (">" ome-go-to-char-forward "go-to-char-forward") 
+  ("<" ome-go-to-char-backward "go-to-char-backward") 
+  ("G" projectile-ripgrep "projectile-project-root") 
+  ("g" ome-grep-directory "projectile-directory-root") 
+  ("d" bing-dict-brief "bing-dict-brief") 
+  ("D" ome-bing-dict-brief-web "bing-dict-brief-web")
+
+  ;; Nav
+  (";" tabbar-backward "tabbar-backward" 
+   :color pink) 
+  ("'" tabbar-forward "tabbar-forward" 
+   :color pink) 
+  ("[" ome-tabbar-backward-group "tabbar-up" 
+   :color pink) 
+  ("/" ome-tabbar-forward-group "tabbar-down" 
+   :color pink) 
   ("<tab>" helm-recentf "(helm-recentf)")
-  ("c" (calendar) "calendar")
-  ("w" (ome-open-url "http://wttr.in/") "wego")
-  ("q" nil "quit")
-  ("<SPC>" nil "quit")
+
+  ;; View
+  ("t" tool-bar-mode "Toolbar" 
+   :color pink) 
+  ("m" menu-bar-mode "Menubar" 
+   :color pink) 
+  ("s" projectile-speedbar-toggle "Speedbar" 
+   :color pink) 
+  ("S" (dired-sidebar-toggle-sidebar nil) "DiredSideBar" 
+   :color pink) 
+  ("=" text-scale-increase "text-scale-increase" 
+   :color pink) 
+  ("-" text-scale-decrease "text-scale-decrease" 
+   :color pink)
+
+  ;; Other
+  ("`" (calendar) "calendar") 
+  ("w" (ome-open-url "http://wttr.in/") "wego") 
+  ("q" nil "quit") 
+  ("<SPC>" nil "quit") 
   ("<escape>" nil "quit"))
 
-;; (global-set-key (kbd "C-SPC") 'hydra-do-super/body)
-;; (global-set-key (kbd "M-SPC") 'show-super-menu)
 (global-set-key (kbd "C-M-z") 'show-super-menu)
 (global-set-key (kbd "M-z") 'hydra-super-menu/body)
 
@@ -695,6 +751,7 @@ _n_:New  _o_:Open  _s_:Search  _v_:View  _b_:Bookmarks  _e_:Email  _f_:Feed  _m_
 ;; (global-set-key (kbd "M-;") 'smart-comment)
 ;; (global-set-key (kbd "C-u M-;") 'smart-comment)
 ;; (global-set-key (kbd "C-u C-u M-;") 'smart-comment)
+
 
 ;;; `guide-key'
 ;; (package-require 'guide-key)
@@ -711,11 +768,13 @@ _n_:New  _o_:Open  _s_:Search  _v_:View  _b_:Bookmarks  _e_:Email  _f_:Feed  _m_
 ;; (package-require 'guide-key-tip)
 ;; (require 'guide-key-tip)
 ;; (setq guide-key-tip/enabled nil)
+
 
 ;;; `which-key'
 (package-require 'which-key)
 (require 'which-key)
-(which-key-mode) 
+(which-key-mode)
+
 ;;; `paredit'
 (package-require 'paredit)
 (require 'paredit)
@@ -738,6 +797,7 @@ _n_:New  _o_:Open  _s_:Search  _v_:View  _b_:Bookmarks  _e_:Email  _f_:Feed  _m_
 (add-hook 'newlisp-mode-hook          #'enable-paredit-mode)
 (add-hook 'hy-mode-hook               #'enable-paredit-mode)
 ;;
+
 
 ;;
 ;; (use-package smartparens-config
@@ -769,6 +829,7 @@ _n_:New  _o_:Open  _s_:Search  _v_:View  _b_:Bookmarks  _e_:Email  _f_:Feed  _m_
 ;; (back-quote . "`")))
 
 ;;
+
 
 ;;
 ;; `comment-toggle' M-;
@@ -783,9 +844,11 @@ _n_:New  _o_:Open  _s_:Search  _v_:View  _b_:Bookmarks  _e_:Email  _f_:Feed  _m_
 
 (package-require 'xkcd)
 (require 'xkcd)
+
 
 ;; (package-require 'weechat)
 ;; (require 'weechat)
+
 
 ;;
 (provide 'mod-keybind)

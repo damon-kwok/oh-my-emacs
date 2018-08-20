@@ -68,45 +68,46 @@
 ;;         ;; ("C-M-m f M-t") . treemacs-find-tag)
 ;;   )
 
-(use-package treemacs-projectile
-  :defer t
-  :ensure t
-  :config
-  (setq treemacs-header-function #'treemacs-projectile-create-header)
+(use-package 
+  treemacs-projectile 
+  :defer t 
+  :ensure t 
+  :config (setq treemacs-header-function #'treemacs-projectile-create-header)
   ;; :bind (:map global-map
-              ;; ("C-M-m fP" . treemacs-projectile)
-              ;; ("C-M-m fp" . treemacs-projectile-toggle))
+  ;; ("C-M-m fP" . treemacs-projectile)
+  ;; ("C-M-m fp" . treemacs-projectile-toggle))
   )
 
-(defun treemacs-projectile (&optional arg)
+(defun treemacs-projectile 
+    (&optional 
+     arg)
   "Open treemacs for the current projectile project.
 If not in a project do nothing. If a prefix argument ARG is given select
-the project from among `projectile-known-projects'."
-  (interactive "P")
-  (cond
-   (arg
-    (treemacs--init (completing-read "Project: " projectile-known-projects)))
-   ((projectile-project-p)
-    (treemacs--init (projectile-project-root)))
-   (t (treemacs))))
+the project from among `projectile-known-projects'." 
+  (interactive "P") 
+  (cond (arg (treemacs--init (completing-read "Project: " projectile-known-projects))) 
+        ((projectile-project-p) 
+         (treemacs--init (projectile-project-root))) 
+        (t (treemacs))))
 
-(defun ome-treemacs-toggle ()
+(defun ome-treemacs-toggle () 
   "If a treemacs buffer exists and is visible hide it.
 If a treemacs buffer exists, but is not visible bring it to the foreground
 and select it.
-If no treemacs buffer exists call `treemacs'."
-  (interactive)
-  (-pcase (treemacs--current-visibility)
-    ['visible
-     (treemacs--select-visible)
-     (if (one-window-p)
-         (switch-to-buffer (other-buffer))
-       (bury-buffer))]
-    ['exists
-     (treemacs-projectile)]
-    ['none
-     (treemacs-projectile)]
-    [_ (error "[Treemacs] Invalid visibility value: %s" (treemacs--current-visibility))]))
+If no treemacs buffer exists call `treemacs'." 
+  (interactive) 
+  (-pcase (treemacs--current-visibility) 
+          ['visible (treemacs--select-visible) 
+                    (if (one-window-p) 
+                        (switch-to-buffer (other-buffer)) 
+                      (bury-buffer))] 
+          ['exists (treemacs-projectile)] 
+          ['none (treemacs-projectile)] 
+          [_ 
+           (error 
+            "[Treemacs] Invalid visibility value: %s"
+            (treemacs--current-visibility))
+           ]))
 
 (global-set-key [f1] 'ome-treemacs-toggle)
 (global-set-key (kbd "C-c t") 'ome-treemacs-toggle)

@@ -168,8 +168,9 @@
 
 (define-key global-map "\C-cc" 'org-capture)
 
-(define-key global-map "\C-cj"
-  (lambda () (interactive) (org-capture nil "j")))
+(define-key global-map "\C-cj" (lambda () 
+                                 (interactive) 
+                                 (org-capture nil "j")))
 
 (setq org-capture-templates '(("t" "Todo" entry (file+headline "~/workspace//org/gtd.org" "Tasks")
                                "* TODO %?\n  %i\n  %a") 

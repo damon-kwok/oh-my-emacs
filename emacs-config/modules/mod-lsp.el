@@ -26,6 +26,7 @@
 ;;
 (package-require 'lsp-mode)
 (require 'lsp-mode)
+
 
 ;;
 (package-require 'lsp-ui)
@@ -92,7 +93,7 @@
 ;;; `flycheck'
 (package-require 'flycheck)
 ;; (add-hook 'after-init-hook #'global-flycheck-mode)
-(setq flycheck-idle-change-delay 2)		; in seconds
+(setq flycheck-idle-change-delay 2)     ; in seconds
 
 (add-hook 'lsp-mode-hook 'flycheck-mode)
 (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
@@ -106,6 +107,7 @@
 
 ;; (lsp-ui-peek-jump-backward)
 ;; (lsp-ui-peek-jump-forward)
+
 
 ;;yasnippet
 (require 'mod-complete)
@@ -113,6 +115,7 @@
 ;; company
 (package-require 'company)
 (require 'company)
+
 
 (package-require 'company-lsp)
 (require 'company-lsp)
@@ -127,6 +130,7 @@
 (define-key lsp-ui-mode-map [f10] 'lsp-ui-sideline-toggle-symbols-info)
 
 ;;
+
 
 ;; `company-cache'
 (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)

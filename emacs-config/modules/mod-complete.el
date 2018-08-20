@@ -104,16 +104,16 @@
 ;; (yas-load-directory yasnippet-snippets-dir t)
 
 (if (file-exists-p dir-medusa-snippets) 
-	(add-to-list 'yas-snippet-dirs (expand-file-name dir-medusa-snippets)))
+    (add-to-list 'yas-snippet-dirs (expand-file-name dir-medusa-snippets)))
 
 (yas-reload-all)
 
 (define-globalized-minor-mode global-yas-minor-mode yas-minor-mode 
   (lambda () 
-	(if (and (not (string-match "^\*.*\*$" (buffer-name))) 
-			 (not (eq major-mode 'dired-mode)) 
-			 (not (eq major-mode 'speedbar-mode))) 
-		(yas-minor-mode 1))))
+    (if (and (not (string-match "^\*.*\*$" (buffer-name))) 
+             (not (eq major-mode 'dired-mode)) 
+             (not (eq major-mode 'speedbar-mode))) 
+        (yas-minor-mode 1))))
 
 (global-yas-minor-mode 1)
 
@@ -136,24 +136,26 @@
 (global-set-key (kbd "C-x y f") 'yas-open-snippet-file)
 (global-set-key (kbd "C-x y a") 'yas-open-snippet-template)
 ;;
+
 
 ;;
 (defun yasnippet-current-line () ;; C-c TAB
   (interactive) 
   (let ((current-line (string-trim-right (thing-at-point 'line t)))) 
-	(end-of-line) 
-	(newline-and-indent) 
-	(yas-expand-snippet (yasnippet-string-to-template (string-trim current-line)))))
+    (end-of-line) 
+    (newline-and-indent) 
+    (yas-expand-snippet (yasnippet-string-to-template (string-trim current-line)))))
 
 (defun yasnippet-string-to-template (string) 
   (let ((count 1)) 
-	(cl-labels ((rep (text) 
-					 (let ((replace (format "${%d:%s}" count text))) 
-					   (incf count) replace))) 
-	  (replace-regexp-in-string "[a-zA-Z0-9]+" #'rep string))))
+    (cl-labels ((rep (text) 
+                     (let ((replace (format "${%d:%s}" count text))) 
+                       (incf count) replace))) 
+      (replace-regexp-in-string "[a-zA-Z0-9]+" #'rep string))))
 
 (global-set-key (kbd "C-c TAB") 'yasnippet-current-line)
 ;;
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `auto-insert-mode'
@@ -191,17 +193,18 @@
   "expand auto-inserted content as yasnippet templete,
   so that we could use yasnippet in autoinsert mode"
   (let ((is-new-file (and (not buffer-read-only) 
-						  (or (eq this-command 'auto-insert) 
-							  (and auto-insert 
-								   (bobp) 
-								   (eobp)))))) ad-do-it (let ((old-point-max (point-max))) 
-										 (when is-new-file (goto-char old-point-max) 
-											   (yas-expand-snippet 
-												(buffer-substring-no-properties 
-												 (point-min) 
-												 (point-max))) 
-											   (delete-region (point-min) old-point-max) 
-											   (elisp-code-format)))))
+                          (or (eq this-command 'auto-insert) 
+                              (and auto-insert 
+                                   (bobp) 
+                                   (eobp)))))) ad-do-it (let ((old-point-max (point-max))) 
+                                         (when is-new-file (goto-char old-point-max) 
+                                               (yas-expand-snippet 
+                                                (buffer-substring-no-properties 
+                                                 (point-min) 
+                                                 (point-max))) 
+                                               (delete-region (point-min) old-point-max) 
+                                               (elisp-code-format)))))
+
 
 ;;
 (provide 'mod-complete)

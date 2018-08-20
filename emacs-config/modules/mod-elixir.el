@@ -61,24 +61,24 @@
 (with-eval-after-load "flycheck"
   ;;
   (flycheck-define-checker
-   ;;
-   elixir-mix
-   "An Elixir syntax checker using the Elixir interpreter.See URL `http://elixir-lang.org/'." 
-   :command ("mix" "compile" source) 
-   :error-patterns ((error 
-		     line-start
-		     "** ("
-		     (zero-or-more not-newline)
-		     ") "
-		     (zero-or-more not-newline)
-		     ":"
-		     line
-		     ": "
-		     (message)
-		     line-end) 
-		    (warning line-start (one-or-more (not (syntax whitespace))) ":" line ": "
-			     (message) line-end)) 
-   :modes elixir-mode) 
+      ;;
+      elixir-mix
+    "An Elixir syntax checker using the Elixir interpreter.See URL `http://elixir-lang.org/'." 
+    :command ("mix" "compile" source) 
+    :error-patterns ((error 
+                      line-start
+                      "** ("
+                      (zero-or-more not-newline)
+                      ") "
+                      (zero-or-more not-newline)
+                      ":"
+                      line
+                      ": "
+                      (message)
+                      line-end) 
+                     (warning line-start (one-or-more (not (syntax whitespace))) ":" line ": "
+                              (message) line-end)) 
+    :modes elixir-mode) 
   (add-to-list 'flycheck-checkers 'elixir-mix))
 
 
@@ -92,15 +92,15 @@
   (ome-show-compilation "*Alchemist-IEx*" t))
 
 (defun show-elixir-mode-workbuffer() 
-   (interactive) 
-   (switch-to-buffer-other-window temp-elixir-buffer-name) 
-   (delete-other-windows) 
-   (show-elixir-mode-repl) 
-   (switch-to-buffer-other-window temp-elixir-buffer-name))
+  (interactive) 
+  (switch-to-buffer-other-window temp-elixir-buffer-name) 
+  (delete-other-windows) 
+  (show-elixir-mode-repl) 
+  (switch-to-buffer-other-window temp-elixir-buffer-name))
 
- ;; (define-key elixir-mode-map (kbd "C-c C-c")  'compile-current-buffer)
- ;; (define-key elixir-mode-map (kbd "C-c C-k")  'eval-buffer)
- ;; (define-key elixir-mode-map (kbd "C-M-\\")  'elisp-code-format)
+;; (define-key elixir-mode-map (kbd "C-c C-c")  'compile-current-buffer)
+;; (define-key elixir-mode-map (kbd "C-c C-k")  'eval-buffer)
+;; (define-key elixir-mode-map (kbd "C-M-\\")  'elisp-code-format)
 
 (defun add (a b) 
   (+ a b))

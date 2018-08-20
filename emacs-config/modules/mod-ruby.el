@@ -29,8 +29,7 @@
 
 (add-hook 'ruby-mode-hook 'robe-mode)
 
-(eval-after-load 'company
-  '(push 'company-robe company-backends))
+(eval-after-load 'company '(push 'company-robe company-backends))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-ruby)

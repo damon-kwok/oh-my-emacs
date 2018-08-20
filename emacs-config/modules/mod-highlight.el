@@ -36,7 +36,7 @@
 
 (define-globalized-minor-mode global-symbol-overlay-mode symbol-overlay-mode 
   (lambda () 
-	(symbol-overlay-mode 1)))
+    (symbol-overlay-mode 1)))
 
 (global-symbol-overlay-mode nil)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -56,16 +56,16 @@
 (setq highlight-indent-guides-character ?\|)
 ;; (setq highlight-indent-guides-character "|")
 
-;; (define-globalized-minor-mode global-highlight-indent-guides-mode highlight-indent-guides-mode 
-  ;; (lambda () 
-	;; (highlight-indent-guides-mode 1)))
+;; (define-globalized-minor-mode global-highlight-indent-guides-mode highlight-indent-guides-mode
+;; (lambda ()
+;; (highlight-indent-guides-mode 1)))
 
-(define-globalized-minor-mode global-highlight-indent-guides-mode highlight-indent-guides-mode
-  (lambda ()
-	(if (and (not (string-match "^\*.*\*$" (buffer-name)))
-			 (not (eq major-mode 'dired-mode))
-			 (not (eq major-mode 'speedbar-mode)))
-		(highlight-indent-guides-mode 1))))
+(define-globalized-minor-mode global-highlight-indent-guides-mode highlight-indent-guides-mode 
+  (lambda () 
+    (if (and (not (string-match "^\*.*\*$" (buffer-name))) 
+             (not (eq major-mode 'dired-mode)) 
+             (not (eq major-mode 'speedbar-mode))) 
+        (highlight-indent-guides-mode 1))))
 
 (global-highlight-indent-guides-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -90,10 +90,10 @@
 
 (define-globalized-minor-mode global-fci-mode fci-mode 
   (lambda () 
-	(if (and (not (string-match "^\*.*\*$" (buffer-name))) 
-			 (not (eq major-mode 'dired-mode)) 
-			 (not (eq major-mode 'speedbar-mode))) 
-		(fci-mode 1))))
+    (if (and (not (string-match "^\*.*\*$" (buffer-name))) 
+             (not (eq major-mode 'dired-mode)) 
+             (not (eq major-mode 'speedbar-mode))) 
+        (fci-mode 1))))
 
 (global-fci-mode 1)
 

@@ -36,7 +36,7 @@
 
 ;; -- Auto completion --
 ;; You can omit if you configured company-mode on `prog-mode-hook'
-(add-hook 'nimsuggest-mode-hook 'company-mode)  ; auto complete package
+(add-hook 'nimsuggest-mode-hook 'company-mode) ; auto complete package
 ;; -- Auto lint --
 ;; You can omit if you configured flycheck-mode on `prog-mode-hook'
 (add-hook 'nimsuggest-mode-hook 'flycheck-mode) ; auto linter package

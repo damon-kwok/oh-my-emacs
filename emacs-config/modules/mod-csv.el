@@ -24,11 +24,10 @@
 (package-require 'csv-mode)
 
 (add-to-list 'auto-mode-alist '("\\.csv$" . csv-mode))
-(add-hook 'csv-mode-hook 
-	  '(lambda() 
-	     (toggle-truncate-lines) 
-	     (csv-align-fields nil (buffer-end -1) 
-			       (buffer-end +1))))
+(add-hook 'csv-mode-hook '(lambda() 
+                            (toggle-truncate-lines) 
+                            (csv-align-fields nil (buffer-end -1) 
+                                              (buffer-end +1))))
 ;;
 (provide 'mod-csv)
 ;;; mod-csv.el ends here

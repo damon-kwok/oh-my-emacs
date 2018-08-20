@@ -30,26 +30,26 @@
 ;; (setq elfeed-feeds '("http://nullprogram.com/feed/" "http://planet.emacsen.org/atom.xml"))
 
 (setq elfeed-feeds '(;;
-					 ;; ("http://nullprogram.com/feed/" blog emacs)
-					 ;; ("https://www.reddit.com/subreddits.rss" emacs lisp google facebook nvidia)
-					 ;; ("https://www.tuicool.com/topics" Lisp)
-					 "https://www.reddit.com/r/emacs/.rss";
-					 "https://www.reddit.com/r/lisp/.rss";
-					 "https://www.reddit.com/r/clojure/.rss";
-					 "https://www.reddit.com/r/elixir/.rss";
-					 "https://www.reddit.com/r/rust/.rss";
-					 "https://www.reddit.com/r/nim/.rss";
-					 "https://www.reddit.com/r/ocaml/.rss";
-					 "https://www.reddit.com/r/golang/.rss";
-					 "https://www.reddit.com/r/hylang/.rss";
-					 ;; ("https://www.reddit.com/.rss" steam)
-					 ("http://www.reddit.com/r/news+wtf.rss" steam)
-					 ;; "https://www.reddit.com/search.xml?q=RSS+Readers&sort=new"
-					 ;; ("https://www.tuicool.com/articles/" Lisp)
-					 ;; "http://www.50ply.com/atom.xml" ; no autotagging
-					 ;; ("http://nedroid.com/feed/" webcomic)
-					 ;;
-					 ))
+                     ;; ("http://nullprogram.com/feed/" blog emacs)
+                     ;; ("https://www.reddit.com/subreddits.rss" emacs lisp google facebook nvidia)
+                     ;; ("https://www.tuicool.com/topics" Lisp)
+                     "https://www.reddit.com/r/emacs/.rss"   ;
+                     "https://www.reddit.com/r/lisp/.rss"    ;
+                     "https://www.reddit.com/r/clojure/.rss" ;
+                     "https://www.reddit.com/r/elixir/.rss"  ;
+                     "https://www.reddit.com/r/rust/.rss"    ;
+                     "https://www.reddit.com/r/nim/.rss"     ;
+                     "https://www.reddit.com/r/ocaml/.rss"   ;
+                     "https://www.reddit.com/r/golang/.rss"  ;
+                     "https://www.reddit.com/r/hylang/.rss"  ;
+                     ;; ("https://www.reddit.com/.rss" steam)
+                     ("http://www.reddit.com/r/news+wtf.rss" steam)
+                     ;; "https://www.reddit.com/search.xml?q=RSS+Readers&sort=new"
+                     ;; ("https://www.tuicool.com/articles/" Lisp)
+                     ;; "http://www.50ply.com/atom.xml" ; no autotagging
+                     ;; ("http://nedroid.com/feed/" webcomic)
+                     ;;
+                     ))
 
 (global-set-key (kbd "C-x w") 'elfeed)
 (setf url-queue-timeout 30)

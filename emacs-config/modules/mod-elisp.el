@@ -30,6 +30,7 @@
 (add-to-list 'auto-mode-alist '("\\.els\\'" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.els.el\\'" . emacs-lisp-mode))
 ;;
+
 
 ;; scratch settings
 (package-require 'persistent-scratch)
@@ -45,9 +46,11 @@
 
 ")
 ;;
+
 
 ;; (package-require 'suggest)
 ;; (require 'suggest)
+
 
 ;;(package-require 'rainbow-delimiters)
 ;;(global-rainbow-delimiters-mode)
@@ -56,12 +59,15 @@
 
 ;;(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
 ;;(add-hook 'emacs-lisp-mode-hook 'highlight-parentheses-mode)
+
 
 ;;
+
 
 ;; (package-require 'lispy)
 ;; (require 'lispy)
 ;; (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+
 
 ;; (package-require-curl "elisp-format" "elisp-format.el"
 ;; "https://www.emacswiki.org/emacs/download/elisp-format.el")
@@ -115,6 +121,7 @@
 (define-key emacs-lisp-mode-map (kbd "C-c C-z")  'show-elisp-repl)
 (define-key emacs-lisp-mode-map (kbd "C-c C-c")  'compile-current-buffer)
 ;; (define-key emacs-lisp-mode-map (kbd "C-c C-k")  'eval-buffer)
+
 
 ;; (package-require 'elisp-refs)
 ;; (require 'elisp-refs)
@@ -124,6 +131,7 @@
 (require 'macrostep)
 (define-key emacs-lisp-mode-map (kbd "C-c e") 'macrostep-expand)
 ;;
+
 
 ;;
 (provide 'mod-elisp)

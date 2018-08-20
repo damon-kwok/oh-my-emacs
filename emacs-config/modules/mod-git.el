@@ -34,10 +34,10 @@
 ;;
 ;; `magithub'
 ;; (use-package magithub
-  ;; :after magit
-  ;; :config
-  ;; (magithub-feature-autoinject t)
-  ;; (setq magithub-clone-default-directory "~/github"))
+;; :after magit
+;; :config
+;; (magithub-feature-autoinject t)
+;; (setq magithub-clone-default-directory "~/github"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-git)
 ;; mod-git.el ends here

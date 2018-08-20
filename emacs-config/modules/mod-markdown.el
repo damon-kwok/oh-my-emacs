@@ -18,7 +18,7 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
-;;						 
+;;
 ;; Code:
 ;;
 (require 'mod-package)
@@ -33,21 +33,22 @@
 (setq auto-mode-alist (cons '("\\.mdown" . markdown-mode) auto-mode-alist))
 ;;(setq auto-mode-alist (cons '("^*markdown-output*$" . html-mode) auto-mode-alist))
 
-(defun show-markdown-output()
-  (interactive)
-  (setq temp-buffer-name (buffer-name (current-buffer)))
-  (ome-show-compilation "*markdown-output*")
-  (markdown)
-  (switch-to-buffer-other-window temp-buffer-name)
+(defun show-markdown-output() 
+  (interactive) 
+  (setq temp-buffer-name (buffer-name (current-buffer))) 
+  (ome-show-compilation "*markdown-output*") 
+  (markdown) 
+  (switch-to-buffer-other-window temp-buffer-name) 
   (ome-show-compilation "*markdown-output*"))
 
-(defun markdown-custom-settings ()
-  "markdown-mode-hook"
-  (setq markdown-command "markdown | smartypants")
-  (define-key markdown-mode-map [f1] 'show-markdown-output)
+(defun markdown-custom-settings () 
+  "markdown-mode-hook" 
+  (setq markdown-command "markdown | smartypants") 
+  (define-key markdown-mode-map [f1] 'show-markdown-output) 
   (define-key markdown-mode-map (kbd "C-c C-z") 'show-markdown-output))
 
-(add-hook 'markdown-mode-hook '(lambda() (markdown-custom-settings)))
+(add-hook 'markdown-mode-hook '(lambda() 
+                                 (markdown-custom-settings)))
 ;;
 (provide 'mod-markdown)
 ;; mod-markdown.el ends here
