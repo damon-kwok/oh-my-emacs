@@ -27,7 +27,7 @@
   ;; "set ome logo. nil means official logo."
 ;; :type 'string)
 ;; (setq fancy-splash-image ome-logo)
-(module-require 'mod-gc)
+;;(module-require 'mod-gc)
 (module-require 'mod-coding)
 (module-require 'mod-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

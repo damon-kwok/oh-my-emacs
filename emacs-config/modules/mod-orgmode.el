@@ -27,7 +27,6 @@
 (package-require 'org-plus-contrib)
 (require 'org-install)
 
-;; 自动换行
 (add-hook 'org-mode-hook (lambda () 
                            (setq truncate-lines nil) 
                            (setq org-startup-with-inline-images t) 
@@ -62,13 +61,11 @@
 (package-require 'ob-crystal)
 (package-require 'ob-go)
 (package-require 'ob-kotlin)
-;; (package-require 'ob-ipython)
 (package-require 'ob-lfe)
 (package-require 'ob-crystal)
 (package-require 'ob-fsharp)
 (package-require 'ob-http)
 (package-require 'ob-nim)
-;;(package-require 'ob-php)
 (package-require 'ob-prolog)
 (package-require 'ob-rust)
 (package-require 'ob-swift)
@@ -78,6 +75,9 @@
 (package-require 'ob-hy)
 (package-require 'ob-typescript)
 (package-require 'ob-sml)
+
+;;(package-require 'ob-php)
+;; (package-require 'ob-ipython)
 (org-babel-do-load-languages 'org-babel-load-languages ;;
                              '((shell . t) 
                                (octave . t) 

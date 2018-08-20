@@ -430,12 +430,12 @@ occurence of CHAR."
   (delete-other-windows) 
   (ome-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
-  (find-file (concat (getenv "HOME") "/workspace/blog/" doc-name)) 
+  (find-file (concat (getenv "HOME") "/projects/me/blog/src/" doc-name)) 
   (delete-other-windows))
 
 (defun ome-new-blog() 
   (interactive) 
-  (setq default-directory (concat (getenv "HOME") "/workspace/blog/")) 
+  (setq default-directory (concat (getenv "HOME") "/projects/me/blog/src/")) 
   (helm-find-files nil))
 
 (defun ome-open-url(url) 
@@ -443,7 +443,6 @@ occurence of CHAR."
   (ome-show-compilation "*eww*") 
   (other-window 1) 
   (eww url))
-
 
 (defun ome-find-file-doc() 
   (interactive) 
@@ -455,7 +454,7 @@ occurence of CHAR."
 (defun ome-find-file-blog() 
   (interactive) 
   (setq old-default-directory default-directory) 
-  (setq default-directory  (concat (getenv "HOME") "/workspace/docs/github-pages/")) 
+  (setq default-directory  (concat (getenv "HOME") "/projects/me/blog/src/")) 
   (helm-find-files nil) 
   (setq default-directory old-default-directory))
 

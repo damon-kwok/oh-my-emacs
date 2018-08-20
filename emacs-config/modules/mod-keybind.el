@@ -36,24 +36,24 @@
 (global-set-key (kbd "C-c d") 'dired-sidebar-toggle-sidebar)
 
 ;; `repl'
-(defun show-global-shell()
-  (interactive)
-  (setq temp-global-buffer-name (buffer-name (current-buffer)))
-  (ome-show-compilation "*shell*")
-  (shell)
-  (switch-to-buffer-other-window temp-global-buffer-name)
+(defun show-global-shell() 
+  (interactive) 
+  (setq temp-global-buffer-name (buffer-name (current-buffer))) 
+  (ome-show-compilation "*shell*") 
+  (shell) 
+  (switch-to-buffer-other-window temp-global-buffer-name) 
   (ome-show-compilation "*shell*" t))
 
-(defun show-global-shell-new()
-  (interactive)
-  (ome-kill-buffer-by-name "*shell*")
+(defun show-global-shell-new() 
+  (interactive) 
+  (ome-kill-buffer-by-name "*shell*") 
   (show-global-shell))
 
-(defun show-global-workbuffer()
-  (interactive)
-  (switch-to-buffer-other-window temp-global-buffer-name)
-  (delete-other-windows)
-  (show-global-shell)
+(defun show-global-workbuffer() 
+  (interactive) 
+  (switch-to-buffer-other-window temp-global-buffer-name) 
+  (delete-other-windows) 
+  (show-global-shell) 
   (switch-to-buffer-other-window temp-global-buffer-name))
 
 (global-set-key (kbd "C-c `") 'show-global-shell)
@@ -64,24 +64,23 @@
 (define-key shell-mode-map (kbd "C-c C-z")  'show-global-workbuffer)
 
 (add-hook 'sh-mode-hook '(lambda()
-						   ;;	     (message (concat "you opened cc file:" (buffer-name)))
-						   (define-key sh-mode-map (kbd "C-c C-z")  'show-global-shell)))
+			   ;;	     (message (concat "you opened cc file:" (buffer-name)))
+			   (define-key sh-mode-map (kbd "C-c C-z")  'show-global-shell)))
 
 (global-set-key (kbd "C-M-w") 'ome-copy-line)
 (global-set-key (kbd "C-M-z") 'ome-mark-line)
 
 
 (global-set-key (kbd "M-,") ;;<backtab>
-				'(lambda ()
-				   (interactive)
-				   (switch-to-buffer (other-buffer (current-buffer) 1))))
+		'(lambda () 
+                   (interactive) 
+                   (switch-to-buffer (other-buffer (current-buffer) 1))))
 ;;
 
 (package-require 'mwim)
 (require 'mwim)
 (global-set-key (kbd "C-a") 'mwim-beginning)
 (global-set-key (kbd "C-e") 'mwim-end)
-
 
 ;;
 (package-require 'ripgrep)
@@ -94,26 +93,25 @@
 ;; (global-set-key (kbd "<C-mouse-1>")      'wand:execute)
 ;; (global-set-key (kbd "<C-down-mouse-1>")  nil)
 (wand:add-rule-by-pattern :match "\\$ "
+                          :capture 
 
-						  :capture
-						  :after
-						  :action popup-shell-command)
+                          :after 
+                          :action popup-shell-command)
 (wand:add-rule-by-pattern :match "https?://"
+                          :capture 
 
-						  :capture
-						  :whole
-						  :action browse-url)
+                          :whole 
+                          :action browse-url)
 (wand:add-rule-by-pattern :match "file:"
+                          :capture 
 
-						  :capture
-						  :after
-						  :action find-file)
+                          :after 
+                          :action find-file)
 (wand:add-rule-by-pattern :match "#> "
+                          :capture 
 
-						  :capture
-						  :after
-						  :action
-						  add-bracket-and-eval)
+                          :after 
+                          :action add-bracket-and-eval)
 
 ;; `folding'
 ;; (package-require 'vimish-fold)
@@ -138,15 +136,15 @@
 (global-set-key [remap query-replace] 'anzu-query-replace)
 (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp)
 
-(set-face-attribute 'anzu-mode-line nil
-					:foreground "yellow"
-					:weight 'bold)
+(set-face-attribute 'anzu-mode-line nil 
+                    :foreground "yellow" 
+                    :weight 'bold)
 
-(custom-set-variables '(anzu-mode-lighter "")
-					  '(anzu-deactivate-region t)
-					  '(anzu-search-threshold 1000)
-					  '(anzu-replace-threshold 50)
-					  '(anzu-replace-to-string-separator " => "))
+(custom-set-variables '(anzu-mode-lighter "") 
+                      '(anzu-deactivate-region t) 
+                      '(anzu-search-threshold 1000) 
+                      '(anzu-replace-threshold 50) 
+                      '(anzu-replace-to-string-separator " => "))
 
 (define-key isearch-mode-map [remap isearch-query-replace] #'anzu-isearch-query-replace)
 (define-key isearch-mode-map [remap isearch-query-replace-regexp]
@@ -222,8 +220,8 @@
 (package-require 'window-numbering)
 (require 'window-numbering)
 (window-numbering-mode)
-(setq window-numbering-assign-func (lambda ()
-									 (when (equal (buffer-name) "*Calculator*") 9)))
+(setq window-numbering-assign-func (lambda () 
+                                     (when (equal (buffer-name) "*Calculator*") 9)))
 
 ;; `page-break-lines'
 (package-require 'page-break-lines)
@@ -302,22 +300,22 @@
 ;;; `tty'
 ;; (defhydra hydra-show-tty
 
-(defun switch-to-scratch-buffer ()
+(defun switch-to-scratch-buffer () 
   "Toggle between *scratch* buffer and the current buffer.
-     If the *scratch* buffer does not exist, create it."
-  (interactive)
-  (let ((scratch-buffer-name  "*scratch*")
-        (prev-major-mode major-mode)
-        )
-    (if (equal (buffer-name (current-buffer)) scratch-buffer-name)
-        (switch-to-buffer (other-buffer))
-      (with-current-buffer
-          (switch-to-buffer  scratch-buffer-name)
-        (when (functionp prev-major-mode) (funcall prev-major-mode ))
-        (when (equal major-mode 'fundamental-mode )(emacs-lisp-mode))
+     If the *scratch* buffer does not exist, create it." 
+  (interactive) 
+  (let ((scratch-buffer-name  "*scratch*") 
+        (prev-major-mode major-mode)) 
+    (if (equal (buffer-name (current-buffer)) scratch-buffer-name) 
+        (switch-to-buffer (other-buffer)) 
+      (with-current-buffer (switch-to-buffer  scratch-buffer-name) 
+        (when (functionp prev-major-mode) 
+          (funcall prev-major-mode )) 
+        (when (equal major-mode 'fundamental-mode )
+          (emacs-lisp-mode)) 
         (goto-char (point-max))))))
 ;;; `buffer'
-(defhydra hydra-show-buffer
+(defhydra hydra-show-buffer 
   (:color blue)
   "
 ^Cmooand^            ^Buffer1^         ^Buffer2^
@@ -347,7 +345,7 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 ;; (global-set-key (kbd "C-c s") 'hydra-show-buffer/body)
 
 ;;; `hydra-open-module'
-(defhydra hydra-open-config
+(defhydra hydra-open-config 
   (:color blue)
   "
 ^Basic^            ^Layout^         ^Editor^          ^Language^      ^Other^
@@ -401,11 +399,11 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c c") 'hydra-open-config/body)
 
-(defun compile-all-modules()
+(defun compile-all-modules() 
   (byte-recompile-directory (expand-file-name (concat (getenv "ROOT") "/emacs-config/modules")) 0))
 
 ;;; `hydra-open-url'
-(defhydra hydra-open-url
+(defhydra hydra-open-url 
   (:color blue)
   "
 ^News^       ^Search^          ^Tut^                 ^Awesome^          ^site^
@@ -421,12 +419,13 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 ("3" (ome-open-url "https://www.taobao.com/") "Taobao")
 ("4" (ome-open-url "http://www.amazon.cn/") "Amazon")
 ("5" (ome-open-url
-	  "http://weibo.com/p/100808169bafefac5c96e7ad8b1714ec46c585?k=Emacs&from=501&_from_=huati_topic") "WeiBo #Emacs#")
+      "http://weibo.com/p/100808169bafefac5c96e7ad8b1714ec46c585?k=Emacs&from=501&_from_=huati_topic") "WeiBo #Emacs#")
 ("6" (ome-open-url "http://www.tuicool.com/topics") "tuicool")
 ("7" (ome-open-url "http://www.oschina.net/news") "oschina")
 ("8" (ome-open-url "http://www.3dmgame.com/news/") "3dm-news")
 ("x" (ome-open-url "http://ergoemacs.org/emacs/elisp.html") "Xahlee Elisp")
-("m" (ome-open-url "http://www.gnu.org/software/emacs/manual/html_node/elisp/index.html#SEC_Contents") "Manual")
+("m" (ome-open-url
+      "http://www.gnu.org/software/emacs/manual/html_node/elisp/index.html#SEC_Contents") "Manual")
 ("k" (ome-open-url "http://tuhdo.github.io/emacs-tutor.html") "emacs-tutor")
 ("l" (ome-open-url "https://masteringemacs.org/book") "MasteringEmacs")
 ("a" (ome-open-url "https://github.com/bayandin/awesome-awesomeness") "awesome-awesomeness")
@@ -445,8 +444,8 @@ _<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
 
 ;;; `hydra-open-file'
 (defhydra hydra-open-file
-(:color blue)
- "
+  (:color blue)
+  "
 ^Editor^        ^Export^                ^Blog^               ^Docs^             ^Config^
 ^^^^^^^^^^--------------------------------------------------------------------------------
 _r_:rename      _p_: htmlize-buffer     _h_: README.org      _n_: note.org      _1_:env
@@ -481,7 +480,7 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 ("4" (ome-open-file "~/.xbindkeysrc.scm") ".xbindkeysrc.scm")
 ("." (ome-open-file "~/.emacs") ".emacs")
 ("<tab>" helm-keyboard-quit "back"
-:exit t)
+ :exit t)
 ("0" (calendar) "calendar")
 ("<tab>" (hydra-do-super/body) "BACK")
 ("q" nil "Quit")
@@ -489,78 +488,81 @@ _0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 ;; (global-set-key (kbd "C-c f") 'hydra-open-file/body)
 ;;
 
-(defun major-do ()
-  (let ((mod-name (symbol-name major-mode)))
-	(cond ((string= mod-name "clojure-mode") 123)
-		  ((string= mod-name "emacs-lisp--mode") 456)
-		  ((string= mod-name "sh-mode") 789))))
+(defun major-do () 
+  (let ((mod-name (symbol-name major-mode))) 
+    (cond ((string= mod-name "clojure-mode") 123) 
+          ((string= mod-name "emacs-lisp--mode") 456) 
+          ((string= mod-name "sh-mode") 789))))
 
-(defun ome-project-wizard(lang)
-  (cond ((string= lang "clojure")
-		 (ome-create-project "lein new %s" "project.clj"))
-		((string= lang "elixir")
-		 (ome-create-project "mix new %s" "mix.exs"))
-		((string= lang "haskell")
-		 (ome-create-project "stack new %s" "src/Main.hs"))
-		((string= lang "rust")
-		 (ome-create-project "cargo new %s --bin" "Cargo.toml"))
-		((string= lang "go")
-		 (ome-create-project "glide create %s" "glide.yaml"))
-		((string= lang "ros")
-		 (ome-create-project "rosman %s " "src/main.cpp"))))
+(defun ome-project-wizard(lang) 
+  (cond ((string= lang "clojure") 
+         (ome-create-project "lein new %s" "project.clj")) 
+        ((string= lang "elixir") 
+         (ome-create-project "mix new %s" "mix.exs")) 
+        ((string= lang "haskell") 
+         (ome-create-project "stack new %s" "src/Main.hs")) 
+        ((string= lang "rust") 
+         (ome-create-project "cargo new %s --bin" "Cargo.toml")) 
+        ((string= lang "go") 
+         (ome-create-project "glide create %s" "glide.yaml")) 
+        ((string= lang "ros") 
+         (ome-create-project "rosman %s " "src/main.cpp"))))
 
 
-(defun ome-run-*project ()
-  (let ((mod-name (symbol-name major-mode)))
-	(cond ((string= mod-name "clojure-mode")
-		   (ome-run-command "lein run"))
-		  ((string= mod-name "elixir-mode")
-		   (ome-run-command "mix run"))
-		  ((string= mod-name "haskell-mode")
-		   (ome-run-command "stack exec Main"))
-		  ((string= mod-name "rust-mode")
-		   (ome-run-command "cargo run"))
-		  ((string= mod-name "sh-mode")
-		   (ome-run-command (concat "bash " (buffer-file-name))))
-		  ((string= mod-name "bat-mode")
-		   (ome-run-command (concat "cmd.exe " (buffer-file-name))))
-		  ((string= mod-name "emacs-lisp-mode")
-		   (message "hello,emacs")) )))
+(defun ome-run-*project () 
+  (let ((mod-name (symbol-name major-mode))) 
+    (cond ((string= mod-name "clojure-mode") 
+           (ome-run-command "lein run")) 
+          ((string= mod-name "elixir-mode") 
+           (ome-run-command "mix run")) 
+          ((string= mod-name "haskell-mode") 
+           (ome-run-command "stack exec Main")) 
+          ((string= mod-name "rust-mode") 
+           (ome-run-command "cargo run")) 
+          ((string= mod-name "sh-mode") 
+           (ome-run-command (concat "bash " (buffer-file-name)))) 
+          ((string= mod-name "bat-mode") 
+           (ome-run-command (concat "cmd.exe " (buffer-file-name)))) 
+          ((string= mod-name "emacs-lisp-mode") 
+           (message "hello,emacs")) )))
 
-(defun ome-test-*project()
-  (let ((mod-name (symbol-name major-mode)))
-	(cond ((string= mod-name "clojure-mode")
-		   (ome-run-command "lein test"))
-		  ((string= mod-name "elixir-mode")
-		   (ome-run-command "mix test"))
-		  ((string= mod-name "haskell-mode")
-		   (ome-run-command "stack test"))
-		  ((string= mod-name "rust-mode")
-		   (ome-run-command "cargo test"))
-		  ((string= mod-name "emacs-lisp-mode")
-		   (compile-current-buffer)))))
+(defun ome-test-*project() 
+  (let ((mod-name (symbol-name major-mode))) 
+    (cond ((string= mod-name "clojure-mode") 
+           (ome-run-command "lein test")) 
+          ((string= mod-name "elixir-mode") 
+           (ome-run-command "mix test")) 
+          ((string= mod-name "haskell-mode") 
+           (ome-run-command "stack test")) 
+          ((string= mod-name "rust-mode") 
+           (ome-run-command "cargo test")) 
+          ((string= mod-name "emacs-lisp-mode") 
+           (compile-current-buffer)))))
 
-(defun ome-build-*project()
-  (let ((mod-name (symbol-name major-mode)))
-	(cond ((string= mod-name "clojure-mode")
-		   (ome-run-command "lein compile"))
-		  ((string= mod-name "elixir-mode")
-		   (ome-run-command "mix compile"))
-		  ((string= mod-name "haskell-mode")
-		   (ome-run-command "stack build"))
-		  ((string= mod-name "rust-mode")
-		   (ome-run-command "cargo build"))
-		  ((string= mod-name "emacs-lisp-mode")
-		   (compile-current-buffer)))))
+(defun ome-build-*project() 
+  (let ((mod-name (symbol-name major-mode))) 
+    (cond ((string= mod-name "clojure-mode") 
+           (ome-run-command "lein compile")) 
+          ((string= mod-name "elixir-mode") 
+           (ome-run-command "mix compile")) 
+          ((string= mod-name "haskell-mode") 
+           (ome-run-command "stack build")) 
+          ((string= mod-name "rust-mode") 
+           (ome-run-command "cargo build")) 
+          ((string= mod-name "emacs-lisp-mode") 
+           (compile-current-buffer)))))
 
-(defun get-major-mode-name ()
-  (message (symbol-name major-mode))
+(defun get-major-mode-name () 
+  (message (symbol-name major-mode)) 
   (symbol-name major-mode))
 
 (setq current-major-mode-name (symbol-name major-mode))
 
 (defun get-super-menu-string()
-(concat "^SPC^            ^Buffer^               ^Search^              ^UI|View^        ^AppWizard^^   " (get-major-mode-name) "
+  (concat
+   "^SPC^            ^Buffer^               ^Search^              ^UI|View^        ^AppWizard^^   "
+   (get-major-mode-name)
+   "
 ^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
 _`_: Email       _>_: goto-char-f       _G_: grep-project     _;_: <-Tab       _6_: Clojure   _1_:run   ^^
 _b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->       _7_: Elixir    ^^ test   ^^
@@ -573,63 +575,93 @@ _<tab>_: recent  _o_: kill-other-buffer _s_: replace-string   _z_: smart-do    ^
 _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^^             ^^        ^^"))
 
 (defhydra hydra-do-super
-(:color blue)
-(concat "" (get-super-menu-string))
-("`" (mu4e) "Email")
-	;; ("`" mu4e~headers-jump-to-maildir "Email")
-	("b" (hydra-show-buffer/body) "buffer")
-("f" (hydra-open-file/body) "file")
-("m" (hydra-open-config/body) "module")
-("c" (hydra-open-config/body) "module")
-("u" (hydra-open-url/body) "url")
-("l" helm-bookmarks "bookmarks")
-("<tab>" helm-recentf "(helm-recentf)")
-;;("w" ome-copy-line "copy-line")
-("w" ome-new-blog "write-blog")
-(">" ome-go-to-char-forward "go-to-char-forward")
-("<" ome-go-to-char-backward "go-to-char-backward")
-("s" replace-string "replace-string")
-("S" query-replace "query-replace")
-("e" (ome-mark-all-like-this) "mc/mark-all-like-this")
-("r" (ome-buffer-reload) "Refresh")
-("o" (ome-kill-other-buffers) "KillOtherBuffers")
-("p" (org-publish-project "blog") "publish-blog")
-("G" projectile-ripgrep "projectile-project-root")
-("g" ome-grep-directory "projectile-directory-root")
-("d" bing-dict-brief "bing-dict-brief")
-("D" ome-bing-dict-brief-web "bing-dict-brief-web")
-(";" tabbar-backward "tabbar-backward")
-("'" tabbar-forward "tabbar-forward")
-("[" ome-tabbar-backward-group "tabbar-up")
-("/" ome-tabbar-forward-group "tabbar-down")
-("=" text-scale-increase "text-scale-increase")
-("-" text-scale-decrease "text-scale-decrease")
-("1" (ome-run-*project) "run project")
-("2" (message "smart-do"))
-("3" (message "smart-do"))
-("4" (message "smart-do"))
-("5" (message "smart-do"))
-("6" (ome-project-wizard "clojure") "smart-do")
-("7" (ome-project-wizard "elixir") "smart-do")
-("8" (ome-project-wizard "rust") "smart-do")
-("9" (ome-project-wizard "ros") "smart-do")
-("z" (message "smart-do"))
-("0" (calendar) "calendar")
-("!" (ome-open-url "http://wttr.in/") "wego")
-("<SPC>" nil "quit")
-("q" nil "quit")
-("<escape>" nil "quit"))
+  (:color blue)
+  (concat "" (get-super-menu-string))
+  ("`" (mu4e) "Email")
+  ;; ("`" mu4e~headers-jump-to-maildir "Email")
+  ("b" (hydra-show-buffer/body) "buffer")
+  ("f" (hydra-open-file/body) "file")
+  ("m" (hydra-open-config/body) "module")
+  ("c" (hydra-open-config/body) "module")
+  ("u" (hydra-open-url/body) "url")
+  ("l" helm-bookmarks "bookmarks")
+  ("<tab>" helm-recentf "(helm-recentf)")
+  ;;("w" ome-copy-line "copy-line")
+  ("w" ome-new-blog "write-blog")
+  (">" ome-go-to-char-forward "go-to-char-forward")
+  ("<" ome-go-to-char-backward "go-to-char-backward")
+  ("s" replace-string "replace-string")
+  ("S" query-replace "query-replace")
+  ("e" (ome-mark-all-like-this) "mc/mark-all-like-this")
+  ("r" (ome-buffer-reload) "Refresh")
+  ("o" (ome-kill-other-buffers) "KillOtherBuffers")
+  ("p" (org-publish-project "blog") "publish-blog")
+  ("G" projectile-ripgrep "projectile-project-root")
+  ("g" ome-grep-directory "projectile-directory-root")
+  ("d" bing-dict-brief "bing-dict-brief")
+  ("D" ome-bing-dict-brief-web "bing-dict-brief-web")
+  (";" tabbar-backward "tabbar-backward")
+  ("'" tabbar-forward "tabbar-forward")
+  ("[" ome-tabbar-backward-group "tabbar-up")
+  ("/" ome-tabbar-forward-group "tabbar-down")
+  ("=" text-scale-increase "text-scale-increase")
+  ("-" text-scale-decrease "text-scale-decrease")
+  ("1" (ome-run-*project) "run project")
+  ("2" (message "smart-do"))
+  ("3" (message "smart-do"))
+  ("4" (message "smart-do"))
+  ("5" (message "smart-do"))
+  ("6" (ome-project-wizard "clojure") "smart-do")
+  ("7" (ome-project-wizard "elixir") "smart-do")
+  ("8" (ome-project-wizard "rust") "smart-do")
+  ("9" (ome-project-wizard "ros") "smart-do")
+  ("z" (message "smart-do"))
+  ("0" (calendar) "calendar")
+  ("!" (ome-open-url "http://wttr.in/") "wego")
+  ("<SPC>" nil "quit")
+  ("q" nil "quit")
+  ("<escape>" nil "quit"))
 
-(defun show-super-menu ()
-  "docstring"
-  (interactive)
-  (load "mod-keybind.el")
+(defun show-super-menu () 
+  "docstring" 
+  (interactive) 
+  (load "mod-keybind.el") 
   (hydra-do-super/body))
+
+
+(defhydra hydra-view-menu 
+  (:color pink 
+          :hint nil)
+  "View" ;;
+  ("t" tool-bar-mode "Toolbar")
+  ("m" menu-bar-mode "Menubar")
+  ("s" speedbar-mode "Speedbar")
+  ("d" dired-sidebar "DiredSideBar")
+
+  ("q" nil "quit" 
+   :color blue))
+
+(defhydra hydra-super-menu 
+  (:color green)
+    "
+_n_:New  _o_:Open  _s_:Search  _v_:View  _b_:Bookmarks  _e_:Email  _f_:Feed  _m_:Module
+"
+  ("n" (message "0000") "New" :color red) 
+  ("o" (message "1111") "Open" :color teal) 
+  ("s" (message "2222") "Search" :color amaranth) 
+  ("v" (hydra-view-menu/body) "View") 
+  ("b" helm-bookmarks "Bookmarks") 
+  ("e" mu4e "Email" :color blue) 
+  ("f" elfeed "Feed" :color amaranth) 
+  ("m" helm-bookmarks "Module")
+  ("<SPC>" nil "quit")
+  ("q" nil "quit")
+  ("<escape>" nil "quit"))
 
 ;; (global-set-key (kbd "C-SPC") 'hydra-do-super/body)
 (global-set-key (kbd "M-SPC") 'show-super-menu)
 (global-set-key (kbd "M-z") 'show-super-menu)
-(global-set-key (kbd "C-c z") 'show-super-menu)
+(global-set-key (kbd "C-c z") 'hydra-super-menu/body)
 
 ;;; `comment-toggle' M-;
 (global-set-key [remap comment-dwim] 'ome-comment-or-uncomment-region-or-line)
@@ -659,8 +691,7 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 ;;; `which-key'
 (package-require 'which-key)
 (require 'which-key)
-(which-key-mode)
-
+(which-key-mode) 
 ;;; `paredit'
 (package-require 'paredit)
 (require 'paredit)
@@ -686,39 +717,38 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
 
 ;;
 ;; (use-package smartparens-config
-    ;; :ensure smartparens
-    ;; :config
-    ;; (progn
-      ;; (show-smartparens-global-mode t)))
+;; :ensure smartparens
+;; :config
+;; (progn
+;; (show-smartparens-global-mode t)))
 
 ;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
 ;; (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
 
 ;; (defmacro def-pairs (pairs)
-  ;; `(progn
-     ;; ,@(loop for (key . val) in pairs
-          ;; collect
-            ;; `(defun ,(read (concat
-                            ;; "wrap-with-"
-                            ;; (prin1-to-string key)
-                            ;; "s"))
-                 ;; (&optional arg)
-               ;; (interactive "p")
-               ;; (sp-wrap-with-pair ,val)))))
+;; `(progn
+;; ,@(loop for (key . val) in pairs
+;; collect
+;; `(defun ,(read (concat
+;; "wrap-with-"
+;; (prin1-to-string key)
+;; "s"))
+;; (&optional arg)
+;; (interactive "p")
+;; (sp-wrap-with-pair ,val)))))
 
 ;; (def-pairs ((paren . "(")
-            ;; (bracket . "[")
-            ;; (brace . "{")
-            ;; (single-quote . "'")
-            ;; (double-quote . "\"")
-            ;; (back-quote . "`")))
+;; (bracket . "[")
+;; (brace . "{")
+;; (single-quote . "'")
+;; (double-quote . "\"")
+;; (back-quote . "`")))
 
 ;;
 
 ;;
 ;; `comment-toggle' M-;
 (define-key paredit-mode-map (kbd "M-;") 'ome-comment-or-uncomment-region-or-line)
-
 
 (package-require 'helpful)
 (require 'helpful)
