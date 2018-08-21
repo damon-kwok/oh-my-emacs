@@ -441,7 +441,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 ("S" (shell "*shell*"))
 
 ("\\" (calendar) "calendar")
-("<tab>" (hydra-do-super/body) "BACK")
+("<tab>" (hydra-super-menu/body) "BACK")
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c s") 'hydra-show-buffer/body)
@@ -485,7 +485,7 @@ _<escape>_: Quit    _\\_: calendar     _<tab>_: <-BACK          ^^ ^^
 ("r" ome-open-reddit-channel "Reddit")
 ("s" ome-open-stackoverflow-channel "StackOverflow")
 ("\\" (calendar) "calendar")
-("<tab>" (hydra-do-super/body) "BACK")
+("<tab>" (hydra-super-menu/body) "BACK")
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c w") 'hydra-url-menu/body)
@@ -540,7 +540,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 ("C" (compile-all-modules) "compile-all-modules")
 
 ("\\" calendar)
-("<tab>" (hydra-do-super/body) "BACK")
+("<tab>" (hydra-super-menu/body) "BACK")
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c c") 'hydra-open-config/body)
@@ -591,7 +591,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("<tab>" helm-keyboard-quit "back" 
    :exit t) 
   ("\\" (calendar) "calendar") 
-  ("<tab>" (hydra-do-super/body) "BACK") 
+  ("<tab>" (hydra-super-menu/body) "BACK") 
   ("q" nil "Quit") 
   ("<escape>" nil "Quit"))
 
