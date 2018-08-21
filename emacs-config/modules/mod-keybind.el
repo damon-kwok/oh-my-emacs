@@ -664,7 +664,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("M-c" org-capture "capture")
   ("M-l" org-store-link "store-link")
   ("M-a" org-agenda "agenda")
-  ("M-b" org-iswitchb "iswitchb")
+  ("M-b" (org-switchb) "switchb")
   ("M-j" (org-capture nil "j") "journal")
   ("M-g" (org-capture nil "t") "GTD")
   
