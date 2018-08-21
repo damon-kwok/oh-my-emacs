@@ -733,7 +733,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ;; Buffer/File
   ("r" ome-rename-file-and-buffer "rename-file-and-buffer") 
   ("R" ome-delete-file-and-buffer "delete-file-and-buffer") 
-  ("k" kill-buffer "kill-buffer" 
+  ("k" (kill-buffer (buffer-name)) "kill-buffer" 
    :color pink) 
   ("K" ome-kill-other-buffers "kill-other-buffers") 
   ("C-k" ome-kill-all-buffers "kill-all-buffers") 
