@@ -429,7 +429,7 @@ _l_: buffers-list    _m_: Messages       _s_: *eshell*
 ^^                   ^^                 ^^
 ^^                   ^^                 ^^
 ^^^^^^^^-------------------------------------------------------------------------
-_0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
+_\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 " ("l" (helm-buffers-list) "buffers-list")
 ("m" (ome-show-compilation "*Messages*") "*Messages*")
 ("w" (ome-show-compilation "*eww*") "*eww*")
@@ -439,7 +439,8 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 ("C" (ome-show-compilation "*Compile-Log*") "*scratch*")
 ("s" eshell "*eshell*")
 ("S" (shell "*shell*"))
-("0" (calendar) "calendar")
+
+("\\" (calendar) "calendar")
 ("<tab>" (hydra-do-super/body) "BACK")
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
@@ -449,8 +450,8 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 (defun compile-all-modules() 
   (byte-recompile-directory (expand-file-name (concat (getenv "ROOT") "/emacs-config/modules")) 0))
 
-;;; `hydra-open-url'
-(defhydra hydra-open-url 
+;;; `hydra-url-menu'
+(defhydra hydra-url-menu 
   (:color blue)
   "
 ^News^       ^Search^          ^Tut^                 ^Awesome^          ^site^
@@ -483,11 +484,11 @@ _<escape>_: Quit    _\\_: calendar     _<tab>_: <-BACK          ^^ ^^
 ("9" (ome-open-url "http://wttr.in/") "wego")
 ("r" ome-open-reddit-channel "Reddit")
 ("s" ome-open-stackoverflow-channel "StackOverflow")
-("0" (calendar) "calendar")
+("\\" (calendar) "calendar")
 ("<tab>" (hydra-do-super/body) "BACK")
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
-;; (global-set-key (kbd "C-c w") 'hydra-open-url/body)
+;; (global-set-key (kbd "C-c w") 'hydra-url-menu/body)
 
 ;;; `hydra-open-module'
 (defhydra hydra-config-menu 
@@ -502,7 +503,7 @@ _k_: keybind       ^^               _9_: reST         _4_: js         _s_: serve
 _l_: library       ^^               _z_: csv          _5_: cc         ^^
 _y_: complete-yas  ^^               _x_: protobuf     _6_: elixir     _C_: compile-all-modules
 ^^^^^^^^-------------------------------------------------------------------------
-_0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
+_\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 " ("i" (ome-open-mod "init") "init")
 ("a" (ome-open-mod "basic") "basic")
 ("p" (ome-open-mod "package") "package")
@@ -594,8 +595,6 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("q" nil "Quit") 
   ("<escape>" nil "Quit"))
 
-
-(hydra-open-menu/body)
 ;;
 ;;
 (defhydra hydra-new-menu 
@@ -610,7 +609,6 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("<SPC>" nil "quit") 
   ("<escape>" nil "quit"))
 
-
 (defhydra hydra-super-menu 
   (:color blue) 
   (concat ;;
@@ -621,7 +619,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    "_b_:Bookmarks  _g_:grep-dir         _s_:speedbar  _;_:←        _k_:kill\n" ;;
    "_e_:Email      _G_:grep-proj        _S_:sidebar   _'_:→        _K_:kill-other\n" ;;
    "_f_:Feed       _d_:dict-bing        _=_:scale+    ^0-9:select^ _C-k_:kill-all \n" ;;
-   "_c_:Config     _D_:dict-bing-web    _-_:scale-    ^^           _._:*scratch*\n" ;;
+   "_c_:Config     _D_:dict-bing-web    _-_:scale-    _u_:URLs     _._:*scratch*\n" ;;
    "^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^")
   ;; Main
@@ -686,7 +684,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("7" ome-tabbar-forward-group "select-window-7" :color pink)
   ("8" ome-tabbar-forward-group "select-window-8" :color pink)
   ("9" ome-tabbar-forward-group "select-window-9" :color pink)
-  
+  ("u" (hydra-url-menu/body) "URLs")  
   
   ("<tab>" helm-recentf "(helm-recentf)")
 
