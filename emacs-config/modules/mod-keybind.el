@@ -19,7 +19,6 @@
 ;;
 ;; Code:
 ;;
-
 
 (require 'mod-package)
 
@@ -29,7 +28,6 @@
 ;; mac-command-key-is-meta t
 ;; mac-command-modifier 'meta
 ;; mac-option-modifier 'none)
-
 
 
 (global-set-key (kbd "C-c t") 'tool-bar-mode)
@@ -78,7 +76,6 @@
                    (interactive) 
                    (switch-to-buffer (other-buffer (current-buffer) 1))))
 ;;
-
 
 (package-require 'mwim)
 (require 'mwim)
@@ -89,7 +86,6 @@
 (package-require 'ripgrep)
 (require 'ripgrep)
 ;;
-
 
 (package-require 'wand)
 (require 'wand)
@@ -159,7 +155,6 @@
 (global-set-key (kbd "M-RET") 'toggle-frame-fullscreen)
 ;; (global-set-key (kbd "C-\\") 'toggle-input-method)
 ;; (global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-super ;; (global-set-key [?\S- ] 'set-mark-command)
-
 
 ;;; expand region
 (package-require 'expand-region)
@@ -178,7 +173,6 @@
 
 ;; (global-set-key (kbd "M-<up>") 'move-lines-up)
 ;; (global-set-key (kbd "M-<down>") 'move-lines-down)
-
 
 ;;; `move-text'
 (package-require 'move-text)
@@ -191,7 +185,6 @@
 (global-set-key (kbd "M-n") 'move-text-down)
 ;; (global-set-key (kbd "M-<up>") 'move-text-up)
 ;; (global-set-key (kbd "M-<down>") 'move-text-down)
-
 
 ;;; `buffer-move'
 (package-require 'buffer-move)
@@ -206,7 +199,6 @@
 ;;; instead of swapping the buffers of both windows.
 ;;; Set the following customization variable to 'move to activate this behavior:
 (setq buffer-move-behavior 'move)
-
 
 ;;;
 (global-set-key (kbd "C-M-d") 'delete-backward-char)
@@ -231,13 +223,11 @@
 (window-numbering-mode)
 (setq window-numbering-assign-func (lambda () 
                                      (when (equal (buffer-name) "*Calculator*") 9)))
-
 
 ;; `page-break-lines'
 (package-require 'page-break-lines)
 (require 'page-break-lines)
-(global-page-break-lines-mode)
-
+(global-page-break-lines-mode) 
 ;;; Swiper
 ;; (package-require 'swiper)
 ;; (require 'swiper)
@@ -261,14 +251,12 @@
 ;; (global-set-key (kbd "C-c k") 'counsel-ag)
 ;; (global-set-key (kbd "C-x l") 'counsel-locate)
 ;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-
 
 ;;; htmlize
 (package-require 'htmlize)
 (require 'htmlize)
 ;; (global-set-key (kbd "C-c p") 'htmlize-buffer)
 ;; (global-set-key (kbd "C-c C-p") 'htmlize-file)
-
 
 ;;; bing-dict
 (package-require 'bing-dict)
@@ -280,7 +268,6 @@
 (setq bing-dict-org-file (concat (getenv "HOME") "/workspace/vocabulary.org"))
 ;; (global-set-key (kbd "C-c d") 'ome-bing-dict-brief)
 ;; (global-set-key (kbd "C-c D") 'ome-bing-dict-brief-web)
-
 
 (define-key global-map (kbd "C-c f") 'ome-go-to-char-forward)
 (define-key global-map (kbd "C-c b") 'ome-go-to-char-backward)
@@ -296,7 +283,6 @@
 ;; C-x r (file rename)
 ;; (global-set-key (kbd "C-c r") 'ome-rename-file-and-buffer)
 ;; (global-set-key (kbd "C-c x") 'ome-delete-file-and-buffer)
-
 
 ;;; string replace
 ;; (global-set-key (kbd "C-M-s") 'replace-string)
@@ -304,19 +290,116 @@
 
 ;; (define-key sh-mode-map (kbd "C-c C-r") 'replace-string)
 ;; (add-hook 'shell-mode-hook (lambda () (local-set-key (kbd "M-s") 'replace-string)))
-
 
 ;; (global-set-key (kbd "C-x M-k") 'ome-kill-all-buffers)
 (global-set-key (kbd "C-x M-k") 'ome-kill-other-buffers)
 
+;;; `comment-toggle' M-;
+(global-set-key [remap comment-dwim] 'ome-comment-or-uncomment-region-or-line)
+
+;; (package-require 'smart-comment)
+;; (require 'smart-comment)
+;; (global-set-key (kbd "M-;") 'smart-comment)
+;; (global-set-key (kbd "C-u M-;") 'smart-comment)
+;; (global-set-key (kbd "C-u C-u M-;") 'smart-comment)
+
+;;; `guide-key'
+;; (package-require 'guide-key)
+;; (require 'guide-key)
+;; (guide-key-mode 1)			; Enable guide-key-mode
+;; (setq guide-key/idle-delay 0.7)
+;; (setq guide-key/guide-key-sequence '("C-h" "C-c" "C-x" "C-t" "ESC"))
+;; ;;(setq guide-key/guide-key-sequence t)
+;; (setq guide-key/recursive-key-sequence-flag t)
+;; (setq guide-key/popup-window-position 'bottom)
+;; (setq guide-key/text-scale-amount 1)
+
+;;; `guide-key-tip'
+;; (package-require 'guide-key-tip)
+;; (require 'guide-key-tip)
+;; (setq guide-key-tip/enabled nil)
+
+;;; `which-key'
+(package-require 'which-key)
+(require 'which-key)
+(which-key-mode) 
+;;; `paredit'
+(package-require 'paredit)
+(require 'paredit)
+
+(define-key paredit-mode-map (kbd "C-<left>") 'paredit-backward-slurp-sexp)
+(define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
+(define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
+(define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
+;;; enable paredit for *
+(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+(add-hook 'emacs-mode-hook            #'enable-paredit-mode)
+(add-hook 'inferior-emacs-mode-hook   #'enable-paredit-mode)
+(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+(add-hook 'common-lisp-mode-hook      #'enable-paredit-mode)
+(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+(add-hook 'hy-mode-hook               #'enable-paredit-mode)
+(add-hook 'newlisp-mode-hook          #'enable-paredit-mode)
+(add-hook 'hy-mode-hook               #'enable-paredit-mode)
+;;
+
+;;
+;; (use-package smartparens-config
+;; :ensure smartparens
+;; :config
+;; (progn
+;; (show-smartparens-global-mode t)))
+
+;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+;; (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+
+;; (defmacro def-pairs (pairs)
+;; `(progn
+;; ,@(loop for (key . val) in pairs
+;; collect
+;; `(defun ,(read (concat
+;; "wrap-with-"
+;; (prin1-to-string key)
+;; "s"))
+;; (&optional arg)
+;; (interactive "p")
+;; (sp-wrap-with-pair ,val)))))
+
+;; (def-pairs ((paren . "(")
+;; (bracket . "[")
+;; (brace . "{")
+;; (single-quote . "'")
+;; (double-quote . "\"")
+;; (back-quote . "`")))
+
+;;
+
+;;
+;; `comment-toggle' M-;
+(define-key paredit-mode-map (kbd "M-;") 'ome-comment-or-uncomment-region-or-line)
+
+(package-require 'helpful)
+(require 'helpful)
+(global-set-key (kbd "C-h f") #'helpful-callable)
+(global-set-key (kbd "C-h v") #'helpful-variable)
+(global-set-key (kbd "C-h k") #'helpful-key)
+(global-set-key (kbd "C-c C-d") #'helpful-at-point)
+
+(package-require 'xkcd)
+(require 'xkcd)
+
+;; (package-require 'weechat)
+;; (require 'weechat)
+
 ;;; `hydra'
 (package-require 'hydra)
 (require 'hydra)
-
 
 ;;; `tty'
 ;; (defhydra hydra-show-tty
-
 
 (defun switch-to-scratch-buffer () 
   "Toggle between *scratch* buffer and the current buffer.
@@ -361,10 +444,53 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c s") 'hydra-show-buffer/body)
-
 
+
+(defun compile-all-modules() 
+  (byte-recompile-directory (expand-file-name (concat (getenv "ROOT") "/emacs-config/modules")) 0))
+
+;;; `hydra-open-url'
+(defhydra hydra-open-url 
+  (:color blue)
+  "
+^News^       ^Search^          ^Tut^                 ^Awesome^          ^site^
+^^^^^^^^------------------------------------------------------------------------------
+_1_: Bing    _5_: Weibo#Emacs# _x_: Xahlee           _a_: Awesomeness   _v_: Github
+_2_: Baidu   _6_: Tuicool      _m_: Manual           _e_: Emacs         _9_: wego
+_3_: Taobao  _7_: oschina      _k_: emacs-tutor      _y_: Clojure       _r_: Reddit
+_4_: Amazon  _8_: GAME         _l_: MasteringEmacs   _c_: CommonLisp    _s_: StackOverflow
+^^^^^^^^------------------------------------------------------------------------------
+_<escape>_: Quit    _\\_: calendar     _<tab>_: <-BACK          ^^ ^^
+" ("1" (ome-open-url "http://cn.bing.com/") "Bing")
+("2" (ome-open-url "https://www.baidu.com/") "Baidu")
+("3" (ome-open-url "https://www.taobao.com/") "Taobao")
+("4" (ome-open-url "http://www.amazon.cn/") "Amazon")
+("5" (ome-open-url
+      "http://weibo.com/p/100808169bafefac5c96e7ad8b1714ec46c585?k=Emacs&from=501&_from_=huati_topic") "WeiBo #Emacs#")
+("6" (ome-open-url "http://www.tuicool.com/topics") "tuicool")
+("7" (ome-open-url "http://www.oschina.net/news") "oschina")
+("8" (ome-open-url "http://www.3dmgame.com/news/") "3dm-news")
+("x" (ome-open-url "http://ergoemacs.org/emacs/elisp.html") "Xahlee Elisp")
+("m" (ome-open-url
+      "http://www.gnu.org/software/emacs/manual/html_node/elisp/index.html#SEC_Contents") "Manual")
+("k" (ome-open-url "http://tuhdo.github.io/emacs-tutor.html") "emacs-tutor")
+("l" (ome-open-url "https://masteringemacs.org/book") "MasteringEmacs")
+("a" (ome-open-url "https://github.com/bayandin/awesome-awesomeness") "awesome-awesomeness")
+("e" (ome-open-url "https://github.com/emacs-tw/awesome-emacs") "awesome-emacs")
+("y" (ome-open-url "https://github.com/razum2um/awesome-clojure") "Clojure")
+("c" (ome-open-url "https://github.com/CodyReichert/awesome-cl") "CommonLisp")
+("v" (ome-open-url "https://github.com/") "github")
+("9" (ome-open-url "http://wttr.in/") "wego")
+("r" ome-open-reddit-channel "Reddit")
+("s" ome-open-stackoverflow-channel "StackOverflow")
+("0" (calendar) "calendar")
+("<tab>" (hydra-do-super/body) "BACK")
+("q" nil "Quit")
+("<escape>" nil "Quit"))
+;; (global-set-key (kbd "C-c w") 'hydra-open-url/body)
+
 ;;; `hydra-open-module'
-(defhydra hydra-open-config 
+(defhydra hydra-config-menu 
   (:color blue)
   "
 ^Basic^            ^Layout^         ^Editor^          ^Language^      ^Other^
@@ -412,262 +538,66 @@ _0_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 
 ("C" (compile-all-modules) "compile-all-modules")
 
-("0" calendar)
+("\\" calendar)
 ("<tab>" (hydra-do-super/body) "BACK")
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c c") 'hydra-open-config/body)
-
-(defun compile-all-modules() 
-  (byte-recompile-directory (expand-file-name (concat (getenv "ROOT") "/emacs-config/modules")) 0))
-
-
-;;; `hydra-open-url'
-(defhydra hydra-open-url 
-  (:color blue)
-  "
-^News^       ^Search^          ^Tut^                 ^Awesome^          ^site^
-^^^^^^^^------------------------------------------------------------------------------
-_1_: Bing    _5_: Weibo#Emacs# _x_: Xahlee           _a_: Awesomeness   _v_: Github
-_2_: Baidu   _6_: Tuicool      _m_: Manual           _e_: Emacs         _9_: wego
-_3_: Taobao  _7_: oschina      _k_: emacs-tutor      _y_: Clojure       _r_: Reddit
-_4_: Amazon  _8_: GAME         _l_: MasteringEmacs   _c_: CommonLisp    _s_: StackOverflow
-^^^^^^^^------------------------------------------------------------------------------
-_<escape>_: Quit    _0_: calendar     _<tab>_: <-BACK          ^^ ^^
-" ("1" (ome-open-url "http://cn.bing.com/") "Bing")
-("2" (ome-open-url "https://www.baidu.com/") "Baidu")
-("3" (ome-open-url "https://www.taobao.com/") "Taobao")
-("4" (ome-open-url "http://www.amazon.cn/") "Amazon")
-("5" (ome-open-url
-      "http://weibo.com/p/100808169bafefac5c96e7ad8b1714ec46c585?k=Emacs&from=501&_from_=huati_topic") "WeiBo #Emacs#")
-("6" (ome-open-url "http://www.tuicool.com/topics") "tuicool")
-("7" (ome-open-url "http://www.oschina.net/news") "oschina")
-("8" (ome-open-url "http://www.3dmgame.com/news/") "3dm-news")
-("x" (ome-open-url "http://ergoemacs.org/emacs/elisp.html") "Xahlee Elisp")
-("m" (ome-open-url
-      "http://www.gnu.org/software/emacs/manual/html_node/elisp/index.html#SEC_Contents") "Manual")
-("k" (ome-open-url "http://tuhdo.github.io/emacs-tutor.html") "emacs-tutor")
-("l" (ome-open-url "https://masteringemacs.org/book") "MasteringEmacs")
-("a" (ome-open-url "https://github.com/bayandin/awesome-awesomeness") "awesome-awesomeness")
-("e" (ome-open-url "https://github.com/emacs-tw/awesome-emacs") "awesome-emacs")
-("y" (ome-open-url "https://github.com/razum2um/awesome-clojure") "Clojure")
-("c" (ome-open-url "https://github.com/CodyReichert/awesome-cl") "CommonLisp")
-("v" (ome-open-url "https://github.com/") "github")
-("9" (ome-open-url "http://wttr.in/") "wego")
-("r" ome-open-reddit-channel "Reddit")
-("s" ome-open-stackoverflow-channel "StackOverflow")
-("0" (calendar) "calendar")
-("<tab>" (hydra-do-super/body) "BACK")
-("q" nil "Quit")
-("<escape>" nil "Quit"))
-;; (global-set-key (kbd "C-c w") 'hydra-open-url/body)
-
-
-;;; `hydra-open-file'
-(defhydra hydra-open-file 
-  (:color blue)
-  "
-^Editor^        ^Export^                ^Blog^               ^Docs^             ^Config^
-^^^^^^^^^^--------------------------------------------------------------------------------
-_r_:rename      _p_: htmlize-buffer     _h_: README.org      _n_: note.org      _1_:env
-_D_:delete      _P_: htmlize-file       _d_: diary.org       _p_: problem.org   _2_:lib
-_k_:close-all   _C_: complie-modules    _t_: todo.org        _s_: passwd.org    _3_:.bashrc
-_o_:kill-other  _i_: blog-index.org     _b_: book.org        _G_: game.org      _4_:.xbindkeysrc.scm
-^^              ^^                      _N_: NEWS.org        _w_: write-blog    _._:.emacs
-^^^^^^^^^^--------------------------------------------------------------------------------
-_0_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
-" ("r" ome-rename-file-and-buffer "rename-file-and-buffer")
-("D" ome-delete-file-and-buffer "delete-file-and-buffer")
-("k" ome-kill-all-buffers "kill-all-buffers")
-("o" ome-kill-other-buffers "kill-other-buffers")
-("p" htmlize-buffer "htmlize-buffer")
-("P" htmlize-file "htmlize-file")
-("C" (byte-recompile-directory "~/emacs-config") "byte-recomplie-directory")
-("h" (ome-open-file "~/.oh-my-emacs/README.org") "README.org")
-("i" (ome-open-blog "index.org") "index.org")
-("g" (ome-open-doc "gtd.org") "GTD.org")
-("d" (ome-open-doc "diary.org") "diary.org")
-("t" (ome-open-doc "todo.org") "todo.org")
-("b" (ome-open-doc "book.org") "book.org")
-("n" (ome-open-doc "note.org") "note.org")
-("p" (ome-open-doc "problem.org") "problem.org")
-("s" (ome-open-doc "passwd.org") "passwd.org")
-("G" (ome-open-doc "game.org") "game.org")
-("w" ome-new-blog "write-blog")
-("N" (ome-open-doc "news.org") "news.org")
-("1" (ome-open-file "~/.oh-my-emacs/bin/env") "env")
-("2" (ome-open-file "~/.oh-my-emacs/bin/lib") "lib")
-("3" (ome-open-file "~/.bashrc") ".bashrc")
-("4" (ome-open-file "~/.xbindkeysrc.scm") ".xbindkeysrc.scm")
-("." (ome-open-file "~/.emacs") ".emacs")
-("<tab>" helm-keyboard-quit "back" 
- :exit t)
-("0" (calendar) "calendar")
-("<tab>" (hydra-do-super/body) "BACK")
-("q" nil "Quit")
-("<escape>" nil "Quit"))
-;; (global-set-key (kbd "C-c f") 'hydra-open-file/body)
 ;;
+(defhydra hydra-open-menu 
+  (:color blue)
+  "
+^Project^         ^Doc^          ^Blog^            ^dotfiles^
+^^^^^^^^--------------------------------------------------------------------------------
+_M-1_:libknife    _h_:README.org  _i_: index.org    _1_:env
+_M-2_:medusa      _d_:diary.org   _n_: note.org     _2_:lib
+_M-3_:pacman      _t_:todo.org    _a_: article.org  _3_:tool
+_M-4_:network     _b_:book.org    ^^                _4_:proj
+_M-5_:webscrap    _g_:game.org    ^^                _0_:.emacs
+^^                _N_:NEWS.org    ^^                _._:.bashrc
+^^^^^^^^--------------------------------------------------------------------------------
+_\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
+" ;;
 
-
-(defun major-do () 
-  (let ((mod-name (symbol-name major-mode))) 
-    (cond ((string= mod-name "clojure-mode") 123) 
-          ((string= mod-name "emacs-lisp--mode") 456) 
-          ((string= mod-name "sh-mode") 789))))
+  ;; Project
+  ("M-1" (ome-open-file "~/projects/me/libknife/include/knife.h") "libknife")
+  ("M-2" (ome-open-file "~/projects/me/medusa/medusa-cpp/Core/Core.h") "medusa")
+  ("M-3" (ome-open-file "~/projects/me/awesome-package-manager/README.org") "pacman")
+  ("M-4" (ome-open-file "~/projects/me/awesome-network-programming/README.org") "network")
+  ("M-5" (ome-open-file "~/projects/me/awesome-web-scraping/README.org") "web-scrap")
+  
+  ;; Doc
+  ("h" (ome-open-file "~/.oh-my-emacs/README.org") "README.org") 
+  ("d" (ome-open-doc "diary.org") "diary.org")
+  ("t" (ome-open-doc "todo.org") "todo.org") 
+  ("b" (ome-open-doc "book.org") "book.org") 
+  ("g" (ome-open-doc "game.org") "game.org") 
+  ("N" (ome-open-doc "news.org") "news.org") 
 
-(defun ome-project-wizard(lang) 
-  (cond ((string= lang "clojure") 
-         (ome-create-project "lein new %s" "project.clj")) 
-        ((string= lang "elixir") 
-         (ome-create-project "mix new %s" "mix.exs")) 
-        ((string= lang "haskell") 
-         (ome-create-project "stack new %s" "src/Main.hs")) 
-        ((string= lang "rust") 
-         (ome-create-project "cargo new %s --bin" "Cargo.toml")) 
-        ((string= lang "go") 
-         (ome-create-project "glide create %s" "glide.yaml")) 
-        ((string= lang "ros") 
-         (ome-create-project "rosman %s " "src/main.cpp"))))
+  ;; Blog
+  ("i" (ome-open-blog "index.org") "index.org") 
+  ("n" (ome-open-doc "notes.org") "notes.org")
+  ("a" (ome-open-doc "articles.org") "articles.org")
 
-
-(defun ome-run-*project () 
-  (let ((mod-name (symbol-name major-mode))) 
-    (cond ((string= mod-name "clojure-mode") 
-           (ome-run-command "lein run")) 
-          ((string= mod-name "elixir-mode") 
-           (ome-run-command "mix run")) 
-          ((string= mod-name "haskell-mode") 
-           (ome-run-command "stack exec Main")) 
-          ((string= mod-name "rust-mode") 
-           (ome-run-command "cargo run")) 
-          ((string= mod-name "sh-mode") 
-           (ome-run-command (concat "bash " (buffer-file-name)))) 
-          ((string= mod-name "bat-mode") 
-           (ome-run-command (concat "cmd.exe " (buffer-file-name)))) 
-          ((string= mod-name "emacs-lisp-mode") 
-           (message "hello,emacs")) )))
-
-(defun ome-test-*project() 
-  (let ((mod-name (symbol-name major-mode))) 
-    (cond ((string= mod-name "clojure-mode") 
-           (ome-run-command "lein test")) 
-          ((string= mod-name "elixir-mode") 
-           (ome-run-command "mix test")) 
-          ((string= mod-name "haskell-mode") 
-           (ome-run-command "stack test")) 
-          ((string= mod-name "rust-mode") 
-           (ome-run-command "cargo test")) 
-          ((string= mod-name "emacs-lisp-mode") 
-           (compile-current-buffer)))))
-
-(defun ome-build-*project() 
-  (let ((mod-name (symbol-name major-mode))) 
-    (cond ((string= mod-name "clojure-mode") 
-           (ome-run-command "lein compile")) 
-          ((string= mod-name "elixir-mode") 
-           (ome-run-command "mix compile")) 
-          ((string= mod-name "haskell-mode") 
-           (ome-run-command "stack build")) 
-          ((string= mod-name "rust-mode") 
-           (ome-run-command "cargo build")) 
-          ((string= mod-name "emacs-lisp-mode") 
-           (compile-current-buffer)))))
-
-(defun get-major-mode-name () 
-  (message (symbol-name major-mode)) 
-  (symbol-name major-mode))
-
-(setq current-major-mode-name (symbol-name major-mode))
-
-(defun get-super-menu-string() 
-  (concat
-   "^SPC^            ^Buffer^               ^Search^              ^UI|View^        ^AppWizard^^   "
-   (get-major-mode-name)
-   "
-^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
-_`_: Email       _>_: goto-char-f       _G_: grep-project     _;_: <-Tab       _6_: Clojure   _1_:run   ^^
-_b_: Buffer=>    _<_: goto-char-b       _g_: grep-directory   _'_: Tab->       _7_: Elixir    ^^ test   ^^
-_f_: File  =>    _p_: publish-blog      _d_: bing-dict        _[_: <-Group     _8_: Rust      ^^ build  ^^
-_m_: Module=>    _w_: write-blog        _D_: bing-dict-web    _/_: Group->     _9_: Ros       ^^ clean  ^^
-_u_: URLs  =>    _e_: mc/mark-all       _>_: goto-char-f      _=_: scale-inc   ^^Python       ^^        ^^
-_l_: Bookmarks   _r_: Reload|Refresh    _<_: goto-char-b      _-_: scale-dec   ^^Erlang       ^^        ^^
-_<tab>_: recent  _o_: kill-other-buffer _s_: replace-string   _z_: smart-do    ^^Kotlin       ^^        ^^
-^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------
-_<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^^             ^^        ^^"))
-
-(defhydra hydra-do-super 
-  (:color blue) 
-  (concat "" (get-super-menu-string)) 
-  ("`" (mu4e) "Email")
-  ;; ("`" mu4e~headers-jump-to-maildir "Email")
-  ("b" (hydra-show-buffer/body) "buffer") 
-  ("f" (hydra-open-file/body) "file") 
-  ("m" (hydra-open-config/body) "module") 
-  ("c" (hydra-open-config/body) "module") 
-  ("u" (hydra-open-url/body) "url") 
-  ("l" helm-bookmarks "bookmarks") 
-  ("<tab>" helm-recentf "(helm-recentf)")
-  ;;("w" ome-copy-line "copy-line")
-  ("w" ome-new-blog "write-blog") 
-  (">" ome-go-to-char-forward "go-to-char-forward") 
-  ("<" ome-go-to-char-backward "go-to-char-backward") 
-  ("s" replace-string "replace-string") 
-  ("S" query-replace "query-replace") 
-  ("e" (ome-mark-all-like-this) "mc/mark-all-like-this") 
-  ("r" (ome-buffer-reload) "Refresh") 
-  ("o" (ome-kill-other-buffers) "KillOtherBuffers") 
-  ("p" (org-publish-project "blog") "publish-blog") 
-  ("G" projectile-ripgrep "projectile-project-root") 
-  ("g" ome-grep-directory "projectile-directory-root") 
-  ("d" bing-dict-brief "bing-dict-brief") 
-  ("D" ome-bing-dict-brief-web "bing-dict-brief-web") 
-  (";" tabbar-backward "tabbar-backward") 
-  ("'" tabbar-forward "tabbar-forward") 
-  ("[" ome-tabbar-backward-group "tabbar-up") 
-  ("/" ome-tabbar-forward-group "tabbar-down") 
-  ("=" text-scale-increase "text-scale-increase") 
-  ("-" text-scale-decrease "text-scale-decrease") 
-  ("1" (ome-run-*project) "run project") 
-  ("2" (message "smart-do")) 
-  ("3" (message "smart-do")) 
-  ("4" (message "smart-do")) 
-  ("5" (message "smart-do")) 
-  ("6" (ome-project-wizard "clojure") "smart-do") 
-  ("7" (ome-project-wizard "elixir") "smart-do") 
-  ("8" (ome-project-wizard "rust") "smart-do") 
-  ("9" (ome-project-wizard "ros") "smart-do") 
-  ("z" (message "smart-do")) 
-  ("0" (calendar) "calendar") 
-  ("!" (ome-open-url "http://wttr.in/") "wego") 
-  ("<SPC>" nil "quit") 
-  ("q" nil "quit") 
-  ("<escape>" nil "quit"))
-
-(defun show-super-menu () 
-  "docstring" 
-  (interactive) 
-  (load "mod-keybind.el") 
-  (hydra-do-super/body))
+  ;;
+  ("0" (ome-open-file "~/.emacs") ".emacs")
+  ("1" (ome-open-file "~/.oh-my-emacs/bin/env") "env") 
+  ("2" (ome-open-file "~/.oh-my-emacs/bin/lib") "lib")
+  ("3" (ome-open-file "~/.oh-my-emacs/bin/tool") "tool")
+  ("4" (ome-open-file "~/.oh-my-emacs/bin/proj") "proj")
+  ("." (ome-open-file "~/.bashrc") ".bashrc")   
+  
+  ("<tab>" helm-keyboard-quit "back" 
+   :exit t) 
+  ("\\" (calendar) "calendar") 
+  ("<tab>" (hydra-do-super/body) "BACK") 
+  ("q" nil "Quit") 
+  ("<escape>" nil "Quit"))
 
 
-(defhydra hydra-view-menu 
-  (:color pink)
-  "View" ;;
-  ("t" tool-bar-mode "Toolbar") 
-  ("m" menu-bar-mode "Menubar") 
-  ("s" projectile-speedbar-toggle "Speedbar") 
-  ("d" (dired-sidebar-toggle-sidebar nil) "DiredSideBar") 
-  (";" tabbar-backward "tabbar-backward") 
-  ("'" tabbar-forward "tabbar-forward") 
-  ("[" ome-tabbar-backward-group "tabbar-up") 
-  ("/" ome-tabbar-forward-group "tabbar-down") 
-  ("=" text-scale-increase "text-scale-increase") 
-  ("-" text-scale-decrease "text-scale-decrease") 
-  ("q" nil "quit") 
-  ("<SPC>" nil "quit") 
-  ("<escape>" nil "quit"))
-
+(hydra-open-menu/body)
+;;
+;;
 (defhydra hydra-new-menu 
   (:color blue)
   "New" ;;
@@ -675,30 +605,36 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
   ("m" menu-bar-mode "Menubar") 
   ("s" speedbar-mode "Speedbar") 
   ("d" dired-sidebar "DiredSideBar") 
+  ("<tab>" (hydra-super-menu/body) "BACK") 
   ("q" nil "quit") 
   ("<SPC>" nil "quit") 
   ("<escape>" nil "quit"))
 
 
 (defhydra hydra-super-menu 
-  (:color blue 
-          :hint nil) 
-  (concat                               ;
-   "^Main^            ^Search^               ^View^              ^Magic^\n"
-   "^^^^^^^^--------------------------------------------------------------------\n"
-   "_n_:New           _>_:gochar-forward     _t_:Toolbar    ^^\n"
-   "_o_:Open          _<_:gochar-backward    _m_:Menubar    ^^\n"
-   "_b_:Bookmarks     _g_:grep-dir           _s_:Speedbar   ^^\n"
-   "_e_:Email         _G_:grep-proj          _S_:Sidebar    ^^\n"
-   "_f_:Feed          _d_:dict-bing          _=_:Scale+     ^^\n"
-   "_c_:Config        _D_:dict-bing-web      _-_:Scale-     ^^\n" "^^^^^^^^")
+  (:color blue) 
+  (concat ;;
+   "^Main^         ^Search^             ^View^        ^Navigate^   ^Buffer^\n" ;;
+   "^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
+   "_n_:New        _>_:gochar-forward   _t_:toolbar   _[_:↑        _r_:rname\n" ;;
+   "_o_:Open       _<_:gochar-backward  _m_:menubar   _/_:↓        _R_:remove\n" ;;
+   "_b_:Bookmarks  _g_:grep-dir         _s_:speedbar  _;_:←        _k_:kill\n" ;;
+   "_e_:Email      _G_:grep-proj        _S_:sidebar   _'_:→        _K_:kill-other\n" ;;
+   "_f_:Feed       _d_:dict-bing        _=_:scale+    ^0-9:select^ _C-k_:kill-all \n" ;;
+   "_c_:Config     _D_:dict-bing-web    _-_:scale-    ^^           _._:*scratch*\n" ;;
+   "^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
+   "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^")
   ;; Main
-  ("n" (hydra-new-menu/body) "New") 
-  ("o" (hydra-open-file/body) "Open") 
+  ("n" (hydra-new-menu/body) "New" 
+   :color blue) 
+  ("o" (hydra-open-menu/body) "Open" 
+   :color blue) 
   ("b" helm-bookmarks "Bookmarks") 
-  ("e" mu4e "Email") 
-  ("f" elfeed "Feed") 
-  ("c" (hydra-open-config/body) "Config")
+  ("e" mu4e "Email" 
+   :color blue) 
+  ("f" elfeed "Feed" 
+   :color blue) 
+  ("c" (hydra-config-menu/body) "Config")
 
   ;; Search
   (">" ome-go-to-char-forward "go-to-char-forward") 
@@ -707,17 +643,6 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
   ("g" ome-grep-directory "projectile-directory-root") 
   ("d" bing-dict-brief "bing-dict-brief") 
   ("D" ome-bing-dict-brief-web "bing-dict-brief-web")
-
-  ;; Nav
-  (";" tabbar-backward "tabbar-backward" 
-   :color pink) 
-  ("'" tabbar-forward "tabbar-forward" 
-   :color pink) 
-  ("[" ome-tabbar-backward-group "tabbar-up" 
-   :color pink) 
-  ("/" ome-tabbar-forward-group "tabbar-down" 
-   :color pink) 
-  ("<tab>" helm-recentf "(helm-recentf)")
 
   ;; View
   ("t" tool-bar-mode "Toolbar" 
@@ -733,123 +658,64 @@ _<escape>_: Quit _0_: Calendar          _!_:Weater            ^^               ^
   ("-" text-scale-decrease "text-scale-decrease" 
    :color pink)
 
+  ;; Nav
+  (";" tabbar-backward "tabbar-backward" 
+   :color pink) 
+  ("'" tabbar-forward "tabbar-forward" 
+   :color pink) 
+  ("[" ome-tabbar-backward-group "tabbar-up" 
+   :color pink) 
+  ("/" ome-tabbar-forward-group "tabbar-down" 
+   :color pink) 
+  ("<left>" tabbar-backward "tabbar-backward" 
+   :color pink) 
+  ("<right>" tabbar-forward "tabbar-forward" 
+   :color pink) 
+  ("<up>" ome-tabbar-backward-group "tabbar-up" 
+   :color pink) 
+  ("<down>" ome-tabbar-forward-group "tabbar-down" 
+   :color pink)
+
+  ("0" ome-tabbar-forward-group "select-window-0" :color pink)
+  ("1" ome-tabbar-forward-group "select-window-1" :color pink)
+  ("2" ome-tabbar-forward-group "select-window-2" :color pink)
+  ("3" ome-tabbar-forward-group "select-window-3" :color pink)
+  ("4" ome-tabbar-forward-group "select-window-4" :color pink)
+  ("5" ome-tabbar-forward-group "select-window-5" :color pink)
+  ("6" ome-tabbar-forward-group "select-window-6" :color pink)
+  ("7" ome-tabbar-forward-group "select-window-7" :color pink)
+  ("8" ome-tabbar-forward-group "select-window-8" :color pink)
+  ("9" ome-tabbar-forward-group "select-window-9" :color pink)
+  
+  
+  ("<tab>" helm-recentf "(helm-recentf)")
+
+  ;; Buffer/File
+  ("r" ome-rename-file-and-buffer "rename-file-and-buffer") 
+  ("R" ome-delete-file-and-buffer "delete-file-and-buffer") 
+  ("k" kill-buffer "kill-buffer" 
+   :color pink) 
+  ("K" ome-kill-other-buffers "kill-other-buffers") 
+  ("C-k" ome-kill-all-buffers "kill-all-buffers") 
+  ("." switch-to-scratch-buffer "*scratch")
+
   ;; Other
-  ("`" (calendar) "calendar") 
+  ("`" (show-global-shell) "shell") 
+  ("C-`" (show-global-shell-new) "shell-new") 
+  ("\\" (calendar) "calendar") 
   ("w" (ome-open-url "http://wttr.in/") "wego") 
   ("q" nil "quit") 
   ("<SPC>" nil "quit") 
   ("<escape>" nil "quit"))
 
-(global-set-key (kbd "C-M-z") 'show-super-menu)
-(global-set-key (kbd "M-z") 'hydra-super-menu/body)
-
-;;; `comment-toggle' M-;
-(global-set-key [remap comment-dwim] 'ome-comment-or-uncomment-region-or-line)
+(defun show-super-menu () 
+  "docstring" 
+  (interactive) 
+  (load "mod-keybind.el") 
+  (hydra-super-menu/body))
 
-;; (package-require 'smart-comment)
-;; (require 'smart-comment)
-;; (global-set-key (kbd "M-;") 'smart-comment)
-;; (global-set-key (kbd "C-u M-;") 'smart-comment)
-;; (global-set-key (kbd "C-u C-u M-;") 'smart-comment)
-
-
-;;; `guide-key'
-;; (package-require 'guide-key)
-;; (require 'guide-key)
-;; (guide-key-mode 1)			; Enable guide-key-mode
-;; (setq guide-key/idle-delay 0.7)
-;; (setq guide-key/guide-key-sequence '("C-h" "C-c" "C-x" "C-t" "ESC"))
-;; ;;(setq guide-key/guide-key-sequence t)
-;; (setq guide-key/recursive-key-sequence-flag t)
-;; (setq guide-key/popup-window-position 'bottom)
-;; (setq guide-key/text-scale-amount 1)
-
-;;; `guide-key-tip'
-;; (package-require 'guide-key-tip)
-;; (require 'guide-key-tip)
-;; (setq guide-key-tip/enabled nil)
-
-
-;;; `which-key'
-(package-require 'which-key)
-(require 'which-key)
-(which-key-mode)
-
-;;; `paredit'
-(package-require 'paredit)
-(require 'paredit)
-
-(define-key paredit-mode-map (kbd "C-<left>") 'paredit-backward-slurp-sexp)
-(define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
-(define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
-(define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
-;;; enable paredit for *
-(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-(add-hook 'emacs-mode-hook            #'enable-paredit-mode)
-(add-hook 'inferior-emacs-mode-hook   #'enable-paredit-mode)
-(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-(add-hook 'common-lisp-mode-hook      #'enable-paredit-mode)
-(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
-(add-hook 'hy-mode-hook               #'enable-paredit-mode)
-(add-hook 'newlisp-mode-hook          #'enable-paredit-mode)
-(add-hook 'hy-mode-hook               #'enable-paredit-mode)
-;;
-
-
-;;
-;; (use-package smartparens-config
-;; :ensure smartparens
-;; :config
-;; (progn
-;; (show-smartparens-global-mode t)))
-
-;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-;; (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
-
-;; (defmacro def-pairs (pairs)
-;; `(progn
-;; ,@(loop for (key . val) in pairs
-;; collect
-;; `(defun ,(read (concat
-;; "wrap-with-"
-;; (prin1-to-string key)
-;; "s"))
-;; (&optional arg)
-;; (interactive "p")
-;; (sp-wrap-with-pair ,val)))))
-
-;; (def-pairs ((paren . "(")
-;; (bracket . "[")
-;; (brace . "{")
-;; (single-quote . "'")
-;; (double-quote . "\"")
-;; (back-quote . "`")))
-
-;;
-
-
-;;
-;; `comment-toggle' M-;
-(define-key paredit-mode-map (kbd "M-;") 'ome-comment-or-uncomment-region-or-line)
-
-(package-require 'helpful)
-(require 'helpful)
-(global-set-key (kbd "C-h f") #'helpful-callable)
-(global-set-key (kbd "C-h v") #'helpful-variable)
-(global-set-key (kbd "C-h k") #'helpful-key)
-(global-set-key (kbd "C-c C-d") #'helpful-at-point)
-
-(package-require 'xkcd)
-(require 'xkcd)
-
-
-;; (package-require 'weechat)
-;; (require 'weechat)
-
-
+;; (global-set-key (kbd "C-M-z") 'show-super-menu1)
+(global-set-key (kbd "M-z") 'show-super-menu)
 ;;
 (provide 'mod-keybind)
 ;; mod-keybind.el ends here

@@ -26,17 +26,16 @@
 (require 'mod-package)
 ;;
 (require 'ielm)
-
+;;
+(add-to-list 'auto-mode-alist '("*scratch*" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.els\\'" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.els.el\\'" . emacs-lisp-mode))
 ;;
-
 
 ;; scratch settings
 (package-require 'persistent-scratch)
 (require 'persistent-scratch)
 ;;
-(add-to-list 'auto-mode-alist '("*scratch*" . emacs-lisp-mode))
 (setq initial-major-mode 'emacs-lisp-mode)
 (setq initial-scratch-message "\
 ;;                          !!!Oh My Emacs!!!

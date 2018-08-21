@@ -99,10 +99,10 @@
 (setq tool-bar-style 'both) ;;opt:text image both
 
 ;; toolbar (0:disable 1:show) (0:disable 1:show)
-;; (tool-bar-mode 0)
+(tool-bar-mode 0)
 
 ;;; menu-bar (0:disable 1:show)
-;; (menu-bar-mode 1)
+(menu-bar-mode 0)
 
 ;;; scroll setttings (nil 'left 'right)
 (require 'scroll-bar)

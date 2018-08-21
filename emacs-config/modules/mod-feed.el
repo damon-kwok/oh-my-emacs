@@ -57,18 +57,22 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `elfeed-org'
-(package-require 'elfeed-org)
-(require 'elfeed-org)
+(defconst elfeed-conf "~/workspace/elfeed.org")
 
-;; Initialize elfeed-org
-;; This hooks up elfeed-org to read the configuration when elfeed
-;; is started with =M-x elfeed=
-(elfeed-org)
+(if (file-exists-p elfeed-conf) 
+    (progn ;;
+      (package-require 'elfeed-org) 
+      (require 'elfeed-org)
 
-;; Optionally specify a number of files containing elfeed
-;; configuration. If not set then the location below is used.
-;; Note: The customize interface is also supported.
-(setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org"))
+      ;; Initialize elfeed-org
+      ;; This hooks up elfeed-org to read the configuration when elfeed
+      ;; is started with =M-x elfeed=
+      (elfeed-org)
+
+      ;; Optionally specify a number of files containing elfeed
+      ;; configuration. If not set then the location below is used.
+      ;; Note: The customize interface is also supported.
+      (setq rmh-elfeed-org-files (list elfeed-conf))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `elfeed-goodies'

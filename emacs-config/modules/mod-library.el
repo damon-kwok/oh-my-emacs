@@ -430,6 +430,9 @@ occurence of CHAR."
   (delete-other-windows) 
   (ome-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
+  (find-file (concat (getenv "HOME") "/projects/me/blog/src/index.org"))
+  (find-file (concat (getenv "HOME") "/projects/me/blog/src/notes.org"))
+  (find-file (concat (getenv "HOME") "/projects/me/blog/src/articles.org"))
   (find-file (concat (getenv "HOME") "/projects/me/blog/src/" doc-name)) 
   (delete-other-windows))
 
