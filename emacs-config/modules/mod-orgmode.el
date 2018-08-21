@@ -37,6 +37,8 @@
 (setq org-todo-keyword-faces '(("TODO" . "red") 
                                ("DOING" . "yellow") 
                                ("DONE" . "green")))
+(setq org-enforce-todo-dependencies t)
+
 (setq org-log-done 'time)
 ;;(setq org-log-done 'note)
 
@@ -53,6 +55,8 @@
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-c#" 'org-update-statistics-cookies)
+
 
 
 ;; `Babel-Languages'
@@ -172,9 +176,11 @@
                                  (interactive) 
                                  (org-capture nil "j")))
 
-(setq org-capture-templates '(("t" "Todo" entry (file+headline "~/workspace//org/gtd.org" "Tasks")
+(defconst journal-file (concat "~/workspace/org/journal-" (format-time-string "%Y-%m") ".org"))
+
+(setq org-capture-templates '(("t" "Todo" entry (file+headline "~/workspace/org/gtd.org" "Tasks")
                                "* TODO %?\n  %i\n  %a") 
-                              ("j" "Journal" entry (file+olp+datetree "~/workspace/org/journal.org")
+                              ("j" "Journal" entry (file+olp+datetree journal-file)
                                "* %?\nEntered on %U\n  %i\n  %a")))
 
 ;;

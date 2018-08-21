@@ -486,7 +486,7 @@
 ;; Kill process buffer without confirmation?
 ;; ref: https://emacs.stackexchange.com/questions/14509/kill-process-buffer-without-confirmation
 (setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function
-                                        kill-buffer-query-functions)) 
+                                        kill-buffer-query-functions))
 (setq kill-buffer-query-functions nil)
 
 ;; tab

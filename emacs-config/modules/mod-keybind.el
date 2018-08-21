@@ -19,6 +19,7 @@
 ;;
 ;; Code:
 ;;
+
 
 (require 'mod-package)
 
@@ -28,6 +29,7 @@
 ;; mac-command-key-is-meta t
 ;; mac-command-modifier 'meta
 ;; mac-option-modifier 'none)
+
 
 
 (global-set-key (kbd "C-c t") 'tool-bar-mode)
@@ -76,6 +78,7 @@
                    (interactive) 
                    (switch-to-buffer (other-buffer (current-buffer) 1))))
 ;;
+
 
 (package-require 'mwim)
 (require 'mwim)
@@ -86,33 +89,33 @@
 (package-require 'ripgrep)
 (require 'ripgrep)
 ;;
+
 
 (package-require 'wand)
 (require 'wand)
 (global-set-key (kbd "<C-return>")       'wand:execute)
 ;; (global-set-key (kbd "<C-mouse-1>")      'wand:execute)
 ;; (global-set-key (kbd "<C-down-mouse-1>")  nil)
-(wand:add-rule-by-pattern :match "\\$ " 
+(wand:add-rule-by-pattern :match "\\$ "
+                          :capture 
 
-                          :capture
                           :after 
                           :action popup-shell-command)
-(wand:add-rule-by-pattern :match "https?://" 
+(wand:add-rule-by-pattern :match "https?://"
+                          :capture 
 
-                          :capture
                           :whole 
                           :action browse-url)
-(wand:add-rule-by-pattern :match "file:" 
+(wand:add-rule-by-pattern :match "file:"
+                          :capture 
 
-                          :capture
                           :after 
                           :action find-file)
-(wand:add-rule-by-pattern :match "#> " 
+(wand:add-rule-by-pattern :match "#> "
+                          :capture 
 
-                          :capture
                           :after 
-                          :action 
-                          add-bracket-and-eval)
+                          :action add-bracket-and-eval)
 
 ;; `folding'
 ;; (package-require 'vimish-fold)
@@ -155,6 +158,7 @@
 (global-set-key (kbd "M-RET") 'toggle-frame-fullscreen)
 ;; (global-set-key (kbd "C-\\") 'toggle-input-method)
 ;; (global-set-key "\C-z" 'set-mark-command) ;;C-Space C-@ C-z S-super ;; (global-set-key [?\S- ] 'set-mark-command)
+
 
 ;;; expand region
 (package-require 'expand-region)
@@ -173,6 +177,7 @@
 
 ;; (global-set-key (kbd "M-<up>") 'move-lines-up)
 ;; (global-set-key (kbd "M-<down>") 'move-lines-down)
+
 
 ;;; `move-text'
 (package-require 'move-text)
@@ -185,6 +190,7 @@
 (global-set-key (kbd "M-n") 'move-text-down)
 ;; (global-set-key (kbd "M-<up>") 'move-text-up)
 ;; (global-set-key (kbd "M-<down>") 'move-text-down)
+
 
 ;;; `buffer-move'
 (package-require 'buffer-move)
@@ -199,6 +205,7 @@
 ;;; instead of swapping the buffers of both windows.
 ;;; Set the following customization variable to 'move to activate this behavior:
 (setq buffer-move-behavior 'move)
+
 
 ;;;
 (global-set-key (kbd "C-M-d") 'delete-backward-char)
@@ -223,11 +230,13 @@
 (window-numbering-mode)
 (setq window-numbering-assign-func (lambda () 
                                      (when (equal (buffer-name) "*Calculator*") 9)))
+
 
 ;; `page-break-lines'
 (package-require 'page-break-lines)
 (require 'page-break-lines)
-(global-page-break-lines-mode) 
+(global-page-break-lines-mode)
+
 ;;; Swiper
 ;; (package-require 'swiper)
 ;; (require 'swiper)
@@ -251,12 +260,14 @@
 ;; (global-set-key (kbd "C-c k") 'counsel-ag)
 ;; (global-set-key (kbd "C-x l") 'counsel-locate)
 ;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+
 
 ;;; htmlize
 (package-require 'htmlize)
 (require 'htmlize)
 ;; (global-set-key (kbd "C-c p") 'htmlize-buffer)
 ;; (global-set-key (kbd "C-c C-p") 'htmlize-file)
+
 
 ;;; bing-dict
 (package-require 'bing-dict)
@@ -268,6 +279,7 @@
 (setq bing-dict-org-file (concat (getenv "HOME") "/workspace/vocabulary.org"))
 ;; (global-set-key (kbd "C-c d") 'ome-bing-dict-brief)
 ;; (global-set-key (kbd "C-c D") 'ome-bing-dict-brief-web)
+
 
 (define-key global-map (kbd "C-c f") 'ome-go-to-char-forward)
 (define-key global-map (kbd "C-c b") 'ome-go-to-char-backward)
@@ -283,6 +295,7 @@
 ;; C-x r (file rename)
 ;; (global-set-key (kbd "C-c r") 'ome-rename-file-and-buffer)
 ;; (global-set-key (kbd "C-c x") 'ome-delete-file-and-buffer)
+
 
 ;;; string replace
 ;; (global-set-key (kbd "C-M-s") 'replace-string)
@@ -290,6 +303,7 @@
 
 ;; (define-key sh-mode-map (kbd "C-c C-r") 'replace-string)
 ;; (add-hook 'shell-mode-hook (lambda () (local-set-key (kbd "M-s") 'replace-string)))
+
 
 ;; (global-set-key (kbd "C-x M-k") 'ome-kill-all-buffers)
 (global-set-key (kbd "C-x M-k") 'ome-kill-other-buffers)
@@ -302,6 +316,7 @@
 ;; (global-set-key (kbd "M-;") 'smart-comment)
 ;; (global-set-key (kbd "C-u M-;") 'smart-comment)
 ;; (global-set-key (kbd "C-u C-u M-;") 'smart-comment)
+
 
 ;;; `guide-key'
 ;; (package-require 'guide-key)
@@ -318,11 +333,13 @@
 ;; (package-require 'guide-key-tip)
 ;; (require 'guide-key-tip)
 ;; (setq guide-key-tip/enabled nil)
+
 
 ;;; `which-key'
 (package-require 'which-key)
 (require 'which-key)
-(which-key-mode) 
+(which-key-mode)
+
 ;;; `paredit'
 (package-require 'paredit)
 (require 'paredit)
@@ -345,6 +362,7 @@
 (add-hook 'newlisp-mode-hook          #'enable-paredit-mode)
 (add-hook 'hy-mode-hook               #'enable-paredit-mode)
 ;;
+
 
 ;;
 ;; (use-package smartparens-config
@@ -376,6 +394,7 @@
 ;; (back-quote . "`")))
 
 ;;
+
 
 ;;
 ;; `comment-toggle' M-;
@@ -390,16 +409,20 @@
 
 (package-require 'xkcd)
 (require 'xkcd)
+
 
 ;; (package-require 'weechat)
 ;; (require 'weechat)
+
 
 ;;; `hydra'
 (package-require 'hydra)
 (require 'hydra)
+
 
 ;;; `tty'
 ;; (defhydra hydra-show-tty
+
 
 (defun switch-to-scratch-buffer () 
   "Toggle between *scratch* buffer and the current buffer.
@@ -445,10 +468,12 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c s") 'hydra-show-buffer/body)
+
 
 
 (defun compile-all-modules() 
   (byte-recompile-directory (expand-file-name (concat (getenv "ROOT") "/emacs-config/modules")) 0))
+
 
 ;;; `hydra-url-menu'
 (defhydra hydra-url-menu 
@@ -561,33 +586,34 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 " ;;
 
   ;; Project
-  ("M-1" (ome-open-file "~/projects/me/libknife/include/knife.h") "libknife")
-  ("M-2" (ome-open-file "~/projects/me/medusa/medusa-cpp/Core/Core.h") "medusa")
-  ("M-3" (ome-open-file "~/projects/me/awesome-package-manager/README.org") "pacman")
-  ("M-4" (ome-open-file "~/projects/me/awesome-network-programming/README.org") "network")
+  ("M-1" (ome-open-file "~/projects/me/libknife/include/knife.h") "libknife") 
+  ("M-2" (ome-open-file "~/projects/me/medusa/medusa-cpp/Core/Core.h") "medusa") 
+  ("M-3" (ome-open-file "~/projects/me/awesome-package-manager/README.org") "pacman") 
+  ("M-4" (ome-open-file "~/projects/me/awesome-network-programming/README.org") "network") 
   ("M-5" (ome-open-file "~/projects/me/awesome-web-scraping/README.org") "web-scrap")
-  
+
   ;; Doc
   ("h" (ome-open-file "~/.oh-my-emacs/README.org") "README.org") 
-  ("d" (ome-open-doc "diary.org") "diary.org")
+  ("d" (ome-open-doc "diary.org") "diary.org") 
   ("t" (ome-open-doc "todo.org") "todo.org") 
   ("b" (ome-open-doc "book.org") "book.org") 
   ("g" (ome-open-doc "game.org") "game.org") 
-  ("N" (ome-open-doc "news.org") "news.org") 
+  ("N" (ome-open-doc "news.org") "news.org")
 
   ;; Blog
   ("i" (ome-open-blog "index.org") "index.org") 
-  ("n" (ome-open-doc "notes.org") "notes.org")
+  ("n" (ome-open-doc "notes.org") "notes.org") 
   ("a" (ome-open-doc "articles.org") "articles.org")
 
-  ;;
-  ("0" (ome-open-file "~/.emacs") ".emacs")
+  ;; dotfiles
+  ("0" (ome-open-file "~/.emacs") ".emacs") 
   ("1" (ome-open-file "~/.oh-my-emacs/bin/env") "env") 
-  ("2" (ome-open-file "~/.oh-my-emacs/bin/lib") "lib")
-  ("3" (ome-open-file "~/.oh-my-emacs/bin/tool") "tool")
-  ("4" (ome-open-file "~/.oh-my-emacs/bin/proj") "proj")
-  ("." (ome-open-file "~/.bashrc") ".bashrc")   
-  
+  ("2" (ome-open-file "~/.oh-my-emacs/bin/lib") "lib") 
+  ("3" (ome-open-file "~/.oh-my-emacs/bin/tool") "tool") 
+  ("4" (ome-open-file "~/.oh-my-emacs/bin/proj") "proj") 
+  ("." (ome-open-file "~/.bashrc") ".bashrc")
+
+  ;;
   ("<tab>" helm-keyboard-quit "back" 
    :exit t) 
   ("\\" (calendar) "calendar") 
@@ -612,15 +638,15 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 (defhydra hydra-super-menu 
   (:color blue) 
   (concat ;;
-   "^Main^         ^Search^             ^View^        ^Navigate^   ^Buffer^\n" ;;
-   "^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
-   "_n_:New        _>_:gochar-forward   _t_:toolbar   _[_:↑        _r_:rname\n" ;;
-   "_o_:Open       _<_:gochar-backward  _m_:menubar   _/_:↓        _R_:remove\n" ;;
-   "_b_:Bookmarks  _g_:grep-dir         _s_:speedbar  _;_:←        _k_:kill\n" ;;
-   "_e_:Email      _G_:grep-proj        _S_:sidebar   _'_:→        _K_:kill-other\n" ;;
-   "_f_:Feed       _d_:dict-bing        _=_:scale+    ^0-9:select^ _C-k_:kill-all \n" ;;
-   "_c_:Config     _D_:dict-bing-web    _-_:scale-    _u_:URLs     _._:*scratch*\n" ;;
-   "^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
+   "^Main^         ^Search^             ^View^        ^Navigate^   ^Buffer^        ^Org^\n" ;;
+   "^^^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
+   "_n_:New        _>_:gochar-forward   _t_:toolbar   _[_:↑        _r_:rname       _M-c_:capture\n" ;;
+   "_o_:Open       _<_:gochar-backward  _m_:menubar   _/_:↓        _R_:remove      _M-l_:store-link\n" ;;
+   "_b_:Bookmarks  _g_:grep-dir         _s_:speedbar  _;_:←        _k_:kill        _M-a_:agenda\n" ;;
+   "_e_:Email      _G_:grep-proj        _S_:sidebar   _'_:→        _K_:kill-other  _M-b_:iswitchb\n" ;;
+   "_f_:Feed       _d_:dict-bing        _=_:scale+    ^0-9:select^ _C-k_:kill-all  _M-j_:journal\n" ;;
+   "_c_:Config     _D_:dict-bing-web    _-_:scale-    _u_:URLs     _._:*scratch*   _M-g_:GTD\n" ;;
+   "^^^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^")
   ;; Main
   ("n" (hydra-new-menu/body) "New" 
@@ -634,6 +660,14 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    :color blue) 
   ("c" (hydra-config-menu/body) "Config")
 
+  ;; Org
+  ("M-c" org-capture "capture")
+  ("M-l" org-store-link "store-link")
+  ("M-a" org-agenda "agenda")
+  ("M-b" org-iswitchb "iswitchb")
+  ("M-j" (org-capture nil "j") "journal")
+  ("M-g" (org-capture nil "t") "GTD")
+  
   ;; Search
   (">" ome-go-to-char-forward "go-to-char-forward") 
   ("<" ome-go-to-char-backward "go-to-char-backward") 
@@ -673,19 +707,27 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    :color pink) 
   ("<down>" ome-tabbar-forward-group "tabbar-down" 
    :color pink)
-
-  ("0" ome-tabbar-forward-group "select-window-0" :color pink)
-  ("1" ome-tabbar-forward-group "select-window-1" :color pink)
-  ("2" ome-tabbar-forward-group "select-window-2" :color pink)
-  ("3" ome-tabbar-forward-group "select-window-3" :color pink)
-  ("4" ome-tabbar-forward-group "select-window-4" :color pink)
-  ("5" ome-tabbar-forward-group "select-window-5" :color pink)
-  ("6" ome-tabbar-forward-group "select-window-6" :color pink)
-  ("7" ome-tabbar-forward-group "select-window-7" :color pink)
-  ("8" ome-tabbar-forward-group "select-window-8" :color pink)
-  ("9" ome-tabbar-forward-group "select-window-9" :color pink)
-  ("u" (hydra-url-menu/body) "URLs")  
-  
+  ("0" ome-tabbar-forward-group "select-window-0" 
+   :color pink) 
+  ("1" ome-tabbar-forward-group "select-window-1" 
+   :color pink) 
+  ("2" ome-tabbar-forward-group "select-window-2" 
+   :color pink) 
+  ("3" ome-tabbar-forward-group "select-window-3" 
+   :color pink) 
+  ("4" ome-tabbar-forward-group "select-window-4" 
+   :color pink) 
+  ("5" ome-tabbar-forward-group "select-window-5" 
+   :color pink) 
+  ("6" ome-tabbar-forward-group "select-window-6" 
+   :color pink) 
+  ("7" ome-tabbar-forward-group "select-window-7" 
+   :color pink) 
+  ("8" ome-tabbar-forward-group "select-window-8" 
+   :color pink) 
+  ("9" ome-tabbar-forward-group "select-window-9" 
+   :color pink) 
+  ("u" (hydra-url-menu/body) "URLs")
   ("<tab>" helm-recentf "(helm-recentf)")
 
   ;; Buffer/File
@@ -697,6 +739,9 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("C-k" ome-kill-all-buffers "kill-all-buffers") 
   ("." switch-to-scratch-buffer "*scratch")
 
+  ;; Orgmode
+
+  
   ;; Other
   ("`" (show-global-shell) "shell") 
   ("C-`" (show-global-shell-new) "shell-new") 
