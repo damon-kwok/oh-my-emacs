@@ -632,6 +632,8 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("0" (ome-project-wizard "ros") "ROS")
   ("1" (ome-project-wizard "c") "c/c++")
   ("2" (ome-project-wizard "java") "java")
+  ("C-2" (ome-project-wizard "scala") "scala")
+  ("M-2" (ome-project-wizard "groovy") "groovy")
   ("3" (ome-project-wizard "python") "python")
   ("4" (ome-project-wizard "go") "go")
   ("5" (ome-project-wizard "nim") "nim")

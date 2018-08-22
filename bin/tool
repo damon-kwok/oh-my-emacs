@@ -100,25 +100,30 @@ function install-toolchain() {
     shell-install
     
     cmake-install
-    gyp-install
-    waf-install
-    
+    # gyp-install
+    # waf-install
+
+    # core toolchain
     nvm-install
     py-install
     sdkman-install
+    rust-install
     
-    mu4e-install    
-    
+    # c++
+    llvm-install
     clang-format-install
     cquery-install
-    ccls-install
-    rtags-install
+    # ccls-install
+    # rtags-install
+    
+    # email
+    mu4e-install    
 
+    # extra toolchain
     ue4-install
     golang-install
     erlang-install
     elixir-install
-    rust-install
     nim-install
 
     #haskell
@@ -484,23 +489,6 @@ function erlang-install() {
     cd ~
 }
 
-function rust-install() {
-    tip "install cargo + rust"
-    if command -v rustup >/dev/null 2>&1; then
-	rustup self update
-	rustup update
-    else
-	curl https://sh.rustup.rs -sSf | sh	
-	cargo update
-	rustup toolchain add beta
-	rustup component add rust-src
-    fi
-    cargo install --force racer
-    cargo install --force ripgrep
-
-    cd ~
-}
-
 function nim-install() {
     tip "install nim"
     curl https://nim-lang.org/choosenim/init.sh -sSf | sh
@@ -625,6 +613,23 @@ function py-install() {
     pip install --user -U sphinx
     pip install --user -U docutils
     pip install --user -U wsgiref
+    cd ~
+}
+
+function rust-install() {
+    tip "install cargo + rust"
+    if command -v rustup >/dev/null 2>&1; then
+	rustup self update
+	rustup update
+    else
+	curl https://sh.rustup.rs -sSf | sh	
+	cargo update
+	rustup toolchain add beta
+	rustup component add rust-src
+    fi
+    cargo install --force racer
+    cargo install --force ripgrep
+    cargo install --git https://github.com/yaa110/rubigo.git
     cd ~
 }
 
