@@ -203,7 +203,7 @@ function find-str() {
     fi
 }
 
-function auto-gen-cmakefile() {
+function auto-gen-cmake-file() {
     local projdir=$1
     echo $1
     if [ ! -f "$projdir/CMakeLists.txt" ]; then
@@ -260,7 +260,7 @@ function auto-gen-cmakefile() {
     mkdir -p $projdir/build
     cd $projdir/build/
     cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
-    cd $projdir
+    cd ..
     ln -s build/compile_commands.json
 }
 
@@ -270,7 +270,7 @@ function cmake-export-commands() {
 
 function auto-gen-rtags() {
     local projdir=$1
-    auto-gen-cmakefile $projdir
+    auto-gen-cmake-file $projdir
     cd $projdir
     $RTAGS_BIN/rc -J .
 }
