@@ -49,7 +49,7 @@ function project-upgrade() {
     # https://github.com/ztellman/manifold
     
     # Unity3d
-    github-upgrade arcadia-unity/arcadia $DEV_ROOT/u3d/Arcadia
+    github-upgrade arcadia-unity/arcadia $PROJ_ROOT/u3d/Arcadia
     
     # UE4
     # https://github.com/EpicGames/UnrealEngine.git

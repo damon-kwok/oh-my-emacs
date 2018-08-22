@@ -422,7 +422,7 @@ occurence of CHAR."
   (delete-other-windows) 
   (ome-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
-  (find-file (concat (getenv "HOME") "/workspace/docs/" doc-name)) 
+  (find-file (concat (getenv "HOME") "/workspace/org/" doc-name)) 
   (delete-other-windows))
 
 (defun ome-open-blog(doc-name) 
@@ -492,7 +492,7 @@ occurence of CHAR."
 ;;   (ome-show-compilation "*Shell Command Output*")
 ;;   (shell-command command))
 
-(defun ome-create-project(command openfile) 
+(defun ome-ask-new-project(command openfile) 
   (let  ((project-path (read-file-name "choice project path:" nil default-directory nil))) 
     (message project-path) 
     (setq default-directory (f-dirname project-path)) 
@@ -502,6 +502,22 @@ occurence of CHAR."
                (find-file (concat project-path "/" openfile)) 
                (message (concat "created new project '" (f-filename project-path) "' succeed:)"))) 
       (message (concat "creat new project '" (f-filename project-path) "' failed:(")))))
+
+(defun ome-project-wizard(lang) 
+  (cond ((string= lang "clojure") 
+         (ome-ask-new-project "lein new %s" "project.clj")) 
+        ((string= lang "elixir") 
+         (ome-ask-new-project "mix new %s" "mix.exs")) 
+        ((string= lang "haskell") 
+         (ome-ask-new-project "stack new %s" "src/Main.hs")) 
+        ((string= lang "rust") 
+         (ome-ask-new-project "cargo new %s --bin" "Cargo.toml")) 
+        ((string= lang "go") 
+         (ome-ask-new-project "glide create %s" "glide.yaml")) 
+        ((string= lang "ros") 
+         (ome-ask-new-project "rosman %s " "src/main.cpp"))))
+
+(ome-project-wizard "clojure")
 
 (defun ome-buffer-reload() 
   (interactive) 

@@ -192,7 +192,9 @@ function cmake-install() {
     ./bootstrap
     # mkdir -p $DEV_ROOT/cmake/build
     # cmake ..
-    make	
+    make
+
+    cd ~
 }
 
 function waf-install() {
@@ -219,22 +221,31 @@ function llvm-install() {
     git config branch.master.rebase true
     
     mkdir -p $DEV_ROOT/llvm/build
-    # mkdir -p $DEV_ROOT/lldb
+    mkdir -p $DEV_ROOT/lldb
     cd $DEV_ROOT/llvm/build/
     cmake .. \
-	  -DCMAKE_INSTALL_PREFIX=$HOME/.llvm \
+	  -DCMAKE_INSTALL_PREFIX=$LLVM_ROOT \
 	  -DCMAKE_BUILD_TYPE=Release
     # -DLLVM_ENABLE_PROJECTS="lldb" 
     make -j4 install
+
+    cd ~
 }
 
 function rtags-install() {
     github-upgrade Andersbakken/rtags $DEV_ROOT/rtags
     mkdir -p $DEV_ROOT/rtags/build
     cd $DEV_ROOT/rtags/build/
-    cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+
+    cmake .. \
+          -DLIBCLANG_LLVM_CONFIG_EXECUTABLE=$LLVM_BIN/llvm-config \
+          -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_PREFIX_PATH=$LLVM_ROOT                    
     make
     cp $DEV_ROOT/rtags/bin/* $DEV_ROOT/rtags/build/bin/
+    
+    cd ~
 }
 
 function cquery-install() {
@@ -242,13 +253,16 @@ function cquery-install() {
     github-upgrade cquery-project/cquery $DEV_ROOT/cquery
     mkdir -p $DEV_ROOT/cquery/build
     cd $DEV_ROOT/cquery/build/
+    # -DLIBCLANG_LLVM_CONFIG_EXECUTABLE=$LLVM_BIN/llvm-config 
+          # -DCLANG_USE_BUNDLED_LIBC++=on 
     cmake .. \
 	  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
 	  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-	  -DCMAKE_BUILD_TYPE=Release
-    # -DSYSTEM_CLANG=1
+	  -DCMAKE_BUILD_TYPE=Release \
+          -DSYSTEM_CLANG=ON \
+          -DCMAKE_PREFIX_PATH=$LLVM_ROOT
     make
-    cd $OME_ROOT
+    cd ~
 }
 # PATH=/home/damon/.dev/ccls/build/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin:$PATH
 function ccls-install() {
@@ -265,14 +279,13 @@ function ccls-install() {
     # -DCMAKE_CXX_STANDARD_REQUIRED=ON 
     # -DCMAKE_CXX_EXTENSIONS=OFF 
     cmake .. \
-	  -DSYSTEM_CLANG=ON \
-	  -DCMAKE_CXX_COMPILER=clang++ \
           -DCMAKE_INSTALL_PREFIX=$HOME/.ccls \
-          -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-          -DCMAKE_BUILD_TYPE=Release
+	  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
+	  -DCMAKE_BUILD_TYPE=Release \
+          -DSYSTEM_CLANG=ON \
+          -DCMAKE_PREFIX_PATH=$LLVM_ROOT
     make
-    
-    cd $OME_ROOT
+    cd ~
 }
 
 function ue4-install() {
@@ -280,7 +293,7 @@ function ue4-install() {
     cd $DEV_ROOT/ue4/UnrealEngine/
     ./Setup.sh
     ./GenerateProjectFiles.sh
-    
+    cd ~
 }
 
 function clang-format-install() {
@@ -434,7 +447,9 @@ function mu4e-install() {
     mkdir -p ~/Maildir/INBOX/
     mkdir -p ~/Maildir/Junk/
     mkdir -p ~/Maildir/Sent/
-    mkdir -p ~/Maildir/Trash/	
+    mkdir -p ~/Maildir/Trash/
+
+    cd ~
 }
 
 function elixir-install() {
@@ -444,6 +459,8 @@ function elixir-install() {
     cd $DEV_ROOT/elixir
     make
     # make clean test
+
+    cd ~
 }
 
 function erlang-install() {
@@ -462,7 +479,9 @@ function erlang-install() {
     # chmod +x ./rebar3
     # rebar3 local upgrade DEBUG=1
     rebar3 update
-    rebar3 upgrade	
+    rebar3 upgrade
+
+    cd ~
 }
 
 function rust-install() {
@@ -478,17 +497,22 @@ function rust-install() {
     fi
     cargo install --force racer
     cargo install --force ripgrep
+
+    cd ~
 }
 
 function nim-install() {
     tip "install nim"
     curl https://nim-lang.org/choosenim/init.sh -sSf | sh
+
+    cd ~
 }
 
 function crystal-install() {
     github-upgrade crystal-lang/crystal $DEV_ROOT/crystal
     cd $DEV_ROOT/crystal
     make
+    cd ~
 }
 
 function install-jdt-language-server() {
@@ -504,6 +528,7 @@ function install-jdt-language-server() {
 	# wget http://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz -O $HOME/jdt-language-server-latest.tar.gz
 	tar xf $HOME/jdt-language-server-latest.tar.gz -C ~/.emacs.d/eclipse.jdt.ls/server/
     fi
+    cd ~
 }
 
 function sdkman-install() {
@@ -534,6 +559,7 @@ function sdkman-install() {
 
     #lsp-java
     install-jdt-language-server
+    cd ~
 }
 
 function nvm-install() {
@@ -570,7 +596,8 @@ function nvm-install() {
     tip "install js language server"
     npm i -g javascript-typescript-langserver
     npm i -g flow-language-server
-    npm i -g typescript-language-server				
+    npm i -g typescript-language-server
+    cd ~
 }
 
 function py-install() {
@@ -598,7 +625,7 @@ function py-install() {
     pip install --user -U sphinx
     pip install --user -U docutils
     pip install --user -U wsgiref
-    
+    cd ~
 }
 
 function golang-install() {

@@ -45,8 +45,9 @@ case "$SHELL_NAME" in
 esac
 
 # LLVM
-export LLVM_BIN=$HOME/.llvm/bin
-export PATH=$LLVM_BIN$PATH
+export LLVM_ROOT=$HOME/.llvm
+export LLVM_BIN=$LLVM_ROOT/bin
+export PATH=$LLVM_BIN:$PATH
 
 # Cmake
 export CMAKE_BIN=$DEV_ROOT/cmake/bin

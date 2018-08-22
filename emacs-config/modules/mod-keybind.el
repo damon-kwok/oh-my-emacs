@@ -602,8 +602,8 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 
   ;; Blog
   ("i" (ome-open-blog "index.org") "index.org") 
-  ("n" (ome-open-doc "notes.org") "notes.org") 
-  ("a" (ome-open-doc "articles.org") "articles.org")
+  ("n" (ome-open-blog "notes.org") "notes.org") 
+  ("a" (ome-open-blog "articles.org") "articles.org")
 
   ;; dotfiles
   ("0" (ome-open-file "~/.emacs") ".emacs") 
@@ -612,6 +612,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("3" (ome-open-file "~/.oh-my-emacs/bin/tool") "tool") 
   ("4" (ome-open-file "~/.oh-my-emacs/bin/proj") "proj") 
   ("." (ome-open-file "~/.bashrc") ".bashrc")
+  ("f" (ome-open-file "~/workspace/elfeed.org") "elfeed")
 
   ;;
   ("<tab>" helm-keyboard-quit "back" 
@@ -626,10 +627,22 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 (defhydra hydra-new-menu 
   (:color blue)
   "New" ;;
-  ("e" mu4e-compose-new "Email") 
-  ("m" menu-bar-mode "Menubar") 
-  ("s" speedbar-mode "Speedbar") 
-  ("d" dired-sidebar "DiredSideBar") 
+  ("e" mu4e-compose-new "Email")
+  
+  ("0" (ome-project-wizard "ros") "ROS")
+  ("1" (ome-project-wizard "c") "c/c++")
+  ("2" (ome-project-wizard "java") "java")
+  ("3" (ome-project-wizard "python") "python")
+  ("4" (ome-project-wizard "go") "go")
+  ("5" (ome-project-wizard "nim") "nim")
+
+  ("6" (ome-project-wizard "rust") "rust")
+  ("7" (ome-project-wizard "haskell") "haskell")
+  ("8" (ome-project-wizard "erlang") "erlang")
+  ("9" (ome-project-wizard "elixir") "elixir")
+  ("a" (ome-project-wizard "ocaml") "ocaml")
+  ("b" (ome-project-wizard "clojure") "clojure")
+  
   ("<tab>" (hydra-super-menu/body) "BACK") 
   ("q" nil "quit") 
   ("<SPC>" nil "quit") 
@@ -643,8 +656,8 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    "_n_:New        _>_:gochar-forward   _t_:toolbar   _[_:↑        _r_:rname       _M-c_:capture\n" ;;
    "_o_:Open       _<_:gochar-backward  _m_:menubar   _/_:↓        _R_:remove      _M-l_:store-link\n" ;;
    "_b_:Bookmarks  _g_:grep-dir         _s_:speedbar  _;_:←        _k_:kill        _M-a_:agenda\n" ;;
-   "_e_:Email      _G_:grep-proj        _S_:sidebar   _'_:→        _K_:kill-other  _M-b_:iswitchb\n" ;;
-   "_f_:Feed       _d_:dict-bing        _=_:scale+    ^0-9:select^ _C-k_:kill-all  _M-j_:journal\n" ;;
+   "_e_:Email      _G_:grep-proj        _S_:sidebar   _'_:→        _K_:kill-other  _M-b_:switchb\n" ;;
+   "_f_:Feed       _d_:dict-bing        _=_:scale+    ^0-9:select^ _C-k_:kill-all  _M-u_:update\n" ;;
    "_c_:Config     _D_:dict-bing-web    _-_:scale-    _u_:URLs     _._:*scratch*   _M-g_:GTD\n" ;;
    "^^^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^")
@@ -664,8 +677,9 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("M-c" org-capture "capture")
   ("M-l" org-store-link "store-link")
   ("M-a" org-agenda "agenda")
-  ("M-b" (org-switchb) "switchb")
-  ("M-j" (org-capture nil "j") "journal")
+  ("M-b" org-switchb "switchb")
+  ("M-u" org-update-statistics-cookies)
+  ;; ("M-j" (org-capture nil "j") "journal")
   ("M-g" (org-capture nil "t") "GTD")
   
   ;; Search
