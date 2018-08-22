@@ -662,7 +662,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    "_f_:Feed       _d_:dict-bing        _=_:scale+    ^0-9:select^ _C-k_:kill-all  _M-u_:update\n" ;;
    "_c_:Config     _D_:dict-bing-web    _-_:scale-    _u_:URLs     _._:*scratch*   _M-g_:GTD\n" ;;
    "^^^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
-   "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^")
+   "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^\n")
   ;; Main
   ("n" (hydra-new-menu/body) "New" 
    :color blue) 
@@ -723,25 +723,25 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    :color pink) 
   ("<down>" ome-tabbar-forward-group "tabbar-down" 
    :color pink)
-  ("0" ome-tabbar-forward-group "select-window-0" 
+  ("0" select-window-0 "select-window-0" 
    :color pink) 
-  ("1" ome-tabbar-forward-group "select-window-1" 
+  ("1" select-window-1 "select-window-1" 
    :color pink) 
-  ("2" ome-tabbar-forward-group "select-window-2" 
+  ("2" select-window-2 "select-window-2" 
    :color pink) 
-  ("3" ome-tabbar-forward-group "select-window-3" 
+  ("3" select-window-3 "select-window-3" 
    :color pink) 
-  ("4" ome-tabbar-forward-group "select-window-4" 
+  ("4" select-window-4 "select-window-4" 
    :color pink) 
-  ("5" ome-tabbar-forward-group "select-window-5" 
+  ("5" select-window-5 "select-window-5" 
    :color pink) 
-  ("6" ome-tabbar-forward-group "select-window-6" 
+  ("6" select-window-6 "select-window-6" 
    :color pink) 
-  ("7" ome-tabbar-forward-group "select-window-7" 
+  ("7" select-window-7 "select-window-7" 
    :color pink) 
-  ("8" ome-tabbar-forward-group "select-window-8" 
+  ("8" select-window-8 "select-window-8" 
    :color pink) 
-  ("9" ome-tabbar-forward-group "select-window-9" 
+  ("9" select-window-9 "select-window-9" 
    :color pink) 
   ("u" (hydra-url-menu/body) "URLs")
   ("<tab>" helm-recentf "(helm-recentf)")
