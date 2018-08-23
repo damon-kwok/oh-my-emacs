@@ -245,6 +245,15 @@ function auto-gen-cmake-file() {
         echo "set(ROOT \${CMAKE_CURRENT_LIST_DIR})" >> $projdir/CMakeLists.txt
         echo "" >> $projdir/CMakeLists.txt
         echo "# include_directories(\"\${ROOT}/Core/\")" >> $projdir/CMakeLists.txt
+        echo "file(GLOB_RECURSE new_list *.h *.hh *.hpp)" >> $projdir/CMakeLists.txt
+        echo "set(dir_list "")" >> $projdir/CMakeLists.txt
+        echo "foreach(file_path ${new_list})" >> $projdir/CMakeLists.txt
+        echo "  get_filename_component(dir_path ${file_path} PATH)" >> $projdir/CMakeLists.txt
+        echo "  include_directories(${dir_path})" >> $projdir/CMakeLists.txt
+        echo "  #message (STATUS ${dir_path})" >> $projdir/CMakeLists.txt
+        echo "  set(dir_list "${dir_list}" "${dir_path}")" >> $projdir/CMakeLists.txt
+        echo "endforeach()" >> $projdir/CMakeLists.txt
+        
         echo "" >> $projdir/CMakeLists.txt
         echo "file(GLOB_RECURSE example_srcs *.h *.hh *i *.hpp *.c *.cc *.cpp)" >> $projdir/CMakeLists.txt
         echo "" >> $projdir/CMakeLists.txt

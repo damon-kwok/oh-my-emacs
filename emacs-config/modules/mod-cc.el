@@ -185,14 +185,6 @@
 (define-key c++-mode-map (kbd "C-M-\\")  'clang-format-region)
 (define-key objc-mode-map (kbd "C-M-\\")  'clang-format-region)
 
-;; `disaster'
-(package-require 'disaster)
-(require 'disaster)
-(define-key c-mode-map (kbd "C-c d") 'disaster)
-(define-key c++-mode-map (kbd "C-c d") 'disaster)
-(define-key objc-mode-map (kbd "C-c d") 'disaster)
-
-
 (defun gen-cmake-file () 
   (shell-command (concat (getenv "HOME") "/.oh-my-emacs/bin/gen-cmake-file " (ome-project-root))))
 
@@ -245,7 +237,13 @@
 
 ;; (setq compilation-finish-function 'highlight-error-lines)
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `disaster'
+(package-require 'disaster)
+(require 'disaster)
+(define-key c-mode-map (kbd "C-c d") 'disaster)
+(define-key c++-mode-map (kbd "C-c d") 'disaster)
+(define-key objc-mode-map (kbd "C-c d") 'disaster)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-cc)
