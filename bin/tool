@@ -152,7 +152,7 @@ function upgrade() {
     install-toolchain
 }
 
-function ome-install() {
+function ome-upgrade() {
 
     # if [ ! -e "$HOME/.oh-my-emacs/.git/index" ]; then
     # git clone git@github.com:damon-kwok/oh-my-emacs $HOME/.oh-my-emacs --depth=1        
