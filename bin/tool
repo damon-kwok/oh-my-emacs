@@ -433,8 +433,10 @@ function mu4e-install() {
     github-upgrade djcb/mu $HOME/.emacs.d/libs/mu-git
     cd $HOME/.emacs.d/libs/mu-git/
     ./autogen.sh
+    # ./configure --prefix=$HOME/.mu
+    # make install
     ./configure --prefix=$HOME/.mu
-    make install
+    make
 
     tip "install offlineiamp"
     pip install --user -U offlineimap	

@@ -131,7 +131,7 @@
 (setq org-publish-project-alist '(;;
                                   ("blog" :components ("blog-notes" "blog-static"))
                                   ;;
-				  ("blog-notes" :base-directory "~/projects/me/blog/src/" 
+				  ("blog-notes" :base-directory "~/workspace/blog_src/" 
                                    :base-extension "org" 
                                    :publishing-directory "~/projects/me/blog/" 
                                    :recursive t 
@@ -147,7 +147,7 @@
 				   :sitemap-sort-files anti-chronologically 
                                    :sitemap-file-entry-format "%d %t")
                                   ;;
-				  ("blog-static" :base-directory "~/projects/me/blog/src/" 
+				  ("blog-static" :base-directory "~/workspace/blog_src/" 
                                    :base-extension
                                    "css\\|js\\|png\\|jpg\\|bmp\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|ico" 
                                    :publishing-directory "~/projects/me/blog/" 

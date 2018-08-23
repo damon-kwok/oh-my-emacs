@@ -1,6 +1,7 @@
 #+DATE:      `(format-time-string "%Y-%m-%d")`
 #+INCLUDE: "./template"
-
+#+HTML_HEAD: <script> comment_form("`(concat (ome-buf-dirname) "/" (buffer-name))`", 'damon-kwok', 'damon-kwok.github.io');</script>
+#+HTML_HEAD: <script> forkme("https://github.com/damon-kwok/damon-kwok.github.io")</script>
 #+BEGIN_CENTER
 *${1:Title}*
 #+END_CENTER

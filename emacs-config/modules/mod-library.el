@@ -121,6 +121,11 @@
                                          (projectile-project-root) 
                                        (ome-buf-dirpath)))))
 
+;; (ome-parent-dirpath "c/haha/aaa/index.org")
+;; (ome-buf-dirname)
+;; (buffer-name)
+;; (concat (ome-buf-dirname) "/" (buffer-name))
+
 (defun ome-parent-dirpath (path) 
   (file-name-directory (directory-file-name path)))
 
@@ -464,15 +469,15 @@ occurence of CHAR."
   (delete-other-windows) 
   (ome-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
-  (find-file (concat (getenv "HOME") "/projects/me/blog/src/index.org")) 
-  (find-file (concat (getenv "HOME") "/projects/me/blog/src/notes.org")) 
-  (find-file (concat (getenv "HOME") "/projects/me/blog/src/articles.org")) 
-  (find-file (concat (getenv "HOME") "/projects/me/blog/src/" doc-name)) 
+  (find-file (concat (getenv "HOME") "/workspace/blog_src/index.org")) 
+  (find-file (concat (getenv "HOME") "/workspace/blog_src/notes.org")) 
+  (find-file (concat (getenv "HOME") "/workspace/blog_src/articles.org")) 
+  (find-file (concat (getenv "HOME") "/workspace/blog_src/" doc-name)) 
   (delete-other-windows))
 
 (defun ome-new-blog() 
   (interactive) 
-  (setq default-directory (concat (getenv "HOME") "/projects/me/blog/src/")) 
+  (setq default-directory (concat (getenv "HOME") "/workspace/blog_src/")) 
   (helm-find-files nil))
 
 (defun ome-open-url(url) 
@@ -491,7 +496,7 @@ occurence of CHAR."
 (defun ome-find-file-blog() 
   (interactive) 
   (setq old-default-directory default-directory) 
-  (setq default-directory  (concat (getenv "HOME") "/projects/me/blog/src/")) 
+  (setq default-directory  (concat (getenv "HOME") "/workspace/blog_src/")) 
   (helm-find-files nil) 
   (setq default-directory old-default-directory))
 
