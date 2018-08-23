@@ -205,7 +205,8 @@ function find-str() {
 
 function auto-gen-cmake-file() {
     local projdir=$1
-    echo $1
+    echo "auto-gen-cmake-file::projdir:$1"
+
     if [ ! -f "$projdir/CMakeLists.txt" ]; then
         echo "cmake_minimum_required(VERSION 3.2)" >> $projdir/CMakeLists.txt
         echo "project(libexample)" >> $projdir/CMakeLists.txt
@@ -258,7 +259,7 @@ function auto-gen-cmake-file() {
         echo "# target_link_libraries(pro pro_a)" >> $projdir/CMakeLists.txt
     fi
 
-    if [ ! -f "build/compile_commands.json" ]; then        
+    if [ ! -f "$projdir/compile_commands.json" ]; then        
         mkdir -p $projdir/build
         cd $projdir/build/
         cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
@@ -272,10 +273,20 @@ function cmake-export-commands() {
 }
 
 function auto-gen-rtags() {
-    local projdir=$1
-    auto-gen-cmake-file $projdir
-    cd $projdir
-    $RTAGS_BIN/rc -J .
+    local curdir=`pwd`
+    echo "auto-gen-rtags::curdir:$curdir"
+    
+    cd $1
+    local projdir=`pwd`
+    echo "auto-gen-rtags::projdir:$curdir"
+
+    if [ ! -f "$projdir/compile_commands.json" ]; then
+        auto-gen-cmake-file $projdir
+
+        cd $projdir
+        echo "auto-gen-rtags::rc:`pwd`"
+        $RTAGS_BIN/rc -J .
+    fi
 }
 
 # smart-rtags $void

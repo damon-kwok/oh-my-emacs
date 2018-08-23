@@ -321,14 +321,24 @@ occurence of CHAR."
                            (remove-if-not 'buffer-file-name (buffer-list)))))
 
 ;; delete current buffer && file
-(defun ome-delete-file-and-buffer() 
+;; http://rejeep.github.io/emacs/elisp/2010/11/16/delete-file-and-buffer-in-emacs.html
+(defun ome-delete-file-and-buffer () 
+  "Removes file connected to current buffer and kills buffer." 
   (interactive) 
-  (cond ((y-or-n-p (concat "delete'" (buffer-name) "'?")) 
-         ((progn) 
-          (delete-file (buffer-file-name) 
-                       (kill-this-buffer))))))
+  (let ((filename (buffer-file-name)) 
+        (buffer (current-buffer)) 
+        (name (buffer-name))) 
+    (if (not (and filename 
+                  (file-exists-p filename))) 
+        (progn (message "Buffer '%s' is not visiting a file!" name) 
+               (kill-buffer buffer)) 
+      (when (yes-or-no-p "Are you sure you want to remove this file? ") 
+        (delete-file filename) 
+        (kill-buffer buffer) 
+        (message "File '%s' successfully removed" filename)))))
 
 ;; Originally from stevey, adapted to support moving to a new directory.
+;; ome-rename-file-and-buffer
 (defun ome-rename-file-and-buffer (new-name) 
   "Renames both current buffer and file it's visiting to NEW-NAME." 
   (interactive (progn (if (not (buffer-file-name)) 
