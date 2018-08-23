@@ -59,7 +59,7 @@ function git-upgrade() {
 	tip "clone $project"
         echo-success "git clone $url $dir --single-branch --depth=1 $branch"
 	git clone $url $dir --single-branch --depth=1 $branch
-    # elif [ "`ls -A $DIRECTORY`" = "" ]; then
+        # elif [ "`ls -A $DIRECTORY`" = "" ]; then
         # echo "$DIRECTORY is indeed empty"
     else
 	cd $dir
@@ -257,11 +257,14 @@ function auto-gen-cmake-file() {
         echo "# add_executable(pro \${example_srcs})" >> $projdir/CMakeLists.txt
         echo "# target_link_libraries(pro pro_a)" >> $projdir/CMakeLists.txt
     fi
-    mkdir -p $projdir/build
-    cd $projdir/build/
-    cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
-    cd ..
-    ln -s build/compile_commands.json
+
+    if [ ! -f "build/compile_commands.json" ]; then        
+        mkdir -p $projdir/build
+        cd $projdir/build/
+        cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
+        cd ..
+        ln -s build/compile_commands.json
+    fi
 }
 
 function cmake-export-commands() {
