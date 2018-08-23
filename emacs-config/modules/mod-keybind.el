@@ -661,6 +661,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    "_e_:Email      _G_:grep-proj        _S_:sidebar   _'_:→        _K_:kill-other  _M-b_:switchb\n" ;;
    "_f_:Feed       _d_:dict-bing        _=_:scale+    ^0-9:select^ _C-k_:kill-all  _M-u_:update\n" ;;
    "_c_:Config     _D_:dict-bing-web    _-_:scale-    _u_:URLs     _._:*scratch*   _M-g_:GTD\n" ;;
+   "_i_:IRC ^^^^^^^^^^\n";;
    "^^^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^\n")
   ;; Main
@@ -674,6 +675,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("f" elfeed "Feed" 
    :color blue) 
   ("c" (hydra-config-menu/body) "Config")
+  ("i" (ome-find-buffer-by-major 'erc-mode) "IRC")
 
   ;; Org
   ("M-c" org-capture "capture")
@@ -707,9 +709,9 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    :color pink)
 
   ;; Nav
-  (";" tabbar-backward "tabbar-backward" 
+  (";" ome-tabbar-backward "ome-tabbar-backward" 
    :color pink) 
-  ("'" tabbar-forward "tabbar-forward" 
+  ("'" ome-tabbar-forward "tabbar-forward" 
    :color pink) 
   ("[" ome-tabbar-backward-group "tabbar-up" 
    :color pink) 
@@ -719,10 +721,20 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    :color pink) 
   ("<right>" tabbar-forward "tabbar-forward" 
    :color pink) 
-  ("<up>" ome-tabbar-backward-group "tabbar-up" 
+  ("<up>" tabbar-backward-group "tabbar-up" 
    :color pink) 
-  ("<down>" ome-tabbar-forward-group "tabbar-down" 
+  ("<down>" tabbar-forward-group "tabbar-down" 
    :color pink)
+
+  ("M-;" tabbar-backward "tabbar-backward" 
+   :color pink) 
+  ("M-'" tabbar-forward "tabbar-forward" 
+   :color pink) 
+  ("M-[" tabbar-backward-group "tabbar-up" 
+   :color pink) 
+  ("M-/" tabbar-forward-group "tabbar-down" 
+   :color pink)
+  
   ("0" select-window-0 "select-window-0" 
    :color pink) 
   ("1" select-window-1 "select-window-1" 

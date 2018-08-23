@@ -56,6 +56,27 @@
   (if (numberp num) 
       (- num 1) -1))
 
+(defun ome-tabbar-forward 
+    (&optional 
+     num) 
+  (interactive) 
+  (tabbar-forward)
+  ;; (message (concat "--group:" (ome-number num)))
+  (if (and (or (s-match "^*" (buffer-name)) 
+               (s-match "^:" (buffer-name))) 
+           (< (ome-number num) 5)) 
+      (ome-tabbar-forward (ome-inc num))))
+
+(defun ome-tabbar-backward 
+    (&optional 
+     num) 
+  (interactive) 
+  (tabbar-backward) 
+  (if (and (or (s-match "^*" (buffer-name)) 
+               (s-match "^:" (buffer-name))) 
+           (< (ome-number num) 5)) 
+      (ome-tabbar-backward (ome-inc num))))
+
 (defun ome-tabbar-forward-group 
     (&optional 
      num) 
@@ -77,8 +98,8 @@
            (< (ome-number num) 5)) 
       (ome-tabbar-backward-group (ome-inc num))))
 
-(global-set-key (kbd "C-M-'") 'tabbar-forward)
-(global-set-key (kbd "C-M-;") 'tabbar-backward)
+(global-set-key (kbd "C-M-'") 'ome-tabbar-forward)
+(global-set-key (kbd "C-M-;") 'ome-tabbar-backward)
 
 (global-set-key (kbd "C-M-[") 'ome-tabbar-forward-group)
 (global-set-key (kbd "C-M-/") 'ome-tabbar-backward-group)
@@ -325,7 +346,7 @@
 		   ;; function is called when updating the header line.
 		   (save-match-data (string-match "[^ ]" mode-name))) mode-name (symbol-name major-mode))))))
 
-(setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
+;; (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
 
 
 
@@ -337,39 +358,42 @@
   (if tabbar-ruler-projectile-tabbar-buffer-group-calc (symbol-value
                                                         'tabbar-ruler-projectile-tabbar-buffer-group-calc) 
     (set (make-local-variable 'tabbar-ruler-projectile-tabbar-buffer-group-calc) 
-         (cond ((or 
-                 (get-buffer-process (current-buffer)) 
-                 (memq major-mode '(comint-mode compilation-mode))) 
-                '("Term"))
-               ;;
-               ((string-equal "*" (substring (buffer-name) 0 1)) 
-                '("Misc"))
-               ;;
-               ((condition-case err (projectile-project-root) 
-                  (error 
-                   nil)) 
-                (list (projectile-project-name)))
-               ;;
-               ((memq major-mode '(emacs-lisp-mode                  ;
-                                   python-mode                      ;
-                                   emacs-lisp-mode                  ;
-                                   c-mode c++-mode                  ;
-                                   java-mode kotlin-mode scala-mode ;
-                                   makefile-mode cmake-mode         ;
-                                   lua-mode                         ;
-                                   vala-mode)) 
-                '("Coding"))
-               ;;
-               ((memq major-mode '(javascript-mode js-mode nxhtml-mode html-mode css-mode)) 
-                '("HTML"))
-               ;;
-               ((memq major-mode '(org-mode calendar-mode diary-mode)) 
-                '("Org"))
-               ;;
-               ((memq major-mode '(dired-mode)) 
-                '("Dir"))
-               ;;
-               (t '("Main")))) 
+         (cond ;;
+          ;;
+          ((memq major-mode '(erc-mode)) 
+           '("IRC"))
+          ;;
+          ((or 
+            (string-equal "#" (substring (buffer-name) 0 1)) 
+            (string-equal "*" (substring (buffer-name) 0 1)) 
+            (string-equal ":" (substring (buffer-name) 0 1))) 
+           '("Misc"))
+          ;;
+          ((or 
+            (get-buffer-process (current-buffer)) 
+            (memq major-mode '(comint-mode compilation-mode))) 
+           '("Term"))
+          ;;
+          ((condition-case err (projectile-project-root) 
+             (error 
+              nil)) 
+           (list (projectile-project-name)))
+          ;;
+          ((memq major-mode '(emacs-lisp-mode          ;
+                              makefile-mode cmake-mode ;
+                              )) 
+           '("Coding"))
+          ;;
+          ((memq major-mode '(javascript-mode js-mode js2-mode nxhtml-mode html-mode css-mode)) 
+           '("Web"))
+          ;;
+          ((memq major-mode '(org-mode calendar-mode diary-mode)) 
+           '("Org"))
+          ;;
+          ((memq major-mode '(dired-mode speedbar-mode)) 
+           '("Dir"))
+          ;;
+          (t '("Main")))) 
     (symbol-value 'tabbar-ruler-projectile-tabbar-buffer-group-calc)))
 
 (setq tabbar-buffer-groups-function 'tabbar-ruler-projectile-tabbar-buffer-groups)

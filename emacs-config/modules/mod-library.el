@@ -271,6 +271,30 @@ occurence of CHAR."
   (setq unread-command-events (list last-input-event)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (defun switch-to-buffer-by-major )
+(defun ome-count-buffer-by-major (mode) 
+  "Kill all other buffers." 
+  (interactive) 
+  (setq count-buf 0) 
+  (mapcar #'(lambda (BUFFER_OR_NAME) 
+              (if (eq mode (buffer-local-value 'major-mode (get-buffer BUFFER_OR_NAME))) 
+                  (setq count-buf (+ 1 count-buf)))) 
+          (buffer-list)) 
+  (message "count:%d" count-buf)
+  count-buf)
+
+(defun ome-find-buffer-by-major (mode) 
+  "Kill all other buffers." 
+  (interactive) 
+  (if ( >  (ome-count-buffer-by-major mode) 0) 
+      (mapcar #'(lambda (BUFFER_OR_NAME) 
+                  (if (eq mode (buffer-local-value 'major-mode (get-buffer BUFFER_OR_NAME))) 
+                      (switch-to-buffer BUFFER_OR_NAME))) 
+              (buffer-list)) 
+    (erc)))
+
+;; (>  (ome-count-buffer-by-major 'erc-mode) 0)
+
 ;; close all buffer
 (defun ome-kill-all-buffers () 
   "Kill all other buffers." 
@@ -430,9 +454,9 @@ occurence of CHAR."
   (delete-other-windows) 
   (ome-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
-  (find-file (concat (getenv "HOME") "/projects/me/blog/src/index.org"))
-  (find-file (concat (getenv "HOME") "/projects/me/blog/src/notes.org"))
-  (find-file (concat (getenv "HOME") "/projects/me/blog/src/articles.org"))
+  (find-file (concat (getenv "HOME") "/projects/me/blog/src/index.org")) 
+  (find-file (concat (getenv "HOME") "/projects/me/blog/src/notes.org")) 
+  (find-file (concat (getenv "HOME") "/projects/me/blog/src/articles.org")) 
   (find-file (concat (getenv "HOME") "/projects/me/blog/src/" doc-name)) 
   (delete-other-windows))
 
@@ -499,7 +523,8 @@ occurence of CHAR."
     (f-mkdir default-directory) 
     (if (= (shell-command (concat (s-replace "%s" (f-filename project-path) command))) 0) 
         (progn (message (concat "shell-cmd:" )) 
-               (find-file (concat project-path "/" (s-replace "%s" (f-filename project-path) openfile))) 
+               (find-file (concat project-path "/" (s-replace "%s" (f-filename project-path)
+                                                              openfile))) 
                (message (concat "created new project '" (f-filename project-path) "' succeed:)"))) 
       (message (concat "creat new project '" (f-filename project-path) "' failed:(")))))
 
@@ -508,21 +533,23 @@ occurence of CHAR."
          (ome-ask-new-project "lein new %s" "project.clj")) 
         ((string= lang "elixir") 
          (ome-ask-new-project "mix new %s" "mix.exs"))
-        ;; ((string= lang "java") 
-         ;; (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type java-application" "src/main/java/App.java"))
+        ;; ((string= lang "java")
+        ;; (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type java-application" "src/main/java/App.java"))
         ((string= lang "java") 
-         (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type java-application" "src/main/java/App.java"))
+         (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type java-application"
+                              "src/main/java/App.java")) 
         ((string= lang "scala") 
-         (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type scala-library" "src/main/scala/Library.scala"))
+         (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type scala-library"
+                              "src/main/scala/Library.scala")) 
         ((string= lang "groovy") 
-         (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type groovy-application" "src/main/groovy/App.groovy"))
-        
+         (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type groovy-application"
+                              "src/main/groovy/App.groovy")) 
         ((string= lang "python") 
-         (ome-ask-new-project "mkdir -p %s && cd %s && pipenv --three" "Pipfile"))
+         (ome-ask-new-project "mkdir -p %s && cd %s && pipenv --three" "Pipfile")) 
         ((string= lang "c") 
-         (ome-ask-new-project "gen-cmake-file %s" "CMakeLists.txt"))
+         (ome-ask-new-project "gen-cmake-file %s" "CMakeLists.txt")) 
         ((string= lang "haskell") 
-         (ome-ask-new-project "stack new %s" "src/Main.hs"))
+         (ome-ask-new-project "stack new %s" "src/Main.hs")) 
         ((string= lang "nim") 
          (ome-ask-new-project "nimble init %s" "src/%s.nim")) ;; not invalid
         ((string= lang "rust") 
