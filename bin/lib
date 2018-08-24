@@ -245,7 +245,7 @@ function auto-gen-cmake-file() {
         echo "set(ROOT \${CMAKE_CURRENT_LIST_DIR})" >> $projdir/CMakeLists.txt
         echo "" >> $projdir/CMakeLists.txt
         echo "# include_directories(\"\${ROOT}/Core/\")" >> $projdir/CMakeLists.txt
-        echo "file(GLOB_RECURSE new_list *.h *.hh *.hpp)" >> $projdir/CMakeLists.txt
+        echo "file(GLOB_RECURSE new_list *.h *.hh *.hpp *.hxx *.ipp)" >> $projdir/CMakeLists.txt
         echo "set(dir_list "")" >> $projdir/CMakeLists.txt
         echo "foreach(file_path ${new_list})" >> $projdir/CMakeLists.txt
         echo "  get_filename_component(dir_path ${file_path} PATH)" >> $projdir/CMakeLists.txt
@@ -255,7 +255,7 @@ function auto-gen-cmake-file() {
         echo "endforeach()" >> $projdir/CMakeLists.txt
         
         echo "" >> $projdir/CMakeLists.txt
-        echo "file(GLOB_RECURSE example_srcs *.h *.hh *i *.hpp *.c *.cc *.cpp)" >> $projdir/CMakeLists.txt
+        echo "file(GLOB_RECURSE example_srcs *.c *.cc *.cxx *.ixx *.cpp *.m *.mm)" >> $projdir/CMakeLists.txt
         echo "" >> $projdir/CMakeLists.txt
         echo "# target_sources(example PRIVATE \${example_srcs})" >> $projdir/CMakeLists.txt
         echo "# source_group(Source FILES \${example_srcs})" >> $projdir/CMakeLists.txt

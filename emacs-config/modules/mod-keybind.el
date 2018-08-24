@@ -545,7 +545,9 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 ("2" (ome-open-mod "clojure") "clojure")
 ("3" (ome-open-mod "csharp") "csharp")
 ("4" (ome-open-mod "javascript") "javascript")
-("5" (ome-open-mod "rtags") "rtags")
+("5" (ome-open-mod "cc") "cc")
+("M-5" (ome-open-mod "cquery") "cquery")
+("C-5" (ome-open-mod "rtags") "rtags")
 ("6" (ome-open-mod "elixir") "elixir")
 
 ;;("w" (ome-open-mod "web") "web")
@@ -658,7 +660,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    "_n_:New        _>_:gochar-forward   _t_:toolbar   _[_:↑        _r_:rname       _M-c_:capture\n" ;;
    "_o_:Open       _<_:gochar-backward  _m_:menubar   _/_:↓        _R_:remove      _M-l_:store-link\n" ;;
    "_b_:Bookmarks  _g_:grep-dir         _s_:speedbar  _;_:←        _k_:kill        _M-a_:agenda\n" ;;
-   "_e_:Email      _G_:grep-proj        _S_:sidebar   _'_:→        _K_:kill-other  _M-b_:switchb\n" ;;
+   "_e_:Email      _G_:grep-proj        _S_:sidebar   _'_:→        _M-k_:kill-other  _M-b_:switchb\n" ;;
    "_f_:Feed       _d_:dict-bing        _=_:scale+    ^0-9:select^ _C-k_:kill-all  _M-u_:update\n" ;;
    "_c_:Config     _D_:dict-bing-web    _-_:scale-    _u_:URLs     _._:*scratch*   _M-g_:GTD\n" ;;
    "_i_:IRC ^^^^^^^^                                                               _M-p_:publish-blog\n";;
@@ -685,7 +687,8 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("M-u" org-update-statistics-cookies)
   ;; ("M-j" (org-capture nil "j") "journal")
   ("M-g" (org-capture nil "t") "GTD")
-  ("M-p" (org-publish-project "blog") "publish-blog")
+  ;; ("M-p" (org-publish-project "blog") "publish-blog")  
+  ("M-p" (ome-run-command "cd ~/workspace/blog/ && make") "publish-blog")
   
   ;; Search
   (">" ome-go-to-char-forward "go-to-char-forward") 
@@ -764,7 +767,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("R" ome-delete-file-and-buffer "delete-file-and-buffer") 
   ("k" (kill-buffer (buffer-name)) "kill-buffer" 
    :color pink) 
-  ("K" ome-kill-other-buffers "kill-other-buffers") 
+  ("M-k" ome-kill-other-buffers "kill-other-buffers") 
   ("C-k" ome-kill-all-buffers "kill-all-buffers") 
   ("." switch-to-scratch-buffer "*scratch")
 

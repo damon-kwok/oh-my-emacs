@@ -428,16 +428,23 @@ function mu4e-install() {
     # cd $HOME/.emacs.d/libs/mu/
     # ./configure --prefix=$HOME/.mu
     # make install
-
+    
+    readp "install libgmime3 from source?"
+    if [ $? -eq 1 ]; then
+        github-upgrade jstedfast/gmime $DEV_ROOT/gmime3
+        cd $DEV_ROOT/gmime3/
+        ./autogen.sh
+        ./configure --prefix=/usr --disable-static && make
+        sudo make install
+    fi
+    
     tip "install mu4e-git"
     github-upgrade djcb/mu $HOME/.emacs.d/libs/mu-git
     cd $HOME/.emacs.d/libs/mu-git/
     ./autogen.sh
-    # ./configure --prefix=$HOME/.mu
-    # make install
     ./configure --prefix=$HOME/.mu
-    make
-
+    make install
+    
     tip "install offlineiamp"
     pip install --user -U offlineimap	
     

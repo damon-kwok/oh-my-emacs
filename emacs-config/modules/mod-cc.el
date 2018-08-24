@@ -47,10 +47,6 @@
 ;; (package-require 'company-c-headers)
 ;; (add-to-list 'company-backends 'company-c-headers)
 
-;; cmake `font-lock'
-(package-require 'cmake-font-lock)
-(autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
-(add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
 
 ;;; Syntax highlighting support for "`Modern.C++'" - until `C++17' and Technical Specification.
 (package-require 'modern-cpp-font-lock)
@@ -153,30 +149,32 @@
 (require 'cmake-mode)
 (define-key c-mode-map [f6] 'ome-open-or-close-cmakefile)
 (define-key c++-mode-map [f6] 'ome-open-or-close-cmakefile)
+(define-key objc-mode-map [f6] 'ome-open-or-close-cmakefile)
 (define-key cmake-mode-map [f6] 'ome-open-or-close-cmakefile)
 
+(require 'nxml-mode)
 (define-key c-mode-map [f7] 'ome-open-or-close-packagexml)
 (define-key c++-mode-map [f7] 'ome-open-or-close-packagexml)
-
-(define-key c-mode-map [f12] 'ome-switch-cc-source-and-header)
-(define-key c++-mode-map [f12] 'ome-switch-cc-source-and-header)
-
-(define-key c++-mode-map [f5] 
-  '(lambda () 
-     (interactive) 
-     (ome-run-command "/home/damon/catkin_ws/bin/build_adsim")))
-
-
-(require 'nxml-mode)
+(define-key objc-mode-map [f7] 'ome-open-or-close-packagexml)
 (define-key nxml-mode-map [f7] 'ome-open-or-close-packagexml)
+
+;; (define-key c-mode-map [f12] 'ome-switch-cc-source-and-header)
+;; (define-key c++-mode-map [f12] 'ome-switch-cc-source-and-header)
+
+(define-key c-mode-map [f12] 'projectile-find-other-file)
+(define-key c++-mode-map [f12] 'projectile-find-other-file)
+(define-key objc-mode-map [f12] 'projectile-find-other-file)
+
+;; (define-key c++-mode-map [f5] 
+  ;; '(lambda () 
+     ;; (interactive) 
+     ;; (ome-run-command "/home/damon/catkin_ws/bin/build_adsim")))
+
 
 ;; `format'
 (package-require 'clang-format)
 (require 'clang-format)
-;; (setq-default c-basic-offset 4 tab-width 4 indent-tabs-mode nil)
-;; (setq c-default-style "LLVM") ;;linux
 
-;; (define-key c++-mode-map (kbd "C-M-") 'clang-format-region)
 (define-key c-mode-map (kbd "C-c C-f")  'clang-format-buffer)
 (define-key c++-mode-map (kbd "C-c C-f")  'clang-format-buffer)
 (define-key objc-mode-map (kbd "C-c C-f")  'clang-format-buffer)
@@ -185,6 +183,12 @@
 (define-key c++-mode-map (kbd "C-M-\\")  'clang-format-region)
 (define-key objc-mode-map (kbd "C-M-\\")  'clang-format-region)
 
+;; `cmake-font-lock'
+(package-require 'cmake-font-lock)
+(autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
+(add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
+
+;; `cmake-file'
 (defun gen-cmake-file () 
   (shell-command (concat (getenv "HOME") "/.oh-my-emacs/bin/gen-cmake-file " (ome-project-root))))
 
@@ -201,7 +205,7 @@
 ;; (delete-other-windows)
 ;; (compile-goto-error EVENT)
 ;; ))
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Some code that will make it so the background color of the lines
 ;; that gcc found errors on, should be in another color.
 (require 'custom)

@@ -57,7 +57,33 @@
 (global-set-key "\C-cb" 'org-switchb)
 (global-set-key "\C-c#" 'org-update-statistics-cookies)
 
-
+;; (global-set-key (kbd "C-c C-b") #'(lambda ()
+;; (interactive)
+;; (org-publish-project "blog")))
+
+;;
+;; (org-remember-insinuate)
+;; (setq org-directory "~/journal/")
+;; (setq org-default-notes-file
+;; (concat org-directory (concat (format-time-string "%Y-%m") ".org.cpt"))
+;; )
+
+;; (define-key global-map "\C-cr" 'org-remember)
+
+;; (define-key global-map "\C-cc" 'org-capture)
+
+(define-key global-map "\C-cj" (lambda () 
+                                 (interactive) 
+                                 (org-capture nil "j")))
+
+(defconst journal-file (concat "~/workspace/org/journal-" (format-time-string "%Y-%m") ".org"))
+
+(setq org-capture-templates '(("t" "Todo" entry (file+headline "~/workspace/org/gtd.org" "Tasks")
+                               "* TODO %?\n  %i\n  %a") 
+                              ("j" "Journal" entry (file+olp+datetree journal-file)
+                               "* %?\nEntered on %U\n  %i\n  %a")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; `Babel-Languages'
 (package-require 'ob-elixir)
@@ -118,70 +144,13 @@
                                (fsharp . t) 
                                (http . t) 
                                (nim . t)
-                                        ;(php . t)
-			       (prolog . t) 
+                               ;;(php . t)
+                               (prolog . t) 
                                (rust . t) 
                                (swift . t) 
                                (dart . t) 
                                (coffee . t) 
                                (coffeescript . t)))
-
-
-(require 'ox-publish)
-(setq org-publish-project-alist '(;;
-                                  ("blog" :components ("blog-notes" "blog-static"))
-                                  ;;
-				  ("blog-notes" :base-directory "~/workspace/blog_src/" 
-                                   :base-extension "org" 
-                                   :publishing-directory "~/projects/me/blog/" 
-                                   :recursive t 
-                                   :publishing-function org-html-publish-to-html 
-                                   :headline-levels 4 ; Just the default for this project.
-				   :auto-preamble t 
-                                   :section-numbers nil 
-                                   :author "damon-kwok" 
-                                   :email "damon-kwok@outlook.com" 
-                                   :auto-sitemap t ; Generate sitemap.org automagically...
-				   :sitemap-filename "sitemap.org" ; ... call it sitemap.org (it's the default)...
-				   :sitemap-title "Sitemap" ; ... with title 'Sitemap'.
-				   :sitemap-sort-files anti-chronologically 
-                                   :sitemap-file-entry-format "%d %t")
-                                  ;;
-				  ("blog-static" :base-directory "~/workspace/blog_src/" 
-                                   :base-extension
-                                   "css\\|js\\|png\\|jpg\\|bmp\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|ico" 
-                                   :publishing-directory "~/projects/me/blog/" 
-                                   :recursive t 
-                                   :publishing-function org-publish-attachment)
-                                  ;;
-				  ))
-(setq org-html-validation-link nil)
-
-;; (global-set-key (kbd "C-c C-b") #'(lambda ()
-;; (interactive)
-;; (org-publish-project "blog")))
-
-;;
-;; (org-remember-insinuate)
-;; (setq org-directory "~/journal/")
-;; (setq org-default-notes-file
-;; (concat org-directory (concat (format-time-string "%Y-%m") ".org.cpt"))
-;; )
-
-;; (define-key global-map "\C-cr" 'org-remember)
-
-(define-key global-map "\C-cc" 'org-capture)
-
-(define-key global-map "\C-cj" (lambda () 
-                                 (interactive) 
-                                 (org-capture nil "j")))
-
-(defconst journal-file (concat "~/workspace/org/journal-" (format-time-string "%Y-%m") ".org"))
-
-(setq org-capture-templates '(("t" "Todo" entry (file+headline "~/workspace/org/gtd.org" "Tasks")
-                               "* TODO %?\n  %i\n  %a") 
-                              ("j" "Journal" entry (file+olp+datetree journal-file)
-                               "* %?\nEntered on %U\n  %i\n  %a")))
 
 ;;
 (provide 'mod-orgmode)
