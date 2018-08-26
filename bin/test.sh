@@ -2,12 +2,12 @@
 
 echo "aaa:$@"
 function hello() {
-    echo "hello,emacs!"
+    echo "hello,$1!"
 }
-
+hello $@
 FUNC_NAME="hello"
 # eval $FUNC_NAME
-eval "hello"
+eval "hello $?"
 
 ##################################
 function haha() {

@@ -23,7 +23,7 @@ function install-basedevel {
 	    sudo apt update
 	    sudo apt dist-upgrade
 	    
-	    sudo apt install -y build-essential cppunit texinfo libtool autoscan aclocal autoconf autoheader automake \
+	    sudo apt install -y build-essential swig net-tools cppunit texinfo libtool autoscan aclocal autoconf autoheader automake \
 		 coreutils diffutils wget curl zip unzip git subversion silversearcher-ag
 	    sudo apt install -y python-pip perl ruby ocaml haskell-stack #openjdk-8-jdk
 	    sudo apt install -y ttf-bitstream-vera #zmq ghostscript
@@ -47,7 +47,7 @@ function install-basedevel {
 	
 	2)  # ArchLinux / Manjaro
 	    yaourt -Syyu
-	    yaourt -S base-devel cppunit coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
+	    yaourt -S base-devel swig net-tools cppunit coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
 	    yaourt -S python2-pip rubygems ocaml haskell-stack-git jdk go-bin
 	    yaourt -S nerd-fonts-bitstream-vera-mono
 	    yaourt -S i3-wm i3lock i3status dmenu
@@ -58,7 +58,7 @@ function install-basedevel {
 	    sudo dnf upgrade --refresh
 	    
 	    sudo dnf groupinstall "Development Tools and Libraries"
-	    sudo dnf install cppunit automake \
+	    sudo dnf install swig net-tools cppunit automake \
 		 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
 	    sudo dnf install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
 	    sudo dnf install ttf-bitstream-vera
@@ -68,7 +68,7 @@ function install-basedevel {
 	    brew update
 	    brew upgrade
 	    
-	    brew install cppunit automake \
+	    brew install swig net-tools cppunit automake \
 		 coreutils diffutils wget curl zip unzip git subversion the_silver_searcher
 	    brew install python2-pip perl rubygems ocaml haskell-stack #openjdk-8-jdk golang
 	    brew install ttf-bitstream-vera
@@ -76,7 +76,7 @@ function install-basedevel {
 	
 	5) # msys2
 	    pacman -Syyu	    
-	    pacman -S base-devel msys2-devel cppunit automake \
+	    pacman -S base-devel msys2-devel swig net-tools cppunit automake \
 		   coreutils diffutils wget curl zip unzip git subversion camke mingw-w64-x86_64-ag
 	    pacman -S python2-pip perl rubygems mingw-w64-x86_64-gcc mingw-w64-x86_64-ocaml golang
 	    pacman -S ttf-bitstream-vera
@@ -688,11 +688,19 @@ function dptrp1-run() {
 
 function dptrp1-register() {
     local ip=$1
-    local file=$2
     dptrp1 --client-id ~/workspace/dptrp1/deviceid.dat \
            --key ~/workspace/dptrp1/privatekey.dat \
            --addr $ip \
            register
+}
+
+
+function dptrp1-list() {
+    local ip=$1
+    dptrp1 --client-id ~/workspace/dptrp1/deviceid.dat \
+           --key ~/workspace/dptrp1/privatekey.dat \
+           --addr $ip \
+           list-documents
 }
 
 function dptrp1-upload() {

@@ -19,10 +19,10 @@ export ZIP_HOME=$CACHE/apps-zip
 
 # Emacs
 # alias emacsd='emacs --daemon'
-export ALTERNATE_EDITOR=""
-alias ec='emacsclient -c -n'
 export EDITOR='emacsclient -c -n'
-alias et='TERM=xterm-256color emacsclient -t'
+export ALTERNATE_EDITOR=""
+alias emacsc='emacsclient -c -n'
+alias emacst='TERM=xterm-256color emacsclient -t'
 
 # Shell
 export SHELL_NAME=ps |  grep $$  |  awk '{print $4}'
