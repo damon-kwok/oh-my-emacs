@@ -750,3 +750,9 @@ function remacs-install() {
     ./configure --enable-rust-debug
     make
 }
+
+function blog-localserver() {
+    cd ~/workspace/projects/nodejs/http_server
+    npm update
+    node ~/workspace/projects/nodejs/http_server/index.js ~/projects/me/blog 
+}
