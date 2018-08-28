@@ -578,11 +578,11 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 ^Project^         ^Doc^          ^Blog^            ^dotfiles^
 ^^^^^^^^--------------------------------------------------------------------------------
 _M-1_:libknife    _h_:README.org  _i_: index.org    _1_:env
-_M-2_:medusa      _d_:diary.org   _n_: note.org     _2_:lib
-_M-3_:pacman      _t_:todo.org    _a_: article.org  _3_:tool
+_M-2_:medusa      _d_:diary.org   _b_: blog.org     _2_:lib
+_M-3_:pacman      _t_:todo.org    _l_: link.org     _3_:tool
 _M-4_:network     _b_:book.org    ^^                _4_:proj
 _M-5_:webscrap    _g_:game.org    ^^                _0_:.emacs
-^^                _N_:NEWS.org    ^^                _._:.bashrc
+^^                _n_:NEWS.org    ^^                _._:.bashrc
 ^^^^^^^^--------------------------------------------------------------------------------
 _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 " ;;
@@ -600,12 +600,12 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("t" (ome-open-doc "todo.org") "todo.org") 
   ("b" (ome-open-doc "book.org") "book.org") 
   ("g" (ome-open-doc "game.org") "game.org") 
-  ("N" (ome-open-doc "news.org") "news.org")
+  ("n" (ome-open-doc "news.org") "news.org")
 
   ;; Blog
   ("i" (ome-open-blog "index.org") "index.org") 
-  ("n" (ome-open-blog "notes.org") "notes.org") 
-  ("a" (ome-open-blog "articles.org") "articles.org")
+  ("b" (ome-open-blog "blog.org") "blog.org") 
+  ("l" (ome-open-blog "link.org") "link.org")
 
   ;; dotfiles
   ("0" (ome-open-file "~/.emacs") ".emacs") 

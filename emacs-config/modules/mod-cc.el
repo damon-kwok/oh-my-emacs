@@ -190,7 +190,7 @@
 
 ;; `cmake-file'
 (defun gen-cmake-file () 
-  (shell-command (concat (getenv "HOME") "/.oh-my-emacs/bin/gen-cmake-file " (ome-project-root))))
+  (shell-command (concat "gen-cmake-file " (ome-project-root))))
 
 ;; (add-hook 'c-mode-hook 'gen-cmake-file)
 ;; (add-hook 'c++-mode-hook 'gen-cmake-file)
