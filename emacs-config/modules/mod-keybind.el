@@ -609,7 +609,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 
   ;; dotfiles
   ("0" (ome-open-file "~/.emacs") ".emacs") 
-  ("1" (ome-open-file "~/.oh-my-emacs/bin/env") "env") 
+  ("1" (ome-open-file "~/workspace/bin/env") "env") 
   ("2" (ome-open-file "~/workspace/bin/lib") "lib") 
   ("3" (ome-open-file "~/workspace/bin/tool") "tool") 
   ("4" (ome-open-file "~/workspace/bin/proj") "proj") 
