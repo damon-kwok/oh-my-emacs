@@ -259,7 +259,7 @@ function cquery-install() {
     mkdir -p $DEV_ROOT/cquery/build
     cd $DEV_ROOT/cquery/build/
     # -DLIBCLANG_LLVM_CONFIG_EXECUTABLE=$LLVM_BIN/llvm-config 
-          # -DCLANG_USE_BUNDLED_LIBC++=on 
+    # -DCLANG_USE_BUNDLED_LIBC++=on 
     cmake .. \
 	  -DCMAKE_INSTALL_PREFIX=$HOME/.cquery \
 	  -DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
@@ -557,6 +557,27 @@ function sdkman-install() {
     #lsp-java
     install-jdt-language-server
     cd ~
+}
+
+function n-install() {
+
+    if [ ! -f $HOME/n/bin/npm ]; then
+        curl -L https://git.io/n-install | bash
+    fi
+
+    find-str "N-INSTALL" ~/.bashrc
+    if [ $? -eq 0 ]; then
+        echo "" >> ~/.bashrc
+	echo "# N-INSTALL" >> ~/.bashrc
+	echo "export N_PREFIX=\"\$HOME/n\"; [[ :\$PATH: == *\":\$N_PREFIX/bin:\"* ]] || PATH+=\":$N_PREFIX/bin\"" >> ~/.bashrc
+    fi
+    
+    npm i -g npm
+    
+    tip "install js language server"
+    npm i -g javascript-typescript-langserver
+    npm i -g flow-language-server
+    npm i -g typescript-language-server    
 }
 
 function nvm-install() {
