@@ -80,6 +80,45 @@ function git-upgrade() {
     cd $curdir
 }
 
+function git-ssh-upgrade() {
+    echo-tip "$*"
+    local curdir=`pwd`
+    local site=$1
+    local project=$2
+    local dir=$3
+    local submodule=$4
+    if [ ! -n "$5" ]; then
+        local branch=""
+    else
+        local branch="-b $5"
+    fi    
+    local url="git@${site}:${project}.git"
+    
+    if [ ! -d $dir ] || [ ! -e "$dir/.git/index" ]; then
+	tip "clone $project"
+        echo-success "git clone $url $dir --single-branch --depth=1 $branch"
+	git clone $url $dir --single-branch --depth=1 $branch
+        # elif [ "`ls -A $DIRECTORY`" = "" ]; then
+        # echo "$DIRECTORY is indeed empty"
+    else
+	cd $dir
+	tip "update $project"
+        echo-success "git pull"
+	git pull
+    fi
+    cd $dir
+    # git submodule foreach --recursive 'git fetch --tags'
+    
+    if [ "$submodule" != "0" ]; then
+        # echo-success "git submodule update --init --depth=1"
+	# git submodule update --init --depth=1
+        echo-success "git submodule update --init"
+	git submodule update --init
+    fi
+    
+    cd $curdir
+}
+
 function github-ssh-upgrade() {
     echo-tip "$*"
     local curdir=`pwd`
@@ -118,12 +157,25 @@ function github-ssh-upgrade() {
 function github-upgrade() {
     local curdir=`pwd`
     local site="https://github.com"
-    local project=$1
-    local dir=$2
-    local submodule=$3
-    local branch=$4
+    git-upgrade $site $@
+}
 
-    git-upgrade $site $project $dir $submodule $branch
+function github-ssh-upgrade() {
+    local curdir=`pwd`
+    local site="github.com"
+    git-ssh-upgrade $site $@
+}
+
+function gitlab-ssh-upgrade() {
+    local curdir=`pwd`
+    local site="https://gitlab.com"
+    git-upgrade $site $@
+}
+
+function gitlab-ssh-upgrade() {
+    local curdir=`pwd`
+    local site="gitlab.com"
+    git-ssh-upgrade $site $@
 }
 
 function git-complete-upgrade() {
