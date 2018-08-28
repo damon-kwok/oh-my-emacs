@@ -137,6 +137,8 @@ export PATH=$HOME/.mu/bin:$PATH
 
 # CURRENT_DIR=$(dirname $(readlink -f $0))
 # echo $CURRENT_DIR
-source lib
-source tool
-source proj
+if [ -d $HOME/workspace/bin/ ]; then
+    source $HOME/workspace/bin/lib
+    source $HOME/workspace/bin/tool
+    source $HOME/workspace/bin/proj
+fi

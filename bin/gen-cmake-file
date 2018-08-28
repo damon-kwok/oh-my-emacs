@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-source /opt/ros/kinetic/setup.bash
-source ~/.oh-my-emacs/bin/env
-mkdir -p $1
-auto-gen-cmake-file $1
