@@ -583,6 +583,7 @@ _M-3_:pacman      _t_:todo.org    _l_: link.org     _3_:tool
 _M-4_:network     _b_:book.org    ^^                _4_:proj
 _M-5_:webscrap    _g_:game.org    ^^                _0_:.emacs
 ^^                _n_:NEWS.org    ^^                _._:.bashrc
+^^                _e_:english.org ^^ ^^
 ^^^^^^^^--------------------------------------------------------------------------------
 _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 " ;;
@@ -601,6 +602,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("b" (ome-open-doc "book.org") "book.org") 
   ("g" (ome-open-doc "game.org") "game.org") 
   ("n" (ome-open-doc "news.org") "news.org")
+  ("e" (ome-open-doc "english.org") "english.org")
 
   ;; Blog
   ("i" (ome-open-blog "index.org") "index.org") 
