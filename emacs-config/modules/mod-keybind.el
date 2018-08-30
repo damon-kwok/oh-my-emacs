@@ -657,15 +657,15 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 (defhydra hydra-super-menu 
   (:color blue) 
   (concat ;;
-   "^Main^         ^Search^             ^View^        ^Navigate^   ^Buffer^        ^Org^\n" ;;
+   "^Main^         ^Search^             ^View^        ^Navigate^   ^Buffer^         ^Org^\n" ;;
    "^^^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
-   "_n_:New        _>_:gochar-forward   _t_:toolbar   _[_:↑        _r_:rname       _M-c_:capture\n" ;;
-   "_o_:Open       _<_:gochar-backward  _m_:menubar   _/_:↓        _R_:remove      _M-l_:store-link\n" ;;
-   "_b_:Bookmarks  _g_:grep-dir         _s_:speedbar  _;_:←        _k_:kill        _M-a_:agenda\n" ;;
-   "_e_:Email      _G_:grep-proj        _S_:sidebar   _'_:→        _M-k_:kill-other  _M-b_:switchb\n" ;;
-   "_f_:Feed       _d_:dict-bing        _=_:scale+    ^0-9:select^ _C-k_:kill-all  _M-u_:update\n" ;;
-   "_c_:Config     _D_:dict-bing-web    _-_:scale-    _u_:URLs     _._:*scratch*   _M-g_:GTD\n" ;;
-   "_i_:IRC        ^^   ^^^^^^                                                     _M-p_:publish-blog\n";;
+   "_n_:New        _>_:gochar-forward   _t_:toolbar   _[_:↑        _r_:rname        _M-c_:capture\n" ;;
+   "_o_:Open       _<_:gochar-backward  _m_:menubar   _/_:↓        _R_:remove       _M-l_:store-link\n" ;;
+   "_b_:Bookmarks  _g_:grep-dir         _s_:speedbar  _;_:←        _k_:kill         _M-a_:agenda\n" ;;
+   "_e_:Email      _G_:grep-proj        _S_:sidebar   _'_:→        _M-k_:kill-other _M-b_:switchb\n" ;;
+   "_f_:Feed       _d_:dict-bing        _=_:scale+    ^0-9:select^ _C-k_:kill-all   _M-u_:update\n" ;;
+   "_c_:Config     _D_:dict-bing-web    _-_:scale-    _u_:URLs     _._:*scratch*    _M-g_:GTD\n" ;;
+   "_i_:IRC        ^^   ^^^^                                       _M-._:load-menu  _M-p_:publish-blog\n";;
    "^^^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^\n")
   ;; Main
@@ -774,7 +774,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("M-k" ome-kill-other-buffers "kill-other-buffers") 
   ("C-k" ome-kill-all-buffers "kill-all-buffers") 
   ("." switch-to-scratch-buffer "*scratch")
-
+  ("M-." (load "mod-keybind.el") "load-menu")
   ;; Orgmode
 
   
@@ -790,7 +790,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 (defun show-super-menu () 
   "docstring" 
   (interactive) 
-  (load "mod-keybind.el") 
+  ;; (load "mod-keybind.el") 
   (hydra-super-menu/body))
 
 ;; (global-set-key (kbd "C-M-z") 'show-super-menu1)

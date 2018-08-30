@@ -29,6 +29,10 @@
 (setenv "GOPATH" (concat (getenv "HOME") "/goprojects"))
 (setenv "PATH" (concat (getenv "PATH") ":" (getenv "GOPATH") "/bin"))
 
+;; go-mode
+(package-require 'go-mode)
+(autoload 'go-mode "go-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 
 (add-hook 'go-mode-hook #'flycheck-mode)
 

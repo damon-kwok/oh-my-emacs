@@ -577,10 +577,10 @@ occurence of CHAR."
 (defun ome-buffer-reload() 
   (interactive) 
   (save-buffer) 
-  (setq old-pos (point)) 
-  (goto-char (point-min)) 
-  (find-alternate-file (buffer-file-name)) 
-  (goto-char old-pos))
+  (let ((old-pos (point)))  
+    (find-alternate-file (buffer-file-name)) 
+    (goto-char (point-min)) 
+    (goto-char old-pos)))
 
 (defun ome-mark-all-like-this () 
   "Find and mark all the parts of the buffer matching the currently active region" 
