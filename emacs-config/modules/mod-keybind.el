@@ -665,7 +665,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    "_e_:Email      _G_:grep-proj        _S_:sidebar   _'_:→        _M-k_:kill-other _M-b_:switchb\n" ;;
    "_f_:Feed       _d_:dict-bing        _=_:scale+    ^0-9:select^ _C-k_:kill-all   _M-u_:update\n" ;;
    "_c_:Config     _D_:dict-bing-web    _-_:scale-    _u_:URLs     _._:*scratch*    _M-g_:GTD\n" ;;
-   "_i_:IRC        ^^   ^^^^                                       _M-._:load-menu  _M-p_:publish-blog\n";;
+   "_i_:IRC        ^^                   _M_:Message   ^^           _M-._:load-menu  _M-p_:publish-blog\n";;
    "^^^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^\n")
   ;; Main
@@ -715,6 +715,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    :color pink) 
   ("-" text-scale-decrease "text-scale-decrease" 
    :color pink)
+  ("M" (ome-show-compilation "*Messages*") "*Message*")
 
   ;; Nav
   (";" ome-tabbar-backward "ome-tabbar-backward" 

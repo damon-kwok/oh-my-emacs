@@ -168,7 +168,7 @@
 (defun ome-bing-dict-brief-eww (arg) 
   "compile project"
   ;;(interactive)
-  (ome-show-compilation "*Messages*") 
+  (ome-show-compilation "*Messages*")
   (other-window 1) 
   (eww (concat "https://www.bing.com/dict/search??mkt=zh-cn&q=" arg)))
 

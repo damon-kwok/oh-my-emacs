@@ -1,11 +1,11 @@
 ;; -*- lexical-binding: t -*-
-;; mod-go.el --- This is where you apply your OCD.
+;; mod-gocode.el --- This is where you apply your OCD.
 ;;
 ;; Copyright (C) 2009-2018 damon-kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2018-05-22
-;; Modify: 2018-05-22
+;; Create: 2018-08-31
+;; Modify: 2018-08-31
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,27 +24,28 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-;; go-mode
+;; `gomode'
 (package-require 'go-mode)
 (require 'go-mode)
 ;; (autoload 'go-mode "go-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; lsp-server
-(require 'mod-lsp)
-(package-require 'lsp-go)
-(require 'lsp-go)
 
-(defun company-lsp--go-completion-snippet (item) 
-  "Function providing snippet with the go language.
-It parses the function's signature in ITEM (a CompletionItem)
-to expand its arguments."
-  ;; (yas-expand-snippet item)
-  (message "msg:%s" item))
+;; `company'
+(package-require 'company)
+(require 'company)
+
+;; company-go
+(add-to-list 'load-path (concat (getenv "GOPATH") "/src/github.com/mdempsky/gocode/emacs-company"))
+(require 'company-go)
+
+(setq company-tooltip-limit 20)                      ; bigger popup window
+(setq company-idle-delay .3)                         ; decrease delay before autocompletion popup shows
+(setq company-echo-delay 0)                          ; remove annoying blinking
+(setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
 
 (add-hook 'go-mode-hook (lambda ()
-                          (lsp-go-enable)
-                          (add-to-list 'company-lsp--snippet-functions '("go" . company-lsp--go-completion-snippet))
+                          (set (make-local-variable 'company-backends) '(company-go))
+                          (company-mode)
                           (add-hook 'before-save-hook 'gofmt-before-save)
                           (setq indent-tabs-mode t)
                           (setq tab-width 4)))
@@ -67,5 +68,5 @@ to expand its arguments."
 
 (define-key go-mode-map (kbd "C-c C-f")  'gofmt)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(provide 'mod-go)
-;; mod-go.el ends here
+(provide 'mod-gocode)
+;; mod-gocode.el ends here

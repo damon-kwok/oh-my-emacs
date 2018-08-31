@@ -490,7 +490,8 @@
 (setq kill-buffer-query-functions nil)
 
 ;; tab
-(setq default-tab-width 4)
+;; (setq default-tab-width 4)
+(setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
 
 ;; when file modify with other program: auto update buffer

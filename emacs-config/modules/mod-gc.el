@@ -44,14 +44,6 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (add-hook 'after-init-hook (lambda () 
                              (my-optimize-gc 16 0.2)))
 ;;
-
-;;(require 'indent-tabs-mode)
-;; Permanently force Emacs to indent with spaces, never with TABs:
-;;(define-globalized-minor-mode global-notab-mode indent-tabs-mode
-;;  (lambda ()
-;;    (setq-default indent-tabs-mode nil)))
-;;(global-notab-mode t)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-gc)
 ;; mod-gc.el ends here
