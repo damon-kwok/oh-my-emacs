@@ -43,6 +43,7 @@
 (setq company-echo-delay 0)                          ; remove annoying blinking
 (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
 
+;;https://coderwall.com/p/kpp6ta/nice-emacs-go-mode-indenting-and-autoformat
 (add-hook 'go-mode-hook (lambda ()
                           (set (make-local-variable 'company-backends) '(company-go))
                           (company-mode)
