@@ -84,7 +84,30 @@
                                "* %?\nEntered on %U\n  %i\n  %a")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `tex'
+(require 'mod-latex)
+(package-require 'org2ctex)
+(require 'org2ctex)
 
+(org2ctex-toggle t)
+
+;;
+;; (setq org2ctex-latex-default-class "ctexart")
+
+;; disable latex auto font settings
+;; (setq org2ctex-latex-fonts nil)
+
+;;
+;; (setq org-latex-create-formula-image-program 'dvipng)    ;速度很快，但 *默认* 不支持中文
+(setq org-latex-create-formula-image-program 'imagemagick) ;速度较慢，但支持中文
+(setq org-format-latex-options (plist-put org-format-latex-options 
+                                          :scale 2.0)) ;调整 LaTeX 预览图片的大小
+(setq org-format-latex-options (plist-put org-format-latex-options 
+                                          :html-scale 2.5)) ;调整 HTML 文件中 LaTeX 图像的大小
+;; 中文目录下的 org 文件无法转换为 pdf 文件
+;; 这个问题可以使用 latexmk 命令配合 "%b.tex" (仅仅使用文件名，而不是文件的绝对路径) 来规避，比如：
+(setq org2ctex-latex-commands '("latexmk -xelatex -gg -pdf %b.tex"))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `Babel-Languages'
 (package-require 'ob-elixir)
 (package-require 'ob-browser)

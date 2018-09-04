@@ -53,7 +53,7 @@
 (module-require 'mod-protobuf)
 (module-require 'mod-markdown)
 (module-require 'mod-orgmode)
-(module-require 'mod-latex)
+;; (module-require 'mod-latex)
 (module-require 'mod-ros)
 (module-require 'mod-js)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
