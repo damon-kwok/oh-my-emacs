@@ -788,6 +788,12 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("<SPC>" nil "quit") 
   ("<escape>" nil "quit"))
 
+(package-require 'yahoo-weather)
+(require 'yahoo-weather)
+(setq yahoo-weather-location "Shanghai")
+(yahoo-weather-mode)
+
+
 (defun show-super-menu () 
   "docstring" 
   (interactive) 
