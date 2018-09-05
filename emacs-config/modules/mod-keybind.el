@@ -718,9 +718,9 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("M" (ome-show-compilation "*Messages*") "*Message*")
 
   ;; Nav
-  (";" ome-tabbar-backward "ome-tabbar-backward" 
+  (";" tabbar-backward "ome-tabbar-backward" 
    :color pink) 
-  ("'" ome-tabbar-forward "tabbar-forward" 
+  ("'" tabbar-forward "tabbar-forward" 
    :color pink) 
   ("[" ome-tabbar-backward-group "tabbar-up" 
    :color pink) 

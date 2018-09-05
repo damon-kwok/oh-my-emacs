@@ -98,8 +98,8 @@
            (< (ome-number num) 5)) 
       (ome-tabbar-backward-group (ome-inc num))))
 
-(global-set-key (kbd "C-M-'") 'ome-tabbar-forward)
-(global-set-key (kbd "C-M-;") 'ome-tabbar-backward)
+(global-set-key (kbd "C-M-'") 'tabbar-forward)
+(global-set-key (kbd "C-M-;") 'tabbar-backward)
 
 (global-set-key (kbd "C-M-[") 'ome-tabbar-forward-group)
 (global-set-key (kbd "C-M-/") 'ome-tabbar-backward-group)

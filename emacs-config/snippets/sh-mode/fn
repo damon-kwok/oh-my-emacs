@@ -1,3 +1,4 @@
 function ${1:name}() {
-         $0
+  echo "$1"
+  $0
 }
