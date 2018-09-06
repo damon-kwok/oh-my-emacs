@@ -22,7 +22,8 @@
 ;; Code:
 (require 'mod-cc)
 
-
+(setenv "LIBCLANG_LIBRARY_DIR" "/home/damon/.llvm/lib")
+(setenv "LIBCLANG_INCLUDE_DIR" "/home/damon/.llvm/include")
 ;; `rtags'
 (package-require 'rtags)
 (require 'rtags)
@@ -147,51 +148,6 @@
 (define-key rtags-mode-map (kbd "C-c C-z") 'show-cc-buffer)
 (define-key c-mode-base-map (kbd "C-c C-z") 'show-rtags-buffer)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; `irony'
-(package-require 'irony)
-(autoload 'irony "irony" nil t)
-;; (require 'irony)
-;; (unless (file-exists-p "/home/damon/.emacs.d/elpa/irony/bin/irony-server") (irony-install-server))
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
-
-;; replace the `completion-at-point' and `complete-symbol' bindings in
-;; irony-mode's buffers by irony-mode's function
-(defun my-irony-mode-hook () 
-  (define-key irony-mode-map [remap completion-at-point] 'irony-completion-at-point-async) 
-  (define-key irony-mode-map [remap complete-symbol] 'irony-completion-at-point-async))
-(add-hook 'irony-mode-hook 'my-irony-mode-hook)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-
-;; Windows performance tweaks
-(when (boundp 'w32-pipe-read-delay) 
-  (setq w32-pipe-read-delay 0))
-;; Set the buffer size to 64K on Windows (from the original 4K)
-(when (boundp 'w32-pipe-buffer-size) 
-  (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
-
-;; `ironyeldoc'
-(package-require 'irony-eldoc)
-(add-hook 'irony-mode-hook #'irony-eldoc)
-
-
-;;`company-irony'
-(package-require 'company-irony)
-(require 'company-irony)
-(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
-(setq company-backends (delete 'company-semantic company-backends))
-(setq company-backends (delete 'company-clang company-backends))
-
-(setq company-idle-delay 0)
-;; (define-key c-mode-map [(tab)] 'company-complete)
-;; (define-key c++-mode-map [(tab)] 'company-complete)
-;; (define-key objc-mode-map [(tab)] 'company-complete)
-(define-key c-mode-map (kbd "M-/")  'company-complete)
-(define-key c++-mode-map (kbd "M-/")  'company-complete)
-(define-key objc-mode-map (kbd "M-/")  'company-complete)
-
 
 ;; `flycheck'
 (package-require 'flycheck)
@@ -217,10 +173,6 @@
 ;;   (require 'flycheck-clang-analyzer)
 ;;   (setq flycheck-clang-analyzer-executable "clang-3.9")
 ;;   (flycheck-clang-analyzer-setup))
-
-;; `flycheck-irony'
-(package-require 'flycheck-irony)
-(eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
 ;; `flycheck-clang-tidy'
 (package-require 'flycheck-clang-tidy)

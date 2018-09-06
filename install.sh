@@ -6,16 +6,3 @@ else
     cd $HOME/.oh-my-emacs
     git pull
 fi
-
-chmod +x $HOME/.oh-my-emacs/bin/*
-
-grep ".oh-my-emacs/bin/env" $HOME/.bashrc >/dev/null
-if [ $? -eq 0 ]; then	
-    echo "found env!"
-else
-    echo "" >> ~/.bashrc
-    echo "# oh-my-emacs" >> ~/.bashrc
-    echo "source \$HOME/.oh-my-emacs/bin/env" >> $HOME/.bashrc
-fi
-
-source $HOME/.bashrc
