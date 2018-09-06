@@ -24,14 +24,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(setq mu4e-root (concat (expand-file-name ome-lib-dir) "/mu-git/mu4e"))
+;; (setq mu4e-root (concat (expand-file-name ome-lib-dir) "/mu-git/mu4e"))
+(setq mu4e-root (expand-file-name "~/.mu/share/emacs/site-lisp/mu4e"))
 (add-to-list 'load-path mu4e-root)
 (require 'mu4e)
 
-(setq mu4e-mu-binary (concat (expand-file-name ome-lib-dir) "/mu-git/mu/mu"))
+;; (setq mu4e-mu-binary (concat (expand-file-name ome-lib-dir) "/mu-git/mu/mu"))
 (if (or (string= system-type 'windows-nt) 
         (string= system-type 'ms-dos)) 
-    (setq mu4e-mu-binary (concat (expand-file-name ome-lib-dir) "/mu-git/mu/mu.exe")))
+    (setq mu4e-mu-binary (expand-file-name "~/.mu/bin/mu.exe")) 
+  (setq mu4e-mu-binary (expand-file-name "~/.mu/bin/mu")))
 
 ;; `extensions'
 (package-require 'mu4e-maildirs-extension)
@@ -47,7 +49,6 @@
 ;; '(("%junk" . "maildir:/Junk OR subject:SPAM")
 ;; ("%hidden" . "flag:trashed OR %junk")))
 ;; (setq mu4e-query-fragments-append "AND NOT %hidden")
-
 
 
 ;; attempt to show images when viewing messages
@@ -64,7 +65,6 @@
 (setq mu4e-view-prefer-html t)
 (require 'mu4e-contrib)
 (setq mu4e-html2text-command 'mu4e-shr2text)
-
 
 (setq mu4e-drafts-folder "/Draft")
 (setq mu4e-sent-folder   "/Sent")
@@ -135,7 +135,6 @@
 
 ;; don't keep message buffers around
 (setq message-kill-buffer-on-exit t)
-
 
 ;; (define-key mu4e-headers-mode-map (kbd "SPC") ;;RET
 ;;   '(lambda ()
@@ -144,7 +143,6 @@
 ;;      (mu4e-headers-view-message)
 ;;      (sit-for 0.1)
 ;;      (switch-window)))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-email)
