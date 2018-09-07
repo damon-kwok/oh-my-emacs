@@ -657,15 +657,15 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 (defhydra hydra-super-menu 
   (:color blue) 
   (concat ;;
-   "^Main^         ^Search^             ^View^        ^Navigate^   ^Buffer^         ^Org^\n" ;;
+   "^Main^         ^Search^             ^View^          ^Navigate^   ^Buffer^         ^Org^\n" ;;
    "^^^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
-   "_n_:New        _>_:gochar-forward   _t_:toolbar   _[_:↑        _r_:rname        _M-c_:capture\n" ;;
-   "_o_:Open       _<_:gochar-backward  _m_:menubar   _/_:↓        _R_:remove       _M-l_:store-link\n" ;;
-   "_b_:Bookmarks  _g_:grep-dir         _s_:speedbar  _;_:←        _k_:kill         _M-a_:agenda\n" ;;
-   "_e_:Email      _G_:grep-proj        _S_:sidebar   _'_:→        _M-k_:kill-other _M-b_:switchb\n" ;;
-   "_f_:Feed       _d_:dict-bing        _=_:scale+    ^0-9:select^ _C-k_:kill-all   _M-u_:update\n" ;;
-   "_c_:Config     _D_:dict-bing-web    _-_:scale-    _u_:URLs     _._:*scratch*    _M-g_:GTD\n" ;;
-   "_i_:IRC        ^^                   _M_:Message   ^^           _M-._:load-menu  _M-p_:publish-blog\n";;
+   "_n_:New        _>_:gochar-forward   _M-t_:toolbar   _[_:↑        _r_:rname        _M-c_:capture\n" ;;
+   "_o_:Open       _<_:gochar-backward  _M-m_:menubar   _/_:↓        _R_:remove       _M-l_:store-link\n" ;;
+   "_b_:Bookmarks  _g_:grep-dir         _M-s_:speedbar  _;_:←        _k_:kill         _M-a_:agenda\n" ;;
+   "_e_:Email      _G_:grep-proj        _M-d_:sidebar   _'_:→        _M-k_:kill-other _M-b_:switchb\n" ;;
+   "_f_:Feed       _d_:dict-bing        _=_:scale+      ^0-9:select^ _C-k_:kill-all   _M-u_:update\n" ;;
+   "_m_:Module     _D_:dict-bing-web    _-_:scale-      _u_:URLs     _._:*scratch*    _M-g_:GTD\n" ;;
+   "_i_:IRC        ^^                   _M_:Message     ^^           _M-._:load-menu  _M-p_:publish-blog\n";;
    "^^^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^\n")
   ;; Main
@@ -678,7 +678,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    :color blue) 
   ("f" elfeed "Feed" 
    :color blue) 
-  ("c" (hydra-config-menu/body) "Config")
+  ("m" (hydra-config-menu/body) "Module")
   ("i" (ome-find-buffer-by-major 'erc-mode) "IRC")
 
   ;; Org
@@ -703,13 +703,13 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("h" (find-file "~/ArchitecturePrototype/Modules/Foundation/Source/CybertronLogServer/Main.cpp"))
   
   ;; View
-  ("t" tool-bar-mode "Toolbar" 
+  ("M-t" tool-bar-mode "Toolbar" 
    :color pink) 
-  ("m" menu-bar-mode "Menubar" 
+  ("M-m" menu-bar-mode "Menubar" 
    :color pink) 
-  ("s" projectile-speedbar-toggle "Speedbar" 
+  ("M-s" projectile-speedbar-toggle "Speedbar" 
    :color pink) 
-  ("S" (dired-sidebar-toggle-sidebar nil) "DiredSideBar" 
+  ("M-d" (dired-sidebar-toggle-sidebar nil) "DiredSideBar" 
    :color pink) 
   ("=" text-scale-increase "text-scale-increase" 
    :color pink) 
@@ -788,10 +788,10 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("<SPC>" nil "quit") 
   ("<escape>" nil "quit"))
 
-(package-require 'yahoo-weather)
-(require 'yahoo-weather)
-(setq yahoo-weather-location "Shanghai")
-(yahoo-weather-mode)
+;; (package-require 'yahoo-weather)
+;; (require 'yahoo-weather)
+;; (setq yahoo-weather-location "Shanghai")
+;; (yahoo-weather-mode)
 
 
 (defun show-super-menu () 
