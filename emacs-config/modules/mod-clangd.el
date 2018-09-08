@@ -25,15 +25,30 @@
 (require 'mod-package)
 ;;
 (require 'mod-cc)
+(require 'mod-lsp)
 
 (package-require 'lsp-clangd)
 (require 'lsp-clangd)
+
+(add-hook 'c-mode--hook #'lsp-clangd-c-enable)
+(add-hook 'c++-mode-hook #'lsp-clangd-c++-enable)
+(add-hook 'objc-mode-hook #'lsp-clangd-objc-enable)
 ;;
 (with-eval-after-load 'lsp-mode 
   (require 'lsp-clangd) 
-  (add-hook 'c-mode--hook #'lsp-clangd-c-enable) 
+  (add-hook 'c-mode-hook #'lsp-clangd-c-enable) 
   (add-hook 'c++-mode-hook #'lsp-clangd-c++-enable) 
   (add-hook 'objc-mode-hook #'lsp-clangd-objc-enable))
+
+(defun clangd-setup () 
+  (interactive) 
+  (gen-cmake-file) 
+  ;; (cquery//enable) 
+  (push 'company-lsp company-backends))
+
+(add-hook 'c-mode-hook #'clangd-setup) 
+(add-hook 'c++-mode-hook #'clangd-setup) 
+(add-hook 'objc-mode-hook #'clangd-setup)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-clangd)
 ;; mod-clangd.el ends here

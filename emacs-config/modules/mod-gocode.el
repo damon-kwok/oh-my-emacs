@@ -35,7 +35,8 @@
 (require 'company)
 
 ;; company-go
-(add-to-list 'load-path (concat (getenv "GOPATH") "/src/github.com/mdempsky/gocode/emacs-company"))
+;;(add-to-list 'load-path (concat (getenv "GOPATH") "/src/github.com/mdempsky/gocode/emacs-company"))
+(package-require 'company-go)
 (require 'company-go)
 
 (setq company-tooltip-limit 20)                      ; bigger popup window

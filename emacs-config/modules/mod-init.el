@@ -73,8 +73,8 @@
 
 ;; (module-require 'mod-go)
 (module-require 'mod-gocode)
-(module-require 'mod-cquery)
-;; (module-require 'mod-clangd)
+(module-require 'mod-clangd)
+;; (module-require 'mod-cquery)
 ;; (module-require 'mod-ccls)
 ;; (module-require 'mod-rtags)
 (module-require 'mod-java)
