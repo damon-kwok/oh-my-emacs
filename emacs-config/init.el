@@ -1,6 +1,7 @@
 (require 'package)
-(if (< emacs-major-version 27)
-  (package-initialize))
+(package-initialize)
+;; (if (< emacs-major-version 27)
+;;   (package-initialize))
 
 ;; (toggle-debug-on-error)
 ;; (toggle-debug-on-quit)
