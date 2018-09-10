@@ -1,6 +1,6 @@
 function ${1:name}() {
   local olddir=`pwd`
-  echo "$1"
-  $0
+  echo "\$1"
+  \$0
   cd $olddir
 }
