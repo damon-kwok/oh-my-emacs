@@ -44,8 +44,8 @@
 (module-require 'mod-projectile)
 (module-require 'mod-speedbar)
 
-(if (and (executable-find "offlineimap")
-         (executable-find "mu"))
+(if (and (executable-find "offlineimap") 
+         (executable-find "mu")) 
     (module-require 'mod-email))
 
 (module-require 'mod-feed)
@@ -73,51 +73,50 @@
 (module-require 'mod-js)
 ;; (module-require 'mod-ess)
 
-(if (and (executable-find "clang")
-         (executable-find "clangd"))
+(if (and (executable-find "clang") 
+         (executable-find "clangd")) 
     (module-require 'mod-clangd))
 
-(if (executable-find "cquery")
+(if (executable-find "cquery") 
     (module-require 'mod-cquery))
 
-(if (executable-find "ccls")
+(if (executable-find "ccls") 
     (module-require 'mod-ccls))
 
-(if (executable-find "rdm")
+(if (executable-find "rdm") 
     (module-require 'mod-rtags))
 (module-require 'mod-java)
 (module-require 'mod-lsp-py)
 
-(if (executable-find "nasm")
+(if (executable-find "nasm") 
     (module-require 'mod-asm))
 
-(if (and (executable-find "erl")
-         (executable-find "rebar3")
+(if (and (executable-find "erl") 
+         (executable-find "rebar3")) 
     (module-require 'mod-erlang))
 
 (if (executable-find "mix") 
     (module-require 'mod-elixir))
 
-(if (executable-find "ros")
+(if (executable-find "ros") 
     (module-require 'mod-slime))
 
 ;; (module-require 'mod-sly)
 ;; (module-require 'mod-csharp)
-
-(if (executable-find "nimble")
+(if (executable-find "nimble") 
     (module-require 'mod-nim))
 
-(if (executable-find "hy")
+(if (executable-find "hy") 
     (module-require 'mod-hy))
 
 ;; (if (executable-find "go")
 ;; (module-require 'mod-go))
 
-(if (and (executable-find "go")
-         (executable-find "gocode"))
+(if (and (executable-find "go") 
+         (executable-find "gocode")) 
     (module-require 'mod-gocode))
 
-(if (executable-find "ocaml")
+(if (executable-find "ocaml") 
     (module-require 'mod-ocaml))
 
 (if (executable-find "lein") 
