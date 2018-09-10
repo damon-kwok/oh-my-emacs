@@ -44,7 +44,10 @@
 (module-require 'mod-projectile)
 (module-require 'mod-speedbar)
 
-(module-require 'mod-email)
+(if (and (executable-find "offlineimap")
+         (executable-find "mu"))
+    (module-require 'mod-email))
+
 (module-require 'mod-feed)
 ;; (module-require 'mod-dired)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -53,40 +56,72 @@
 (module-require 'mod-protobuf)
 (module-require 'mod-markdown)
 (module-require 'mod-orgmode)
+(module-require 'mod-input)
+(module-require 'mod-calendar)
+(module-require 'mod-profiler)
+(module-require 'mod-format)
+(module-require 'mod-highlight)
+
 ;; (module-require 'mod-latex)
 (module-require 'mod-ros)
-(module-require 'mod-js)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `debug'
 (module-require 'mod-gud)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `programming-languages'
 (module-require 'mod-elisp)
-(module-require 'mod-asm)
-;; (module-require 'mod-erlang)
+(module-require 'mod-js)
 ;; (module-require 'mod-ess)
-(module-require 'mod-slime)
-;; (module-require 'mod-sly)
-;; (module-require 'mod-csharp)
-(module-require 'mod-nim)
-(module-require 'mod-hy)
 
-;; (module-require 'mod-go)
-(module-require 'mod-gocode)
-(module-require 'mod-clangd)
-;; (module-require 'mod-cquery)
-;; (module-require 'mod-ccls)
-;; (module-require 'mod-rtags)
+(if (and (executable-find "clang")
+         (executable-find "clangd"))
+    (module-require 'mod-clangd))
+
+(if (executable-find "cquery")
+    (module-require 'mod-cquery))
+
+(if (executable-find "ccls")
+    (module-require 'mod-ccls))
+
+(if (executable-find "rdm")
+    (module-require 'mod-rtags))
 (module-require 'mod-java)
 (module-require 'mod-lsp-py)
 
-;; (module-require 'mod-ocaml)
+(if (executable-find "nasm")
+    (module-require 'mod-asm))
 
-(if (executable-find "lein") 
-    (module-require 'mod-clojure))
+(if (and (executable-find "erl")
+         (executable-find "rebar3")
+    (module-require 'mod-erlang))
 
 (if (executable-find "mix") 
     (module-require 'mod-elixir))
+
+(if (executable-find "ros")
+    (module-require 'mod-slime))
+
+;; (module-require 'mod-sly)
+;; (module-require 'mod-csharp)
+
+(if (executable-find "nimble")
+    (module-require 'mod-nim))
+
+(if (executable-find "hy")
+    (module-require 'mod-hy))
+
+;; (if (executable-find "go")
+;; (module-require 'mod-go))
+
+(if (and (executable-find "go")
+         (executable-find "gocode"))
+    (module-require 'mod-gocode))
+
+(if (executable-find "ocaml")
+    (module-require 'mod-ocaml))
+
+(if (executable-find "lein") 
+    (module-require 'mod-clojure))
 
 (if (executable-find "cargo") 
     (module-require 'mod-rust))
@@ -97,11 +132,6 @@
 (if (executable-find "git") 
     (module-require 'mod-git))
 
-(module-require 'mod-input)
-(module-require 'mod-calendar)
-(module-require 'mod-profiler)
-(module-require 'mod-format)
-(module-require 'mod-highlight)
 ;; (package-require 'exwm)
 ;; (require 'exwm)
 ;; (require 'exwm-config)
@@ -116,11 +146,6 @@
 ;; (if (and (executable-find "ipython")
 ;; (executable-find "jupyter"))
 ;; (module-require 'mod-py))
-
-
-;; (if (and (executable-find "offlineimap")
-;; (executable-find "mu"))
-;; (module-require 'mod-email))
 
 ;; (if (or (unless system-type 'windows-nt)
 ;; (unless system-type 'ms-dos))
