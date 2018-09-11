@@ -1,0 +1,4 @@
+readp "${1:yes or no?}"
+if [ $? -eq 1 ]; then
+   ${2:echo "yes"}   
+fi

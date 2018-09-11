@@ -1,0 +1,1 @@
+perl -pi -e 's|${1:old}|${2:new}|g' ${3:~/file.txt}$0
