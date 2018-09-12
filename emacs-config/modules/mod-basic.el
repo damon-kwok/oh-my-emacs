@@ -37,12 +37,12 @@
           ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
           '((space-mark 32 [183] 
                         [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
-	    ;;
+	        ;;
             (newline-mark 10 [182 10])  ; LINE FEED,
-	    ;;
+	        ;;
             (tab-mark 9 [9655 9] 
                       [92 9])           ; tab
-	    ;;
+	        ;;
             )) 
     (if (and (not (string-match "^\*.*\*$" (buffer-name))) 
              (not (eq major-mode 'dired-mode)) 
@@ -50,7 +50,7 @@
              (not (eq major-mode 'speedbar-mode))) 
         (progn
           ;; (message (symbol-name major-mode))
-	  (whitespace-mode 1)))))
+	      (whitespace-mode 1)))))
 
 (ome-global-whitespace-mode t)
 
@@ -89,7 +89,7 @@
 (setq ns-pop-up-frames nil)
 
 (setq default-frame-alist '((height . 40) 
-                            (width . 80) 
+                            (width . 120) 
                             (top . 25) 
                             (left . 18) 
                             (menu-bar-lines . 0) 

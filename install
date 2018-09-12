@@ -23,6 +23,18 @@ else
     echo "" >> ~/.bashrc
     echo "# oh-my-emacs" >> ~/.bashrc
     echo "source \$HOME/workspace/bin/env" >> $HOME/.bashrc
+    echo "source \$HOME/workspace/bin/lib" >> $HOME/.bashrc
+    echo "source \$HOME/workspace/bin/tool" >> $HOME/.bashrc
+    echo "source \$HOME/workspace/bin/proj" >> $HOME/.bashrc
+fi
+
+grep "workspace/bin/env" $HOME/.profile >/dev/null
+if [ $? -eq 0 ]; then	
+    echo "found env!"
+else
+    echo "" >> ~/.profile
+    echo "# oh-my-emacs" >> ~/.profile
+    echo "source \$HOME/workspace/bin/env" >> $HOME/.profile
 fi
 
 function link-init-el() {
