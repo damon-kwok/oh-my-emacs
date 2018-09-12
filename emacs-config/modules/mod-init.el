@@ -50,6 +50,7 @@
 
 (module-require 'mod-feed)
 ;; (module-require 'mod-dired)
+;; (module-require 'mod-tree)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `docs'
 (module-require 'mod-csv)
@@ -61,7 +62,6 @@
 (module-require 'mod-profiler)
 (module-require 'mod-format)
 (module-require 'mod-highlight)
-
 ;; (module-require 'mod-latex)
 (module-require 'mod-ros)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -73,31 +73,48 @@
 (module-require 'mod-js)
 ;; (module-require 'mod-ess)
 
-(if (and (executable-find "clang") 
-         (executable-find "clangd")) 
-    (module-require 'mod-clangd))
+;; `cc'
+(defconst cc-lang-server "rtags")
+(cond ((and 
+        (string= cc-lang-server "clangd") 
+        (executable-find "clang") 
+        (executable-find "clangd")) 
+       (module-require 'mod-clangd)) 
+      ((and 
+        (string= cc-lang-server "cquery") 
+        (executable-find "cquery")) 
+       (module-require 'mod-cquery)) 
+      ((and 
+        (string= cc-lang-server "ccls") 
+        (executable-find "ccls")) 
+       (module-require 'mod-ccls)) 
+      ((and 
+        (string= cc-lang-server "rtags") 
+        (executable-find "rdm")) 
+       (module-require 'mod-rtags)))
 
-(if (executable-find "cquery") 
-    (module-require 'mod-cquery))
+;; `java'
+(if (file-directory-p "~/.emacs.d/eclipse.jdt.ls/server/") 
+    (module-require 'mod-java))
 
-(if (executable-find "ccls") 
-    (module-require 'mod-ccls))
+;; `python'
+(if (executable-find "pyls") 
+    (module-require 'mod-lsp-py))
 
-(if (executable-find "rdm") 
-    (module-require 'mod-rtags))
-(module-require 'mod-java)
-(module-require 'mod-lsp-py)
-
+;; `nasm'
 (if (executable-find "nasm") 
     (module-require 'mod-asm))
 
+;; `erlang'
 (if (and (executable-find "erl") 
          (executable-find "rebar3")) 
     (module-require 'mod-erlang))
 
+;; `elixir'
 (if (executable-find "mix") 
     (module-require 'mod-elixir))
 
+;; `ros'
 (if (executable-find "ros") 
     (module-require 'mod-slime))
 
@@ -149,8 +166,6 @@
 ;; (if (or (unless system-type 'windows-nt)
 ;; (unless system-type 'ms-dos))
 ;; (module-require 'mod-email))
-
-;; (module-require 'mod-tree)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `music'
 ;; (package-require 'emms)
