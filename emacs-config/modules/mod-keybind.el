@@ -523,7 +523,7 @@ _<escape>_: Quit    _\\_: calendar     _<tab>_: <-BACK          ^^ ^^
 ^^^^^^^^-------------------------------------------------------------------------
 _i_: init          _t_: tabbar      _o_: orgmode      _1_: elisp      _u_: input
 _a_: basic         _h_: helm        _7_: latex        _2_: clojure    _m_: music
-_p_: package       ^^               _8_: markdown     _3_: csharp     _d_: coding
+_p_: package       _e_: email       _8_: markdown     _3_: csharp     _d_: coding
 _k_: keybind       ^^               _9_: reST         _4_: js         _s_: server
 _l_: library       ^^               _z_: csv          _5_: cc         ^^
 _y_: complete-yas  ^^               _x_: protobuf     _6_: elixir     _C_: compile-all-modules
@@ -538,6 +538,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 
 ("t" (ome-open-mod "tabbar") "tabbar")
 ("h" (ome-open-mod "helm") "helm")
+("e" (ome-open-mod "email") "email")
 ;;("3" (ome-open-mod "theme") "theme")
 ;;("4" (ome-open-mod "speedbar") "speedbar")
 ("T" (ome-open-file "~/emacs-config/themes/m-xemacs-theme.el") "theme")

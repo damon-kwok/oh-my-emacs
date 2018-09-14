@@ -118,7 +118,7 @@
         user-full-name (s-trim (ome-load-file-to-string (concat conf-dir "/name"))) ;
         user-mail-address (s-trim (ome-load-file-to-string (concat conf-dir "/addr")))))
 
-(load-email-signature "~/workspace/email/default")
+(load-email-signature "~/workspace/conf/email/default")
 
 ;; `send-mail-settting'
 ;; sending mail -- replace USERNAME with your gmail username

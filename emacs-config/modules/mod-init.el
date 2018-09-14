@@ -74,7 +74,7 @@
 ;; (module-require 'mod-ess)
 
 ;; `cc'
-(defconst cc-lang-server "rtags")
+(defconst cc-lang-server "clangd")
 (cond ((and 
         (string= cc-lang-server "clangd") 
         (executable-find "clang") 

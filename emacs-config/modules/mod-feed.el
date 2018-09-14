@@ -57,7 +57,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `elfeed-org'
-(defconst elfeed-conf "~/workspace/elfeed.org")
+(defconst elfeed-conf "~/workspace/conf/elfeed.org")
 
 (if (file-exists-p elfeed-conf) 
     (progn ;;
