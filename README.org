@@ -17,6 +17,11 @@ damon-kwok's emacs config!
 curl -L https://git.io/fA3TG | bash
 # curl -L https://git.io/fA3T4 | bash
 
+or
+
+curl -L https://raw.githubusercontent.com/damon-kwok/oh-my-emacs/master/install.sh | bash
+# curl -L https://raw.githubusercontent.com/damon-kwok/oh-my-emacs/master/install | bash
+
 * Keybind
 ** global
 # - C-u C-h n what's the new
