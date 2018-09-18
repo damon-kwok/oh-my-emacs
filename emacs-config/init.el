@@ -3,22 +3,17 @@
 ;;(if (< emacs-major-version 27) (package-initialize))
 (when (version< emacs-version "27.0") (package-initialize))
 
-;; (toggle-debug-on-error)
-;; (toggle-debug-on-quit)
+(toggle-debug-on-error)
+(toggle-debug-on-quit)
 
-(add-to-list 'load-path "~/emacs-config")
-(add-to-list 'load-path "~/emacs-config/modules")
-(add-to-list 'load-path "~/emacs-config/preferences")
-(add-to-list 'custom-theme-load-path "~/emacs-config/themes")
-
-(add-to-list 'load-path "~/.oh-emacs-config/emacs-config")
-(add-to-list 'load-path "~/.oh-emacs-config/emacs-config/modules")
-(add-to-list 'load-path "~/.oh-emacs-config/emacs-config/preferences")
-(add-to-list 'custom-theme-load-path "~/.oh-emacs-config/emacs-config/themes")
+(add-to-list 'load-path "~/.oh-my-emacs/emacs-config")
+(add-to-list 'load-path "~/.oh-my-emacs/emacs-config/modules")
+(add-to-list 'load-path "~/.oh-my-emacs/emacs-config/preferences")
+(add-to-list 'custom-theme-load-path "~/.oh-my-emacs/emacs-config/themes")
 
 ;;avoid compile error
 ;;(setq byte-compile-warnings nil) 
-;; (byte-recompile-directory (expand-file-name (concat (getenv "ROOT") "/emacs-config/modules")) 0)
+;; (byte-recompile-directory (expand-file-name (concat (getenv "ROOT") "/.oh-emacs-config/emacs-config/modules")) 0)
 
 ;; Display the total loading time in the minibuffer
 (defun display-startup-echo-area-message ()
