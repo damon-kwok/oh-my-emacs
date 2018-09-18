@@ -38,7 +38,7 @@ else
 fi
 
 function link-init-el() {
-    tip "link"
+    echo "link"
     bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
     mkdir -p $bkdir
 
@@ -50,9 +50,9 @@ function link-init-el() {
 	mv ~/emacs-config $bkdir
     fi
 
-    tip "link .emacs"
-    cp -a $OME_ROOT/emacs-config/init.el ~/.emacs 
-    ln -s $OME_ROOT/emacs-config ~/emacs-config 
+    echo "link .emacs"
+    cp -a $HOME/.oh-my-emacs/emacs-config/init.el ~/.emacs 
+    #ln -s $HOME/.oh-my-emacs/emacs-config ~/emacs-config 
 }
 link-init-el
 
