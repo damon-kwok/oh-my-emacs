@@ -38,7 +38,7 @@ else
 fi
 
 function link-init-el() {
-    echo "link"
+    echo "backup old emacs config"
     bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
     mkdir -p $bkdir
 
