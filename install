@@ -24,8 +24,6 @@ else
     echo "# oh-my-emacs" >> ~/.bashrc
     echo "source \$HOME/workspace/bin/env" >> $HOME/.bashrc
     echo "source \$HOME/workspace/bin/lib" >> $HOME/.bashrc
-    echo "source \$HOME/workspace/bin/tool" >> $HOME/.bashrc
-    echo "source \$HOME/workspace/bin/proj" >> $HOME/.bashrc
 fi
 
 grep "workspace/bin/env" $HOME/.profile >/dev/null
@@ -52,7 +50,6 @@ function link-init-el() {
 
     echo "link .emacs"
     cp -a $HOME/.oh-my-emacs/emacs-config/init.el ~/.emacs 
-    #ln -s $HOME/.oh-my-emacs/emacs-config ~/emacs-config 
 }
 link-init-el
 
