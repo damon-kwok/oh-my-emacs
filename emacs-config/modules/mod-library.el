@@ -453,7 +453,7 @@ occurence of CHAR."
   (delete-other-windows) 
   (ome-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
-  (find-file (concat "~/emacs-config/modules/mod-" mod-name ".el")) 
+  (find-file (concat "~/.oh-my-emacs/emacs-config/modules/mod-" mod-name ".el")) 
   (delete-other-windows))
 
 (defun ome-open-doc(doc-name) 
