@@ -2,7 +2,8 @@
 ;; (package-initialize)
 ;;(if (< emacs-major-version 27) (package-initialize))
 ;;(when (version< emacs-version "27.1") (package-initialize))
-(unless package--initialized (package-initialize t))
+;;(unless package--initialized (package-initialize t))
+(unless package--initialized (package-initialize))
 
 (toggle-debug-on-error)
 (toggle-debug-on-quit)
