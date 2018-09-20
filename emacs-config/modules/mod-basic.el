@@ -51,8 +51,8 @@
         (progn
           ;; (message (symbol-name major-mode))
 	      (whitespace-mode 1)))))
-
-(ome-global-whitespace-mode t)
+(if window-system
+    (ome-global-whitespace-mode t))
 
 ;; (global-whitespace-mode)
 

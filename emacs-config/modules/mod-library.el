@@ -569,8 +569,10 @@ occurence of CHAR."
          (ome-ask-new-project "nimble init %s" "src/%s.nim")) ;; not invalid
         ((string= lang "rust") 
          (ome-ask-new-project "cargo new %s --bin" "Cargo.toml")) 
+        ;; ((string= lang "go") 
+         ;; (ome-ask-new-project "mkdir -p %s && cd %s && rubigo init" "rubigo.json"))
         ((string= lang "go") 
-         (ome-ask-new-project "mkdir -p %s && cd %s && rubigo init" "rubigo.json")) 
+         (ome-ask-new-project "mkdir -p %s && cd %s && dep init" "Gopkg.toml"))
         ((string= lang "ros") 
          (ome-ask-new-project "rosman %s" "src/main.cpp"))))
 
