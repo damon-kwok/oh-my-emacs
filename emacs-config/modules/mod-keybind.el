@@ -580,7 +580,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 ^^^^^^^^--------------------------------------------------------------------------------
 _M-1_:libknife    _h_:README.org  _i_: index.org    _1_:env
 _M-2_:medusa      _d_:diary.org   _b_: blog.org     _2_:lib
-_M-3_:pacman      _t_:todo.org    _l_: link.org     _3_:tool
+_M-3_:pkg-manager _t_:todo.org    _l_: link.org     _3_:tool
 _M-4_:network     _b_:book.org    ^^                _4_:proj
 _M-5_:webscrap    _g_:game.org    ^^                _0_:.emacs
 ^^                _n_:NEWS.org    ^^                _._:.bashrc
