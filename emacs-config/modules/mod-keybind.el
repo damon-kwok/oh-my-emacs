@@ -663,10 +663,11 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    "_n_:New        _>_:gochar-forward   _M-t_:toolbar   _[_:up       _r_:rname        _M-c_:capture\n" ;;
    "_o_:Open       _<_:gochar-backward  _M-m_:menubar   _/_:down     _R_:remove       _M-l_:store-link\n" ;;
    "_b_:Bookmarks  _g_:grep-dir         _M-s_:speedbar  _;_:left     _k_:kill         _M-a_:agenda\n" ;;
-   "_e_:Email      _G_:grep-proj        _M-d_:sidebar   _'_:right    _M-k_:kill-other _M-b_:switchb\n" ;;
+   "_e_(E):Email   _G_:grep-proj        _M-d_:sidebar   _'_:right    _M-k_:kill-other _M-b_:switchb\n" ;;
    "_f_:Feed       _d_:dict-bing        _=_:scale+      ^0-9:select^ _C-k_:kill-all   _M-u_:update\n" ;;
    "_m_:Module     _D_:dict-bing-web    _-_:scale-      _u_:URLs     _._:*scratch*    _M-g_:GTD\n" ;;
    "_i_:IRC        ^^                   _M_:Message     ^^           _M-._:load-menu  _M-p_:publish-blog\n";;
+   "_s_(S):Shell   ^^                   ^^              ^^           ^^               ^^\n";;
    "^^^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^\n")
   ;; Main
@@ -676,11 +677,14 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    :color blue) 
   ("b" helm-bookmarks "Bookmarks") 
   ("e" mu4e "Email" 
-   :color blue) 
+   :color blue)
+  ("E" mu4e-compose-new "Email")
   ("f" elfeed "Feed" 
    :color blue) 
   ("m" (hydra-config-menu/body) "Module")
   ("i" (ome-find-buffer-by-major 'erc-mode) "IRC")
+  ("s" (show-global-shell) "shell")
+  ("S" (show-global-shell-new) "shell")
 
   ;; Org
   ("M-c" org-capture "capture")
