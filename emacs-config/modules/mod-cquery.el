@@ -31,7 +31,7 @@
 (package-require 'cquery)
 (require 'cquery)
 
-(setq cquery-executable "/home/damon/.cquery/bin/cquery")
+;; (setq cquery-executable "/home/damon/.cquery/bin/cquery")
 
 (setq cquery-extra-init-params 
       '(:index (:comments 2) 
@@ -39,12 +39,13 @@
                :completion (:detailedLabel t)))
 
 (with-eval-after-load 'projectile 
-  (setq projectile-project-root-files-top-down-recurring (append '("compile_commands.json"
-                                                                   ".cquery")
-                                                                 projectile-project-root-files-top-down-recurring)))
+  (setq projectile-project-root-files-top-down-recurring ;;
+        (append '("compile_commands.json" ".cquery")
+                projectile-project-root-files-top-down-recurring)))
 
 (defun cquery//enable () 
-  (condition-case nil (lsp-cquery-enable) 
+  (condition-case nil ;;
+      (lsp-cquery-enable) 
     (user-error 
      nil)))
 
@@ -53,17 +54,17 @@
 (defun cquery-setup () 
   (interactive) 
   (gen-cmake-file) 
-  (cquery//enable) 
-  (push 'company-lsp company-backends) 
-  (cquery-xref-find-custom "$cquery/base") 
-  (cquery-xref-find-custom "$cquery/callers") 
-  (cquery-xref-find-custom "$cquery/derived") 
-  (cquery-xref-find-custom "$cquery/vars")
+  (cquery//enable)
+  ;; (push 'company-lsp company-backends)
+  ;; (cquery-xref-find-custom "$cquery/base")
+  ;; (cquery-xref-find-custom "$cquery/callers")
+  ;; (cquery-xref-find-custom "$cquery/derived")
+  ;; (cquery-xref-find-custom "$cquery/vars")
 
   ;; Alternatively, use lsp-ui-peek interface
-  (lsp-ui-peek-find-custom 'base "$cquery/base") 
-  (lsp-ui-peek-find-custom 'callers "$cquery/callers") 
-  (lsp-ui-peek-find-custom 'random "$cquery/random") ;; jump to a random declaration
+  ;; (lsp-ui-peek-find-custom 'base "$cquery/base")
+  ;; (lsp-ui-peek-find-custom 'callers "$cquery/callers")
+  ;; (lsp-ui-peek-find-custom 'random "$cquery/random") ;; jump to a random declaration
   )
 
 ;; (add-hook 'c-mode-hook 'cquery-setup)

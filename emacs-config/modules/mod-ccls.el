@@ -29,31 +29,51 @@
 (package-require 'ccls)
 (require 'ccls)
 
-(setq ccls-executable "/home/damon/.ccls/bin/ccls")
+;; (setq ccls-executable "/home/damon/.ccls/bin/ccls")
+;; (setq ccls-extra-init-params
+;; '(:cacheFormat "msgpack"))
 (setq ccls-extra-init-params 
-      '(:cacheFormat "msgpack"))
+      '(:index (:comments 2) 
+               :completion (:detailedLabel t)))
+
 (with-eval-after-load 'projectile 
-  (setq projectile-project-root-files-top-down-recurring (append '("compile_commands.json" ".ccls")
-                                                                 projectile-project-root-files-top-down-recurring)))
+  (setq projectile-project-root-files-top-down-recurring ;;
+        (append '("compile_commands.json" ".ccls")
+                projectile-project-root-files-top-down-recurring)))
 
 (defun ccls//enable () 
-  (condition-case nil (lsp-ccls-enable) 
+  (condition-case nil ;;
+      (lsp-ccls-enable) 
     (user-error 
      nil)))
 
 (defun ccls-setup () 
   (interactive) 
   (gen-cmake-file) 
-  (ccls//enable) 
-  (ccls-xref-find-custom "$ccls/base") 
-  (ccls-xref-find-custom "$ccls/callers")
+  (ccls//enable)
+  ;; direct callers
+  (lsp-find-custom "$ccls/call")
+  ;; callers up to 2 levels
+  (lsp-find-custom "$ccls/call" 
+                   '(:levels 2))
+  ;; direct callees
+  (lsp-find-custom "$ccls/call" 
+                   '(:callee t))
+
+  (lsp-find-custom "$ccls/vars")
   ;; Use lsp-goto-implementation or lsp-ui-peek-find-implementation for derived types/functions
-  (ccls-xref-find-custom "$ccls/vars")
 
   ;; Alternatively, use lsp-ui-peek interface
-  (lsp-ui-peek-find-custom 'base "$ccls/base") 
-  (lsp-ui-peek-find-custom 'callers "$ccls/callers") 
-  (lsp-ui-peek-find-custom 'random "$ccls/random") ;; jump to a random declaration
+  (lsp-ui-peek-find-custom 'caller "$ccls/call")
+  (lsp-ui-peek-find-custom 'callee "$ccls/call" 
+                           '(:callee t))
+
+  (defun ccls/vars (kind) 
+    (lsp-ui-peek-find-custom 'vars "$ccls/vars" 
+                             `(:kind ,kind)))
+  (ccls/vars 3) ;; field or local variable
+  (ccls/vars 1) ;; field
+  (ccls/vars 4) ;; parameter
   )
 
 (add-hook 'c-mode-hook 'ccls-setup)
