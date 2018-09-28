@@ -30,10 +30,11 @@
 (require 'mu4e)
 
 ;; (setq mu4e-mu-binary (concat (expand-file-name ome-lib-dir) "/mu-git/mu/mu"))
-;;(if (or (string= system-type 'windows-nt) ;
-;;        (string= system-type 'ms-dos)) 
-;;    (setq mu4e-mu-binary (expand-file-name "~/.mu/bin/mu.exe")) 
-;;  (setq mu4e-mu-binary (expand-file-name "~/.mu/bin/mu")))
+(if (or (string= system-type 'windows-nt) ;
+        (string= system-type 'ms-dos)
+        (string= system-type 'cygwin)) 
+   (setq mu4e-mu-binary (expand-file-name "~/.local/bin/mu.exe")) 
+ (setq mu4e-mu-binary (expand-file-name "~/.local/bin/mu")))
 
 ;; `extensions'
 (package-require 'mu4e-maildirs-extension)
