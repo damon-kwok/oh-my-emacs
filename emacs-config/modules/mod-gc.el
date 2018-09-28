@@ -45,7 +45,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 (if (eq system-type 'windows-nt) 
     (progn 
-      (setq gc-cons-threshold (* 512 1024 1024)) 
+      (setq gc-cons-threshold (* 64 1024 1024)) 
       (setq gc-cons-percentage 0.5) 
       (run-with-idle-timer 5 t #'garbage-collect)
       ;; 显示垃圾回收信息，这个可以作为调试用
