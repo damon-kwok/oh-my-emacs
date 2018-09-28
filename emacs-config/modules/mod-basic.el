@@ -268,15 +268,15 @@
 ;; (typo-err)
 
 ;; overflow of stack
-;; (setq kill-ring-max 1024)		;用一个很大的kill ring. 这样防止我不小心删掉重要的东西
-;; (setq max-lisp-eval-depth 900000)       ;lisp最大执行深度
-;; (setq max-specpdl-size 900000)          ;最大容量
-;; (setq undo-outer-limit 9000000)         ;撤销限制
-;; (setq message-log-max t)                ;设置message记录全部消息, 而不用截去
-;; (setq eval-expression-print-length nil) ;设置执行表达式的长度没有限制
-;; (setq eval-expression-print-level nil)  ;设置执行表达式的深度没有限制
-;; (setq global-mark-ring-max 1024)        ;设置最大的全局标记容量
-;; (setq history-delete-duplicates t)      ;删除minibuffer的重复历史
+(setq kill-ring-max 1024)		;用一个很大的kill ring. 这样防止我不小心删掉重要的东西
+(setq max-lisp-eval-depth 900000)       ;lisp最大执行深度
+(setq max-specpdl-size 900000)          ;最大容量
+(setq undo-outer-limit 9000000)         ;撤销限制
+(setq message-log-max t)                ;设置message记录全部消息, 而不用截去
+(setq eval-expression-print-length nil) ;设置执行表达式的长度没有限制
+(setq eval-expression-print-level nil)  ;设置执行表达式的深度没有限制
+(setq global-mark-ring-max 1024)        ;设置最大的全局标记容量
+(setq history-delete-duplicates t)      ;删除minibuffer的重复历史
 
 ;;; set font 1 : look:http://www.linuxsir.org/bbs/thread326299.html
 ;; (set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
@@ -297,7 +297,7 @@
   ;; Setting Chinese Font
   (dolist (charset '(kana han symbol cjk-misc bopomofo)) 
     (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" 
-                                                                     :size 12))))
+                                                                     :size 10))))
 (if window-system (ome-set-font))
 
 ;;; `tip'

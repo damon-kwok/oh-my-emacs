@@ -40,9 +40,19 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
   (setq-default gc-cons-threshold (* 1024 1024 NUM) gc-cons-percentage PER))
 
 ;;(message (concat "gc:" gc-cons-threshold " pre:" gc-cons-percentage))
-(my-optimize-gc 256 0.2)
-(add-hook 'after-init-hook (lambda () 
-                             (my-optimize-gc 16 0.2)))
+
+
+
+(if (eq system-type 'windows-nt) 
+    (progn 
+      (setq gc-cons-threshold (* 512 1024 1024)) 
+      (setq gc-cons-percentage 0.5) 
+      (run-with-idle-timer 5 t #'garbage-collect)
+      ;; 显示垃圾回收信息，这个可以作为调试用
+      (setq garbage-collection-messages t)) 
+  (progn (my-optimize-gc 256 0.2)
+         (add-hook 'after-init-hook (lambda () 
+                                      (my-optimize-gc 16 0.2)))))
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-gc)
