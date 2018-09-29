@@ -45,12 +45,13 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 (if (eq system-type 'windows-nt) 
     (progn 
-      (setq gc-cons-threshold (* 64 1024 1024)) 
+      (setq gc-cons-threshold (* 256 1024 1024)) 
       (setq gc-cons-percentage 0.5) 
-      (run-with-idle-timer 5 t #'garbage-collect)
+      (add-hook 'after-init-hook (lambda () 
+                                   (run-with-idle-timer 5 t #'garbage-collect)))
       ;; 显示垃圾回收信息，这个可以作为调试用
       (setq garbage-collection-messages t)) 
-  (progn (my-optimize-gc 256 0.2)
+  (progn (my-optimize-gc 256 0.2) 
          (add-hook 'after-init-hook (lambda () 
                                       (my-optimize-gc 16 0.2)))))
 ;;
