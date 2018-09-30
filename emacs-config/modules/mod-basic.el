@@ -293,7 +293,9 @@
 (defun ome-set-font()
   ;; Setting English Font
   (set-face-attribute 'default nil 
-                     :font "Bitstream Vera Sans Mono-10")
+                      :font "Bitstream Vera Sans Mono-10")
+  ;; (set-face-attribute 'default nil 
+                     ;; :font "DejaVu Sans Mono-10")
   ;; Setting Chinese Font
   (dolist (charset '(kana han symbol cjk-misc bopomofo)) 
     (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" 

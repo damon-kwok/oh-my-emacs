@@ -1,0 +1,11 @@
+got-os-type
+case $OME_OS in
+    $OS_UNKNOW) ;;
+    $OS_MACOS) ;;
+    $OS_CYGWIN) ;;
+    $OS_MSYS2) ;;
+    $OS_ARCH) ;;
+    $OS_DEBIAN|$OS_UBUNTU) ;;
+    $OS_REDHAT|$OS_FEDORA) ;;
+    $OS_FREEBSD) ;;
+esac

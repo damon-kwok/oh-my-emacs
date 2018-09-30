@@ -105,7 +105,7 @@
 (require 'yasnippet-snippets)
 ;; (yas-global-mode 1)
 
-(setq dir-medusa-snippets "~/emacs-config/snippets/")
+(setq dir-medusa-snippets "~/.oh-my-emacs/emacs-config/snippets/")
 
 ;; yas-snippet-dirs
 ;; yasnippet-snippets-dir

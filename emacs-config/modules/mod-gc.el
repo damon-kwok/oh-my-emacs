@@ -43,7 +43,9 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 
 
 
-(if (eq system-type 'windows-nt) 
+(if (or (string= system-type 'windows-nt) ;
+        (string= system-type 'ms-dos) 
+        (string= system-type 'cygwin)) 
     (progn 
       (setq gc-cons-threshold (* 256 1024 1024)) 
       (setq gc-cons-percentage 0.5) 
