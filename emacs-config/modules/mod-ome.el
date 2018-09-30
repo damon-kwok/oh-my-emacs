@@ -1,11 +1,11 @@
 ;; -*- lexical-binding: t -*-
-;; mod-sh.el --- This is where you apply your OCD.
+;; mod-ome.el --- This is where you apply your OCD.
 ;;
 ;; Copyright (C) 2009-2018 damon-kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2018-07-02
-;; Modify: 2018-07-02
+;; Create: 2018-09-30
+;; Modify: 2018-09-30
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,15 +24,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(require 'mod-lsp)
+(setq dir-ome-plugins "~/workspace/bin/plugins/")
 
-
-;; (package-require 'lsp-sh)
-(package-require-curl "lsp-sh" "lsp-sh.el"
-                      "https://raw.githubusercontent.com/emacs-lsp/lsp-sh/master/lsp-sh.el")
-(require 'lsp-sh)
+(defun ome-open-plugin(plugin-name) 
+  (interactive "sEnter snippet file name:") 
+  (find-file (concat dir-ome-plugins plugin-name)))
 
-(add-hook 'sh-mode-hook #'lsp-sh-enable)
+(global-set-key (kbd "C-x p f") 'ome-open-plugin)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(provide 'mod-sh)
-;; mod-sh.el ends here
+(provide 'mod-ome)
+;; mod-ome.el ends here

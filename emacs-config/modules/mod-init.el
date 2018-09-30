@@ -64,6 +64,7 @@
 (module-require 'mod-highlight)
 ;; (module-require 'mod-latex)
 (module-require 'mod-ros)
+(module-require 'mod-ome)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `debug'
 (module-require 'mod-gud)
@@ -71,7 +72,11 @@
 ;;; `programming-languages'
 (module-require 'mod-elisp)
 (module-require 'mod-js)
-;; (module-require 'mod-ess)
+(module-require 'mod-ess)
+
+;; `bash'
+;; (if (executable-find "bash-language-server") 
+    ;; (module-require 'mod-sh))
 
 ;; `cc'
 (defconst cc-lang-server "clangd")
