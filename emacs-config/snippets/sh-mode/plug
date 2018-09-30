@@ -1,0 +1,20 @@
+function ${1:`(ome-bufname-no-ext)`}-install() {
+    local olddir=\`pwd\`
+    tip "$1-install"
+    $0    
+    cd $olddir
+}
+
+function $1-uninstall() {
+    local olddir=\`pwd\`
+    tip "$1-uninstall"
+    
+    cd $olddir
+}
+
+function $1-exist-p() {
+    local olddir=\`pwd\`
+    tip "$1-exist-p?"
+    
+    cd $olddir
+}
