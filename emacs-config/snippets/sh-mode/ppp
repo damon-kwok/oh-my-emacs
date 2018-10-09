@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+function ${1:`(ome-bufname-no-ext)`}-install() {
+    got-os-type
+    case $OME_OS in
+        $OS_UNKNOW) ;;
+        $OS_MACOS) ;;
+        $OS_CYGWIN) ;;
+        $OS_MSYS2) ;;
+        $OS_ARCH) ;;
+        $OS_DEBIAN|$OS_UBUNTU) ;;
+        $OS_REDHAT|$OS_FEDORA) ;;
+        $OS_FREEBSD) ;;
+    esac
+}
+
+function $1-uninstall() {
+    echo-error "'$1-uninstall' not implemented"
+}
+
+function $1-exist-p() {
+    echo-error "'$1-exist-p' not implemented"
+}

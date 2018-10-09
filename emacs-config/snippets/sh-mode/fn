@@ -1,6 +1,6 @@
 function ${1:name}() {
-  local olddir=\`pwd\`
+  local oldir=\`pwd\`
   tip "$1"
   $0
-  cd $olddir
+  cd $oldir
 }
