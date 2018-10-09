@@ -28,7 +28,7 @@
 
 (defun ome-open-plugin(plugin-name) 
   (interactive "sEnter ome plugin name:") 
-  (find-file (concat dir-ome-plugins plugin-name)))
+  (find-file (concat dir-ome-plugins "common/" plugin-name)))
 
 (global-set-key (kbd "C-x p f") 'ome-open-plugin)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
