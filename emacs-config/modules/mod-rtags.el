@@ -89,7 +89,7 @@
   (interactive)
   ;; (message (concat "you opened cc file:" (buffer-name)))
   ;; find CmakeLists.txt & gen rtags indexes
-  (shell-command (concat (getenv "HOME") "/.oh-my-emacs/bin/gen-rtags " (ome-project-root))))
+  (shell-command (concat "gen-rtags " (ome-project-root))))
 
 (defun gen-rtags-indexes-with-elisp () 
   (interactive) 
@@ -127,9 +127,9 @@
                              "\"")) 
       (setq default-directory old-default-directory))))
 
-;; (add-hook 'c-mode-hook 'gen-rtags-indexes)
-;; (add-hook 'c++-mode-hook 'gen-rtags-indexes)
-;; (add-hook 'objc-mode-hook 'gen-rtags-indexes)
+(add-hook 'c-mode-hook 'gen-rtags-indexes)
+(add-hook 'c++-mode-hook 'gen-rtags-indexes)
+(add-hook 'objc-mode-hook 'gen-rtags-indexes)
 
 (defun show-rtags-buffer() 
   (interactive) 
