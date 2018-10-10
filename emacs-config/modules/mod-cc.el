@@ -191,7 +191,7 @@
 ;; `cmake-file'
 (defun gen-cmake-file () 
   (if (string= (ome-project-root) "") 
-      (message "'CMakeLists.txt' is not found!") 
+      (message "project root not found!") 
     (shell-command (concat "gen-cmake-file " (ome-project-root)))))
 
 ;; (add-hook 'c-mode-hook 'gen-cmake-file)
