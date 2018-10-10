@@ -22,14 +22,15 @@
 ;; Code:
 (require 'mod-cc)
 
-(setenv "LIBCLANG_LIBRARY_DIR" "/home/damon/.llvm/lib")
-(setenv "LIBCLANG_INCLUDE_DIR" "/home/damon/.llvm/include")
+;; (setenv "LIBCLANG_LIBRARY_DIR" "/home/damon/.llvm/lib")
+;; (setenv "LIBCLANG_INCLUDE_DIR" "/home/damon/.llvm/include")
 ;; `rtags'
 (package-require 'rtags)
 (require 'rtags)
 
 (if (or (eq system-type 'windows-nt) 
-        (eq system-type 'ms-dos)) 
+        (eq system-type 'ms-dos)
+        (eq system-type 'cygwin)) 
     (setq rtags-rc "rc.exe") 
   (setq rtags-rc "rc"))
 

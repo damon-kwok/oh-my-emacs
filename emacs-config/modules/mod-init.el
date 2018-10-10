@@ -79,7 +79,7 @@
     ;; (module-require 'mod-sh))
 
 ;; `cc'
-(defconst cc-lang-server "clangd")
+(defconst cc-lang-server "rtags")
 (cond ((and 
         (string= cc-lang-server "clangd") 
         (executable-find "clang") 
