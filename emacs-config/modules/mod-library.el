@@ -168,7 +168,7 @@
 (defun ome-bing-dict-brief-eww (arg) 
   "compile project"
   ;;(interactive)
-  (ome-show-compilation "*Messages*")
+  (ome-show-compilation "*Messages*") 
   (other-window 1) 
   (eww (concat "https://www.bing.com/dict/search??mkt=zh-cn&q=" arg)))
 
@@ -438,7 +438,7 @@ occurence of CHAR."
 (defun ome-exit() 
   (interactive) 
   (cond ((y-or-n-p "Exit? ") ;;(y-or-n-p "Relax...? ")
-	 (save-buffers-kill-emacs))))
+	     (save-buffers-kill-emacs))))
 
 (defun ome-open-file(file-name) 
   (interactive) 
@@ -568,18 +568,18 @@ occurence of CHAR."
         ((string= lang "nim") 
          (ome-ask-new-project "nimble init %s" "src/%s.nim")) ;; not invalid
         ((string= lang "rust") 
-         (ome-ask-new-project "cargo new %s --bin" "Cargo.toml")) 
-        ;; ((string= lang "go") 
-         ;; (ome-ask-new-project "mkdir -p %s && cd %s && rubigo init" "rubigo.json"))
+         (ome-ask-new-project "cargo new %s --bin" "Cargo.toml"))
+        ;; ((string= lang "go")
+        ;; (ome-ask-new-project "mkdir -p %s && cd %s && rubigo init" "rubigo.json"))
         ((string= lang "go") 
-         (ome-ask-new-project "mkdir -p %s && cd %s && dep init" "Gopkg.toml"))
+         (ome-ask-new-project "mkdir -p %s && cd %s && dep init" "Gopkg.toml")) 
         ((string= lang "ros") 
          (ome-ask-new-project "rosman %s" "src/main.cpp"))))
 
 (defun ome-buffer-reload() 
   (interactive) 
   (save-buffer) 
-  (let ((old-pos (point)))  
+  (let ((old-pos (point))) 
     (find-alternate-file (buffer-file-name)) 
     (goto-char (point-min)) 
     (goto-char old-pos)))

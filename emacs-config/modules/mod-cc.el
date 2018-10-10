@@ -82,7 +82,7 @@
           (eq major-mode 'c++-mode)) 
       (ome-smart-find-file "CMakeLists.txt" t) 
     (if (eq major-mode 'cmake-mode) ;;(if (equal buffer-name "CMakeLists.txt")
-	(kill-this-buffer))))
+	    (kill-this-buffer))))
 
 ;; switch 'package-xml buffer' and 'code buffer'
 (defun ome-open-or-close-packagexml () 
@@ -165,10 +165,10 @@
 (define-key c++-mode-map [f12] 'projectile-find-other-file)
 (define-key objc-mode-map [f12] 'projectile-find-other-file)
 
-;; (define-key c++-mode-map [f5] 
-  ;; '(lambda () 
-     ;; (interactive) 
-     ;; (ome-run-command "/home/damon/catkin_ws/bin/build_adsim")))
+;; (define-key c++-mode-map [f5]
+;; '(lambda ()
+;; (interactive)
+;; (ome-run-command "/home/damon/catkin_ws/bin/build_adsim")))
 
 
 ;; `format'
@@ -190,7 +190,9 @@
 
 ;; `cmake-file'
 (defun gen-cmake-file () 
-  (shell-command (concat "gen-cmake-file " (ome-project-root))))
+  (if (string= (ome-project-root) "") 
+      (message "'CMakeLists.txt' is not found!") 
+    (shell-command (concat "gen-cmake-file " (ome-project-root)))))
 
 ;; (add-hook 'c-mode-hook 'gen-cmake-file)
 ;; (add-hook 'c++-mode-hook 'gen-cmake-file)
