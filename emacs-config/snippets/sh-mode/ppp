@@ -3,14 +3,26 @@
 function ${1:`(ome-bufname-no-ext)`}-install() {
     got-os-type
     case $OME_OS in
-        $OS_UNKNOW) ;;
+        # Linux
+        $OS_DEBIAN) ;;
+        $OS_UBUNTU) ;;
+        $OS_REDHAT) ;;
+        $OS_FEDORA) ;;
+        $OS_GENTOO) ;;
+        $OS_ARCH) ;;
+        $OS_ALPINE) ;;
+        $OS_VOID) ;;
+        # Unix
         $OS_MACOS) ;;
+        $OS_AIX) ;;
+        $OS_SORLARIS) ;;
+        $OS_FREEBSD) ;;
+        $OS_OPENBSD) ;;
+        # Windows
         $OS_CYGWIN) ;;
         $OS_MSYS2) ;;
-        $OS_ARCH) ;;
-        $OS_DEBIAN|$OS_UBUNTU) ;;
-        $OS_REDHAT|$OS_FEDORA) ;;
-        $OS_FREEBSD) ;;
+        # Other
+        $OS_UNKNOW) ;;
     esac
 }
 
