@@ -1,18 +1,25 @@
 got-os-type
 case $OME_OS in
     # Linux
-    $OS_DEBIAN) ;;
-    $OS_UBUNTU) ;;
-    $OS_REDHAT) ;;
-    $OS_FEDORA) ;;
-    $OS_GENTOO) ;;
+    # $OS_DEBIAN) ;;
+    # $OS_UBUNTU) ;;
+    $OS_DEBIAN|$OS_UBUNTU) ;;
+    # $OS_REDHAT) ;;
+    # $OS_FEDORA) ;;
+    $OS_REDHAT|$OS_FEDORA) ;;
     $OS_ARCH) ;;
-    $OS_ALPINE) ;;
+    $OS_GENTOO) ;;
+    $OS_SUSE) ;;
+    $OS_SLACKWARE) ;;
+    $OS_NIXOS) ;;
     $OS_VOID) ;;
+    $OS_ALPINE) ;;
+    $OS_MAGEIA) ;;
+    $OS_SLITAZ) ;;
     # Unix
     $OS_MACOS) ;;
     $OS_AIX) ;;
-    $OS_SORLARIS) ;;
+    $OS_SOLARIS) ;;
     $OS_FREEBSD) ;;
     $OS_OPENBSD) ;;
     # Windows
