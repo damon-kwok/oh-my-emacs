@@ -29,7 +29,7 @@
 (require 'rtags)
 
 (if (or (eq system-type 'windows-nt) 
-        (eq system-type 'ms-dos)
+        (eq system-type 'ms-dos) 
         (eq system-type 'cygwin)) 
     (setq rtags-rc "rc.exe") 
   (setq rtags-rc "rc"))
@@ -55,9 +55,9 @@
 (eval-after-load 'company '(add-to-list 'company-backends 'company-rtags))
 (setq rtags-autostart-diagnostics t)
 (rtags-enable-standard-keybindings)
-(add-hook 'c-mode-hook 'rtags-start-process-unless-running)
-(add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
-(add-hook 'objc-mode-hook 'rtags-start-process-unless-running)
+;; (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
+;; (add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
+;; (add-hook 'objc-mode-hook 'rtags-start-process-unless-running)
 
 ;; (setq rtags-use-helm nil)
 (setq rtags-display-result-backend 'helm)
@@ -127,9 +127,15 @@
                              "\"")) 
       (setq default-directory old-default-directory))))
 
-(add-hook 'c-mode-hook 'gen-rtags-indexes)
-(add-hook 'c++-mode-hook 'gen-rtags-indexes)
-(add-hook 'objc-mode-hook 'gen-rtags-indexes)
+
+(defun rtags-setup () 
+  (interactive) 
+  (rtags-start-process-unless-running) 
+  (gen-rtags-indexes))
+
+(add-hook 'c-mode-hook 'rtags-setup)
+(add-hook 'c++-mode-hook 'rtags-setup)
+(add-hook 'objc-mode-hook 'rtags-setup)
 
 (defun show-rtags-buffer() 
   (interactive) 
