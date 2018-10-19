@@ -1,7 +1,7 @@
-function ${1:`(ome-bufname-no-ext)`}-uninstall() {
+${1:`(ome-bufname-no-ext)`}-uninstall() {
     echo-error "'$1-uninstall' not implemented"
 }
 
-function $1-exist-p() {
+$1-exist-p() {
     echo-error "'$1-exist-p' not implemented"
 }

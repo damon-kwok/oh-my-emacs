@@ -22,6 +22,8 @@ case $OME_OS in
     $OS_SOLARIS) ;;
     $OS_FREEBSD) ;;
     $OS_OPENBSD) ;;
+    $OS_NETBSD) ;;
+    $OS_DFBSD) ;;
     # Windows
     $OS_CYGWIN) ;;
     $OS_MSYS2) ;;

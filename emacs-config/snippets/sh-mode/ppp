@@ -1,13 +1,13 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-function ${1:`(ome-bufname-no-ext)`}-install() {
+${1:`(ome-bufname-no-ext)`}-install() {
     echo-error "'$1-install' not implemented"
 }
 
-function $1-uninstall() {
+$1-uninstall() {
     echo-error "'$1-uninstall' not implemented"
 }
 
-function $1-exist-p() {
+$1-exist-p() {
     echo-error "'$1-exist-p' not implemented"
 }

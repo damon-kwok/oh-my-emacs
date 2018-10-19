@@ -1,4 +1,4 @@
-function ${1:name}() {
+${1:name}() {
   local oldir=\`pwd\`
   tip "$1"
   $0
