@@ -16,6 +16,7 @@ case $OME_OS in
     $OS_ALPINE) ;;
     $OS_MAGEIA) ;;
     $OS_SLITAZ) ;;
+    $OS_GUIXSD) ;;
     # Unix
     $OS_MACOS) ;;
     $OS_AIX) ;;
