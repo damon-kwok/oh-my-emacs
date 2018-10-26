@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 if [ ! -e "$HOME/.oh-my-emacs/.git/index" ]; then
     git clone https://github.com/damon-kwok/oh-my-emacs $HOME/.oh-my-emacs --depth=1
@@ -7,7 +7,7 @@ else
     git pull
 fi
 
-function link-init-el() {
+link-init-el() {
     tip "link"
     bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
     mkdir -p $bkdir
