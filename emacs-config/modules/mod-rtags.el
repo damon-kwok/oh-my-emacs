@@ -89,7 +89,7 @@
   (interactive)
   ;; (message (concat "you opened cc file:" (buffer-name)))
   ;; find CmakeLists.txt & gen rtags indexes
-  (shell-command (concat "gen-rtags " (ome-project-root))))
+  (shell-command (concat "gen_rtags " (ome-project-root))))
 
 (defun gen-rtags-indexes-with-elisp () 
   (interactive) 

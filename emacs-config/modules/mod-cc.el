@@ -192,7 +192,7 @@
 (defun gen-cmake-file () 
   (if (string= (ome-project-root) "") 
       (message "project root not found!") 
-    (shell-command (concat "gen-cmake-file " (ome-project-root)))))
+    (shell-command (concat "gen_cmake_file " (ome-project-root)))))
 
 ;; (add-hook 'c-mode-hook 'gen-cmake-file)
 ;; (add-hook 'c++-mode-hook 'gen-cmake-file)
