@@ -1,4 +1,4 @@
-got-os-type
+get_os_type
 case $OME_OS in
     # Linux
     # $OS_DEBIAN) ;;
