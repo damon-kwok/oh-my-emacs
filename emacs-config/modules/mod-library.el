@@ -621,13 +621,13 @@ occurence of CHAR."
   (save-match-data (--ome-grep-directory  word) 
                    (other-window 1)))
 
-(defun --ome-grep-project (str)
-  (if (stringp str)
+(defun --ome-grep-project (str) 
+  (if (stringp str) 
       (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (ome-project-root)))))
 
-(defun --ome-grep-directory (str)
-  (message (concat "grep-dir:" str))
-  (if (stringp str)
+(defun --ome-grep-directory (str) 
+  (message (concat "grep-dir:" str)) 
+  (if (stringp str) 
       (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory
                                                                 buffer-file-name)))))
 
@@ -675,6 +675,20 @@ occurence of CHAR."
 (defun ome-eval-string (string) 
   "Evaluate elisp code stored in a string. (ome-eval-string \"(+ 1 2)\") is 3"
   (eval (car (read-from-string string))))
+
+(defun ome-mu4e-open ()
+  (interactive)
+  (if (and (executable-find "offlineimap") 
+           (executable-find "mu")) 
+      (mu4e)
+    (message "Please install 'mu' and offlineimap!")))
+
+(defun ome-mu4e-new ()
+  (interactive)
+  (if (and (executable-find "offlineimap") 
+           (executable-find "mu")) 
+      (mu4e-compose-new)
+    (message "Please install 'mu' and offlineimap!")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require-curl "elisp-format" "elisp-format.el"

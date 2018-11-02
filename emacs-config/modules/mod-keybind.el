@@ -632,7 +632,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 (defhydra hydra-new-menu 
   (:color blue)
   "New" ;;
-  ("e" mu4e-compose-new "Email")
+  ("e" ome-mu4e-new "Email")
   
   ("0" (ome-project-wizard "ros") "ROS")
   ("1" (ome-project-wizard "c") "c/c++")
@@ -676,9 +676,9 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("o" (hydra-open-menu/body) "Open" 
    :color blue) 
   ("b" helm-bookmarks "Bookmarks") 
-  ("e" mu4e "Email" 
+  ("e" ome-mu4e-open "Email" 
    :color blue)
-  ("E" mu4e-compose-new "Email")
+  ("E" ome-mu4e-new "Email")
   ("f" elfeed "Feed" 
    :color blue) 
   ("m" (hydra-config-menu/body) "Module")
