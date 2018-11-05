@@ -276,7 +276,7 @@
 (setq bing-dict-show-thesaurus 'both)
 (setq bing-dict-pronunciation-style 'us) ;;us | uk
 (setq bing-dict-save-search-result t)
-(setq bing-dict-org-file (concat (getenv "HOME") "/workspace/vocabulary.org"))
+(setq bing-dict-org-file (concat (getenv "HOME") "/workspace/org/english/vocabulary.org"))
 ;; (global-set-key (kbd "C-c d") 'ome-bing-dict-brief)
 ;; (global-set-key (kbd "C-c D") 'ome-bing-dict-brief-web)
 
@@ -576,16 +576,16 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 (defhydra hydra-open-menu 
   (:color blue)
   "
-^Project^         ^Doc^          ^Blog^            ^dotfiles^
-^^^^^^^^--------------------------------------------------------------------------------
-_M-1_:libknife    _h_:README.org  _i_: index.org    _1_:env
-_M-2_:medusa      _d_:diary.org   _b_: blog.org     _2_:lib
-_M-3_:pkg-manager _t_:todo.org    _l_: link.org     _3_:tool
-_M-4_:network     _b_:book.org    ^^                _4_:proj
-_M-5_:webscrap    _g_:game.org    ^^                _0_:.emacs
-^^                _n_:NEWS.org    ^^                _._:.bashrc
-^^                _e_:english.org ^^ ^^
-^^^^^^^^--------------------------------------------------------------------------------
+^Project^         ^Doc^          ^Blog^            ^dotfiles^   ^English^
+^^^^^^^^^^--------------------------------------------------------------------------------
+_M-1_:libknife    _h_:README.org  _i_: index.org    _1_:env     _C-b_: english-b.org
+_M-2_:medusa      _d_:diary.org   _b_: blog.org     _2_:lib     _C-2_: PETS2.org
+_M-3_:pkg-manager _t_:todo.org    _l_: link.org     _3_:tool    _C-3_: PETS3.org
+_M-4_:network     _b_:book.org    ^^                _4_:proj    _C-4_: CET4.org
+_M-5_:webscrap    _g_:game.org    ^^                _5_:ome     _C-6_: CET6.org
+^^                _n_:NEWS.org    ^^                _._:.bashrc _e_:english.org
+^^                ^^              ^^                _0_:.emacs  _v_:vocabulary.org
+^^^^^^^^^^--------------------------------------------------------------------------------
 _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 " ;;
 
@@ -603,7 +603,6 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("b" (ome-open-doc "book.org") "book.org") 
   ("g" (ome-open-doc "game.org") "game.org") 
   ("n" (ome-open-doc "news.org") "news.org")
-  ("e" (ome-open-doc "english.org") "english.org")
 
   ;; Blog
   ("i" (ome-open-blog "index.org") "index.org") 
@@ -611,14 +610,24 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("l" (ome-open-blog "link.org") "link.org")
 
   ;; dotfiles
-  ("0" (ome-open-file "~/.emacs") ".emacs") 
   ("1" (ome-open-file "~/workspace/bin/env") "env") 
   ("2" (ome-open-file "~/workspace/bin/lib") "lib") 
   ("3" (ome-open-file "~/workspace/bin/tool") "tool") 
-  ("4" (ome-open-file "~/workspace/bin/proj") "proj") 
+  ("4" (ome-open-file "~/workspace/bin/proj") "proj")
+  ("5" (ome-open-file "~/workspace/bin/ome") "ome")
   ("." (ome-open-file "~/.bashrc") ".bashrc")
+  ("0" (ome-open-file "~/.emacs") ".emacs") 
   ("f" (ome-open-file "~/workspace/elfeed.org") "elfeed")
 
+  ;; English
+  ("e" (ome-open-doc "english/english.org") "english")
+  ("v" (ome-open-doc "english/vocabulary.org") "english")
+  ("C-b" (ome-open-doc "english/english-b.org") "english")
+  ("C-2" (ome-open-doc "english/PETS2.org") "english")
+  ("C-3" (ome-open-doc "english/PETS3.org") "english")
+  ("C-4" (ome-open-doc "english/CET4.org") "english")
+  ("C-6" (ome-open-doc "english/CET6.org") "english")
+  
   ;;
   ("<tab>" helm-keyboard-quit "back" 
    :exit t) 

@@ -42,6 +42,8 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 ;;(message (concat "gc:" gc-cons-threshold " pre:" gc-cons-percentage))
 
 
+;; 显示垃圾回收信息，这个可以作为调试用 {t:display nil: not}
+(setq garbage-collection-messages nil)
 
 (if (or (string= system-type 'windows-nt) ;
         (string= system-type 'ms-dos) 
@@ -50,9 +52,7 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
       (setq gc-cons-threshold (* 256 1024 1024)) 
       (setq gc-cons-percentage 0.5) 
       (add-hook 'after-init-hook (lambda () 
-                                   (run-with-idle-timer 5 t #'garbage-collect)))
-      ;; 显示垃圾回收信息，这个可以作为调试用
-      (setq garbage-collection-messages t)) 
+                                   (run-with-idle-timer 3 t #'garbage-collect)))) 
   (progn (my-optimize-gc 256 0.2) 
          (add-hook 'after-init-hook (lambda () 
                                       (my-optimize-gc 16 0.2)))))
