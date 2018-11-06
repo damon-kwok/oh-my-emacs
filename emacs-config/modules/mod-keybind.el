@@ -598,7 +598,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 
   ;; Doc
   ("h" (ome-open-file "~/.oh-my-emacs/README.org") "README.org") 
-  ("d" (ome-open-doc "diary.org") "diary.org") 
+  ("d" (ome-open-org-by-month "diary") "diary.org") 
   ("t" (ome-open-doc "todo.org") "todo.org") 
   ("b" (ome-open-doc "book.org") "book.org") 
   ("g" (ome-open-doc "game.org") "game.org") 
@@ -636,28 +636,84 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ("q" nil "Quit") 
   ("<escape>" nil "Quit"))
 
-;;
+
+(defhydra hydra-english-menu 
+  (:color blue)
+  "
+^Common^        ^PETS^      ^CET^         ^TEM^         ^Other^
+^^^^^^^^^^--------------------------------------------------------------------------------
+_a_:english-a   _1_:PETS1   _C-4_:CET-4   _M-4_:TEM-4   _i_:IELTS 
+_b_:english-b   _2_:PETS2   _C-6_:CET-6   _M-8_:TEM-8   _t_:TOEFL-IBT
+_e_:english     _3_:PETS3   ^^            ^^            _g_:GRE
+_v_:vocabulary  _4_:PETS4   ^^            ^^            ^^
+^^              _5_:PETS5   ^^            ^^            ^^
+^^^^^^^^^^--------------------------------------------------------------------------------
+_\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
+" ;;
+
+  ;; Common
+  ("a" (ome-open-doc "english/english-a.org") "english")
+  ("b" (ome-open-doc "english/english-b.org") "english-a")
+  ("e" (ome-open-doc "english/english.org") "english-b")
+  ("v" (ome-open-doc "english/vocabulary.org") "vocabulary")
+  
+  ;; English
+  ("1" (ome-open-doc "english/PETS1.org") "english")
+  ("2" (ome-open-doc "english/PETS2.org") "english")
+  ("3" (ome-open-doc "english/PETS3.org") "english")
+  ("4" (ome-open-doc "english/PETS4.org") "english")
+  ("5" (ome-open-doc "english/PETS5.org") "english")
+
+  ;; CET
+  ("C-4" (ome-open-doc "english/CET4.org") "english")
+  ("C-6" (ome-open-doc "english/CET6.org") "english")
+
+  ;; TEM
+  ("M-4" (ome-open-doc "english/TEM4.org") "english")
+  ("M-8" (ome-open-doc "english/TEM8.org") "english")
+
+  ;; Other
+  ("i" (ome-open-doc "english/IELTS.org") "english")
+  ("t" (ome-open-doc "english/TOEFL-IBT.org") "english")
+  ("g" (ome-open-doc "english/GRE.org") "english")
+  
+  ;;
+  ("<tab>" helm-keyboard-quit "back" 
+   :exit t) 
+  ("\\" (calendar) "calendar") 
+  ("<tab>" (hydra-super-menu/body) "BACK") 
+  ("q" nil "Quit") 
+  ("<escape>" nil "Quit"))
+
 ;;
 (defhydra hydra-new-menu 
   (:color blue)
-  "New" ;;
+  (concat
+   "^C^           ^JVM^           ^.Net^             ^Functional^\n";;
+   "_c_:C/C++     _M-j_:Java      ^C-c:C#^           _r_:Rust\n";;
+   "_C_:C++-ROS   _M-s_:Scala     ^^                 _e_:Erlang\n";;
+   "_g_:Golang    _M-g_:Groovy    ^^                 _E_:Elixir\n";;
+   "_p_:Python    ^M-p:Jython^    ^C-p:IronPython^   _h_:Haskell\n";;
+   "_n_:Nim       _M-c_:Clojure   ^C-f:F#^           _o_:OCaml\n";;
+   );;
   ("e" ome-mu4e-new "Email")
   
-  ("0" (ome-project-wizard "ros") "ROS")
-  ("1" (ome-project-wizard "c") "c/c++")
-  ("2" (ome-project-wizard "java") "java")
-  ("C-2" (ome-project-wizard "scala") "scala")
-  ("M-2" (ome-project-wizard "groovy") "groovy")
-  ("3" (ome-project-wizard "python") "python")
-  ("4" (ome-project-wizard "go") "go")
-  ("5" (ome-project-wizard "nim") "nim")
+  ("c" (ome-project-wizard "c") "c/c++")
+  ("C" (ome-project-wizard "ros") "ROS")
+  ("p" (ome-project-wizard "python") "python")
+  ("g" (ome-project-wizard "go") "go")
+  ("n" (ome-project-wizard "nim") "nim")
 
-  ("6" (ome-project-wizard "rust") "rust")
-  ("7" (ome-project-wizard "haskell") "haskell")
-  ("8" (ome-project-wizard "erlang") "erlang")
-  ("9" (ome-project-wizard "elixir") "elixir")
-  ("a" (ome-project-wizard "ocaml") "ocaml")
-  ("b" (ome-project-wizard "clojure") "clojure")
+  ("M-j" (ome-project-wizard "java") "java")
+  ("M-s" (ome-project-wizard "scala") "scala")
+  ("M-g" (ome-project-wizard "groovy") "groovy")
+  ("M-c" (ome-project-wizard "clojure") "clojure")
+
+  ("r" (ome-project-wizard "rust") "rust")
+  ("e" (ome-project-wizard "erlang") "erlang")
+  ("E" (ome-project-wizard "elixir") "elixir")
+  ("h" (ome-project-wizard "haskell") "haskell")
+  ("o" (ome-project-wizard "ocaml") "ocaml")
   
   ("<tab>" (hydra-super-menu/body) "BACK") 
   ("q" nil "quit") 
@@ -676,7 +732,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
    "_f_:Feed       _d_:dict-bing        _=_:scale+      ^0-9:select^ _C-k_:kill-all   _M-u_:update\n" ;;
    "_m_:Module     _D_:dict-bing-web    _-_:scale-      _u_:URLs     _._:*scratch*    _M-g_:GTD\n" ;;
    "_i_:IRC        ^^                   _M_:Message     ^^           _M-._:load-menu  _M-p_:publish-blog\n";;
-   "_s_(S):Shell   ^^                   ^^              ^^           ^^               ^^\n";;
+   "_s_(S):Shell   ^^                   ^^              ^^           ^^               _M-e_:en\n";;
    "^^^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^\n")
   ;; Main
@@ -706,6 +762,8 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
   ;; ("M-p" (org-publish-project "blog") "publish-blog")  
   ("M-p" (ome-run-command "cd ~/workspace/blog/ && make") "publish-blog")
   ("C-p" (ome-run-command "rm ~/.org-timestamps/* && cd ~/workspace/blog/ && make") "publish-blog")
+  ("M-e" (hydra-english-menu/body) "english" 
+   :color blue)
   
   ;; Search
   (">" ome-go-to-char-forward "go-to-char-forward") 

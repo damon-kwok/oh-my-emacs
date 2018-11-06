@@ -1,4 +1,4 @@
-#+TITLE:     ${1:This is Title}
+#+TITLE:     ${1:`(ome-bufname-no-ext)`}
 #+AUTHOR:    damon-kwok
 #+EMAIL:     damon-kwok@outlook.com
 #+DATE:      `(format-time-string "%Y-%m-%d")`

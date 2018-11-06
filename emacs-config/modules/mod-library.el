@@ -464,6 +464,17 @@ occurence of CHAR."
   (find-file (concat (getenv "HOME") "/workspace/org/" doc-name)) 
   (delete-other-windows))
 
+
+
+(defun ome-open-org-by-month(name) 
+  (interactive) 
+  (delete-other-windows) 
+  (ome-show-compilation "*Messages*") 
+  (other-window 1) ;;(switch-window)
+  (let ((filename (concat name (format-time-string "-%Y-%m") ".org")))
+    (find-file (concat (getenv "HOME") "/workspace/org/" filename))) 
+  (delete-other-windows))
+
 (defun ome-open-blog(doc-name) 
   (interactive) 
   (delete-other-windows) 
