@@ -692,7 +692,7 @@ occurence of CHAR."
   (if (and (executable-find "offlineimap") 
            (executable-find "mu")) 
       (mu4e)
-    (message "Please install 'mu' and offlineimap!")))
+    (message "Please install 'mu' and 'offlineimap'!")))
 
 (defun ome-mu4e-new ()
   (interactive)

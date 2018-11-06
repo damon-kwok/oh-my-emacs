@@ -24,7 +24,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-;; (setq mu4e-root (concat (expand-file-name ome-lib-dir) "/mu-git/mu4e"))
+;; (setq mu4e-root-src (concat (expand-file-name ome-lib-dir) "/mu-git/mu4e"))
+;; (add-to-list 'load-path mu4e-root-src)
+
 (setq mu4e-root (expand-file-name "~/.local/share/emacs/site-lisp/mu4e"))
 (add-to-list 'load-path mu4e-root)
 (require 'mu4e)
@@ -34,7 +36,11 @@
         (string= system-type 'ms-dos)
         (string= system-type 'cygwin)) 
    (setq mu4e-mu-binary (expand-file-name "~/.local/bin/mu.exe")) 
- (setq mu4e-mu-binary (expand-file-name "~/.local/bin/mu")))
+  (setq mu4e-mu-binary (expand-file-name "~/.local/bin/mu")))
+
+;; (if (file-exists-p "/usr/local/bin/mu")
+    ;; (setq mu4e-mu-binary (expand-file-name "/usr/local/bin/mu"))
+  ;; (setq mu4e-mu-binary (expand-file-name "~/.local/bin/mu")))
 
 ;; `extensions'
 (package-require 'mu4e-maildirs-extension)
