@@ -598,7 +598,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^
 
   ;; Doc
   ("h" (ome-open-file "~/.oh-my-emacs/README.org") "README.org") 
-  ("d" (ome-open-org-by-month "diary") "diary.org") 
+  ("d" (ome-open-org-by-month "diary") "diary.org")
   ("t" (ome-open-doc "todo.org") "todo.org") 
   ("b" (ome-open-doc "book.org") "book.org") 
   ("g" (ome-open-doc "game.org") "game.org") 
@@ -689,14 +689,17 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
 (defhydra hydra-new-menu 
   (:color blue)
   (concat
+   "^^^^^^^^New project wizard:\n";;
+   "^^^^^^^^------------------------------------------------------------------------\n";;
    "^C^           ^JVM^           ^.Net^             ^Functional^\n";;
+   "^^^^^^^^------------------------------------------------------------------------\n";;
    "_c_:C/C++     _M-j_:Java      ^C-c:C#^           _r_:Rust\n";;
    "_C_:C++-ROS   _M-s_:Scala     ^^                 _e_:Erlang\n";;
    "_g_:Golang    _M-g_:Groovy    ^^                 _E_:Elixir\n";;
    "_p_:Python    ^M-p:Jython^    ^C-p:IronPython^   _h_:Haskell\n";;
    "_n_:Nim       _M-c_:Clojure   ^C-f:F#^           _o_:OCaml\n";;
-   );;
-  ("e" ome-mu4e-new "Email")
+   "^^^^^^^^------------------------------------------------------------------------\n";;
+   "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^\n");;
   
   ("c" (ome-project-wizard "c") "c/c++")
   ("C" (ome-project-wizard "ros") "ROS")
@@ -715,7 +718,12 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("h" (ome-project-wizard "haskell") "haskell")
   ("o" (ome-project-wizard "ocaml") "ocaml")
   
-  ("<tab>" (hydra-super-menu/body) "BACK") 
+  ;; Other
+  ("<tab>" (hydra-super-menu/body) "back")
+  ("`" (show-global-shell) "shell") 
+  ("C-`" (show-global-shell-new) "shell-new") 
+  ("\\" (calendar) "calendar") 
+  ("w" (ome-open-url "http://wttr.in/") "wego") 
   ("q" nil "quit") 
   ("<SPC>" nil "quit") 
   ("<escape>" nil "quit"))
@@ -837,7 +845,6 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("9" select-window-9 "select-window-9" 
    :color pink) 
   ("u" (hydra-url-menu/body) "URLs")
-  ("<tab>" helm-recentf "(helm-recentf)")
 
   ;; Buffer/File
   ("r" ome-rename-file-and-buffer "rename-file-and-buffer") 
@@ -852,6 +859,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
 
   
   ;; Other
+  ("<tab>" helm-recentf "(helm-recentf)")
   ("`" (show-global-shell) "shell") 
   ("C-`" (show-global-shell-new) "shell-new") 
   ("\\" (calendar) "calendar") 
