@@ -102,15 +102,6 @@
 ;; (define-key elixir-mode-map (kbd "C-c C-k")  'eval-buffer)
 ;; (define-key elixir-mode-map (kbd "C-M-\\")  'elisp-code-format)
 
-(defun add (a b) 
-  (+ a b))
-
-(fset 'fadd (symbol-function (intern "add")))
-(fadd 1 2)
-
-(fset 'fadd2  (-> "add" intern symbol-function))
-(fadd2 1 2)
-
 ;;
 (provide 'mod-elixir)
 ;;; ohai-elixir.el ends here

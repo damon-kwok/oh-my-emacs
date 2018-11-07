@@ -32,6 +32,12 @@
 (add-to-list 'auto-mode-alist '("\\.els.el\\'" . emacs-lisp-mode))
 ;;
 
+;; `highlight-defined'
+(package-require 'highlight-defined)
+(require 'highlight-defined)
+(add-hook 'emacs-lisp-mode-hook 'highlight-defined-mode)
+;;
+
 ;; scratch settings
 (package-require 'persistent-scratch)
 (require 'persistent-scratch)
