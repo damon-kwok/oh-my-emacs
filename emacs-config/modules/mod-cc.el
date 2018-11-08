@@ -146,6 +146,7 @@
     (dolist (dir dirs) 
       (check-header dir basename))))
 
+(package-require 'cmake-mode)
 (require 'cmake-mode)
 (define-key c-mode-map [f6] 'ome-open-or-close-cmakefile)
 (define-key c++-mode-map [f6] 'ome-open-or-close-cmakefile)
