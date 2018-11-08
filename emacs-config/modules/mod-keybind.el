@@ -698,6 +698,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
    "_g_:Golang    _M-g_:Groovy    ^^                 _E_:Elixir\n";;
    "_p_:Python    ^M-p:Jython^    ^C-p:IronPython^   _h_:Haskell\n";;
    "_n_:Nim       _M-c_:Clojure   ^C-f:F#^           _o_:OCaml\n";;
+   "_1_:Ruby      ^^              ^^                 ^^";;
    "^^^^^^^^------------------------------------------------------------------------\n";;
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^\n");;
   
@@ -706,6 +707,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("p" (ome-project-wizard "python") "python")
   ("g" (ome-project-wizard "go") "go")
   ("n" (ome-project-wizard "nim") "nim")
+  ("1" (ome-project-wizard "ruby") "ruby")
 
   ("M-j" (ome-project-wizard "java") "java")
   ("M-s" (ome-project-wizard "scala") "scala")

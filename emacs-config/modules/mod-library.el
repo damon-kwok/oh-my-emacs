@@ -571,9 +571,11 @@ occurence of CHAR."
          (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type groovy-application"
                               "src/main/groovy/App.groovy")) 
         ((string= lang "python") 
-         (ome-ask-new-project "mkdir -p %s && cd %s && pipenv --three" "Pipfile")) 
+         (ome-ask-new-project "mkdir -p %s && cd %s && pipenv --three" "Pipfile"))
+        ((string= lang "ruby") 
+         (ome-ask-new-project "mkdir -p %s && cd %s && bundle init" "Gemfile")) 
         ((string= lang "c") 
-         (ome-ask-new-project "gen-cmake-file %s" "CMakeLists.txt")) 
+         (ome-ask-new-project "gen_cmake_file %s" "CMakeLists.txt")) 
         ((string= lang "haskell") 
          (ome-ask-new-project "stack new %s" "src/Main.hs")) 
         ((string= lang "nim") 
