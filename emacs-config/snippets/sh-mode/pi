@@ -1,0 +1,3 @@
+`(ome-bufname-no-ext)`_info() {
+    ${1:echo_error ""}
+}

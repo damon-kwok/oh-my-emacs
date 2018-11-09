@@ -1,0 +1,3 @@
+if [ "$OME_OS" == "${1:$OS_CYGWIN}" ]; then
+   $0
+fi

@@ -5,3 +5,7 @@ ${1:`(ome-bufname-no-ext)`}_uninstall() {
 $1_exist_p() {
     echo_error "'$1_exist_p' not implemented"
 }
+
+$1_info() {
+    echo_error ""
+}
