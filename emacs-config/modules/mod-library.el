@@ -554,7 +554,11 @@ occurence of CHAR."
                (message (concat "created new project '" (f-filename project-path) "' succeed:)"))) 
       (message (concat "creat new project '" (f-filename project-path) "' failed:(")))))
 
-(defun ome-project-wizard(lang) 
+(defun ome-project-wizard(lang)
+  (let  ((project-path (read-file-name "choice project path:" nil default-directory nil)))
+    (ome-run-command (concat "app_wizard " lang " " project-path))))
+
+(defun ome-project-wizard-old(lang) 
   (cond ((string= lang "clojure") 
          (ome-ask-new-project "lein new %s" "project.clj")) 
         ((string= lang "elixir") 

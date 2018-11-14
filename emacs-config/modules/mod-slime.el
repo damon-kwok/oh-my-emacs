@@ -32,8 +32,9 @@
 ;;
 (require 'mod-package)
 
-(add-to-list 'auto-mode-alist '("\\.ros\\'" . lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.cl\\'" . lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.ros\\'" . lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.lisp\\'" . lisp-mode))
 
 (package-require 'slime)
 (require 'slime)
@@ -53,28 +54,24 @@
 
 (package-require 'slime-company)
 ;; (require 'slime-company)
-(eval-after-load "slime" '(progn
-			    ;;(slime-setup '(slime-repl slime-fuzzy))
-			    (slime-setup '(slime-company slime-asdf slime-autodoc slime-banner
-                                                         slime-c-p-c slime-cl-indent slime-clipboard
-                                                         slime-compiler-notes-tree
-                                                         slime-editing-commands
-                                                         slime-enclosing-context
-                                                         slime-fancy-inspector slime-fancy
-                                                         slime-fontifying-fu slime-fuzzy
-                                                         slime-highlight-edits slime-hyperdoc
-                                                         slime-indentation slime-mdot-fu slime-media
-                                                         ;;slime-motd
-							 slime-mrepl slime-package-fu slime-parse
-							 ;; slime-presentation-streams slime-presentations
-							 slime-references slime-repl slime-sbcl-exts
-                                                         slime-scheme slime-scratch slime-snapshot
-                                                         slime-sprof slime-tramp ;;slime-typeout-frame ;;muliti-frame
-							 slime-xref-browser)) 
-                            (setq slime-truncate-lines t) 
-                            (setq swank:*globally-redirect-io*  t) 
-                            (setq slime-complete-symbol-function ' slime-fuzzy-complete-symbol) 
-                            (setq slime-net-coding-system 'utf-8-unix)))
+(eval-after-load "slime" ;;
+  '(progn
+	 ;;(slime-setup '(slime-repl slime-fuzzy))
+	 (slime-setup '(slime-company slime-asdf slime-autodoc slime-banner slime-c-p-c slime-cl-indent
+                                  slime-clipboard slime-compiler-notes-tree slime-editing-commands
+                                  slime-enclosing-context slime-fancy-inspector slime-fancy
+                                  slime-fontifying-fu slime-fuzzy slime-highlight-edits
+                                  slime-hyperdoc slime-indentation slime-mdot-fu slime-media
+                                  ;;slime-motd
+                                  slime-mrepl slime-package-fu slime-parse
+		                          ;; slime-presentation-streams slime-presentations
+                                  slime-references slime-repl slime-sbcl-exts slime-scheme
+                                  slime-scratch slime-snapshot slime-sprof slime-tramp ;;slime-typeout-frame ;;muliti-frame
+                                  slime-xref-browser)) 
+     (setq slime-truncate-lines t) 
+     (setq swank:*globally-redirect-io*  t) 
+     (setq slime-complete-symbol-function ' slime-fuzzy-complete-symbol) 
+     (setq slime-net-coding-system 'utf-8-unix)))
 
 ;;-------------------------------------------------
 ;; Set your lisp system and, optionally, some contribs
