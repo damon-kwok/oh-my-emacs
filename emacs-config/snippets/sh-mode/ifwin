@@ -1,3 +1,4 @@
 if [ "$OME_OS" == "$OS_CYGWIN" ] || [ "$OME_OS" == "$OS_MSYS2" ]; then
-    $0
+    ${1:echo_error "mu does not support msys2"}
+    return
 fi
