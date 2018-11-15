@@ -1,4 +1,4 @@
 if [ "$OME_OS" == "$OS_CYGWIN" ] || [ "$OME_OS" == "$OS_MSYS2" ]; then
-    ${1:echo_error "mu does not support msys2"}
+    ${1:echo_error "'`(ome-bufname-no-ext)`' does not support windows"}
     return
 fi
