@@ -1,0 +1,3 @@
+if [ "$OME_OS" == "$OS_CYGWIN" ] || [ "$OME_OS" == "$OS_MSYS2" ]; then
+    $0
+fi
