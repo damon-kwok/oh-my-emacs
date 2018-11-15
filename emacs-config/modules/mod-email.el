@@ -24,19 +24,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-;; (setq mu4e-root-src (concat (expand-file-name ome-lib-dir) "/mu-git/mu4e"))
-;; (add-to-list 'load-path mu4e-root-src)
+(setq mu4e-root-git (concat (expand-file-name ome-lib-dir) "/mu-git/mu4e"))
+(add-to-list 'load-path mu4e-root-git)
 
+;; freebsd
 (setq mu4e-root (expand-file-name "~/.local/share/emacs/site-lisp/mu4e"))
 (add-to-list 'load-path mu4e-root)
+
 (require 'mu4e)
 
 ;; (setq mu4e-mu-binary (concat (expand-file-name ome-lib-dir) "/mu-git/mu/mu"))
-(if (or (string= system-type 'windows-nt) ;
-        (string= system-type 'ms-dos)
-        (string= system-type 'cygwin)) 
-   (setq mu4e-mu-binary (expand-file-name "~/.local/bin/mu.exe")) 
-  (setq mu4e-mu-binary (expand-file-name "~/.local/bin/mu")))
+;; (if (or (string= system-type 'windows-nt) ;
+        ;; (string= system-type 'ms-dos)
+        ;; (string= system-type 'cygwin)) 
+   ;; (setq mu4e-mu-binary (expand-file-name "~/.local/bin/mu.exe")) 
+  ;; (setq mu4e-mu-binary (expand-file-name "~/.local/bin/mu")))
 
 ;; (if (file-exists-p "/usr/local/bin/mu")
     ;; (setq mu4e-mu-binary (expand-file-name "/usr/local/bin/mu"))
