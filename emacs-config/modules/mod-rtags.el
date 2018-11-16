@@ -34,7 +34,10 @@
     ;; (setq rtags-rc "rc.exe") 
   ;; (setq rtags-rc "rc"))
 
-(unless (rtags-executable-find rtags-rc) 
+;;(unless (rtags-executable-find rtags-rc) 
+;;  (rtags-install))
+
+(unless (rtags-executable-find "rc")
   (rtags-install))
 
 ;; (add-hook 'after-init-hook '(lambda ()
