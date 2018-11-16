@@ -1,8 +1,8 @@
-mkdir -p ${1:$DEV_ROOT/dir}
-cd $1/
+mkdir -p $DEV_ROOT/${1:dir}/build
+cd $DEV_ROOT/$1/build/
 
 cmake .. -G "$OME_MAKE" \
-      -DCMAKE_INSTALL_PREFIX=$HOME/.local \
+      -DCMAKE_INSTALL_PREFIX=$OME_PREFIX \
       -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
       -DCMAKE_CXX_STANDARD=11
 cmake --build . --use-stderr --config Release --target install
