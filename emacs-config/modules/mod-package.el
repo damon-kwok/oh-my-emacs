@@ -82,7 +82,7 @@
   (setq dir-name (concat (expand-file-name ome-lib-dir) "/" (file-name-base lib-name))) 
   (setq full-name (concat dir-name "/" lib-name)) 
   (setq cmd-update (concat "git fetch")) 
-  (setq cmd-clone (concat "git clone " path " " lib-name)) 
+  (setq cmd-clone (concat "git clone " path " --depth=1 " lib-name)) 
   (add-to-list 'load-path dir-name) 
   (make-directory ome-lib-dir t) 
   (message dir-name) 

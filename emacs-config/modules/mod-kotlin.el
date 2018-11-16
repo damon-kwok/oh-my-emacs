@@ -29,18 +29,11 @@
 (package-require 'kotlin-mode)
 (require 'kotlin-mode)
 
+(package-require-git "lsp-kotlin" "https://github.com/whily/lsp-kotlin.git")
 ;; (package-require 'lsp-kotlin)
-;; (require 'lsp-kotlin)
+(require 'lsp-kotlin)
 
-;; (lsp-define-stdio-client lsp-python "kotlin"
-;; (lsp-make-traverser #'(lambda (dir)
-;; (directory-files
-;; dir
-;; nil
-;; "setup.py\\|Pipfile\\|setup.cfg\\|tox.ini")))
-;; '("pyls"))
-
-;; (add-hook 'kotlin-mode-hook #'lsp-kotlin-enable)
+(add-hook 'kotlin-mode-hook #'lsp-kotlin-enable)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-kotlin)
 ;; mod-kotlin.el ends here
