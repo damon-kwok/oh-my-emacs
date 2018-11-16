@@ -28,11 +28,11 @@
 (package-require 'rtags)
 (require 'rtags)
 
-(if (or (eq system-type 'windows-nt) 
-        (eq system-type 'ms-dos) 
-        (eq system-type 'cygwin)) 
-    (setq rtags-rc "rc.exe") 
-  (setq rtags-rc "rc"))
+;; (if (or (eq system-type 'windows-nt) 
+        ;; (eq system-type 'ms-dos) 
+        ;; (eq system-type 'cygwin)) 
+    ;; (setq rtags-rc "rc.exe") 
+  ;; (setq rtags-rc "rc"))
 
 (unless (rtags-executable-find rtags-rc) 
   (rtags-install))
