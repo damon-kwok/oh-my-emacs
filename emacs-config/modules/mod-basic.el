@@ -816,9 +816,6 @@
 ;; (add-to-list 'mm-attachment-override-types "/image/*")
 (autoload 'thumbs "thumbs" "Preview images in a directory." t) ;;thumbs-mode
 
-;;; `pdf'
-(require 'doc-view)
-
 ;;; `eldoc'
 (global-eldoc-mode 1)
 

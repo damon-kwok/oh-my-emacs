@@ -64,6 +64,7 @@
 (module-require 'mod-highlight)
 ;; (module-require 'mod-latex)
 (module-require 'mod-ros)
+(module-require 'mod-book)
 (module-require 'mod-ome)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `debug'
