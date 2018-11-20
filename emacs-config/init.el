@@ -6,7 +6,7 @@
 (unless package--initialized (package-initialize))
 
 (toggle-debug-on-error)
-(toggle-debug-on-quit)
+;; (toggle-debug-on-quit)
 
 (add-to-list 'load-path "~/.oh-my-emacs/emacs-config")
 (add-to-list 'load-path "~/.oh-my-emacs/emacs-config/modules")
