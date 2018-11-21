@@ -610,12 +610,12 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
   ("l" (ome-open-blog "link.org") "link.org")
 
   ;; dotfiles
-  ("1" (ome-open-file "~/workspace/bin/env") "env") 
-  ("2" (ome-open-file "~/workspace/bin/lib") "lib") 
-  ("3" (ome-open-file "~/workspace/bin/tool") "tool") 
-  ("4" (ome-open-file "~/workspace/bin/proj") "proj")
-  ("5" (ome-open-file "~/workspace/bin/ome") "ome")
-  ("6" (ome-open-file "~/workspace/bin/app_wizard") "app_wizard")
+  ("1" (ome-open-file "~/.oh-my-env/env") "env") 
+  ("2" (ome-open-file "~/.oh-my-env/bin/lib") "lib") 
+  ("3" (ome-open-file "~/.oh-my-env/bin/tool") "tool") 
+  ("4" (ome-open-file "~/.oh-my-env/bin/proj") "proj")
+  ("5" (ome-open-file "~/.oh-my-env/bin/ome") "ome")
+  ("6" (ome-open-file "~/.oh-my-env/bin/app_wizard") "app_wizard")
   ("." (ome-open-file "~/.bashrc") ".bashrc")
   ("0" (ome-open-file "~/.emacs") ".emacs") 
   ("f" (ome-open-file "~/workspace/elfeed.org") "elfeed")

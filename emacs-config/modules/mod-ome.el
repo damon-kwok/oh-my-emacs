@@ -24,11 +24,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(setq dir-ome-plugins "~/workspace/bin/plugins/")
+(setq dir-ome-plugins "~/.oh-my-env/plugins/")
 
 (defun ome-open-plugin(plugin-name) 
   (interactive "sEnter ome plugin name:") 
-  (find-file (concat dir-ome-plugins "common/" plugin-name)))
+  (find-file (concat dir-ome-plugins plugin-name)))
 
 (global-set-key (kbd "C-x p f") 'ome-open-plugin)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
