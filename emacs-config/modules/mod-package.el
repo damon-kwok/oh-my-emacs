@@ -38,7 +38,7 @@
 (setq ome-lib-dir "~/.emacs.d/libs")
 (make-directory ome-lib-dir t)
 
-(setq ome-dev-dir "~/.dev")
+(setq ome-dev-dir "~/.ome_local/caches")
 (make-directory ome-dev-dir t)
 ;; (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
 ;;                         ("org" . "http://orgmode.org/elpa/")))

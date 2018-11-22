@@ -1,5 +1,5 @@
-mkdir -p $DEV_ROOT/${1:dir}/build
-cd $DEV_ROOT/$1/build/
+mkdir -p $OME_CACHE/${1:dir}/build
+cd $OME_CACHE/$1/build/
 
 cmake .. -G "$OME_MAKE" \
       -DCMAKE_INSTALL_PREFIX=$OME_PREFIX \
