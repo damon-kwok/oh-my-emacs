@@ -51,8 +51,7 @@
         (progn
           ;; (message (symbol-name major-mode))
 	      (whitespace-mode 1)))))
-(if window-system
-    (ome-global-whitespace-mode t))
+(if window-system (ome-global-whitespace-mode t))
 
 ;; (global-whitespace-mode)
 
@@ -268,11 +267,11 @@
 ;; (typo-err)
 
 ;; overflow of stack
-(setq kill-ring-max 1024)		;用一个很大的kill ring. 这样防止我不小心删掉重要的东西
-(setq max-lisp-eval-depth 900000)       ;lisp最大执行深度
-(setq max-specpdl-size 900000)          ;最大容量
-(setq undo-outer-limit 9000000)         ;撤销限制
-(setq message-log-max t)                ;设置message记录全部消息, 而不用截去
+(setq kill-ring-max 1024) ;用一个很大的kill ring. 这样防止我不小心删掉重要的东西
+(setq max-lisp-eval-depth 900000) ;lisp最大执行深度
+(setq max-specpdl-size 900000)    ;最大容量
+(setq undo-outer-limit 9000000)   ;撤销限制
+(setq message-log-max t)          ;设置message记录全部消息, 而不用截去
 (setq eval-expression-print-length nil) ;设置执行表达式的长度没有限制
 (setq eval-expression-print-level nil)  ;设置执行表达式的深度没有限制
 (setq global-mark-ring-max 1024)        ;设置最大的全局标记容量
@@ -294,8 +293,8 @@
   ;; Setting English Font
   (set-face-attribute 'default nil 
                       :font "Bitstream Vera Sans Mono-10")
-  ;; (set-face-attribute 'default nil 
-                     ;; :font "DejaVu Sans Mono-10")
+  ;; (set-face-attribute 'default nil
+  ;; :font "DejaVu Sans Mono-10")
   ;; Setting Chinese Font
   (dolist (charset '(kana han symbol cjk-misc bopomofo)) 
     (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" 
@@ -564,8 +563,7 @@
   '(lambda () 
      (interactive) 
      (undo-tree-visualize) 
-     (undo-tree-visualize-undo)))
-
+     (undo-tree-visualize-undo))) 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -824,6 +822,19 @@
 (require 'vlf-setup)
 
 (custom-set-variables '(vlf-application 'dont-ask))
+
+;;abbrev-mode
+;;Abbrev-mode always open
+(setq default-abbrev-mode t)
+(setq abbrev-file-name          ;; tell emacs where to read abbrev
+      "~/.emacs.d/abbrev_defs") ;; definitions from...
+(setq save-abbrevs t)           ;; save abbrevs when files are saved
+;; you will be asked before the abbreviations are saved
+(quietly-read-abbrev-file) ;; reads the abbreviations file on startup
+;;Avoid errors if the abbrev-file is missing
+(if (file-exists-p abbrev-file-name) 
+    (quietly-read-abbrev-file))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 (provide 'mod-basic)
