@@ -11,10 +11,10 @@ damon-kwok's emacs config!
 # - [[http://www.imagemagick.org/script/index.php][imagemagick]]
 # - [[http://www.msys2.org/][msys2]] (windows)
 * Install
+#+BEGIN_SRC 
 curl -L https://raw.githubusercontent.com/damon-kwok/oh-my-env/master/install.sh | bash
-
 ome install oh_my_emacs
-
+#+END_SRC
 # - sh <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/INSTALL)
 # curl [[https://raw.githubusercontent.com/damon-kwok/oh-my-emacs/master/install.sh]] -sSf | bash
 # https://git.io/fA3TT 
