@@ -35,5 +35,3 @@ $0
 //
 #endif //#ifndef __`(upcase (s-snake-case (ome-bufname-no-ext)))`_H__
 //`(buffer-name)` ends here
-
-
