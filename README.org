@@ -10,7 +10,7 @@ damon-kwok's emacs config!
 # - git
 # - [[http://www.imagemagick.org/script/index.php][imagemagick]]
 # - [[http://www.msys2.org/][msys2]] (windows)
-* Install
+* Install (with [[https://github.com/damon-kwok/oh-my-env][oh-my-env]])
 #+BEGIN_SRC 
 curl -L https://raw.githubusercontent.com/damon-kwok/oh-my-env/master/install.sh | bash
 ome install oh_my_emacs
@@ -20,11 +20,10 @@ ome install oh_my_emacs
 # https://git.io/fA3TT 
 # curl -L https://git.io/fA3TG | bash
 # curl -L https://git.io/fA3T4 | bash
-
-# or
-
-# curl -L https://raw.githubusercontent.com/damon-kwok/oh-my-emacs/master/install.sh | bash
-
+or
+#+BEGIN_SRC shell
+curl -L https://raw.githubusercontent.com/damon-kwok/oh-my-emacs/master/install.sh | bash
+#+END_SRC
 * Keybind
 ** global
 # - C-u C-h n what's the new
