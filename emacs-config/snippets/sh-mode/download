@@ -1,0 +1,13 @@
+if [ ! -d $OME_CACHE/$NODEJS_VERSION ]; then
+        local zipkg=$NODEJS_VERSION.zip
+        mkdir -p ~/Downloads
+        cd ~/Downloads/
+        if [ ! -f $HOME/Downloads/$zipkg ]; then
+            wget https://nodejs.org/dist/latest-v${NODEJS_MAJOR_VERSION}.x/$zipkg
+        fi
+        if [ ! -d $OME_CACHE/$NODEJS_VERSION ]; then
+            unzip ./$zipkg -d $OME_CACHE
+            cd $OME_CACHE/$NODEJS_VERSION
+            chmod +x ./*
+        fi
+fi

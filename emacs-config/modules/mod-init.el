@@ -76,11 +76,16 @@
 (module-require 'mod-ess)
 
 ;; `bash'
-;; (if (executable-find "bash-language-server") 
-    ;; (module-require 'mod-sh))
+;; (if (executable-find "bash-language-server")
+;; (module-require 'mod-sh))
 
 ;; `cc'
-(defconst cc-lang-server "rtags")
+(if (or (string= system-type 'windows-nt) ;
+        (string= system-type 'ms-dos) 
+        (string= system-type 'cygwin)) 
+    (defconst cc-lang-server "rtags") 
+  (defconst cc-lang-server "clangd"))
+
 (cond ((and 
         (string= cc-lang-server "clangd") 
         (executable-find "clang") 
@@ -132,9 +137,9 @@
 (if (executable-find "hy") 
     (module-require 'mod-hy))
 
-;; (if (and (executable-find "go") 
-         ;; (executable-find "go-langserver")) 
-    ;; (module-require 'mod-go))
+;; (if (and (executable-find "go")
+;; (executable-find "go-langserver"))
+;; (module-require 'mod-go))
 
 (if (and (executable-find "go") 
          (executable-find "gocode")) 
