@@ -825,15 +825,15 @@
 
 ;;abbrev-mode
 ;;Abbrev-mode always open
-(setq default-abbrev-mode t)
-(setq abbrev-file-name          ;; tell emacs where to read abbrev
-      "~/.emacs.d/abbrev_defs") ;; definitions from...
-(setq save-abbrevs t)           ;; save abbrevs when files are saved
+;;(setq default-abbrev-mode t)
+;;(setq abbrev-file-name          ;; tell emacs where to read abbrev
+;;      "~/.emacs.d/abbrev_defs") ;; definitions from...
+;;(setq save-abbrevs t)           ;; save abbrevs when files are saved
 ;; you will be asked before the abbreviations are saved
-(quietly-read-abbrev-file) ;; reads the abbreviations file on startup
+;;(quietly-read-abbrev-file) ;; reads the abbreviations file on startup
 ;;Avoid errors if the abbrev-file is missing
-(if (file-exists-p abbrev-file-name) 
-    (quietly-read-abbrev-file))
+;;(if (file-exists-p abbrev-file-name) 
+;;    (quietly-read-abbrev-file))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
