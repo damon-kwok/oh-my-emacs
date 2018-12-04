@@ -89,7 +89,8 @@
 (cond ((and 
         (string= cc-lang-server "clangd") 
         (executable-find "clang") 
-        (executable-find "clangd")) 
+        (or (executable-find "clangd") 
+            (executable-find "clangd-devel"))) 
        (module-require 'mod-clangd)) 
       ((and 
         (string= cc-lang-server "cquery") 
