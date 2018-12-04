@@ -731,21 +731,66 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("<SPC>" nil "quit") 
   ("<escape>" nil "quit"))
 
+;; string to symbol
+;; (symbol-name symbol)
+
+;; funcall function from string
+;; (funcall (intern (concat "emacs-lisp-mode" "-menu")) 1)
+
+;; get symbol vale
+;; (symbol-value (intern "major-mode"))
+
+;; check function or variable
+;; (fboundp (intern "message")) ;;==>t
+;; (fboundp major-mode) ;; ==>t
+;; (fboundp (symbol-value (intern "major-mode"))) ;;==> t
+
+(defun ome-auto-menu (index)
+  (let ((mode (symbol-name major-mode)))
+    (let ((fun (intern (concat mode "-menu"))))
+      (if (fboundp fun)
+          (progn
+            (let ((mlist (funcall fun)))
+              (let ((mitem (nth index mlist)))
+                (if mitem
+                    mitem
+                  "nil"))))
+        "nil"))))
+
+(defun ome-auto-func (index)
+  (let ((mode (symbol-name major-mode)))
+    (let ((fun (intern (concat mode "-func"))))
+      (if (fboundp fun)  
+          (funcall fun index)
+        (message "run %s item:%d" mode index)))))
+
+;; (defun emacs-lisp-mode-menu (index)
+  ;; (concat  "menu-item" (number-to-string index)))
+
+;; (defun emacs-lisp-mode-func (index)
+  ;; (message  "run menu-item%d" index))
+
+(ome-auto-menu 1)
+;; (ome-auto-func 2)
+;; (nth 5 '(1 2 3))
+
 (defhydra hydra-super-menu 
   (:color blue) 
   (concat ;;
-   "^Main^         ^Search^             ^View^          ^Navigate^   ^Buffer^         ^Org^\n" ;;
-   "^^^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
-   "_n_:New        _>_:gochar-forward   _M-t_:toolbar   _[_:up       _r_:rname        _M-c_:capture\n" ;;
-   "_o_:Open       _<_:gochar-backward  _M-m_:menubar   _/_:down     _R_:remove       _M-l_:store-link\n" ;;
-   "_b_:Bookmarks  _g_:grep-dir         _M-s_:speedbar  _;_:left     _k_:kill         _M-a_:agenda\n" ;;
-   "_e_(E):Email   _G_:grep-proj        _M-d_:sidebar   _'_:right    _M-k_:kill-other _M-b_:switchb\n" ;;
-   "_f_:Feed       _d_:dict-bing        _=_:scale+      ^0-9:select^ _C-k_:kill-all   _M-u_:update\n" ;;
-   "_m_:Module     _D_:dict-bing-web    _-_:scale-      _u_:URLs     _._:*scratch*    _M-g_:GTD\n" ;;
-   "_i_:IRC        ^^                   _M_:Message     ^^           _M-._:load-menu  _M-p_:publish-blog\n";;
-   "_s_(S):Shell   ^^                   ^^              ^^           ^^               _M-e_:en\n";;
-   "^^^^^^^^^^^^^^--------------------------------------------------------------------------------\n"
-   "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^\n")
+   "^Main^         ^Search^             ^View^          ^Navigate^   ^Buffer^         ^Org^            ^" (symbol-name major-mode) "^\n" ;;
+   "^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------\n"
+   "_n_:New        _>_:gochar-forward   _M-t_:toolbar   _[_:up       _r_:rname        _M-c_:capture    _M-1_:"(ome-auto-menu 1) "\n";;
+   "_o_:Open       _<_:gochar-backward  _M-m_:menubar   _/_:down     _R_:remove       _M-l_:store-link _M-2_:"(ome-auto-menu 2) "\n";;
+   "_b_:Bookmarks  _g_:grep-dir         _M-s_:speedbar  _;_:left     _k_:kill         _M-a_:agenda     _M-3_:"(ome-auto-menu 3) "\n";;
+   "_e_(E):Email   _G_:grep-proj        _M-d_:sidebar   _'_:right    _M-k_:kill-other _M-b_:switchb    _M-4_:"(ome-auto-menu 4) "\n";;
+   "_f_:Feed       _d_:dict-bing        _=_:scale+      ^0-9:select^ _C-k_:kill-all   _M-u_:update     _M-5_:"(ome-auto-menu 5) "\n";;
+   "_m_:Module     _D_:dict-bing-web    _-_:scale-      _u_:URLs     _._:*scratch*    _M-g_:GTD        _M-6_:"(ome-auto-menu 6) "\n";;
+   "_i_:IRC        ^^                   _M_:Message     ^^           _M-._:load-menu  _M-p_:push-blog  _M-7_:"(ome-auto-menu 7) "\n";;
+   "_s_(S):Shell   ^^                   ^^              ^^           ^^               _M-e_:en         _M-8_:"(ome-auto-menu 8) "\n";;
+   "^^             ^^                   ^^              ^^           ^^               ^^               _M-9_:"(ome-auto-menu 9) "\n";;
+   "^^             ^^                   ^^              ^^           ^^               ^^               _M-0_:"(ome-auto-menu 0) "\n";;
+   "^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------\n"
+   "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^ ^^\n")
   ;; Main
   ("n" (hydra-new-menu/body) "New" 
    :color blue) 
@@ -762,6 +807,18 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("s" (show-global-shell) "shell")
   ("S" (show-global-shell-new) "shell")
 
+  ;; auto menu
+  ("M-1" (ome-auto-func 1) "auto-func")
+  ("M-2" (ome-auto-func 2) "auto-func")
+  ("M-3" (ome-auto-func 3) "auto-func")
+  ("M-4" (ome-auto-func 4) "auto-func")
+  ("M-5" (ome-auto-func 5) "auto-func")
+  ("M-6" (ome-auto-func 6) "auto-func")
+  ("M-7" (ome-auto-func 7) "auto-func")
+  ("M-8" (ome-auto-func 8) "auto-func")
+  ("M-9" (ome-auto-func 9) "auto-func")
+  ("M-0" (ome-auto-func 0) "auto-func")
+  
   ;; Org
   ("M-c" org-capture "capture")
   ("M-l" org-store-link "store-link")
@@ -880,7 +937,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
 (defun show-super-menu () 
   "docstring" 
   (interactive) 
-  ;; (load "mod-keybind.el") 
+  (load "mod-keybind.el") 
   (hydra-super-menu/body))
 
 ;; (global-set-key (kbd "C-M-z") 'show-super-menu1)

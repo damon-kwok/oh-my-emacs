@@ -31,12 +31,14 @@
 (add-to-list 'auto-mode-alist '("\\.els\\'" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.els.el\\'" . emacs-lisp-mode))
 ;;
+
 
 ;; `highlight-defined'
 (package-require 'highlight-defined)
 (require 'highlight-defined)
 (add-hook 'emacs-lisp-mode-hook 'highlight-defined-mode)
 ;;
+
 
 ;; scratch settings
 (package-require 'persistent-scratch)
@@ -136,6 +138,17 @@
 (require 'macrostep)
 (define-key emacs-lisp-mode-map (kbd "C-c e") 'macrostep-expand)
 ;;
+
+;; `auto-menu'
+(defun emacs-lisp-mode-menu () 
+  '("REPL" "compile-buffer"))
+
+(defun emacs-lisp-mode-func (index) 
+  (cond ((= 0 index) 
+         (show-elisp-repl)) 
+        ((= 1 index) 
+         (compile-current-buffer)) 
+        (t (message  "emacs-lisp-mode menu:%d" index))))
 
 
 ;;

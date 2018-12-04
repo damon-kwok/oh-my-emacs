@@ -1,0 +1,10 @@
+;; \`auto-menu\'
+(defun ${1:`(symbol-name major-mode)`}-menu ()
+  '("menu0" "menu1" "menu2"))
+
+(defun $1-func (index)
+  (cond ((= 0 index) 
+         (message  "$1 menu:%d" index)) 
+        ((= 1 index) 
+         (message  "$1 menu:%d" index)) 
+        (t (message  "$1 menu:%d" index))))

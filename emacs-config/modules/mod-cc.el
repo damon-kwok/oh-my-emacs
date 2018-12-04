@@ -253,5 +253,16 @@
 (define-key objc-mode-map (kbd "C-c d") 'disaster)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `auto-menu'
+(defun c-mode-menu ()
+  '("gen-cmake" "menu1" "menu2"))
+
+(defun c-mode-func (index)
+  (cond ((= 0 index) 
+         (gen-cmake-file)) 
+        ((= 1 index) 
+         (message  "c-mode menu:%d" index)) 
+        (t (message  "c-mode menu:%d" index))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-cc)
 ;; mod-cc.el ends here
