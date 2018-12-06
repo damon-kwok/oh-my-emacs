@@ -198,6 +198,28 @@
   (interactive "sClJS-EVAL:") 
   (cider-interactive-eval sexp))
 (define-key global-map (kbd "M-\"") 'cljs-eval-sexp)
+
+;; `auto-menu'
+(defun clojure-mode-menu ()
+  '("REPL" "menu1" "menu2"))
+
+(defun clojure-mode-func (index)
+  (cond ((= 0 index) 
+         (show-clojure-repl)) 
+        ((= 1 index) 
+         (message  "clojure-mode menu:%d" index)) 
+        (t (message  "clojure-mode menu:%d" index))))
+
+;; `auto-menu'
+(defun cider-repl-mode-menu ()
+  '("Return" "menu1" "menu2"))
+
+(defun cider-repl-mode-func (index)
+  (cond ((= 0 index) 
+         (show-clojure-workbuffer)) 
+        ((= 1 index) 
+         (message  "cider-repl-mode menu:%d" index)) 
+        (t (message  "cider-repl-mode menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-clojure)
 ;; mod-clojure.el ends here

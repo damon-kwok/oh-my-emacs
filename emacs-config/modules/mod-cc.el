@@ -255,14 +255,43 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `auto-menu'
 (defun c-mode-menu ()
-  '("gen-cmake" "menu1" "menu2"))
+  '("gen-cmake" "cmake-build" "open:CMakeLists.txt"))
 
 (defun c-mode-func (index)
   (cond ((= 0 index) 
          (gen-cmake-file)) 
         ((= 1 index) 
-         (message  "c-mode menu:%d" index)) 
+         (ome-cmake-build))
+        ((= 2 index)
+         (ome-open-or-close-cmakefile))
         (t (message  "c-mode menu:%d" index))))
+
+;; `auto-menu'
+(defun cmake-mode-menu ()
+  '("0" "1" "close" "3" "4" "5" "6" "7" "8" "9"))
+
+(defun cmake-mode-func (index)
+  (cond ((= 0 index) 
+         (message  "cmake-mode menu:%d" index)) 
+        ((= 1 index) 
+         (message  "cmake-mode menu:%d" index))
+        ((= 2 index) 
+         (ome-open-or-close-cmakefile))
+        ((= 3 index) 
+         (message  "cmake-mode menu:%d" index))
+        ((= 4 index) 
+         (message  "cmake-mode menu:%d" index))
+        ((= 5 index) 
+         (message  "cmake-mode menu:%d" index))
+        ((= 6 index) 
+         (message  "cmake-mode menu:%d" index))
+        ((= 7 index) 
+         (message  "cmake-mode menu:%d" index))
+        ((= 8 index) 
+         (message  "cmake-mode menu:%d" index))
+        ((= 9 index) 
+         (message  "cmake-mode menu:%d" index))
+        (t (message  "cmake-mode menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-cc)
 ;; mod-cc.el ends here

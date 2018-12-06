@@ -141,15 +141,17 @@
 
 ;; `auto-menu'
 (defun emacs-lisp-mode-menu () 
-  '("REPL" "compile-buffer"))
-
+  '("REPL" "reload" "compile-buffer"))
+;; (emacs-lisp-mode-menu)
+;; (macroexpand '("REPL" "compile-buffer" (concat "reload:" (buffer-name))))
 (defun emacs-lisp-mode-func (index) 
   (cond ((= 0 index) 
-         (show-elisp-repl)) 
-        ((= 1 index) 
-         (compile-current-buffer)) 
+         (show-elisp-repl))
+        ((= 1 index)
+         (load (buffer-file-name)))
+        ((= 2 index) 
+         (compile-current-buffer))
         (t (message  "emacs-lisp-mode menu:%d" index))))
-
 
 ;;
 (provide 'mod-elisp)

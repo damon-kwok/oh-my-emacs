@@ -593,6 +593,10 @@ occurence of CHAR."
         ((string= lang "ros") 
          (ome-ask-new-project "rosman %s" "src/main.cpp"))))
 
+(defun ome-cmake-build()
+  (if (file-exists-p (concat (projectile-project-root) "CMakeLists.txt"))
+      (ome-run-command (concat "cmake_build" " " (projectile-project-root)))))
+
 (defun ome-buffer-reload() 
   (interactive) 
   (save-buffer) 
