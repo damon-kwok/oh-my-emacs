@@ -74,6 +74,7 @@
 (module-require 'mod-elisp)
 (module-require 'mod-js)
 (module-require 'mod-ess)
+(module-require 'mod-perl)
 
 ;; `bash'
 ;; (if (executable-find "bash-language-server")

@@ -840,7 +840,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("g" ome-grep-directory "projectile-directory-root") 
   ("d" bing-dict-brief "bing-dict-brief") 
   ("D" ome-bing-dict-brief-web "bing-dict-brief-web")
-  ("h" (find-file "~/ArchitecturePrototype/Modules/Foundation/Source/CybertronLogServer/Main.cpp"))
+  ("h" (find-file "~/Cybertron/Modules/Foundation/Source/CybertronLogServer/Main.cpp"))
   
   ;; View
   ("M-t" tool-bar-mode "Toolbar" 
