@@ -584,7 +584,7 @@ _M-3_:pkg-manager _t_:todo.org    _l_: link.org     _3_:lib       ^^            
 _M-4_:network     _b_:book.org    ^^                _4_:tool       ^^             _C-4_: CET4.org
 _M-5_:webscrap    _g_:game.org    ^^                _5_:proj        ^^             _C-6_: CET6.org
 ^^                _n_:NEWS.org    ^^                _6_:appwizard  ^^             _e_:english.org
-^^                ^^              ^^                ^^             ^^             _v_:vocabulary.org
+^^                _m_:me.org      ^^                ^^             ^^             _v_:vocabulary.org
 ^^^^^^^^^^^^--------------------------------------------------------------------------------
 _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 " ;;
@@ -603,6 +603,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
   ("b" (ome-open-doc "book.org") "book.org") 
   ("g" (ome-open-doc "game.org") "game.org") 
   ("n" (ome-open-doc "news.org") "news.org")
+  ("m" (ome-open-doc "me.org") "me.org")
 
   ;; Blog
   ("i" (ome-open-blog "index.org") "index.org") 
