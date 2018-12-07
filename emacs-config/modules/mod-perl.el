@@ -27,7 +27,7 @@
 ;; `auto-menu'
 (defun perl-mode-menu ()
   '("publish-to:$OME_PREFIX/bin/" "1" "2" "3" "4" "5" "6" "7" "8" "9"))
-(setenv "OME_PREFIX" "/home/damon/.ome_local")
+
 (defun perl-mode-func (index)
   (cond ((= 0 index) 
          (ome-run-command (concat "cp -rf " (buffer-file-name) " " (getenv "OME_PREFIX") "/bin/"))) 
