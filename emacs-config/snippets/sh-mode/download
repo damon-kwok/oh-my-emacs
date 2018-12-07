@@ -1,13 +1,17 @@
-if [ ! -d $OME_CACHE/$NODEJS_VERSION ]; then
-        local zipkg=$NODEJS_VERSION.zip
-        mkdir -p ~/Downloads
-        cd ~/Downloads/
-        if [ ! -f $HOME/Downloads/$zipkg ]; then
-            wget https://nodejs.org/dist/latest-v${NODEJS_MAJOR_VERSION}.x/$zipkg
+if [ "`command -v ${1:erl}`" = "" ]; then
+        local zipkg=otp-\${${2:ERLANG}_VERSION}.zip
+        # echo "zipkg:\$zipkg"
+        mkdir -p \$HOME/Downloads
+        cd \$HOME/Downloads/
+        if [ ! -f \$HOME/Downloads/\$zipkg ]; then
+            # https://codeload.github.com/erlang/otp/zip/OTP-21.1.4
+            wget https://codeload.github.com/erlang/otp/zip/\${ERLANG_VERSION}
         fi
-        if [ ! -d $OME_CACHE/$NODEJS_VERSION ]; then
-            unzip ./$zipkg -d $OME_CACHE
-            cd $OME_CACHE/$NODEJS_VERSION
-            chmod +x ./*
+        if [ ! -d \$HOME/Downloads/otp-\$ERLANG_VERSION/ ]; then
+            unzip ./\$zipkg
         fi
+        cd \$HOME/Downloads/otp-\$ERLANG_VERSION/
+        ./otp_build autoconf
+        ./configure --prefix=\$OME_PREFIX
+        make install
 fi

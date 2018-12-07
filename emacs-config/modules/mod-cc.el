@@ -292,6 +292,12 @@
         ((= 9 index) 
          (message  "cmake-mode menu:%d" index))
         (t (message  "cmake-mode menu:%d" index))))
+
+(defun c++-mode-menu () (c-mode-menu))
+(defun c++-mode-func (index) (c-mode-func index))
+
+(defun objc-mode-menu () (c-mode-menu))
+(defun objc-mode-func (index) (c-mode-func index))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-cc)
 ;; mod-cc.el ends here
