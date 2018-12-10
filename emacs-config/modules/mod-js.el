@@ -25,8 +25,13 @@
 (require 'mod-package)
 ;;
 (require 'mod-lsp)
+(add-hook 'js-mode-hook #'lsp)
+(add-hook 'typescript-mode-hook #'lsp) ;; for typescript support
+(add-hook 'js2-mode-hook #'lsp)        ;; for js2-mode support
+(add-hook 'js3-mode-hook #'lsp)        ;; for js3-mode support
+(add-hook 'rjsx-mode #'lsp)            ;; for rjsx-mode support
 
-;; `lsp-js'
+;; `lsp-javascript-typescript'
 ;; (package-require 'lsp-javascript-typescript)
 ;; (require 'lsp-javascript-typescript)
 ;; (add-hook 'js-mode-hook #'lsp-javascript-typescript-enable)
@@ -43,15 +48,7 @@
   (make-local-variable 'company-transformers) 
   (push 'my-company-transformer company-transformers))
 
-;; (add-hook 'js-mode-hook 'my-js-hook)
-
-
-;; (package-require 'lsp-typescript)
-;; (require 'lsp-typescript)
-;; (add-hook 'js-mode-hook #'lsp-typescript-enable)
-;; (add-hook 'js2-mode-hook #'lsp-typescript-enable) ;; for js2-mode support
-;; (add-hook 'rjsx-mode #'lsp-typescript-enable) ;; for rjsx-mode support
-
+(add-hook 'js-mode-hook 'my-js-hook)
 
 ;; `nodejs-repl'
 (package-require 'nodejs-repl)

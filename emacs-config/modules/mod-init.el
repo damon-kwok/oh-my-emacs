@@ -72,6 +72,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `programming-languages'
 (module-require 'mod-elisp)
+
+(if (executable-find "javascript-typescript-stdio") 
+    (module-require 'mod-js))
 (module-require 'mod-js)
 (module-require 'mod-ess)
 (module-require 'mod-perl)
@@ -85,7 +88,7 @@
         (string= system-type 'ms-dos) 
         (string= system-type 'cygwin)) 
     (defconst cc-lang-server "rtags") 
-  (defconst cc-lang-server "clangd"))
+  (defconst cc-lang-server "rtags"))
 
 (cond ((and 
         (string= cc-lang-server "clangd") 
@@ -111,8 +114,8 @@
     (module-require 'mod-java))
 
 ;; `python'
-(if (executable-find "pyls") 
-    (module-require 'mod-lsp-py))
+;;(if (executable-find "pyls") 
+;;    (module-require 'mod-lsp-py))
 
 ;; `nasm'
 (if (executable-find "nasm") 

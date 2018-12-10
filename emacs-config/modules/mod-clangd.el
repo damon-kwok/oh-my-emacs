@@ -27,7 +27,8 @@
 (require 'mod-cc)
 (require 'mod-lsp)
 
-(package-require 'lsp-clangd)
+(package-require-git "lsp-clangd" "https://github.com/emacs-lsp/lsp-clangd.git")
+;; (package-require 'lsp-clangd)
 (require 'lsp-clangd)
 
 (add-hook 'c-mode--hook #'lsp-clangd-c-enable)
