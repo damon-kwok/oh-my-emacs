@@ -25,8 +25,8 @@
 (require 'mod-package)
 ;;
 (package-require 'lsp-mode)
+;; (require 'lsp-mode)
 (require 'lsp)
-(require 'lsp-mode)
 (require 'lsp-clients)
 
 ;;

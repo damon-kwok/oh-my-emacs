@@ -842,7 +842,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("d" bing-dict-brief "bing-dict-brief") 
   ("D" ome-bing-dict-brief-web "bing-dict-brief-web")
   ("H" (find-file "~/Cybertron/Modules/Foundation/Source/CybertronLogServer/Main.cpp"))
-  ("h" (find-file "~/Cybertron/Modules/Web/WebBridge/websocketpp/main.cpp"))
+  ("h" (find-file "~/Cybertron/Modules/Web/WebBridge/main.cpp"))
   
   ;; View
   ("M-t" tool-bar-mode "Toolbar" 

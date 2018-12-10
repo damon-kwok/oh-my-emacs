@@ -25,30 +25,34 @@
 (require 'mod-package)
 ;;
 (require 'mod-cc)
-(require 'mod-lsp)
+(require 'mod-lsp) 
+(add-hook 'c-mode-hook #'lsp) 
+(add-hook 'c++-mode-hook #'lsp)
+(add-hook 'objc-mode-hook #'lsp)
 
-(package-require-git "lsp-clangd" "https://github.com/emacs-lsp/lsp-clangd.git")
+;; (package-require-git "lsp-clangd" "https://github.com/emacs-lsp/lsp-clangd.git")
 ;; (package-require 'lsp-clangd)
-(require 'lsp-clangd)
+;; (require 'lsp-clangd)
 
-(add-hook 'c-mode--hook #'lsp-clangd-c-enable)
-(add-hook 'c++-mode-hook #'lsp-clangd-c++-enable)
-(add-hook 'objc-mode-hook #'lsp-clangd-objc-enable)
+;; (add-hook 'c-mode-hook #'lsp-clangd-c-enable)
+;; (add-hook 'c++-mode-hook #'lsp-clangd-c++-enable)
+;; (add-hook 'objc-mode-hook #'lsp-clangd-objc-enable)
+
 ;;
-(with-eval-after-load 'lsp-mode 
-  (require 'lsp-clangd) 
-  (add-hook 'c-mode-hook #'lsp-clangd-c-enable) 
-  (add-hook 'c++-mode-hook #'lsp-clangd-c++-enable) 
-  (add-hook 'objc-mode-hook #'lsp-clangd-objc-enable))
+;; (with-eval-after-load 'lsp-mode
+;; (require 'lsp-clangd)
+;; (add-hook 'c-mode-hook #'lsp)
+;; (add-hook 'c++-mode-hook #'lsp)
+;; (add-hook 'objc-mode-hook #'lsp))
 
 (defun clangd-setup () 
   (interactive) 
-  (gen-cmake-file) 
-  ;; (cquery//enable) 
+  (gen-cmake-file)
+  ;; (cquery//enable)
   (push 'company-lsp company-backends))
 
-(add-hook 'c-mode-hook #'clangd-setup) 
-(add-hook 'c++-mode-hook #'clangd-setup) 
+(add-hook 'c-mode-hook #'clangd-setup)
+(add-hook 'c++-mode-hook #'clangd-setup)
 (add-hook 'objc-mode-hook #'clangd-setup)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-clangd)
