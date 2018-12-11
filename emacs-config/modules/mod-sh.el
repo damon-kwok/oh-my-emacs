@@ -25,7 +25,7 @@
 (require 'mod-package)
 ;;
 (require 'mod-lsp)
-
+;; (add-hook 'sh-mode-hook 'lsp)
 
 ;; (package-require 'lsp-sh)
 (package-require-curl "lsp-sh" "lsp-sh.el"

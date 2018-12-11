@@ -36,7 +36,8 @@
 ;; `eclipse.jdt.ls' Eclipse JDT Language Server
 (package-require 'lsp-java)
 (require 'lsp-java)
-(add-hook 'java-mode-hook #'lsp-java-enable)
+(add-hook 'java-mode-hook #'lsp)
+;; (add-hook 'java-mode-hook #'lsp-java-enable)
 
 ;; set the projects that are going to be imported into the workspace.
 (setq lsp-java--workspace-folders (list (concat (getenv "HOME") "/projects/java") 
@@ -50,7 +51,7 @@
 (defun install-lsp-java-server () 
   "install java lsp server" 
   (interactive) 
-  (ome-run-command "install-lsp-java-server"))
+  (ome-run-command "install_java_language_server"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
