@@ -28,6 +28,7 @@
 ;; (require 'lsp-mode)
 (require 'lsp)
 (require 'lsp-clients)
+(setq lsp-auto-guess-root t)
 
 ;;
 (package-require 'lsp-ui)
