@@ -107,9 +107,13 @@
 ;; don't show symbol on the right of info
 (setq lsp-ui-sideline-show-symbol nil)
 
+;; There is a window-local jump list dedicated to cross references:
 ;; (lsp-ui-peek-jump-backward)
 ;; (lsp-ui-peek-jump-forward)
 
+;; Other cross references:
+;; (lsp-ui-peek-find-workspace-symbol "pattern 0")
+;; (lsp-ui-peek-find-custom 'base "$cquery/base")
 
 ;;yasnippet
 (require 'mod-complete)
