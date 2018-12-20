@@ -88,7 +88,7 @@
         (string= system-type 'ms-dos) 
         (string= system-type 'cygwin)) 
     (defconst cc-lang-server "rtags") 
-  (defconst cc-lang-server "rtags"))
+  (defconst cc-lang-server "clangd"))
 
 (cond ((and 
         (string= cc-lang-server "clangd") 

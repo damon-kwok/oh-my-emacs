@@ -17,17 +17,17 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//						 
+//                         
 // Code:
 //
 package `(ome-bufname-no-ext)`
 
 import (
-	"fmt"
+    "fmt"
 )
 
 func ${1:hello}() {
-	fmt.Println ("hello,world!")
+    fmt.Println ("hello,world!")
 }
 //
 //`(buffer-name)` ends here

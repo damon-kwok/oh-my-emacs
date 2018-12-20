@@ -769,9 +769,12 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ;; (concat  "menu-item" (number-to-string index)))
 
 ;; (defun emacs-lisp-mode-func (index)
-  ;; (message  "run menu-item%d" index))
+;; (message  "run menu-item%d" index))
 
-(ome-auto-menu 1)
+;; (setq fun (intern "xx-mode-menu"))
+;; (fboundp fun)
+
+;; (ome-auto-menu 1)
 ;; (ome-auto-func 2)
 ;; (nth 5 '(1 2 3))
 
