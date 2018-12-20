@@ -580,9 +580,9 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 ^^^^^^^^^^^^--------------------------------------------------------------------------------
 _M-1_:libknife    _h_:README.org  _i_: index.org    _1_:ome        _._:.bashrc    _C-b_: english-b.org
 _M-2_:medusa      _d_:diary.org   _b_: blog.org     _2_:env        _0_:.emacs     _C-2_: PETS2.org
-_M-3_:pkg-manager _t_:todo.org    _l_: link.org     _3_:lib       ^^             _C-3_: PETS3.org
+_M-3_:pkg-manager _t_:todo.org    _l_: link.org     _3_:lib        ^^             _C-3_: PETS3.org
 _M-4_:network     _b_:book.org    ^^                _4_:tool       ^^             _C-4_: CET4.org
-_M-5_:webscrap    _g_:game.org    ^^                _5_:proj        ^^             _C-6_: CET6.org
+_M-5_:webscrap    _g_:game.org    ^^                _5_:proj       ^^             _C-6_: CET6.org
 ^^                _n_:NEWS.org    ^^                _6_:appwizard  ^^             _e_:english.org
 ^^                _m_:me.org      ^^                ^^             ^^             _v_:vocabulary.org
 ^^^^^^^^^^^^--------------------------------------------------------------------------------
