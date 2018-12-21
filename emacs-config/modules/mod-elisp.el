@@ -139,12 +139,12 @@
 (define-key emacs-lisp-mode-map (kbd "C-c e") 'macrostep-expand)
 ;;
 
-;; `auto-menu'
-(defun emacs-lisp-mode-menu () 
+;; `automenu'
+(defun automenu--emacs-lisp-mode-menu () 
   '("REPL" "reload" "compile-buffer"))
 ;; (emacs-lisp-mode-menu)
 ;; (macroexpand '("REPL" "compile-buffer" (concat "reload:" (buffer-name))))
-(defun emacs-lisp-mode-func (index) 
+(defun automenu--emacs-lisp-mode-func (index) 
   (cond ((= 0 index) 
          (show-elisp-repl))
         ((= 1 index)

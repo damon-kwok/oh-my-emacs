@@ -24,6 +24,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
+(require 'mod-lsp)
+(add-hook 'ruby-mode-hook #'lsp)
+
 (package-require 'robe)
 (require 'robe)
 

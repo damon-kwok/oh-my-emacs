@@ -199,11 +199,11 @@
   (cider-interactive-eval sexp))
 (define-key global-map (kbd "M-\"") 'cljs-eval-sexp)
 
-;; `auto-menu'
-(defun clojure-mode-menu ()
+;; `automenu'
+(defun automenu--clojure-mode-menu ()
   '("REPL" "menu1" "menu2"))
 
-(defun clojure-mode-func (index)
+(defun automenu--clojure-mode-func (index)
   (cond ((= 0 index) 
          (show-clojure-repl)) 
         ((= 1 index) 

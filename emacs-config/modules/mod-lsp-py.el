@@ -25,11 +25,7 @@
 (require 'mod-package)
 ;;
 (require 'mod-lsp)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(package-require 'lsp-python)
-(require 'lsp-python)
-
-(add-hook 'python-mode-hook #'lsp-python-enable)
+(add-hook 'python-mode-hook #'lsp)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-lsp-py)
 ;; mod-lsp-py.el ends here

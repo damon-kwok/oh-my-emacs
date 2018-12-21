@@ -70,11 +70,11 @@
 
 (define-key go-mode-map (kbd "C-c C-f")  'gofmt)
 
-;; `auto-menu'
-(defun go-mode-menu ()
+;; `automenu'
+(defun automenu--go-mode-menu ()
   '("0" "1" "2" "3" "4" "5" "6" "7" "8" "9"))
 
-(defun go-mode-func (index)
+(defun automenu--go-mode-func (index)
   (cond ((= 0 index) 
          (message  "go-mode menu:%d" index)) 
         ((= 1 index) 

@@ -153,11 +153,11 @@
 ;;      (sit-for 0.1)
 ;;      (switch-window)))
 
-;; `auto-menu'
-(defun mu4e-main-mode-menu ()
+;; `automenu'
+(defun automenu--mu4e-main-mode-menu ()
   '("compose" "heads-search" "" "" "" "" "" "" "" "mark-execute"))
 
-(defun mu4e-main-mode-func (index)
+(defun automenu--mu4e-main-mode-func (index)
   (cond ((= 0 index) 
          (mu4e-compose-new))
         ((= 1 index)
@@ -166,11 +166,11 @@
          (mu4e-mark-execute-all)) 
         (t (message  "mu4e-main-mode menu:%d" index))))
 
-;; `auto-menu'
-(defun mu4e-headers-mode-menu ()
+;; `automenu'
+(defun automenu--mu4e-headers-mode-menu ()
   '("compose" "delete" "" "" "" "" "" "" "" "mark-execute"))
 
-(defun mu4e-headers-mode-func (index)
+(defun automenu--mu4e-headers-mode-func (index)
   (cond ((= 0 index) 
          (mu4e-compose-new)) 
         ((= 1 index) 
@@ -179,11 +179,11 @@
          (mu4e-mark-execute-all))
         (t (message  "mu4e-headers-mode menu:%d" index))))
 
-;; `auto-menu'
-(defun mu4e-view-mode-menu ()
+;; `automenu'
+(defun automenu--mu4e-view-mode-menu ()
   '("compose" "delete" "reply" "forward" "" "" "" "" "" "mark-execute"))
 
-(defun mu4e-view-mode-func (index)
+(defun automenu--mu4e-view-mode-func (index)
   (cond ((= 0 index) 
          (mu4e-compose-new)) 
         ((= 1 index) 

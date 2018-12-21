@@ -24,11 +24,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-;; `auto-menu'
-(defun perl-mode-menu ()
+;; `automenu'
+(defun automenu--perl-mode-menu ()
   '("publish-to:$OME_PREFIX/bin/" "1" "2" "3" "4" "5" "6" "7" "8" "9"))
 
-(defun perl-mode-func (index)
+(defun automenu--perl-mode-func (index)
   (cond ((= 0 index) 
          (ome-run-command (concat "cp -rf " (buffer-file-name) " " (getenv "OME_PREFIX") "/bin/"))) 
         ((= 1 index) 

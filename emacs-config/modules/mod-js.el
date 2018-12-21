@@ -30,15 +30,11 @@
 (add-hook 'js2-mode-hook #'lsp)        ;; for js2-mode support
 (add-hook 'js3-mode-hook #'lsp)        ;; for js3-mode support
 (add-hook 'rjsx-mode #'lsp)            ;; for rjsx-mode support
-
-;; `lsp-javascript-typescript'
-;; (package-require 'lsp-javascript-typescript)
-;; (require 'lsp-javascript-typescript)
-;; (add-hook 'js-mode-hook #'lsp-javascript-typescript-enable)
-;; (add-hook 'typescript-mode-hook #'lsp-javascript-typescript-enable) ;; for typescript support
-;; (add-hook 'js2-mode-hook #'lsp-javascript-typescript-enable) ;; for js2-mode support
-;; (add-hook 'js3-mode-hook #'lsp-javascript-typescript-enable) ;; for js3-mode support
-;; (add-hook 'rjsx-mode #'lsp-javascript-typescript-enable) ;; for rjsx-mode support
+(add-hook 'css-mode #'lsp)             ;; for css-mode support
+(add-hook 'html-mode #'lsp)            ;; for html-mode support
+(package-require 'vue-mode)
+(require 'vue-mode)
+(add-hook 'vue-mode #'lsp)             ;; for vue-mode support
 
 (defun my-company-transformer (candidates) 
   (let ((completion-ignore-case t)) 

@@ -78,6 +78,8 @@
 (module-require 'mod-js)
 (module-require 'mod-ess)
 (module-require 'mod-perl)
+(module-require 'mod-groovy)
+(module-require 'mod-php)
 
 ;; `bash'
 ;; (if (executable-find "bash-language-server")
@@ -114,7 +116,7 @@
     (module-require 'mod-java))
 
 ;; `python'
-;;(if (executable-find "pyls") 
+;;(if (executable-find "pyls")
 ;;    (module-require 'mod-lsp-py))
 
 ;; `nasm'
@@ -142,13 +144,13 @@
 (if (executable-find "hy") 
     (module-require 'mod-hy))
 
-;; (if (and (executable-find "go")
-;; (executable-find "go-langserver"))
-;; (module-require 'mod-go))
+(if (and (executable-find "go")
+         (executable-find "go-langserver"))
+    (module-require 'mod-go))
 
-(if (and (executable-find "go") 
-         (executable-find "gocode")) 
-    (module-require 'mod-gocode))
+;; (if (and (executable-find "go")
+;; (executable-find "gocode"))
+;; (module-require 'mod-gocode))
 
 (if (executable-find "ocaml") 
     (module-require 'mod-ocaml))

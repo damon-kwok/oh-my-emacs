@@ -25,34 +25,28 @@
 (require 'mod-package)
 ;;
 (require 'mod-lsp)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; `lsp-javacomp'
-;; (package-require 'lsp-javacomp)
-;; (require 'lsp-javacomp)
-;; (define-key java-mode-map (kbd "C-M-i") 'completion-at-point)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `eclipse.jdt.ls' Eclipse JDT Language Server
 (package-require 'lsp-java)
 (require 'lsp-java)
 (add-hook 'java-mode-hook #'lsp)
-;; (add-hook 'java-mode-hook #'lsp-java-enable)
 
 ;; set the projects that are going to be imported into the workspace.
 (setq lsp-java--workspace-folders (list (concat (getenv "HOME") "/projects/java") 
                                         (concat (getenv "HOME") "/workspace") 
                                         (concat (getenv "HOME") "/eclipse-workspace")))
-;; (unless (executable-find "ipython")
-;; (ome-run-command "install-java-lsp-server"))
-
 (setq  lsp-java-server-install-dir "~/.emacs.d/eclipse.jdt.ls/server/")
 
 (defun install-lsp-java-server () 
   "install java lsp server" 
   (interactive) 
   (ome-run-command "install_java_language_server"))
-
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `lsp-javacomp'
+;; (package-require 'lsp-javacomp)
+;; (require 'lsp-javacomp)
+;; (define-key java-mode-map (kbd "C-M-i") 'completion-at-point)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `lsp-intellij' Exposes IntelliJ IDEA features through the Language Server Protocol.

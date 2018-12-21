@@ -748,7 +748,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
 
 (defun ome-auto-menu (index)
   (let ((mode (symbol-name major-mode)))
-    (let ((fun (intern (concat mode "-menu"))))
+    (let ((fun (intern (concat "automenu--" mode "-menu"))))
       (if (fboundp fun)
           (progn
             (let ((mlist (funcall fun)))
@@ -760,7 +760,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
 
 (defun ome-auto-func (index)
   (let ((mode (symbol-name major-mode)))
-    (let ((fun (intern (concat mode "-func"))))
+    (let ((fun (intern (concat "automenu--" mode "-func"))))
       (if (fboundp fun)  
           (funcall fun index)
         (message "run %s item:%d" mode index)))))
@@ -771,7 +771,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
 ;; (defun emacs-lisp-mode-func (index)
 ;; (message  "run menu-item%d" index))
 
-;; (setq fun (intern "xx-mode-menu"))
+;; (setq fun (intern "automenu--xx-mode-menu"))
 ;; (fboundp fun)
 
 ;; (ome-auto-menu 1)

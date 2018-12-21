@@ -32,22 +32,29 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lsp-server
 (require 'mod-lsp)
-(package-require 'lsp-go)
-(require 'lsp-go)
-
-(defun company-lsp--go-completion-snippet (item) 
-  "Function providing snippet with the go language.
-It parses the function's signature in ITEM (a CompletionItem)
-to expand its arguments."
-  ;; (yas-expand-snippet item)
-  (message "msg:%s" item))
-
+;; (add-hook 'go-mode-hook #'lsp)
 (add-hook 'go-mode-hook (lambda ()
-                          (lsp-go-enable)
-                          (add-to-list 'company-lsp--snippet-functions '("go" . company-lsp--go-completion-snippet))
+                          (lsp)
                           (add-hook 'before-save-hook 'gofmt-before-save)
-                          (setq indent-tabs-mode t)
+                          (setq indent-tabs-mode nil)
                           (setq tab-width 4)))
+
+;; (package-require 'lsp-go)
+;; (require 'lsp-go)
+
+;; (defun company-lsp--go-completion-snippet (item) 
+;;   "Function providing snippet with the go language.
+;; It parses the function's signature in ITEM (a CompletionItem)
+;; to expand its arguments."
+;;   ;; (yas-expand-snippet item)
+;;   (message "msg:%s" item))
+
+;; (add-hook 'go-mode-hook (lambda ()
+;;                           (lsp-go-enable)
+;;                           (add-to-list 'company-lsp--snippet-functions '("go" . company-lsp--go-completion-snippet))
+;;                           (add-hook 'before-save-hook 'gofmt-before-save)
+;;                           (setq indent-tabs-mode t)
+;;                           (setq tab-width 4)))
 
 (custom-set-faces
  '(company-preview

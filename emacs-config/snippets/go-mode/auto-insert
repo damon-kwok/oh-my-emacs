@@ -29,5 +29,3 @@ import (
 func ${1:hello}() {
     fmt.Println ("hello,world!")
 }
-//
-//`(buffer-name)` ends here
