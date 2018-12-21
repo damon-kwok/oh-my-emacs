@@ -72,10 +72,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `programming-languages'
 (module-require 'mod-elisp)
-
-(if (executable-find "javascript-typescript-stdio") 
-    (module-require 'mod-js))
 (module-require 'mod-js)
+(module-require 'mod-dart)
 (module-require 'mod-ess)
 (module-require 'mod-perl)
 (module-require 'mod-groovy)
