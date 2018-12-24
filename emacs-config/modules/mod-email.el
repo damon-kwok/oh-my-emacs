@@ -32,17 +32,7 @@
 (add-to-list 'load-path mu4e-root)
 
 (require 'mu4e)
-
-;; (setq mu4e-mu-binary (concat (expand-file-name ome-lib-dir) "/mu-git/mu/mu"))
-;; (if (or (string= system-type 'windows-nt) ;
-        ;; (string= system-type 'ms-dos)
-        ;; (string= system-type 'cygwin)) 
-   ;; (setq mu4e-mu-binary (expand-file-name "~/.local/bin/mu.exe")) 
-  ;; (setq mu4e-mu-binary (expand-file-name "~/.local/bin/mu")))
-
-;; (if (file-exists-p "/usr/local/bin/mu")
-    ;; (setq mu4e-mu-binary (expand-file-name "/usr/local/bin/mu"))
-  ;; (setq mu4e-mu-binary (expand-file-name "~/.local/bin/mu")))
+(setenv "XAPIAN_CJK_NGRAM" "1")
 
 ;; `extensions'
 (package-require 'mu4e-maildirs-extension)
