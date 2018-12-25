@@ -184,6 +184,8 @@
 (define-auto-insert "\\.ex\\'" "elixir-mode/auto-insert")
 
 (define-auto-insert "\\.\\(clj\\|cljs\\|cljc\\|clje\\)\\'" "clojure-mode/auto-insert")
+(define-auto-insert "\\.cljs\\'" "clojurescript-mode/auto-insert")
+(define-auto-insert "\\.clje\\'" "clojerl-mode/auto-insert")
 (define-auto-insert "\\.\\(lisp\\|cl\\|ros\\)\\'" "lisp-mode/auto-insert")
 (define-auto-insert "\\.\\(scm\\|ss\\)\\'" "scheme-mode/auto-insert")
 (define-auto-insert "\\.lsp\\'" "newlisp-mode/auto-insert")

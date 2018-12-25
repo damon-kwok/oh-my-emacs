@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;; `(buffer-name)` --- ${1:This is where you apply your OCD.}
 ;;
 ;; Copyright (C) 2009-`(format-time-string "%Y")` Damon Kwok
@@ -17,8 +18,8 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
-;;
+;;						 
 ;; Code:
 $0
 ;;
-;; `(file-name-base (buffer-name))` ends here
+(provide '`(ome-bufname-no-ext)`)

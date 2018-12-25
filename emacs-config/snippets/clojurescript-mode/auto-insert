@@ -1,3 +1,5 @@
+#!/usr/bin/env lumo
+
 ;; `(buffer-name)` --- ${1:This is where you apply your OCD.}
 ;;
 ;; Copyright (C) 2009-`(format-time-string "%Y")` Damon Kwok
