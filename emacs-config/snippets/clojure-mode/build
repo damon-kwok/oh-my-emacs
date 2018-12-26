@@ -1,0 +1,11 @@
+:builds {:app {:output-dir "target/"
+               :asset-path "."
+               :target :browser
+               :modules {:main {:entries [app.main]}}
+               :devtools {:after-load app.main/reload!}}}
+
+;; :browser 运行在浏览器的代码
+;; :node-script 运行在 Node.js 的代码
+;; :node-library 可以被 Node.js JavaScript 代码调用的模块
+;; :npm-module 遵循 CommonJS 语法的独立的 js 文件
+;; :react-native

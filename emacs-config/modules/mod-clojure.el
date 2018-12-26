@@ -199,7 +199,7 @@
   (cider-interactive-eval sexp))
 (define-key global-map (kbd "M-\"") 'cljs-eval-sexp)
 
-;; `automenu'
+;; `auto-menu:clojure'
 (defun automenu--clojure-mode-menu ()
   '("REPL" "menu1" "menu2"))
 
@@ -210,7 +210,7 @@
          (message  "clojure-mode menu:%d" index)) 
         (t (message  "clojure-mode menu:%d" index))))
 
-;; `auto-menu'
+;; `auto-menu:cider-repl'
 (defun cider-repl-mode-menu ()
   '("Return" "menu1" "menu2"))
 
@@ -220,6 +220,33 @@
         ((= 1 index) 
          (message  "cider-repl-mode menu:%d" index)) 
         (t (message  "cider-repl-mode menu:%d" index))))
+
+;; `automenu:clojurescript'
+(defun automenu--clojurescript-mode-menu ()
+  '("repl" "compile" "release" "watch" "check" "5" "6" "7" "8" "9"))
+
+(defun automenu--clojurescript-mode-func (index)
+  (cond ((= 0 index) 
+         (ome-run-command "shadow-cljs cljs-repl app" )) 
+        ((= 1 index) 
+         (ome-run-command "shadow-cljs compile app" ))
+        ((= 2 index) 
+         (ome-run-command "shadow-cljs release app --debug" ))
+        ((= 3 index) 
+         (ome-run-command "shadow-cljs watch app" ))
+        ((= 4 index) 
+         (ome-run-command "shadow-cljs check app" ))
+        ((= 5 index) 
+         (message  "clojurescript menu:%d" index))
+        ((= 6 index) 
+         (message  "clojurescript menu:%d" index))
+        ((= 7 index) 
+         (message  "clojurescript menu:%d" index))
+        ((= 8 index) 
+         (message  "clojurescript menu:%d" index))
+        ((= 9 index) 
+         (message  "clojurescript menu:%d" index))
+        (t (message  "clojurescript menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-clojure)
 ;; mod-clojure.el ends here
