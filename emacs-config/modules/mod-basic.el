@@ -88,7 +88,7 @@
 (setq ns-pop-up-frames nil)
 
 (setq default-frame-alist '((height . 40) 
-                            (width . 120) 
+                            (width . 130) 
                             (top . 25) 
                             (left . 18) 
                             (menu-bar-lines . 0) 

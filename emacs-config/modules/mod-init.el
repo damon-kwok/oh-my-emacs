@@ -53,6 +53,7 @@
 ;; (module-require 'mod-tree)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `docs'
+(module-require 'mod-text)
 (module-require 'mod-csv)
 (module-require 'mod-protobuf)
 (module-require 'mod-markdown)
@@ -206,6 +207,7 @@
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (module-require 'mod-keybind)
+(module-require 'mod-edit-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (message "hello, emacs!")
 

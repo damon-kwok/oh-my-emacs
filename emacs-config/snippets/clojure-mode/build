@@ -1,9 +1,23 @@
-:builds {:app {:output-dir "target/"
-               :asset-path "."
-               :target :browser
-               :modules {:main {:entries [app.main]}}
-               :devtools {:after-load app.main/reload!}}}
-
+:http {:host "localhost" :port 8081}
+ :open-file-command ["subl" ["%s:%s:%s" :file :line :column]]
+ :builds {:browser {:target :browser
+                    :output-dir "target/browser"
+                    :asset-path "/browser"
+                    :modules {:main {:entries [app.main]
+                                     :depends-on #{:lib}}
+                              :lib {:entries [respo.core respo.macros
+                                              respo.comp.inspect]}}
+                    :devtools {:after-load app.main/reload!
+                               :http-root "target"
+                               :http-port 7000}
+                    :release {:output-dir "dist/"
+                              :module-hash-names true
+                              :build-options {:manifest-name "cljs-manifest.json"}}}
+          :ssr {:target :node-script
+                :output-to "target/ssr.js"
+                :main app.render/main!
+                :devtools {:after-load app.render/main!}}}
+                
 ;; :browser 运行在浏览器的代码
 ;; :node-script 运行在 Node.js 的代码
 ;; :node-library 可以被 Node.js JavaScript 代码调用的模块

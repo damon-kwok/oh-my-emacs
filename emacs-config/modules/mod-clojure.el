@@ -201,13 +201,13 @@
 
 ;; `auto-menu:clojure'
 (defun automenu--clojure-mode-menu ()
-  '("REPL" "menu1" "menu2"))
+  '("REPL" "lein figwheel" "menu2"))
 
 (defun automenu--clojure-mode-func (index)
   (cond ((= 0 index) 
          (show-clojure-repl)) 
         ((= 1 index) 
-         (message  "clojure-mode menu:%d" index)) 
+         (ome-run-command  "lein figwheel&")) 
         (t (message  "clojure-mode menu:%d" index))))
 
 ;; `auto-menu:cider-repl'
@@ -223,29 +223,29 @@
 
 ;; `automenu:clojurescript'
 (defun automenu--clojurescript-mode-menu ()
-  '("repl" "compile" "release" "watch" "check" "5" "6" "7" "8" "9"))
+  '("node-repl" "cljs-repl" "compile" "release" "watch" "check" "6" "start" "stop" "restart" ))
 
 (defun automenu--clojurescript-mode-func (index)
   (cond ((= 0 index) 
-         (ome-run-command "shadow-cljs cljs-repl app" )) 
+         (ome-run-command "shadow-cljs node-repl")) 
         ((= 1 index) 
-         (ome-run-command "shadow-cljs compile app" ))
+         (ome-run-command "shadow-cljs cljs-repl app" ))
         ((= 2 index) 
-         (ome-run-command "shadow-cljs release app --debug" ))
+         (ome-run-command "shadow-cljs compile app" ))
         ((= 3 index) 
-         (ome-run-command "shadow-cljs watch app" ))
+         (ome-run-command "shadow-cljs release app --debug" ))
         ((= 4 index) 
-         (ome-run-command "shadow-cljs check app" ))
+         (ome-run-command "shadow-cljs watch app" ))
         ((= 5 index) 
-         (message  "clojurescript menu:%d" index))
+         (ome-run-command "shadow-cljs check app" ))
         ((= 6 index) 
          (message  "clojurescript menu:%d" index))
         ((= 7 index) 
-         (message  "clojurescript menu:%d" index))
+         (ome-run-command "shadow-cljs start"))
         ((= 8 index) 
-         (message  "clojurescript menu:%d" index))
+         (ome-run-command "shadow-cljs stop"))
         ((= 9 index) 
-         (message  "clojurescript menu:%d" index))
+         (ome-run-command "shadow-cljs restart"))
         (t (message  "clojurescript menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-clojure)
