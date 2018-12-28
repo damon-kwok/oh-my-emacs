@@ -201,13 +201,17 @@
 
 ;; `auto-menu:clojure'
 (defun automenu--clojure-mode-menu ()
-  '("REPL" "lein figwheel" "menu2"))
+  '("REPL" "jack-in-clj" "lein figwheel"))
 
 (defun automenu--clojure-mode-func (index)
   (cond ((= 0 index) 
          (show-clojure-repl)) 
         ((= 1 index) 
-         (ome-run-command  "lein figwheel&")) 
+         (cider-jack-in-clj))
+        ((= 2 index) 
+         (cider-jack-in-cljs))
+        ((= 3 index) 
+         (cider-jack-in-clj&cljs))
         (t (message  "clojure-mode menu:%d" index))))
 
 ;; `auto-menu:cider-repl'
