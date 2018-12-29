@@ -27,7 +27,6 @@
 ;;===================================================
 (package-require 'clojure-mode)
 (require 'clojure-mode)
-
 
 (defun my-clojure-mode-hook () 
   (clj-refactor-mode 1) 
@@ -99,11 +98,9 @@
 
 ;; Wrap when navigating history.
 (setq cider-repl-wrap-history t)
-
 
 ;; enable paredit in your REPL
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
-
 
 ;; Use clojure mode for other extensions
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
@@ -199,26 +196,43 @@
   (cider-interactive-eval sexp))
 (define-key global-map (kbd "M-\"") 'cljs-eval-sexp)
 
-;; `auto-menu:clojure'
-(defun automenu--clojure-mode-menu ()
-  '("REPL" "jack-in-clj" "lein figwheel"))
+;;
+(defun ome-open-clojure-project ()
+  (interactive)
+  (if (file-exists-p (concat (ome-project-root) "project.clj")) 
+      (find-file (concat (ome-project-root) "project.clj")) 
+    (if (file-exists-p (concat (ome-project-root) "build.boot")) 
+        (find-file (concat (ome-project-root) "build.boot")) 
+      (if (file-exists-p (concat (ome-project-root) "shadow-cljs.edn")) 
+          (find-file (concat (ome-project-root) "shadow-cljs.edn")) 
+        (if (file-exists-p (concat (ome-project-root) "build.clj")) 
+            (find-file (concat (ome-project-root) "build.clj")) 
+          (if (file-exists-p (concat (ome-project-root) "package.json")) 
+              (find-file (concat (ome-project-root) "package.json"))))))))
 
-(defun automenu--clojure-mode-func (index)
+(define-key clojure-mode-map [f6] 'ome-open-clojure-project)
+(define-key clojurescript-mode-map [f6] 'ome-open-clojure-project)
+
+;; `auto-menu:clojure'
+(defun automenu--clojure-mode-menu () 
+  '("REPL" "jack-in-clj" "jack-in-cljs" "jack-in-clj&cljs"))
+
+(defun automenu--clojure-mode-func (index) 
   (cond ((= 0 index) 
          (show-clojure-repl)) 
         ((= 1 index) 
-         (cider-jack-in-clj))
+         (cider-jack-in-clj nil)) 
         ((= 2 index) 
-         (cider-jack-in-cljs))
+         (cider-jack-in-cljs nil)) 
         ((= 3 index) 
-         (cider-jack-in-clj&cljs))
+         (cider-jack-in-clj&cljs nil)) 
         (t (message  "clojure-mode menu:%d" index))))
 
 ;; `auto-menu:cider-repl'
-(defun cider-repl-mode-menu ()
+(defun cider-repl-mode-menu () 
   '("Return" "menu1" "menu2"))
 
-(defun cider-repl-mode-func (index)
+(defun cider-repl-mode-func (index) 
   (cond ((= 0 index) 
          (show-clojure-workbuffer)) 
         ((= 1 index) 
@@ -226,30 +240,30 @@
         (t (message  "cider-repl-mode menu:%d" index))))
 
 ;; `automenu:clojurescript'
-(defun automenu--clojurescript-mode-menu ()
+(defun automenu--clojurescript-mode-menu () 
   '("node-repl" "cljs-repl" "compile" "release" "watch" "check" "6" "start" "stop" "restart" ))
 
-(defun automenu--clojurescript-mode-func (index)
+(defun automenu--clojurescript-mode-func (index) 
   (cond ((= 0 index) 
          (ome-run-command "shadow-cljs node-repl")) 
         ((= 1 index) 
-         (ome-run-command "shadow-cljs cljs-repl app" ))
+         (ome-run-command "shadow-cljs cljs-repl app" )) 
         ((= 2 index) 
-         (ome-run-command "shadow-cljs compile app" ))
+         (ome-run-command "shadow-cljs compile app" )) 
         ((= 3 index) 
-         (ome-run-command "shadow-cljs release app --debug" ))
+         (ome-run-command "shadow-cljs release app --debug" )) 
         ((= 4 index) 
-         (ome-run-command "shadow-cljs watch app" ))
+         (ome-run-command "shadow-cljs watch app" )) 
         ((= 5 index) 
-         (ome-run-command "shadow-cljs check app" ))
+         (ome-run-command "shadow-cljs check app" )) 
         ((= 6 index) 
-         (message  "clojurescript menu:%d" index))
+         (message  "clojurescript menu:%d" index)) 
         ((= 7 index) 
-         (ome-run-command "shadow-cljs start"))
+         (ome-run-command "shadow-cljs start")) 
         ((= 8 index) 
-         (ome-run-command "shadow-cljs stop"))
+         (ome-run-command "shadow-cljs stop")) 
         ((= 9 index) 
-         (ome-run-command "shadow-cljs restart"))
+         (ome-run-command "shadow-cljs restart")) 
         (t (message  "clojurescript menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-clojure)

@@ -1,0 +1,28 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src/dev"
+  "src/main"
+  "src/test"]
+
+ :dependencies
+ [
+  [reagent "0.8.1"]]
+
+ :builds
+ {
+  :app{
+       :target :node-script
+       :output-to "main.js"
+       :main server.core/main
+       :devtools
+       {:after-load server.core/start!
+        :before-load server.core/stop!}
+       }
+  :www{:target :browser
+       :output-dir "www/js"
+       :asset-path "js"
+       :modules {:main {:entries [client.core]}}
+       :devtools {:before-load client.core/stop
+                  :after-load client.core/start
+                  :http-root "www"
+                  :http-port 7000}}}}
