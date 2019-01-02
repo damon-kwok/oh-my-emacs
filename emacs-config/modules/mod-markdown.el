@@ -23,14 +23,23 @@
 ;;
 (require 'mod-package)
 (package-require 'markdown-mode)
-(require 'markdown-mode)
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
-(setq auto-mode-alist (cons '("\\.text" . markdown-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.MD" . markdown-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.mdown" . markdown-mode) auto-mode-alist))
+(autoload 'gfm-mode "markdown-mode"
+   "Major mode for editing GitHub Flavored Markdown files" t)
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+
+;;(require 'markdown-mode)
+
+;;(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
+;;(setq auto-mode-alist (cons '("\\.text" . markdown-mode) auto-mode-alist))
+;;(setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+;;(setq auto-mode-alist (cons '("\\.MD" . markdown-mode) auto-mode-alist))
+;;(setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
+;;(setq auto-mode-alist (cons '("\\.mdown" . markdown-mode) auto-mode-alist))
 ;;(setq auto-mode-alist (cons '("^*markdown-output*$" . html-mode) auto-mode-alist))
 
 (defun show-markdown-output() 
