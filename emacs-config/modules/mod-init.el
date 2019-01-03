@@ -81,8 +81,8 @@
 (module-require 'mod-php)
 
 ;; `bash'
-;; (if (executable-find "bash-language-server")
-;; (module-require 'mod-sh))
+(if (executable-find "bash-language-server")
+(module-require 'mod-sh))
 
 ;; `cc'
 (if (or (string= system-type 'windows-nt) ;

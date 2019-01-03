@@ -26,12 +26,9 @@
 ;;
 (require 'mod-lsp)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(package-require 'lsp-ocaml)
-(require 'lsp-ocaml)
-
-(add-hook 'tuareg-mode-hook #'lsp-ocaml-enable)
-(add-hook 'caml-mode-hook #'lsp-ocaml-enable)
-(add-hook 'reason-mode-hook #'lsp-ocaml-enable) ;; for Reason support
+(add-hook 'tuareg-mode-hook #'lsp)
+(add-hook 'caml-mode-hook #'lsp)
+(add-hook 'reason-mode-hook #'lsp) ;; for Reason support
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require 'tuareg)
 (require 'tuareg)
