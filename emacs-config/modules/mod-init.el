@@ -44,9 +44,9 @@
 (module-require 'mod-projectile)
 (module-require 'mod-speedbar)
 
-;;(if (and (executable-find "offlineimap") 
-;;        (executable-find "mu")) 
-;;    (module-require 'mod-email))
+(if (and (executable-find "offlineimap") 
+       (executable-find "mu")) 
+   (module-require 'mod-email))
 
 (module-require 'mod-feed)
 ;; (module-require 'mod-dired)
