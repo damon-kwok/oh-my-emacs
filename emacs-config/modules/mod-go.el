@@ -53,7 +53,7 @@
 ;;                           (lsp-go-enable)
 ;;                           (add-to-list 'company-lsp--snippet-functions '("go" . company-lsp--go-completion-snippet))
 ;;                           (add-hook 'before-save-hook 'gofmt-before-save)
-;;                           (setq indent-tabs-mode t)
+;;                           (setq indent-tabs-mode nil)
 ;;                           (setq tab-width 4)))
 
 (custom-set-faces

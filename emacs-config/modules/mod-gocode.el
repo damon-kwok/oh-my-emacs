@@ -49,7 +49,7 @@
                           (set (make-local-variable 'company-backends) '(company-go))
                           (company-mode)
                           (add-hook 'before-save-hook 'gofmt-before-save)
-                          (setq indent-tabs-mode t)
+                          (setq indent-tabs-mode nil)
                           (setq tab-width 4)))
 
 (custom-set-faces
