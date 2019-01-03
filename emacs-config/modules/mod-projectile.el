@@ -37,6 +37,20 @@
 ;;; 使用f5键打开默认文件搜索
 (global-set-key [f5] 'projectile-find-file)
 (global-set-key [f12] 'projectile-find-other-file)
+
+(package-require 'treemacs-projectile)
+(require 'treemacs-projectile)
+
+;; (package-require 'projectile-speedbar)
+;; (require 'projectile-speedbar)
+
+;; Sometimes, when I am deep in a project tree, I like to use this shortcut to see full context:
+;; (global-set-key (kbd "C-c s") 'projectile-speedbar-toggle)
+;; (global-set-key (kbd "C-M-z") 'projectile-speedbar-open-current-buffer-in-tree)
+
+;; You can also disable the feature completely:
+;; (setq projectile-speedbar-projectile-speedbar-enable nil)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-projectile)
 ;; mod-projectile.el ends here
