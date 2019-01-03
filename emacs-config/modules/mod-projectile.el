@@ -33,11 +33,11 @@
 
 ;;; 默认打开缓存
 (setq projectile-enable-caching t)
-
 ;;; 使用f5键打开默认文件搜索
-(global-set-key [f5] 'projectile-find-file)
-(global-set-key [f12] 'projectile-find-other-file)
+;; (global-set-key [f5] 'projectile-find-file)
+;; (global-set-key [f12] 'projectile-find-other-file)
 
+;; `treemacs-projectile'
 (package-require 'treemacs-projectile)
 (require 'treemacs-projectile)
 
@@ -50,6 +50,16 @@
 
 ;; You can also disable the feature completely:
 ;; (setq projectile-speedbar-projectile-speedbar-enable nil)
+
+;; `helm-projectile'
+;; A binding for using Helm to pick files using Projectile,
+;; and override the normal grep with a Projectile based grep.
+(package-require 'helm-projectile)
+(require 'helm-projectile)
+;; (global-set-key (kbd "C-c C-f") 'helm-projectile-find-file-dwim)
+;; (global-set-key (kbd "C-x C-g") 'helm-projectile-grep)
+(global-set-key [f5] 'helm-projectile)
+(global-set-key [f12] 'helm-projectile-find-other-file)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-projectile)

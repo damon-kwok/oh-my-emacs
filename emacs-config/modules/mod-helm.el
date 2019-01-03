@@ -93,14 +93,6 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 ;; (global-set-key (kbd "C-x c g") 'helm-google-suggest)
 ;; (global-set-key (kbd "C-x C-g") 'helm-do-grep)
-
-;;; A binding for using Helm to pick files using Projectile,
-;;; and override the normal grep with a Projectile based grep.
-;; (package-require 'helm-projectile)
-;; (require 'helm-projectile)
-;; (global-set-key (kbd "C-c C-f") 'helm-projectile-find-file-dwim)
-;; (global-set-key (kbd "C-x C-g") 'helm-projectile-grep)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `helm-swiper-helm'
 ;;; Enrich isearch with Helm using the `C-S-s' binding.
