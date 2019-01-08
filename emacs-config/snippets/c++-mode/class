@@ -1,0 +1,22 @@
+#include <memory>
+
+class ${1:ClassName};
+typedef std::shared_ptr<$1> $1Ptr;
+class $1 {
+  private:
+    $1() = default;
+
+  public:
+    virtual ~$1()      = default;
+    $1(const $1 &that) = delete;
+    $1 &operator=(const $1& that) = delete;
+
+    static $1Ptr Create() { return std::make_shared<$1>(); }
+
+  public:
+    $0
+
+  private:
+    
+};
+
