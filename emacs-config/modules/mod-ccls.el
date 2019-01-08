@@ -29,56 +29,97 @@
 (package-require 'ccls)
 (require 'ccls)
 
-;; (setq ccls-executable "/home/damon/.ccls/bin/ccls")
-;; (setq ccls-extra-init-params
-;; '(:cacheFormat "msgpack"))
-(setq ccls-extra-init-params 
+;;(setq ccls-executable "/home/damon/.ccls/bin/ccls")
+(setq ccls-initialization-options 
       '(:index (:comments 2) 
                :completion (:detailedLabel t)))
 
-(with-eval-after-load 'projectile 
-  (setq projectile-project-root-files-top-down-recurring ;;
-        (append '("compile_commands.json" ".ccls")
-                projectile-project-root-files-top-down-recurring)))
+
+
+;; (setq ccls-extra-init-params 
+      ;; '(:index (:comments 2) 
+               ;; :completion (:detailedLabel t)))
+
+;; (with-eval-after-load 'projectile 
+  ;; (setq projectile-project-root-files-top-down-recurring ;;
+        ;; (append '("compile_commands.json" ".ccls")
+                ;; projectile-project-root-files-top-down-recurring)))
 
 (defun ccls//enable () 
   (condition-case nil ;;
-      (lsp-ccls-enable) 
+      (lsp) 
     (user-error 
      nil)))
 
 (defun ccls-setup () 
-  (interactive) 
-  ;; (gen-cmake-file) 
+  (interactive)
+  ;; (gen-cmake-file)
   (ccls//enable)
+  ;;
   ;; direct callers
   (lsp-find-custom "$ccls/call")
   ;; callers up to 2 levels
-  (lsp-find-custom "$ccls/call" 
-                   '(:levels 2))
+  (lsp-find-custom "$ccls/call" '(:levels 2))
   ;; direct callees
-  (lsp-find-custom "$ccls/call" 
-                   '(:callee t))
+  (lsp-find-custom "$ccls/call" '(:callee t))
 
   (lsp-find-custom "$ccls/vars")
-  ;; Use lsp-goto-implementation or lsp-ui-peek-find-implementation for derived types/functions
+  ;; Use lsp-goto-implementation or lsp-ui-peek-find-implementation (textDocument/implementation) for derived types/functions
+  ;; $ccls/inheritance is more general
 
   ;; Alternatively, use lsp-ui-peek interface
-  (lsp-ui-peek-find-custom 'caller "$ccls/call")
-  (lsp-ui-peek-find-custom 'callee "$ccls/call" 
-                           '(:callee t))
-
-  (defun ccls/vars (kind) 
-    (lsp-ui-peek-find-custom 'vars "$ccls/vars" 
-                             `(:kind ,kind)))
-  (ccls/vars 3) ;; field or local variable
-  (ccls/vars 1) ;; field
-  (ccls/vars 4) ;; parameter
+  (lsp-ui-peek-find-custom "$ccls/call")
+  (lsp-ui-peek-find-custom "$ccls/call" '(:callee t))
+  ;;
   )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `helper'
+(defun ccls/callee () (interactive) (lsp-ui-peek-find-custom "$ccls/call" '(:callee t)))
+(defun ccls/caller () (interactive) (lsp-ui-peek-find-custom "$ccls/call"))
+(defun ccls/vars (kind) (lsp-ui-peek-find-custom "$ccls/vars" `(:kind ,kind)))
+(defun ccls/base (levels) (lsp-ui-peek-find-custom "$ccls/inheritance" `(:levels ,levels)))
+(defun ccls/derived (levels) (lsp-ui-peek-find-custom "$ccls/inheritance" `(:levels ,levels :derived t)))
+(defun ccls/member (kind) (interactive) (lsp-ui-peek-find-custom "$ccls/member" `(:kind ,kind)))
+
+;; References w/ Role::Role
+(defun ccls/references-read () (interactive)
+  (lsp-ui-peek-find-custom "textDocument/references"
+    (plist-put (lsp--text-document-position-params) :role 8)))
+
+;; References w/ Role::Write
+(defun ccls/references-write ()
+  (interactive)
+  (lsp-ui-peek-find-custom "textDocument/references"
+   (plist-put (lsp--text-document-position-params) :role 16)))
+
+;; References w/ Role::Dynamic bit (macro expansions)
+(defun ccls/references-macro () (interactive)
+  (lsp-ui-peek-find-custom "textDocument/references"
+   (plist-put (lsp--text-document-position-params) :role 64)))
+
+;; References w/o Role::Call bit (e.g. where functions are taken addresses)
+(defun ccls/references-not-call () (interactive)
+  (lsp-ui-peek-find-custom "textDocument/references"
+   (plist-put (lsp--text-document-position-params) :excludeRole 32)))
+
+;; ccls/vars ccls/base ccls/derived ccls/members have a parameter while others are interactive.
+;; (ccls/base 1) direct bases
+;; (ccls/derived 1) direct derived
+;; (ccls/member 2) => 2 (Type) => nested classes / types in a namespace
+;; (ccls/member 3) => 3 (Func) => member functions / functions in a namespace
+;; (ccls/member 0) => member variables / variables in a namespace
+;; (ccls/vars 1) => field
+;; (ccls/vars 2) => local variable
+;; (ccls/vars 3) => field or local variable. 3 = 1 | 2
+;; (ccls/vars 4) => parameter
+
+;; References whose filenames are under this project
+;; (lsp-ui-peek-find-references nil (list :folders (vector (projectile-project-root))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (add-hook 'c-mode-hook 'ccls-setup)
 (add-hook 'c++-mode-hook 'ccls-setup)
-;; (add-hook 'objc-mode-hook 'ccls-setup)
+(add-hook 'objc-mode-hook 'ccls-setup)
 
 ;; alternatively, (setq cquery-sem-highlight-method 'overlay)
 (setq ccls-sem-highlight-method 'font-lock)
