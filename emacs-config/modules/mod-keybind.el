@@ -88,8 +88,12 @@
 ;;
 (package-require 'ripgrep)
 (require 'ripgrep)
+;; (define-key helm-map (kbd "<tab>")  'helm-execute-persistent-action)
+(define-key ripgrep-search-mode-map (kbd "<tab>") 'compilation-next-error)
+(define-key ripgrep-search-mode-map (kbd "<backtab>") 'compilation-previous-error)
+(define-key compilation-mode-map (kbd "n") 'compilation-next-error)
+(define-key compilation-mode-map (kbd "p") 'compilation-previous-error)
 ;;
-
 
 (package-require 'wand)
 (require 'wand)
