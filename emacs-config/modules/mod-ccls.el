@@ -53,7 +53,7 @@
 
 (defun ccls-setup () 
   (interactive)
-  ;; (gen-cmake-file)
+  (gen-cmake-file)
   (ccls//enable)
   ;;
   ;; direct callers
