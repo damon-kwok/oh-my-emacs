@@ -105,14 +105,14 @@
 (require 'yasnippet-snippets)
 ;; (yas-global-mode 1)
 
-(setq dir-medusa-snippets "~/.oh-my-emacs/emacs-config/snippets/")
+(setq dir-core-snippets "~/.oh-my-emacs/snippets/")
+(setq dir-ome-snippets "~/workspace/emacs/snippets/")
 
-;; yas-snippet-dirs
-;; yasnippet-snippets-dir
-;; (yas-load-directory yasnippet-snippets-dir t)
+(if (file-exists-p dir-core-snippets) 
+    (add-to-list 'yas-snippet-dirs (expand-file-name dir-core-snippets)))
 
-(if (file-exists-p dir-medusa-snippets) 
-    (add-to-list 'yas-snippet-dirs (expand-file-name dir-medusa-snippets)))
+(if (file-exists-p dir-ome-snippets) 
+    (add-to-list 'yas-snippet-dirs (expand-file-name dir-ome-snippets)))
 
 (yas-reload-all)
 
@@ -133,11 +133,11 @@
 
 (defun yas-open-snippet-file(file-name) 
   (interactive "sEnter snippet file name:") 
-  (find-file (concat dir-medusa-snippets (symbol-name major-mode)"/"file-name)))
+  (find-file (concat dir-core-snippets (symbol-name major-mode)"/"file-name)))
 
 (defun yas-open-snippet-template() 
   (interactive) 
-  (find-file (concat dir-medusa-snippets (symbol-name major-mode) "/auto-insert")))
+  (find-file (concat dir-core-snippets (symbol-name major-mode) "/auto-insert")))
 
 ;; (define-key yas-minor-mode-map (kbd "TAB") nil)
 ;; (define-key yas-minor-mode-map [backtab] 'yas-expand)
@@ -167,7 +167,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `auto-insert-mode'
-(setq-default auto-insert-directory dir-medusa-snippets)
+(setq-default auto-insert-directory dir-core-snippets)
 (auto-insert-mode)
 (setq auto-insert-query nil) ;;don't ask me "R U want insert?"
 
