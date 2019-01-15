@@ -1,8 +1,5 @@
-#include <memory>
-
-class ${1:ClassName};
-typedef std::shared_ptr<$1> $1Ptr;
-class $1 {
+class ${1:ClassName} {
+  typedef std::shared_ptr<$1> ptr;
   private:
     $1() = default;
 
@@ -11,7 +8,11 @@ class $1 {
     $1(const $1 &that) = delete;
     $1 &operator=(const $1& that) = delete;
 
-    static $1Ptr Create() { return std::make_shared<$1>(); }
+    //static ptr create() { return std::make_shared<$1>(); }
+    static ptr create() {
+        std::shared_ptr<$1> self(new $1());
+        return self;
+    }
 
   public:
     $0
