@@ -583,22 +583,23 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 ^Project^         ^Doc^          ^Blog^            ^dotfiles^      ^dotfiles^     ^English^
 ^^^^^^^^^^^^--------------------------------------------------------------------------------
 _M-1_:libknife    _h_:README.org  _i_: index.org    _1_:ome        _._:.bashrc    _C-b_: english-b.org
-_M-2_:medusa      _d_:diary.org   _b_: blog.org     _2_:env        _0_:.emacs     _C-2_: PETS2.org
+_M-2_:memrock     _d_:diary.org   _b_: blog.org     _2_:env        _0_:.emacs     _C-2_: PETS2.org
 _M-3_:pkg-manager _t_:todo.org    _l_: link.org     _3_:lib        ^^             _C-3_: PETS3.org
 _M-4_:network     _b_:book.org    ^^                _4_:tool       ^^             _C-4_: CET4.org
 _M-5_:webscrap    _g_:game.org    ^^                _5_:proj       ^^             _C-6_: CET6.org
-^^                _n_:NEWS.org    ^^                _6_:appwizard  ^^             _e_:english.org
+_M-6_:medusa      _n_:NEWS.org    ^^                _6_:appwizard  ^^             _e_:english.org
 ^^                _m_:me.org      ^^                ^^             ^^             _v_:vocabulary.org
 ^^^^^^^^^^^^--------------------------------------------------------------------------------
 _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 " ;;
 
   ;; Project
-  ("M-1" (ome-open-file "~/projects/me/libknife/include/knife.h") "libknife") 
-  ("M-2" (ome-open-file "~/projects/me/medusa/medusa-cpp/Core/Core.h") "medusa") 
+  ("M-1" (ome-open-file "~/projects/me/libknife/include/knife.h") "libknife")
+  ("M-2" (ome-open-file "~/projects/me/memrock/cpp/src/memrock.hpp") "libknife")
   ("M-3" (ome-open-file "~/projects/me/awesome-package-manager/README.org") "pacman") 
   ("M-4" (ome-open-file "~/projects/me/awesome-network-programming/README.org") "network") 
   ("M-5" (ome-open-file "~/projects/me/awesome-web-scraping/README.org") "web-scrap")
+  ("M-6" (ome-open-file "~/projects/me/medusa/medusa-cpp/Core/Core.h") "medusa") 
 
   ;; Doc
   ("h" (ome-open-file "~/.oh-my-emacs/README.org") "README.org") 

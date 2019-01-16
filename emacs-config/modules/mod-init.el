@@ -36,6 +36,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `base'
 (module-require 'mod-basic)
+(module-require 'mod-highlight)
 (module-require 'mod-splash)
 (module-require 'mod-mouse)
 (module-require 'mod-tabbar)
@@ -55,18 +56,22 @@
 ;;; `docs'
 (module-require 'mod-text)
 (module-require 'mod-csv)
-(module-require 'mod-protobuf)
-(module-require 'mod-markdown)
+(module-require 'mod-rst)
+(module-require 'mod-adoc)
 (module-require 'mod-orgmode)
-(module-require 'mod-input)
+(module-require 'mod-markdown)
+(module-require 'mod-protobuf)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `utils'
 (module-require 'mod-calendar)
 (module-require 'mod-profiler)
 (module-require 'mod-format)
-(module-require 'mod-highlight)
 ;; (module-require 'mod-latex)
 (module-require 'mod-ros)
 (module-require 'mod-book)
 (module-require 'mod-ome)
+(module-require 'mod-input)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `debug'
 (module-require 'mod-gud)
