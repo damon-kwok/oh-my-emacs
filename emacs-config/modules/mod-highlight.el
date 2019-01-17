@@ -67,7 +67,7 @@
   (lambda () 
     (symbol-overlay-mode 1)))
 
-(global-symbol-overlay-mode nil)
+(global-symbol-overlay-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `hl-todo
 ;; (package-require 'hl-todo)
@@ -160,9 +160,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`highlight';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `dimmer' Visually highlight the selected buffer.
 (package-require 'dimmer)
 (require 'dimmer)
+;; (setq dimmer-use-colorspace :hsl)
+(defcustom dimmer-use-colorspace :rgb
+  ""
+  :type '(radio (const :tag "Interpolate in CIELAB 1976" :cielab)
+                (const :tag "Interpolate in HSL" :hsl)
+                (const :tag "Interpolate in RGB" :rgb))
+  :group 'dimmer)
 (dimmer-mode)
+
 ;;; for lisp (elisp) : `lambda' to 入
 ;; (prettify-symbols-mode)
 ;; (global-prettify-symbols-mode 1)

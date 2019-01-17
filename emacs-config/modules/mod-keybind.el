@@ -793,11 +793,11 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
    "_b_:Bookmarks  _k_:kill          _g_:grep-dir         _M-s_:speedbar  _;_:left       _M-a_:agenda     _M-3_:"(ome-auto-menu 3) "\n";;
    "_e_(E):Email   _M-k_:kill-other  _G_:grep-proj        _M-d_:sidebar   _'_:right      _M-b_:switchb    _M-4_:"(ome-auto-menu 4) "\n";;
    "_f_:Feed       _C-k_:kill-all    _d_:dict-bing        _=_:scale+      ^0-9:select^   _M-u_:update     _M-5_:"(ome-auto-menu 5) "\n";;
-   "_m_:Module     _._:*scratch*     _D_:dict-bing-web    _-_:scale-      _u_:URLs       _M-g_:GTD        _M-6_:"(ome-auto-menu 6) "\n";;
-   "_i_:IRC        _M-._:load-menu   ^^                   _M_:Message     ^^             _M-p_:push-blog  _M-7_:"(ome-auto-menu 7) "\n";;
-   "_s_(S):Shell   ^^                ^^                   ^^              ^^             _M-e_:en         _M-8_:"(ome-auto-menu 8) "\n";;
+   "_m_:Module     ^^                _D_:dict-bing-web    _-_:scale-      _u_:URLs       _M-g_:GTD        _M-6_:"(ome-auto-menu 6) "\n";;
+   "_i_:IRC        ^^                ^^                   _M_:Message     ^^             _M-p_:push-blog  _M-7_:"(ome-auto-menu 7) "\n";;
+   "_s_(S):Shell   ^^                ^^                   _._:*scratch*   ^^             _M-e_:en         _M-8_:"(ome-auto-menu 8) "\n";;
    "^^             ^^                ^^                   ^^              ^^             ^^               _M-9_:"(ome-auto-menu 9) "\n";;
-   "^^             ^^                ^^                   ^^              ^^             ^^               _M-0_:"(ome-auto-menu 0) "\n";;
+   "^^             ^^                ^^                   _M-._:load-menu ^^             ^^               _M-0_:"(ome-auto-menu 0) "\n";;
    "^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------\n"
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^ ^^\n")
   ;; Main
@@ -915,6 +915,9 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("9" select-window-9 "select-window-9" 
    :color pink) 
   ("u" (hydra-url-menu/body) "URLs")
+  
+  ("." switch-to-scratch-buffer "*scratch")
+  ("M-." (load "mod-keybind.el") "load-menu")
 
   ;; Buffer/File
   ("r" ome-rename-file-and-buffer "rename-file-and-buffer") 
@@ -923,8 +926,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
    :color pink) 
   ("M-k" ome-kill-other-buffers "kill-other-buffers") 
   ("C-k" ome-kill-all-buffers "kill-all-buffers") 
-  ("." switch-to-scratch-buffer "*scratch")
-  ("M-." (load "mod-keybind.el") "load-menu")
+  
   ;; Orgmode
 
   
