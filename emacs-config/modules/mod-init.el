@@ -46,8 +46,8 @@
 (module-require 'mod-speedbar)
 
 (if (and (executable-find "offlineimap") 
-       (executable-find "mu")) 
-   (module-require 'mod-email))
+         (executable-find "mu")) 
+    (module-require 'mod-email))
 
 (module-require 'mod-feed)
 ;; (module-require 'mod-dired)
@@ -86,15 +86,16 @@
 (module-require 'mod-php)
 
 ;; `bash'
-(if (executable-find "bash-language-server")
-(module-require 'mod-sh))
+(if (executable-find "bash-language-server") 
+    (module-require 'mod-sh))
 
 ;; `cc'
 (if (or (string= system-type 'windows-nt) ;
-        (string= system-type 'ms-dos) 
-        (string= system-type 'cygwin)) 
-    (defconst cc-lang-server "rtags") 
-  (defconst cc-lang-server "clangd"))
+        (string= system-type 'ms-dos)) 
+    (defconst cc-lang-server "clangd") 
+  (if (string= system-type 'rtags) 
+      (defconst cc-lang-server "ccls") 
+    (defconst cc-lang-server "clangd")))
 
 (cond ((and 
         (string= cc-lang-server "clangd") 
@@ -148,8 +149,8 @@
 (if (executable-find "hy") 
     (module-require 'mod-hy))
 
-(if (and (executable-find "go")
-         (executable-find "go-langserver"))
+(if (and (executable-find "go") 
+         (executable-find "go-langserver")) 
     (module-require 'mod-go))
 
 ;; (if (and (executable-find "go")
