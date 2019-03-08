@@ -149,8 +149,9 @@
 (if (executable-find "hy") 
     (module-require 'mod-hy))
 
-(if (and (executable-find "go") 
-         (executable-find "go-langserver")) 
+(if (and (executable-find "go")
+         ;; (executable-find "go-langserver")
+         (executable-find "bingo")) 
     (module-require 'mod-go))
 
 ;; (if (and (executable-find "go")
