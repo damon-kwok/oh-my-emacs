@@ -102,6 +102,9 @@
 (defun ome-buf-dirname() 
   (nth 0 (last (split-string (ome-buf-dirpath) "/") 1)))
 
+(defun ome-project-dirname() 
+  (nth 0 (last (split-string (directory-file-name (ome-project-root)) "/") 1)))
+
 ;; (defun ome-bufname-no-ext()
 ;; (first (split-string (buffer-name) "\\."))) ;;file-name-base
 (defun ome-bufname-no-ext() 
