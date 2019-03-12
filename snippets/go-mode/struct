@@ -4,10 +4,10 @@ type ${1:MyType} struct {
 
 func New$1() *$1 {
     obj := new($1)
-	obj.Constructor()
+	obj.init()
 	return obj
 }
 
-func (self *$1) Constructor() {
+func (self *$1) init() {
 	
 }

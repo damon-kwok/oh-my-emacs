@@ -20,12 +20,13 @@
 //                         
 // Code:
 //
-package `(ome-bufname-no-ext)`
+package ${1:`(ome-buf-dirname)`}
 
 import (
     "fmt"
 )
 
-func ${1:hello}() {
+func ${2:hello_`(ome-bufname-no-ext)`}() {
     fmt.Println ("hello,world!")
+    $0
 }

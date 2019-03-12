@@ -105,6 +105,15 @@
 (defun ome-project-dirname() 
   (nth 0 (last (split-string (directory-file-name (ome-project-root)) "/") 1)))
 
+(defun ome-project-file-exists-p (filename) 
+  (file-exists-p (concat (ome-project-root) filename)))
+
+(defun ome-project-run-command  (cmd) 
+  (let ((oldir default-directory)) 
+    (setq default-directory (ome-project-root)) 
+    (ome-run-command cmd) 
+    (setq default-directory oldir)))
+
 ;; (defun ome-bufname-no-ext()
 ;; (first (split-string (buffer-name) "\\."))) ;;file-name-base
 (defun ome-bufname-no-ext() 
@@ -474,7 +483,7 @@ occurence of CHAR."
   (delete-other-windows) 
   (ome-show-compilation "*Messages*") 
   (other-window 1) ;;(switch-window)
-  (let ((filename (concat name (format-time-string "-%Y-%m") ".org")))
+  (let ((filename (concat name (format-time-string "-%Y-%m") ".org"))) 
     (find-file (concat (getenv "HOME") "/workspace/org/" filename))) 
   (delete-other-windows))
 
@@ -557,8 +566,8 @@ occurence of CHAR."
                (message (concat "created new project '" (f-filename project-path) "' succeed:)"))) 
       (message (concat "creat new project '" (f-filename project-path) "' failed:(")))))
 
-(defun ome-project-wizard(lang)
-  (let  ((project-path (read-file-name "choice project path:" nil default-directory nil)))
+(defun ome-project-wizard(lang) 
+  (let  ((project-path (read-file-name "choice project path:" nil default-directory nil))) 
     (ome-run-command (concat "app_wizard " lang " " project-path))))
 
 (defun ome-project-wizard-old(lang) 
@@ -578,7 +587,7 @@ occurence of CHAR."
          (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type groovy-application"
                               "src/main/groovy/App.groovy")) 
         ((string= lang "python") 
-         (ome-ask-new-project "mkdir -p %s && cd %s && pipenv --three" "Pipfile"))
+         (ome-ask-new-project "mkdir -p %s && cd %s && pipenv --three" "Pipfile")) 
         ((string= lang "ruby") 
          (ome-ask-new-project "mkdir -p %s && cd %s && bundle init" "Gemfile")) 
         ((string= lang "c") 
@@ -596,8 +605,8 @@ occurence of CHAR."
         ((string= lang "ros") 
          (ome-ask-new-project "rosman %s" "src/main.cpp"))))
 
-(defun ome-cmake-build()
-  (if (file-exists-p (concat (projectile-project-root) "CMakeLists.txt"))
+(defun ome-cmake-build() 
+  (if (file-exists-p (concat (projectile-project-root) "CMakeLists.txt")) 
       (ome-run-command (concat "cmake_build" " " (projectile-project-root)))))
 
 (defun ome-buffer-reload() 
@@ -700,18 +709,18 @@ occurence of CHAR."
   "Evaluate elisp code stored in a string. (ome-eval-string \"(+ 1 2)\") is 3"
   (eval (car (read-from-string string))))
 
-(defun ome-mu4e-open ()
-  (interactive)
+(defun ome-mu4e-open () 
+  (interactive) 
   (if (and (executable-find "offlineimap") 
            (executable-find "mu")) 
-      (mu4e)
+      (mu4e) 
     (message "Please install 'mu' and 'offlineimap'!")))
 
-(defun ome-mu4e-new ()
-  (interactive)
+(defun ome-mu4e-new () 
+  (interactive) 
   (if (and (executable-find "offlineimap") 
            (executable-find "mu")) 
-      (mu4e-compose-new)
+      (mu4e-compose-new) 
     (message "Please install 'mu' and offlineimap!")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -529,7 +529,7 @@ _i_: init          _t_: tabbar      _o_: orgmode      _1_: elisp      _u_: input
 _a_: basic         _h_: helm        _7_: latex        _2_: clojure    _m_: music
 _p_: package       _e_: email       _8_: markdown     _3_: csharp     _d_: coding
 _k_: keybind       ^^               _9_: reST         _4_: js         _s_: server
-_l_: library       ^^               _z_: csv          _5_: cc         ^^
+_l_: library       ^^               _z_: csv          _5_: cc         _g_: golang
 _y_: complete-yas  ^^               _x_: protobuf     _6_: elixir     _C_: compile-all-modules
 ^^^^^^^^-------------------------------------------------------------------------
 _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
@@ -554,6 +554,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 ("M-5" (ome-open-mod "cquery") "cquery")
 ("C-5" (ome-open-mod "rtags") "rtags")
 ("6" (ome-open-mod "elixir") "elixir")
+("g" (ome-open-mod "go") "golang")
 
 ;;("w" (ome-open-mod "web") "web")
 

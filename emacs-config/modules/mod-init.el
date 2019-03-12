@@ -149,14 +149,13 @@
 (if (executable-find "hy") 
     (module-require 'mod-hy))
 
-(if (and (executable-find "go")
-         ;; (executable-find "go-langserver")
-         (executable-find "bingo")) 
-    (module-require 'mod-go))
-
 ;; (if (and (executable-find "go")
-;; (executable-find "gocode"))
-;; (module-require 'mod-gocode))
+;; (executable-find "bingo")) ;; (executable-find "go-langserver")
+;; (module-require 'mod-go))
+
+(if (and (executable-find "go") 
+         (executable-find "gocode")) 
+    (module-require 'mod-gocode))
 
 (if (executable-find "ocaml") 
     (module-require 'mod-ocaml))
