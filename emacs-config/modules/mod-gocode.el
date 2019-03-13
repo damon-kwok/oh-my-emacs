@@ -81,6 +81,9 @@
                       (:inherit company-tooltip-selection))))) ;;
 
 (define-key go-mode-map (kbd "C-c C-f")  'gofmt)
+;; Godef jump key binding
+ (define-key go-mode-map (kbd "M-.") 'godef-jump)
+ (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
 
 ;; `automenu:go'
 (defun automenu--go-mode-menu () 
