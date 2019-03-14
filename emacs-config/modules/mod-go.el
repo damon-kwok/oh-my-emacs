@@ -58,7 +58,7 @@
 
 ;; `automenu:go'
 (defun automenu--go-mode-menu () 
-  '("0" "build" "run" "3" "4" "5" "6" "7" "8" "9"))
+  '("0" "build" "run" "clean" "4" "5" "6" "7" "8" "9"))
 
 (defun automenu--go-mode-func (index) 
   (cond ((= 0 index) 
@@ -73,7 +73,7 @@
              (ome-project-run-command (concat (ome-project-root) "bin/" (ome-buf-dirname))) 
            (ome-run-command ome-project-dirname))) 
         ((= 3 index) 
-         (message  "go menu:%d" index)) 
+         (ome-run-command  "make clean")) 
         ((= 4 index) 
          (message  "go menu:%d" index)) 
         ((= 5 index) 
