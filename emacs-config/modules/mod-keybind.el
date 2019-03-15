@@ -787,18 +787,18 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
 (defhydra hydra-super-menu 
   (:color blue) 
   (concat ;;
-   "^Main^         ^Buffer^          ^Search^             ^View^          ^Navigate^     ^Org^            ^" (symbol-name major-mode) "^\n" ;;
+   "^Main^         ^Buffer^          ^Search^             ^View^          ^Navigate^         ^Org^            ^" (symbol-name major-mode) "^\n" ;;
    "^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------\n"
-   "_n_:New        _r_:rname         _>_:gochar-forward   _M-t_:toolbar   _[_:up         _M-c_:capture    _M-1_:"(ome-auto-menu 1) "\n";;
-   "_o_:Open       _R_:remove        _<_:gochar-backward  _M-m_:menubar   _/_:down       _M-l_:store-link _M-2_:"(ome-auto-menu 2) "\n";;
-   "_b_:Bookmarks  _k_:kill          _g_:grep-dir         _M-s_:speedbar  _;_:left       _M-a_:agenda     _M-3_:"(ome-auto-menu 3) "\n";;
-   "_e_(E):Email   _M-k_:kill-other  _G_:grep-proj        _M-d_:sidebar   _'_:right      _M-b_:switchb    _M-4_:"(ome-auto-menu 4) "\n";;
-   "_f_:Feed       _C-k_:kill-all    _d_:dict-bing        _=_:scale+      ^0-9:select^   _M-u_:update     _M-5_:"(ome-auto-menu 5) "\n";;
-   "_m_:Module     ^^                _D_:dict-bing-web    _-_:scale-      _u_:URLs       _M-g_:GTD        _M-6_:"(ome-auto-menu 6) "\n";;
-   "_i_:IRC        ^^                ^^                   _M_:Message     ^^             _M-p_:push-blog  _M-7_:"(ome-auto-menu 7) "\n";;
-   "_s_(S):Shell   ^^                ^^                   _._:*scratch*   ^^             _M-e_:en         _M-8_:"(ome-auto-menu 8) "\n";;
-   "^^             ^^                ^^                   ^^              ^^             ^^               _M-9_:"(ome-auto-menu 9) "\n";;
-   "^^             ^^                ^^                   _M-._:load-menu ^^             ^^               _M-0_:"(ome-auto-menu 0) "\n";;
+   "_n_:New        _r_:rname         _>_:gochar-forward   _M-t_:toolbar   _[_:up             _M-c_:capture    _M-1_:"(ome-auto-menu 1) "\n";;
+   "_o_:Open       _R_:remove        _<_:gochar-backward  _M-m_:menubar   _/_:down           _M-l_:store-link _M-2_:"(ome-auto-menu 2) "\n";;
+   "_b_:Bookmarks  _k_:kill          _g_:grep-dir         _M-s_:speedbar  _;_:left           _M-a_:agenda     _M-3_:"(ome-auto-menu 3) "\n";;
+   "_e_(E):Email   _M-k_:kill-other  _G_:grep-proj        _M-d_:sidebar   _'_:right          _M-b_:switchb    _M-4_:"(ome-auto-menu 4) "\n";;
+   "_f_:Feed       _C-k_:kill-all    _d_:dict-bing        _=_:scale+      ^0-9:select^       _M-u_:update     _M-5_:"(ome-auto-menu 5) "\n";;
+   "_m_:Module     ^^                _D_:dict-bing-web    _-_:scale-      _u_:URLs           _M-g_:GTD        _M-6_:"(ome-auto-menu 6) "\n";;
+   "_i_:IRC        ^^                ^^                   _M_:Message     _C-7_:gitignore    _M-p_:push-blog  _M-7_:"(ome-auto-menu 7) "\n";;
+   "_s_(S):Shell   ^^                ^^                   _._:*scratch*   _C-8_:Makefile     _M-e_:en         _M-8_:"(ome-auto-menu 8) "\n";;
+   "^^             ^^                ^^                   ^^              _C-9_:CMakeList.txt^^               _M-9_:"(ome-auto-menu 9) "\n";;
+   "^^             ^^                ^^                   _M-._:load-menu _C-0_:README.org   ^^               _M-0_:"(ome-auto-menu 0) "\n";;
    "^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------\n"
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^ ^^\n")
   ;; Main
@@ -867,6 +867,8 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("-" text-scale-decrease "text-scale-decrease" 
    :color pink)
   ("M" (ome-show-compilation "*Messages*") "*Message*")
+  ("." switch-to-scratch-buffer "*scratch")
+  ("M-." (load "mod-keybind.el") "load-menu")
 
   ;; Nav
   (";" tabbar-backward "ome-tabbar-backward" 
@@ -916,9 +918,10 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("9" select-window-9 "select-window-9" 
    :color pink) 
   ("u" (hydra-url-menu/body) "URLs")
-  
-  ("." switch-to-scratch-buffer "*scratch")
-  ("M-." (load "mod-keybind.el") "load-menu")
+  ("C-7" (find-file (concat (ome-project-root) ".gitignore")) "gitignore")
+  ("C-8" (find-file (concat (ome-project-root) "Makefile")) "Makefile")
+  ("C-9" (find-file (concat (ome-project-root) "Makefile")) "CMakefile.txt")
+  ("C-0" (find-file (concat (ome-project-root) "README.org")) "README.org")
 
   ;; Buffer/File
   ("r" ome-rename-file-and-buffer "rename-file-and-buffer") 
