@@ -97,29 +97,49 @@
 
 (package-require 'wand)
 (require 'wand)
+(setq wand:*rules*
+      (list (wand:create-rule :match "\\$ "
+                              :capture :after
+                              :action #'popup-shell-command)
+            (wand:create-rule :match "https?://"
+                              :capture :whole
+                              :action #'open-url-in-firefox)
+            (wand:create-rule :match "file:"
+                              :capture :after
+                              :action #'find-file)
+            (wand:create-rule :match "#> "
+                              :capture :after
+                              :action #'(lambda (string)
+                                          (eval (read string))))))
+
+(global-set-key (kbd "<C-return>")       'wand:execute)
+(global-set-key (kbd "<C-mouse-1>")      'wand:execute)
+(global-set-key (kbd "<C-down-mouse-1>")  nil)
+
+
 (global-set-key (kbd "<C-return>")       'wand:execute)
 ;; (global-set-key (kbd "<C-mouse-1>")      'wand:execute)
 ;; (global-set-key (kbd "<C-down-mouse-1>")  nil)
-(wand:add-rule-by-pattern :match "\\$ "
-                          :capture 
+;;-(wand:add-rule-by-pattern :match "\\$ "
+;;-                          :capture 
 
-                          :after 
-                          :action popup-shell-command)
-(wand:add-rule-by-pattern :match "https?://"
-                          :capture 
-
-                          :whole 
-                          :action browse-url)
-(wand:add-rule-by-pattern :match "file:"
-                          :capture 
-
-                          :after 
-                          :action find-file)
-(wand:add-rule-by-pattern :match "#> "
-                          :capture 
-
-                          :after 
-                          :action add-bracket-and-eval)
+;;-                          :after 
+;;-                          :action popup-shell-command)
+;;-(wand:add-rule-by-pattern :match "https?://"
+;;-                          :capture 
+;;-
+;;-                          :whole 
+;;-                          :action browse-url)
+;;-(wand:add-rule-by-pattern :match "file:"
+;;-                          :capture 
+;;-
+;;-                          :after 
+;;-                          :action find-file)
+;;-(wand:add-rule-by-pattern :match "#> "
+;;-                          :capture 
+;;-
+;;-                          :after 
+;;-                          :action add-bracket-and-eval)
 
 ;; `folding'
 ;; (package-require 'vimish-fold)
