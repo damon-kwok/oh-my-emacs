@@ -1,7 +1,5 @@
 # ignore everything
 *
-# *.elc
-# .#*
 
 # white list anything that's a directort
 !.gitignore
@@ -76,3 +74,6 @@ target/
 Cargo.lock
 rebar.lock
 rebar3.crashdump
+.DS_Store
+*.elc
+.#*
