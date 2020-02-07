@@ -23,8 +23,23 @@
 ;;
 (require 'server)
 
-;; (setq server-auth-dir (concat (getenv "HOME") "~/.emacs.d/server/"))
-;; (setq server-name "server")
+(setq server-use-tcp nil)
+(setq server-auth-dir (concat (getenv "HOME") "/.emacs.d/server/"))
+(setq server-socket-dir (concat (getenv "HOME") "/.emacs.d/server/"))
+(setq server-name "server")
+
+(unless (server-running-p) 
+  (server-start))
+
+;; (server-force-delete)
+
+;; (expand-file-name (or nil server-name)
+				;; (if server-use-tcp
+				    ;; server-auth-dir
+;; server-socket-dir))
+
+;;(or (server-running-p)(server-start))
+
 
 ;; (setq server-file-name (concat server-auth-dir server-name))
 ;; (server-force-delete)
@@ -32,10 +47,6 @@
 ;; (delete-file server-file-name))
 ;; (server-start)
 
-(unless (server-running-p) 
-  (server-start))
-
-;;(or (server-running-p)(server-start))
 ;;
 (provide 'mod-server)
 ;; mod-server.el ends here
