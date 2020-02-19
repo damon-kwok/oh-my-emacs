@@ -75,7 +75,7 @@
 
 ;;-------------------------------------------------
 ;; Set your lisp system and, optionally, some contribs
-(load (expand-file-name "/cygdrive/c/Users/damon/.roswell/helper.el"))
+;;(load (expand-file-name "/cygdrive/c/Users/damon/.roswell/helper.el"))
 (setq inferior-lisp-program "ros -Q run")
 (setq slime-contribs '(slime-fancy))
 (require 'slime-autoloads)

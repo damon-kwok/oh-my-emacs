@@ -47,15 +47,18 @@
 
 
 (setq package-archives '(;;
-			 ;;("gnu" . "https://elpa.gnu.org/packages/")
-			 ;;("org" . "http://orgmode.org/elpa/")
-			 ;;("melpa" . "https://melpa.org/packages/")
-			 ;;
-			 ("gnu-china" . "http://elpa.emacs-china.org/gnu/") 
-                         ("melpa-china" . "http://elpa.emacs-china.org/melpa/") 
-                         ("org-china" . "http://elpa.emacs-china.org/org/")
-			 ;;
-			 ))
+                         ;;("gnu" . "https://elpa.gnu.org/packages/")
+                         ;;("org" . "http://orgmode.org/elpa/")
+                         ;;("melpa" . "https://melpa.org/packages/")
+                         ;;
+                         ;;("gnu-china" . "http://elpa.emacs-china.org/gnu/")
+                         ;;("melpa-china" . "http://elpa.emacs-china.org/melpa/")
+                         ;;("org-china" . "http://elpa.emacs-china.org/org/")
+             			 ("gnu-china" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/") 
+                         ("melpa-china" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") 
+                         ("org-china" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+                         ;;
+                         ))
 ;; (add-to-list 'package-archives '("popkit" . "http://elpa.popkit.org/packages/"))
 ;;(add-to-list 'load-path "~/emacs-config/elpa-mirror")
 ;;(require 'elpa-mirror)
@@ -168,12 +171,10 @@
   (package-update) 
   (package-autoremove) 
   (package-upgrade))
-
 
 ;; `use-package'
 (package-require 'use-package)
 (require 'use-package)
-
 
 
 ;; `quelpa'
