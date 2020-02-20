@@ -32,7 +32,8 @@
 (add-hook 'java-mode-hook #'lsp)
 
 ;; set the projects that are going to be imported into the workspace.
-(setq lsp-java--workspace-folders (list (concat (getenv "HOME") "/projects/java") 
+(setq lsp-java--workspace-folders (list (concat (getenv "HOME") "/projects")
+                                        (concat (getenv "HOME") "/projects/java")
                                         (concat (getenv "HOME") "/workspace") 
                                         (concat (getenv "HOME") "/eclipse-workspace")))
 (setq  lsp-java-server-install-dir "~/.emacs.d/eclipse.jdt.ls/server/")
