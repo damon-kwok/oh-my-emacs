@@ -24,9 +24,12 @@
 (require 'server)
 
 (setq server-use-tcp nil)
-(setq server-auth-dir (concat (getenv "HOME") "/.emacs.d/server/"))
-(setq server-socket-dir (concat (getenv "HOME") "/.emacs.d/server/"))
-(setq server-name "server")
+;;(setq server-auth-dir (concat (getenv "HOME") "/.emacs.d/server/"))
+;;(setq server-socket-dir (concat (getenv "HOME") "/.emacs.d/server/"))
+(setq server-auth-dir "/tmp/emacs1000/")
+(setq server-socket-dir "/tmp/emacs1000/")
+
+(if window-system (setq server-name "server") (setq server-name "server-nw"))
 
 (unless (server-running-p) 
   (server-start))

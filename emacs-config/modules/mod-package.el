@@ -54,6 +54,7 @@
                          ;;("gnu-china" . "http://elpa.emacs-china.org/gnu/")
                          ;;("melpa-china" . "http://elpa.emacs-china.org/melpa/")
                          ;;("org-china" . "http://elpa.emacs-china.org/org/")
+						 ;;
              			 ("gnu-china" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/") 
                          ("melpa-china" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") 
                          ("org-china" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
@@ -71,8 +72,20 @@
                 (member 'up (first (last (network-interface-info (car iface))))))) 
             (network-interface-list)) t))
 
-;; (when (online?)
-;; (unless package-archive-contents (package-refresh-contents)))
+;;(when (online?)
+;;  (unless package-archive-contents (package-refresh-contents)))
+
+(defun lazy-require (ext mode)
+  (add-hook
+   'find-file-hook
+   `(lambda ()
+      (when (and (stringp buffer-file-name)
+                 (string-match (concat "\\." ,ext "\\'") buffer-file-name))
+        (require (quote ,mode))
+        (,mode)))))
+
+;; (lazy-require "soy" 'soy-mode)
+;; (lazy-require "tpl" 'tpl-mode)
 
 ;; To get the package manager going, we invoke its initialise function.
 (defun package-require(pkg) 
@@ -171,10 +184,12 @@
   (package-update) 
   (package-autoremove) 
   (package-upgrade))
+
 
 ;; `use-package'
 (package-require 'use-package)
 (require 'use-package)
+
 
 
 ;; `quelpa'

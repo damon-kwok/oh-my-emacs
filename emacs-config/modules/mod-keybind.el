@@ -569,7 +569,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 ("1" (ome-open-mod "elisp") "elisp")
 ("2" (ome-open-mod "clojure") "clojure")
 ("3" (ome-open-mod "csharp") "csharp")
-("4" (ome-open-mod "javascript") "javascript")
+("4" (ome-open-mod "js") "javascript")
 ("5" (ome-open-mod "cc") "cc")
 ("M-5" (ome-open-mod "cquery") "cquery")
 ("C-5" (ome-open-mod "rtags") "rtags")
