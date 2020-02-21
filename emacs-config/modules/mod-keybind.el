@@ -721,12 +721,12 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
    "^^^^^^^^------------------------------------------------------------------------\n";;
    "^C^           ^JVM^           ^.Net^             ^Functional^\n";;
    "^^^^^^^^------------------------------------------------------------------------\n";;
-   "_c_:C/C++     _M-j_:Java      ^C-c:C#^           _r_:Rust\n";;
+   "_c_:C/C++     _M-j_:Java      ^s:C#^             _r_:Rust\n";;
    "_C_:C++-ROS   _M-s_:Scala     ^^                 _e_:Erlang\n";;
    "_g_:Golang    _M-g_:Groovy    ^^                 _E_:Elixir\n";;
    "_p_:Python    ^M-p:Jython^    ^C-p:IronPython^   _h_:Haskell\n";;
    "_n_:Nim       _M-c_:Clojure   ^C-f:F#^           _o_:OCaml\n";;
-   "_1_:Ruby      ^^              ^^                 ^^";;
+   "_1_:Ruby      _C-c_:Cljs      ^^                 ^^";;
    "^^^^^^^^------------------------------------------------------------------------\n";;
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^\n");;
   
@@ -740,7 +740,8 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("M-j" (ome-project-wizard "java") "java")
   ("M-s" (ome-project-wizard "scala") "scala")
   ("M-g" (ome-project-wizard "groovy") "groovy")
-  ("M-c" (ome-project-wizard "clojure") "clojure")
+  ("M-c" (ome-project-wizard "clj") "clojure")
+  ("C-c" (ome-project-wizard "cljs") "clojure")
 
   ("r" (ome-project-wizard "rust") "rust")
   ("e" (ome-project-wizard "erlang") "erlang")

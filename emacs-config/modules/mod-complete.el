@@ -171,6 +171,7 @@
 (auto-insert-mode)
 (setq auto-insert-query nil) ;;don't ask me "R U want insert?"
 
+(define-auto-insert "\\.sh\\'" "sh-mode/auto-insert")
 (define-auto-insert "\\.org\\'" "org-mode/auto-insert")
 
 (define-auto-insert "\\.\\(c\\|cc|\\|cpp\\|cxx\\)\\'" "cc-mode/auto-insert.c")
