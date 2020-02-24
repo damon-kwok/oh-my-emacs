@@ -26,10 +26,18 @@
 (setq server-use-tcp t) ;; t:socket-file nil:socket-name(only *unix)
 ;;(setq server-auth-dir (concat (getenv "HOME") "/.emacs.d/server/"))
 ;;(setq server-socket-dir (concat (getenv "HOME") "/.emacs.d/server/"))
-(setq server-auth-dir (concat (getenv "HOME") "/../../tmp/emacs1000/"))
-(setq server-socket-dir(concat (getenv "HOME") "/../../tmp/emacs1000/"))
+;; (setq server-auth-dir (concat (getenv "HOME") "/../../tmp/emacs1000/"))
+;; (setq server-socket-dir(concat (getenv "HOME") "/../../tmp/emacs1000/"))
 
-(if window-system (setq server-name "server") (setq server-name "server-nw"))
+(if window-system
+    (progn 
+      (setq server-auth-dir (concat (getenv "HOME") "/../../tmp/emacs1000/")) 
+      (setq server-socket-dir(concat (getenv "HOME") "/../../tmp/emacs1000/"))) 
+  (progn 
+    (setq server-auth-dir (concat (getenv "HOME") "/../../tmp/emacstty1000/")) 
+    (setq server-socket-dir(concat (getenv "HOME") "/../../tmp/emacstty1000/"))))
+
+(setq server-name "server")
 
 (unless (server-running-p) 
   (server-start))
@@ -37,8 +45,8 @@
 ;; (server-force-delete)
 
 ;; (expand-file-name (or nil server-name)
-				;; (if server-use-tcp
-				    ;; server-auth-dir
+;; (if server-use-tcp
+;; server-auth-dir
 ;; server-socket-dir))
 
 ;;(or (server-running-p)(server-start))
