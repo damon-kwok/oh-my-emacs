@@ -57,7 +57,35 @@
      (interactive) 
      (ome-run-command "cargo build")))
 (define-key rust-mode-map [f6] 'ome-open-or-close-cargofile)
-;; (define-key conf-toml-mode-map [f6] 'ome-open-or-close-cargofile)
+(define-key conf-toml-mode-map [f6] 'ome-open-or-close-cargofile)
+
+
+;; `automenu:rust'
+(defun automenu--rust-mode-menu ()
+  '("Cargo.toml" "build" "2" "3" "4" "5" "6" "7" "8" "9"))
+
+(defun automenu--rust-mode-func (index)
+  (cond ((= 0 index) 
+         (ome-open-or-close-cargofile)) 
+        ((= 1 index) 
+         (ome-run-command "cargo build"))
+        ((= 2 index) 
+         (message  "rust menu:%d" index))
+        ((= 3 index) 
+         (message  "rust menu:%d" index))
+        ((= 4 index) 
+         (message  "rust menu:%d" index))
+        ((= 5 index) 
+         (message  "rust menu:%d" index))
+        ((= 6 index) 
+         (message  "rust menu:%d" index))
+        ((= 7 index) 
+         (message  "rust menu:%d" index))
+        ((= 8 index) 
+         (message  "rust menu:%d" index))
+        ((= 9 index) 
+         (message  "rust menu:%d" index))
+        (t (message  "rust menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-rust)
 ;; mod-rust.el ends here

@@ -144,6 +144,25 @@
 (defun f-filename-no-ext (path) 
   (f-no-ext (f-filename path)))
 
+(defun ome-search-file (filename &optional path) 
+  (let ((from (if path path (ome-buf-dirpath)))) 
+    (message (concat "check:" from)) 
+    (if (file-exists-p (concat from filename)) 
+        (progn (message from) from) 
+      (progn 
+        (setq parent (ome-parent-dirpath from)) 
+        (if (or (eq parent nil) 
+                (string= parent "/")) nil (ome-search-file filename parent))))))
+
+(defun ome-smart-find-file (filename &optional create) 
+  " create cmake file with current directory!" 
+  (interactive) 
+  (setq dir (ome-buf-dirpath)) 
+  (setq cmake-dir (ome-search-file filename dir)) 
+  (if (eq cmake-dir nil) 
+      (if create (find-file filename)) 
+    (find-file (concat cmake-dir filename))))
+
 ;; (buffer-name)                  ;;=> "hello.txt"
 ;; (buffer-file-name)             ;;=> "/home/damon/docs/hello.txt"
 ;; (file-name-as-directory "/home/damon/docs") ;;=> "/home/damon/docs/"

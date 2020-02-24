@@ -56,25 +56,6 @@
 (modern-c++-font-lock-global-mode t)
 
 ;; `create-or-open-cmake-file'
-(defun ome-search-file (filename &optional path) 
-  (let ((from (if path path (ome-buf-dirpath)))) 
-    (message (concat "check:" from)) 
-    (if (file-exists-p (concat from filename)) 
-        (progn (message from) from) 
-      (progn 
-        (setq parent (ome-parent-dirpath from)) 
-        (if (or (eq parent nil) 
-                (string= parent "/")) nil (ome-search-file filename parent))))))
-
-(defun ome-smart-find-file (filename &optional create) 
-  " create cmake file with current directory!" 
-  (interactive) 
-  (setq dir (ome-buf-dirpath)) 
-  (setq cmake-dir (ome-search-file filename dir)) 
-  (if (eq cmake-dir nil) 
-      (if create (find-file filename)) 
-    (find-file (concat cmake-dir filename))))
-
 ;; switch 'cmake buffer' and 'code buffer'
 (defun ome-open-or-close-cmakefile () 
   (interactive) 
