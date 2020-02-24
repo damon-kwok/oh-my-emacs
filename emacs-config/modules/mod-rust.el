@@ -28,6 +28,8 @@
 (require 'racer)
 (package-require 'cargo)
 (require 'cargo)
+(package-require 'toml-mode)
+(require 'toml-mode)
 
 ;; Configure Emacs to activate racer when rust-mode starts:
 
