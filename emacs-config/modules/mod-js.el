@@ -57,7 +57,6 @@
                           (define-key js-mode-map (kbd "C-c C-l") 'nodejs-repl-load-file) 
                           (define-key js-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl)))
 
-
 ;; `company'
 (package-require 'company-lsp)
 (require 'company-lsp)
@@ -104,6 +103,32 @@
 ;; (package-require 'indium)
 ;; (require 'indium)
 
+;; `automenu:js'
+(defun automenu--js-mode-menu ()
+  '("0" "npm start" "2" "3" "4" "5" "6" "7" "8" "9"))
+
+(defun automenu--js-mode-func (index)
+  (cond ((= 0 index) 
+         (message  "js menu:%d" index)) 
+        ((= 1 index) 
+         (ome-run-command "npm start"))
+        ((= 2 index) 
+         (message  "js menu:%d" index))
+        ((= 3 index) 
+         (message  "js menu:%d" index))
+        ((= 4 index) 
+         (message  "js menu:%d" index))
+        ((= 5 index) 
+         (message  "js menu:%d" index))
+        ((= 6 index) 
+         (message  "js menu:%d" index))
+        ((= 7 index) 
+         (message  "js menu:%d" index))
+        ((= 8 index) 
+         (message  "js menu:%d" index))
+        ((= 9 index) 
+         (message  "js menu:%d" index))
+        (t (message  "js menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-js)
 ;; mod-js.el ends here
