@@ -75,7 +75,7 @@
 
 ;;-------------------------------------------------
 ;; Set your lisp system and, optionally, some contribs
-;;(load (expand-file-name "/cygdrive/c/Users/damon/.roswell/helper.el"))
+;; (load (expand-file-name "C:/Users/Administrator/.roswell/helper.el"))
 (setq inferior-lisp-program "ros -Q run")
 (setq slime-contribs '(slime-fancy))
 (require 'slime-autoloads)
@@ -130,6 +130,32 @@
 
 (slime-define-keys slime-prefix-map ("\C-z" 'show-lisp-repl))
 
+;; `automenu:lisp'
+(defun automenu--lisp-mode-menu ()
+  '("0" "eval-bufffer" "run-current-file" "3" "4" "5" "6" "7" "8" "9"))
+
+(defun automenu--lisp-mode-func (index)
+  (cond ((= 0 index) 
+         (message  "lisp menu:%d" index)) 
+        ((= 1 index) 
+         (slime-eval-buffer))
+        ((= 2 index) 
+         (ome-run-command (buffer-file-name)))
+        ((= 3 index) 
+         (message  "lisp menu:%d" index))
+        ((= 4 index) 
+         (message  "lisp menu:%d" index))
+        ((= 5 index) 
+         (message  "lisp menu:%d" index))
+        ((= 6 index) 
+         (message  "lisp menu:%d" index))
+        ((= 7 index) 
+         (message  "lisp menu:%d" index))
+        ((= 8 index) 
+         (message  "lisp menu:%d" index))
+        ((= 9 index) 
+         (message  "lisp menu:%d" index))
+        (t (message  "lisp menu:%d" index))))
 ;;
 (provide 'mod-slime)
 ;; mod-slime.el ends here

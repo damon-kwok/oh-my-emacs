@@ -1,4 +1,5 @@
-#!/usr/bin/emacs --script
+#!/usr/bin/env elisp
+;; #!/usr/bin/emacs --script
 ;; -*- lexical-binding: t -*-
 ;; `(buffer-name)` --- This is where you apply your OCD.
 ;;
@@ -51,6 +52,13 @@
           tvalue 0)) 
   (message "You have worked %d day(s), and salary is %d, tax is %d."  iday value tvalue))
 
-(cal-salary (string-to-number (elt argv 0)))
+;; (cal-salary (string-to-number (elt argv 0)))
+
+(defun main (args) 
+  (cal-salary (string-to-number (elt args 0))))
+
+;; (main '("111" "222"))
+;;
+(provide '`(ome-bufname-no-ext)`)
 ;;
 ;; `(buffer-name)` ends here

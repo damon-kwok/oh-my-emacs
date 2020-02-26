@@ -609,7 +609,7 @@ _M-3_:pkg-manager _t_:todo.org    _l_: link.org     _3_:lib        ^^           
 _M-4_:network     _b_:book.org    ^^                _4_:tool       ^^             _C-4_: CET4.org
 _M-5_:webscrap    _g_:game.org    ^^                _5_:proj       ^^             _C-6_: CET6.org
 _M-6_:medusa      _n_:NEWS.org    ^^                _6_:appwizard  ^^             _e_:english.org
-^^                _m_:me.org      ^^                ^^             ^^             _v_:vocabulary.org
+^^                _m_:me.org      ^^                _7_:on-hook    ^^             _v_:vocabulary.org
 ^^^^^^^^^^^^--------------------------------------------------------------------------------
 _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 " ;;
@@ -643,6 +643,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
   ("4" (ome-open-file "~/.oh-my-env/bin/tool") "tool") 
   ("5" (ome-open-file "~/.oh-my-env/bin/proj") "proj")
   ("6" (ome-open-file "~/.oh-my-env/bin/app_wizard") "app_wizard")
+  ("7" (ome-open-file "~/.emacs.d/on-hook.sh") "on-hook.sh")
   ("." (ome-open-file "~/.bashrc") ".bashrc")
   ("0" (ome-open-file "~/.emacs") ".emacs") 
   ("f" (ome-open-file "~/workspace/elfeed.org") "elfeed")
@@ -722,7 +723,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
    "^C^           ^JVM^           ^.Net^             ^Functional^\n";;
    "^^^^^^^^------------------------------------------------------------------------\n";;
    "_c_:C/C++     _M-j_:Java      ^s:C#^             _r_:Rust\n";;
-   "_C_:C++-ROS   _M-s_:Scala     _C-n_:Nodejs         _e_:Erlang\n";;
+   "_C_:CL (ROS)  _M-s_:Scala     _C-n_:Nodejs       _e_:Erlang\n";;
    "_g_:Golang    _M-g_:Groovy    ^^                 _E_:Elixir\n";;
    "_p_:Python    ^M-p:Jython^    ^C-p:IronPython^   _h_:Haskell\n";;
    "_n_:Nim       _M-c_:Clojure   ^C-f:F#^           _o_:OCaml\n";;
