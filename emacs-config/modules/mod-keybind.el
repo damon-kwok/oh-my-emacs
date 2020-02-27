@@ -609,7 +609,7 @@ _M-3_:pkg-manager _t_:todo.org    _l_: link.org     _3_:lib        ^^           
 _M-4_:network     _b_:book.org    ^^                _4_:tool       ^^             _C-4_: CET4.org
 _M-5_:webscrap    _g_:game.org    ^^                _5_:proj       ^^             _C-6_: CET6.org
 _M-6_:medusa      _n_:NEWS.org    ^^                _6_:appwizard  ^^             _e_:english.org
-^^                _m_:me.org      ^^                _7_:on-hook    ^^             _v_:vocabulary.org
+^^                _m_:me.org      ^^                _7_:git-hook    ^^             _v_:vocabulary.org
 ^^^^^^^^^^^^--------------------------------------------------------------------------------
 _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 " ;;
@@ -643,7 +643,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
   ("4" (ome-open-file "~/.oh-my-env/bin/tool") "tool") 
   ("5" (ome-open-file "~/.oh-my-env/bin/proj") "proj")
   ("6" (ome-open-file "~/.oh-my-env/bin/app_wizard") "app_wizard")
-  ("7" (ome-open-file "~/.emacs.d/on-hook.sh") "on-hook.sh")
+  ("7" (ome-open-file "~/.oh-my-env/bin/git-hook") "git-hook")
   ("." (ome-open-file "~/.bashrc") ".bashrc")
   ("0" (ome-open-file "~/.emacs") ".emacs") 
   ("f" (ome-open-file "~/workspace/elfeed.org") "elfeed")
