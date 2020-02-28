@@ -131,25 +131,27 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `highlight-indent-guides'
-(package-require 'highlight-indent-guides)
-(require 'highlight-indent-guides)
-(setq highlight-indent-guides-method 'character)
-(setq highlight-indent-guides-character ?\|)
-;; (setq highlight-indent-guides-character "|")
 
-;; (define-globalized-minor-mode global-highlight-indent-guides-mode highlight-indent-guides-mode
-;; (lambda ()
-;; (highlight-indent-guides-mode 1)))
+(if (display-graphic-p) 
+    (progn (package-require 'highlight-indent-guides)
+           (require 'highlight-indent-guides)
+           (setq highlight-indent-guides-method 'character)
+           (setq highlight-indent-guides-character ?\|)
+           ;; (setq highlight-indent-guides-character "|")
 
-(define-globalized-minor-mode global-highlight-indent-guides-mode highlight-indent-guides-mode 
-  (lambda () 
-    (if (and (not (string-match "^\*.*\*$" (buffer-name))) 
-             (not (eq major-mode 'dired-mode)) 
-             (not (eq major-mode 'speedbar-mode))) 
-        (highlight-indent-guides-mode 1))))
+           ;; (define-globalized-minor-mode global-highlight-indent-guides-mode highlight-indent-guides-mode
+           ;; (lambda ()
+           ;; (highlight-indent-guides-mode 1)))
 
-(global-highlight-indent-guides-mode 1)
+           (define-globalized-minor-mode global-highlight-indent-guides-mode
+             highlight-indent-guides-mode 
+             (lambda () 
+               (if (and (not (string-match "^\*.*\*$" (buffer-name))) 
+                        (not (eq major-mode 'dired-mode)) 
+                        (not (eq major-mode 'speedbar-mode))) 
+                   (highlight-indent-guides-mode 1))))
 
+           (global-highlight-indent-guides-mode 1)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `highlight-doxygen'
 (package-require 'highlight-doxygen)
@@ -164,11 +166,14 @@
 (package-require 'dimmer)
 (require 'dimmer)
 ;; (setq dimmer-use-colorspace :hsl)
-(defcustom dimmer-use-colorspace :rgb
-  ""
-  :type '(radio (const :tag "Interpolate in CIELAB 1976" :cielab)
-                (const :tag "Interpolate in HSL" :hsl)
-                (const :tag "Interpolate in RGB" :rgb))
+(defcustom dimmer-use-colorspace 
+  :rgb "" 
+  :type '(radio (const :tag "Interpolate in CIELAB 1976" 
+                       :cielab) 
+                (const :tag "Interpolate in HSL" 
+                       :hsl) 
+                (const :tag "Interpolate in RGB" 
+                       :rgb)) 
   :group 'dimmer)
 (dimmer-mode)
 

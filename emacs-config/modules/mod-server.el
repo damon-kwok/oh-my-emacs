@@ -28,8 +28,7 @@
 ;;(setq server-socket-dir (concat (getenv "HOME") "/.emacs.d/server/"))
 ;; (setq server-auth-dir (concat (getenv "HOME") "/../../tmp/emacs1000/"))
 ;; (setq server-socket-dir(concat (getenv "HOME") "/../../tmp/emacs1000/"))
-
-;; (display-graphic-p) 
+ 
 (if window-system
     (progn 
       (setq server-auth-dir (concat (getenv "HOME") "/../../tmp/emacs1000/")) 
@@ -41,7 +40,9 @@
 (setq server-name "server")
 
 (unless (server-running-p) 
-  (server-start))
+	(server-start))
+
+;;(server-start)
 
 ;; (server-force-delete)
 

@@ -587,7 +587,8 @@ occurence of CHAR."
 
 (defun ome-project-wizard(lang) 
   (let  ((project-path (read-file-name "choice project path:" nil default-directory nil))) 
-    (ome-run-command (concat "app_wizard " lang " " project-path))))
+    (ome-run-command (concat (expand-file-name "~/.oh-my-env/bin/app_wizard") " " lang " " project-path))))
+
 
 (defun ome-project-wizard-old(lang) 
   (cond ((string= lang "clojure") 

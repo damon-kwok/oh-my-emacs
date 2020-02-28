@@ -23,13 +23,15 @@
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (defcustom ome-logo (expand-file-name "~/.oh-my-emacs/logo.png")
-;; "set ome logo. nil means official logo."
-;; :type 'string)
-;; (setq fancy-splash-image ome-logo)
+(defcustom ome-logo (expand-file-name "~/.oh-my-emacs/logo.png")
+  "set ome logo. nil means official logo."
+  :type 'string)
+(setq fancy-splash-image ome-logo)
+
 ;;(require 'esup)
 (module-require 'mod-gc)
 (module-require 'mod-coding)
+(module-require 'mod-elisp)
 (module-require 'mod-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (module-require 'mod-package)
@@ -78,7 +80,6 @@
 (module-require 'mod-gud)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `programming-languages'
-(module-require 'mod-elisp)
 (module-require 'mod-js)
 (module-require 'mod-dart)
 (module-require 'mod-ess)

@@ -75,14 +75,12 @@
 ;;(when (online?)
 ;;  (unless package-archive-contents (package-refresh-contents)))
 
-(defun lazy-require (ext mode)
-  (add-hook
-   'find-file-hook
-   `(lambda ()
-      (when (and (stringp buffer-file-name)
-                 (string-match (concat "\\." ,ext "\\'") buffer-file-name))
-        (require (quote ,mode))
-        (,mode)))))
+(defun lazy-require (ext mode) 
+  (add-hook 'find-file-hook `(lambda () 
+                               (when (and (stringp buffer-file-name) 
+                                          (string-match (concat "\\." ,ext "\\'") buffer-file-name)) 
+                                 (require (quote ,mode)) 
+                                 (,mode)))))
 
 ;; (lazy-require "soy" 'soy-mode)
 ;; (lazy-require "tpl" 'tpl-mode)
@@ -102,13 +100,16 @@
   (add-to-list 'load-path dir-name) 
   (make-directory ome-lib-dir t) 
   (message dir-name) 
-  (if (file-exists-p dir-name) 
+  (let ((oldir default-directory)) 
+    (setq default-directory dir-name) 
+    (if (file-exists-p dir-name) 
+        (progn 
+          (setq default-directory dir-name) 
+          (call-process-shell-command cmd-update nil t)) 
       (progn 
-        (setq default-directory dir-name) 
-        (call-process-shell-command cmd-update nil t)) 
-    (progn 
-      (setq default-directory ome-lib-dir) 
-      (call-process-shell-command cmd-clone nil nil t))))
+        (setq default-directory ome-lib-dir) 
+        (call-process-shell-command cmd-clone nil nil t))) 
+    (setq default-directory oldir)))
 
 (defun package-require-svn(lib-name path)
   ;;(setq dir-lib-name (expand-file-name ome-lib-dir ))
@@ -119,26 +120,32 @@
   (add-to-list 'load-path dir-name) 
   (make-directory ome-lib-dir t) 
   (message dir-name) 
-  (if (file-exists-p dir-name) 
+  (let ((oldir default-directory)) 
+    (setq default-directory dir-name) 
+    (if (file-exists-p dir-name) 
+        (progn 
+          (setq default-directory dir-name) 
+          (call-process-shell-command cmd-update nil t)) 
       (progn 
-        (setq default-directory dir-name) 
-        (call-process-shell-command cmd-update nil t)) 
-    (progn 
-      (setq default-directory ome-lib-dir) 
-      (call-process-shell-command cmd-clone nil nil t))))
-
+        (setq default-directory ome-lib-dir) 
+        (call-process-shell-command cmd-clone nil nil t))) 
+    (setq default-directory oldir)))
 
 (defun package-require-curl(dir-name file-name url)
   ;; (setq dir-lib-name (expand-file-name ome-lib-dir ))
   (setq dir (concat (expand-file-name ome-lib-dir) "/" dir-name)) 
   (make-directory dir t) 
-  (setq default-directory dir) 
   (setq full-name (concat dir "/" file-name))
   ;; (setq cmd (concat "curl -o " full-name  " " path))
   (setq cmd (concat "curl -O " url)) 
-  (add-to-list 'load-path dir) 
-  (unless (file-exists-p full-name) 
-    (call-process-shell-command cmd nil nil t)))
+  (add-to-list 'load-path dir)
+  (let ((oldir default-directory)) 
+    (setq default-directory dir-name) 
+    (unless (file-exists-p full-name) 
+      (progn 
+        (setq default-directory dir) 
+        (call-process-shell-command cmd nil nil t))) 
+    (setq default-directory oldir)))
 
 ;; (defun package-require-curl(dir-name file-name url)
 ;;   ;; (setq dir-lib-name (expand-file-name ome-lib-dir ))
@@ -184,12 +191,10 @@
   (package-update) 
   (package-autoremove) 
   (package-upgrade))
-
 
 ;; `use-package'
 (package-require 'use-package)
 (require 'use-package)
-
 
 
 ;; `quelpa'
