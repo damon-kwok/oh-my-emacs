@@ -145,23 +145,22 @@
   (f-no-ext (f-filename path)))
 
 (defun ome-search-file (filename &optional path) 
-  (let ((from (if path path (ome-buf-dirpath)))) 
+  (let* ((from (if path path (ome-buf-dirpath))) 
+         (parent (ome-parent-dirpath from))) 
     (message (concat "check:" from)) 
     (if (file-exists-p (concat from filename)) 
         (progn (message from) from) 
-      (progn 
-        (setq parent (ome-parent-dirpath from)) 
-        (if (or (eq parent nil) 
-                (string= parent "/")) nil (ome-search-file filename parent))))))
+      (if (or (eq parent nil) 
+              (string= parent "/")) nil (ome-search-file filename parent)))))
 
 (defun ome-smart-find-file (filename &optional create) 
   " create cmake file with current directory!" 
   (interactive) 
-  (setq dir (ome-buf-dirpath)) 
-  (setq cmake-dir (ome-search-file filename dir)) 
-  (if (eq cmake-dir nil) 
-      (if create (find-file filename)) 
-    (find-file (concat cmake-dir filename))))
+  (let* ((dir (ome-buf-dirpath)) 
+         (cmake-dir (ome-search-file filename dir))) 
+    (if (eq cmake-dir nil) 
+        (if create (find-file filename)) 
+      (find-file (concat cmake-dir filename)))))
 
 ;; (buffer-name)                  ;;=> "hello.txt"
 ;; (buffer-file-name)             ;;=> "/home/damon/docs/hello.txt"
@@ -311,13 +310,12 @@ occurence of CHAR."
 (defun ome-count-buffer-by-major (mode) 
   "Kill all other buffers." 
   (interactive) 
-  (setq count-buf 0) 
-  (mapcar #'(lambda (BUFFER_OR_NAME) 
-              (if (eq mode (buffer-local-value 'major-mode (get-buffer BUFFER_OR_NAME))) 
-                  (setq count-buf (+ 1 count-buf)))) 
-          (buffer-list)) 
-  (message "count:%d" count-buf)
-  count-buf)
+  (let ((count-buf 0)) 
+    (mapcar #'(lambda (BUFFER_OR_NAME) 
+                (if (eq mode (buffer-local-value 'major-mode (get-buffer BUFFER_OR_NAME))) 
+                    (setq count-buf (+ 1 count-buf)))) 
+            (buffer-list)) 
+    (message "count:%d" count-buf) count-buf))
 
 (defun ome-find-buffer-by-major (mode) 
   "Kill all other buffers." 
@@ -453,9 +451,10 @@ occurence of CHAR."
   (sit-for 0)
   ;;(animate-string "I'll miss you~" 7)
   ;;(sit-for 1) ;;wait 1 second
-  (animate-string " Bye!!!" 9) 
-  (sit-for 1) ;;wait 1 second
-  )
+  (animate-string " Bye!!!" 9)
+
+  ;;wait 1 second
+  (sit-for 1))
 
 ;;`remove' the prompt for killing emacsclient buffers
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
@@ -517,10 +516,13 @@ occurence of CHAR."
   (find-file (concat (getenv "HOME") "/workspace/blog/src/" doc-name)) 
   (delete-other-windows))
 
+
 (defun ome-new-blog() 
   (interactive) 
-  (setq default-directory (concat (getenv "HOME") "/workspace/blog/src/")) 
-  (helm-find-files nil))
+  (let ((oldir default-directory)) 
+    (setq default-directory (concat (getenv "HOME") "/workspace/blog/src/")) 
+    (helm-find-files nil) 
+    (setq default-directory oldir)))
 
 (defun ome-open-url(url) 
   (interactive) 
@@ -530,29 +532,29 @@ occurence of CHAR."
 
 (defun ome-find-file-doc() 
   (interactive) 
-  (setq old-default-directory default-directory) 
-  (setq default-directory  (concat (getenv "HOME") "/workspace/docs/")) 
-  (helm-find-files nil) 
-  (setq default-directory old-default-directory))
+  (let  ((oldir default-directory)) 
+    (setq default-directory  (concat (getenv "HOME") "/workspace/docs/")) 
+    (helm-find-files nil) 
+    (setq default-directory oldir)))
 
 (defun ome-find-file-blog() 
   (interactive) 
-  (setq old-default-directory default-directory) 
-  (setq default-directory  (concat (getenv "HOME") "/workspace/blog/src/")) 
-  (helm-find-files nil) 
-  (setq default-directory old-default-directory))
+  (let ((oldir default-directory)) 
+    (setq default-directory  (concat (getenv "HOME") "/workspace/blog/src/")) 
+    (helm-find-files nil) 
+    (setq default-directory oldir)))
 
 
 (defun ome-show-compilation(buffer-name &optional dont-return-old-buffer) 
   "shrink compile window, avoid compile window occupy 1/2 hight of whole window" 
   (interactive) 
   (delete-other-windows) 
-  (setq temp-buffer-name (buffer-name (current-buffer))) 
-  (switch-to-buffer-other-window buffer-name) 
-  (if (< (/ (frame-height) 3) 
-         (window-height)) 
-      (shrink-window (/ (window-height) 2))) 
-  (if dont-return-old-buffer nil (switch-to-buffer-other-window temp-buffer-name)))
+  (let ((temp-buffer-name (buffer-name (current-buffer)))) 
+    (switch-to-buffer-other-window buffer-name) 
+    (if (< (/ (frame-height) 3) 
+           (window-height)) 
+        (shrink-window (/ (window-height) 2))) 
+    (if dont-return-old-buffer nil (switch-to-buffer-other-window temp-buffer-name))))
 
 (defun ome-run-command (command) 
   "compile project"
@@ -574,7 +576,8 @@ occurence of CHAR."
 ;;   (shell-command command))
 
 (defun ome-ask-new-project(command openfile) 
-  (let  ((project-path (read-file-name "choice project path:" nil default-directory nil))) 
+  (let*  ((oldir default-directory) 
+          (project-path (read-file-name "choice project path:" oldir))) 
     (message "proj-path:%s" project-path) 
     (setq default-directory (f-dirname project-path)) 
     (f-mkdir default-directory) 
@@ -583,12 +586,14 @@ occurence of CHAR."
                (find-file (concat project-path "/" (s-replace "%s" (f-filename project-path)
                                                               openfile))) 
                (message (concat "created new project '" (f-filename project-path) "' succeed:)"))) 
-      (message (concat "creat new project '" (f-filename project-path) "' failed:(")))))
+      (message (concat "creat new project '" (f-filename project-path) "' failed:("))) 
+    (setq default-directory oldir)))
 
 (defun ome-project-wizard(lang) 
-  (let  ((project-path (read-file-name "choice project path:" nil default-directory nil))) 
-    (ome-run-command (concat (expand-file-name "~/.oh-my-env/bin/app_wizard") " " lang " " project-path))))
-
+  (let* ((default-path (expand-file-name "~/workspace/projects/")) 
+         (project-path (read-file-name "choice project path:" default-path))) 
+    (ome-run-command (concat (expand-file-name "~/.oh-my-env/bin/app_wizard") " " lang " "
+                             project-path)) ))
 
 (defun ome-project-wizard-old(lang) 
   (cond ((string= lang "clojure") 

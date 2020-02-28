@@ -24,8 +24,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(add-to-list 'load-path (concat ome-dev-dir "/libvterm"))
-(require 'vterm)
+;; https://github.com/neovim/libvterm
+;; (setq ome-dev-dir "~/.ome_local/caches")
+;; (make-directory ome-dev-dir t)
+;; (add-to-list 'load-path (concat ome-dev-dir "/libvterm"))
+;; (require 'vterm)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-vterm)
 ;; mod-vterm.el ends here

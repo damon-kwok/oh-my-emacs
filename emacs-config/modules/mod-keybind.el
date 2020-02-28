@@ -103,7 +103,7 @@
                               :action #'popup-shell-command)
             (wand:create-rule :match "https?://"
                               :capture :whole
-                              :action #'open-url-in-firefox)
+                              :action #'eww) ;;open-url-in-firefox
             (wand:create-rule :match "file:"
                               :capture :after
                               :action #'find-file)
@@ -117,7 +117,7 @@
 (global-set-key (kbd "<C-down-mouse-1>")  nil)
 
 
-(global-set-key (kbd "<C-return>")       'wand:execute)
+;; (global-set-key (kbd "<C-return>")       'wand:execute)
 ;; (global-set-key (kbd "<C-mouse-1>")      'wand:execute)
 ;; (global-set-key (kbd "<C-down-mouse-1>")  nil)
 ;;-(wand:add-rule-by-pattern :match "\\$ "
