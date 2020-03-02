@@ -32,9 +32,10 @@
 (add-hook 'rjsx-mode #'lsp)            ;; for rjsx-mode support
 (add-hook 'css-mode #'lsp)             ;; for css-mode support
 (add-hook 'html-mode #'lsp)            ;; for html-mode support
-(package-require 'vue-mode)
-(require 'vue-mode)
-(add-hook 'vue-mode #'lsp)             ;; for vue-mode support
+
+;; (package-require 'vue-mode)
+;; (require 'vue-mode)
+;; (add-hook 'vue-mode #'lsp)             ;; for vue-mode support
 
 (defun my-company-transformer (candidates) 
   (let ((completion-ignore-case t)) 
