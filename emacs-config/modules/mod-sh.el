@@ -27,6 +27,8 @@
 (require 'mod-lsp)
 (add-hook 'sh-mode-hook 'lsp)
 
+(add-to-list 'auto-mode-alist '("PKGBUILD" . sh-mode))
+
 ;; (package-require 'lsp-sh)
 ;; (package-require-curl "lsp-sh" "lsp-sh.el"
                       ;; "https://raw.githubusercontent.com/emacs-lsp/lsp-sh/master/lsp-sh.el")
