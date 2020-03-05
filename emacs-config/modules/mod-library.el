@@ -587,10 +587,12 @@ occurence of CHAR."
     (setq default-directory oldir)))
 
 (defun ome-project-wizard(lang) 
-  (let* ((default-path (expand-file-name "~/workspace/projects/")) 
-         (project-path (read-file-name "choice project path:" default-path))) 
-    (ome-run-command (concat (expand-file-name "~/.oh-my-env/bin/app_wizard") " " lang " "
-                             project-path)) ))
+  (let* ((default-path (expand-file-name "~/projects/")) 
+         (project-path (read-file-name "choice project path:" default-path)) 
+         (str-cmd (concat "mkdir -p " default-path " ; "(expand-file-name
+                                                         "~/.oh-my-env/bin/app_wizard") " " lang " "
+                                                         project-path))) 
+    (ome-run-command str-cmd) ))
 
 (defun ome-project-wizard-old(lang) 
   (cond ((string= lang "clojure") 
@@ -747,17 +749,17 @@ occurence of CHAR."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-download-curl "elisp-format" "elisp-format.el"
-                      "https://www.emacswiki.org/emacs/download/elisp-format.el")
+                       "https://www.emacswiki.org/emacs/download/elisp-format.el")
 (package-download-curl "xcowsay" "xcowsay.el" "https://www.emacswiki.org/emacs/download/xcowsay.el")
 (package-download-curl "pink-bliss" "pink-bliss-theme.el"
-                      "https://raw.githubusercontent.com/kensanata/elisp/master/pink-bliss-theme.el")
+                       "https://raw.githubusercontent.com/kensanata/elisp/master/pink-bliss-theme.el")
 (package-download-curl "pink-bliss" "pink-bliss.el"
-                      "https://www.emacswiki.org/emacs/download/pink-bliss.el")
+                       "https://www.emacswiki.org/emacs/download/pink-bliss.el")
 (package-download-curl "pink-bliss" "pink-gnu.xpm"
-                      "http://www.emacswiki.org/emacs/download/pink-gnu.xpm")
+                       "http://www.emacswiki.org/emacs/download/pink-gnu.xpm")
 
 (package-download-curl "multi-term" "multi-term.el"
-                      "https://www.emacswiki.org/emacs/download/multi-term.el")
+                       "https://www.emacswiki.org/emacs/download/multi-term.el")
 (package-download-curl "visws" "visws.el" "https://www.emacswiki.org/emacs/download/visws.el")
 
 (setq multi-term-program "/bin/bash")
