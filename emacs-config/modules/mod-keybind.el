@@ -943,14 +943,14 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
 ;; (yahoo-weather-mode)
 
 
-(defun show-super-menu () 
-  "docstring" 
-  (interactive) 
-  (load "mod-keybind.el") 
-  (hydra-super-menu/body))
+;; (defun show-super-menu () 
+;;   "docstring" 
+;;   (interactive) 
+;;   (load "mod-keybind.el") 
+;;   (hydra-super-menu/body))
 
-;; (global-set-key (kbd "C-M-z") 'show-super-menu1)
-(global-set-key (kbd "M-z") 'show-super-menu)
+;; ;; (global-set-key (kbd "C-M-z") 'show-super-menu1)
+;; (global-set-key (kbd "M-z") 'show-super-menu)
 ;;
 (provide 'mod-keybind)
 ;; mod-keybind.el ends here

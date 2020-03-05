@@ -21,7 +21,7 @@
 ;;
 ;; Code:
 ;;
-(package-require 'csv-mode)
+(package-download 'csv-mode)
 
 (add-to-list 'auto-mode-alist '("\\.csv$" . csv-mode))
 (add-hook 'csv-mode-hook '(lambda() 

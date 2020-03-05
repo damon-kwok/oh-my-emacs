@@ -212,7 +212,15 @@
 (internal-require 'ediff)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(module-require 'mod-keybind)
+;; (module-require 'mod-keybind)
+(defun show-super-menu () 
+  "docstring" 
+  (interactive) 
+  (load "mod-keybind.el") 
+  (hydra-super-menu/body))
+
+;; (global-set-key (kbd "C-M-z") 'show-super-menu1)
+(global-set-key (kbd "M-z") 'show-super-menu)
 (module-require 'mod-edit-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (message "hello, emacs!")

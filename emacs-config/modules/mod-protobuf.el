@@ -21,8 +21,9 @@
 ;;
 ;; Code:
 ;;
-(package-require 'protobuf-mode)
-(setq auto-mode-alist  (cons '(".proto$" . protobuf-mode) auto-mode-alist))
+(package-download 'protobuf-mode)
+;;(setq auto-mode-alist  (cons '(".proto$" . protobuf-mode) auto-mode-alist))
+(add-to-list 'auto-mode-alist '("\\.proto$" . protobuf-mode))
 ;;
 (provide 'mod-protobuf)
 ;;; mod-protobuf.el ends here

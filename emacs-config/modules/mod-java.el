@@ -24,15 +24,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(require 'mod-lsp)
+;;(require 'mod-lsp)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `eclipse.jdt.ls' Eclipse JDT Language Server
-(package-require 'lsp-java)
-(add-hook 'java-mode-hook #'lsp)
+;; (package-require 'lsp-java)
+;; (add-hook 'java-mode-hook #'lsp)
+(add-hook 'java-mode-hook (lambda () 
+                            (package-require 'lsp-java) 
+                            (require 'mod-lsp) 
+                            (lsp)))
 
 ;; set the projects that are going to be imported into the workspace.
-(setq lsp-java--workspace-folders (list (concat (getenv "HOME") "/projects")
-                                        (concat (getenv "HOME") "/projects/java")
+(setq lsp-java--workspace-folders (list (concat (getenv "HOME") "/projects") 
+                                        (concat (getenv "HOME") "/projects/java") 
                                         (concat (getenv "HOME") "/workspace") 
                                         (concat (getenv "HOME") "/eclipse-workspace")))
 (setq  lsp-java-server-install-dir "~/.emacs.d/eclipse.jdt.ls/server/")

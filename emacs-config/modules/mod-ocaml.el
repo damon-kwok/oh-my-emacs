@@ -24,30 +24,31 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;;
-(package-require 'tuareg)
+(package-download 'tuareg)
+(add-to-list 'auto-mode-alist '("\\.ml$" . tuareg-mode))
 (add-hook 'tuareg-mode-hook (lambda() 
                               (when (functionp 'prettify-symbols-mode) 
-                                (prettify-symbols-mode))))
+                                (prettify-symbols-mode)) 
+                              (package-require 'merlin)
 
+                              ;; directory containing merlin.el
+                              (push "<SHARE_DIR>/emacs/site-lisp" load-path)
 
+                              ;; needed only if ocamlmerlin not already in your PATH
+                              (setq merlin-command "<BIN_DIR>/ocamlmerlin")
+                              (autoload 'merlin-mode "merlin" "Merlin mode" t) 
+                              (add-hook 'tuareg-mode-hook 'merlin-mode) 
+                              (add-hook 'caml-mode-hook 'merlin-mode)
 
-(package-require 'merlin)
-(push "<SHARE_DIR>/emacs/site-lisp" load-path) ; directory containing merlin.el
-(setq merlin-command "<BIN_DIR>/ocamlmerlin") ; needed only if ocamlmerlin not already in your PATH
-(autoload 'merlin-mode "merlin" "Merlin mode" t)
-(add-hook 'tuareg-mode-hook 'merlin-mode)
-(add-hook 'caml-mode-hook 'merlin-mode)
+                              ;; `flycheck'
+                              (package-require 'flycheck-ocaml) 
+                              (with-eval-after-load 'merlin
+                                ;; Disable Merlin's own error checking
+                                (setq merlin-error-after-save nil)
 
-;; `flycheck'
-(package-require 'flycheck-ocaml)
-(with-eval-after-load 'merlin
-  ;; Disable Merlin's own error checking
-  (setq merlin-error-after-save nil)
-
-  ;; Enable Flycheck checker
-  (flycheck-ocaml-setup))
-
-(add-hook 'tuareg-mode-hook #'merlin-mode)
+                                ;; Enable Flycheck checker
+                                (flycheck-ocaml-setup))
+                              (add-hook 'tuareg-mode-hook #'merlin-mode)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-ocaml)
 ;; mod-ocaml.el ends here
