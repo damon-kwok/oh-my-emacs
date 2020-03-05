@@ -513,7 +513,6 @@ occurence of CHAR."
   (find-file (concat (getenv "HOME") "/workspace/blog/src/" doc-name)) 
   (delete-other-windows))
 
-
 (defun ome-new-blog() 
   (interactive) 
   (let ((oldir default-directory)) 
@@ -557,7 +556,6 @@ occurence of CHAR."
   "compile project"
   (ome-show-compilation "*compilation*") ;;
   (compile command))
-
 
 ;; (defun ome-run-command (command)
 ;;   "compile project"
@@ -630,6 +628,7 @@ occurence of CHAR."
          (ome-ask-new-project "rosman %s" "src/main.cpp"))))
 
 (defun ome-cmake-build() 
+  (interactive) 
   (if (file-exists-p (concat (projectile-project-root) "CMakeLists.txt")) 
       (ome-run-command (concat "cmake_build" " " (projectile-project-root)))))
 
