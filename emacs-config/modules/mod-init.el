@@ -52,7 +52,7 @@
          (executable-find "mu")) 
     (module-require 'mod-email))
 
-(module-require 'mod-feed)
+;; (module-require 'mod-feed)
 ;; (module-require 'mod-dired)
 ;; (module-require 'mod-tree)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -61,7 +61,7 @@
 (module-require 'mod-csv)
 (module-require 'mod-rst)
 (module-require 'mod-adoc)
-(module-require 'mod-orgmode)
+;; (module-require 'mod-orgmode)
 (module-require 'mod-markdown)
 (module-require 'mod-protobuf)
 
@@ -72,20 +72,20 @@
 (module-require 'mod-format)
 ;; (module-require 'mod-latex)
 (module-require 'mod-ros)
-(module-require 'mod-book)
+;; (module-require 'mod-book)
 (module-require 'mod-ome)
-(module-require 'mod-input)
+;; (module-require 'mod-input)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `debug'
-(module-require 'mod-gud)
+;; (module-require 'mod-gud)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `programming-languages'
-(module-require 'mod-js)
-(module-require 'mod-dart)
-(module-require 'mod-ess)
-(module-require 'mod-perl)
-(module-require 'mod-groovy)
-(module-require 'mod-php)
+;; (module-require 'mod-js)
+;; (module-require 'mod-dart)
+;; (module-require 'mod-ess)
+;; (module-require 'mod-perl)
+;; (module-require 'mod-groovy)
+;; (module-require 'mod-php)
 
 ;; `bash'
 (if (executable-find "bash-language-server") 
@@ -171,8 +171,8 @@
 (if (executable-find "stack") 
     (module-require 'mod-haskell))
 
-(if (executable-find "git") 
-    (module-require 'mod-git))
+;; (if (executable-find "git") 
+    ;; (module-require 'mod-git))
 
 ;; (package-require 'exwm)
 ;; (require 'exwm)

@@ -126,7 +126,7 @@
 
 (define-key ielm-map (kbd "C-c C-z") 'show-elisp-workbuffer)
 
-(define-key el-spice-mode-map (kbd "C-c C-z")  'show-elisp-repl)
+;;(define-key el-spice-mode-map (kbd "C-c C-z")  'show-elisp-repl)
 (define-key emacs-lisp-mode-map (kbd "C-c C-z")  'show-elisp-repl)
 (define-key emacs-lisp-mode-map (kbd "C-c C-c")  'compile-current-buffer)
 ;; (define-key emacs-lisp-mode-map (kbd "C-c C-k")  'eval-buffer)
