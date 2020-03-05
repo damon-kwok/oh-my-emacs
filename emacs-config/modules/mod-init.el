@@ -3,7 +3,7 @@
 ;;
 ;; Copyright (C) 2015-2016 damon-kwok
 ;;
-;; Author: gww <damon-kwok@outlook.com>
+;; Author: damon-kwok <damon-kwok@outlook.com>
 ;; Create: 2016-01-05
 ;; Last-saved : 2016-04-19
 ;;

@@ -3,7 +3,7 @@
 ;;
 ;; Copyright (C) 2015-2016 damon-kwok
 ;;
-;; Author: gww <damon-kwok@outlook.com>
+;; Author: damon-kwok <damon-kwok@outlook.com>
 ;; Date: 2016-01-21
 ;;
 ;; This program is free software; you can redistribute it and/or modify

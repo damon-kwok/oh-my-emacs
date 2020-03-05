@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-basic.el --- This is where you apply your OCD.
 ;;
-;; Author: gww <damon-kwok@outlook.com>
+;; Author: damon-kwok <damon-kwok@outlook.com>
 ;; Date: 2016-02-16
 ;;
 ;; This program is free software; you can redistribute it and/or modify
@@ -601,16 +601,16 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 (defhydra hydra-open-menu 
   (:color blue)
   "
-^Project^         ^Doc^          ^Blog^            ^dotfiles^      ^dotfiles^     ^English^
-^^^^^^^^^^^^--------------------------------------------------------------------------------
-_M-1_:libknife    _h_:README.org  _i_: index.org    _1_:ome        _._:.bashrc    _C-b_: english-b.org
-_M-2_:memrock     _d_:diary.org   _b_: blog.org     _2_:env        _0_:.emacs     _C-2_: PETS2.org
-_M-3_:pkg-manager _t_:todo.org    _l_: link.org     _3_:lib        ^^             _C-3_: PETS3.org
-_M-4_:network     _b_:book.org    ^^                _4_:tool       ^^             _C-4_: CET4.org
-_M-5_:webscrap    _g_:game.org    ^^                _5_:proj       ^^             _C-6_: CET6.org
-_M-6_:medusa      _n_:NEWS.org    ^^                _6_:appwizard  ^^             _e_:english.org
-^^                _m_:me.org      ^^                _7_:git-hook    ^^             _v_:vocabulary.org
-^^^^^^^^^^^^--------------------------------------------------------------------------------
+^Project^         ^Doc^          ^Blog^            ^dotfiles^      ^dotfiles^        ^English^
+^^^^^^^^^^^^-----------------------------------------------------------------------------------------------
+_M-1_:libknife    _h_:README.org  _i_: index.org    _1_:ome        _._:.bashrc        _C-b_: english-b.org
+_M-2_:memrock     _d_:diary.org   _b_: blog.org     _2_:env        _0_:.emacs         _C-2_: PETS2.org
+_M-3_:pkg-manager _t_:todo.org    _l_: link.org     _3_:lib        _9_:.editorconfig  _C-3_: PETS3.org
+_M-4_:network     _b_:book.org    ^^                _4_:tool       ^^                 _C-4_: CET4.org
+_M-5_:webscrap    _g_:game.org    ^^                _5_:proj       ^^                 _C-6_: CET6.org
+_M-6_:medusa      _n_:NEWS.org    ^^                _6_:appwizard  ^^                 _e_:english.org
+^^                _m_:me.org      ^^                _7_:git-hook    ^^                _v_:vocabulary.org
+^^^^^^^^^^^^-----------------------------------------------------------------------------------------------
 _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 " ;;
 
@@ -645,7 +645,8 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
   ("6" (ome-open-file "~/.oh-my-env/bin/app_wizard") "app_wizard")
   ("7" (ome-open-file "~/.oh-my-env/bin/git-hook") "git-hook")
   ("." (ome-open-file "~/.bashrc") ".bashrc")
-  ("0" (ome-open-file "~/.emacs") ".emacs") 
+  ("0" (ome-open-file "~/.emacs") ".emacs")
+  ("9" (ome-open-file "~/.oh-my-env/conf/project/.editorconfig") "editorconfig")
   ("f" (ome-open-file "~/workspace/elfeed.org") "elfeed")
 
   ;; English

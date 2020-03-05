@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-clojure.el --- This is where you apply your OCD.
 ;;
-;; Author: gww <damon-kwok@outlook.com>
+;; Author: damon-kwok <damon-kwok@outlook.com>
 ;; Date: 2016-02-01
 ;;
 ;; This program is free software; you can redistribute it and/or modify
@@ -67,6 +67,14 @@
 ;;;;
 (package-require 'cider)
 (require 'cider)
+(package-require '4clojure)
+(require '4clojure)
+(defadvice 4clojure-open-question (around 4clojure-open-question-around)
+  "Start a cider/nREPL connection if one hasn't already been started when
+opening 4clojure questions"
+  ad-do-it
+  (unless cider-current-clojure-buffer
+    (cider-jack-in)))
 
 (package-require 'helm-cider)
 (require 'helm-cider)
@@ -215,7 +223,7 @@
 
 ;; `auto-menu:clojure'
 (defun automenu--clojure-mode-menu () 
-  '("REPL" "jack-in-clj" "jack-in-cljs" "jack-in-clj&cljs"))
+  '("REPL" "jack-in-clj" "jack-in-cljs" "jack-in-clj&cljs" "" "" "4clj-open" "4clj-prev" "4clj-next" "4clj-check"))
 
 (defun automenu--clojure-mode-func (index) 
   (cond ((= 0 index) 
@@ -225,7 +233,15 @@
         ((= 2 index) 
          (cider-jack-in-cljs nil)) 
         ((= 3 index) 
-         (cider-jack-in-clj&cljs nil)) 
+         (cider-jack-in-clj&cljs nil))
+        ((= 6 index) 
+         (4clojure-open-question))
+        ((= 7 index) 
+         (4clojure-previous-question))
+        ((= 8 index) 
+         (4clojure-next-question))
+        ((= 9 index) 
+         (4clojure-check-answer))
         (t (message  "clojure-mode menu:%d" index))))
 
 ;; `auto-menu:cider-repl'
