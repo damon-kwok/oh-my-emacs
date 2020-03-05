@@ -25,8 +25,6 @@
 
 ;; (setq calendar-font-lock-keywords nil)
 (package-require 'cal-china-x)
-(require 'cal-china-x)
-
 (setq mark-holidays-in-calendar t)
 (setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
 (setq calendar-holidays cal-china-x-important-holidays)
@@ -83,7 +81,7 @@ You can add this to your `calendar-holidays'.")
                                ;;
                                ))
 
-;; (require 'cal-china-x)
+;; (package-require 'cal-china-x)
 ;; only show mysetting
 ;; (setq calendar-holidays holiday-wwliu-holidays)
 

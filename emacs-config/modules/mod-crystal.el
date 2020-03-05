@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'crystal-mode)
-(require 'crystal-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-crystal)

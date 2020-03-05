@@ -25,8 +25,7 @@
 (require 'mod-package)
 ;;
 ;; go-mode
-(package-require 'go-mode)
-(require 'go-mode)
+(package-download 'go-mode)
 ;; (autoload 'go-mode "go-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

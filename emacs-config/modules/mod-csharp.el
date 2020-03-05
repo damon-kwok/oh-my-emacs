@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'omnisharp)
-(require 'omnisharp)
 
 ;; (add-hook 'csharp-mode-hook 'omnisharp-mode)
 

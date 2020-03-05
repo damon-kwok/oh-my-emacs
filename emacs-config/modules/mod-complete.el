@@ -24,23 +24,18 @@
 (require 'mod-package)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require 'popup)
-(require 'popup)
-
 ;;(message projectile-project-root)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (package-require 'ido)
-;; (require 'ido)
 ;; (ido-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `auto-complete'
 ;;-(package-require 'auto-complete)
-;;-(require 'auto-complete)
 ;;-(require 'auto-complete-config)
 
 ;;; `pos-tip'
 ;;-(package-require 'pos-tip)
-;;-(require 'pos-tip)
 ;;-(setq ac-quick-help-prefer-pos-tip t)
 
 ;;; `ac-default'
@@ -79,8 +74,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `company'
 (package-require 'company)
-(require 'company)
-
 (add-hook 'after-init-hook 'global-company-mode)
 
 (global-set-key (kbd "<M-/>") 'company-complete)
@@ -89,7 +82,7 @@
 (define-key company-active-map (kbd "C-n")  'company-select-next)
 (define-key company-active-map (kbd "C-p")  'company-select-previous)
 
-;; (require 'color)
+;; (internal-require 'color)
 ;; (let ((bg (face-attribute 'default :background)))
   ;; (custom-set-faces
    ;; `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
@@ -101,8 +94,6 @@
 ;;; `yasnippet'
 (package-require 'yasnippet)
 (package-require 'yasnippet-snippets)
-(require 'yasnippet)
-(require 'yasnippet-snippets)
 ;; (yas-global-mode 1)
 
 (setq dir-core-snippets "~/.oh-my-emacs/snippets/")

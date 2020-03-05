@@ -24,7 +24,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; tabbar
 (package-require 'tabbar)
-(require 'tabbar)
 (tabbar-mode t)
 
 ;;; cycle: `tabs' `groups' `default'

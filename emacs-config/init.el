@@ -5,8 +5,9 @@
 ;;(unless package--initialized (package-initialize t))
 (unless package--initialized (package-initialize))
 
-(toggle-debug-on-error)
+;; (toggle-debug-on-error)
 ;; (toggle-debug-on-quit)
+;; (toggle-frame-fullscreen)
 
 (add-to-list 'load-path "~/.oh-my-emacs/emacs-config")
 (add-to-list 'load-path "~/.oh-my-emacs/emacs-config/modules")
@@ -22,14 +23,23 @@
   "Display startup echo area message."
   (message "Initialized in %s" (emacs-init-time)))
 
+
+(require 'benchmark)
+(defun module-require (pkg)
+  (message "Module '%s' loaded in %.3fs" pkg (benchmark-elapse (require pkg))))
+
+(defun internal-require (pkg)
+  (message "---->require '%s' in %.3fs" pkg (benchmark-elapse (require pkg))))
+;;(fset 'internal-require 'module-require)
+
 ;; Benchmark loading time file by file and display it in the *Messages* buffer
- (when init-file-debug (require 'benchmark))
+ ;; (when init-file-debug (require 'benchmark))
 
-(defun module-require(mod)
- (when init-file-debug
-	(message "Module '%s' loaded in %.2fs" mod (benchmark-elapse (require mod))))
-	(require mod))
+;; (defun module-require(mod)
+ ;; (when init-file-debug
+	;; (message "Module '%s' loaded in %.2fs" mod (benchmark-elapse (require mod))))
+	;; (require mod))
 
-(require 'mod-init)
+(module-require 'mod-init)
 
 ;; (toggle-frame-fullscreen)

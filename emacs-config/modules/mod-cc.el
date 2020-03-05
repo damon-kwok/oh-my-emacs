@@ -39,8 +39,8 @@
 ;; (set-default 'semantic-case-fold t)
 
 ;; `shader-mode'
-(package-require 'shader-mode)
-(autoload 'shader-mode "shader" nil t) ;;(require 'shader-mode)
+(package-download 'shader-mode)
+;; (autoload 'shader-mode "shader" nil t) ;;(require 'shader-mode)
 (add-to-list 'auto-mode-alist '("\\.shader$" . shader-mode))
 
 ;; `company'
@@ -50,10 +50,9 @@
 
 ;;; Syntax highlighting support for "`Modern.C++'" - until `C++17' and Technical Specification.
 (package-require 'modern-cpp-font-lock)
-(require 'modern-cpp-font-lock)
-;; (add-hook 'c++-mode-hook #'modern-c++-font-lock-mode)
+(add-hook 'c++-mode-hook #'modern-c++-font-lock-mode)
 ;; or
-(modern-c++-font-lock-global-mode t)
+;; (modern-c++-font-lock-global-mode t)
 
 ;; `create-or-open-cmake-file'
 ;; switch 'cmake buffer' and 'code buffer'
@@ -128,13 +127,12 @@
       (check-header dir basename))))
 
 (package-require 'cmake-mode)
-(require 'cmake-mode)
 (define-key c-mode-map [f6] 'ome-open-or-close-cmakefile)
 (define-key c++-mode-map [f6] 'ome-open-or-close-cmakefile)
 (define-key objc-mode-map [f6] 'ome-open-or-close-cmakefile)
 (define-key cmake-mode-map [f6] 'ome-open-or-close-cmakefile)
 
-(require 'nxml-mode)
+(internal-require 'nxml-mode)
 (define-key c-mode-map [f7] 'ome-open-or-close-packagexml)
 (define-key c++-mode-map [f7] 'ome-open-or-close-packagexml)
 (define-key objc-mode-map [f7] 'ome-open-or-close-packagexml)
@@ -155,8 +153,6 @@
 
 ;; `format'
 (package-require 'clang-format)
-(require 'clang-format)
-
 (define-key c-mode-map (kbd "C-c C-f")  'clang-format-buffer)
 (define-key c++-mode-map (kbd "C-c C-f")  'clang-format-buffer)
 (define-key objc-mode-map (kbd "C-c C-f")  'clang-format-buffer)
@@ -166,7 +162,7 @@
 (define-key objc-mode-map (kbd "C-M-\\")  'clang-format-region)
 
 ;; `cmake-font-lock'
-(package-require 'cmake-font-lock)
+(package-download 'cmake-font-lock)
 (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
 (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
 
@@ -192,7 +188,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Some code that will make it so the background color of the lines
 ;; that gcc found errors on, should be in another color.
-(require 'custom)
+(internal-require 'custom)
 (defvar all-overlays ())
 (defun delete-this-overlay(overlay is-after begin end &optional len) 
   (delete-overlay overlay))
@@ -228,7 +224,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `disaster'
 (package-require 'disaster)
-(require 'disaster)
 (define-key c-mode-map (kbd "C-c d") 'disaster)
 (define-key c++-mode-map (kbd "C-c d") 'disaster)
 (define-key objc-mode-map (kbd "C-c d") 'disaster)

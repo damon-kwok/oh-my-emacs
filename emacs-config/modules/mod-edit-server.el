@@ -25,9 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'edit-server)
-(require 'edit-server)
-;; (edit-server-start)
-
 ;; To open pages for editing in new buffers in your existing Emacs
 ;; instance:
 ;;

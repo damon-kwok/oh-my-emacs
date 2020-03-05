@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'esup)
-(require 'esup)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-profiler)

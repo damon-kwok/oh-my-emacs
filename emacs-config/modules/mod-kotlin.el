@@ -27,12 +27,9 @@
 (require 'mod-lsp)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require 'kotlin-mode)
-(require 'kotlin-mode)
 
 (package-require-git "lsp-kotlin" "https://github.com/whily/lsp-kotlin.git")
 ;; (package-require 'lsp-kotlin)
-(require 'lsp-kotlin)
-
 (add-hook 'kotlin-mode-hook #'lsp-kotlin-enable)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-kotlin)

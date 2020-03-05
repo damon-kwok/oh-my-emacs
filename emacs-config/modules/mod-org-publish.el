@@ -24,10 +24,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(require 'htmlize)
-(require 'org)
-(require 'ox-html)
-(require 'ox-publish)
+(internal-require 'htmlize)
+(internal-require 'org)
+(internal-require 'ox-html)
+(internal-require 'ox-publish)
 
 (setq org-publish-project-alist '(;;
                                   ("blog" :components ("blog-notes" "blog-static"))

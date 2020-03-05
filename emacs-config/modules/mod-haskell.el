@@ -25,14 +25,8 @@
 (require 'mod-package)
 ;;
 (package-require 'intero)
-(require 'intero)
-
-
 (package-require 'flycheck-haskell)
-(require 'flycheck-haskell)
-
 (package-require 'dante)
-(require 'dante)
 
 (add-hook 'haskell-mode-hook 'intero-mode)
 (add-hook 'haskell-mode-hook 'dante-mode)

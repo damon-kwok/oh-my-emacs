@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'elm-mode)
-(require 'elm-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-elm)

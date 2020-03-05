@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'emr)
-(require 'emr)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-refactor)

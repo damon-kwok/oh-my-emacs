@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'idris-mode)
-(require 'idris-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-idris)

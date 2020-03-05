@@ -24,9 +24,7 @@
 ;;
 (require 'mod-package)
 
-(package-require 'pyim)
-(require 'pyim)
-(require 'pyim-basedict)
+(package-require 'pyim 'pyim 'pyim-basedict)
 (pyim-basedict-enable)
 (setq default-input-method "pyim")
 

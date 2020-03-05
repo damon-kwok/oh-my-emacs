@@ -24,15 +24,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'sly)
-;; (require 'sly)
-(require 'sly-autoloads)
+(package-require 'sly 'sly-autoloads)
 (setq inferior-lisp-program "sbcl")
 
-(package-require 'sly-quicklisp)
-;; (require 'sly-quicklisp)
-(require 'sly-quicklisp-autoloads)
-
+(package-require 'sly-quicklisp 'sly-quicklisp-autoloads)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-sly)

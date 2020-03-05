@@ -32,7 +32,6 @@
 ;; (package-require 'lsp-sh)
 ;; (package-require-curl "lsp-sh" "lsp-sh.el"
                       ;; "https://raw.githubusercontent.com/emacs-lsp/lsp-sh/master/lsp-sh.el")
-;; (require 'lsp-sh)
 
 ;; `automenu'
 ;; (setenv "OME_PREFIX" "/home/damon/.ome_local")

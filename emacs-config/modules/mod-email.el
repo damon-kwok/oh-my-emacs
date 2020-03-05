@@ -31,19 +31,16 @@
 (setq mu4e-root (expand-file-name "~/.local/share/emacs/site-lisp/mu4e"))
 (add-to-list 'load-path mu4e-root)
 
-(require 'mu4e)
+(internal-require 'mu4e)
 (setenv "XAPIAN_CJK_NGRAM" "1")
 
 ;; `extensions'
 (package-require 'mu4e-maildirs-extension)
-(require 'mu4e-maildirs-extension)
 (mu4e-maildirs-extension)
 
 ;; (package-require 'mu4e-jump-to-list)
-;; (require 'mu4e-jump-to-list)
 
 ;; (package-require 'mu4e-query-fragments)
-;; (require 'mu4e-query-fragments)
 ;; (setq mu4e-query-fragments-list
 ;; '(("%junk" . "maildir:/Junk OR subject:SPAM")
 ;; ("%hidden" . "flag:trashed OR %junk")))
@@ -62,7 +59,7 @@
 
 ;; show html code
 (setq mu4e-view-prefer-html t)
-(require 'mu4e-contrib)
+(internal-require 'mu4e-contrib)
 (setq mu4e-html2text-command 'mu4e-shr2text)
 
 (setq mu4e-drafts-folder "/Draft")
@@ -124,7 +121,7 @@
 ;; also, make sure the gnutls command line utils are installed
 ;; package 'gnutls-bin' in Debian/Ubuntu
 
-(require 'smtpmail)
+(internal-require 'smtpmail)
 ;; alternatively, for emacs-24 you can use:
 (setq message-send-mail-function 'smtpmail-send-it ;
       smtpmail-stream-type 'ssl                    ;

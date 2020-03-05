@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 ;; (package-require 'dumb-jump)
-;; (require 'dumb-jump)
 
 (use-package 
   dumb-jump 

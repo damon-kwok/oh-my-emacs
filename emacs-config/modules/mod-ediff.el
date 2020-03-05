@@ -24,7 +24,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(require 'ediff)
+(internal-require 'ediff)
 
 (defvar ediff-after-quit-hooks nil 
   "* Hooks to run after ediff or emerge is quit.")

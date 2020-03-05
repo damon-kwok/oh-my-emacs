@@ -25,8 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'groovy-mode)
-(require 'groovy-mode)
-
 (require 'mod-lsp)
 (add-hook 'groovy-mode-hook #'lsp)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

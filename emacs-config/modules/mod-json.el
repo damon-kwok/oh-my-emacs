@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'json-mode)
-(require 'json-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-json)

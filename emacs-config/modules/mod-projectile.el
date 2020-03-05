@@ -27,7 +27,6 @@
 ;;; Install Projectile and activate it for all things.
 ;;; Learn about Projectile: http://batsov.com/projectile/
 (package-require 'projectile)
-(require 'projectile)
 ;;; 默认全局使用
 (projectile-mode 1)
 
@@ -39,10 +38,7 @@
 
 ;; `treemacs-projectile'
 (package-require 'treemacs-projectile)
-(require 'treemacs-projectile)
-
 ;; (package-require 'projectile-speedbar)
-;; (require 'projectile-speedbar)
 
 ;; Sometimes, when I am deep in a project tree, I like to use this shortcut to see full context:
 ;; (global-set-key (kbd "C-c s") 'projectile-speedbar-toggle)
@@ -55,7 +51,6 @@
 ;; A binding for using Helm to pick files using Projectile,
 ;; and override the normal grep with a Projectile based grep.
 (package-require 'helm-projectile)
-(require 'helm-projectile)
 ;; (global-set-key (kbd "C-c C-f") 'helm-projectile-find-file-dwim)
 ;; (global-set-key (kbd "C-x C-g") 'helm-projectile-grep)
 (global-set-key [f5] 'helm-projectile)

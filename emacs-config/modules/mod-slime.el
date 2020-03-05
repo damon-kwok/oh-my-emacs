@@ -36,8 +36,7 @@
 (add-to-list 'auto-mode-alist '("\\.ros\\'" . lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.lisp\\'" . lisp-mode))
 
-(package-require 'slime)
-(require 'slime)
+(package-download 'slime)
 (slime-setup)
 ;; (package-require "slime/contrib")
 
@@ -52,8 +51,7 @@
 ;;slime-references slime-repl slime-sbcl-exts slime-scheme slime-scratch slime-snapshot
 ;;slime-sprof slime-tramp slime-typeout-frame slime-xref-browser
 
-(package-require 'slime-company)
-;; (require 'slime-company)
+(package-download 'slime-company)
 (eval-after-load "slime" ;;
   '(progn
 	 ;;(slime-setup '(slime-repl slime-fuzzy))
@@ -78,11 +76,10 @@
 ;; (load (expand-file-name "C:/Users/Administrator/.roswell/helper.el"))
 (setq inferior-lisp-program "ros -Q run")
 (setq slime-contribs '(slime-fancy))
-(require 'slime-autoloads)
+(internal-require 'slime-autoloads)
 
 ;; Enable paredit for Clojur
 (package-require 'paredit)
-(require 'paredit)
 (add-hook 'lisp-mode-hook 'enable-paredit-mode)
 (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
 
@@ -111,8 +108,6 @@
   (switch-to-buffer-other-window temp-lisp-buffer-name))
 
 (package-require 'elisp-format)
-(require 'elisp-format)
-
 (defun lisp-code-format() 
   (interactive) 
   (elisp-format-buffer) 

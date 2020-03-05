@@ -32,7 +32,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; or if you want use this feature in your library: (bm-bookmark-add nil nil t)
 ;; (package-require 'bm)
-;; (require 'bm)
 
 ;;; M$ Visual Studio key setup.
 ;; (global-set-key (kbd "<C-f2>") 'bm-toggle)
@@ -64,7 +63,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`ido';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;ido mode
-;;(require 'ido)
+;;(internal-require 'ido)
 ;;(ido-mode 1)
 
 ;;(setq ido-confirm-unique-completion t)
@@ -79,9 +78,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`helm';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(package-require 'helm)
-(require 'helm-config)
-(require 'helm)
+(package-require 'helm 'helm-config 'helm)
 
 ;;; Activate Helm.
 (helm-mode 1)
@@ -99,21 +96,17 @@
 ;;; swiper-helm behaves subtly different from isearch, so let's not
 ;;; override the default binding.
 ;; (package-require 'swiper-helm)
-;; (require 'swiper-helm)
 ;; (global-set-key (kbd "C-M-s") 'swiper-helm)
 
 ;; `helm-swoop'
 ;; (package-require 'helm-swoop)
-;; (require 'helm-swoop)
 ;; (global-set-key (kbd "C-M-s") 'helm-swoop)
 
 ;;; ac-helm
 ;; (package-require 'ac-helm)
-;; (require 'ac-helm)
 
 ;;; helm-company
 ;; (package-require 'helm-company)
-;; (require 'helm-company)
 
 ;;; Tell Helm to resize the selector as needed.
 (helm-autoresize-mode 1)
@@ -132,40 +125,30 @@
 (define-key helm-map (kbd "<escape>")  'helm-keyboard-quit)
 
 ;;; `helm-bm'
-(package-require 'helm-bm)
-(require 'helm-bm) ;;; Not necessary if using ELPA package
+(package-require 'helm-bm) ;; Not necessary if using ELPA package
 (global-set-key (kbd "C-c b") 'helm-bm)
 
 ;;; `helm-ag' (need ag)
 (package-require 'helm-ag)
-(require 'helm-ag)
 
 ;;; helm-is-git hg svn
 (package-require 'helm-ls-svn)
-(require 'helm-ls-svn)
-
 (package-require 'helm-ls-git)
-(require 'helm-ls-git)
-
 (package-require 'helm-ls-hg)
-(require 'helm-ls-hg)
 
 ;;; (package-require 'helm-buffer-list)
 (package-require 'helm-descbinds)
-(require 'helm-descbinds)
 (helm-descbinds-mode)
 
 ;;; helm-pages
 (package-require 'helm-pages)
-(require 'helm-pages)
 
 ;;; helm-xref
 (package-require 'helm-xref)
-(require 'helm-xref)
 (setq xref-show-xrefs-function 'helm-xref-show-xrefs)
 
 ;;; `helm-company'
-(package-require 'helm-company)
+(package-download 'helm-company)
 (autoload 'helm-company "helm-company") ;; Not necessary if using ELPA package
 (eval-after-load 'company '(progn (define-key company-mode-map (kbd "C-:") 'helm-company) 
                                   (define-key company-active-map (kbd "C-:") 'helm-company)))

@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'nasm-mode)
-(require 'nasm-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-asm)

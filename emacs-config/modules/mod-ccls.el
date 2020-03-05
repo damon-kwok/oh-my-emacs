@@ -27,8 +27,6 @@
 (require 'mod-cc)
 
 (package-require 'ccls)
-(require 'ccls)
-
 ;;(setq ccls-executable "/home/damon/.ccls/bin/ccls")
 (setq ccls-initialization-options 
       '(:index (:comments 2) 

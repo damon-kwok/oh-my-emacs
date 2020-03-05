@@ -26,14 +26,12 @@
 ;;;
 ;; `neotree'
 ;; (package-require 'neotree)
-;; (require 'neotree)
 ;; (global-set-key [f1] 'neotree-toggle)
 ;; (global-set-key (kbd "C-c t") 'neotree-toggle)
 
 
 ;; `treemacs'
 (package-require 'treemacs)
-(require 'treemacs)
 ;; (use-package treemacs
 ;;   :ensure t
 ;;   :defer t

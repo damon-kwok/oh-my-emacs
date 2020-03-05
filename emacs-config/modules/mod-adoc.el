@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'adoc-mode)
-(require 'adoc-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-adoc)

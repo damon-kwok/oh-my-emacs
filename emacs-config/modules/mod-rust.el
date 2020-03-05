@@ -25,11 +25,8 @@
 (require 'mod-package)
 ;;
 (package-require 'racer)
-(require 'racer)
 (package-require 'cargo)
-(require 'cargo)
 (package-require 'toml-mode)
-(require 'toml-mode)
 
 ;; Configure Emacs to activate racer when rust-mode starts:
 
@@ -41,7 +38,7 @@
 
 (add-hook 'racer-mode-hook #'company-mode)
 
-(require 'rust-mode)
+(package-require 'rust-mode)
 (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
 (setq company-tooltip-align-annotations t)
 

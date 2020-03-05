@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'swift-mode)
-(require 'swift-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-swift)

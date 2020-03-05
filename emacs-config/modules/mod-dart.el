@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'dart-mode)
-(require 'dart-mode)
 (require 'mod-lsp)
 (add-hook 'dart-mode-hook #'lsp)
 

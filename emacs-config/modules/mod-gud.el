@@ -25,9 +25,7 @@
 (require 'mod-package)
 ;;
 (package-require 'realgud)
-(require 'realgud)
-
-(require 'gud)
+(internal-require 'gud)
 ;;;; set gdb multi-windows when open
 (setq gdb-many-windows t)
 

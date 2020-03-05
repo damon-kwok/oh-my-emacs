@@ -25,7 +25,7 @@
 
 ;;; `load-auctex'
 ;; (package-require-git "auctex" "https://github.com/jwiegley/auctex.git")
-(package-require 'auctex)
+(package-download 'auctex)
 (load "auctex.el" nil t t)
 ;; (load "preview.el" nil t t)
 (setq Tex-auto-save t)
@@ -33,7 +33,7 @@
 (setq-default Tex-master nil)
 
 (if (string-equal system-type "windows-nt") 
-    (require 'tex-mik))
+    (internal-require 'tex-mik))
 
 ;; turn on image file support
 (auto-image-file-mode)
@@ -49,7 +49,7 @@
 
 
 ;;; set org export tex template, can use chinese
-;;(require 'org-latex)
+;; (internal-require 'org-latex)
 ;;(unless (boundp 'org-export-latex-classes)
 ;;  (setq org-export-latex-classes nil))
 
@@ -75,7 +75,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `cdlatex'
 (package-require 'cdlatex)
-(require 'cdlatex)
 
 ;;; cdlatex is AUCtex's helper
 (add-hook 'LaTex-mode-hook 'turn-on-cdlatex)

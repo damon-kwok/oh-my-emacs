@@ -28,8 +28,6 @@
 (add-hook 'ruby-mode-hook #'lsp)
 
 (package-require 'robe)
-(require 'robe)
-
 (add-hook 'ruby-mode-hook 'robe-mode)
 
 (eval-after-load 'company '(push 'company-robe company-backends))

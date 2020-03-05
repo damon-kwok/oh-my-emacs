@@ -24,22 +24,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'lsp-mode)
-;; (require 'lsp-mode)
-(require 'lsp)
-(require 'lsp-clients)
+(package-require 'lsp-mode 'lsp 'lsp-clients)
 (setq lsp-auto-guess-root t)
 
-(package-require 'dap-mode)
-(require 'dap-mode)
-(require 'dap-ui)
-
+(package-require 'dap-mode 'dap-mode 'dap-ui)
 (add-hook 'lsp-mode-hook 'dap-mode)
 (add-hook 'lsp-mode-hook 'dap-ui-mode)
 
 ;;
 (package-require 'lsp-ui)
-(require 'lsp-ui)
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 
 ;; don't include type signature in the child frame
@@ -127,11 +120,9 @@
 
 ;; company
 (package-require 'company)
-(require 'company)
 
 
 (package-require 'company-lsp)
-(require 'company-lsp)
 (push 'company-lsp company-backends)
 
 ;; company-lsp-cache-candidates: Can be set to 'auto, t, or nil.

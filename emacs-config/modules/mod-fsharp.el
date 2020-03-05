@@ -25,8 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'fsharp-mode)
-(require 'fsharp-mode)
-
 (add-to-list 'auto-mode-alist '("\\.fs[iylx]?$" . fsharp-mode))
 
 ;; `windows'

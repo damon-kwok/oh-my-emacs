@@ -26,7 +26,6 @@
 ;; (setenv "LIBCLANG_INCLUDE_DIR" "/home/damon/.llvm/include")
 ;; `rtags'
 (package-require 'rtags)
-(require 'rtags)
 
 ;; (if (or (eq system-type 'windows-nt) 
         ;; (eq system-type 'ms-dos) 
@@ -49,11 +48,8 @@
 ;; t)
 ;;
 (package-require 'helm-rtags)
-(require 'helm-rtags)
 ;;
 (package-require 'company-rtags)
-(require 'company-rtags)
-
 (setq rtags-completions-enabled t)
 (eval-after-load 'company '(add-to-list 'company-backends 'company-rtags))
 (setq rtags-autostart-diagnostics t)
@@ -167,7 +163,6 @@
 
 ;; `flycheck-rtags'
 (package-require 'flycheck-rtags)
-(require 'flycheck-rtags)
 (defun my-flycheck-rtags-setup () 
   (flycheck-select-checker 'rtags) 
   (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
@@ -178,9 +173,9 @@
 (add-hook 'objc-mode-hook #'my-flycheck-rtags-setup)
 
 ;; `flycheck-clang-analyzer'
-;; (package-require 'flycheck-clang-analyzer)
+;; (package-download 'flycheck-clang-analyzer)
 ;; (with-eval-after-load 'flycheck
-;;   (require 'flycheck-clang-analyzer)
+;;   (internal-require 'flycheck-clang-analyzer)
 ;;   (setq flycheck-clang-analyzer-executable "clang-3.9")
 ;;   (flycheck-clang-analyzer-setup))
 

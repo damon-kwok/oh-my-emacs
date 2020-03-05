@@ -24,9 +24,7 @@
 ;;org-mode
 ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
-(package-require 'org-plus-contrib)
-(require 'org-install)
-
+(package-require 'org-plus-contrib 'org-install)
 (add-hook 'org-mode-hook (lambda () 
                            (setq truncate-lines nil) 
                            (setq org-startup-with-inline-images t) 
@@ -155,7 +153,6 @@
 ;; `org2ctex'
 ;; (require 'mod-latex)
 (package-require 'org2ctex)
-(require 'org2ctex)
 (org2ctex-toggle t)
 ;;
 ;; (setq org2ctex-latex-default-class "ctexart")

@@ -26,7 +26,6 @@
 ;;clojure
 ;;===================================================
 (package-require 'clojure-mode)
-(require 'clojure-mode)
 
 (defun my-clojure-mode-hook () 
   (clj-refactor-mode 1) 
@@ -50,7 +49,6 @@
 
 ;; A little more syntax highlighting
 (package-require 'clojure-mode-extra-font-locking)
-(require 'clojure-mode-extra-font-locking)
 
 ;; syntax hilighting for midje
 (add-hook 'clojure-mode-hook (lambda () 
@@ -66,9 +64,7 @@
 ;; Cider
 ;;;;
 (package-require 'cider)
-(require 'cider)
 (package-require '4clojure)
-(require '4clojure)
 (defadvice 4clojure-open-question (around 4clojure-open-question-around)
   "Start a cider/nREPL connection if one hasn't already been started when
 opening 4clojure questions"
@@ -77,19 +73,15 @@ opening 4clojure questions"
     (cider-jack-in)))
 
 (package-require 'helm-cider)
-(require 'helm-cider)
 (helm-cider-mode 1)
 
 ;;; `clj-refactor'
 (package-require 'clj-refactor)
-(require 'clj-refactor)
 
 ;;(package-require 'cider-hydra)
-;;(require 'cider-hydra)
 ;;(cider-hydra-on)
 
 ;;(package-require 'helm-cider-history)
-;;(require 'helm-cider-history)
 
 ;; provides minibuffer documentation for the code you're typing into the repl
 (add-hook 'cider-mode-hook 'eldoc-mode)
@@ -168,7 +160,6 @@ opening 4clojure questions"
                                   'show-clojure-workbuffer)))
 
 ;; (package-require 'clojure-cheatsheet)
-;; (require 'clojure-cheatsheet)
 ;; (define-key clojure-mode-map (kbd "C-c C-h") 'clojure-cheatsheet)
 (define-key clojure-mode-map (kbd "C-c C-h") 'helm-cider-apropos)
 (define-key clojure-mode-map (kbd "C-M-\\")  'cider-format-buffer)

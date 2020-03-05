@@ -24,8 +24,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'gdscript-mode)
-(require 'gdscript-mode)
+(package-download 'gdscript-mode)
 
 ;; (autoload 'gdscript-mode "gdscript-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.gd\\'" . gdscript-mode))

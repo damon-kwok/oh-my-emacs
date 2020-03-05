@@ -72,7 +72,7 @@
 (menu-bar-mode 0)
 
 ;;; scroll setttings (nil 'left 'right)
-(require 'scroll-bar)
+(internal-require 'scroll-bar)
 ;;(set-scroll-bar-mode 'right); (nil:disable right left)
 (set-scroll-bar-mode nil)
 
@@ -85,7 +85,7 @@
 ;; (add-to-list 'default-frame-alist '(alpha 80 75))
 
 ;;; maxframe
-;;(require 'maxframe)
+;;(internal-require 'maxframe)
 ;;(add-hook 'window-setup-hook 'maximize-frame t)
 
 ;;; `scroll'
@@ -126,8 +126,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`Theme';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (package-require 'django-theme)
-;;  (when  (package-installed-p 'django-theme)
-;;    (require 'django-theme))
 
 ;; (if (display-graphic-p)
 ;;     (require 'django-theme)
@@ -137,12 +135,11 @@
 
 ;; (load-theme 'deeper-blue)
 
-;; (package-require 'sublime-themes)
-;; ;;(require 'sublime-themes)
+;; (package-download 'sublime-themes)
 ;; (load-theme 'granger t t)
 ;; (enable-theme 'granger)
 
-;; (package-require 'color-theme-modern)
+;; (package-download 'color-theme-modern)
 
 (if (display-graphic-p) 
     (progn ;;
@@ -151,7 +148,7 @@
       ;;(load-theme 'deeper-blue)
       ;;(enable-theme 'deeper-blue)
       ;; load material theme
-      (package-require 'material-theme) 
+      (package-download 'material-theme) 
       (load-theme 'material t)
       ;;
       ) 
@@ -161,7 +158,7 @@
     ;;(enable-theme 'xemacs)
     ;;(load-theme 'deeper-blue)
     ;;(enable-theme 'deeper-blue)
-    (package-require 'material-theme) 
+    (package-download 'material-theme) 
     (load-theme 'material t)
     ;;
     ))
@@ -195,7 +192,7 @@
 ;; (load-theme 'fischmeister t t)
 ;; (enable-theme 'fischmeister)
 
-;; (require 'pink-bliss)
+;; (internal-require 'pink-bliss)
 ;; (pink-bliss)
 
 ;; (load-theme 'jedit-grey t t)
@@ -322,14 +319,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`tabbar';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (package-require 'tabbar-ruler)
+;; (package-download 'tabbar-ruler)
 
 ;; (setq tabbar-ruler-global-tabbar t)	; get tabbar
 ;; (setq tabbar-ruler-global-ruler nil)	; get global ruler
 ;; (setq tabbar-ruler-popup-menu nil)	; get popup menu.
 ;; (setq tabbar-ruler-popup-toolbar nil)	; get popup toolbar
 ;; (setq tabbar-ruler-popup-scrollbar nil)	; show scroll-bar on mouse-move
-;; (require 'tabbar-ruler)
+;; (internal-require 'tabbar-ruler)
 
 ;;; The default behavior for tabbar-ruler is to group the tabs by frame. You can change this back to the old-behavior by:
 ;;-- (tabbar-ruler-group-buffer-groups)
@@ -363,21 +360,18 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `smart-mode-line'
-(package-require 'smart-mode-line)
-(require 'smart-mode-line)
+(package-download 'smart-mode-line)
 (setq sml/no-confirm-load-theme t)
 
 (setq sml/theme 'dark)
 ;; (setq sml/theme 'light)
 ;; (setq sml/theme 'respectful)
 ;; (package-require 'smart-mode-line-powerline-theme)
-;; (require 'smart-mode-line-powerline-theme)
 ;; (setq sml/theme 'powerline)
 (sml/setup)
 
 
 (package-require 'anzu)
-(require 'anzu)
 (global-anzu-mode +1)
 
 (set-face-attribute 'anzu-mode-line nil 
@@ -411,28 +405,23 @@
 
 ;;; `powerline'
 ;; (package-require'powerline)
-;; (require 'powerline)
 ;; (powerline-default-theme)
 
 ;;; `spaceline'
-;; (package-require 'spaceline)
-;; (require 'spaceline-config)
+;; (package-require 'spaceline 'soaceline-config)
 ;; (spaceline-spacemacs-theme)
 ;; (spaceline-emacs-theme)
 
 ;;; `'tdd-status-mode-line'
 ;; (package-require 'tdd-status-mode-line)
-;; (require 'tdd-status-mode-line)
 ;; (make-variable-buffer-local 'tdd-status/current-status-index)
 ;; (tdd-status-global-mode)
 
 ;;; `mode-icons'
 ;; (package-require 'mode-icons)
-;; (require 'mode-icons)
 ;; (mode-icons-mode)
 
 ;; (package-require 'all-the-icons)
-;; (require 'all-the-icons)
 ;; (set-frame-font "all-the-icons" t)
 ;; (all-the-icons-icon-for-buffer)
 ;; (set-frame-font "Source Code Pro" t) )
@@ -441,7 +430,7 @@
 ;; (setq inhibit-compacting-font-caches t)
 
 ;;; `nyan-mode'
-(package-require 'nyan-mode)
+(package-download 'nyan-mode)
 (if (display-graphic-p) 
     (progn 
       (require 'nyan-mode) 
@@ -483,7 +472,7 @@
 (setq select-enable-clipboard t) ;; (setq x-select-enable-clipboard t)
 
 ;;; ANSI-colors in the compilation buffer output
-(require 'ansi-color)
+(internal-require 'ansi-color)
 (defun endless/colorize-compilation () 
   "Colorize from `compilation-filter-start' to `point'."
   (let ((inhibit-read-only t)) 
@@ -512,9 +501,9 @@
 (setq kill-ring-max 200)
 
 ;; (package-require 'undo-tree)
-(package-require-curl "undo-tree-0.6.6" "undo-tree.el"
+(package-download-curl "undo-tree-0.6.6" "undo-tree.el"
                       "https://raw.githubusercontent.com/emacs-lisp/undo-tree/master/undo-tree.el")
-(require 'undo-tree)
+(internal-require 'undo-tree)
 (global-undo-tree-mode)
 
 (defun show-undo-tree() 
@@ -536,7 +525,7 @@
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 'linum'
-;; (require 'linum)
+;; (internal-require 'linum)
 (setq linum-mode t)
 (setq linum-format "%4d")
 (global-linum-mode)
@@ -573,7 +562,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; emojify
 ;; (package-require 'emojify)
-;; (require 'emojify)
 
 ;; Set emojify to only replace Unicode emoji, and do it everywhere.
 ;; (setq emojify-emoji-styles '(unicode) emojify-inhibit-major-modes '())
@@ -589,7 +577,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`indent';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (package-require 'indent-guide)
-;; (require 'indent-guide)
 
 ;;; Column lines are propertized with “indent-guide-face”. So you may configure this face to make liens more pretty in your colorscheme.
 ;; (set-face-background 'indent-guide-face "dimgray")
@@ -615,7 +602,6 @@
 
 ;;; session
 ;; (package-require 'session)
-;; (require 'session)
 ;; (add-hook 'after-init-hook 'session-initialize)
 
 ;;; desktop
@@ -684,9 +670,7 @@
 (global-eldoc-mode 1)
 
 ;;; `large-file
-(package-require 'vlf)
-(require 'vlf-setup)
-
+(package-require 'vlf 'vlf-setup)
 (custom-set-variables '(vlf-application 'dont-ask))
 
 ;;abbrev-mode

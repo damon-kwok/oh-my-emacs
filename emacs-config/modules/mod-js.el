@@ -34,7 +34,6 @@
 ;; (add-hook 'html-mode #'lsp)            ;; for html-mode support
 
 ;; (package-require 'vue-mode)
-;; (require 'vue-mode)
 ;; (add-hook 'vue-mode #'lsp)             ;; for vue-mode support
 
 (defun my-company-transformer (candidates) 
@@ -49,8 +48,6 @@
 
 ;; `nodejs-repl'
 (package-require 'nodejs-repl)
-(require 'nodejs-repl)
-
 (add-hook 'js-mode-hook (lambda () 
                           (define-key js-mode-map (kbd "C-x C-e") 'nodejs-repl-send-last-expression) 
                           (define-key js-mode-map (kbd "C-c C-j") 'nodejs-repl-send-line) 
@@ -60,16 +57,13 @@
 
 ;; `company'
 (package-require 'company-lsp)
-(require 'company-lsp)
 (push 'company-lsp company-backends)
 
 ;; `js2'
 (package-require 'js2-mode)
-(require 'js2-mode)
 
 ;; `js2-refactor'
 (package-require 'js2-refactor)
-(require 'js2-refactor)
 (add-hook 'js2-mode-hook #'js2-refactor-mode)
 (setq js2-skip-preprocessor-directives t)
 
@@ -83,7 +77,6 @@
 
 ;; `web-mode'
 (package-require 'web-mode)
-(require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
@@ -94,7 +87,6 @@
 
 ;; `skewer-mode'
 (package-require 'skewer-mode)
-(require 'skewer-mode)
 
 (add-hook 'js2-mode-hook 'skewer-mode)
 (add-hook 'css-mode-hook 'skewer-css-mode)
@@ -102,7 +94,6 @@
 
 ;; `indium'
 ;; (package-require 'indium)
-;; (require 'indium)
 
 ;; `automenu:js'
 (defun automenu--js-mode-menu ()

@@ -21,7 +21,7 @@
 ;;
 ;; Code:
 ;;
-(require 'server)
+(internal-require 'server)
 
 (setq server-use-tcp t) ;; t:socket-file nil:socket-name(only *unix)
 ;;(setq server-auth-dir (concat (getenv "HOME") "/.emacs.d/server/"))

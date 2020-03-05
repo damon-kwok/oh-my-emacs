@@ -28,7 +28,7 @@
   :type 'string)
 (setq fancy-splash-image ome-logo)
 
-;;(require 'esup)
+;;(package-require 'esup)
 (module-require 'mod-gc)
 (module-require 'mod-coding)
 (module-require 'mod-elisp)
@@ -174,9 +174,7 @@
 ;; (if (executable-find "git") 
     ;; (module-require 'mod-git))
 
-;; (package-require 'exwm)
-;; (require 'exwm)
-;; (require 'exwm-config)
+;; (package-require 'exwm 'exwm 'wxwm-config)
 ;; (exwm-config-default)
 
 ;; (if (eq system-type 'gnu/linux)
@@ -211,7 +209,7 @@
 ;; (package-require 'psvn)
 ;; (module-require 'psvn)
 
-(require 'ediff)
+(internal-require 'ediff)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (module-require 'mod-keybind)

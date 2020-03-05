@@ -58,7 +58,6 @@
 ;;sr-speedbar
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require 'sr-speedbar)
-(require 'sr-speedbar)
 
 ;;(global-set-key [(f4)] 'sr-speedbar-toggle)
 ;; (global-set-key (kbd "C-c t") 'sr-speedbar-toggle)

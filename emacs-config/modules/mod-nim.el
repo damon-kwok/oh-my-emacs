@@ -25,8 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'nim-mode)
-(require 'nim-mode)
-
 (add-hook 'nim-mode-hook 'nimsuggest-mode)
 ;; The `nimsuggest-path' will be set the value of
 ;; (executable-find "nimsuggest"), automatically.

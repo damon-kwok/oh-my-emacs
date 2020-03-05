@@ -26,7 +26,7 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `whitespace-mode'
-(require 'whitespace)
+(internal-require 'whitespace)
 
 (define-globalized-minor-mode ome-global-whitespace-mode whitespace-mode 
   (lambda ()
@@ -57,11 +57,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (package-require 'highlight-parentheses)
-;; (require 'highlight-parentheses)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (package-require 'symbol-overlay)
-(require 'symbol-overlay)
 
 (define-globalized-minor-mode global-symbol-overlay-mode symbol-overlay-mode 
   (lambda () 
@@ -71,7 +69,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `hl-todo
 ;; (package-require 'hl-todo)
-;; (require 'hl-todo)
 
 ;; (define-key hl-todo-mode-map (kbd "C-c p") 'hl-todo-previous)
 ;; (define-key hl-todo-mode-map (kbd "C-c n") 'hl-todo-next)
@@ -81,7 +78,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `fci-mode'
 (package-require 'fill-column-indicator)
-(require 'fill-column-indicator)
 (setq whitespace-style '(face trailing))
 (setq fci-rule-column 80)
 (setq fci-handle-truncate-lines nil)
@@ -110,8 +106,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `indent-guide'
 ;; (package-require 'indent-guide)
-;; (require 'indent-guide)
-
 ;; and call command “M-x indent-guide-mode”.
 
 ;; If you want to enable indent-guide-mode in all buffers, call function indent-guide-global-mode.
@@ -134,7 +128,6 @@
 
 (if (display-graphic-p) 
     (progn (package-require 'highlight-indent-guides)
-           (require 'highlight-indent-guides)
            (setq highlight-indent-guides-method 'character)
            (setq highlight-indent-guides-character ?\|)
            ;; (setq highlight-indent-guides-character "|")
@@ -155,8 +148,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `highlight-doxygen'
 (package-require 'highlight-doxygen)
-(require 'highlight-doxygen)
-
 (highlight-doxygen-global-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -164,7 +155,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `dimmer' Visually highlight the selected buffer.
 (package-require 'dimmer)
-(require 'dimmer)
 ;; (setq dimmer-use-colorspace :hsl)
 (defcustom dimmer-use-colorspace 
   :rgb "" 
@@ -188,7 +178,7 @@
 (transient-mark-mode nil)
 
 ;;; more highlights
-(require 'generic-x)
+(internal-require 'generic-x)
 
 ;;; highlight current line (0:close 1:open)
 (global-hl-line-mode 0)
@@ -200,7 +190,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `rainbow-mode'
 (package-require 'rainbow-mode)
-(require 'rainbow-mode)
 (define-globalized-minor-mode global-rainbow-mode rainbow-mode 
   (lambda () 
     (rainbow-mode 1)))
@@ -208,7 +197,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `highlight-parentheses'
 ;; (package-require 'highlight-parentheses)
-;; (require 'highlight-parentheses)
 
 ;; (defcustom hl-paren-colors
 ;;   '("firebrick1" "IndianRed1" "IndianRed3" "IndianRed4")
@@ -223,8 +211,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `rainbow-delimiters'
 (package-require 'rainbow-delimiters)
-(require 'rainbow-delimiters)
-
 (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
 
@@ -254,7 +240,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Sexy tail
 ;; (package-require 'highlight-tail)
-;; (require 'highlight-tail)
 ;; (highlight-tail-mode)
 
 ;;; 1. -----

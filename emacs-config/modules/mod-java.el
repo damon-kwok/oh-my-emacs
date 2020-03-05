@@ -28,7 +28,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `eclipse.jdt.ls' Eclipse JDT Language Server
 (package-require 'lsp-java)
-(require 'lsp-java)
 (add-hook 'java-mode-hook #'lsp)
 
 ;; set the projects that are going to be imported into the workspace.
@@ -46,21 +45,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `lsp-javacomp'
 ;; (package-require 'lsp-javacomp)
-;; (require 'lsp-javacomp)
 ;; (define-key java-mode-map (kbd "C-M-i") 'completion-at-point)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `lsp-intellij' Exposes IntelliJ IDEA features through the Language Server Protocol.
-;; (package-require 'lsp-intellij)
 
 ;; (with-eval-after-load 'lsp-mode
-;; (require 'lsp-intellij)
+;; (package-require 'lsp-intellij)
 ;; (add-hook 'java-mode-hook #'lsp-intellij-enable))
 
-;; (require 'lsp-ui)
+;; (internal-require 'lsp-ui)
 ;; (add-hook 'lsp-after-open-hook #'lsp-ui-mode)
 
-;; (require 'company-lsp)
+;; (package-require 'company-lsp)
 ;; (setq company-lsp-enable-snippet t
 ;; company-lsp-cache-candidates t)
 ;; (push 'company-lsp company-backends)

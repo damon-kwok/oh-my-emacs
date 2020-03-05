@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'hy-mode)
-(require 'hy-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-hy)

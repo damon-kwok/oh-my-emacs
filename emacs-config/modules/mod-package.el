@@ -25,12 +25,11 @@
 
 ;; required-at-runtime
 ;; (eval-when-compile
-;;   (require 'cl))
+;;   (internal-require 'cl))
 
-(with-no-warnings 
-  (require 'cl))
+(with-no-warnings (internal-require 'cl))
 
-;; (require 'package)
+;; (internal-require 'package)
 ;; (package-initialize)
 
 ;; (setq package-user-dir (concat dotfiles-dir "elpa"))
@@ -63,7 +62,7 @@
                          ))
 
 ;;(add-to-list 'load-path "~/emacs-config/elpa-mirror")
-;;(require 'elpa-mirror)
+;;(internal-require 'elpa-mirror)
 
 (defun online? () 
   (if (and (functionp 'network-interface-list) 
@@ -80,19 +79,25 @@
   (add-hook 'find-file-hook `(lambda () 
                                (when (and (stringp buffer-file-name) 
                                           (string-match (concat "\\." ,ext "\\'") buffer-file-name)) 
-                                 (require (quote ,mode)) 
+                                 (internal-require (quote ,mode)) 
                                  (,mode)))))
 
 ;; (lazy-require "soy" 'soy-mode)
 ;; (lazy-require "tpl" 'tpl-mode)
 
 ;; To get the package manager going, we invoke its initialise function.
-(defun package-require(pkg) 
+(defun package-download (pkg) 
   (when (not (package-installed-p pkg)) 
     (progn (unless package-archive-contents (package-refresh-contents)) 
            (package-install pkg))))
 
-(defun package-require-git(lib-name path)
+(defun package-require(pkg &optional alias-pkg alias-pkg2) 
+  (package-download pkg) 
+  (if alias-pkg (internal-require alias-pkg) 
+    (internal-require pkg))
+  (if alias-pkg2 (internal-require alias-pkg2)))
+
+(defun package-download-git(lib-name path)
   ;; (setq dir-lib-name (expand-file-name ome-lib-dir ))
   (let* ((oldir default-directory) 
          (dir-name (concat (expand-file-name ome-lib-dir) "/" (file-name-base lib-name))) 
@@ -112,7 +117,12 @@
         (call-process-shell-command cmd-clone nil nil t))) 
     (setq default-directory oldir)))
 
-(defun package-require-svn(lib-name path)
+(defun package-require-git(dir-name file-name url) 
+  (let* ((pkg (intern dir-name))) 
+    (package-download-git dir-name) 
+    (internal-require pkg)))
+
+(defun package-download-svn(lib-name path)
   ;;(setq dir-lib-name (expand-file-name ome-lib-dir ))
   (let* ((oldir default-directory) 
          (dir-name (concat (expand-file-name ome-lib-dir) "/" (file-name-base lib-name))) 
@@ -132,7 +142,12 @@
         (call-process-shell-command cmd-clone nil nil t))) 
     (setq default-directory oldir)))
 
-(defun package-require-curl(dir-name file-name url) 
+(defun package-require-svn(dir-name file-name url) 
+  (let* ((pkg (intern dirname))) 
+    (package-download-svn dir-name) 
+    (internal-require pkg)))
+
+(defun package-download-curl(dir-name file-name url) 
   (let* ((oldir default-directory) 
          (dir (concat (expand-file-name ome-lib-dir) "/" dir-name)) 
          (full-name (concat dir "/" file-name)) 
@@ -145,6 +160,12 @@
         (setq default-directory dir) 
         (call-process-shell-command cmd nil nil t))) ;;(ome-run-command cmd)
     (setq default-directory oldir)))
+
+(defun package-require-curl(dir-name file-name url) 
+  (let* ((pkg (intern dir-name))) 
+    (package-download-curl dir-name) 
+    (internal-require pkg)))
+
 
 ;; (auto-install-from-url "https://raw.github.com/aki2o/guide-key-tip/master/guide-key-tip.el")
 
@@ -168,13 +189,10 @@
   (package-autoremove))
 
 ;; `use-package'
-(package-require 'use-package)
-(require 'use-package)
-
+(package-require 'use-package) 
 
 ;; `quelpa'
 (package-require 'quelpa)
-(require 'quelpa)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

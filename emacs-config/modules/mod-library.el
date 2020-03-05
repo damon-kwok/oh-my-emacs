@@ -20,12 +20,9 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
-(require 'cl)
+(internal-require 'cl)
 (package-require 's)
-
-(require 's)
 (package-require 'f)
-(require 'f)
 
 ;; (projectile-project-p)
 ;; (projectile-project-root)
@@ -749,25 +746,25 @@ occurence of CHAR."
     (message "Please install 'mu' and offlineimap!")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(package-require-curl "elisp-format" "elisp-format.el"
+(package-download-curl "elisp-format" "elisp-format.el"
                       "https://www.emacswiki.org/emacs/download/elisp-format.el")
-(package-require-curl "xcowsay" "xcowsay.el" "https://www.emacswiki.org/emacs/download/xcowsay.el")
-(package-require-curl "pink-bliss" "pink-bliss-theme.el"
+(package-download-curl "xcowsay" "xcowsay.el" "https://www.emacswiki.org/emacs/download/xcowsay.el")
+(package-download-curl "pink-bliss" "pink-bliss-theme.el"
                       "https://raw.githubusercontent.com/kensanata/elisp/master/pink-bliss-theme.el")
-(package-require-curl "pink-bliss" "pink-bliss.el"
+(package-download-curl "pink-bliss" "pink-bliss.el"
                       "https://www.emacswiki.org/emacs/download/pink-bliss.el")
-(package-require-curl "pink-bliss" "pink-gnu.xpm"
+(package-download-curl "pink-bliss" "pink-gnu.xpm"
                       "http://www.emacswiki.org/emacs/download/pink-gnu.xpm")
 
-(package-require-curl "multi-term" "multi-term.el"
+(package-download-curl "multi-term" "multi-term.el"
                       "https://www.emacswiki.org/emacs/download/multi-term.el")
-(package-require-curl "visws" "visws.el" "https://www.emacswiki.org/emacs/download/visws.el")
+(package-download-curl "visws" "visws.el" "https://www.emacswiki.org/emacs/download/visws.el")
 
 (setq multi-term-program "/bin/bash")
-;; (package-require-git "window-layout" "https://github.com/kiwanami/emacs-window-layout.git")
-;; (package-require-git "E2WM" "https://github.com/kiwanami/emacs-window-manager.git")
+;; (package-download-git "window-layout" "https://github.com/kiwanami/emacs-window-layout.git")
+;; (package-download-git "E2WM" "https://github.com/kiwanami/emacs-window-manager.git")
 
-;; (require 'e2wm)
+;; (internal-require 'e2wm)
 
 ;; (global-set-key (kbd "M-+") 'e2wm:start-management)
 ;;Example Usage:

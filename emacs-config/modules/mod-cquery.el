@@ -29,8 +29,6 @@
 ;; https://maskray.me/blog/2017-12-03-c++-language-server-cquery
 ;; https://github.com/cquery-project/cquery/wiki/Emacs
 (package-require 'cquery)
-(require 'cquery)
-
 ;; (setq cquery-executable "/home/damon/.cquery/bin/cquery")
 
 (setq cquery-extra-init-params 

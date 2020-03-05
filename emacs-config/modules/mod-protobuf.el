@@ -22,7 +22,6 @@
 ;; Code:
 ;;
 (package-require 'protobuf-mode)
-(require 'protobuf-mode)
 (setq auto-mode-alist  (cons '(".proto$" . protobuf-mode) auto-mode-alist))
 ;;
 (provide 'mod-protobuf)

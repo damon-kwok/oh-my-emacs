@@ -26,9 +26,8 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `irony'
-(package-require 'irony)
+(package-download 'irony)
 (autoload 'irony "irony" nil t)
-;; (require 'irony)
 ;; (unless (file-exists-p "/home/damon/.emacs.d/elpa/irony/bin/irony-server") (irony-install-server))
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
@@ -56,7 +55,6 @@
 
 ;;`company-irony'
 (package-require 'company-irony)
-(require 'company-irony)
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
 (setq company-backends (delete 'company-semantic company-backends))
 (setq company-backends (delete 'company-clang company-backends))

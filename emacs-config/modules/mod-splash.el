@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'dashboard)
-(require 'dashboard)
 (dashboard-setup-startup-hook)
 (setq dashboard-banner-logo-title "Oh My Emacs!")
 (setq dashboard-items '((projects . 15) 

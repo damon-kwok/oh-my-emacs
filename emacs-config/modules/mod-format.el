@@ -25,10 +25,7 @@
 (require 'mod-package)
 ;;
 (package-require 'format-all)
-(require 'format-all)
-
 (package-require 'editorconfig)
-(require 'editorconfig)
 (editorconfig-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-format)

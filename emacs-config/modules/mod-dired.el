@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'peep-dired)
-(require 'peep-dired)
 
 ;; When disabling the mode you can choose to kill the buffers that were opened while browsing the directories.
 (setq peep-dired-cleanup-on-disable t)

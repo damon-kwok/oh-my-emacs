@@ -25,8 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'elfeed)
-(require 'elfeed)
-
 ;; (setq elfeed-feeds '("http://nullprogram.com/feed/" "http://planet.emacsen.org/atom.xml"))
 
 (setq elfeed-feeds '(;;
@@ -62,8 +60,7 @@
 (if (file-exists-p elfeed-conf) 
     (progn ;;
       (package-require 'elfeed-org) 
-      (require 'elfeed-org)
-
+      
       ;; Initialize elfeed-org
       ;; This hooks up elfeed-org to read the configuration when elfeed
       ;; is started with =M-x elfeed=
@@ -77,7 +74,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `elfeed-goodies'
 (package-require 'elfeed-goodies)
-(require 'elfeed-goodies)
 (elfeed-goodies/setup)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-feed)

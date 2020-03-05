@@ -28,14 +28,13 @@
 (add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
 
 ;; (package-require 'helm-ros)
-;; (require 'helm-ros)
 ;; (getenv "ROS_PACKAGE_PATH")
 
 ;; `rosemacs'
 ;; (add-to-list 'load-path "/opt/ros/kinetic/share/emacs/site-lisp")
-;; (require 'rosemacs-config)
-;; (require 'slime-config "/opt/ros/kinetic/share/slime_ros/slime-config.el")
-;; (require 'slime-config "PATH_TO_SLIME_ROS/slime-config.el")
+;; (internal-require 'rosemacs-config)
+;; (interlnal-require 'slime-config "/opt/ros/kinetic/share/slime_ros/slime-config.el")
+;; (internal-require 'slime-config "PATH_TO_SLIME_ROS/slime-config.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-ros)

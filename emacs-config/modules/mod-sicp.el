@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'sicp)
-(require 'sicp)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-sicp)

@@ -25,19 +25,16 @@
 (require 'mod-package)
 ;;
 ;; `gomode'
-(package-require 'go-mode)
-(require 'go-mode)
+(package-download 'go-mode)
 ;; (autoload 'go-mode "go-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 
 ;; `company'
 (package-require 'company)
-(require 'company)
 
 ;; company-go
 ;;(add-to-list 'load-path (concat (getenv "GOPATH") "/src/github.com/mdempsky/gocode/emacs-company"))
 (package-require 'company-go)
-(require 'company-go)
 
 (setq company-tooltip-limit 20)         ; bigger popup window
 (setq company-idle-delay .3) ; decrease delay before autocompletion popup shows

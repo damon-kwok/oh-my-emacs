@@ -25,7 +25,6 @@
 (require 'mod-package)
 ;;;
 (package-require 'elpy)
-(require 'elpy)
 (elpy-enable)
 
 (package-require 'ein)
@@ -39,7 +38,6 @@
 
 ;; enable autopep8 formatting on save
 (package-require 'py-autopep8)
-(require 'py-autopep8)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

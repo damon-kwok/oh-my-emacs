@@ -81,13 +81,11 @@
 
 
 (package-require 'mwim)
-(require 'mwim)
 (global-set-key (kbd "C-a") 'mwim-beginning)
 (global-set-key (kbd "C-e") 'mwim-end)
 
 ;;
 (package-require 'ripgrep)
-(require 'ripgrep)
 ;; (define-key helm-map (kbd "<tab>")  'helm-execute-persistent-action)
 (define-key ripgrep-search-mode-map (kbd "<tab>") 'compilation-next-error)
 (define-key ripgrep-search-mode-map (kbd "<backtab>") 'compilation-previous-error)
@@ -96,7 +94,6 @@
 ;;
 
 (package-require 'wand)
-(require 'wand)
 (setq wand:*rules*
       (list (wand:create-rule :match "\\$ "
                               :capture :after
@@ -143,11 +140,9 @@
 
 ;; `folding'
 ;; (package-require 'vimish-fold)
-;; (require 'vimish-fold)
 ;; (vimish-fold-global-mode 1)
 
 (package-require 'yafolding)
-(require 'yafolding)
 
 (global-set-key (kbd "C-M-`") 'yafolding-toggle-all)
 (global-set-key (kbd "C-~") 'yafolding-hide-parent-element)
@@ -155,8 +150,6 @@
 
 ;; `anzu' https://github.com/syohex/emacs-anzu
 (package-require 'anzu)
-(require 'anzu)
-
 (setq-default case-fold-search nil)
 (setq-default case-replace nil)
 
@@ -186,7 +179,6 @@
 
 ;;; expand region
 (package-require 'expand-region)
-(require 'expand-region)
 (global-set-key (kbd "C-z") 'er/expand-region) ;; (global-set-key "\C-z" 'mark-word)
 (global-set-key (kbd "C-x M-u") 'upcase-region)
 (global-set-key (kbd "C-x M-l") 'downcase-region)
@@ -205,8 +197,6 @@
 
 ;;; `move-text'
 (package-require 'move-text)
-(require 'move-text)
-
 ;;; After that, you can move the line(s) up by M-p or down by M-n.
 ;;; (move-text-default-bindings)
 
@@ -218,8 +208,6 @@
 
 ;;; `buffer-move'
 (package-require 'buffer-move)
-(require 'buffer-move)
-
 (global-set-key (kbd "<C-M-up>")     'buf-move-up)
 (global-set-key (kbd "<C-M-down>")   'buf-move-down)
 (global-set-key (kbd "<C-M-left>")   'buf-move-left)
@@ -245,12 +233,10 @@
 
 ;; `switch-window'
 (package-require 'switch-window)
-(require 'switch-window)
 (global-set-key (kbd "C-x o") 'switch-window)
 
 ;; `window-numbering'
 (package-require 'window-numbering)
-(require 'window-numbering)
 (window-numbering-mode)
 (setq window-numbering-assign-func (lambda () 
                                      (when (equal (buffer-name) "*Calculator*") 9)))
@@ -258,12 +244,10 @@
 
 ;; `page-break-lines'
 (package-require 'page-break-lines)
-(require 'page-break-lines)
 (global-page-break-lines-mode)
 
 ;;; Swiper
 ;; (package-require 'swiper)
-;; (require 'swiper)
 
 ;; (ivy-mode 1)
 ;; (setq ivy-use-virtual-buffers t)
@@ -288,15 +272,12 @@
 
 ;;; htmlize
 (package-require 'htmlize)
-(require 'htmlize)
 ;; (global-set-key (kbd "C-c p") 'htmlize-buffer)
 ;; (global-set-key (kbd "C-c C-p") 'htmlize-file)
 
 
 ;;; bing-dict
 (package-require 'bing-dict)
-(require 'bing-dict)
-
 (setq bing-dict-show-thesaurus 'both)
 (setq bing-dict-pronunciation-style 'us) ;;us | uk
 (setq bing-dict-save-search-result t)
@@ -309,7 +290,6 @@
 (define-key global-map (kbd "C-c b") 'ome-go-to-char-backward)
 
 (package-require 'multiple-cursors)
-(require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
@@ -336,7 +316,6 @@
 (global-set-key [remap comment-dwim] 'ome-comment-or-uncomment-region-or-line)
 
 ;; (package-require 'smart-comment)
-;; (require 'smart-comment)
 ;; (global-set-key (kbd "M-;") 'smart-comment)
 ;; (global-set-key (kbd "C-u M-;") 'smart-comment)
 ;; (global-set-key (kbd "C-u C-u M-;") 'smart-comment)
@@ -344,7 +323,6 @@
 
 ;;; `guide-key'
 ;; (package-require 'guide-key)
-;; (require 'guide-key)
 ;; (guide-key-mode 1)			; Enable guide-key-mode
 ;; (setq guide-key/idle-delay 0.7)
 ;; (setq guide-key/guide-key-sequence '("C-h" "C-c" "C-x" "C-t" "ESC"))
@@ -355,19 +333,15 @@
 
 ;;; `guide-key-tip'
 ;; (package-require 'guide-key-tip)
-;; (require 'guide-key-tip)
 ;; (setq guide-key-tip/enabled nil)
 
 
 ;;; `which-key'
 (package-require 'which-key)
-(require 'which-key)
 (which-key-mode)
 
 ;;; `paredit'
 (package-require 'paredit)
-(require 'paredit)
-
 (define-key paredit-mode-map (kbd "C-<left>") 'paredit-backward-slurp-sexp)
 (define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
 (define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
@@ -425,24 +399,19 @@
 (define-key paredit-mode-map (kbd "M-;") 'ome-comment-or-uncomment-region-or-line)
 
 (package-require 'helpful)
-(require 'helpful)
 (global-set-key (kbd "C-h f") #'helpful-callable)
 (global-set-key (kbd "C-h v") #'helpful-variable)
 (global-set-key (kbd "C-h k") #'helpful-key)
 (global-set-key (kbd "C-c C-d") #'helpful-at-point)
 
 (package-require 'xkcd)
-(require 'xkcd)
 
 
 ;; (package-require 'weechat)
-;; (require 'weechat)
 
 
 ;;; `hydra'
 (package-require 'hydra)
-(require 'hydra)
-
 
 ;;; `tty'
 ;; (defhydra hydra-show-tty
@@ -970,7 +939,6 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("<escape>" nil "quit"))
 
 ;; (package-require 'yahoo-weather)
-;; (require 'yahoo-weather)
 ;; (setq yahoo-weather-location "Shanghai")
 ;; (yahoo-weather-mode)
 

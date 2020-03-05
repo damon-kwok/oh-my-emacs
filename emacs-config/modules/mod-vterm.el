@@ -28,7 +28,7 @@
 ;; (setq ome-dev-dir "~/.ome_local/caches")
 ;; (make-directory ome-dev-dir t)
 ;; (add-to-list 'load-path (concat ome-dev-dir "/libvterm"))
-;; (require 'vterm)
+;; (internal-require 'vterm)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-vterm)
 ;; mod-vterm.el ends here
