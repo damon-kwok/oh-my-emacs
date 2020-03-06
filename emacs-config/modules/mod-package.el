@@ -189,10 +189,10 @@
   (package-autoremove))
 
 ;; `use-package'
-(package-require 'use-package) 
-
+(package-require 'use-package)
+
 ;; `quelpa'
-(package-require 'quelpa)
+;; (package-require 'quelpa)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

@@ -24,24 +24,29 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'racer)
-(package-require 'cargo)
-(package-require 'toml-mode)
-
-;; Configure Emacs to activate racer when rust-mode starts:
-
-(add-hook 'rust-mode-hook #'racer-mode)
-(add-hook 'rust-mode-hook 'cargo-minor-mode)
-(add-hook 'racer-mode-hook #'eldoc-mode)
-
-;; For completions, install company with M-x package-install RET company RET. A sample configuration:
-
-(add-hook 'racer-mode-hook #'company-mode)
-
-(package-require 'rust-mode)
-(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
-(setq company-tooltip-align-annotations t)
-
+(package-download 'racer)
+(package-download 'cargo)
+(package-download 'toml-mode)
+(add-to-list 'auto-mode-alist '("\\.toml$" . toml-mode))
+(package-download 'rust-mode)
+(add-to-list 'auto-mode-alist '("\\.rs$" . rust-mode))
+(add-hook 'rust-mode-hook (lambda () 
+                            ;; Configure Emacs to activate racer when rust-mode starts:
+                            (racer-mode) 
+                            (cargo-minor-mode) 
+                            (add-hook 'racer-mode-hook #'eldoc-mode) 
+                            (add-hook 'racer-mode-hook #'company-mode) 
+                            (define-key rust-mode-map (kbd "TAB")
+                              #'company-indent-or-complete-common) 
+                            (setq company-tooltip-align-annotations t)
+                            ;; `keybinding'
+                            (define-key rust-mode-map [f5] 
+                              '(lambda () 
+                                 (interactive) 
+                                 (ome-run-command "cargo build")))
+                            (define-key rust-mode-map [f6] 'ome-open-or-close-cargofile)
+                            (internal- 'toml-mode)
+                            (define-key conf-toml-mode-map [f6] 'ome-open-or-close-cargofile)))
 
 (defun ome-open-or-close-cargofile () 
   (interactive) 
@@ -49,41 +54,32 @@
       (ome-smart-find-file "Cargo.toml" t) 
     (if (eq major-mode 'conf-toml-mode) 
         (kill-this-buffer))))
-
-;; `keybinding'
-(define-key rust-mode-map [f5] 
-  '(lambda () 
-     (interactive) 
-     (ome-run-command "cargo build")))
-(define-key rust-mode-map [f6] 'ome-open-or-close-cargofile)
-(define-key conf-toml-mode-map [f6] 'ome-open-or-close-cargofile)
-
 
 ;; `automenu:rust'
-(defun automenu--rust-mode-menu ()
+(defun automenu--rust-mode-menu () 
   '("Cargo.toml" "build" "2" "3" "4" "5" "6" "7" "8" "9"))
 
-(defun automenu--rust-mode-func (index)
+(defun automenu--rust-mode-func (index) 
   (cond ((= 0 index) 
          (ome-open-or-close-cargofile)) 
         ((= 1 index) 
-         (ome-run-command "cargo build"))
+         (ome-run-command "cargo build")) 
         ((= 2 index) 
-         (message  "rust menu:%d" index))
+         (message  "rust menu:%d" index)) 
         ((= 3 index) 
-         (message  "rust menu:%d" index))
+         (message  "rust menu:%d" index)) 
         ((= 4 index) 
-         (message  "rust menu:%d" index))
+         (message  "rust menu:%d" index)) 
         ((= 5 index) 
-         (message  "rust menu:%d" index))
+         (message  "rust menu:%d" index)) 
         ((= 6 index) 
-         (message  "rust menu:%d" index))
+         (message  "rust menu:%d" index)) 
         ((= 7 index) 
-         (message  "rust menu:%d" index))
+         (message  "rust menu:%d" index)) 
         ((= 8 index) 
-         (message  "rust menu:%d" index))
+         (message  "rust menu:%d" index)) 
         ((= 9 index) 
-         (message  "rust menu:%d" index))
+         (message  "rust menu:%d" index)) 
         (t (message  "rust menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-rust)

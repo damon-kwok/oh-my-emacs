@@ -23,8 +23,6 @@
 ;; Code:
 (require 'mod-package)
 ;;
-(internal-require 'ielm)
-;;
 (add-to-list 'auto-mode-alist '("\\.els\\'" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.els.el\\'" . emacs-lisp-mode))
 ;;
@@ -53,8 +51,10 @@
 
 
 ;; `highlight-defined'
-(package-require 'highlight-defined)
-(add-hook 'emacs-lisp-mode-hook 'highlight-defined-mode)
+(package-download 'highlight-defined)
+(add-hook 'emacs-lisp-mode-hook (lambda ()
+                                  (internal-require 'highlight-defined)
+                                  (highlight-defined-mode)))
 ;;
 
 
@@ -89,7 +89,10 @@
 
 
 (defun show-elisp-repl() 
-  (interactive) 
+  (interactive)
+  (internal-require 'ielm)
+  (define-key ielm-map (kbd "C-c C-z") 'show-elisp-workbuffer)
+  
   (setq temp-elisp-buffer-name (buffer-name (current-buffer))) 
   (ome-show-compilation "*ielm*") 
   (ielm) 
@@ -113,8 +116,6 @@
   (delete-file (concat (buffer-file-name) "c"))
   ;;(ome-show-compilation "*Warnings*")
   (ome-show-compilation "*Compile-Log*"))
-
-(define-key ielm-map (kbd "C-c C-z") 'show-elisp-workbuffer)
 
 ;;(define-key el-spice-mode-map (kbd "C-c C-z")  'show-elisp-repl)
 (define-key emacs-lisp-mode-map (kbd "C-c C-z")  'show-elisp-repl)

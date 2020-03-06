@@ -37,38 +37,6 @@
 (global-set-key (kbd "C-c s") 'projectile-speedbar-toggle)
 (global-set-key (kbd "C-c d") 'dired-sidebar-toggle-sidebar)
 
-;; `repl'
-(defun show-global-shell() 
-  (interactive) 
-  (setq temp-global-buffer-name (buffer-name (current-buffer))) 
-  (ome-show-compilation "*shell*") 
-  (shell) 
-  (switch-to-buffer-other-window temp-global-buffer-name) 
-  (ome-show-compilation "*shell*" t))
-
-(defun show-global-shell-new() 
-  (interactive) 
-  (ome-kill-buffer-by-name "*shell*") 
-  (show-global-shell))
-
-(defun show-global-workbuffer() 
-  (interactive) 
-  (switch-to-buffer-other-window temp-global-buffer-name) 
-  (delete-other-windows) 
-  (show-global-shell) 
-  (switch-to-buffer-other-window temp-global-buffer-name))
-
-(global-set-key (kbd "C-c `") 'show-global-shell)
-(define-key shell-mode-map (kbd "C-c `")  'show-global-workbuffer)
-(global-set-key (kbd "C-c C-`") 'show-global-shell-new)
-
-(global-set-key (kbd "C-c C-z") 'show-global-shell)
-(define-key shell-mode-map (kbd "C-c C-z")  'show-global-workbuffer)
-
-(add-hook 'sh-mode-hook '(lambda()
-			   ;;	     (message (concat "you opened cc file:" (buffer-name)))
-			   (define-key sh-mode-map (kbd "C-c C-z")  'show-global-shell)))
-
 (global-set-key (kbd "C-M-w") 'ome-copy-line)
 (global-set-key (kbd "C-M-z") 'ome-mark-line)
 
@@ -519,7 +487,7 @@ _a_: basic         _h_: helm        _7_: latex        _2_: clojure    _m_: music
 _p_: package       _e_: email       _8_: markdown     _3_: csharp     _d_: coding
 _k_: keybind       ^^               _9_: reST         _4_: js         _s_: server
 _l_: library       ^^               _z_: csv          _5_: cc         _g_: golang
-_y_: complete-yas  ^^               _x_: protobuf     _6_: elixir     _C_: compile-all-modules
+_y_: complete-yas  _T_:all-docs     _x_: protobuf     _6_: elixir     _C_: compile-all-modules
 ^^^^^^^^-------------------------------------------------------------------------
 _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ ^
 " ("i" (ome-open-mod "init") "init")
@@ -550,9 +518,18 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 ("o" (ome-open-mod "orgmode") "orgmode")
 ("7" (ome-open-mod "latex") "latex")
 ("8" (ome-open-mod "markdown") "markdown")
-("9" (ome-open-mod "rest") "reST")
+("9" (ome-open-mod "rst") "reST")
 ("z" (ome-open-mod "csv") "csv")
 ("x" (ome-open-mod "protobuf") "protobuf")
+("T" (progn
+       (ome-open-mod "text")
+       (ome-open-mod "orgmode")
+       (ome-open-mod "latex")
+       (ome-open-mod "markdown")
+       (ome-open-mod "rst")
+       (ome-open-mod "csv")
+       (ome-open-mod "protobuf")
+       (ome-open-mod "adoc")) "all docs")
 
 ("u" (ome-open-mod "input") "input")
 ("m" (ome-open-mod "music") "music")

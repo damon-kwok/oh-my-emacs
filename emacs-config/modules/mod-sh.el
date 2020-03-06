@@ -24,15 +24,49 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(require 'mod-lsp)
-(add-hook 'sh-mode-hook 'lsp)
-
 (add-to-list 'auto-mode-alist '("PKGBUILD" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.sh$" . sh-mode))
 
-;; (package-require 'lsp-sh)
-;; (package-require-curl "lsp-sh" "lsp-sh.el"
-                      ;; "https://raw.githubusercontent.com/emacs-lsp/lsp-sh/master/lsp-sh.el")
+(add-hook 'sh-mode-hook (lambda()
+                          ;; (message (concat "you opened cc file:" (buffer-name)))
+                          ;;Enabled lsp-mode
+                          (internal-require 'mod-lsp) 
+                          (lsp)
 
+                          ;; `keybind'
+                          (define-key shell-mode-map (kbd "C-c `")  'show-global-workbuffer) 
+                          (define-key shell-mode-map (kbd "C-c C-z")  'show-global-workbuffer)
+                          (define-key sh-mode-map (kbd "C-c C-z") 'show-global-shell)
+
+                          ;; (package-require 'lsp-sh)
+                          ;; (package-require-curl "lsp-sh" "lsp-sh.el"
+                          ;; "https://raw.githubusercontent.com/emacs-lsp/lsp-sh/master/lsp-sh.el")
+                          ))
+(global-set-key (kbd "C-c `") 'show-global-shell) 
+(global-set-key (kbd "C-c C-`") 'show-global-shell-new)
+(global-set-key (kbd "C-c C-z") 'show-global-shell)
+
+;; `repl'
+(defun show-global-shell() 
+  (interactive) 
+  (setq temp-global-buffer-name (buffer-name (current-buffer))) 
+  (ome-show-compilation "*shell*") 
+  (shell) 
+  (switch-to-buffer-other-window temp-global-buffer-name) 
+  (ome-show-compilation "*shell*" t))
+
+(defun show-global-shell-new() 
+  (interactive) 
+  (ome-kill-buffer-by-name "*shell*") 
+  (show-global-shell))
+
+(defun show-global-workbuffer() 
+  (interactive) 
+  (switch-to-buffer-other-window temp-global-buffer-name) 
+  (delete-other-windows) 
+  (show-global-shell) 
+  (switch-to-buffer-other-window temp-global-buffer-name))
+
 ;; `automenu'
 ;; (setenv "OME_PREFIX" "/home/damon/.ome_local")
 (defun automenu--sh-mode-menu () 

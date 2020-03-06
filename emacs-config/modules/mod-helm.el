@@ -54,7 +54,6 @@
 
 ;;; If you would like to remove bookmark after jump to it by bm-next or bm-previous:
 ;; (setq temporary-bookmark-p t)
-
 
 ;; `bookmark'
 (global-set-key (kbd "C-x r l") 'helm-bookmarks)
@@ -79,84 +78,105 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`helm';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-require 'helm 'helm-config 'helm)
+;; (package-download 'swiper-helm)
+;; (package-download 'helm-swoop)
+;; (package-download 'ac-helm)
+;; (package-download 'helm-company)
+(package-download 'helm-bm)
+(package-download 'helm-ag)
+(package-download 'helm-ls-svn)
+(package-download 'helm-ls-git)
+(package-download 'helm-ls-hg)
+;;; (package-download 'helm-buffer-list)
+(package-download 'helm-descbinds)
+(package-download 'helm-pages)
+(package-download 'helm-xref)
+(package-download 'helm-company)
+;; (package-download 'company-quickhelp) ;; don't super tty
+
+
 
 ;;; Activate Helm.
 (helm-mode 1)
 
-;;; Replace common selectors with Helm versions.
-(global-set-key (kbd "M-x") 'helm-M-x)
-;;(global-set-key (kbd "C-c i") 'helm-imenu)
-(global-set-key (kbd "C-x C-b") 'helm-buffers-list)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-;; (global-set-key (kbd "C-x c g") 'helm-google-suggest)
-;; (global-set-key (kbd "C-x C-g") 'helm-do-grep)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; `helm-swiper-helm'
-;;; Enrich isearch with Helm using the `C-S-s' binding.
-;;; swiper-helm behaves subtly different from isearch, so let's not
-;;; override the default binding.
-;; (package-require 'swiper-helm)
-;; (global-set-key (kbd "C-M-s") 'swiper-helm)
+(add-hook 'helm-mode (lambda ()
 
-;; `helm-swoop'
-;; (package-require 'helm-swoop)
-;; (global-set-key (kbd "C-M-s") 'helm-swoop)
+                       ;; Tell Helm to resize the selector as needed.
+                       (helm-autoresize-mode 1)
 
-;;; ac-helm
-;; (package-require 'ac-helm)
+                       ;; Make Helm look nice.
+                       (setq-default helm-display-header-line nil helm-autoresize-min-height 20
+                                     helm-autoresize-max-height 35 helm-split-window-in-side-p t
+                                     helm-M-x-fuzzy-match t helm-buffers-fuzzy-matching t
+                                     helm-recentf-fuzzy-match t helm-apropos-fuzzy-match t) 
+                       (set-face-attribute 'helm-source-header nil 
+                                           :height 0.75)
 
-;;; helm-company
-;; (package-require 'helm-company)
 
-;;; Tell Helm to resize the selector as needed.
-(helm-autoresize-mode 1)
+                       ;; Replace common selectors with Helm versions.
+                       (global-set-key (kbd "M-x") 'helm-M-x)
+                       ;;(global-set-key (kbd "C-c i") 'helm-imenu)
+                       (global-set-key (kbd "C-x C-b") 'helm-buffers-list) 
+                       (global-set-key (kbd "C-x C-f") 'helm-find-files)
+                       ;; Keybinding
+                       (define-key helm-map (kbd "<tab>")  'helm-execute-persistent-action) 
+                       (define-key helm-map (kbd "<escape>")  'helm-keyboard-quit)
 
-;;; Make Helm look nice.
-(setq-default helm-display-header-line nil helm-autoresize-min-height 20 helm-autoresize-max-height
-              35 helm-split-window-in-side-p t
-              helm-M-x-fuzzy-match t helm-buffers-fuzzy-matching t helm-recentf-fuzzy-match t
-              helm-apropos-fuzzy-match t)
+                       ;; (global-set-key (kbd "C-x c g") 'helm-google-suggest)
+                       ;; (global-set-key (kbd "C-x C-g") 'helm-do-grep)
+                       ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                       ;; `helm-swiper-helm'
+                       ;; Enrich isearch with Helm using the `C-S-s' binding.
+                       ;; swiper-helm behaves subtly different from isearch, so let's not
+                       ;; override the default binding.
+                       ;; (internal-require 'swiper-helm)
+                       ;; (global-set-key (kbd "C-M-s") 'swiper-helm)
 
-(set-face-attribute 'helm-source-header nil 
-                    :height 0.75)
+                       ;; `helm-swoop'
+                       ;; (internal-require 'helm-swoop)
+                       ;; (global-set-key (kbd "C-M-s") 'helm-swoop)
 
-;;; Keybinding
-(define-key helm-map (kbd "<tab>")  'helm-execute-persistent-action)
-(define-key helm-map (kbd "<escape>")  'helm-keyboard-quit)
+                       ;; ac-helm
+                       ;; (internal-require 'ac-helm)
 
-;;; `helm-bm'
-(package-require 'helm-bm) ;; Not necessary if using ELPA package
-(global-set-key (kbd "C-c b") 'helm-bm)
+                       ;; helm-company
+                       ;; (internal-require 'helm-company)
+                       ;; `helm-bm'
+                       (internal-require 'helm-bm) ;; Not necessary if using ELPA package
+                       (global-set-key (kbd "C-c b") 'helm-bm)
 
-;;; `helm-ag' (need ag)
-(package-require 'helm-ag)
+                       ;; `helm-ag' (need ag)
+                       (internal-require 'helm-ag)
 
-;;; helm-is-git hg svn
-(package-require 'helm-ls-svn)
-(package-require 'helm-ls-git)
-(package-require 'helm-ls-hg)
+                       ;; helm-is-git hg svn
+                       (internal-require 'helm-ls-svn) 
+                       (internal-require 'helm-ls-git) 
+                       (internal-require 'helm-ls-hg)
 
-;;; (package-require 'helm-buffer-list)
-(package-require 'helm-descbinds)
-(helm-descbinds-mode)
+                       ;; (internal-require 'helm-buffer-list)
+                       (internal-require 'helm-descbinds) 
+                       (helm-descbinds-mode)
 
-;;; helm-pages
-(package-require 'helm-pages)
+                       ;; helm-pages
+                       (internal-require 'helm-pages)
 
-;;; helm-xref
-(package-require 'helm-xref)
-(setq xref-show-xrefs-function 'helm-xref-show-xrefs)
+                       ;; helm-xref
+                       (internal-require 'helm-xref) 
+                       (setq xref-show-xrefs-function 'helm-xref-show-xrefs)
 
-;;; `helm-company'
-(package-download 'helm-company)
-(autoload 'helm-company "helm-company") ;; Not necessary if using ELPA package
-(eval-after-load 'company '(progn (define-key company-mode-map (kbd "C-:") 'helm-company) 
-                                  (define-key company-active-map (kbd "C-:") 'helm-company)))
+                       ;; `helm-company'
+                       (package-download 'helm-company) 
+                       (autoload 'helm-company "helm-company") ;; Not necessary if using ELPA package
+                       (eval-after-load 'company '(progn (define-key company-mode-map (kbd "C-:")
+                                                           'helm-company) 
+                                                         (define-key company-active-map (kbd "C-:")
+                                                           'helm-company)))
 
-;; don't super tty
-;; (package-require 'company-quickhelp)
-;; (company-quickhelp-mode 1)
-;; (setq company-quickhelp-delay 0.5)
+                       ;; don't super tty
+                       ;; (internal-require 'company-quickhelp)
+                       ;; (company-quickhelp-mode 1)
+                       ;; (setq company-quickhelp-delay 0.5)
+                       ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 (provide 'mod-helm)
