@@ -59,31 +59,32 @@
 (defun lawlist-read-buffer-file-coding-system () 
   (let* ((bcss (find-coding-systems-region (point-min) 
                                            (point-max))) 
-         (css-table (unless (equal bcss '(undecided)) 
-                      (append '("dos" "unix" "mac") 
-                              (delq nil (mapcar (lambda (cs) 
-                                                  (if (memq (coding-system-base cs) bcss) 
-                                                      (symbol-name cs))) coding-system-list))))) 
-         (combined-table (if css-table (completion-table-in-turn css-table coding-system-alist)
-                           coding-system-alist)) 
-         (auto-cs (unless find-file-literally (save-excursion (save-restriction (widen) 
-                                                                                (goto-char
-                                                                                 (point-min)) 
-                                                                                (funcall
-                                                                                 set-auto-coding-function
-                                                                                 (or
-                                                                                  buffer-file-name 
-                                                                                  "") 
-                                                                                 (buffer-size)))))) 
+         (css-table ;;
+          (unless (equal bcss '(undecided)) 
+            (append '("dos" "unix" "mac") 
+                    (delq nil ;;
+                          (mapcar (lambda (cs) 
+                                    (if (memq (coding-system-base cs) bcss) 
+                                        (symbol-name cs))) coding-system-list))))) 
+         (combined-table;;
+          (if css-table (completion-table-in-turn css-table coding-system-alist)
+            coding-system-alist)) 
+         (auto-cs (unless find-file-literally ;;
+                    (save-excursion           ;;
+                      (save-restriction       ;;
+                        (widen) 
+                        (goto-char (point-min)) 
+                        (funcall set-auto-coding-function (or buffer-file-name 
+                                                              "") 
+                                 (buffer-size)))))) 
          (preferred 'utf-8-unix) 
          (default 'utf-8-unix) 
          (completion-ignore-case t) 
          (completion-pcm--delim-wild-regex ; Let "u8" complete to "utf-8".
           (concat completion-pcm--delim-wild-regex "\\|\\([[:alpha:]]\\)[[:digit:]]")) 
-         (cs (completing-read (format "Coding system for saving file (default %s): " default)
-                              combined-table nil t nil 'coding-system-history (if default
-                                                                                  (symbol-name
-                                                                                   default))))) 
+         (cs (completing-read ;;
+              (format "Coding system for saving file (default %s): " default) combined-table nil t
+              nil 'coding-system-history (if default (symbol-name default))))) 
     (unless (zerop (length cs)) 
       (intern cs))))
 

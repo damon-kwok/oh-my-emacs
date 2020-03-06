@@ -25,15 +25,15 @@
 (require 'mod-package)
 
 
-(use-package 
-  dired-sidebar 
-  :ensure t 
-  :commands (dired-sidebar-toggle-sidebar) 
-  :config (use-package 
-            all-the-icons-dired
-            ;; M-x all-the-icons-install-fonts
-            :ensure t 
-            :commands (all-the-icons-dired-mode)))
+;; (use-package 
+;;   dired-sidebar 
+;;   :ensure t 
+;;   :commands (dired-sidebar-toggle-sidebar) 
+;;   :config (use-package 
+;;             all-the-icons-dired
+;;             ;; M-x all-the-icons-install-fonts
+;;             :ensure t 
+;;             :commands (all-the-icons-dired-mode)))
 ;;
 
 
@@ -57,7 +57,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;sr-speedbar
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(package-require 'sr-speedbar)
+;;(package-require 'sr-speedbar)
 
 ;;(global-set-key [(f4)] 'sr-speedbar-toggle)
 ;; (global-set-key (kbd "C-c t") 'sr-speedbar-toggle)

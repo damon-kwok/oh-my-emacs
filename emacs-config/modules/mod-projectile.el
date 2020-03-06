@@ -33,33 +33,34 @@
 ;;; 默认全局使用
 (projectile-mode 1)
 
-(add-hook 'projectile-mode-hook (lambda ()
-                                  ;; 默认打开缓存
-                                  (setq projectile-enable-caching t)
-                                  ;; 使用f5键打开默认文件搜索
-                                  ;; (global-set-key [f5] 'projectile-find-file)
-                                  ;; (global-set-key [f12] 'projectile-find-other-file)
+(add-hook 'projectile-mode-hook;;
+          (lambda ()
+            ;; 默认打开缓存
+            (setq projectile-enable-caching t)
+            ;; 使用f5键打开默认文件搜索
+            ;; (global-set-key [f5] 'projectile-find-file)
+            ;; (global-set-key [f12] 'projectile-find-other-file)
 
-                                  ;; `treemacs-projectile'
-                                  (internal-require 'treemacs-projectile)
-                                  ;; (internal-require 'projectile-speedbar)
+            ;; `treemacs-projectile'
+            (internal-require 'treemacs-projectile)
+            ;; (internal-require 'projectile-speedbar)
 
-                                  ;; Sometimes, when I am deep in a project tree,
-                                  ;; I like to use this shortcut to see full context:
-                                  ;; (global-set-key (kbd "C-c s") 'projectile-speedbar-toggle)
-                                  ;; (global-set-key (kbd "C-M-z") 'projectile-speedbar-open-current-buffer-in-tree)
+            ;; Sometimes, when I am deep in a project tree,
+            ;; I like to use this shortcut to see full context:
+            ;; (global-set-key (kbd "C-c s") 'projectile-speedbar-toggle)
+            ;; (global-set-key (kbd "C-M-z") 'projectile-speedbar-open-current-buffer-in-tree)
 
-                                  ;; You can also disable the feature completely:
-                                  ;; (setq projectile-speedbar-projectile-speedbar-enable nil)
+            ;; You can also disable the feature completely:
+            ;; (setq projectile-speedbar-projectile-speedbar-enable nil)
 
-                                  ;; `helm-projectile'
-                                  ;; A binding for using Helm to pick files using Projectile,
-                                  ;; and override the normal grep with a Projectile based grep.
-                                  (internal-require 'helm-projectile)
-                                  ;; (global-set-key (kbd "C-c C-f") 'helm-projectile-find-file-dwim)
-                                  ;; (global-set-key (kbd "C-x C-g") 'helm-projectile-grep)
-                                  (global-set-key [f5] 'helm-projectile) 
-                                  (global-set-key [f12] 'helm-projectile-find-other-file)))
+            ;; `helm-projectile'
+            ;; A binding for using Helm to pick files using Projectile,
+            ;; and override the normal grep with a Projectile based grep.
+            (internal-require 'helm-projectile)
+            ;; (global-set-key (kbd "C-c C-f") 'helm-projectile-find-file-dwim)
+            ;; (global-set-key (kbd "C-x C-g") 'helm-projectile-grep)
+            (global-set-key [f5] 'helm-projectile) 
+            (global-set-key [f12] 'helm-projectile-find-other-file)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-projectile)
 ;; mod-projectile.el ends here

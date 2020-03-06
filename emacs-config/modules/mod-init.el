@@ -23,10 +23,10 @@
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defcustom ome-logo (expand-file-name "~/.oh-my-emacs/logo.png")
-  "set ome logo. nil means official logo."
-  :type 'string)
-(setq fancy-splash-image ome-logo)
+;; (defcustom ome-logo (expand-file-name "~/.oh-my-emacs/logo.png")
+  ;; "set ome logo. nil means official logo."
+  ;; :type 'string)
+;; (setq fancy-splash-image ome-logo)
 
 ;;(package-require 'esup)
 (module-require 'mod-gc)
@@ -46,7 +46,7 @@
 (module-require 'mod-complete)
 (module-require 'mod-helm)
 (module-require 'mod-projectile)
-(module-require 'mod-speedbar)
+;; (module-require 'mod-speedbar)
 
 (if (and (executable-find "offlineimap") 
          (executable-find "mu")) 

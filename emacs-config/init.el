@@ -15,30 +15,32 @@
 (add-to-list 'custom-theme-load-path "~/.oh-my-emacs/emacs-config/themes")
 
 ;;avoid compile error
-;;(setq byte-compile-warnings nil) 
+;;(setq byte-compile-warnings nil)
 ;; (byte-recompile-directory (expand-file-name (concat (getenv "ROOT") "/.oh-emacs-config/emacs-config/modules")) 0)
 
 ;; Display the total loading time in the minibuffer
-(defun display-startup-echo-area-message ()
+(defun display-startup-echo-area-message () 
   "Display startup echo area message."
   (message "Initialized in %s" (emacs-init-time)))
 
 
 (require 'benchmark)
-(defun module-require (pkg)
-  (message "Module '%s' loaded in %.3fs" pkg (benchmark-elapse (require pkg))))
+(defun module-require (pkg) 
+  ;;(message "Module '%s' loaded in %.3fs" pkg (benchmark-elapse (require pkg))) 
+  (require pkg))
 
-(defun internal-require (pkg)
-  (message "---->require '%s' in %.3fs" pkg (benchmark-elapse (require pkg))))
+(defun internal-require (pkg) 
+  (message "---->require '%s' in %.3fs" pkg (benchmark-elapse 
+                                              (require pkg))))
 ;;(fset 'internal-require 'module-require)
 
 ;; Benchmark loading time file by file and display it in the *Messages* buffer
- ;; (when init-file-debug (require 'benchmark))
+;; (when init-file-debug (require 'benchmark))
 
 ;; (defun module-require(mod)
- ;; (when init-file-debug
-	;; (message "Module '%s' loaded in %.2fs" mod (benchmark-elapse (require mod))))
-	;; (require mod))
+;; (when init-file-debug
+;; (message "Module '%s' loaded in %.2fs" mod (benchmark-elapse (require mod))))
+;; (require mod))
 
 (module-require 'mod-init)
 
