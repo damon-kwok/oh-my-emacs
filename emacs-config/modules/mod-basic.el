@@ -598,7 +598,7 @@
 
 
 ;;; `'default-mode'
-(setq major-mode 'sh-mode) ;;set default major mode {sh-mode | text-mode}
+;; (setq major-mode 'text-mode) ;;set default major mode {sh-mode | text-mode}
 
 ;;; session
 ;; (package-require 'session)
@@ -609,7 +609,7 @@
 ;; (desktop-save-mode 1)
 
 ;;; recentf file list
-(recentf-mode t)
+(recentf-mode nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; `backup-settings';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

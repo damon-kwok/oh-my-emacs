@@ -424,7 +424,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 ("s" eshell "*eshell*")
 ("S" (shell "*shell*"))
 
-("\\" (calendar) "calendar")
+("\\" (ome-calendar) "calendar")
 ("<tab>" (hydra-super-menu/body) "BACK")
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
@@ -470,7 +470,7 @@ _<escape>_: Quit    _\\_: calendar     _<tab>_: <-BACK          ^^ ^^
 ("9" (ome-open-url "http://wttr.in/") "wego")
 ("r" ome-open-reddit-channel "Reddit")
 ("s" ome-open-stackoverflow-channel "StackOverflow")
-("\\" (calendar) "calendar")
+("\\" (ome-calendar) "calendar")
 ("<tab>" (hydra-super-menu/body) "BACK")
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
@@ -538,7 +538,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 
 ("C" (compile-all-modules) "compile-all-modules")
 
-("\\" calendar)
+("\\" ome-calendar)
 ("<tab>" (hydra-super-menu/body) "BACK")
 ("q" nil "Quit")
 ("<escape>" nil "Quit"))
@@ -607,7 +607,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
   ;;
   ("<tab>" helm-keyboard-quit "back" 
    :exit t) 
-  ("\\" (calendar) "calendar") 
+  ("\\" (ome-calendar) "calendar") 
   ("<tab>" (hydra-super-menu/body) "BACK") 
   ("q" nil "Quit") 
   ("<escape>" nil "Quit"))
@@ -656,7 +656,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ;;
   ("<tab>" helm-keyboard-quit "back" 
    :exit t) 
-  ("\\" (calendar) "calendar") 
+  ("\\" (ome-calendar) "calendar") 
   ("<tab>" (hydra-super-menu/body) "BACK") 
   ("q" nil "Quit") 
   ("<escape>" nil "Quit"))
@@ -703,7 +703,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("<tab>" (hydra-super-menu/body) "back")
   ("`" (show-global-shell) "shell") 
   ("C-`" (show-global-shell-new) "shell-new") 
-  ("\\" (calendar) "calendar") 
+  ("\\" (ome-calendar) "calendar") 
   ("w" (ome-open-url "http://wttr.in/") "wego") 
   ("q" nil "quit") 
   ("<SPC>" nil "quit") 
@@ -909,7 +909,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("<tab>" helm-recentf "(helm-recentf)")
   ("`" (show-global-shell) "shell") 
   ("C-`" (show-global-shell-new) "shell-new") 
-  ("\\" (calendar) "calendar") 
+  ("\\" (ome-calendar) "calendar") 
   ("w" (ome-open-url "http://wttr.in/") "wego") 
   ("q" nil "quit") 
   ("<SPC>" nil "quit") 

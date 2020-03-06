@@ -27,22 +27,28 @@
 ;; (package-require-git "auctex" "https://github.com/jwiegley/auctex.git")
 (package-download 'auctex)
 (load "auctex.el" nil t t)
-;; (load "preview.el" nil t t)
-(setq Tex-auto-save t)
-(setq Tex-parse-self t)
-(setq-default Tex-master nil)
 
-(if (string-equal system-type "windows-nt") 
-    (internal-require 'tex-mik))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; `cdlatex'
+(package-download 'cdlatex)
+(add-hook 'LaTex-mode-hook (lambda()
+                             ;; (load "preview.el" nil t t)
+                             (setq Tex-auto-save t) 
+                             (setq Tex-parse-self t) 
+                             (setq-default Tex-master nil)
+                             (if (string-equal system-type "windows-nt") 
+                                 (internal-require 'tex-mik))
 
-;; turn on image file support
-(auto-image-file-mode)
+                             ;; turn on image file support
+                             (auto-image-file-mode)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; set xelatex is default edit command
-(setq Tex-output-view-style (quote (("^pdf$" "." "evince &o %(outpage)"))))
-
-(add-hook 'LaTex-mode-hook (lambda() 
+                             ;;; cdlatex is AUCtex's helper
+                             (internal-require 'cdlatex)
+                             (turn-on-cdlatex)
+                             
+                             ;; set xelatex is default edit command
+                             (setq Tex-output-view-style ;;
+                                   (quote (("^pdf$" "." "evince &o %(outpage)")))) 
                              (add-to-list 'Tex-command-list '("XeLaTex" "%`xelatex%(mode)'%t"
                                                               Tex-run-Tex nil t)) 
                              (setq Tex-command-default "XeLaTex")))
@@ -72,13 +78,6 @@
                                                                    "\\subsection*{%s}") 
                                                                   ("\\subsubsection{%s}" .
                                                                    "\\subsubsection*{%s}"))))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `cdlatex'
-(package-require 'cdlatex)
-
-;;; cdlatex is AUCtex's helper
-(add-hook 'LaTex-mode-hook 'turn-on-cdlatex)
-
 ;;
 (provide 'mod-latex)
 ;;; mod-latex.el ends here
