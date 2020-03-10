@@ -92,9 +92,14 @@
   "Works just like `progn' but will only evaluate expressions in VAR when Emacs is running in a terminal else just nil."
   `(when (ome-is-in-terminal) ,@body))
 
+(defun ome-buffer-directory ()
+  (if buffer-file-name
+      (file-name-directory buffer-file-name)
+    (expand-file-name "~/.oh-my-emacs")))
 
 (defun ome-buf-dirpath() 
-  (directory-file-name (file-name-directory buffer-file-name)))
+  ;;(directory-file-name (file-name-directory buffer-file-name))
+  (directory-file-name (ome-buffer-directory)))
 
 (defun ome-buf-dirname() 
   (nth 0 (last (split-string (ome-buf-dirpath) "/") 1)))
@@ -129,12 +134,6 @@
     (if (string= fist-char "*") "./" (if (projectile-project-p) 
                                          (projectile-project-root) 
                                        (ome-buf-dirpath)))))
-
-;; (ome-parent-dirpath "c/haha/aaa/index.org")
-;; (ome-buf-dirname)
-;; (buffer-name)
-;; (concat (ome-buf-dirname) "/" (buffer-name))
-
 (defun ome-parent-dirpath (path) 
   (file-name-directory (directory-file-name path)))
 
@@ -684,8 +683,7 @@ occurence of CHAR."
 (defun --ome-grep-directory (str) 
   (message (concat "grep-dir:" str)) 
   (if (stringp str) 
-      (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (file-name-directory
-                                                                buffer-file-name)))))
+      (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (ome-buffer-directory)))))
 
 (defun ome-open-reddit-channel (word) 
   "Show the explanation of WORD from Bing in the echo area." 

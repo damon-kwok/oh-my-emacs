@@ -5,9 +5,11 @@
 ;;(unless package--initialized (package-initialize t))
 (unless package--initialized (package-initialize))
 
+;; (toggle-frame-fullscreen)
 ;; (toggle-debug-on-error)
 ;; (toggle-debug-on-quit)
-;; (toggle-frame-fullscreen)
+(setq debug-on-error t)
+(setq debug-on-quit nil)
 
 (add-to-list 'load-path "~/.oh-my-emacs/emacs-config")
 (add-to-list 'load-path "~/.oh-my-emacs/emacs-config/modules")

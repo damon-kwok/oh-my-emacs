@@ -108,7 +108,7 @@
   (if (slime-connected-p) 
       (slime-switch-to-output-buffer) 
     (slime)) 
-  (if (< (/ (frame-height) 3) 
+  (if (< (/ (frame-height) 2) 
          (window-height)) 
       (shrink-window (/ (window-height) 2))))
 
