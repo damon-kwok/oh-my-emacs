@@ -92,12 +92,13 @@
     (module-require 'mod-sh))
 
 ;; `cc'
-(if (or (string= system-type 'windows-nt) ;
-        (string= system-type 'ms-dos)) 
-    (defconst cc-lang-server "clangd") 
-  (if (string= system-type 'rtags) 
-      (defconst cc-lang-server "ccls") 
-    (defconst cc-lang-server "clangd")))
+;; (if (or (string= system-type 'windows-nt) ;
+        ;; (string= system-type 'ms-dos)) 
+    ;; (defconst cc-lang-server "clangd") 
+  ;; (if (string= system-type 'rtags) 
+      ;; (defconst cc-lang-server "ccls") 
+    ;; (defconst cc-lang-server "clangd")))
+(defconst cc-lang-server "ccls")
 
 (cond ((and 
         (string= cc-lang-server "clangd") 

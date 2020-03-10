@@ -266,13 +266,15 @@
   (dolist (charset '(kana han symbol cjk-misc bopomofo)) 
     (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei" 
                                                                      :size 12))))
-;; (if window-system (ome-set-font "Bitstream Vera Sans Mono" 10)) ;;1iljg9q0oO
+;;
+;; |1iljg9q0oO
+;; (if window-system (ome-set-font "Bitstream Vera Sans Mono" 10))
 ;; (if window-system (ome-set-font "DejaVu Sans Mono" 10))
-;; (if window-system (ome-set-font "JetBrains Mono" 10))
-;; (if window-system (ome-set-font "Fira Code" 10))
 ;; (if window-system (ome-set-font "ibm3270" 11))
 ;; (if window-system (ome-set-font "Hack" 10))
-(if window-system (ome-set-font "Fantasque Sans Mono" 11))
+;; (if window-system (ome-set-font "Fira Code" 10))
+(if window-system (ome-set-font "JetBrains Mono" 10))
+;; (if window-system (ome-set-font "Fantasque Sans Mono" 11))
 
 ;;; `tip'
 ;;; set error tips:blink or beep ?(t:blink nil:beep)

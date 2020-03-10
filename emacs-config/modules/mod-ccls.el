@@ -115,9 +115,9 @@
 ;; (lsp-ui-peek-find-references nil (list :folders (vector (projectile-project-root))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-hook 'c-mode-hook 'ccls-setup)
-(add-hook 'c++-mode-hook 'ccls-setup)
-(add-hook 'objc-mode-hook 'ccls-setup)
+;; (add-hook 'c-mode-hook 'ccls-setup)
+;; (add-hook 'c++-mode-hook 'ccls-setup)
+;; (add-hook 'objc-mode-hook 'ccls-setup)
 
 ;; alternatively, (setq cquery-sem-highlight-method 'overlay)
 (setq ccls-sem-highlight-method 'font-lock)

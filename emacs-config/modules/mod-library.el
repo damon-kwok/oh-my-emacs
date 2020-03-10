@@ -627,9 +627,12 @@ occurence of CHAR."
          (ome-ask-new-project "rosman %s" "src/main.cpp"))))
 
 (defun ome-cmake-build() 
-  (interactive) 
-  (if (file-exists-p (concat (projectile-project-root) "CMakeLists.txt")) 
-      (ome-run-command (concat "cmake_build" " " (projectile-project-root)))))
+  (interactive)
+  (message (concat "root:" (ome-project-root)))
+  (if (file-exists-p (concat (projectile-project-root) "CMakeLists.txt"))
+      (let ((cmd (concat "emacs run: cmake_build " (projectile-project-root))))
+        (message "cmd:%s" cmd)
+        (ome-run-command cmd))))
 
 (defun ome-buffer-reload() 
   (interactive) 
