@@ -166,15 +166,9 @@
 (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
 (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
 
-;; `cmake-file'
-(defun gen-cmake-file () 
-  (if (string= (ome-project-root) "") 
-      (message "project root not found!") 
-    (shell-command (concat "gen_cmake_file " (ome-project-root)))))
-
-;; (add-hook 'c-mode-hook 'gen-cmake-file)
-;; (add-hook 'c++-mode-hook 'gen-cmake-file)
-;; (add-hook 'objc-mode-hook 'gen-cmake-file)
+;; (add-hook 'c-mode-hook 'ome-gen-cmake-file)
+;; (add-hook 'c++-mode-hook 'ome-gen-cmake-file)
+;; (add-hook 'objc-mode-hook 'ome-gen-cmake-file)
 
 ;; `cmake-ide'
 ;; (package-require 'cmake-ide)
@@ -235,7 +229,7 @@
 
 (defun automenu--c-mode-func (index) 
   (cond ((= 0 index) 
-         (gen-cmake-file)) 
+         (ome-gen-cmake-file)) 
         ((= 1 index) 
          (ome-cmake-build)) 
         ((= 2 index) 

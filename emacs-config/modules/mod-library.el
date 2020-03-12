@@ -92,12 +92,11 @@
   "Works just like `progn' but will only evaluate expressions in VAR when Emacs is running in a terminal else just nil."
   `(when (ome-is-in-terminal) ,@body))
 
-(defun ome-buffer-directory ()
-  (if buffer-file-name
-      (file-name-directory buffer-file-name)
+(defun ome-buffer-directory () 
+  (if buffer-file-name (file-name-directory buffer-file-name) 
     (expand-file-name "~/.oh-my-emacs")))
 
-(defun ome-buf-dirpath() 
+(defun ome-buf-dirpath()
   ;;(directory-file-name (file-name-directory buffer-file-name))
   (directory-file-name (ome-buffer-directory)))
 
@@ -626,12 +625,18 @@ occurence of CHAR."
         ((string= lang "ros") 
          (ome-ask-new-project "rosman %s" "src/main.cpp"))))
 
+;; `cmake-file'
+(defun ome-gen-cmake-file () 
+  (if (string= (ome-project-root) "") 
+      (message "project root not found!") 
+    (shell-command (concat "gen_cmake_file " (ome-project-root)))))
+
 (defun ome-cmake-build() 
-  (interactive)
-  (message (concat "root:" (ome-project-root)))
-  (if (file-exists-p (concat (projectile-project-root) "CMakeLists.txt"))
-      (let ((cmd (concat "cmake_build " (projectile-project-root))))
-        (message "emacs run:%s" cmd)
+  (interactive) 
+  (message (concat "root:" (ome-project-root))) 
+  (if (file-exists-p (concat (projectile-project-root) "CMakeLists.txt")) 
+      (let ((cmd (concat "cmake_build " (projectile-project-root)))) 
+        (message "emacs run:%s" cmd) 
         (ome-run-command cmd))))
 
 (defun ome-buffer-reload() 

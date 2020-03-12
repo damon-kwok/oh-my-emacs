@@ -98,7 +98,7 @@
   ;; (if (string= system-type 'rtags) 
       ;; (defconst cc-lang-server "ccls") 
     ;; (defconst cc-lang-server "clangd")))
-(defconst cc-lang-server "ccls")
+(defconst cc-lang-server "clangd")
 
 (cond ((and 
         (string= cc-lang-server "clangd") 

@@ -51,7 +51,7 @@
 
 (defun cquery-setup () 
   (interactive) 
-  ;; (gen-cmake-file) 
+  (ome-gen-cmake-file) 
   (cquery//enable)
   ;; (push 'company-lsp company-backends)
   ;; (cquery-xref-find-custom "$cquery/base")

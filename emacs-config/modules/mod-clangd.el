@@ -24,17 +24,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(require 'mod-cc)
-(require 'mod-lsp)
-(add-hook 'c-mode-hook #'lsp)
-(add-hook 'c++-mode-hook #'lsp)
-(add-hook 'objc-mode-hook #'lsp)
+;; (add-hook 'c-mode-hook #'lsp)
+;; (add-hook 'c++-mode-hook #'lsp)
+;; (add-hook 'objc-mode-hook #'lsp)
 
 (defun clangd-setup () 
   (interactive) 
-  (gen-cmake-file)
-  ;; (cquery//enable)
-  (push 'company-lsp company-backends))
+  (internal-require 'mod-cc) 
+  (internal-require 'mod-lsp) 
+  (ome-gen-cmake-file) 
+  (push 'company-lsp company-backends) 
+  (lsp))
 
 (add-hook 'c-mode-hook #'clangd-setup)
 (add-hook 'c++-mode-hook #'clangd-setup)
