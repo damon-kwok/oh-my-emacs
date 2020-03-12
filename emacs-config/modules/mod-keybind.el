@@ -667,33 +667,35 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   (concat
    "^^^^^^^^New project wizard:\n";;
    "^^^^^^^^------------------------------------------------------------------------\n";;
-   "^C^           ^JVM^           ^.Net^             ^Functional^\n";;
+   "^*^               ^JVM^           ^Nodejs^            ^Python^   ^Other^\n";;
    "^^^^^^^^------------------------------------------------------------------------\n";;
-   "_c_:C/C++     _M-j_:Java      ^s:C#^             _r_:Rust\n";;
-   "_C_:CL (ROS)  _M-s_:Scala     _C-n_:Nodejs       _e_:Erlang\n";;
-   "_g_:Golang    _M-g_:Groovy    ^^                 _E_:Elixir\n";;
-   "_p_:Python    ^M-p:Jython^    ^C-p:IronPython^   _h_:Haskell\n";;
-   "_n_:Nim       _M-c_:Clojure   ^C-f:F#^           _o_:OCaml\n";;
-   "_1_:Ruby      _C-c_:Cljs      ^^                 ^^";;
+   "_c_:C|_C_:C++       _M-j_:Java      _1_:Nodejs                   _9_:Ruby\n";;
+   "_0_:CL(Roswell)   _M-c_:Clojure   _C-c_:Cljs                      _e_:Erlang\n";;
+   "_g_:Golang        _M-k_:Kotlin    ^C-t:TypeScript^                _E_:Elixir\n";;
+   "_r_:Rust          _M-s_:Scala     ^ReasonML^                              _h_:Haskell\n";;
+   "_n_:Nim           _M-g_:Groovy    ^^                              _o_:OCaml\n";;
+   "_p_:Python        ^M-p_:Jython^   ^C-p:IronPython^                ^C-f:F#^\n";;
    "^^^^^^^^------------------------------------------------------------------------\n";;
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^\n");;
 
-  ("c" (ome-project-wizard "c") "c/c++")
-  ("C" (ome-project-wizard "ros") "ROS")
-  ("p" (ome-project-wizard "python") "python")
+  ("c" (ome-project-wizard "c") "C")
+  ("C" (ome-project-wizard "cpp") "C++")
+  ("0" (ome-project-wizard "ros") "ROS")
+  ("r" (ome-project-wizard "rust") "rust")
   ("g" (ome-project-wizard "go") "go")
+  ("p" (ome-project-wizard "python") "python")
   ("n" (ome-project-wizard "nim") "nim")
-  ("1" (ome-project-wizard "ruby") "ruby")
 
   ("M-j" (ome-project-wizard "java") "java")
   ("M-s" (ome-project-wizard "scala") "scala")
   ("M-g" (ome-project-wizard "groovy") "groovy")
   ("M-c" (ome-project-wizard "clj") "clojure")
   ("C-c" (ome-project-wizard "cljs") "clojure")
+  ("M-k" (ome-project-wizard "kotlin") "Kotlin")
 
-  ("C-n" (ome-project-wizard "nodejs") "nodejs")
+  ("1" (ome-project-wizard "nodejs") "nodejs")
   
-  ("r" (ome-project-wizard "rust") "rust")
+  ("9" (ome-project-wizard "ruby") "ruby")
   ("e" (ome-project-wizard "erlang") "erlang")
   ("E" (ome-project-wizard "elixir") "elixir")
   ("h" (ome-project-wizard "haskell") "haskell")

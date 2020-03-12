@@ -630,8 +630,8 @@ occurence of CHAR."
   (interactive)
   (message (concat "root:" (ome-project-root)))
   (if (file-exists-p (concat (projectile-project-root) "CMakeLists.txt"))
-      (let ((cmd (concat "emacs run: cmake_build " (projectile-project-root))))
-        (message "cmd:%s" cmd)
+      (let ((cmd (concat "cmake_build " (projectile-project-root))))
+        (message "emacs run:%s" cmd)
         (ome-run-command cmd))))
 
 (defun ome-buffer-reload() 
