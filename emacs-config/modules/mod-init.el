@@ -51,9 +51,9 @@
 ;; (module-require 'mod-dired)
 ;; (module-require 'mod-tree)
 
-(if (and (executable-find "offlineimap") 
-         (executable-find "mu")) 
-    (module-require 'mod-email))
+(if (and (executable-find "mu") 
+        (executable-find "mbsync")) 
+   (module-require 'mod-email))
 
 ;; (module-require 'mod-feed)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -192,7 +192,7 @@
 ;; (if (or (unless system-type 'windows-nt)
 ;; (unless system-type 'ms-dos))
 ;; (module-require 'mod-email-mu4e))
-(module-require 'mod-email-wl)
+;; (module-require 'mod-email-wl)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `music'
 ;; (package-require 'emms)

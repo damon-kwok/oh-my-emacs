@@ -740,10 +740,10 @@ occurence of CHAR."
 
 (defun ome-mu4e-open () 
   (interactive) 
-  (if (and (executable-find "offlineimap") 
-           (executable-find "mu")) 
+  (if (and (executable-find "mu") 
+           (executable-find "mbsync")) 
       (mu4e) 
-    (message "Please install 'mu' and 'offlineimap'!")))
+    (message "Please install 'mu' and 'isync'!")))
 
 (defun ome-mu4e-new () 
   (interactive) 

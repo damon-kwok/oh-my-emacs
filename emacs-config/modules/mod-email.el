@@ -24,6 +24,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
+;; (package-download-git "mu-git" "https://github.com/wanderlust/wanderlust.git")
 (setq mu4e-root-git (concat (expand-file-name ome-lib-dir) "/mu-git/mu4e"))
 (add-to-list 'load-path mu4e-root-git)
 
@@ -35,8 +36,8 @@
 (setenv "XAPIAN_CJK_NGRAM" "1")
 
 ;; `extensions'
-(package-require 'mu4e-maildirs-extension)
-(mu4e-maildirs-extension)
+;; (package-require 'mu4e-maildirs-extension)
+;; (mu4e-maildirs-extension)
 
 ;; (package-require 'mu4e-jump-to-list)
 
@@ -62,9 +63,9 @@
 (internal-require 'mu4e-contrib)
 (setq mu4e-html2text-command 'mu4e-shr2text)
 
-(setq mu4e-drafts-folder "/Draft")
-(setq mu4e-sent-folder   "/Sent")
-(setq mu4e-trash-folder  "/Trash")
+;; (setq mu4e-drafts-folder "/Draft")
+;; (setq mu4e-sent-folder   "/Sent")
+;; (setq mu4e-trash-folder  "/Trash")
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
 
@@ -77,17 +78,17 @@
 ;; then, when you want archive some messages, move them to
 ;; the 'All Mail' folder by pressing ``ma''.
 
-(setq mu4e-maildir-shortcuts '( ("/INBOX" . ?i) 
-                                ("/INBOX/News" . ?1) 
-                                ("/INBOX/Notification" . ?2) 
-                                ("/INBOX/NewMember" . ?3) 
-                                ("/INBOX/JIRA" . ?4) 
-                                ("/INBOX/Meeting" . ?m) 
-                                ("/INBOX/MeetingSummary" . ?M) 
-                                ("/INBOX/Wage" . ?w) 
-                                ("/Sent" . ?s) 
-                                ("/Trash" . ?t) 
-                                ("/Junk" . ?j)))
+;; (setq mu4e-maildir-shortcuts '( ("/INBOX" . ?i) 
+                                ;; ("/INBOX/News" . ?1) 
+                                ;; ("/INBOX/Notification" . ?2) 
+                                ;; ("/INBOX/NewMember" . ?3) 
+                                ;; ("/INBOX/JIRA" . ?4) 
+                                ;; ("/INBOX/Meeting" . ?m) 
+                                ;; ("/INBOX/MeetingSummary" . ?M) 
+                                ;; ("/INBOX/Wage" . ?w) 
+                                ;; ("/Sent" . ?s) 
+                                ;; ("/Trash" . ?t) 
+                                ;; ("/Junk" . ?j)))
 
 (setq mu4e-index-cleanup nil   ;; don't do a full cleanup check
       mu4e-index-lazy-check t) ;; don't consider up-to-date dirs
