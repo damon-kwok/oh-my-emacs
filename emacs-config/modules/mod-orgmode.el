@@ -23,30 +23,144 @@
 ;;
 ;;org-mode
 ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
-(package-require 'org-plus-contrib 'org-install)
-(add-hook 'org-mode-hook (lambda () 
-                           (setq truncate-lines nil) 
-                           (setq org-startup-with-inline-images t) 
-                           (org-display-inline-images t t)))
+(package-download 'org-plus-contrib)
+(package-download 'org2ctex)
+;; `Babel-Languages'
+(package-download 'ob-elixir)
+(package-download 'ob-browser)
+(package-download 'ob-crystal)
+(package-download 'ob-go)
+(package-download 'ob-kotlin)
+(package-download 'ob-lfe)
+(package-download 'ob-crystal)
+(package-download 'ob-fsharp)
+(package-download 'ob-http)
+(package-download 'ob-nim)
+(package-download 'ob-prolog)
+(package-download 'ob-rust)
+(package-download 'ob-swift)
+(package-download 'ob-dart)
+(package-download 'ob-coffee)
+(package-download 'ob-coffeescript)
+(package-download 'ob-hy)
+(package-download 'ob-typescript)
+(package-download 'ob-sml)
+;;
+(add-hook 'org-mode-hook ;;
+          (lambda () 
+            (internal-require 'org-plus-contrib 'org-install) 
+            (setq truncate-lines nil) 
+            (setq org-startup-with-inline-images t) 
+            (org-display-inline-images t t)))
+;;
+(add-hook 'org-load-hook ;;
+          (lambda () 
+            (internal-require 'org-install) 
+            (org-defkey org-mode-map [(meta p)]    'org-metaup) 
+            (org-defkey org-mode-map [(meta n)]  'org-metadown) 
+            (org-defkey org-mode-map "\M-["    'org-metaup) 
+            (org-defkey org-mode-map "\M-/"  'org-metadown) 
+            (org-defkey org-mode-map "\M-;"    'org-metaleft) 
+            (org-defkey org-mode-map "\M-'"  'org-metaright)
+            ;;
+            (internal-require 'mod-org-publish)
+            ;;
+            (setq org-todo-keywords '((sequence "TODO" "DOING" "DONE"))) 
+            (setq org-todo-keyword-faces '(("TODO" . "red") 
+                                           ("DOING" . "yellow") 
+                                           ("DONE" . "green"))) 
+            (setq org-enforce-todo-dependencies t) 
+            (setq org-log-done 'time)
+            ;;(setq org-log-done 'note)
+            ;; `org2ctex'
+            ;; (require 'mod-latex)
+            (internal-require 'org2ctex) 
+            (org2ctex-toggle t)
+            ;;
+            ;; (setq org2ctex-latex-default-class "ctexart")
 
-(setq org-todo-keywords '((sequence "TODO" "DOING" "DONE")))
+            ;; disable latex auto font settings
+            ;; (setq org2ctex-latex-fonts nil)
 
-(setq org-todo-keyword-faces '(("TODO" . "red") 
-                               ("DOING" . "yellow") 
-                               ("DONE" . "green")))
-(setq org-enforce-todo-dependencies t)
+            ;;
+            ;; (setq org-latex-create-formula-image-program 'dvipng)    ;速度很快，但 *默认* 不支持中文
+            (setq org-latex-create-formula-image-program 'imagemagick) ;速度较慢，但支持中文
+            (setq org-format-latex-options (plist-put org-format-latex-options 
+                                                      :scale 2.0)) ;调整 LaTeX 预览图片的大小
+            (setq org-format-latex-options (plist-put org-format-latex-options 
+                                                      :html-scale 2.5)) ;调整 HTML 文件中 LaTeX 图像的大小
+            ;; 中文目录下的 org 文件无法转换为 pdf 文件
+            ;; 这个问题可以使用 latexmk 命令配合 "%b.tex" (仅仅使用文件名，而不是文件的绝对路径) 来规避，比如：
+            (setq org2ctex-latex-commands '("latexmk -xelatex -gg -pdf %b.tex"))
 
-(setq org-log-done 'time)
-;;(setq org-log-done 'note)
+            ;; `Babel-Languages'
+            (internal-require 'ob-elixir) 
+            (internal-require 'ob-browser) 
+            (internal-require 'ob-crystal) 
+            (internal-require 'ob-go) 
+            (internal-require 'ob-kotlin) 
+            (internal-require 'ob-lfe) 
+            (internal-require 'ob-crystal) 
+            (internal-require 'ob-fsharp) 
+            (internal-require 'ob-http) 
+            (internal-require 'ob-nim) 
+            (internal-require 'ob-prolog) 
+            (internal-require 'ob-rust) 
+            (internal-require 'ob-swift) 
+            (internal-require 'ob-dart) 
+            (internal-require 'ob-coffee) 
+            (internal-require 'ob-coffeescript) 
+            (internal-require 'ob-hy) 
+            (internal-require 'ob-typescript) 
+            (internal-require 'ob-sml)
 
-(add-hook 'org-load-hook (lambda () 
-                           (org-defkey org-mode-map [(meta p)]    'org-metaup) 
-                           (org-defkey org-mode-map [(meta n)]  'org-metadown) 
-                           (org-defkey org-mode-map "\M-["    'org-metaup) 
-                           (org-defkey org-mode-map "\M-/"  'org-metadown) 
-                           (org-defkey org-mode-map "\M-;"    'org-metaleft) 
-                           (org-defkey org-mode-map "\M-'"  'org-metaright)))
+            ;;(package-require 'ob-php)
+            ;; (package-require 'ob-ipython)
+            (org-babel-do-load-languages 'org-babel-load-languages ;;
+                                         '((shell . t) 
+                                           (octave . t) 
+                                           (ditaa . t) 
+                                           (dot . t) 
+                                           (sql . t) 
+                                           (sqlite . t) 
+                                           (makefile . t) 
+                                           (org . t) 
+                                           (latex . t) 
+                                           (browser . t) 
+                                           (java . t) 
+                                           (go . t) 
+                                           (crystal . t) 
+                                           (kotlin . t) 
+                                           (js . t) 
+                                           (typescript . t) 
+                                           (python . t)
+                                           ;; (ipython . t)
+                                           (perl . t) 
+                                           (ruby . t) 
+                                           (groovy . t) 
+                                           (matlab . t) 
+                                           (R . t) 
+                                           (lisp . t) 
+                                           (emacs-lisp .t) 
+                                           (clojure .t) 
+                                           (hy . t) 
+                                           (ocaml . t) 
+                                           (sml . t) 
+                                           (haskell . t) 
+                                           (elixir .t) 
+                                           (lfe . t) 
+                                           (fsharp . t) 
+                                           (http . t) 
+                                           (nim . t)
+                                           ;;(php . t)
+                                           (prolog . t) 
+                                           (rust . t) 
+                                           (swift . t) 
+                                           (dart . t) 
+                                           (coffee . t) 
+                                           (coffeescript . t)))))
 ;; (org-defkey org-mode-map "C-c C-z" 'org-export-dispatch)))
 
 (global-set-key "\C-cl" 'org-store-link)
@@ -58,16 +172,14 @@
 ;; (global-set-key (kbd "C-c C-b") #'(lambda ()
 ;; (interactive)
 ;; (org-publish-project "blog")))
-
 ;;
 ;; (org-remember-insinuate)
 ;; (setq org-directory "~/journal/")
 ;; (setq org-default-notes-file
 ;; (concat org-directory (concat (format-time-string "%Y-%m") ".org.cpt"))
 ;; )
-
+;;
 ;; (define-key global-map "\C-cr" 'org-remember)
-
 ;; (define-key global-map "\C-cc" 'org-capture)
 
 (define-key global-map "\C-cj" (lambda () 
@@ -82,94 +194,8 @@
                                "* %?\nEntered on %U\n  %i\n  %a")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; `Babel-Languages'
-(package-require 'ob-elixir)
-(package-require 'ob-browser)
-(package-require 'ob-crystal)
-(package-require 'ob-go)
-(package-require 'ob-kotlin)
-(package-require 'ob-lfe)
-(package-require 'ob-crystal)
-(package-require 'ob-fsharp)
-(package-require 'ob-http)
-(package-require 'ob-nim)
-(package-require 'ob-prolog)
-(package-require 'ob-rust)
-(package-require 'ob-swift)
-(package-require 'ob-dart)
-(package-require 'ob-coffee)
-(package-require 'ob-coffeescript)
-(package-require 'ob-hy)
-(package-require 'ob-typescript)
-(package-require 'ob-sml)
-
-;;(package-require 'ob-php)
-;; (package-require 'ob-ipython)
-(org-babel-do-load-languages 'org-babel-load-languages ;;
-                             '((shell . t) 
-                               (octave . t) 
-                               (ditaa . t) 
-                               (dot . t) 
-                               (sql . t) 
-                               (sqlite . t) 
-                               (makefile . t) 
-                               (org . t) 
-                               (latex . t) 
-                               (browser . t) 
-                               (java . t) 
-                               (go . t) 
-                               (crystal . t) 
-                               (kotlin . t) 
-                               (js . t) 
-                               (typescript . t) 
-                               (python . t)
-                               ;; (ipython . t)
-                               (perl . t) 
-                               (ruby . t) 
-                               (groovy . t) 
-                               (matlab . t) 
-                               (R . t) 
-                               (lisp . t) 
-                               (emacs-lisp .t) 
-                               (clojure .t) 
-                               (hy . t) 
-                               (ocaml . t) 
-                               (sml . t) 
-                               (haskell . t) 
-                               (elixir .t) 
-                               (lfe . t) 
-                               (fsharp . t) 
-                               (http . t) 
-                               (nim . t)
-                               ;;(php . t)
-                               (prolog . t) 
-                               (rust . t) 
-                               (swift . t) 
-                               (dart . t) 
-                               (coffee . t) 
-                               (coffeescript . t)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; `org2ctex'
-;; (require 'mod-latex)
-(package-require 'org2ctex)
-(org2ctex-toggle t)
-;;
-;; (setq org2ctex-latex-default-class "ctexart")
-
-;; disable latex auto font settings
-;; (setq org2ctex-latex-fonts nil)
-
-;;
-;; (setq org-latex-create-formula-image-program 'dvipng)    ;速度很快，但 *默认* 不支持中文
-(setq org-latex-create-formula-image-program 'imagemagick) ;速度较慢，但支持中文
-(setq org-format-latex-options (plist-put org-format-latex-options 
-                                          :scale 2.0)) ;调整 LaTeX 预览图片的大小
-(setq org-format-latex-options (plist-put org-format-latex-options 
-                                          :html-scale 2.5)) ;调整 HTML 文件中 LaTeX 图像的大小
-;; 中文目录下的 org 文件无法转换为 pdf 文件
-;; 这个问题可以使用 latexmk 命令配合 "%b.tex" (仅仅使用文件名，而不是文件的绝对路径) 来规避，比如：
-(setq org2ctex-latex-commands '("latexmk -xelatex -gg -pdf %b.tex"))
 
 ;;
 (provide 'mod-orgmode)

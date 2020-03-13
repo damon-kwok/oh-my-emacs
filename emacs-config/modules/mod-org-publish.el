@@ -43,8 +43,8 @@
                                    :author "damon-kwok" 
                                    :email "damon-kwok@outlook.com" 
                                    :auto-sitemap t ; Generate sitemap.org automagically...
-                                   :sitemap-filename "sitemap.org" ; ... call it sitemap.org (it's the default)...
-                                   :sitemap-title "Sitemap" ; ... with title 'Sitemap'.
+                                   :sitemap-filename "sitemap.org" ; call it sitemap.org (it's the default)...
+                                   :sitemap-title "Sitemap" ; with title 'Sitemap'.
                                    :sitemap-sort-files anti-chronologically 
                                    :sitemap-file-entry-format "%d %t")
                                   ;;
@@ -63,14 +63,17 @@
   (with-temp-buffer (insert-file-contents (concat *site-template-directory* "/" template-file)) 
                     (buffer-string)))
 
-;;; 设置CSS样式
+;; set `CSS' style
 (setq org-html-head-extra
       "<link rel=\"stylesheet\" type=\"text/css\" href=\"/style/default.css\" />")
-;;; 取消默认的CSS
+;;
+;; cancel default `CSS' style
 (setq org-html-head-include-default-style nil)
-;;; 取消默认的Javascript代码
+;;
+;; cancel default `javascript' code
 (setq org-html-head-include-scripts nil)
-;;; XXX 用org-html-head可以设置<head>部分
+;;
+;;  use `org-html-head' set <head>
 (setq org-html-preamble (read-html-template "preamble.html"))
 (setq org-html-postamble (read-html-template "postamble.html"))
 

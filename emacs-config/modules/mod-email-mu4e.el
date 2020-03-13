@@ -92,7 +92,7 @@
 (setq mu4e-index-cleanup nil   ;; don't do a full cleanup check
       mu4e-index-lazy-check t) ;; don't consider up-to-date dirs
 
-(setq mu4e-get-mail-command "mbsync -a" ;; or fetchmail, or ...
+(setq mu4e-get-mail-command "offlineimap" ;; or fetchmail, or ...
       mu4e-update-interval 300)           ;; update every 1 minutes
 
 ;; `set-play-sound'
@@ -114,7 +114,7 @@
         user-full-name (s-trim (ome-load-file-to-string (concat conf-dir "/name"))) ;
         user-mail-address (s-trim (ome-load-file-to-string (concat conf-dir "/addr")))))
 
-(load-email-signature "~/workspace/conf/email/outlook")
+(load-email-signature "~/workspace/conf/email/default")
 
 ;; `send-mail-settting'
 ;; sending mail -- replace USERNAME with your gmail username
@@ -125,9 +125,9 @@
 ;; alternatively, for emacs-24 you can use:
 (setq message-send-mail-function 'smtpmail-send-it ;
       smtpmail-stream-type 'ssl                    ;
-      smtpmail-default-smtp-server "smtp.office365.com"  ;
-      smtpmail-smtp-server "smtp.office365.com"          ;
-      smtpmail-smtp-service 587)
+      smtpmail-default-smtp-server "smtp.263.net"  ;
+      smtpmail-smtp-server "smtp.263.net"          ;
+      smtpmail-smtp-service 465)
 
 ;; don't keep message buffers around
 (setq message-kill-buffer-on-exit t)
@@ -183,5 +183,5 @@
          (mu4e-mark-execute-all))
         (t (message  "mu4e-view-mode menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(provide 'mod-email)
+(provide 'mod-email-mu4e)
 ;; mod-email.el ends here

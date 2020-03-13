@@ -26,10 +26,9 @@
 ;;
 (package-download 'racer)
 (package-download 'cargo)
-(package-download 'toml-mode)
-(add-to-list 'auto-mode-alist '("\\.toml$" . toml-mode))
 (package-download 'rust-mode)
 (add-to-list 'auto-mode-alist '("\\.rs$" . rust-mode))
+;;
 (add-hook 'rust-mode-hook (lambda () 
                             ;; Configure Emacs to activate racer when rust-mode starts:
                             (racer-mode) 
@@ -45,7 +44,7 @@
                                  (interactive) 
                                  (ome-run-command "cargo build")))
                             (define-key rust-mode-map [f6] 'ome-open-or-close-cargofile)
-                            (internal- 'toml-mode)
+                            (internal-require 'mod-toml)
                             (define-key conf-toml-mode-map [f6] 'ome-open-or-close-cargofile)))
 
 (defun ome-open-or-close-cargofile () 

@@ -29,6 +29,7 @@
 ;; (setq fancy-splash-image ome-logo)
 
 ;;(package-require 'esup)
+;; (module-require 'mod-profiler)
 (module-require 'mod-gc)
 (module-require 'mod-coding)
 (module-require 'mod-elisp)
@@ -47,28 +48,28 @@
 (module-require 'mod-helm)
 (module-require 'mod-projectile)
 ;; (module-require 'mod-speedbar)
+;; (module-require 'mod-dired)
+;; (module-require 'mod-tree)
 
 (if (and (executable-find "offlineimap") 
          (executable-find "mu")) 
     (module-require 'mod-email))
 
 ;; (module-require 'mod-feed)
-;; (module-require 'mod-dired)
-;; (module-require 'mod-tree)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `docs'
 (module-require 'mod-text)
 (module-require 'mod-csv)
 (module-require 'mod-rst)
 (module-require 'mod-adoc)
-;; (module-require 'mod-orgmode)
+(module-require 'mod-toml)
+(module-require 'mod-orgmode)
 (module-require 'mod-markdown)
 (module-require 'mod-protobuf)
-
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `utils'
 (module-require 'mod-calendar)
-(module-require 'mod-profiler)
 (module-require 'mod-format)
 ;; (module-require 'mod-latex)
 (module-require 'mod-ros)
@@ -190,7 +191,8 @@
 
 ;; (if (or (unless system-type 'windows-nt)
 ;; (unless system-type 'ms-dos))
-;; (module-require 'mod-email))
+;; (module-require 'mod-email-mu4e))
+(module-require 'mod-email-wl)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `music'
 ;; (package-require 'emms)

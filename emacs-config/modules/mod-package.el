@@ -97,13 +97,13 @@
     (internal-require pkg))
   (if alias-pkg2 (internal-require alias-pkg2)))
 
-(defun package-download-git(lib-name path)
+(defun package-download-git(lib-name repo)
   ;; (setq dir-lib-name (expand-file-name ome-lib-dir ))
   (let* ((oldir default-directory) 
          (dir-name (concat (expand-file-name ome-lib-dir) "/" (file-name-base lib-name))) 
          (full-name (concat dir-name "/" lib-name)) 
-         (cmd-update (concat "git fetch")) 
-         (cmd-clone (concat "git clone " path " --depth=1 " lib-name))) 
+         (cmd-update (concat "git pull")) 
+         (cmd-clone (concat "git clone " repo " --depth=1 " lib-name))) 
     (add-to-list 'load-path dir-name) 
     (make-directory ome-lib-dir t) 
     (message dir-name) 
@@ -111,11 +111,13 @@
     (if (file-exists-p dir-name) 
         (progn 
           (setq default-directory dir-name) 
-          (call-process-shell-command cmd-update nil t)) 
+          (ome-run-command cmd-update)) 
       (progn 
         (setq default-directory ome-lib-dir) 
-        (call-process-shell-command cmd-clone nil nil t))) 
+        (ome-run-command cmd-clone))) 
     (setq default-directory oldir)))
+
+;;(package-download-git "wanderlust" "https://github.com/wanderlust/wanderlust.git")
 
 (defun package-require-git(dir-name file-name url) 
   (let* ((pkg (intern dir-name))) 
