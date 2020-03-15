@@ -24,13 +24,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-;; (package-download-git "mu-git" "https://github.com/wanderlust/wanderlust.git")
-(setq mu4e-root-git (concat (expand-file-name ome-lib-dir) "/mu-git/mu4e"))
-(add-to-list 'load-path mu4e-root-git)
+;; (package-download-git "mu-git" "https://github.com/djcb/mu.git")
+;; (setq mu4e-root-git (expand-file-name (concat ome-lib-dir "/mu-git/mu4e")))
+;; (add-to-list 'load-path mu4e-root-git)
 
 ;; freebsd
-(setq mu4e-root (expand-file-name "~/.local/share/emacs/site-lisp/mu4e"))
-(add-to-list 'load-path mu4e-root)
+(setq mu4e-root-bsd (expand-file-name "~/.local/share/emacs/site-lisp/mu4e"))
+(add-to-list 'load-path mu4e-root-bsd)
+
+;; linux
+(setq mu4e-root-linux (expand-file-name "/use/share/emacs/site-lisp/mu4e"))
+(add-to-list 'load-path mu4e-root-linux)
+
+;; msys2
+(setq mu4e-root-msys2 (expand-file-name (concat ome-lib-dir "/../../../../" "/usr/share/emacs/site-lisp/mu4e")))
+(add-to-list 'load-path mu4e-root-msys2)
 
 (internal-require 'mu4e)
 (setenv "XAPIAN_CJK_NGRAM" "1")
