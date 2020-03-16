@@ -172,6 +172,7 @@ and offer to create it if it does not exist yet."
 (internal-require 'smtpmail)
 ;; alternatively, for emacs-24 you can use:
 (setq message-send-mail-function 'smtpmail-send-it      ;
+      send-mail-function 'smtpmail-send-it               ;
       smtpmail-stream-type 'ssl                         ;
       smtpmail-default-smtp-server "smtp.office365.com" ;
       smtpmail-smtp-server "smtp.office365.com"         ;

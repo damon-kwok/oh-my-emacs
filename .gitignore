@@ -71,9 +71,9 @@
 target/
 **/*.rs.bk
 
-Cargo.lock
-rebar.lock
-rebar3.crashdump
 .DS_Store
 *.elc
 .#*
+*.lock
+*.crashdump
+*.stackdump
