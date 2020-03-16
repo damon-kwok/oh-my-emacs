@@ -50,7 +50,7 @@
 ;;
 (add-hook 'org-mode-hook ;;
           (lambda () 
-            (internal-require 'org-plus-contrib 'org-install) 
+            (internal-require 'org-install) 
             (setq truncate-lines nil) 
             (setq org-startup-with-inline-images t) 
             (org-display-inline-images t t)))
