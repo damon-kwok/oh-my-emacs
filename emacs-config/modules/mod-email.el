@@ -79,7 +79,7 @@ and offer to create it if it does not exist yet."
       (and (yes-or-no-p (mu4e-format "%s does not exist. Create now?" fullpath)) 
            (mu4e~proc-mkdir fullpath))) mdir))
 
-(if (string= "Msys2" (getenv "OME_OS"))
+(if (string= "Msys2" (getenv "OME_OS")) 
     (setq mu4e-doc-dir (expand-file-name (concat ome-lib-dir "/../../../../" "/usr/share/doc/mu"))))
 
 ;; `extensions'
@@ -168,15 +168,18 @@ and offer to create it if it does not exist yet."
 ;; sending mail -- replace USERNAME with your gmail username
 ;; also, make sure the gnutls command line utils are installed
 ;; package 'gnutls-bin' in Debian/Ubuntu
-
-(internal-require 'smtpmail)
-;; alternatively, for emacs-24 you can use:
-(setq message-send-mail-function 'smtpmail-send-it      ;
-      send-mail-function 'smtpmail-send-it               ;
-      smtpmail-stream-type 'ssl                         ;
-      smtpmail-default-smtp-server "smtp.office365.com" ;
-      smtpmail-smtp-server "smtp.office365.com"         ;
-      smtpmail-smtp-service 587)
+(custom-set-variables '(send-mail-function (quote smtpmail-send-it)) 
+                      '(smtpmail-smtp-server "smtp.office365.com") 
+                      ;; '(smtpmail-stream-type "ssl") 
+                      '(smtpmail-smtp-service 25))
+;; (internal-require 'smtpmail)
+;; ;; alternatively, for emacs-24 you can use:
+;; (setq message-send-mail-function 'smtpmail-send-it      ;
+;;       send-mail-function 'smtpmail-send-it              ;
+;;       smtpmail-stream-type 'ssl                         ;
+;;       smtpmail-default-smtp-server "smtp.office365.com" ;
+;;       smtpmail-smtp-server "smtp.office365.com"         ;
+;;       smtpmail-smtp-service 25)
 
 ;; when switch off queue mode, I still prefer async sending
 ;; (use-package async
@@ -190,7 +193,7 @@ and offer to create it if it does not exist yet."
 ;;  smtpmail-smtp-server "smtp.office365.com"
 ;;  smtpmail-smtp-service 587
 ;;  smtpmail-stream-type 'ssl
- 
+
 ;;  ;; if you need offline mode, set these -- and create the queue dir
 ;;  ;; with 'mu mkdir', i.e:
 ;;  ;; mu mkdir /home/user/Mail/queue && touch ~/Maildir/queue/.noindex
