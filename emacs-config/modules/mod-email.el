@@ -79,7 +79,7 @@ and offer to create it if it does not exist yet."
       (and (yes-or-no-p (mu4e-format "%s does not exist. Create now?" fullpath)) 
            (mu4e~proc-mkdir fullpath))) mdir))
 
-(if (string= "Msys2" (getenv "OME_OS")) 
+(if (string= "MSYS2" (getenv "OME_OS")) 
     (setq mu4e-doc-dir (expand-file-name (concat ome-lib-dir "/../../../../" "/usr/share/doc/mu"))))
 
 ;; `extensions'

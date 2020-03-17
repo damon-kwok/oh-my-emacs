@@ -68,7 +68,7 @@
                               :action #'popup-shell-command)
             (wand:create-rule :match "https?://"
                               :capture :whole
-                              :action #'eww) ;;open-url-in-firefox
+                              :action #'ome-open-url) ;;open-url-in-firefox
             (wand:create-rule :match "file:"
                               :capture :after
                               :action #'find-file)
