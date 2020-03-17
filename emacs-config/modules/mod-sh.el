@@ -29,9 +29,9 @@
 
 (add-hook 'sh-mode-hook (lambda()
                           ;; (message (concat "you opened cc file:" (buffer-name)))
-                          ;;Enabled lsp-mode
-                          (internal-require 'mod-lsp) 
-                          (lsp)
+                          ;; enabled lsp-mode
+                          ;; (internal-require 'mod-lsp) 
+                          ;; (lsp)
 
                           ;; `keybind'
                           (define-key shell-mode-map (kbd "C-c `")  'show-global-workbuffer) 
