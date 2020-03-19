@@ -26,6 +26,7 @@
 ;;
 (add-to-list 'auto-mode-alist '("PKGBUILD" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.sh$" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.rd$" . sh-mode))
 
 (add-hook 'sh-mode-hook (lambda()
                           ;; (message (concat "you opened cc file:" (buffer-name)))

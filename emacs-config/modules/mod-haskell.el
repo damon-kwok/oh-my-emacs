@@ -24,17 +24,22 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'intero)
-(package-require 'flycheck-haskell)
-(package-require 'dante)
-
-(add-hook 'haskell-mode-hook 'intero-mode)
-(add-hook 'haskell-mode-hook 'dante-mode)
-(add-hook 'haskell-mode-hook 'flycheck-mode)
-
-(add-hook 'dante-mode-hook '(lambda () 
-                              (flycheck-add-next-checker 'haskell-dante '(warning .
-                                                                                  haskell-hlint))))
+(package-download 'intero) 
+(package-download 'dante) 
+(package-download 'flycheck-haskell)
+;;
+(add-hook 'haskell-mode-hook;;
+          (lambda () 
+            (internal-require 'intero) 
+            (internal-require 'dante) 
+            (internal-require 'flycheck-haskell)
+            (intero-mode) 
+            (dante-mode) 
+            (flycheck-mode)
+            (add-hook 'dante-mode-hook;;
+                      '(lambda () 
+                         (flycheck-add-next-checker ; 'haskell-dante
+                          '(warning . haskell-hlint))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-haskell)
 ;; mod-haskell.el ends here
