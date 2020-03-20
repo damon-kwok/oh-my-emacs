@@ -24,29 +24,91 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
+(package-require 'all-the-icons)
 (package-require 'dashboard)
 (dashboard-setup-startup-hook)
+
+;; Set the title
 (setq dashboard-banner-logo-title "Oh My Emacs!")
-(setq dashboard-items '((projects . 15) 
-                        (recents  . 20) 
-                        (bookmarks . 7) 
-                        (agenda . 5) 
+
+;; Set the banner
+(setq dashboard-startup-banner "~/.oh-my-emacs/logo.png")
+;; Value can be
+;; 'official which displays the official emacs logo
+;; 'logo which displays an alternative emacs logo
+;; 1, 2 or 3 which displays one of the text banners
+;; "path/to/your/image.png" which displays whatever image you would prefer
+
+;; Content is not centered by default. To center, set
+(setq dashboard-center-content nil)
+
+;; To disable shortcut "jump" indicators for each section, set
+(setq dashboard-show-shortcuts t)
+
+;; To customize which widgets are displayed, you can use the following snippet
+(setq dashboard-items '((recents  . 5)
+                        (bookmarks . 5)
+                        (projects . 5)
+                        (agenda . 5)
                         (registers . 5)))
 
-(setq dashboard-startup-banner (expand-file-name "~/.oh-my-emacs/logo.png"))
+;; (setq show-week-agenda-p t)
 
-(add-to-list 'dashboard-items '(agenda) t)
+(defun dashboard-insert-custom (list-size)
+  (insert "Custom text"))
+(add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
+(add-to-list 'dashboard-items '(custom) t)
+
+(setq dashboard-set-heading-icons t)
+(setq dashboard-set-file-icons t)
+
+(dashboard-modify-heading-icons '((recents . "file-text")
+                                  (bookmarks . "book")))
+
+(setq dashboard-set-navigator t)
+
+;; Format: "(icon title help action face prefix suffix)"
+(setq dashboard-navigator-buttons
+      `(;; line1
+        ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
+         "Homepage"
+         "Browse homepage"
+         (lambda (&rest _) (browse-url "homepage")))
+        ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
+        ("?" "" "?/h" #'show-help nil "<" ">"))
+         ;; line 2
+        ((,(all-the-icons-faicon "linkedin" :height 1.1 :v-adjust 0.0)
+          "Linkedin"
+          ""
+          (lambda (&rest _) (browse-url "homepage")))
+         ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
+
+;; To show info about the packages loaded and the init time:
+(setq dashboard-set-init-info t)
+
+;; Also, the message can be customized like this:
+(setq dashboard-init-info "This is an init message!")
+
+;; A randomly selected footnote will be displayed. To disable it:
+(setq dashboard-set-footer nil)
+
+;; To customize it and customize its icon;
+(setq dashboard-footer-messages '("Dashboard is pretty cool!"))
+(setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
+                                                   :height 1.1
+                                                   :v-adjust -0.05
+                                                   :face 'font-lock-keyword-face))
+;; Org mode’s agenda
 (setq show-week-agenda-p t)
-
+(setq dashboard-org-agenda-categories '("Tasks" "Appointments"))
 
 
-
-
 ;;; enable/disable loading page (t:disable nil:enable)
-(setq inhibit-startup-message t)
-(setq inhibit-startup-screen t)
-(setq inhibit-splash-screen t)
+;; (setq inhibit-startup-message t) 
+;; (setq inhibit-startup-screen t)
+;; (setq inhibit-splash-screen t)
 
+;;(dashboard-setup-startup-hook)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-splash)
 ;; mod-splash.el ends here
