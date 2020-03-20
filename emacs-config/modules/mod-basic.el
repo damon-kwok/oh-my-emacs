@@ -49,18 +49,44 @@
 ;; (add-hook 'compilation-finish-functions 'kill-compile-buffer-if-successful)
 
 (set-window-dedicated-p (selected-window) nil)
+;; (bgex-set-image-default "~/gnuemacsref.png" nil)
+;; (bgex-set-image-default (expand-file-name "~/.oh-my-emacs/logo.png") nil)
 
-;;(bgex-set-image-default "~/gnuemacsref.png" nil)
-
-;;; open file (don't in new frame)
+;;; `open-file' (don't in new frame)
 (setq ns-pop-up-frames nil)
-
 (setq default-frame-alist '((height . 40) 
                             (width . 130) 
                             (top . 25) 
                             (left . 18) 
                             (menu-bar-lines . 0) 
                             (tool-bar-lines . 0)))
+
+;;; `maxframe'
+;;(internal-require 'maxframe)
+;;(add-hook 'window-setup-hook 'maximize-frame t)
+
+;;; set background `alpha'
+;; (set-frame-parameter (selected-frame) 'alpha '(90 85))
+;; (add-to-list 'default-frame-alist '(alpha 80 75))
+
+(setq alpha-list;;
+      '((100 100) 
+        (95 65) 
+        (85 55) 
+        (75 45) 
+        (65 35)))
+
+(defun loop-alpha () 
+  (interactive) 
+  (let ((h (car alpha-list))) ;; head value will set to
+    ((lambda (a ab) 
+       (set-frame-parameter (selected-frame) 'alpha (list a ab)) 
+       (add-to-list 'default-frame-alist (cons 'alpha (list a ab)))) 
+     (car h) 
+     (car (cdr h))) 
+    (setq alpha-list (cdr (append alpha-list (list h))))))
+
+(global-set-key [(f8)] 'loop-alpha)
 
 ;;; set tool bar to text style (need emacs24)
 (setq tool-bar-style 'both) ;;opt:text image both
@@ -80,20 +106,12 @@
 ;;; of context before the top or bottom of the window, which I find very useful.
 (setq scroll-margin 3)
 
-;;; set background alpha
-;; (set-frame-parameter (selected-frame) 'alpha '(90 85))
-;; (add-to-list 'default-frame-alist '(alpha 80 75))
-
-;;; maxframe
-;;(internal-require 'maxframe)
-;;(add-hook 'window-setup-hook 'maximize-frame t)
-
 ;;; `scroll'
 ;;; page smooth scrolling
 ;; (setq scroll-margin 1 scroll-conservatively 10000)
 (setq scroll-step 1 scroll-margin 3 scroll-conservatively 10000)
 
-;;; set scroll speed (mormal:3 line | shift:1 line |control:1 page)
+;;; set scroll `speed' (mormal:3 line | shift:1 line |control:1 page)
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1) 
                                     ((control))) mouse-wheel-progressive-speed nil scroll-step 1)
 
@@ -256,10 +274,12 @@
 
 (defun ome-set-font(font size)
   ;; set a default font
-  (when (member font (font-family-list))
-    (let ((font-info(concat font "-" (number-to-string size))))
-      (set-face-attribute 'default nil :font font-info)
+  (when (member font (font-family-list)) 
+    (let ((font-info(concat font "-" (number-to-string size)))) 
+      (set-face-attribute 'default nil 
+                          :font font-info)
       ;; set font for all windows. don't keep window size fixed
+      ;; (set-frame-font font-info nil t)
       (set-frame-font font-info nil t)))
   ;;
   ;; set chinese Font
@@ -297,13 +317,26 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`title';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; time
-(display-time)
+(display-time-mode 0)
 
 ;;; time format
 (setq display-time-24hr-format t)
 (setq display-time-day-and-date t)
 (setq display-time-interval 10)
 
+;; (defface egoge-display-time
+;;   '((((type x w32 mac))
+;;      ;; #060525 is the background colour of my default face.
+;;      (:foreground "#060525" :inherit bold))
+;;     (((type tty))
+;;      (:foreground "blue")))
+;;   "Face used to display the time in the mode line.")
+
+;; ;; This causes the current time in the mode line to be displayed in
+;; ;; `egoge-display-time-face' to make it stand out visually.
+;; (setq display-time-string-forms
+;;       '((propertize (concat " " 24-hours ":" minutes " ")
+;; 		    'face 'egoge-display-time)))
 ;;; title
 (setq frame-title-format '("%Z  - " 
                            (:eval (cond (buffer-read-only "(Read-Only)"))) 
@@ -512,7 +545,7 @@
 
 ;; (package-require 'undo-tree)
 (package-download-curl "undo-tree-0.6.6" "undo-tree.el"
-                      "https://raw.githubusercontent.com/emacs-lisp/undo-tree/master/undo-tree.el")
+                       "https://raw.githubusercontent.com/emacs-lisp/undo-tree/master/undo-tree.el")
 (internal-require 'undo-tree)
 (global-undo-tree-mode)
 
@@ -692,7 +725,7 @@
 ;; you will be asked before the abbreviations are saved
 ;;(quietly-read-abbrev-file) ;; reads the abbreviations file on startup
 ;;Avoid errors if the abbrev-file is missing
-;;(if (file-exists-p abbrev-file-name) 
+;;(if (file-exists-p abbrev-file-name)
 ;;    (quietly-read-abbrev-file))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

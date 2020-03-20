@@ -33,7 +33,7 @@
                         (agenda . 5) 
                         (registers . 5)))
 
-(setq dashboard-startup-banner "~/.oh-my-emacs/logo.png")
+(setq dashboard-startup-banner (expand-file-name "~/.oh-my-emacs/logo.png"))
 
 (add-to-list 'dashboard-items '(agenda) t)
 (setq show-week-agenda-p t)

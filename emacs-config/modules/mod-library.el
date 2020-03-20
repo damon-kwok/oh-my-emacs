@@ -525,9 +525,9 @@ occurence of CHAR."
   (eww url))
 
 (defun ome-open-url(url) 
-  (interactive)
-  (if (string= (getenv "OME_OS") "MSYS2")
-      (ome-run-command (concat "cygstart " url))
+  (interactive) 
+  (if (string= (getenv "OME_OS") "MSYS2") 
+      (ome-run-command (concat "cygstart " url)) 
     (ome-run-command (concat "xdg-open " url))))
 
 (defun ome-find-file-doc() 
@@ -558,7 +558,8 @@ occurence of CHAR."
 
 (defun ome-run-command (command) 
   "compile project"
-  (ome-show-compilation "*compilation*") ;;
+  (ome-show-compilation "*compilation*") 
+  (message "ome-run-command: %s" command) 
   (compile command))
 
 ;; (defun ome-run-command (command)
@@ -591,10 +592,8 @@ occurence of CHAR."
 (defun ome-project-wizard(lang) 
   (let* ((default-path (expand-file-name "~/projects/")) 
          (project-path (read-file-name "choice project path:" default-path)) 
-         (str-cmd (concat "mkdir -p " default-path " ; "(expand-file-name
-                                                         "~/.oh-my-env/bin/app_wizard") " " lang " "
-                                                         project-path))) 
-    (ome-run-command str-cmd) ))
+         (command (concat "app_wizard" " " lang " " project-path))) 
+    (ome-run-command command)))
 
 (defun ome-project-wizard-old(lang) 
   (cond ((string= lang "clojure") 

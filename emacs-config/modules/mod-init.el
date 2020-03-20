@@ -33,7 +33,6 @@
 (module-require 'mod-gc)
 (module-require 'mod-coding)
 (module-require 'mod-elisp)
-(module-require 'mod-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (module-require 'mod-package)
 (module-require 'mod-library)
@@ -227,7 +226,7 @@
 (module-require 'mod-edit-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (message "hello, emacs!")
-
+(module-require 'mod-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-init)
 ;; init.el ends here
