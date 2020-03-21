@@ -746,15 +746,19 @@ occurence of CHAR."
 (defun ome-mu4e-open () 
   (interactive) 
   (if (and (executable-find "mu") 
-           (executable-find "mbsync")) 
-      (mu4e) 
+           (executable-find "mbsync"))
+      (progn ;;
+        (module-require 'mod-email) 
+        (mu4e)) 
     (message "Please install 'mu' and 'isync'!")))
 
 (defun ome-mu4e-new () 
   (interactive) 
-  (if (and (executable-find "offlineimap") 
-           (executable-find "mu")) 
-      (mu4e-compose-new) 
+  (if (and (executable-find "mu") 
+           (executable-find "mbsync")) 
+      (progn ;;
+        (module-require 'mod-email) 
+        (mu4e-compose-new)) 
     (message "Please install 'mu' and offlineimap!")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

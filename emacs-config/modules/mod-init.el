@@ -24,8 +24,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (defcustom ome-logo (expand-file-name "~/.oh-my-emacs/logo.png")
-  ;; "set ome logo. nil means official logo."
-  ;; :type 'string)
+;; "set ome logo. nil means official logo."
+;; :type 'string)
 ;; (setq fancy-splash-image ome-logo)
 
 ;;(package-require 'esup)
@@ -49,10 +49,6 @@
 ;; (module-require 'mod-speedbar)
 ;; (module-require 'mod-dired)
 ;; (module-require 'mod-tree)
-
-(if (and (executable-find "mu") 
-        (executable-find "mbsync")) 
-   (module-require 'mod-email))
 
 ;; (module-require 'mod-feed)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -93,11 +89,11 @@
 
 ;; `cc'
 ;; (if (or (string= system-type 'windows-nt) ;
-        ;; (string= system-type 'ms-dos)) 
-    ;; (defconst cc-lang-server "clangd") 
-  ;; (if (string= system-type 'rtags) 
-      ;; (defconst cc-lang-server "ccls") 
-    ;; (defconst cc-lang-server "clangd")))
+;; (string= system-type 'ms-dos))
+;; (defconst cc-lang-server "clangd")
+;; (if (string= system-type 'rtags)
+;; (defconst cc-lang-server "ccls")
+;; (defconst cc-lang-server "clangd")))
 (defconst cc-lang-server "clangd")
 
 (cond ((and 
@@ -172,8 +168,8 @@
 (if (executable-find "stack") 
     (module-require 'mod-haskell))
 
-;; (if (executable-find "git") 
-    ;; (module-require 'mod-git))
+;; (if (executable-find "git")
+;; (module-require 'mod-git))
 
 ;; (package-require 'exwm 'exwm 'wxwm-config)
 ;; (exwm-config-default)
@@ -223,6 +219,7 @@
 
 ;; (global-set-key (kbd "C-M-z") 'show-super-menu1)
 (global-set-key (kbd "M-z") 'show-super-menu)
+
 (module-require 'mod-edit-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (message "hello, emacs!")
