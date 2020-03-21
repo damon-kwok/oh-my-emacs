@@ -22,8 +22,13 @@
   (message "Initialized in %s" (emacs-init-time)))
 
 (require 'benchmark)
-(defun module-require (pkg) 
-  (message "Module '%s' loaded in %.3fs" pkg (benchmark-elapse (require pkg))) )
+(defun module-require (pkg &optional executable) 
+  (if (eq executable nil) 
+      (message "Module '%s' loaded in %.3fs" pkg (benchmark-elapse 
+                                                   (require pkg)))
+    (if (executable-find "pyls") 
+    (message "Module '%s' loaded in %.3fs" pkg (benchmark-elapse 
+                                                   (require pkg))))))
 
 (defun internal-require (pkg) 
   ;;(message "---->require '%s' in %.3fs" pkg (benchmark-elapse (require pkg))

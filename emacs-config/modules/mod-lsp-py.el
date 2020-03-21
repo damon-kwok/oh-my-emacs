@@ -24,8 +24,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(require 'mod-lsp)
-(add-hook 'python-mode-hook #'lsp)
+(add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+(add-hook 'python-mode-hook;;
+          (lambda (internal-require 'mod-lsp) 
+            (lsp)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-lsp-py)
 ;; mod-lsp-py.el ends here

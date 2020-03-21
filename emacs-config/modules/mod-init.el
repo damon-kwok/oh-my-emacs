@@ -70,7 +70,7 @@
 (module-require 'mod-ros)
 ;; (module-require 'mod-book)
 (module-require 'mod-ome)
-;; (module-require 'mod-input)
+(module-require 'mod-input)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `debug'
 ;; (module-require 'mod-gud)
@@ -84,21 +84,17 @@
 ;; (module-require 'mod-php)
 
 ;; `bash'
-(if (executable-find "bash-language-server") 
-    (module-require 'mod-sh))
+(module-require 'mod-sh)
 
 ;; `cc'
-;; (if (or (string= system-type 'windows-nt) ;
+;; (if (or (string= system-type 'windows-nt) ;;gnu/linux
 ;; (string= system-type 'ms-dos))
-;; (defconst cc-lang-server "clangd")
-;; (if (string= system-type 'rtags)
-;; (defconst cc-lang-server "ccls")
+;; (defconst cc-lang-server "rtags")
 ;; (defconst cc-lang-server "clangd")))
 (defconst cc-lang-server "clangd")
 
 (cond ((and 
         (string= cc-lang-server "clangd") 
-        (executable-find "clang") 
         (or (executable-find "clangd") 
             (executable-find "clangd-devel"))) 
        (module-require 'mod-clangd)) 
@@ -120,74 +116,34 @@
     (module-require 'mod-java))
 
 ;; `python'
-;;(if (executable-find "pyls")
-;;    (module-require 'mod-lsp-py))
-
-;; `nasm'
-(if (executable-find "nasm") 
-    (module-require 'mod-asm))
-
-;; `erlang'
+;; (if (and (executable-find "ipython")
+;; (executable-find "jupyter"))
+;; (module-require 'mod-py))
+(module-require 'mod-lsp-py "pyls")
+(module-require 'mod-asm "nasm")
 (if (and (executable-find "erl") 
          (executable-find "rebar3")) 
     (module-require 'mod-erlang))
 
-;; `elixir'
-(if (executable-find "mix") 
-    (module-require 'mod-elixir))
-
-;; `ros'
-(if (executable-find "ros") 
-    (module-require 'mod-slime))
+(module-require 'mod-elixir "mix")
+(module-require 'mod-slime "ros")
 
 ;; (module-require 'mod-sly)
 ;; (module-require 'mod-csharp)
-(if (executable-find "nimble") 
-    (module-require 'mod-nim))
+(module-require 'mod-nim "nimble")
+(module-require 'mod-hy "hy")
 
-(if (executable-find "hy") 
-    (module-require 'mod-hy))
+(module-require 'mod-go "gopls")
+;; (module-require 'mod-gocode "gocode")
 
-;; (if (and (executable-find "go")
-;; (executable-find "bingo")) ;; (executable-find "go-langserver")
-;; (module-require 'mod-go))
-
-(if (and (executable-find "go") 
-         (executable-find "gocode")) 
-    (module-require 'mod-gocode))
-
-(if (executable-find "ocaml") 
-    (module-require 'mod-ocaml))
-
-(if (executable-find "lein") 
-    (module-require 'mod-clojure))
-
-(if (executable-find "cargo") 
-    (module-require 'mod-rust))
-
-(if (executable-find "stack") 
-    (module-require 'mod-haskell))
-
-;; (if (executable-find "git")
-;; (module-require 'mod-git))
+(module-require 'mod-ocaml "ocaml")
+(module-require 'mod-clojure "lein")
+(module-require 'mod-rust "cargo")
+(module-require 'mod-haskell "stack")
+(module-require 'mod-git "git")
 
 ;; (package-require 'exwm 'exwm 'wxwm-config)
 ;; (exwm-config-default)
-
-;; (if (eq system-type 'gnu/linux)
-;; (module-require 'mod-cc))
-;; (if (and (unless system-type 'windows-nt)
-;; (unless system-type 'ms-dos))
-;; (module-require 'mod-cc))
-
-;; (if (and (executable-find "ipython")
-;; (executable-find "jupyter"))
-;; (module-require 'mod-py))
-
-;; (if (or (unless system-type 'windows-nt)
-;; (unless system-type 'ms-dos))
-;; (module-require 'mod-email-mu4e))
-;; (module-require 'mod-email-wl)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `music'
 ;; (package-require 'emms)

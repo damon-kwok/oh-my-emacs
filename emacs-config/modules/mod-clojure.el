@@ -25,92 +25,111 @@
 ;;===================================================
 ;;clojure
 ;;===================================================
-(package-require 'clojure-mode)
-
-(defun my-clojure-mode-hook () 
-  (clj-refactor-mode 1) 
-  (yas-minor-mode 1)	    ; for adding require/use/import statements
-  ;; This choice of keybinding leaves cider-macroexpand-1 unbound
-  (cljr-add-keybindings-with-prefix "C-c C-m"))
-
-(add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
-
-
-;;;;
-;; Clojure
-;;;;
-
-;; Enable paredit for Clojur
-(add-hook 'clojure-mode-hook 'enable-paredit-mode)
-
-;; This is useful for working with camel-case tokens, like names of
-;; Java classes (e.g. JavaClassName)
-(add-hook 'clojure-mode-hook 'subword-mode)
-
-;; A little more syntax highlighting
-(package-require 'clojure-mode-extra-font-locking)
-
-;; syntax hilighting for midje
-(add-hook 'clojure-mode-hook (lambda () 
-                               (setq inferior-lisp-program "lein repl") 
-                               (font-lock-add-keywords 
-                                nil
-                                '(("(\\(facts?\\)" (1 font-lock-keyword-face)) 
-                                  ("(\\(background?\\)" (1 font-lock-keyword-face)))) 
-                               (define-clojure-indent (fact 1)) 
-                               (define-clojure-indent (facts 1))))
-
-;;;;
-;; Cider
-;;;;
-(package-require 'cider)
-(package-require '4clojure)
-(defadvice 4clojure-open-question (around 4clojure-open-question-around)
-  "Start a cider/nREPL connection if one hasn't already been started when
-opening 4clojure questions"
-  ad-do-it
-  (unless cider-current-clojure-buffer
-    (cider-jack-in)))
-
-(package-require 'helm-cider)
-(helm-cider-mode 1)
-
-;;; `clj-refactor'
-(package-require 'clj-refactor)
-
-;;(package-require 'cider-hydra)
-;;(cider-hydra-on)
-
-;;(package-require 'helm-cider-history)
-
-;; provides minibuffer documentation for the code you're typing into the repl
-(add-hook 'cider-mode-hook 'eldoc-mode)
-
-;; go right to the REPL buffer when it's finished connecting
-(setq cider-repl-pop-to-buffer-on-connect t)
-
-;; When there's a cider error, show its buffer and switch to it
-(setq cider-show-error-buffer t)
-(setq cider-auto-select-error-buffer t)
-
-;; Where to store the cider history.
-(setq cider-repl-history-file "~/.emacs.d/cider-history")
-
-;; Wrap when navigating history.
-(setq cider-repl-wrap-history t)
-
-;; enable paredit in your REPL
-(add-hook 'cider-repl-mode-hook 'paredit-mode)
-
+(package-download 'clojure-mode)
+(package-download 'helm-cider)
+(package-download 'clj-refactor)
+(package-download 'helm-cider-history)
+(package-download 'cider)
+(package-download '4clojure)
+;; (package-download 'clojure-cheatsheet)
+(package-download 'cider-hydra)
+(package-download 'clojure-mode-extra-font-locking)
+;;
 ;; Use clojure mode for other extensions
+(add-to-list 'auto-mode-alist '("\\.clj\\.cljs\\.cljc\\.end\\.boot\\'" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.cljs.*$" . clojurescript-mode))
 (add-to-list 'auto-mode-alist '("\\.cljs\\.hl\\'" . clojurescript-mode))
 (add-to-list 'auto-mode-alist '("lein-env" . enh-ruby-mode))
+
+(defun my-clojure-mode-hook ()
+  (define-key clojure-mode-map (kbd "C-c C-h") 'helm-cider-apropos) 
+  (define-key clojure-mode-map (kbd "C-M-\\")  'cider-format-buffer) 
+  (define-key clojure-mode-map [f6] 'ome-open-clojure-project) 
+  (define-key clojurescript-mode-map [f6] 'ome-open-clojure-project)
+  ;;
+  ;; `clj-refactor'
+  (internal-require 'clj-refactor) 
+  (clj-refactor-mode 1) 
+  (yas-minor-mode 1)	    ; for adding require/use/import statements
+  ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+  (cljr-add-keybindings-with-prefix "C-c C-m")
+  ;;
+  ;; Enable paredit for Clojur
+  (enable-paredit-mode)
+  ;;
+  ;; This is useful for working with camel-case tokens, like names of
+  ;; Java classes (e.g. JavaClassName)
+  (subword-mode)
+  ;;
+  ;; A little more syntax highlighting
+  (internal-require 'clojure-mode-extra-font-locking)
+  ;;
+  ;; syntax hilighting for midje 
+  (font-lock-add-keywords 
+   nil
+   '(("(\\(facts?\\)" (1 font-lock-keyword-face)) 
+     ("(\\(background?\\)" (1 font-lock-keyword-face)))) 
+  (define-clojure-indent (fact 1)) 
+  (define-clojure-indent (facts 1))
+  ;;
+  ;; Cider
+  (internal-require 'cider)
+  (setq inferior-lisp-program "lein repl")
+  ;;
+  (internal-require 'helm-cider) 
+  (helm-cider-mode 1)
+  ;;
+  (internal-require 'cider-hydra)
+  (cider-hydra-on)
+  ;;
+  (internal-require 'helm-cider-history)
+  ;;
+  ;; provides minibuffer documentation for the code you're typing into the repl
+  (add-hook 'cider-mode-hook 'eldoc-mode)
+  ;;
+  ;; go right to the REPL buffer when it's finished connecting
+  (setq cider-repl-pop-to-buffer-on-connect t)
+  ;;
+  ;; When there's a cider error, show its buffer and switch to it
+  (setq cider-show-error-buffer t) 
+  (setq cider-auto-select-error-buffer t)
+  ;;
+  ;; Where to store the cider history.
+  (setq cider-repl-history-file "~/.emacs.d/cider-history")
+  ;;
+  ;; Wrap when navigating history.
+  (setq cider-repl-wrap-history t)
+  ;;
+  ;; enable paredit in your REPL
+  (add-hook 'cider-repl-mode-hook 'paredit-mode)
+  ;;
+  (add-hook 'cider-repl-mode-hook #'company-mode) 
+  (add-hook 'cider-mode-hook #'company-mode)
+  ;;
+  (eval-after-load 'cider ;;
+    '(progn (helm-cider-mode 1) 
+            (define-key clojure-mode-map (kbd "C-c C-v") 'cider-start-http-server) 
+            (define-key cider-repl-mode-map (kbd "C-c C-q") 'my-kill-java) 
+            (define-key clojure-mode-map (kbd "C-M-r") 'cider-refresh) 
+            (define-key clojure-mode-map (kbd "C-c u") 'cider-user-ns) 
+            (define-key cider-mode-map (kbd "C-c u") 'cider-user-ns) 
+            (define-key cider-mode-map (kbd "C-c C-z")  'show-clojure-repl) 
+            (define-key cider-repl-mode-map (kbd "C-c C-z") 'show-clojure-workbuffer)))
+  ;;(internal-require 'clojure-cheatsheet)
+  ;;(define-key clojure-mode-map (kbd "C-c C-h") 'clojure-cheatsheet)
+  )
 
-(add-hook 'cider-repl-mode-hook #'company-mode)
-(add-hook 'cider-mode-hook #'company-mode)
+(add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+
+(internal-require '4clojure) 
+(defadvice 4clojure-open-question (around 4clojure-open-question-around) 
+  "Start a cider/nREPL connection if one hasn't already been started when
+opening 4clojure questions"
+  ad-do-it
+  (unless cider-current-clojure-buffer (cider-jack-in)))
+
 ;;===================================================
 ;;keybind
 ;;===================================================
@@ -130,7 +149,6 @@ opening 4clojure questions"
   (show-clojure-repl) 
   (cider-switch-to-last-clojure-buffer))
 
-;; key bindings
 ;; these help me out with the way I usually develop web apps
 (defun cider-start-http-server () 
   (interactive) 
@@ -149,27 +167,10 @@ opening 4clojure questions"
   (interactive) 
   (cider-repl-set-ns "user"))
 
-(eval-after-load 'cider '(progn (helm-cider-mode 1) 
-                                (define-key clojure-mode-map (kbd "C-c C-v")
-                                  'cider-start-http-server) 
-                                (define-key clojure-mode-map (kbd "C-M-r") 'cider-refresh) 
-                                (define-key clojure-mode-map (kbd "C-c u") 'cider-user-ns) 
-                                (define-key cider-mode-map (kbd "C-c u") 'cider-user-ns) 
-                                (define-key cider-mode-map (kbd "C-c C-z")  'show-clojure-repl) 
-                                (define-key cider-repl-mode-map (kbd "C-c C-z")
-                                  'show-clojure-workbuffer)))
-
-;; (package-require 'clojure-cheatsheet)
-;; (define-key clojure-mode-map (kbd "C-c C-h") 'clojure-cheatsheet)
-(define-key clojure-mode-map (kbd "C-c C-h") 'helm-cider-apropos)
-(define-key clojure-mode-map (kbd "C-M-\\")  'cider-format-buffer)
-
-
 (defun my-kill-java () 
   (interactive) 
   (delete-window) 
   (cider-interactive-eval "(System/exit 0)"))
-(define-key cider-repl-mode-map (kbd "C-c C-q") 'my-kill-java)
 
 (defun my-jack-in () 
   (interactive) 
@@ -196,8 +197,8 @@ opening 4clojure questions"
 (define-key global-map (kbd "M-\"") 'cljs-eval-sexp)
 
 ;;
-(defun ome-open-clojure-project ()
-  (interactive)
+(defun ome-open-clojure-project () 
+  (interactive) 
   (if (file-exists-p (concat (ome-project-root) "project.clj")) 
       (find-file (concat (ome-project-root) "project.clj")) 
     (if (file-exists-p (concat (ome-project-root) "build.boot")) 
@@ -209,12 +210,10 @@ opening 4clojure questions"
           (if (file-exists-p (concat (ome-project-root) "package.json")) 
               (find-file (concat (ome-project-root) "package.json"))))))))
 
-(define-key clojure-mode-map [f6] 'ome-open-clojure-project)
-(define-key clojurescript-mode-map [f6] 'ome-open-clojure-project)
-
 ;; `auto-menu:clojure'
 (defun automenu--clojure-mode-menu () 
-  '("REPL" "jack-in-clj" "jack-in-cljs" "jack-in-clj&cljs" "" "" "4clj-open" "4clj-prev" "4clj-next" "4clj-check"))
+  '("REPL" "jack-in-clj" "jack-in-cljs" "jack-in-clj&cljs" "" "" "4clj-open" "4clj-prev" "4clj-next"
+    "4clj-check"))
 
 (defun automenu--clojure-mode-func (index) 
   (cond ((= 0 index) 
@@ -224,15 +223,15 @@ opening 4clojure questions"
         ((= 2 index) 
          (cider-jack-in-cljs nil)) 
         ((= 3 index) 
-         (cider-jack-in-clj&cljs nil))
+         (cider-jack-in-clj&cljs nil)) 
         ((= 6 index) 
-         (4clojure-open-question))
+         (4clojure-open-question)) 
         ((= 7 index) 
-         (4clojure-previous-question))
+         (4clojure-previous-question)) 
         ((= 8 index) 
-         (4clojure-next-question))
+         (4clojure-next-question)) 
         ((= 9 index) 
-         (4clojure-check-answer))
+         (4clojure-check-answer)) 
         (t (message  "clojure-mode menu:%d" index))))
 
 ;; `auto-menu:cider-repl'
@@ -248,13 +247,13 @@ opening 4clojure questions"
 
 ;; `automenu:clojurescript'
 (defun automenu--clojurescript-mode-menu () 
-  '("yarn dev" "node-repl" "cljs-repl" "compile" "release" "watch" "check" "start" "stop" "restart" ))
+  '("yarn dev" "node-repl" "cljs-repl" "compile" "release" "watch" "check" "start" "stop" "restart"))
 
 (defun automenu--clojurescript-mode-func (index) 
   (cond ((= 0 index) 
-         (ome-run-command "yarn dev"))
+         (ome-run-command "yarn dev")) 
         ((= 1 index) 
-         (ome-run-command "shadow-cljs node-repl"))
+         (ome-run-command "shadow-cljs node-repl")) 
         ((= 2 index) 
          (ome-run-command "shadow-cljs cljs-repl app" )) 
         ((= 3 index) 

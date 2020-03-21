@@ -24,11 +24,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'magit)
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
-;;
-
+(package-download 'magit)
+(global-set-key (kbd "C-x g") 
+                (lambda () 
+                  (internal-require 'magit) 
+                  (magit-status)))
+(global-set-key (kbd "C-x M-g") 
+                (lambda () 
+                  (internal-require 'magit) 
+                  (magit-dispatch-popup)) )
 ;;
 ;; `magithub'
 ;; (use-package magithub

@@ -30,13 +30,14 @@
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lsp-server
-(require 'mod-lsp)
 ;; (add-hook 'go-mode-hook #'lsp)
 (add-hook 'go-mode-hook (lambda ()
+                          (internal-require 'mod-lsp)
                           (lsp)
                           (add-hook 'before-save-hook 'gofmt-before-save)
                           (setq indent-tabs-mode nil)
-                          (setq tab-width 4)))
+                          (setq tab-width 4)
+						  
 (custom-set-faces
  '(company-preview
    ((t (:foreground "darkgray" :underline t))));;
@@ -54,6 +55,7 @@
     (t (:inherit company-tooltip-selection)))));;
 
 (define-key go-mode-map (kbd "C-c C-f")  'gofmt)
+))
 
 ;; `automenu:go'
 (defun automenu--go-mode-menu () 
