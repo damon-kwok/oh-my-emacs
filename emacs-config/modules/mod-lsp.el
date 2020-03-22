@@ -24,7 +24,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'lsp-mode 'lsp 'lsp-clients)
+(package-require 'lsp-mode 'lsp-mode 'lsp-clients)
 (setq lsp-auto-guess-root t)
 
 (package-require 'dap-mode 'dap-mode 'dap-ui)

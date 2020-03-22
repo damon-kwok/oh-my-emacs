@@ -82,7 +82,7 @@
   (helm-cider-mode 1)
   ;;
   (internal-require 'cider-hydra)
-  (cider-hydra-on)
+  (cider-hydra-mode)
   ;;
   (internal-require 'helm-cider-history)
   ;;
