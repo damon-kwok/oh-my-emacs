@@ -73,7 +73,7 @@
         ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
          "Homepage"
          "Browse homepage"
-         (lambda (&rest _) (browse-url "homepage")))
+         (lambda (&rest _) (browse-url "https://github.com/damon-kwok/oh-my-emacs")))
         ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
         ("?" "" "?/h" #'show-help nil "<" ">"))
          ;; line 2
@@ -81,16 +81,16 @@
           "Linkedin"
           ""
           (lambda (&rest _) (browse-url "homepage")))
-         ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
+         ("★" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
 
 ;; To show info about the packages loaded and the init time:
 (setq dashboard-set-init-info t)
 
 ;; Also, the message can be customized like this:
-(setq dashboard-init-info "This is an init message!")
+(setq dashboard-init-info "Oh my Emacs!")
 
 ;; A randomly selected footnote will be displayed. To disable it:
-(setq dashboard-set-footer nil)
+(setq dashboard-set-footer t)
 
 ;; To customize it and customize its icon;
 (setq dashboard-footer-messages '("Dashboard is pretty cool!"))
