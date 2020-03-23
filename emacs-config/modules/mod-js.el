@@ -103,7 +103,7 @@
   (cond ((= 0 index) 
          (message  "js menu:%d" index)) 
         ((= 1 index) 
-         (ome-run-command "npm start"))
+         (ome-run-command "bash -c \"npm start\""))
         ((= 2 index) 
          (message  "js menu:%d" index))
         ((= 3 index) 

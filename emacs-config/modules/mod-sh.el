@@ -39,9 +39,10 @@
                           ;; "https://raw.githubusercontent.com/emacs-lsp/lsp-sh/master/lsp-sh.el"))
                           ;;
                           ;; `keybind'
+                          (define-key sh-mode-map (kbd "C-c C-z") 'show-global-shell) 
+                          (internal-require 'shell) 
                           (define-key shell-mode-map (kbd "C-c `")  'show-global-workbuffer) 
-                          (define-key shell-mode-map (kbd "C-c C-z")  'show-global-workbuffer) 
-                          (define-key sh-mode-map (kbd "C-c C-z") 'show-global-shell)))
+                          (define-key shell-mode-map (kbd "C-c C-z")  'show-global-workbuffer)))
 (global-set-key (kbd "C-c `") 'show-global-shell)
 (global-set-key (kbd "C-c C-`") 'show-global-shell-new)
 (global-set-key (kbd "C-c C-z") 'show-global-shell)
@@ -66,7 +67,6 @@
   (delete-other-windows) 
   (show-global-shell) 
   (switch-to-buffer-other-window temp-global-buffer-name))
-
 
 ;; `automenu'
 ;; (setenv "OME_PREFIX" "/home/damon/.ome_local")

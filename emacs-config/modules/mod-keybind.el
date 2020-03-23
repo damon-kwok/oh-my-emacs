@@ -485,7 +485,7 @@ _<escape>_: Quit    _\\_: calendar     _<tab>_: <-BACK          ^^ ^^
 _i_: init          _t_: tabbar      _o_: orgmode      _1_: elisp      _u_: input
 _a_: basic         _h_: helm        _7_: latex        _2_: clojure    _m_: music
 _p_: package       _e_: email       _8_: markdown     _3_: csharp     _d_: coding
-_k_: keybind       ^^               _9_: reST         _4_: js         _s_: server
+_k_: keybind       _r_: rust        _9_: reST         _4_: js         _s_: server
 _l_: library       ^^               _z_: csv          _5_: cc         _g_: golang
 _y_: complete-yas  _T_:all-docs     _x_: protobuf     _6_: elixir     _C_: compile-all-modules
 ^^^^^^^^-------------------------------------------------------------------------
@@ -500,6 +500,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 ("t" (ome-open-mod "tabbar") "tabbar")
 ("h" (ome-open-mod "helm") "helm")
 ("e" (ome-open-mod "email") "email")
+("r" (ome-open-mod "rust") "rust")
 ;;("3" (ome-open-mod "theme") "theme")
 ;;("4" (ome-open-mod "speedbar") "speedbar")
 ("T" (ome-open-file "~/emacs-config/themes/m-xemacs-theme.el") "theme")
@@ -726,23 +727,23 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
 ;; (fboundp (symbol-value (intern "major-mode"))) ;;==> t
 
 (defun ome-auto-menu (index)
-  (let ((mode (symbol-name major-mode)))
-    (let ((fun (intern (concat "automenu--" mode "-menu"))))
-      (if (fboundp fun)
-          (progn
-            (let ((mlist (funcall fun)))
-              (let ((mitem (nth index mlist)))
-                (if mitem
-                    mitem
-                  "nil"))))
-        "nil"))))
+  (let* ((mode (symbol-name major-mode))
+         (fun (intern (concat "automenu--" mode "-menu"))))
+    (if (fboundp fun)
+        (progn
+          (let* ((mlist (funcall fun))
+                 (mitem (nth index mlist)))
+            (if mitem
+                mitem
+              "nil")))
+      "nil")))
 
 (defun ome-auto-func (index)
-  (let ((mode (symbol-name major-mode)))
-    (let ((fun (intern (concat "automenu--" mode "-func"))))
-      (if (fboundp fun)  
-          (funcall fun index)
-        (message "run %s item:%d" mode index)))))
+  (let* ((mode (symbol-name major-mode))
+        (fun (intern (concat "automenu--" mode "-func"))))
+    (if (fboundp fun)  
+        (funcall fun index)
+      (message "run %s item:%d" mode index))))
 
 ;; (defun emacs-lisp-mode-menu (index)
   ;; (concat  "menu-item" (number-to-string index)))

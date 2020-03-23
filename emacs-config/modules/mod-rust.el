@@ -29,7 +29,7 @@
 (package-download 'rust-mode)
 (add-to-list 'auto-mode-alist '("\\.rs$" . rust-mode))
 ;;
-(add-hook 'rust-mode-hook (lambda () 
+(add-hook 'rust-mode-hook (lambda ()
                             ;; Configure Emacs to activate racer when rust-mode starts:
                             (racer-mode) 
                             (cargo-minor-mode) 
@@ -42,10 +42,16 @@
                             (define-key rust-mode-map [f5] 
                               '(lambda () 
                                  (interactive) 
-                                 (ome-run-command "cargo build")))
-                            (define-key rust-mode-map [f6] 'ome-open-or-close-cargofile)
-                            (internal-require 'mod-toml)
-                            (define-key conf-toml-mode-map [f6] 'ome-open-or-close-cargofile)))
+                                 (ome-run-command "cargo build"))) 
+                            (define-key rust-mode-map [f6] 'ome-open-or-close-cargofile) 
+                            (internal-require 'mod-toml) 
+                            (add-hook 'conf-toml-mode ;;
+                                      (lambda () 
+                                        (define-key conf-toml-mode-map [f6]
+                                          'ome-open-or-close-cargofile)))
+                            ;;
+                            (require 'mod-lsp) 
+                            (lsp)))
 
 (defun ome-open-or-close-cargofile () 
   (interactive) 
@@ -56,7 +62,7 @@
 
 ;; `automenu:rust'
 (defun automenu--rust-mode-menu () 
-  '("Cargo.toml" "build" "2" "3" "4" "5" "6" "7" "8" "9"))
+  '("Cargo.toml" "build" "run" "3" "4" "5" "6" "7" "8" "9"))
 
 (defun automenu--rust-mode-func (index) 
   (cond ((= 0 index) 
@@ -64,7 +70,7 @@
         ((= 1 index) 
          (ome-run-command "cargo build")) 
         ((= 2 index) 
-         (message  "rust menu:%d" index)) 
+         (ome-run-command "cargo run")) 
         ((= 3 index) 
          (message  "rust menu:%d" index)) 
         ((= 4 index) 

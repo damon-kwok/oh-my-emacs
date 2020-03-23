@@ -592,7 +592,7 @@ occurence of CHAR."
 (defun ome-project-wizard(lang) 
   (let* ((default-path (expand-file-name "~/projects/")) 
          (project-path (read-file-name "choice project path:" default-path)) 
-         (command (concat "app_wizard" " " lang " " project-path))) 
+         (command (concat "bash -c \"" "app_wizard" " " lang " " project-path "\""))) 
     (ome-run-command command)))
 
 (defun ome-project-wizard-old(lang) 

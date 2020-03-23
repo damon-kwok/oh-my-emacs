@@ -26,7 +26,7 @@
   (if (eq executable nil) 
       (message "Module '%s' loaded in %.3fs" pkg (benchmark-elapse 
                                                    (require pkg)))
-    (if (executable-find "pyls") 
+    (if (executable-find executable) 
     (message "Module '%s' loaded in %.3fs" pkg (benchmark-elapse 
                                                    (require pkg))))))
 

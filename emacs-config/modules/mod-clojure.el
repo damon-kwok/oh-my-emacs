@@ -43,7 +43,7 @@
 (add-to-list 'auto-mode-alist '("\\.cljs\\.hl\\'" . clojurescript-mode))
 (add-to-list 'auto-mode-alist '("lein-env" . enh-ruby-mode))
 
-(defun my-clojure-mode-hook ()
+(defun my-clojure-mode-hook () 
   (define-key clojure-mode-map (kbd "C-c C-h") 'helm-cider-apropos) 
   (define-key clojure-mode-map (kbd "C-M-\\")  'cider-format-buffer) 
   (define-key clojure-mode-map [f6] 'ome-open-clojure-project) 
@@ -66,7 +66,7 @@
   ;; A little more syntax highlighting
   (internal-require 'clojure-mode-extra-font-locking)
   ;;
-  ;; syntax hilighting for midje 
+  ;; syntax hilighting for midje
   (font-lock-add-keywords 
    nil
    '(("(\\(facts?\\)" (1 font-lock-keyword-face)) 
@@ -75,13 +75,13 @@
   (define-clojure-indent (facts 1))
   ;;
   ;; Cider
-  (internal-require 'cider)
+  (internal-require 'cider) 
   (setq inferior-lisp-program "lein repl")
   ;;
   (internal-require 'helm-cider) 
   (helm-cider-mode 1)
   ;;
-  (internal-require 'cider-hydra)
+  (internal-require 'cider-hydra) 
   (cider-hydra-mode)
   ;;
   (internal-require 'helm-cider-history)
@@ -123,7 +123,7 @@
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
-(internal-require '4clojure) 
+(internal-require '4clojure)
 (defadvice 4clojure-open-question (around 4clojure-open-question-around) 
   "Start a cider/nREPL connection if one hasn't already been started when
 opening 4clojure questions"
@@ -181,7 +181,7 @@ opening 4clojure questions"
 
 (defun my-run-project () 
   (interactive) 
-  (ome-run-command "lein run"))
+  (ome-run-command "bash -c \"lein run\""))
 
 ;; `cljs'
 (defun cljs-client-start () 
@@ -251,25 +251,25 @@ opening 4clojure questions"
 
 (defun automenu--clojurescript-mode-func (index) 
   (cond ((= 0 index) 
-         (ome-run-command "yarn dev")) 
+         (ome-run-command "bash -c \"yarn dev\"")) 
         ((= 1 index) 
-         (ome-run-command "shadow-cljs node-repl")) 
+         (ome-run-command "bash -c \"shadow-cljs node-repl\"")) 
         ((= 2 index) 
-         (ome-run-command "shadow-cljs cljs-repl app" )) 
+         (ome-run-command "bash -c \"shadow-cljs cljs-repl app\"")) 
         ((= 3 index) 
-         (ome-run-command "shadow-cljs compile app" )) 
+         (ome-run-command "bash -c \"shadow-cljs compile app\"" )) 
         ((= 4 index) 
-         (ome-run-command "shadow-cljs release app --debug" )) 
+         (ome-run-command "bash -c \"shadow-cljs release app --debug\"")) 
         ((= 5 index) 
-         (ome-run-command "shadow-cljs watch app" )) 
+         (ome-run-command "bash -c \"shadow-cljs watch app\"" )) 
         ((= 6 index) 
-         (ome-run-command "shadow-cljs check app" )) 
+         (ome-run-command "bash -c \"shadow-cljs check app\"" )) 
         ((= 7 index) 
-         (ome-run-command "shadow-cljs start")) 
+         (ome-run-command "bash -c \"shadow-cljs start\"")) 
         ((= 8 index) 
-         (ome-run-command "shadow-cljs stop")) 
+         (ome-run-command "bash -c \"shadow-cljs stop\"")) 
         ((= 9 index) 
-         (ome-run-command "shadow-cljs restart")) 
+         (ome-run-command "bash -c \"shadow-cljs restart\"")) 
         (t (message  "clojurescript menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-clojure)

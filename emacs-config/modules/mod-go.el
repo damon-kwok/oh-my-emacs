@@ -67,7 +67,7 @@
         ((= 1 index) 
          (if (ome-project-file-exists-p "Makefile") 
              (ome-project-run-command "make") 
-           (ome-run-command "go install"))) 
+           (ome-run-command "bash -c \"go install\""))) 
         ((= 2 index)
          ;; (ome-run-command (ome-project-dirname))
          (if (ome-project-file-exists-p "Makefile") 
