@@ -1,0 +1,7 @@
+#[derive(Debug)]
+struct ${1:TypeName}(${2:i64},${3:i64});
+impl fmt::Display for $1 {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "({}, {})", self.0, self.1)
+    }
+}

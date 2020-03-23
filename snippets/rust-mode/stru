@@ -1,0 +1,10 @@
+#[derive(Debug)]
+struct ${1:Name}{
+    ${2:x}: ${3:i64},
+    ${4:y}: ${5:i64},
+}
+impl fmt::Display for $1 {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "({}, {})", self.$2, self.$4)
+    }
+}

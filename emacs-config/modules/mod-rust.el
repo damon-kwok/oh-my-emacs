@@ -45,19 +45,26 @@
                                  (ome-run-command "cargo build"))) 
                             (define-key rust-mode-map [f6] 'ome-open-or-close-cargofile) 
                             (internal-require 'mod-toml) 
-                            (add-hook 'conf-toml-mode ;;
-                                      (lambda () 
+                            (add-hook 'toml-mode-hook ;;
+                                      (lambda ()
+                                        (interactive)
+                                        (define-key toml-mode-map [f6]
+                                          'ome-open-or-close-cargofile)))
+                            (add-hook 'conf-toml-mode-hook ;;
+                                      (lambda ()
+                                        (interactive)
                                         (define-key conf-toml-mode-map [f6]
                                           'ome-open-or-close-cargofile)))
                             ;;
                             (require 'mod-lsp) 
-                            (lsp)))
+                            (lsp)
+                            (lsp-ui-mode)))
 
 (defun ome-open-or-close-cargofile () 
   (interactive) 
   (if (eq major-mode 'rust-mode) 
       (ome-smart-find-file "Cargo.toml" t) 
-    (if (eq major-mode 'conf-toml-mode) 
+    (if (or (eq major-mode 'toml-mode)(eq major-mode 'conf-toml-mode)) 
         (kill-this-buffer))))
 
 ;; `automenu:rust'
