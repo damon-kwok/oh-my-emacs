@@ -1,0 +1,2 @@
+(dolist (hook '(${1:ielm-}mode-hook ${2:lisp-interaction}-mode-hook)) 
+              (add-hook hook '${3:elisp-slime-nav-mode}))

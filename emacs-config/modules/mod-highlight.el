@@ -211,6 +211,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `rainbow-delimiters'
 (package-require 'rainbow-delimiters)
+(add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
 
@@ -237,26 +238,31 @@
                                      (:foreground "orange")))) 
  '(rainbow-delimiters-depth-9-face ((t 
                                      (:foreground "brown")))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Sexy tail
 ;; (package-require 'highlight-tail)
+;; (package-require-curl "highlight-tail" "highlight-tail.el" "http://www.emacswiki.org/emacs-en/download/highlight-tail.el")
 ;; (highlight-tail-mode)
 
 ;;; 1. -----
+;; (setq highlight-tail-colors '(("#119911" . 0)
+			      ;; ("#bc2525" . 25)
+			      ;; ("#991199" . 60)))
 ;; (setq highlight-tail-colors '(("black" . 0)
-;; 			      ("#bc2525" . 25)
-;; 			      ("black" . 66)))
-
+                              ;; ("#bc2525" . 25)
+                              ;; ("black" . 66)))
 ;; (setq highlight-tail-colors '(("#c1e156" . 0)
-;; 			      ("#b8ff07" . 25)
-;; 			      ("#00c377" . 60)))
+			      ;; ("#b8ff07" . 25)
+			      ;; ("#00c377" . 60)))
 ;;; 2. -----
 ;; (setq highlight-tail-steps 14 highlight-tail-timer 1)
 
 ;;; 3. highlight-tail-posterior-type控制渐变的方式
-;; (setq highlight-tail-const-width 5)
+;; (setq highlight-tail-const-width 7)
 ;; (setq highlight-tail-posterior-type 'const)
-                                        ;const :渐变highlight-tail-const-width指定固定长度 t:渐变所有修改
+;;const :渐变highlight-tail-const-width指定固定长度 t:渐变所有修改
+
 ;; (message "Highlight-tail loaded - now your Emacs will be even more sexy!")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

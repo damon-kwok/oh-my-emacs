@@ -165,7 +165,7 @@
 
 (defun package-require-curl(dir-name file-name url) 
   (let* ((pkg (intern dir-name))) 
-    (package-download-curl dir-name) 
+    (package-download-curl dir-name file-name url) 
     (internal-require pkg)))
 
 

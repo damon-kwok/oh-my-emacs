@@ -66,12 +66,9 @@
 ;;(add-hook 'window-setup-hook 'maximize-frame t)
 
 ;;; set background `alpha'
-;; (set-frame-parameter (selected-frame) 'alpha '(90 85))
-;; (add-to-list 'default-frame-alist '(alpha 80 75))
-
 (setq alpha-list;;
       '((100 100) 
-        (95 65) 
+        (95 65)
         (85 55) 
         (75 45) 
         (65 35)))
@@ -85,7 +82,8 @@
      (car h) 
      (car (cdr h))) 
     (setq alpha-list (cdr (append alpha-list (list h))))))
-
+(set-frame-parameter (selected-frame) 'alpha '(85 55))
+(add-to-list 'default-frame-alist '(alpha 85 55))
 (global-set-key [(f8)] 'loop-alpha)
 
 ;;; set tool bar to text style (need emacs24)
