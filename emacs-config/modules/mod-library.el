@@ -551,7 +551,7 @@ occurence of CHAR."
   (delete-other-windows)
   (let ((temp-buffer-name (buffer-name (current-buffer))))
     (switch-to-buffer-other-window buffer-name)
-    (if (< (/ (frame-height) 3)
+    (if (< (/ (frame-height) 2)
           (window-height))
       (shrink-window (/ (window-height) 2)))
     (if dont-return-old-buffer nil (switch-to-buffer-other-window temp-buffer-name))))

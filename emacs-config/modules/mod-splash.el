@@ -28,13 +28,14 @@
 ;; (package-require 'spaceline-all-the-icons)
 ;; (spaceline-all-the-icons-theme)
 (package-require 'dashboard)
+(page-break-lines-mode (if (display-graphic-p) 1 -1))
 (dashboard-setup-startup-hook)
 
 ;; Set the title
 (setq dashboard-banner-logo-title "Oh My Emacs!")
 
 ;; Set the banner
-(setq dashboard-startup-banner "~/.oh-my-emacs/logo.png")
+(setq dashboard-startup-banner (if (display-graphic-p) (expand-file-name "~/.oh-my-emacs/logo.png") 1))
 ;; Value can be
 ;; 'official which displays the official emacs logo
 ;; 'logo which displays an alternative emacs logo
@@ -61,8 +62,8 @@
 (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
 (add-to-list 'dashboard-items '(custom) t)
 
-(setq dashboard-set-heading-icons t)
-(setq dashboard-set-file-icons t)
+(setq dashboard-set-heading-icons (display-graphic-p))
+(setq dashboard-set-file-icons (display-graphic-p))
 
 (dashboard-modify-heading-icons '((recents . "file-text")
                                   (bookmarks . "book")))
@@ -86,13 +87,13 @@
          ("?" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
 
 ;; To show info about the packages loaded and the init time:
-(setq dashboard-set-init-info t)
+(setq dashboard-set-init-info (display-graphic-p))
 
 ;; Also, the message can be customized like this:
 (setq dashboard-init-info "Oh my Emacs!")
 
 ;; A randomly selected footnote will be displayed. To disable it:
-(setq dashboard-set-footer t)
+(setq dashboard-set-footer (display-graphic-p))
 
 ;; To customize it and customize its icon;
 (setq dashboard-footer-messages '("Dashboard is pretty cool!"))

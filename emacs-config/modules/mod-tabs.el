@@ -27,12 +27,12 @@
 (package-require 'centaur-tabs)
 (setq centaur-tabs-style "box") ;; alternate bar box chamfer rounded slant wave zigzag
 (setq centaur-tabs-height 20)
-(setq centaur-tabs-set-icons t)
+(setq centaur-tabs-set-icons (display-graphic-p))
 (setq centaur-tabs-plain-icons nil)
 ;; (setq centaur-tabs-gray-out-icons 'buffer)
 (setq centaur-tabs-set-bar 'under) ;; 'left
 (setq x-underline-at-descent-line t)
-;; (setq centaur-tabs-set-close-button t)
+(setq centaur-tabs-set-close-button (display-graphic-p))
 ;; (setq centaur-tabs-close-button "X")
 (setq centaur-tabs-set-modified-marker t)
 (setq centaur-tabs-modified-marker "*")
@@ -95,7 +95,10 @@
 
 (global-set-key (kbd "C-M-[") 'centaur-tabs-forward-group)
 (global-set-key (kbd "C-M-/") 'centaur-tabs-backward-group)
-
+(defalias 'ome-tabbar-forward 'centaur-tabs-forward)
+(defalias 'ome-tabbar-backward 'centaur-tabs-backward)
+(defalias 'ome-tabbar-forward-group 'centaur-tabs-forward-group)
+(defalias 'ome-tabbar-backward-group 'centaur-tabs-backward-group)
 
 
 ;; (def-tabbar-color "#b0bec5" "#263238" "gold" "#263238" "#8a8a8a" "#263238" "#263238")

@@ -17,20 +17,20 @@
 (add-to-list 'custom-theme-load-path "~/.oh-my-emacs/emacs-config/themes")
 
 ;; Display the total loading time in the minibuffer
-(defun display-startup-echo-area-message () 
+(defun display-startup-echo-area-message ()
   "Display startup echo area message."
   (message "Initialized in %s" (emacs-init-time)))
 
 (require 'benchmark)
-(defun module-require (pkg &optional executable) 
-  (if (eq executable nil) 
-      (message "Module '%s' loaded in %.3fs" pkg (benchmark-elapse 
+(defun module-require (pkg &optional executable)
+  (if (eq executable nil)
+      (message "Module %s loaded in %.3fs" pkg (benchmark-elapse
                                                    (require pkg)))
-    (if (executable-find executable) 
-    (message "Module '%s' loaded in %.3fs" pkg (benchmark-elapse 
+    (if (executable-find executable)
+    (message "Module %s loaded in %.3fs" pkg (benchmark-elapse
                                                    (require pkg))))))
 
-(defun internal-require (pkg) 
+(defun internal-require (pkg)
   ;;(message "---->require '%s' in %.3fs" pkg (benchmark-elapse (require pkg))
   (require pkg))
 ;;

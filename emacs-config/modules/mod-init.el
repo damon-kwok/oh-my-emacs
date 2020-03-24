@@ -31,6 +31,9 @@
 ;;(package-require 'esup)
 ;; (module-require 'mod-profiler)
 (module-require 'mod-gc)
+(package-require 'exec-path-from-shell)
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
 (module-require 'mod-coding)
 (module-require 'mod-sexp)
 (module-require 'mod-elisp)
@@ -141,7 +144,7 @@
 (module-require 'mod-go "gopls")
 ;; (module-require 'mod-gocode "gocode")
 
-(module-require 'mod-ocaml "ocaml")
+(module-require 'mod-ocaml "opam")
 (module-require 'mod-clojure "lein")
 (module-require 'mod-rust "cargo")
 (module-require 'mod-haskell "stack")
@@ -185,9 +188,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (message "hello, emacs!")
 (module-require 'mod-server)
-(package-require 'exec-path-from-shell)
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-init)
 ;; init.el ends here

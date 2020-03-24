@@ -211,8 +211,10 @@
 
 
 ;; `page-break-lines'
-(package-require 'page-break-lines)
-(global-page-break-lines-mode)
+(package-download 'page-break-lines)
+(if (display-graphic-p)
+  (internal-require 'page-break-lines)
+  (global-page-break-lines-mode))
 
 ;;; Swiper
 ;; (package-require 'swiper)
@@ -771,30 +773,30 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("M-." (load "mod-keybind.el") "load-menu")
 
   ;; Nav
-  (";" tabbar-backward "ome-tabbar-backward"
+  (";" ome-tabbar-backward "ome-tabbar-backward"
    :color pink)
-  ("'" tabbar-forward "tabbar-forward"
+  ("'" ome-tabbar-forward "tabbar-forward"
    :color pink)
   ("[" ome-tabbar-backward-group "tabbar-up"
    :color pink)
   ("/" ome-tabbar-forward-group "tabbar-down"
    :color pink)
-  ("<left>" tabbar-backward "tabbar-backward"
+  ("<left>" ome-tabbar-backward "tabbar-backward"
    :color pink)
-  ("<right>" tabbar-forward "tabbar-forward"
+  ("<right>" ome-tabbar-forward "tabbar-forward"
    :color pink)
-  ("<up>" tabbar-backward-group "tabbar-up"
+  ("<up>" ome-tabbar-backward-group "tabbar-up"
    :color pink)
-  ("<down>" tabbar-forward-group "tabbar-down"
+  ("<down>" ome-tabbar-forward-group "tabbar-down"
    :color pink)
 
-  ("M-;" tabbar-backward "tabbar-backward"
+  ("M-;" ome-tabbar-backward "tabbar-backward"
    :color pink)
-  ("M-'" tabbar-forward "tabbar-forward"
+  ("M-'" ome-tabbar-forward "tabbar-forward"
    :color pink)
-  ("M-[" tabbar-backward-group "tabbar-up"
+  ("M-[" ome-tabbar-backward-group "tabbar-up"
    :color pink)
-  ("M-/" tabbar-forward-group "tabbar-down"
+  ("M-/" ome-tabbar-forward-group "tabbar-down"
    :color pink)
 
   ("0" select-window-0 "select-window-0"
