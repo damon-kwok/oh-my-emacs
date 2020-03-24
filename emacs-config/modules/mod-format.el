@@ -25,8 +25,6 @@
 (require 'mod-package)
 ;;
 (package-require 'format-all)
-(package-require 'editorconfig)
-(editorconfig-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-format)
 ;; mod-format.el ends here

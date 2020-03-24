@@ -24,11 +24,33 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
+;;; ANSI-colors in the compilation buffer output
+(internal-require 'ansi-color)
+(defun endless/colorize-compilation ()
+  "Colorize from `compilation-filter-start' to `point'."
+  (let ((inhibit-read-only t))
+    (ansi-color-apply-on-region compilation-filter-start (point))))
+
+(add-hook 'compilation-filter-hook #'endless/colorize-compilation)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; emojify
+;; (package-require 'emojify)
+
+;; Set emojify to only replace Unicode emoji, and do it everywhere.
+;; (setq emojify-emoji-styles '(unicode) emojify-inhibit-major-modes '())
+
+;; Patch emojify to replace emoji everywhere in programming modes.
+;; (defun emojify-valid-prog-context-p (beg end) 't)
+
+;; Enable it globally.
+;; (add-hook 'after-init-hook #'global-emojify-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `whitespace-mode'
 (internal-require 'whitespace)
 
-(define-globalized-minor-mode ome-global-whitespace-mode whitespace-mode 
+(define-globalized-minor-mode ome-global-whitespace-mode whitespace-mode
   (lambda ()
     ;; Make whitespace-mode with very basic background coloring for whitespaces.
     ;; http://ergoemacs.org/emacs/whitespace-mode.html
@@ -37,19 +59,19 @@
     ;; Make whitespace-mode and whitespace-newline-mode use “¶” for end of line char and “▷” for tab.
     (setq whitespace-display-mappings
           ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
-          '((space-mark 32 [183] 
+          '((space-mark 32 [183]
                         [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
 	        ;;
             (newline-mark 10 [182 10])  ; LINE FEED,
 	        ;;
-            (tab-mark 9 [9655 9] 
+            (tab-mark 9 [9655 9]
                       [92 9])           ; tab
 	        ;;
-            )) 
-    (if (and (not (string-match "^\*.*\*$" (buffer-name))) 
-             (not (eq major-mode 'dired-mode)) 
-             (not (eq major-mode 'minibuffer-inactive-mode)) 
-             (not (eq major-mode 'speedbar-mode))) 
+            ))
+    (if (and (not (string-match "^\*.*\*$" (buffer-name)))
+             (not (eq major-mode 'dired-mode))
+             (not (eq major-mode 'minibuffer-inactive-mode))
+             (not (eq major-mode 'speedbar-mode)))
         (progn
           ;; (message (symbol-name major-mode))
 	      (whitespace-mode 1)))))
@@ -61,8 +83,8 @@
 
 (package-require 'symbol-overlay)
 
-(define-globalized-minor-mode global-symbol-overlay-mode symbol-overlay-mode 
-  (lambda () 
+(define-globalized-minor-mode global-symbol-overlay-mode symbol-overlay-mode
+  (lambda ()
     (symbol-overlay-mode 1)))
 
 (global-symbol-overlay-mode 1)
@@ -94,11 +116,11 @@
 ;; (lambda ()
 ;; (fci-mode 1)))
 
-(define-globalized-minor-mode global-fci-mode fci-mode 
-  (lambda () 
-    (if (and (not (string-match "^\*.*\*$" (buffer-name))) 
-             (not (eq major-mode 'dired-mode)) 
-             (not (eq major-mode 'speedbar-mode))) 
+(define-globalized-minor-mode global-fci-mode fci-mode
+  (lambda ()
+    (if (and (not (string-match "^\*.*\*$" (buffer-name)))
+             (not (eq major-mode 'dired-mode))
+             (not (eq major-mode 'speedbar-mode)))
         (fci-mode 1))))
 
 (global-fci-mode 1)
@@ -126,29 +148,29 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `highlight-indent-guides'
 
-(if (display-graphic-p) 
-    (progn (package-require 'highlight-indent-guides)
-           (setq highlight-indent-guides-method 'character)
-           (setq highlight-indent-guides-character ?\|)
-           ;; (setq highlight-indent-guides-character "|")
+;; (if (display-graphic-p)
+;;     (progn (package-require 'highlight-indent-guides)
+;;            (setq highlight-indent-guides-method 'character)
+;;            (setq highlight-indent-guides-character ?\|)
+;;            ;; (setq highlight-indent-guides-character "|")
 
-           ;; (define-globalized-minor-mode global-highlight-indent-guides-mode highlight-indent-guides-mode
-           ;; (lambda ()
-           ;; (highlight-indent-guides-mode 1)))
+;;            ;; (define-globalized-minor-mode global-highlight-indent-guides-mode highlight-indent-guides-mode
+;;            ;; (lambda ()
+;;            ;; (highlight-indent-guides-mode 1)))
 
-           (define-globalized-minor-mode global-highlight-indent-guides-mode
-             highlight-indent-guides-mode 
-             (lambda () 
-               (if (and (not (string-match "^\*.*\*$" (buffer-name))) 
-                        (not (eq major-mode 'dired-mode)) 
-                        (not (eq major-mode 'speedbar-mode))) 
-                   (highlight-indent-guides-mode 1))))
+;;            (define-globalized-minor-mode global-highlight-indent-guides-mode
+;;              highlight-indent-guides-mode
+;;              (lambda ()
+;;                (if (and (not (string-match "^\*.*\*$" (buffer-name)))
+;;                         (not (eq major-mode 'dired-mode))
+;;                         (not (eq major-mode 'speedbar-mode)))
+;;                    (highlight-indent-guides-mode 1))))
 
-           (global-highlight-indent-guides-mode 1)))
+;;            (global-highlight-indent-guides-mode 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `highlight-doxygen'
-(package-require 'highlight-doxygen)
-(highlight-doxygen-global-mode 1)
+;; (package-require 'highlight-doxygen)
+;; (highlight-doxygen-global-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`highlight';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -156,14 +178,14 @@
 ;;; `dimmer' Visually highlight the selected buffer.
 (package-require 'dimmer)
 ;; (setq dimmer-use-colorspace :hsl)
-(defcustom dimmer-use-colorspace 
-  :rgb "" 
-  :type '(radio (const :tag "Interpolate in CIELAB 1976" 
-                       :cielab) 
-                (const :tag "Interpolate in HSL" 
-                       :hsl) 
-                (const :tag "Interpolate in RGB" 
-                       :rgb)) 
+(defcustom dimmer-use-colorspace
+  :rgb ""
+  :type '(radio (const :tag "Interpolate in CIELAB 1976"
+                       :cielab)
+                (const :tag "Interpolate in HSL"
+                       :hsl)
+                (const :tag "Interpolate in RGB"
+                       :rgb))
   :group 'dimmer)
 (dimmer-mode)
 
@@ -187,57 +209,6 @@
 ;;(electric-pair-mode)
 ;;(show-paren-mode nil) ;;(show-paren-mode 1)
 ;;(setq show-paren-style 'parentheses)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `rainbow-mode'
-(package-require 'rainbow-mode)
-(define-globalized-minor-mode global-rainbow-mode rainbow-mode 
-  (lambda () 
-    (rainbow-mode 1)))
-(global-rainbow-mode t)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `highlight-parentheses'
-;; (package-require 'highlight-parentheses)
-
-;; (defcustom hl-paren-colors
-;;   '("firebrick1" "IndianRed1" "IndianRed3" "IndianRed4")
-
-;; (setq hl-paren-colors `("DeepPink" "SpringGreen" "yellow" "cyan" "HotPink" "green" "red" "DeepSkyBlue" "violet" "turquoise" "orange" "blue")) ;;turquoise orange DarkGreen LightGreen SpringGreen chartreuse LightGoldenrod navy
-
-;; (define-globalized-minor-mode global-highlight-parentheses-mode highlight-parentheses-mode
-;; (lambda ()
-;; (highlight-parentheses-mode t)))
-;; (global-highlight-parentheses-mode t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `rainbow-delimiters'
-(package-require 'rainbow-delimiters)
-(add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(rainbow-delimiters-depth-1-face ((t 
-                                     (:foreground "white")))) 
- '(rainbow-delimiters-depth-2-face ((t 
-                                     (:foreground "LightGreen")))) 
- '(rainbow-delimiters-depth-3-face ((t 
-                                     (:foreground "SlateGray")))) 
- '(rainbow-delimiters-depth-4-face ((t 
-                                     (:foreground "khaki")))) 
- '(rainbow-delimiters-depth-5-face ((t 
-                                     (:foreground "HotPink2")))) 
- '(rainbow-delimiters-depth-6-face ((t 
-                                     (:foreground "DarkGreen")))) 
- '(rainbow-delimiters-depth-7-face ((t 
-                                     (:foreground "DodgerBlue")))) 
- '(rainbow-delimiters-depth-8-face ((t 
-                                     (:foreground "orange")))) 
- '(rainbow-delimiters-depth-9-face ((t 
-                                     (:foreground "brown")))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Sexy tail

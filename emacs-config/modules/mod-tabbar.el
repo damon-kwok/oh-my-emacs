@@ -21,6 +21,34 @@
 ;;
 ;; Code:
 (require 'mod-package)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`tabbar';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (package-download 'tabbar-ruler)
+
+;; (setq tabbar-ruler-global-tabbar t)	; get tabbar
+;; (setq tabbar-ruler-global-ruler nil)	; get global ruler
+;; (setq tabbar-ruler-popup-menu nil)	; get popup menu.
+;; (setq tabbar-ruler-popup-toolbar nil)	; get popup toolbar
+;; (setq tabbar-ruler-popup-scrollbar nil)	; show scroll-bar on mouse-move
+;; (internal-require 'tabbar-ruler)
+
+;;; The default behavior for tabbar-ruler is to group the tabs by frame. You can change this back to the old-behavior by:
+;;-- (tabbar-ruler-group-buffer-groups)
+
+;;; or by issuing the following code:
+;;-- (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
+
+;;; In addition, you can also group by projectile project easily by:
+;; (tabbar-ruler-group-by-projectile-project)
+
+;; (global-set-key (kbd "M-]") 'tabbar-ruler-forward)
+;; (global-set-key (kbd "M-[") 'tabbar-ruler-backward)
+;; (global-set-key (kbd "C-M-]") 'tabbar-ruler-tabbar-forward-group)
+;; (global-set-key (kbd "C-M-[") 'tabbar-ruler-tabbar-backward-group)
+
+;;-- (global-set-key (kbd "C-c t") 'tabbar-ruler-move)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; tabbar
 (package-require 'tabbar)
@@ -38,63 +66,63 @@
 ;;(ome-keymap-unset-key (kbd "C-c <C-prior>") "tabbar-mode")
 ;;(ome-keymap-unset-key (kbd "C-c <C-next>") "tabbar-mode")
 
-(defun ome-number 
-    (&optional 
-     num) 
+(defun ome-number
+    (&optional
+     num)
   (if (numberp num) num 0))
 
-(defun ome-inc 
-    (&optional 
-     num) 
-  (if (numberp num) 
+(defun ome-inc
+    (&optional
+     num)
+  (if (numberp num)
       (+ 1 num) 1))
 
-(defun ome-dec 
-    (&optional 
-     num) 
-  (if (numberp num) 
+(defun ome-dec
+    (&optional
+     num)
+  (if (numberp num)
       (- num 1) -1))
 
-(defun ome-tabbar-forward 
-    (&optional 
-     num) 
-  (interactive) 
+(defun ome-tabbar-forward
+    (&optional
+     num)
+  (interactive)
   (tabbar-forward)
   ;; (message (concat "--group:" (ome-number num)))
-  (if (and (or (s-match "^*" (buffer-name)) 
-               (s-match "^:" (buffer-name))) 
-           (< (ome-number num) 5)) 
+  (if (and (or (s-match "^*" (buffer-name))
+               (s-match "^:" (buffer-name)))
+           (< (ome-number num) 5))
       (ome-tabbar-forward (ome-inc num))))
 
-(defun ome-tabbar-backward 
-    (&optional 
-     num) 
-  (interactive) 
-  (tabbar-backward) 
-  (if (and (or (s-match "^*" (buffer-name)) 
-               (s-match "^:" (buffer-name))) 
-           (< (ome-number num) 5)) 
+(defun ome-tabbar-backward
+    (&optional
+     num)
+  (interactive)
+  (tabbar-backward)
+  (if (and (or (s-match "^*" (buffer-name))
+               (s-match "^:" (buffer-name)))
+           (< (ome-number num) 5))
       (ome-tabbar-backward (ome-inc num))))
 
-(defun ome-tabbar-forward-group 
-    (&optional 
-     num) 
-  (interactive) 
+(defun ome-tabbar-forward-group
+    (&optional
+     num)
+  (interactive)
   (tabbar-forward-group)
   ;; (message (concat "--group:" (ome-number num)))
-  (if (and (or (s-match "^*" (buffer-name)) 
-               (s-match "^:" (buffer-name))) 
-           (< (ome-number num) 5)) 
+  (if (and (or (s-match "^*" (buffer-name))
+               (s-match "^:" (buffer-name)))
+           (< (ome-number num) 5))
       (ome-tabbar-forward-group (ome-inc num))))
 
-(defun ome-tabbar-backward-group 
-    (&optional 
-     num) 
-  (interactive) 
-  (tabbar-backward-group) 
-  (if (and (or (s-match "^*" (buffer-name)) 
-               (s-match "^:" (buffer-name))) 
-           (< (ome-number num) 5)) 
+(defun ome-tabbar-backward-group
+    (&optional
+     num)
+  (interactive)
+  (tabbar-backward-group)
+  (if (and (or (s-match "^*" (buffer-name))
+               (s-match "^:" (buffer-name)))
+           (< (ome-number num) 5))
       (ome-tabbar-backward-group (ome-inc num))))
 
 (global-set-key (kbd "C-M-'") 'tabbar-forward)
@@ -254,15 +282,15 @@
 
 
 
-(defmacro def-tabbar-color 
-    (foreground background foreground-selected background-selected boxcolor overline underline) 
+(defmacro def-tabbar-color
+    (foreground background foreground-selected background-selected boxcolor overline underline)
   (set-face-attribute 'tabbar-default nil
                       ;; :family "Bitstream Vera Sans Mono-8" ;;
 		      ;; :family "DejaVu Sans Mono"
-		      :inherit 'tabbar-defaultl 
+		      :inherit 'tabbar-defaultl
                       :foreground foreground ;
 		      :background background ;
-		      :box '(:line-width 1 
+		      :box '(:line-width 1
                                          :color boxcolor
 					 ;;:style released-button
 					 ) ;
@@ -270,17 +298,17 @@
 		      :underline underline ;
 		      ;; :weight 'normal;
 		      :height 1.0)      ;
-  (set-face-attribute 'tabbar-button nil 
-                      :inherit 'tabbar-default 
-                      :foreground foreground 
-                      :background background 
-                      :overline overline 
-                      :underline underline) 
+  (set-face-attribute 'tabbar-button nil
+                      :inherit 'tabbar-default
+                      :foreground foreground
+                      :background background
+                      :overline overline
+                      :underline underline)
   (set-face-attribute 'tabbar-unselected nil ;
-		      :inherit 'tabbar-defaultl 
+		      :inherit 'tabbar-defaultl
                       :foreground foreground ;
 		      :background background ;
-		      :box '(:line-width 1 
+		      :box '(:line-width 1
                                          :color boxcolor
 					 ;;:style released-button
 					 ) ;
@@ -288,17 +316,17 @@
 		      :underline underline ;
 		      ;; :weight 'normal
                       :height 1.0)      ;
-  (set-face-attribute 'tabbar-selected nil 
+  (set-face-attribute 'tabbar-selected nil
                       :inherit 'tabbar-default        ;
 		      :foreground foreground-selected ;
                       :background background-selected ;
-		      :box '(:line-width 1 
+		      :box '(:line-width 1
                                          :color boxcolor
 					 ;;:style pressed-button
 					 ) ;
 		      :overline overline   ;
 		      :underline underline ;
-		      :weight 'bold 
+		      :weight 'bold
                       :height 1.0)) ;;bold
 
 ;; (set-face-attribute 'tabbar-separator nil
@@ -308,7 +336,7 @@
 ;; (def-tabbar-color "navy" "gray" "goldenrod" "navy" "red" "gray" "gray")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (setq tabbar-buffer-groups-function 'tabbar-ruler-projectile-tabbar-buffer-groups)
-(defun tabbar-buffer-groups () 
+(defun tabbar-buffer-groups ()
   "Return the list of group names the current buffer belongs to.
      Return a list of one element based on major mode."
   (list (cond
@@ -325,19 +353,19 @@
 	 ;;          '("*scratch*" "*Messages*" "*Help*"))
 	 ;;  "Common"
 	 ;;  )
-	 ((condition-case err (projectile-project-root) 
-            (error 
-             nil)) 
-          (list (projectile-project-name))) 
-         ((string-equal "*" (substring (buffer-name) 0 1)) "Common") 
-         ((member (buffer-name) 
-                  '("xyz" "day" "m3" "abi" "for" "nws" "eng" "f_g" "tim" "tmp")) "Main") 
-         ((eq major-mode 'dired-mode) "Dired") 
-         ((memq major-mode '(help-mode apropos-mode Info-mode Man-mode)) "Common") 
+	 ((condition-case err (projectile-project-root)
+            (error
+             nil))
+          (list (projectile-project-name)))
+         ((string-equal "*" (substring (buffer-name) 0 1)) "Common")
+         ((member (buffer-name)
+                  '("xyz" "day" "m3" "abi" "for" "nws" "eng" "f_g" "tim" "tmp")) "Main")
+         ((eq major-mode 'dired-mode) "Dired")
+         ((memq major-mode '(help-mode apropos-mode Info-mode Man-mode)) "Common")
          ((memq major-mode '(rmail-mode rmail-edit-mode vm-summary-mode vm-mode mail-mode
                                         mh-letter-mode mh-show-mode mh-folder-mode gnus-summary-mode
                                         message-mode gnus-group-mode gnus-article-mode score-mode
-                                        gnus-browse-killed-mode)) "Mail") 
+                                        gnus-browse-killed-mode)) "Mail")
          (t
 	  ;; Return `mode-name' if not blank, `major-mode' otherwise.
 	  (if (and (stringp mode-name)
@@ -349,50 +377,50 @@
 
 
 
-(defvar tabbar-ruler-projectile-tabbar-buffer-group-calc nil 
+(defvar tabbar-ruler-projectile-tabbar-buffer-group-calc nil
   "Buffer group for projectile.  Should be buffer local and speed up calculation of buffer groups.")
-(defun tabbar-ruler-projectile-tabbar-buffer-groups () 
+(defun tabbar-ruler-projectile-tabbar-buffer-groups ()
   "Return the list of group names BUFFER belongs to.
     Return only one group for each buffer."
   (if tabbar-ruler-projectile-tabbar-buffer-group-calc (symbol-value
-                                                        'tabbar-ruler-projectile-tabbar-buffer-group-calc) 
-    (set (make-local-variable 'tabbar-ruler-projectile-tabbar-buffer-group-calc) 
+                                                        'tabbar-ruler-projectile-tabbar-buffer-group-calc)
+    (set (make-local-variable 'tabbar-ruler-projectile-tabbar-buffer-group-calc)
          (cond ;;
           ;;
-          ((memq major-mode '(erc-mode)) 
+          ((memq major-mode '(erc-mode))
            '("IRC"))
           ;;
-          ((or 
-            (string-equal "#" (substring (buffer-name) 0 1)) 
-            (string-equal "*" (substring (buffer-name) 0 1)) 
-            (string-equal ":" (substring (buffer-name) 0 1))) 
+          ((or
+            (string-equal "#" (substring (buffer-name) 0 1))
+            (string-equal "*" (substring (buffer-name) 0 1))
+            (string-equal ":" (substring (buffer-name) 0 1)))
            '("Misc"))
           ;;
-          ((or 
-            (get-buffer-process (current-buffer)) 
-            (memq major-mode '(comint-mode compilation-mode))) 
+          ((or
+            (get-buffer-process (current-buffer))
+            (memq major-mode '(comint-mode compilation-mode)))
            '("Term"))
           ;;
-          ((condition-case err (projectile-project-root) 
-             (error 
-              nil)) 
+          ((condition-case err (projectile-project-root)
+             (error
+              nil))
            (list (projectile-project-name)))
           ;;
           ((memq major-mode '(emacs-lisp-mode          ;
                               makefile-mode cmake-mode ;
-                              )) 
+                              ))
            '("Coding"))
           ;;
-          ((memq major-mode '(javascript-mode js-mode js2-mode nxhtml-mode html-mode css-mode)) 
+          ((memq major-mode '(javascript-mode js-mode js2-mode nxhtml-mode html-mode css-mode))
            '("Web"))
           ;;
-          ((memq major-mode '(org-mode calendar-mode diary-mode)) 
+          ((memq major-mode '(org-mode calendar-mode diary-mode))
            '("Org"))
           ;;
-          ((memq major-mode '(dired-mode speedbar-mode)) 
+          ((memq major-mode '(dired-mode speedbar-mode))
            '("Dir"))
           ;;
-          (t '("Main")))) 
+          (t '("Main"))))
     (symbol-value 'tabbar-ruler-projectile-tabbar-buffer-group-calc)))
 
 (setq tabbar-buffer-groups-function 'tabbar-ruler-projectile-tabbar-buffer-groups)

@@ -33,12 +33,18 @@
 (package-download 'elisp-format)
 ;; (package-download-curl "elisp-format" "elisp-format.el" "https://www.emacswiki.org/emacs/download/elisp-format.el")
 ;;
-(add-to-list 'auto-mode-alist '("\\.els\\'" . emacs-lisp-mode))
-(add-to-list 'auto-mode-alist '("\\.els.el\\'" . emacs-lisp-mode))
-;;
-(internal-require 'elisp-format)
-(define-key emacs-lisp-mode-map (kbd "C-M-\\") 'elisp-code-format) 
-(define-key emacs-lisp-mode-map (kbd "C-c C-f") 'elisp-code-format)
+(add-to-list 'auto-mode-alist '("\\.el\\.els\\.els.el\\'" . emacs-lisp-mode))
+
+(define-key emacs-lisp-mode-map (kbd "C-M-\\")
+  (lambda()
+    (interactive)
+    (internal-require 'elisp-format)
+    (elisp-code-format)))
+(define-key emacs-lisp-mode-map (kbd "C-c C-f")
+  (lambda()
+    (interactive)
+    (internal-require 'elisp-format)
+    (elisp-code-format)))
 ;;
 (setq initial-major-mode 'emacs-lisp-mode)
 ;; (add-to-list 'auto-mode-alist '("*scratch*" . emacs-lisp-mode))
@@ -51,85 +57,78 @@
 ;;
 
 (add-hook 'emacs-lisp-mode-hook ;;
-          (lambda ()
-            (internal-require 'ielm) 
-            (define-key ielm-map (kbd "C-c C-z") 'show-elisp-workbuffer)
-            ;;
-            (internal-require 'elisp-slime-nav)
-            (elisp-slime-nav-mode)
-            (dolist (hook '(ielm-mode-hook lisp-interaction-mode-hook)) 
-              (internal-require 'elisp-slime-nav) 
-              (add-hook hook 'elisp-slime-nav-mode))
-            ;;
-            ;; (internal-require 'el-spice)
-            ;; (el-spice-mode)
-            ;; (dolist (hook '(ielm-mode-hook lisp-interaction-mode-hook))
-            ;; (add-hook hook 'el-spice-mode))
-            ;;
-            ;;(internal-require 'elisp-format)
-            ;;(define-key emacs-lisp-mode-map (kbd "C-M-\\") 'elisp-code-format) 
-            ;;(define-key emacs-lisp-mode-map (kbd "C-c C-f") 'elisp-code-format)
-            ;; `highlight-defined'
-            (internal-require 'highlight-defined) 
-            (highlight-defined-mode)
-            ;;
-            ;; scratch settings
-            (internal-require 'persistent-scratch)
-            ;;
-            ;; (package-require 'suggest)
-            ;;
-            ;;(internal-require 'rainbow-delimiters)
-            ;;(global-rainbow-delimiters-mode)
-            ;;(rainbow-delimiters-mode t)
-            ;;(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
-            ;;(add-hook 'emacs-lisp-mode-hook 'highlight-parentheses-mode)
-            ;;
-            ;;(define-key el-spice-mode-map (kbd "C-c C-z")  'show-elisp-repl)
-            (define-key emacs-lisp-mode-map (kbd "C-c C-z")  'show-elisp-repl) 
-            (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'compile-current-buffer)
-            ;; (define-key emacs-lisp-mode-map (kbd "C-c C-k")  'eval-buffer)
-            ;;
-            ;; (package-require 'elisp-refs)
-            ;; (define-key emacs-lisp-mode-map (kbd "M-.")  'elisp-refs-function)
-            (package-require 'macrostep) 
-            (define-key emacs-lisp-mode-map (kbd "C-c e") 'macrostep-expand)
-            ;;
-            ;; (package-require 'lispy)
-            ;; (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
-            ;;
-            ))
+  (lambda ()
+    (internal-require 'ielm)
+    (define-key ielm-map (kbd "C-c C-z") 'show-elisp-workbuffer)
+    ;;
+    (internal-require 'elisp-slime-nav)
+    (elisp-slime-nav-mode)
+    (dolist (hook '(ielm-mode-hook lisp-interaction-mode-hook))
+      (internal-require 'elisp-slime-nav)
+      (add-hook hook 'elisp-slime-nav-mode))
+    ;;
+    ;; (internal-require 'el-spice)
+    ;; (el-spice-mode)
+    ;; (dolist (hook '(ielm-mode-hook lisp-interaction-mode-hook))
+    ;; (add-hook hook 'el-spice-mode))
+    ;;
+    ;; `highlight-defined'
+    ;;(internal-require 'highlight-defined)
+    ;;(highlight-defined-mode)
+    ;;
+    ;; scratch settings
+    ;;(internal-require 'persistent-scratch)
+    ;;
+    ;; (package-require 'suggest)
+    ;;
+    ;;(internal-require 'rainbow-delimiters)
+    ;;(global-rainbow-delimiters-mode)
+    ;;(rainbow-delimiters-mode t)
+    ;;(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+    ;;(add-hook 'emacs-lisp-mode-hook 'highlight-parentheses-mode)
+    ;;
+    ;;(define-key el-spice-mode-map (kbd "C-c C-z")  'show-elisp-repl)
+    (define-key emacs-lisp-mode-map (kbd "C-c C-z")  'show-elisp-repl)
+    (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'compile-current-buffer)
+    ;; (define-key emacs-lisp-mode-map (kbd "C-c C-k")  'eval-buffer)
+    ;;
+    ;; (package-require 'elisp-refs)
+    ;; (define-key emacs-lisp-mode-map (kbd "M-.")  'elisp-refs-function)
+    ;;
+    (internal-require 'mod-sexp)
+    (sexp-mode-init)))
 
-(defun elisp-code-format() 
-  (interactive) 
-  (elisp-format-buffer) 
-  (save-current-buffer) 
+(defun elisp-code-format()
+  (interactive)
+  (elisp-format-buffer)
+  (save-current-buffer)
   (message "format complete!"))
 
 
 
 
-(defun show-elisp-repl() 
-  (interactive) 
-  (setq temp-elisp-buffer-name (buffer-name (current-buffer))) 
-  (ome-show-compilation "*ielm*") 
-  (ielm) 
-  (switch-to-buffer-other-window temp-elisp-buffer-name) 
+(defun show-elisp-repl()
+  (interactive)
+  (setq temp-elisp-buffer-name (buffer-name (current-buffer)))
+  (ome-show-compilation "*ielm*")
+  (ielm)
+  (switch-to-buffer-other-window temp-elisp-buffer-name)
   (ome-show-compilation "*ielm*" t))
 
-(defun show-elisp-workbuffer() 
-  (interactive) 
-  (switch-to-buffer-other-window temp-elisp-buffer-name) 
-  (delete-other-windows) 
-  (show-elisp-repl) 
+(defun show-elisp-workbuffer()
+  (interactive)
+  (switch-to-buffer-other-window temp-elisp-buffer-name)
+  (delete-other-windows)
+  (show-elisp-repl)
   (switch-to-buffer-other-window temp-elisp-buffer-name))
 
 ;;
-(defun compile-current-buffer() 
-  (interactive) 
-  (kill-buffer (get-buffer "*Compile-Log*")) 
-  (save-buffer) 
-  (delete-other-windows) 
-  (byte-compile-file (buffer-file-name)) 
+(defun compile-current-buffer()
+  (interactive)
+  (kill-buffer (get-buffer "*Compile-Log*"))
+  (save-buffer)
+  (delete-other-windows)
+  (byte-compile-file (buffer-file-name))
   (delete-file (concat (buffer-file-name) "c"))
   ;;(ome-show-compilation "*Warnings*")
   (ome-show-compilation "*Compile-Log*"))
@@ -138,20 +137,18 @@
 
 ;;
 ;; `automenu'
-(defun automenu--emacs-lisp-mode-menu () 
+(defun automenu--emacs-lisp-mode-menu ()
   '("REPL" "reload" "compile-buffer"))
 ;; (emacs-lisp-mode-menu)
 ;; (macroexpand '("REPL" "compile-buffer" (concat "reload:" (buffer-name))))
-(defun automenu--emacs-lisp-mode-func (index) 
-  (cond ((= 0 index) 
-         (show-elisp-repl)) 
-        ((= 1 index) 
-         (load (buffer-file-name))) 
-        ((= 2 index) 
-         (compile-current-buffer)) 
-        (t (message  "emacs-lisp-mode menu:%d" index))))
-
-
+(defun automenu--emacs-lisp-mode-func (index)
+  (cond ((= 0 index)
+          (show-elisp-repl))
+    ((= 1 index)
+      (load (buffer-file-name)))
+    ((= 2 index)
+      (compile-current-buffer))
+    (t (message  "emacs-lisp-mode menu:%d" index))))
 ;;
 (provide 'mod-elisp)
 ;; emacs-settings.el ends here

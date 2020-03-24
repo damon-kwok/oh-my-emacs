@@ -42,8 +42,8 @@
 
 
 (global-set-key (kbd "M-,") ;;<backtab>
-		'(lambda () 
-                   (interactive) 
+		'(lambda ()
+                   (interactive)
                    (switch-to-buffer (other-buffer (current-buffer) 1))))
 ;;
 
@@ -86,24 +86,24 @@
 ;; (global-set-key (kbd "<C-mouse-1>")      'wand:execute)
 ;; (global-set-key (kbd "<C-down-mouse-1>")  nil)
 ;;-(wand:add-rule-by-pattern :match "\\$ "
-;;-                          :capture 
+;;-                          :capture
 
-;;-                          :after 
+;;-                          :after
 ;;-                          :action popup-shell-command)
 ;;-(wand:add-rule-by-pattern :match "https?://"
-;;-                          :capture 
+;;-                          :capture
 ;;-
-;;-                          :whole 
+;;-                          :whole
 ;;-                          :action browse-url)
 ;;-(wand:add-rule-by-pattern :match "file:"
-;;-                          :capture 
+;;-                          :capture
 ;;-
-;;-                          :after 
+;;-                          :after
 ;;-                          :action find-file)
 ;;-(wand:add-rule-by-pattern :match "#> "
-;;-                          :capture 
+;;-                          :capture
 ;;-
-;;-                          :after 
+;;-                          :after
 ;;-                          :action add-bracket-and-eval)
 
 ;; `folding'
@@ -125,14 +125,14 @@
 (global-set-key [remap query-replace] 'anzu-query-replace)
 (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp)
 
-(set-face-attribute 'anzu-mode-line nil 
-                    :foreground "yellow" 
+(set-face-attribute 'anzu-mode-line nil
+                    :foreground "yellow"
                     :weight 'bold)
 
-(custom-set-variables '(anzu-mode-lighter "") 
-                      '(anzu-deactivate-region t) 
-                      '(anzu-search-threshold 1000) 
-                      '(anzu-replace-threshold 50) 
+(custom-set-variables '(anzu-mode-lighter "")
+                      '(anzu-deactivate-region t)
+                      '(anzu-search-threshold 1000)
+                      '(anzu-replace-threshold 50)
                       '(anzu-replace-to-string-separator " => "))
 
 (define-key isearch-mode-map [remap isearch-query-replace] #'anzu-isearch-query-replace)
@@ -206,7 +206,7 @@
 ;; `window-numbering'
 (package-require 'window-numbering)
 (window-numbering-mode)
-(setq window-numbering-assign-func (lambda () 
+(setq window-numbering-assign-func (lambda ()
                                      (when (equal (buffer-name) "*Calculator*") 9)))
 
 
@@ -307,66 +307,7 @@
 ;;; `which-key'
 (package-require 'which-key)
 (which-key-mode)
-
-;;; `paredit'
-(package-require 'paredit)
-(define-key paredit-mode-map (kbd "C-<left>") 'paredit-backward-slurp-sexp)
-(define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
-(define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
-(define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
-;;; enable paredit for *
-(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-(add-hook 'emacs-mode-hook            #'enable-paredit-mode)
-(add-hook 'inferior-emacs-mode-hook   #'enable-paredit-mode)
-(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-(add-hook 'common-lisp-mode-hook      #'enable-paredit-mode)
-(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
-(add-hook 'hy-mode-hook               #'enable-paredit-mode)
-(add-hook 'newlisp-mode-hook          #'enable-paredit-mode)
-(add-hook 'hy-mode-hook               #'enable-paredit-mode)
-;;
-
-
-;;
-;; (use-package smartparens-config
-;; :ensure smartparens
-;; :config
-;; (progn
-;; (show-smartparens-global-mode t)))
-
-;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-;; (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
-
-;; (defmacro def-pairs (pairs)
-;; `(progn
-;; ,@(loop for (key . val) in pairs
-;; collect
-;; `(defun ,(read (concat
-;; "wrap-with-"
-;; (prin1-to-string key)
-;; "s"))
-;; (&optional arg)
-;; (interactive "p")
-;; (sp-wrap-with-pair ,val)))))
-
-;; (def-pairs ((paren . "(")
-;; (bracket . "[")
-;; (brace . "{")
-;; (single-quote . "'")
-;; (double-quote . "\"")
-;; (back-quote . "`")))
-
-;;
-
-
-;;
-;; `comment-toggle' M-;
-(define-key paredit-mode-map (kbd "M-;") 'ome-comment-or-uncomment-region-or-line)
-
-(package-require 'helpful)
+(package-require 'helpful)
 (global-set-key (kbd "C-h f") #'helpful-callable)
 (global-set-key (kbd "C-h v") #'helpful-variable)
 (global-set-key (kbd "C-h k") #'helpful-key)
@@ -384,23 +325,8 @@
 ;;; `tty'
 ;; (defhydra hydra-show-tty
 
-
-(defun switch-to-scratch-buffer () 
-  "Toggle between *scratch* buffer and the current buffer.
-     If the *scratch* buffer does not exist, create it." 
-  (interactive) 
-  (let ((scratch-buffer-name  "*scratch*") 
-        (prev-major-mode major-mode)) 
-    (if (equal (buffer-name (current-buffer)) scratch-buffer-name) 
-        (switch-to-buffer (other-buffer)) 
-      (with-current-buffer (switch-to-buffer  scratch-buffer-name) 
-        (when (functionp prev-major-mode) 
-          (funcall prev-major-mode )) 
-        (when (equal major-mode 'fundamental-mode ) 
-          (emacs-lisp-mode)) 
-        (goto-char (point-max))))))
-;;; `buffer'
-(defhydra hydra-show-buffer 
+;;; `buffer'
+(defhydra hydra-show-buffer
   (:color blue)
   "
 ^Cmooand^            ^Buffer1^         ^Buffer2^
@@ -432,12 +358,12 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 
 
 
-(defun compile-all-modules() 
+(defun compile-all-modules()
   (byte-recompile-directory (expand-file-name (concat (getenv "ROOT") "/emacs-config/modules")) 0))
 
 
 ;;; `hydra-url-menu'
-(defhydra hydra-url-menu 
+(defhydra hydra-url-menu
   (:color blue)
   "
 ^News^       ^Search^          ^Tut^                 ^Awesome^          ^site^
@@ -477,7 +403,7 @@ _<escape>_: Quit    _\\_: calendar     _<tab>_: <-BACK          ^^ ^^
 ;; (global-set-key (kbd "C-c w") 'hydra-url-menu/body)
 
 ;;; `hydra-open-module'
-(defhydra hydra-config-menu 
+(defhydra hydra-config-menu
   (:color blue)
   "
 ^Basic^            ^Layout^         ^Editor^          ^Language^      ^Other^
@@ -545,7 +471,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 ("<escape>" nil "Quit"))
 ;; (global-set-key (kbd "C-c c") 'hydra-open-config/body)
 ;;
-(defhydra hydra-open-menu 
+(defhydra hydra-open-menu
   (:color blue)
   "
 ^Project^         ^Doc^          ^Blog^            ^dotfiles^      ^dotfiles^        ^English^
@@ -564,30 +490,30 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
   ;; Project
   ("M-1" (ome-open-file "~/projects/me/libknife/include/knife.h") "libknife")
   ("M-2" (ome-open-file "~/projects/me/memrock/cpp/src/memrock.hpp") "libknife")
-  ("M-3" (ome-open-file "~/projects/me/awesome-package-manager/README.org") "pacman") 
-  ("M-4" (ome-open-file "~/projects/me/awesome-network-programming/README.org") "network") 
+  ("M-3" (ome-open-file "~/projects/me/awesome-package-manager/README.org") "pacman")
+  ("M-4" (ome-open-file "~/projects/me/awesome-network-programming/README.org") "network")
   ("M-5" (ome-open-file "~/projects/me/awesome-web-scraping/README.org") "web-scrap")
-  ("M-6" (ome-open-file "~/projects/me/medusa/medusa-cpp/Core/Core.h") "medusa") 
+  ("M-6" (ome-open-file "~/projects/me/medusa/medusa-cpp/Core/Core.h") "medusa")
 
   ;; Doc
-  ("h" (ome-open-file "~/.oh-my-emacs/README.org") "README.org") 
+  ("h" (ome-open-file "~/.oh-my-emacs/README.org") "README.org")
   ("d" (ome-open-org-by-month "diary") "diary.org")
-  ("t" (ome-open-doc "todo.org") "todo.org") 
-  ("b" (ome-open-doc "book.org") "book.org") 
-  ("g" (ome-open-doc "game.org") "game.org") 
+  ("t" (ome-open-doc "todo.org") "todo.org")
+  ("b" (ome-open-doc "book.org") "book.org")
+  ("g" (ome-open-doc "game.org") "game.org")
   ("n" (ome-open-doc "news.org") "news.org")
   ("m" (ome-open-doc "me.org") "me.org")
 
   ;; Blog
-  ("i" (ome-open-blog "index.org") "index.org") 
-  ("b" (ome-open-blog "blog.org") "blog.org") 
+  ("i" (ome-open-blog "index.org") "index.org")
+  ("b" (ome-open-blog "blog.org") "blog.org")
   ("l" (ome-open-blog "link.org") "link.org")
 
   ;; dotfiles
   ("1" (ome-open-file "~/.oh-my-env/bin/ome") "ome")
-  ("2" (ome-open-file "~/.oh-my-env/env") "env") 
-  ("3" (ome-open-file "~/.oh-my-env/bin/lib") "lib") 
-  ("4" (ome-open-file "~/.oh-my-env/bin/tool") "tool") 
+  ("2" (ome-open-file "~/.oh-my-env/env") "env")
+  ("3" (ome-open-file "~/.oh-my-env/bin/lib") "lib")
+  ("4" (ome-open-file "~/.oh-my-env/bin/tool") "tool")
   ("5" (ome-open-file "~/.oh-my-env/bin/proj") "proj")
   ("6" (ome-open-file "~/.oh-my-env/bin/app_wizard") "app_wizard")
   ("7" (ome-open-file "~/.oh-my-env/bin/git-hook") "git-hook")
@@ -604,22 +530,22 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
   ("C-3" (ome-open-doc "english/PETS3.org") "english")
   ("C-4" (ome-open-doc "english/CET4.org") "english")
   ("C-6" (ome-open-doc "english/CET6.org") "english")
-  
+
   ;;
-  ("<tab>" helm-keyboard-quit "back" 
-   :exit t) 
-  ("\\" (ome-calendar) "calendar") 
-  ("<tab>" (hydra-super-menu/body) "BACK") 
-  ("q" nil "Quit") 
+  ("<tab>" helm-keyboard-quit "back"
+   :exit t)
+  ("\\" (ome-calendar) "calendar")
+  ("<tab>" (hydra-super-menu/body) "BACK")
+  ("q" nil "Quit")
   ("<escape>" nil "Quit"))
 
 
-(defhydra hydra-english-menu 
+(defhydra hydra-english-menu
   (:color blue)
   "
 ^Common^        ^PETS^      ^CET^         ^TEM^         ^Other^
 ^^^^^^^^^^--------------------------------------------------------------------------------
-_a_:english-a   _1_:PETS1   _C-4_:CET-4   _M-4_:TEM-4   _i_:IELTS 
+_a_:english-a   _1_:PETS1   _C-4_:CET-4   _M-4_:TEM-4   _i_:IELTS
 _b_:english-b   _2_:PETS2   _C-6_:CET-6   _M-8_:TEM-8   _t_:TOEFL-IBT
 _e_:english     _3_:PETS3   ^^            ^^            _g_:GRE
 _v_:vocabulary  _4_:PETS4   ^^            ^^            ^^
@@ -633,7 +559,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("b" (ome-open-doc "english/english-b.org") "english-a")
   ("e" (ome-open-doc "english/english.org") "english-b")
   ("v" (ome-open-doc "english/vocabulary.org") "vocabulary")
-  
+
   ;; English
   ("1" (ome-open-doc "english/PETS1.org") "english")
   ("2" (ome-open-doc "english/PETS2.org") "english")
@@ -653,17 +579,17 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("i" (ome-open-doc "english/IELTS.org") "english")
   ("t" (ome-open-doc "english/TOEFL-IBT.org") "english")
   ("g" (ome-open-doc "english/GRE.org") "english")
-  
+
   ;;
-  ("<tab>" helm-keyboard-quit "back" 
-   :exit t) 
-  ("\\" (ome-calendar) "calendar") 
-  ("<tab>" (hydra-super-menu/body) "BACK") 
-  ("q" nil "Quit") 
+  ("<tab>" helm-keyboard-quit "back"
+   :exit t)
+  ("\\" (ome-calendar) "calendar")
+  ("<tab>" (hydra-super-menu/body) "BACK")
+  ("q" nil "Quit")
   ("<escape>" nil "Quit"))
 
 ;;
-(defhydra hydra-new-menu 
+(defhydra hydra-new-menu
   (:color blue)
   (concat
    "^^^^^^^^New project wizard:\n";;
@@ -695,21 +621,21 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("M-k" (ome-project-wizard "kotlin") "Kotlin")
 
   ("1" (ome-project-wizard "nodejs") "nodejs")
-  
+
   ("9" (ome-project-wizard "ruby") "ruby")
   ("e" (ome-project-wizard "erlang") "erlang")
   ("E" (ome-project-wizard "elixir") "elixir")
   ("h" (ome-project-wizard "haskell") "haskell")
   ("o" (ome-project-wizard "ocaml") "ocaml")
-  
+
   ;; Other
   ("<tab>" (hydra-super-menu/body) "back")
-  ("`" (show-global-shell) "shell") 
-  ("C-`" (show-global-shell-new) "shell-new") 
-  ("\\" (ome-calendar) "calendar") 
-  ("w" (ome-open-url "http://wttr.in/") "wego") 
-  ("q" nil "quit") 
-  ("<SPC>" nil "quit") 
+  ("`" (show-global-shell) "shell")
+  ("C-`" (show-global-shell-new) "shell-new")
+  ("\\" (ome-calendar) "calendar")
+  ("w" (ome-open-url "http://wttr.in/") "wego")
+  ("q" nil "quit")
+  ("<SPC>" nil "quit")
   ("<escape>" nil "quit"))
 
 ;; string to symbol
@@ -741,7 +667,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
 (defun ome-auto-func (index)
   (let* ((mode (symbol-name major-mode))
         (fun (intern (concat "automenu--" mode "-func"))))
-    (if (fboundp fun)  
+    (if (fboundp fun)
         (funcall fun index)
       (message "run %s item:%d" mode index))))
 
@@ -758,8 +684,8 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
 ;; (ome-auto-func 2)
 ;; (nth 5 '(1 2 3))
 
-(defhydra hydra-super-menu 
-  (:color blue) 
+(defhydra hydra-super-menu
+  (:color blue)
   (concat ;;
    "^Main^         ^Buffer^          ^Search^             ^View^          ^Navigate^         ^Org^            ^" (symbol-name major-mode) "^\n" ;;
    "^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------\n"
@@ -776,16 +702,16 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
    "^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------\n"
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^ ^^\n")
   ;; Main
-  ("n" (hydra-new-menu/body) "New" 
-   :color blue) 
-  ("o" (hydra-open-menu/body) "Open" 
-   :color blue) 
-  ("b" helm-bookmarks "Bookmarks") 
-  ("e" ome-mu4e-open "Email" 
+  ("n" (hydra-new-menu/body) "New"
+   :color blue)
+  ("o" (hydra-open-menu/body) "Open"
+   :color blue)
+  ("b" helm-bookmarks "Bookmarks")
+  ("e" ome-mu4e-open "Email"
    :color blue)
   ("E" ome-mu4e-new "Email")
-  ("f" elfeed "Feed" 
-   :color blue) 
+  ("f" elfeed "Feed"
+   :color blue)
   ("m" (hydra-config-menu/body) "Module")
   ("i" (ome-find-buffer-by-major 'erc-mode) "IRC")
   ("s" (show-global-shell) "shell")
@@ -802,7 +728,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("M-8" (ome-auto-func 8) "auto-func")
   ("M-9" (ome-auto-func 9) "auto-func")
   ("M-0" (ome-auto-func 0) "auto-func")
-  
+
   ;; Org
   ("M-c" org-capture "capture")
   ("M-l" org-store-link "store-link")
@@ -811,86 +737,86 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("M-u" org-update-statistics-cookies)
   ;; ("M-j" (org-capture nil "j") "journal")
   ("M-g" (org-capture nil "t") "GTD")
-  ;; ("M-p" (org-publish-project "blog") "publish-blog")  
+  ;; ("M-p" (org-publish-project "blog") "publish-blog")
   ("M-p" (ome-run-command "cd ~/workspace/blog/ && make") "publish-blog")
   ("C-p" (ome-run-command "rm ~/.org-timestamps/* && cd ~/workspace/blog/ && make") "publish-blog")
-  ("M-e" (hydra-english-menu/body) "english" 
+  ("M-e" (hydra-english-menu/body) "english"
    :color blue)
-  
+
   ;; Search
-  (">" ome-go-to-char-forward "go-to-char-forward") 
-  ("<" ome-go-to-char-backward "go-to-char-backward") 
-  ("G" projectile-ripgrep "projectile-project-root") 
-  ("g" ome-grep-directory "projectile-directory-root") 
-  ("d" bing-dict-brief "bing-dict-brief") 
+  (">" ome-go-to-char-forward "go-to-char-forward")
+  ("<" ome-go-to-char-backward "go-to-char-backward")
+  ("G" projectile-ripgrep "projectile-project-root")
+  ("g" ome-grep-directory "projectile-directory-root")
+  ("d" bing-dict-brief "bing-dict-brief")
   ("D" ome-bing-dict-brief-web "bing-dict-brief-web")
   ("H" (find-file "~/Cybertron/Modules/Foundation/Source/CybertronLogServer/Main.cpp"))
   ("h" (find-file "~/Cybertron/Modules/Web/WebBridge/main.cpp"))
-  
+
   ;; View
-  ("M-t" tool-bar-mode "Toolbar" 
-   :color pink) 
-  ("M-m" menu-bar-mode "Menubar" 
-   :color pink) 
-  ("M-s" projectile-speedbar-toggle "Speedbar" 
-   :color pink) 
-  ("M-d" (dired-sidebar-toggle-sidebar nil) "DiredSideBar" 
-   :color pink) 
-  ("=" text-scale-increase "text-scale-increase" 
-   :color pink) 
-  ("-" text-scale-decrease "text-scale-decrease" 
+  ("M-t" tool-bar-mode "Toolbar"
+   :color pink)
+  ("M-m" menu-bar-mode "Menubar"
+   :color pink)
+  ("M-s" projectile-speedbar-toggle "Speedbar"
+   :color pink)
+  ("M-d" (dired-sidebar-toggle-sidebar nil) "DiredSideBar"
+   :color pink)
+  ("=" text-scale-increase "text-scale-increase"
+   :color pink)
+  ("-" text-scale-decrease "text-scale-decrease"
    :color pink)
   ("M" (ome-show-compilation "*Messages*") "*Message*")
   ("." switch-to-scratch-buffer "*scratch")
   ("M-." (load "mod-keybind.el") "load-menu")
 
   ;; Nav
-  (";" tabbar-backward "ome-tabbar-backward" 
-   :color pink) 
-  ("'" tabbar-forward "tabbar-forward" 
-   :color pink) 
-  ("[" ome-tabbar-backward-group "tabbar-up" 
-   :color pink) 
-  ("/" ome-tabbar-forward-group "tabbar-down" 
-   :color pink) 
-  ("<left>" tabbar-backward "tabbar-backward" 
-   :color pink) 
-  ("<right>" tabbar-forward "tabbar-forward" 
-   :color pink) 
-  ("<up>" tabbar-backward-group "tabbar-up" 
-   :color pink) 
-  ("<down>" tabbar-forward-group "tabbar-down" 
+  (";" tabbar-backward "ome-tabbar-backward"
+   :color pink)
+  ("'" tabbar-forward "tabbar-forward"
+   :color pink)
+  ("[" ome-tabbar-backward-group "tabbar-up"
+   :color pink)
+  ("/" ome-tabbar-forward-group "tabbar-down"
+   :color pink)
+  ("<left>" tabbar-backward "tabbar-backward"
+   :color pink)
+  ("<right>" tabbar-forward "tabbar-forward"
+   :color pink)
+  ("<up>" tabbar-backward-group "tabbar-up"
+   :color pink)
+  ("<down>" tabbar-forward-group "tabbar-down"
    :color pink)
 
-  ("M-;" tabbar-backward "tabbar-backward" 
-   :color pink) 
-  ("M-'" tabbar-forward "tabbar-forward" 
-   :color pink) 
-  ("M-[" tabbar-backward-group "tabbar-up" 
-   :color pink) 
-  ("M-/" tabbar-forward-group "tabbar-down" 
+  ("M-;" tabbar-backward "tabbar-backward"
    :color pink)
-  
-  ("0" select-window-0 "select-window-0" 
-   :color pink) 
-  ("1" select-window-1 "select-window-1" 
-   :color pink) 
-  ("2" select-window-2 "select-window-2" 
-   :color pink) 
-  ("3" select-window-3 "select-window-3" 
-   :color pink) 
-  ("4" select-window-4 "select-window-4" 
-   :color pink) 
-  ("5" select-window-5 "select-window-5" 
-   :color pink) 
-  ("6" select-window-6 "select-window-6" 
-   :color pink) 
-  ("7" select-window-7 "select-window-7" 
-   :color pink) 
-  ("8" select-window-8 "select-window-8" 
-   :color pink) 
-  ("9" select-window-9 "select-window-9" 
-   :color pink) 
+  ("M-'" tabbar-forward "tabbar-forward"
+   :color pink)
+  ("M-[" tabbar-backward-group "tabbar-up"
+   :color pink)
+  ("M-/" tabbar-forward-group "tabbar-down"
+   :color pink)
+
+  ("0" select-window-0 "select-window-0"
+   :color pink)
+  ("1" select-window-1 "select-window-1"
+   :color pink)
+  ("2" select-window-2 "select-window-2"
+   :color pink)
+  ("3" select-window-3 "select-window-3"
+   :color pink)
+  ("4" select-window-4 "select-window-4"
+   :color pink)
+  ("5" select-window-5 "select-window-5"
+   :color pink)
+  ("6" select-window-6 "select-window-6"
+   :color pink)
+  ("7" select-window-7 "select-window-7"
+   :color pink)
+  ("8" select-window-8 "select-window-8"
+   :color pink)
+  ("9" select-window-9 "select-window-9"
+   :color pink)
   ("u" (hydra-url-menu/body) "URLs")
   ("C-7" (find-file (concat (ome-project-root) ".gitignore")) "gitignore")
   ("C-8" (find-file (concat (ome-project-root) "Makefile")) "Makefile")
@@ -898,24 +824,24 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("C-0" (find-file (concat (ome-project-root) "README.org")) "README.org")
 
   ;; Buffer/File
-  ("r" ome-rename-file-and-buffer "rename-file-and-buffer") 
-  ("R" ome-delete-file-and-buffer "delete-file-and-buffer") 
-  ("k" (kill-buffer (buffer-name)) "kill-buffer" 
-   :color pink) 
-  ("M-k" ome-kill-other-buffers "kill-other-buffers") 
-  ("C-k" ome-kill-all-buffers "kill-all-buffers") 
-  
+  ("r" ome-rename-file-and-buffer "rename-file-and-buffer")
+  ("R" ome-delete-file-and-buffer "delete-file-and-buffer")
+  ("k" (kill-buffer (buffer-name)) "kill-buffer"
+   :color pink)
+  ("M-k" ome-kill-other-buffers "kill-other-buffers")
+  ("C-k" ome-kill-all-buffers "kill-all-buffers")
+
   ;; Orgmode
 
-  
+
   ;; Other
   ("<tab>" helm-recentf "(helm-recentf)")
-  ("`" (show-global-shell) "shell") 
-  ("C-`" (show-global-shell-new) "shell-new") 
-  ("\\" (ome-calendar) "calendar") 
-  ("w" (ome-open-url "http://wttr.in/") "wego") 
-  ("q" nil "quit") 
-  ("<SPC>" nil "quit") 
+  ("`" (show-global-shell) "shell")
+  ("C-`" (show-global-shell-new) "shell-new")
+  ("\\" (ome-calendar) "calendar")
+  ("w" (ome-open-url "http://wttr.in/") "wego")
+  ("q" nil "quit")
+  ("<SPC>" nil "quit")
   ("<escape>" nil "quit"))
 
 ;; (package-require 'yahoo-weather)
@@ -923,10 +849,10 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
 ;; (yahoo-weather-mode)
 
 
-;; (defun show-super-menu () 
-;;   "docstring" 
-;;   (interactive) 
-;;   (load "mod-keybind.el") 
+;; (defun show-super-menu ()
+;;   "docstring"
+;;   (interactive)
+;;   (load "mod-keybind.el")
 ;;   (hydra-super-menu/body))
 
 ;; ;; (global-set-key (kbd "C-M-z") 'show-super-menu1)

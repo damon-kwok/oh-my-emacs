@@ -65,7 +65,7 @@
 (dashboard-modify-heading-icons '((recents . "file-text")
                                   (bookmarks . "book")))
 
-(setq dashboard-set-navigator t)
+(setq dashboard-set-navigator nil)
 
 ;; Format: "(icon title help action face prefix suffix)"
 (setq dashboard-navigator-buttons
@@ -73,7 +73,7 @@
         ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
          "Homepage"
          "Browse homepage"
-         (lambda (&rest _) (browse-url "https://github.com/damon-kwok/oh-my-emacs")))
+         (lambda (&rest _) (browse-url "homepage")))
         ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
         ("?" "" "?/h" #'show-help nil "<" ">"))
          ;; line 2
@@ -81,7 +81,7 @@
           "Linkedin"
           ""
           (lambda (&rest _) (browse-url "homepage")))
-         ("★" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
+         ("?" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
 
 ;; To show info about the packages loaded and the init time:
 (setq dashboard-set-init-info t)
@@ -104,7 +104,7 @@
 
 
 ;;; enable/disable loading page (t:disable nil:enable)
-;; (setq inhibit-startup-message t) 
+;; (setq inhibit-startup-message t)
 ;; (setq inhibit-startup-screen t)
 ;; (setq inhibit-splash-screen t)
 
