@@ -25,10 +25,14 @@
 (require 'mod-package)
 ;;
 ;;; title
-(setq frame-title-format '("%Z  - "
-                           (:eval (cond (buffer-read-only "(Read-Only)")))
-                           (:eval (cond ((buffer-modified-p) "*")))
-                           "%b" "  (%m)  %f")) ;;"%b" " (%m) %f"
+(setq frame-title-format '("[%Z]    [%m]    "
+                            (:eval (if (ome-project-name)
+                                     (concat "<project: " (ome-project-name) ">    ")))
+                            (:eval (cond (buffer-read-only " (readonly)")))
+                            " %b"
+                            (:eval (cond ((buffer-modified-p) " *")))
+                            "    %f"))
+;;"%b" " (%m) %f"
 
 ;; (setq frame-title-format '("[%Z]    %m    "
 ;; 			   (:eval (cond (buffer-read-only "%%")
@@ -44,26 +48,26 @@
 ;;; `open-file' (don't in new frame)
 (setq ns-pop-up-frames nil)
 (setq default-frame-alist '((height . 40)
-                            (width . 130)
-                            (top . 25)
-                            (left . 18)
-                            (menu-bar-lines . 0)
-                            (tool-bar-lines . 0)))
+                             (width . 130)
+                             (top . 25)
+                             (left . 18)
+                             (menu-bar-lines . 0)
+                             (tool-bar-lines . 0)))
 
 ;;; `maxframe'
 ;;(internal-require 'maxframe)
 ;;(add-hook 'window-setup-hook 'maximize-frame t)
 
 ;;; set background `alpha'
-(setq alpha-list;;
-      '((100 100)
-        (95 75)
-        (90 70)
-        (85 65)
-        (80 60)
-        (75 55)
-        (70 50)
-        (65 55)))
+(setq alpha-list ;;
+  '((100 100)
+     (95 75)
+     (90 70)
+     (85 65)
+     (80 60)
+     (75 55)
+     (70 50)
+     (65 55)))
 
 (defun loop-alpha ()
   (interactive)
@@ -71,8 +75,8 @@
     ((lambda (a ab)
        (set-frame-parameter (selected-frame) 'alpha (list a ab))
        (add-to-list 'default-frame-alist (cons 'alpha (list a ab))))
-     (car h)
-     (car (cdr h)))
+      (car h)
+      (car (cdr h)))
     (setq alpha-list (cdr (append alpha-list (list h))))))
 (set-frame-parameter (selected-frame) 'alpha '(95 75))
 (add-to-list 'default-frame-alist '(alpha 95 75))
@@ -103,7 +107,8 @@
 
 ;;; set scroll `speed' (mormal:3 line | shift:1 line |control:1 page)
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1)
-                                    ((control))) mouse-wheel-progressive-speed nil scroll-step 1)
+                                   ((control))) mouse-wheel-progressive-speed nil scroll-step 1)
+
 
 ;;; set font 1 : look:http://www.linuxsir.org/bmkbs/thread326299.html
 ;; (set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
@@ -122,7 +127,7 @@
   (when (member font (font-family-list))
     (let ((font-info(concat font "-" (number-to-string size))))
       (set-face-attribute 'default nil
-                          :font font-info)
+        :font font-info)
       ;; set font for all windows. don't keep window size fixed
       ;; (set-frame-font font-info nil t)
       (set-frame-font font-info nil t)))
@@ -130,7 +135,7 @@
   ;; set chinese Font
   (dolist (charset '(kana han symbol cjk-misc bopomofo))
     (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family "Microsoft Yahei"
-                                                                     :size 12))))
+                                                            :size 12))))
 ;;
 ;; lookup: |1iljg9q0oO
 ;; (if window-system (ome-set-font "Bitstream Vera Sans Mono" 10))
@@ -155,10 +160,10 @@
 ;;; `nyan-mode'
 (package-download 'nyan-mode)
 (if (display-graphic-p)
-    (progn
-      (require 'nyan-mode)
-      (nyan-start-animation)
-      (nyan-mode 1)))
+  (progn
+    (require 'nyan-mode)
+    (nyan-start-animation)
+    (nyan-mode 1)))
 
 ;;; `all-the-icons'
 (package-require 'all-the-icons)

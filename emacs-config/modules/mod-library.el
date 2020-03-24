@@ -103,9 +103,6 @@
 (defun ome-buf-dirname()
   (nth 0 (last (split-string (ome-buf-dirpath) "/") 1)))
 
-(defun ome-project-dirname()
-  (nth 0 (last (split-string (directory-file-name (ome-project-root)) "/") 1)))
-
 (defun ome-project-file-exists-p (filename)
   (file-exists-p (concat (ome-project-root) filename)))
 
@@ -133,6 +130,15 @@
     (if (string= fist-char "*") "./" (if (projectile-project-p)
                                        (projectile-project-root)
                                        (ome-buf-dirpath)))))
+
+;; (defun ome-project-dirname()
+  ;; (nth 0 (last (split-string (directory-file-name (expand-file-name (ome-project-root))) "/") 1)))
+
+(defun ome-project-name ()
+  (file-name-base (directory-file-name (expand-file-name (ome-project-root)))))
+
+(defalias 'ome-project-dirname 'ome-project-name)
+
 (defun ome-parent-dirpath (path)
   (file-name-directory (directory-file-name path)))
 
@@ -618,7 +624,7 @@ Otherwise, construct a buffer name from NAME-OF-MODE."
 
 (defun ome-project-wizard(lang)
   (let* ((default-path (expand-file-name "~/projects/"))
-          (project-path (read-file-name "choice project path:" default-path))
+          (project-path (directory-file-name (read-file-name "choice project path:" default-path)))
           (COMMAND (concat "bash -c \"" "app_wizard" " " lang " " project-path "\""))
           (OUTPUT-BUFFER-NAME (concat "*[app_wizard::" lang "]:" (file-name-base project-path) "*")))
     (message "*OUTPUT-BUFFER-NAME*:%s" OUTPUT-BUFFER-NAME)
