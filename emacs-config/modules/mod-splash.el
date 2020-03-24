@@ -25,6 +25,8 @@
 (require 'mod-package)
 ;;
 (package-require 'all-the-icons)
+;; (package-require 'spaceline-all-the-icons)
+;; (spaceline-all-the-icons-theme)
 (package-require 'dashboard)
 (dashboard-setup-startup-hook)
 

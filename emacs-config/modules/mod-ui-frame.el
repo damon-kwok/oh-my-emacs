@@ -28,7 +28,7 @@
 (setq frame-title-format '("%Z  - "
                            (:eval (cond (buffer-read-only "(Read-Only)")))
                            (:eval (cond ((buffer-modified-p) "*")))
-                           "%b" "  | (%m) |  %f"))
+                           "%b" "  (%m)  %f")) ;;"%b" " (%m) %f"
 
 ;; (setq frame-title-format '("[%Z]    %m    "
 ;; 			   (:eval (cond (buffer-read-only "%%")
