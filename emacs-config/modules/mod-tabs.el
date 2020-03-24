@@ -33,7 +33,7 @@
 (setq centaur-tabs-set-bar 'under) ;; 'left
 (setq x-underline-at-descent-line t)
 (setq centaur-tabs-set-close-button (display-graphic-p))
-;; (setq centaur-tabs-close-button "X")
+;; (setq centaur-tabs-close-button "x")
 (setq centaur-tabs-set-modified-marker t)
 (setq centaur-tabs-modified-marker "*")
 ;; (centaur-tabs-change-fonts "arial" 160)

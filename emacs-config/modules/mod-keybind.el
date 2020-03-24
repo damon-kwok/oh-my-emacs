@@ -208,13 +208,6 @@
 (window-numbering-mode)
 (setq window-numbering-assign-func (lambda ()
                                      (when (equal (buffer-name) "*Calculator*") 9)))
-
-
-;; `page-break-lines'
-(package-download 'page-break-lines)
-(if (display-graphic-p)
-  (internal-require 'page-break-lines)
-  (global-page-break-lines-mode))
 
 ;;; Swiper
 ;; (package-require 'swiper)

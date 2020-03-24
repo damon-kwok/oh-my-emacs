@@ -104,12 +104,8 @@
 ;;; set scroll `speed' (mormal:3 line | shift:1 line |control:1 page)
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1)
                                     ((control))) mouse-wheel-progressive-speed nil scroll-step 1)
-
-(package-download 'material-theme)
-(load-theme 'material t)
-
 
-;;; set font 1 : look:http://www.linuxsir.org/bbs/thread326299.html
+;;; set font 1 : look:http://www.linuxsir.org/bmkbs/thread326299.html
 ;; (set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
 ;; (add-to-list 'default-frame-alist '(font, "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1"))
 

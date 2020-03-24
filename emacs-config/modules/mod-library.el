@@ -558,21 +558,37 @@ occurence of CHAR."
 
 ;; (setq OME-COMPILE-BUFFER-NAME nil)
 (defun ome-compilation-buffer-name-function (mode-name)
-  ;; (if OME-COMPILE-BUFFER-NAME OME-COMPILE-BUFFER-NAME)
-  ;; (concat mode-name "*compilation*")
-  (format "*compilation:%d*" (random 65535)))
+  (message "OME-COMPILE-BUFFER-NAME:%s" OME-COMPILE-BUFFER-NAME)
+  ;; (format "*compilation:%d*" (random 65535))
+  (if OME-COMPILE-BUFFER-NAME OME-COMPILE-BUFFER-NAME "*compilation*"))
 
-(defun ome-run-command (command &optional BUFFER)
+
+(defun compilation-buffer-name (name-of-mode mode-command name-function)
+  "Return the name of a compilation buffer to use.
+If NAME-FUNCTION is non-nil, call it with one argument NAME-OF-MODE
+to determine the buffer name.
+Likewise if `compilation-buffer-name-function' is non-nil.
+If current buffer has the major mode MODE-COMMAND,
+return the name of the current buffer, so that it gets reused.
+Otherwise, construct a buffer name from NAME-OF-MODE."
+  (message "name:%s, cmd:%s, func:%s" name-of-mode mode-command name-function)
+  (cond (name-function (funcall name-function name-of-mode))
+    (compilation-buffer-name-function (funcall compilation-buffer-name-function name-of-mode))
+    ((eq mode-command major-mode)
+      (buffer-name))
+    (t (concat "*" (downcase name-of-mode) "*"))))
+
+
+(defun ome-run-command (COMMAND &optional OUTPUT-BUFFER-NAME)
   "compile project"
   ;; (if BUFFER (ome-show-compilation BUFFER)
   ;; (ome-show-compilation "*compilation*"))
-  ;; (message "ome-run-command: %s" command)
-  ;; (compilation-start command nil compilation-buffer-name-function)
-  ;; (compile command)
-  (setq OME-COMPILE-BUFFER-NAME BUFFER)
-  (let* ((OME-COMPILE-BUFFER-NAME BUFFER)
-          (compilation-buffer-name-function  'ome-compilation-buffer-name-function))
-    (compile command)))
+  ;; (message "ome-run-command: %s" COMMAND)
+  ;; (compilation-start COMMAND nil compilation-buffer-name-function)
+  ;; (compile COMMAND)
+  (setq OME-COMPILE-BUFFER-NAME OUTPUT-BUFFER-NAME)
+  (let* ((compilation-buffer-name-function  'ome-compilation-buffer-name-function))
+    (compile COMMAND)))
 
 ;; (defun ome-run-command (command)
 ;;   "compile project"
@@ -604,10 +620,10 @@ occurence of CHAR."
   (let* ((default-path (expand-file-name "~/projects/"))
           (project-path (read-file-name "choice project path:" default-path))
           (COMMAND (concat "bash -c \"" "app_wizard" " " lang " " project-path "\""))
-          (BUFFER (concat "*[appwizard-" lang "]:" (file-name-base project-path) "*")))
-    (message "*BUFFER*:%s" BUFFER)
+          (OUTPUT-BUFFER-NAME (concat "*[app_wizard::" lang "]:" (file-name-base project-path) "*")))
+    (message "*OUTPUT-BUFFER-NAME*:%s" OUTPUT-BUFFER-NAME)
     (server-start)
-    (ome-run-command COMMAND BUFFER)))
+    (ome-run-command COMMAND OUTPUT-BUFFER-NAME)))
 
 (defun ome-project-wizard-old(lang)
   (cond ((string= lang "clojure")

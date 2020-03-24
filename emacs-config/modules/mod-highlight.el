@@ -24,7 +24,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-;;; ANSI-colors in the compilation buffer output
+;; `theme'
+(package-download 'material-theme)
+(load-theme 'material t)
+
+;; `page-break-lines'
+(package-download 'page-break-lines)
+(if (display-graphic-p)
+  (progn
+    (internal-require 'page-break-lines)
+    (global-page-break-lines-mode)))
+
+;;; `ANSI-colors' in the compilation buffer output
 (internal-require 'ansi-color)
 (defun endless/colorize-compilation ()
   "Colorize from `compilation-filter-start' to `point'."
@@ -32,7 +43,6 @@
     (ansi-color-apply-on-region compilation-filter-start (point))))
 
 (add-hook 'compilation-filter-hook #'endless/colorize-compilation)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; emojify
 ;; (package-require 'emojify)
