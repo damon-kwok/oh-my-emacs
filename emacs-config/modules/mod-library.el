@@ -72,10 +72,10 @@
     (ome-keymap-unset-key (kbd \"C-c <C-left>\") \"tabbar-mode\")
     (ome-keymap-unset-key [C-c <C-left>] \"tabbar-mode\")"
   (interactive (list (call-interactively #'get-key-combo)
-                     (completing-read "Which map: " minor-mode-map-alist nil t)))
+                 (completing-read "Which map: " minor-mode-map-alist nil t)))
   (let ((map (rest (assoc (intern keymap) minor-mode-map-alist))))
     (when map (define-key map key nil)
-          (message  "%s unbound for %s" key keymap))))
+      (message  "%s unbound for %s" key keymap))))
 
 
 ;; http://www.ergoemacs.org/emacs/elisp_idioms_prompting_input.html
@@ -87,8 +87,8 @@
   (not (display-graphic-p)))
 
 (defmacro when-terminal
-    (&rest
-     body)
+  (&rest
+    body)
   "Works just like `progn' but will only evaluate expressions in VAR when Emacs is running in a terminal else just nil."
   `(when (ome-is-in-terminal) ,@body))
 
@@ -125,13 +125,13 @@
 
 (defun ome-buf-ext()
   (let ((ext-name (nth 0 (last (split-string (buffer-name) "\\."))))
-        (buf-name (buffer-name)))
+         (buf-name (buffer-name)))
     (if (string= ext-name buf-name) "" ext-name)))
 
 (defun ome-project-root()
   (let ((fist-char (substring (ome-bufname-no-ext) 0 1)))
     (if (string= fist-char "*") "./" (if (projectile-project-p)
-                                         (projectile-project-root)
+                                       (projectile-project-root)
                                        (ome-buf-dirpath)))))
 (defun ome-parent-dirpath (path)
   (file-name-directory (directory-file-name path)))
@@ -141,20 +141,20 @@
 
 (defun ome-search-file (filename &optional path)
   (let* ((from (if path path (ome-buf-dirpath)))
-         (parent (ome-parent-dirpath from)))
+          (parent (ome-parent-dirpath from)))
     (message (concat "check:" from))
     (if (file-exists-p (concat from filename))
-        (progn (message from) from)
+      (progn (message from) from)
       (if (or (eq parent nil)
-              (string= parent "/")) nil (ome-search-file filename parent)))))
+            (string= parent "/")) nil (ome-search-file filename parent)))))
 
 (defun ome-smart-find-file (filename &optional create)
   " create cmake file with current directory!"
   (interactive)
   (let* ((dir (ome-buf-dirpath))
-         (cmake-dir (ome-search-file filename dir)))
+          (cmake-dir (ome-search-file filename dir)))
     (if (eq cmake-dir nil)
-        (if create (find-file filename))
+      (if create (find-file filename))
       (find-file (concat cmake-dir filename)))))
 
 ;; (buffer-name)                  ;;=> "hello.txt"
@@ -200,15 +200,15 @@
 (defun ome-bing-dict-brief-web (word)
   "Show the explanation of WORD from Bing in the echo area."
   (interactive (let* ((default (if (use-region-p)
-                                   (buffer-substring-no-properties
-                                    (region-beginning)
-                                    (region-end))
+                                 (buffer-substring-no-properties
+                                   (region-beginning)
+                                   (region-end))
                                  (let ((text (thing-at-point 'word)))
                                    (if text (substring-no-properties text)))))
-                      (prompt (if (stringp default)
-                                  (format "Search Bing web dict (default \"%s\"): " default)
-                                "Search Bing web dict: "))
-                      (string (read-string prompt nil 'bing-dict-history default)))
+                       (prompt (if (stringp default)
+                                 (format "Search Bing web dict (default \"%s\"): " default)
+                                 "Search Bing web dict: "))
+                       (string (read-string prompt nil 'bing-dict-history default)))
                  (list string)))
   (save-match-data (ome-bing-dict-brief-eww word)))
 
@@ -237,34 +237,34 @@
     kill-ring."
   (interactive)
   (let ((beg (line-beginning-position 1))
-        (end (line-beginning-position 2)))
+         (end (line-beginning-position 2)))
     (if (eq last-command 'quick-copy-line)
-        (kill-append
-         (buffer-substring
+      (kill-append
+        (buffer-substring
           beg
           end)
-         (< end beg))
+        (< end beg))
       (kill-new
-       (buffer-substring
-        beg
-        end))))
+        (buffer-substring
+          beg
+          end))))
   (beginning-of-line 2))
 
 (defun ome-quick-cut-line ()
   "Cut the whole line that point is on.  Consecutive calls to this command append each line to the kill-ring."
   (interactive)
   (let ((beg (line-beginning-position 1))
-        (end (line-beginning-position 2)))
+         (end (line-beginning-position 2)))
     (if (eq last-command 'quick-cut-line)
-        (kill-append
-         (buffer-substring
+      (kill-append
+        (buffer-substring
           beg
           end)
-         (< end beg))
+        (< end beg))
       (kill-new
-       (buffer-substring
-        beg
-        end)))
+        (buffer-substring
+          beg
+          end)))
     (delete-region beg end))
   (beginning-of-line 1)
   (setq this-command 'quick-cut-line))
@@ -275,7 +275,7 @@
   (interactive)
   (let (beg end)
     (if (region-active-p)
-        (setq beg (region-beginning) end (region-end))
+      (setq beg (region-beginning) end (region-end))
       (setq beg (line-beginning-position) end (line-end-position)))
     (comment-or-uncomment-region beg end)
     (next-line)))
@@ -308,18 +308,18 @@ occurence of CHAR."
   (let ((count-buf 0))
     (mapcar #'(lambda (BUFFER_OR_NAME)
                 (if (eq mode (buffer-local-value 'major-mode (get-buffer BUFFER_OR_NAME)))
-                    (setq count-buf (+ 1 count-buf))))
-            (buffer-list))
+                  (setq count-buf (+ 1 count-buf))))
+      (buffer-list))
     (message "count:%d" count-buf) count-buf))
 
 (defun ome-find-buffer-by-major (mode)
   "Kill all other buffers."
   (interactive)
   (if ( >  (ome-count-buffer-by-major mode) 0)
-      (mapcar #'(lambda (BUFFER_OR_NAME)
-                  (if (eq mode (buffer-local-value 'major-mode (get-buffer BUFFER_OR_NAME)))
-                      (switch-to-buffer BUFFER_OR_NAME)))
-              (buffer-list))
+    (mapcar #'(lambda (BUFFER_OR_NAME)
+                (if (eq mode (buffer-local-value 'major-mode (get-buffer BUFFER_OR_NAME)))
+                  (switch-to-buffer BUFFER_OR_NAME)))
+      (buffer-list))
     (erc)))
 
 ;; (>  (ome-count-buffer-by-major 'erc-mode) 0)
@@ -337,7 +337,7 @@ occurence of CHAR."
 ;; (message "buffer '%s' not exist!" NAME))))
 (defun ome-kill-buffer-by-name (NAME)
   (if (get-buffer NAME)
-      (kill-buffer NAME)
+    (kill-buffer NAME)
     ;; (message "buffer '%s' not exist!" NAME)
     ))
 
@@ -347,7 +347,7 @@ occurence of CHAR."
   (interactive)
   (delete-other-windows)
   (mapc 'kill-buffer (delq (current-buffer)
-                           (remove-if-not 'buffer-file-name (buffer-list)))))
+                       (remove-if-not 'buffer-file-name (buffer-list)))))
 
 ;; delete current buffer && file
 ;; http://rejeep.github.io/emacs/elisp/2010/11/16/delete-file-and-buffer-in-emacs.html
@@ -355,12 +355,12 @@ occurence of CHAR."
   "Removes file connected to current buffer and kills buffer."
   (interactive)
   (let ((filename (buffer-file-name))
-        (buffer (current-buffer))
-        (name (buffer-name)))
+         (buffer (current-buffer))
+         (name (buffer-name)))
     (if (not (and filename
-                  (file-exists-p filename)))
-        (progn (message "Buffer '%s' is not visiting a file!" name)
-               (kill-buffer buffer))
+               (file-exists-p filename)))
+      (progn (message "Buffer '%s' is not visiting a file!" name)
+        (kill-buffer buffer))
       (when (yes-or-no-p "Are you sure you want to remove this file? ")
         (delete-file filename)
         (kill-buffer buffer)
@@ -371,22 +371,22 @@ occurence of CHAR."
 (defun ome-rename-file-and-buffer (new-name)
   "Renames both current buffer and file it's visiting to NEW-NAME."
   (interactive (progn (if (not (buffer-file-name))
-                          (error
-                           "Buffer '%s' is not visiting a file!"
-                           (buffer-name)))
-                      (list (read-file-name (format "Rename %s to: " (file-name-nondirectory
-                                                                      (buffer-file-name)))))))
+                        (error
+                          "Buffer '%s' is not visiting a file!"
+                          (buffer-name)))
+                 (list (read-file-name (format "Rename %s to: " (file-name-nondirectory
+                                                                  (buffer-file-name)))))))
   (if (equal new-name "")
-      (error
-       "Aborted rename"))
+    (error
+      "Aborted rename"))
   (setq old-name-base (file-name-base (buffer-name)))
   (setq new-name (if (file-directory-p new-name)
-                     (expand-file-name (file-name-nondirectory (buffer-file-name)) new-name)
+                   (expand-file-name (file-name-nondirectory (buffer-file-name)) new-name)
                    (expand-file-name new-name)))
   ;; If the file isn't saved yet, skip the file rename, but still update the
   ;; buffer name and visited file.
   (if (file-exists-p (buffer-file-name))
-      (rename-file (buffer-file-name) new-name 1))
+    (rename-file (buffer-file-name) new-name 1))
   (let ((was-modified (buffer-modified-p)))
     ;; This also renames the buffer, and works with uniquify
     (set-visited-file-name new-name)
@@ -400,12 +400,12 @@ occurence of CHAR."
 
     ;;cc-mode(c c++)
     (replace-string (concat "_" (upcase old-name-base) "_")
-                    (concat "_" (upcase new-name-base) "_"))
+      (concat "_" (upcase new-name-base) "_"))
 
     ;;other files
     (beginning-of-buffer)
     (replace-string (concat old-name-base)
-                    (concat new-name-base))
+      (concat new-name-base))
     (goto-line old-line)
 
     ;;save
@@ -457,13 +457,13 @@ occurence of CHAR."
 (defun ome-exit-animate()
   (interactive)
   (cond ((y-or-n-p "Exit? ")
-         (medusa-bye)
-         (save-buffers-kill-emacs))))
+          (medusa-bye)
+          (save-buffers-kill-emacs))))
 
 (defun ome-exit()
   (interactive)
   (cond ((y-or-n-p "Exit? ") ;;(y-or-n-p "Relax...? ")
-	     (save-buffers-kill-emacs))))
+          (save-buffers-kill-emacs))))
 
 (defun ome-open-file(file-name)
   (interactive)
@@ -527,7 +527,7 @@ occurence of CHAR."
 (defun ome-open-url(url)
   (interactive)
   (if (string= (getenv "OME_OS") "MSYS2")
-      (ome-run-command (concat "cygstart " url))
+    (ome-run-command (concat "cygstart " url))
     (ome-run-command (concat "xdg-open " url))))
 
 (defun ome-find-file-doc()
@@ -552,15 +552,27 @@ occurence of CHAR."
   (let ((temp-buffer-name (buffer-name (current-buffer))))
     (switch-to-buffer-other-window buffer-name)
     (if (< (/ (frame-height) 3)
-           (window-height))
-        (shrink-window (/ (window-height) 2)))
+          (window-height))
+      (shrink-window (/ (window-height) 2)))
     (if dont-return-old-buffer nil (switch-to-buffer-other-window temp-buffer-name))))
 
-(defun ome-run-command (command)
+;; (setq OME-COMPILE-BUFFER-NAME nil)
+(defun ome-compilation-buffer-name-function (mode-name)
+  ;; (if OME-COMPILE-BUFFER-NAME OME-COMPILE-BUFFER-NAME)
+  ;; (concat mode-name "*compilation*")
+  (format "*compilation:%d*" (random 65535)))
+
+(defun ome-run-command (command &optional BUFFER)
   "compile project"
-  (ome-show-compilation "*compilation*")
-  (message "ome-run-command: %s" command)
-  (compile command))
+  ;; (if BUFFER (ome-show-compilation BUFFER)
+  ;; (ome-show-compilation "*compilation*"))
+  ;; (message "ome-run-command: %s" command)
+  ;; (compilation-start command nil compilation-buffer-name-function)
+  ;; (compile command)
+  (setq OME-COMPILE-BUFFER-NAME BUFFER)
+  (let* ((OME-COMPILE-BUFFER-NAME BUFFER)
+          (compilation-buffer-name-function  'ome-compilation-buffer-name-function))
+    (compile command)))
 
 ;; (defun ome-run-command (command)
 ;;   "compile project"
@@ -577,73 +589,74 @@ occurence of CHAR."
 
 (defun ome-ask-new-project(command openfile)
   (let*  ((oldir default-directory)
-          (project-path (read-file-name "choice project path:" oldir)))
+           (project-path (read-file-name "choice project path:" oldir)))
     (message "proj-path:%s" project-path)
     (setq default-directory (f-dirname project-path))
     (f-mkdir default-directory)
     (if (= (shell-command (concat (s-replace "%s" (f-filename project-path) command))) 0)
-        (progn (message (concat "shell-cmd:" ))
-               (find-file (concat project-path "/" (s-replace "%s" (f-filename project-path)
-                                                              openfile)))
-               (message (concat "created new project '" (f-filename project-path) "' succeed:)")))
+      (progn (message (concat "shell-cmd:" ))
+        (find-file (concat project-path "/" (s-replace "%s" (f-filename project-path) openfile)))
+        (message (concat "created new project '" (f-filename project-path) "' succeed:)")))
       (message (concat "creat new project '" (f-filename project-path) "' failed:(")))
     (setq default-directory oldir)))
 
 (defun ome-project-wizard(lang)
   (let* ((default-path (expand-file-name "~/projects/"))
-         (project-path (read-file-name "choice project path:" default-path))
-         (command (concat "bash -c \"" "app_wizard" " " lang " " project-path "\"")))
+          (project-path (read-file-name "choice project path:" default-path))
+          (COMMAND (concat "bash -c \"" "app_wizard" " " lang " " project-path "\""))
+          (BUFFER (concat "*[appwizard-" lang "]:" (file-name-base project-path) "*")))
+    (message "*BUFFER*:%s" BUFFER)
     (server-start)
-    (ome-run-command command)))
+    (ome-run-command COMMAND BUFFER)))
 
 (defun ome-project-wizard-old(lang)
   (cond ((string= lang "clojure")
-         (ome-ask-new-project "lein new %s" "project.clj"))
-        ((string= lang "elixir")
-         (ome-ask-new-project "mix new %s" "mix.exs"))
-        ;; ((string= lang "java")
-        ;; (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type java-application" "src/main/java/App.java"))
-        ((string= lang "java")
-         (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type java-application"
-                              "src/main/java/App.java"))
-        ((string= lang "scala")
-         (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type scala-library"
-                              "src/main/scala/Library.scala"))
-        ((string= lang "groovy")
-         (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type groovy-application"
-                              "src/main/groovy/App.groovy"))
-        ((string= lang "python")
-         (ome-ask-new-project "mkdir -p %s && cd %s && pipenv --three" "Pipfile"))
-        ((string= lang "ruby")
-         (ome-ask-new-project "mkdir -p %s && cd %s && bundle init" "Gemfile"))
-        ((string= lang "c")
-         (ome-ask-new-project "gen_cmake_file %s" "CMakeLists.txt"))
-        ((string= lang "haskell")
-         (ome-ask-new-project "stack new %s" "src/Main.hs"))
-        ((string= lang "nim")
-         (ome-ask-new-project "nimble init %s" "src/%s.nim")) ;; not invalid
-        ((string= lang "rust")
-         (ome-ask-new-project "cargo new %s --bin" "Cargo.toml"))
-        ;; ((string= lang "go")
-        ;; (ome-ask-new-project "mkdir -p %s && cd %s && rubigo init" "rubigo.json"))
-        ((string= lang "go")
-         (ome-ask-new-project "mkdir -p %s && cd %s && dep init" "Gopkg.toml"))
-        ((string= lang "ros")
-         (ome-ask-new-project "rosman %s" "src/main.cpp"))))
+          (ome-ask-new-project "lein new %s" "project.clj"))
+    ((string= lang "elixir")
+      (ome-ask-new-project "mix new %s" "mix.exs"))
+    ;; ((string= lang "java")
+    ;; (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type java-application" "src/main/java/App.java"))
+    ((string= lang "java")
+      (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type java-application"
+        "src/main/java/App.java"))
+    ((string= lang "scala")
+      (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type scala-library"
+        "src/main/scala/Library.scala"))
+    ((string= lang "groovy")
+      (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type groovy-application"
+        "src/main/groovy/App.groovy"))
+    ((string= lang "python")
+      (ome-ask-new-project "mkdir -p %s && cd %s && pipenv --three" "Pipfile"))
+    ((string= lang "ruby")
+      (ome-ask-new-project "mkdir -p %s && cd %s && bundle init" "Gemfile"))
+    ((string= lang "c")
+      (ome-ask-new-project "gen_cmake_file %s" "CMakeLists.txt"))
+    ((string= lang "haskell")
+      (ome-ask-new-project "stack new %s" "src/Main.hs"))
+    ((string= lang "nim")
+      (ome-ask-new-project "nimble init %s" "src/%s.nim")) ;; not invalid
+    ((string= lang "rust")
+      (ome-ask-new-project "cargo new %s --bin" "Cargo.toml"))
+    ;; ((string= lang "go")
+    ;; (ome-ask-new-project "mkdir -p %s && cd %s && rubigo init" "rubigo.json"))
+    ((string= lang "go")
+      (ome-ask-new-project "mkdir -p %s && cd %s && dep init" "Gopkg.toml"))
+    ((string= lang "ros")
+      (ome-ask-new-project "rosman %s" "src/main.cpp"))))
 
 ;; `cmake-file'
 (defun ome-gen-cmake-file ()
   (if (string= (ome-project-root) "")
-      (message "project root not found!")
+    (message "project root not found!")
     (shell-command (concat "gen_cmake_file " (ome-project-root)))))
 
 (defun ome-cmake-build()
   (interactive)
   (message (concat "root:" (ome-project-root)))
   (if (file-exists-p (concat (projectile-project-root) "CMakeLists.txt"))
-      (let ((cmd (concat "cmake_build " (projectile-project-root))))
-        (message "emacs run:%s" cmd)
-        (ome-run-command cmd))))
+    (let ((cmd (concat "cmake_build " (projectile-project-root))))
+      (message "emacs run:%s" cmd)
+      (ome-run-command cmd))))
 
 (defun ome-buffer-reload()
   (interactive)
@@ -658,73 +671,73 @@ occurence of CHAR."
   (interactive)
   (condition-case err (progn (mc/mark-all-like-this))
     (error
-     (message "error: %s"(car (cdr err))))))
+      (message "error: %s"(car (cdr err))))))
 
 (defun ome-grep-project (word)
   "Show the explanation of WORD from Bing in the echo area."
   (interactive (let* ((default (if (use-region-p)
-                                   (buffer-substring-no-properties
-                                    (region-beginning)
-                                    (region-end))
+                                 (buffer-substring-no-properties
+                                   (region-beginning)
+                                   (region-end))
                                  (let ((text (thing-at-point 'word)))
                                    (if text (substring-no-properties text)))))
-                      (prompt (if (stringp default)
-                                  (format "grep (default \"%s\"): " default) "grep: "))
-                      (string (read-string prompt nil nil default)))
+                       (prompt (if (stringp default)
+                                 (format "grep (default \"%s\"): " default) "grep: "))
+                       (string (read-string prompt nil nil default)))
                  (list string)))
   (save-match-data (--ome-grep-project  word)
-                   (other-window 1)))
+    (other-window 1)))
 
 (defun ome-grep-directory (word)
   "Show the explanation of WORD from Bing in the echo area."
   (interactive (let* ((default (if (use-region-p)
-                                   (buffer-substring-no-properties
-                                    (region-beginning)
-                                    (region-end))
+                                 (buffer-substring-no-properties
+                                   (region-beginning)
+                                   (region-end))
                                  (let ((text (thing-at-point 'word)))
                                    (if text (substring-no-properties text)))))
-                      (prompt (if (stringp default)
-                                  (format "grep (default \"%s\"): " default) "grep: "))
-                      (string (read-string prompt nil nil default)))
+                       (prompt (if (stringp default)
+                                 (format "grep (default \"%s\"): " default) "grep: "))
+                       (string (read-string prompt nil nil default)))
                  (list string)))
   (save-match-data (--ome-grep-directory  word)
-                   (other-window 1)))
+    (other-window 1)))
 
 (defun --ome-grep-project (str)
   (if (stringp str)
-      (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (ome-project-root)))))
+    (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (ome-project-root)))))
 
 (defun --ome-grep-directory (str)
   (message (concat "grep-dir:" str))
   (if (stringp str)
-      (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (ome-buffer-directory)))))
+    (ome-run-command (concat "grep -n " "\"" str "\"" " -r " (ome-buffer-directory)))))
 
 (defun ome-open-reddit-channel (word)
   "Show the explanation of WORD from Bing in the echo area."
   (interactive (let* ((default (if (use-region-p)
-                                   (buffer-substring-no-properties
-                                    (region-beginning)
-                                    (region-end))
+                                 (buffer-substring-no-properties
+                                   (region-beginning)
+                                   (region-end))
                                  (let ((text (thing-at-point 'word)))
                                    (if text (substring-no-properties text)))))
-                      (prompt (if (stringp default)
-                                  (format "reddit (default \"%s\"): " default) "reddit: "))
-                      (string (read-string prompt nil nil default)))
+                       (prompt (if (stringp default)
+                                 (format "reddit (default \"%s\"): " default) "reddit: "))
+                       (string (read-string prompt nil nil default)))
                  (list string)))
   (ome-open-url (concat "https://www.reddit.com/r/" word "/")))
 
 (defun ome-open-stackoverflow-channel (word)
   "Show the explanation of WORD from Bing in the echo area."
   (interactive (let* ((default (if (use-region-p)
-                                   (buffer-substring-no-properties
-                                    (region-beginning)
-                                    (region-end))
+                                 (buffer-substring-no-properties
+                                   (region-beginning)
+                                   (region-end))
                                  (let ((text (thing-at-point 'word)))
                                    (if text (substring-no-properties text)))))
-                      (prompt (if (stringp default)
-                                  (format "StackOverflow (default \"%s\"): " default)
-                                "StackOverflow: "))
-                      (string (read-string prompt nil nil default)))
+                       (prompt (if (stringp default)
+                                 (format "StackOverflow (default \"%s\"): " default)
+                                 "StackOverflow: "))
+                       (string (read-string prompt nil nil default)))
                  (list string)))
   (ome-open-url (concat "http://stackoverflow.com/questions/tagged/" word)))
 ;; http://stackoverflow.com/questions/tagged/f%23
@@ -732,13 +745,13 @@ occurence of CHAR."
 (defun ome-load-file-to-string (path)
   "Return path's file content."
   (with-temp-buffer (insert-file-contents path)
-                    (buffer-string)))
+    (buffer-string)))
 
 (defun ome-read-lines (path)
   "Return a list of lines of a file at path."
   (if (file-exists-p path)
-      (with-temp-buffer (insert-file-contents path)
-                        (split-string (buffer-string) "\n" t)) ""))
+    (with-temp-buffer (insert-file-contents path)
+      (split-string (buffer-string) "\n" t)) ""))
 
 (defun ome-eval-string (string)
   "Evaluate elisp code stored in a string. (ome-eval-string \"(+ 1 2)\") is 3"
@@ -747,34 +760,34 @@ occurence of CHAR."
 (defun ome-mu4e-open ()
   (interactive)
   (if (and (executable-find "mu")
-           (executable-find "mbsync"))
-      (progn ;;
-        (module-require 'mod-email)
-        (mu4e))
+        (executable-find "mbsync"))
+    (progn ;;
+      (module-require 'mod-email)
+      (mu4e))
     (message "Please install 'mu' and 'isync'!")))
 
 (defun ome-mu4e-new ()
   (interactive)
   (if (and (executable-find "mu")
-           (executable-find "mbsync"))
-      (progn ;;
-        (module-require 'mod-email)
-        (mu4e-compose-new))
+        (executable-find "mbsync"))
+    (progn ;;
+      (module-require 'mod-email)
+      (mu4e-compose-new))
     (message "Please install 'mu' and offlineimap!")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-download-curl "elisp-format" "elisp-format.el"
-                       "https://www.emacswiki.org/emacs/download/elisp-format.el")
+  "https://www.emacswiki.org/emacs/download/elisp-format.el")
 (package-download-curl "xcowsay" "xcowsay.el" "https://www.emacswiki.org/emacs/download/xcowsay.el")
 (package-download-curl "pink-bliss" "pink-bliss-theme.el"
-                       "https://raw.githubusercontent.com/kensanata/elisp/master/pink-bliss-theme.el")
+  "https://raw.githubusercontent.com/kensanata/elisp/master/pink-bliss-theme.el")
 (package-download-curl "pink-bliss" "pink-bliss.el"
-                       "https://www.emacswiki.org/emacs/download/pink-bliss.el")
+  "https://www.emacswiki.org/emacs/download/pink-bliss.el")
 (package-download-curl "pink-bliss" "pink-gnu.xpm"
-                       "http://www.emacswiki.org/emacs/download/pink-gnu.xpm")
+  "http://www.emacswiki.org/emacs/download/pink-gnu.xpm")
 
 (package-download-curl "multi-term" "multi-term.el"
-                       "https://www.emacswiki.org/emacs/download/multi-term.el")
+  "https://www.emacswiki.org/emacs/download/multi-term.el")
 (package-download-curl "visws" "visws.el" "https://www.emacswiki.org/emacs/download/visws.el")
 
 (setq multi-term-program "/bin/bash")
