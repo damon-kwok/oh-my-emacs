@@ -37,7 +37,8 @@
 (setq centaur-tabs-set-modified-marker t)
 (setq centaur-tabs-modified-marker "*")
 ;; (centaur-tabs-change-fonts "arial" 160)
-
+(if window-system (centaur-tabs-change-fonts "JetBrains Mono Medium" 100))
+ ;;ExtraBold
 (add-hook 'dired-mode-hook 'centaur-tabs-local-mode)
 
 (defun centaur-tabs-buffer-groups ()
@@ -115,7 +116,7 @@
 
 (set-face-attribute 'centaur-tabs-selected nil
   :background "#37474f"
-  :foreground "orange")
+  :foreground "#9ccc65") ;;orange #9ccc65
 
 (set-face-attribute 'centaur-tabs-unselected-modified nil
   :background "#263238"

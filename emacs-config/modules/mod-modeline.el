@@ -39,8 +39,12 @@
 ;;             ;; invisible here anyway.
 ;;             (assq-delete-all 'which-func-mode mode-line-misc-info))
 ;;; `mode-icons'
-(package-require 'mode-icons)
-(mode-icons-mode)
+;; mode-icons-interpolate-from-scale
+(package-download 'mode-icons)
+(if (display-graphic-p)
+  (progn
+    (internal-require 'mode-icons)
+    (mode-icons-mode)))
 ;;
 ;;; `smart-mode-line'
 ;; (package-download 'smart-mode-line)

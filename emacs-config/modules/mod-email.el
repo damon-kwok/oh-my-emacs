@@ -44,42 +44,43 @@
 (internal-require 'mu4e)
 (setenv "XAPIAN_CJK_NGRAM" "1")
 
-(defun mu4e~mark-get-move-target () 
-  "Ask for a move target, and propose to create it if it does not exist." 
-  (interactive)
-  ;;  (mu4e-message-at-point) ;; raises error if there is none
-  (let* ((target (mu4e-ask-maildir "Move message to: ")) 
-         (target (if (string= (substring target 0 1) "/") target (concat "/" target))) 
-         (fulltarget (expand-file-name (concat (mu4e-root-maildir) target)))) 
-    (when (or (file-directory-p fulltarget) 
-              (and (yes-or-no-p (format "1==>%s does not exist.  Create now?" fulltarget)) 
-                   (mu4e~proc-mkdir fulltarget))) target)))
+;; (defun mu4e~mark-get-move-target ()
+;;   "Ask for a move target, and propose to create it if it does not exist."
+;;   (interactive)
+;;   ;;  (mu4e-message-at-point) ;; raises error if there is none
+;;   (let* ((target (mu4e-ask-maildir "Move message to: "))
+;;          (target (if (string= (substring target 0 1) "/") target (concat "/" target)))
+;;          (fulltarget (expand-file-name (concat (mu4e-root-maildir) target))))
+;;     (when (or (file-directory-p fulltarget)
+;;               (and (yes-or-no-p (format "1==>%s does not exist.  Create now?" fulltarget))
+;;                    (mu4e~proc-mkdir fulltarget))) target)))
 
-(defun mu4e-create-maildir-maybe (dir) 
-  "Offer to create maildir DIR if it does not exist yet.
-Return t if the dir already existed, or an attempt has been made to
-create it -- we cannot be sure creation succeeded here, since this
-is done asynchronously. Otherwise, return nil. NOte, DIR has to be
-an absolute path."
-  (let ((dir (expand-file-name dir))) 
-    (if (and (file-exists-p dir) 
-             (not (file-directory-p dir))) 
-        (mu4e-error "%s exists, but is not a directory." dir)) 
-    (cond ((file-directory-p dir) t) 
-          ((yes-or-no-p (mu4e-format "2==>%s does not exist yet. Create now?" dir)) 
-           (mu4e~proc-mkdir dir) t) 
-          (t nil))))
+;; (defun mu4e-create-maildir-maybe (dir)
+;;   "Offer to create maildir DIR if it does not exist yet.
+;; Return t if the dir already existed, or an attempt has been made to
+;; create it -- we cannot be sure creation succeeded here, since this
+;; is done asynchronously. Otherwise, return nil. NOte, DIR has to be
+;; an absolute path."
+;;   (message "dir:%s" dir)
+;;   (let ((dir (expand-file-name dir)))
+;;     (if (and (file-exists-p dir)
+;;              (not (file-directory-p dir)))
+;;         (mu4e-error "%s exists, but is not a directory." dir))
+;;     (cond ((file-directory-p dir) t)
+;;           ((yes-or-no-p (mu4e-format "2==>%s does not exist yet. Create now?" dir))
+;;            (mu4e~proc-mkdir dir) t)
+;;           (t nil))))
 
-(defun mu4e-ask-maildir-check-exists (prompt) 
-  "Like `mu4e-ask-maildir', but check for existence of the maildir,
-and offer to create it if it does not exist yet."
-  (let* ((mdir (mu4e-ask-maildir prompt)) 
-         (fullpath (expand-file-name (concat (mu4e-root-maildir) mdir)))) 
-    (unless (file-directory-p fullpath) 
-      (and (yes-or-no-p (mu4e-format "%s does not exist. Create now?" fullpath)) 
-           (mu4e~proc-mkdir fullpath))) mdir))
+;; (defun mu4e-ask-maildir-check-exists (prompt)
+;;   "Like `mu4e-ask-maildir', but check for existence of the maildir,
+;; and offer to create it if it does not exist yet."
+;;   (let* ((mdir (mu4e-ask-maildir prompt))
+;;          (fullpath (expand-file-name (concat (mu4e-root-maildir) mdir))))
+;;     (unless (file-directory-p fullpath)
+;;       (and (yes-or-no-p (mu4e-format "3==>%s does not exist. Create now?" fullpath))
+;;            (mu4e~proc-mkdir fullpath))) mdir))
 
-(if (string= "MSYS2" (getenv "OME_OS")) 
+(if (string= "MSYS2" (getenv "OME_OS"))
     (setq mu4e-doc-dir (expand-file-name (concat ome-lib-dir "/../../../../" "/usr/share/doc/mu"))))
 
 ;; `extensions'
@@ -99,7 +100,7 @@ and offer to create it if it does not exist yet."
 (setq mu4e-view-show-images t)
 
 ;; use imagemagick, if available
-(when (fboundp 'imagemagick-register-types) 
+(when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
 
 ;; save attachment to my desktop (this can also be a function)
@@ -157,7 +158,7 @@ and offer to create it if it does not exist yet."
       user-full-name  "yourname"           ;
       mu4e-compose-signature "hello,world!")
 
-(defun load-email-signature (conf-dir) 
+(defun load-email-signature (conf-dir)
   (setq mu4e-compose-signature (s-trim (ome-load-file-to-string (concat conf-dir "/signature"))) ;
         user-full-name (s-trim (ome-load-file-to-string (concat conf-dir "/name"))) ;
         user-mail-address (s-trim (ome-load-file-to-string (concat conf-dir "/addr")))))
@@ -168,9 +169,9 @@ and offer to create it if it does not exist yet."
 ;; sending mail -- replace USERNAME with your gmail username
 ;; also, make sure the gnutls command line utils are installed
 ;; package 'gnutls-bin' in Debian/Ubuntu
-(custom-set-variables '(send-mail-function (quote smtpmail-send-it)) 
-                      '(smtpmail-smtp-server "smtp.office365.com") 
-                      ;; '(smtpmail-stream-type "ssl") 
+(custom-set-variables '(send-mail-function (quote smtpmail-send-it))
+                      '(smtpmail-smtp-server "smtp.office365.com")
+                      ;; '(smtpmail-stream-type "ssl")
                       '(smtpmail-smtp-service 25))
 ;; (internal-require 'smtpmail)
 ;; ;; alternatively, for emacs-24 you can use:
@@ -214,46 +215,46 @@ and offer to create it if it does not exist yet."
 ;;      (switch-window)))
 
 ;; `automenu'
-(defun automenu--mu4e-main-mode-menu () 
+(defun automenu--mu4e-main-mode-menu ()
   '("compose" "heads-search" "" "" "" "" "" "" "" "mark-execute"))
 
-(defun automenu--mu4e-main-mode-func (index) 
-  (cond ((= 0 index) 
-         (mu4e-compose-new)) 
-        ((= 1 index) 
-         (mu4e-headers-search)) 
-        ((= 9 index) 
-         (mu4e-mark-execute-all)) 
+(defun automenu--mu4e-main-mode-func (index)
+  (cond ((= 0 index)
+         (mu4e-compose-new))
+        ((= 1 index)
+         (mu4e-headers-search))
+        ((= 9 index)
+         (mu4e-mark-execute-all))
         (t (message  "mu4e-main-mode menu:%d" index))))
 
 ;; `automenu'
-(defun automenu--mu4e-headers-mode-menu () 
+(defun automenu--mu4e-headers-mode-menu ()
   '("compose" "delete" "" "" "" "" "" "" "" "mark-execute"))
 
-(defun automenu--mu4e-headers-mode-func (index) 
-  (cond ((= 0 index) 
-         (mu4e-compose-new)) 
-        ((= 1 index) 
-         (mu4e-compose-delete)) 
-        ((= 9 index) 
-         (mu4e-mark-execute-all)) 
+(defun automenu--mu4e-headers-mode-func (index)
+  (cond ((= 0 index)
+         (mu4e-compose-new))
+        ((= 1 index)
+         (mu4e-compose-delete))
+        ((= 9 index)
+         (mu4e-mark-execute-all))
         (t (message  "mu4e-headers-mode menu:%d" index))))
 
 ;; `automenu'
-(defun automenu--mu4e-view-mode-menu () 
+(defun automenu--mu4e-view-mode-menu ()
   '("compose" "delete" "reply" "forward" "" "" "" "" "" "mark-execute"))
 
-(defun automenu--mu4e-view-mode-func (index) 
-  (cond ((= 0 index) 
-         (mu4e-compose-new)) 
-        ((= 1 index) 
-         (mu4e-compose-delete)) 
-        ((= 2 index) 
-         (mu4e-compose-reply)) 
-        ((= 3 index) 
-         (mu4e-compose-forward)) 
-        ((= 9 index) 
-         (mu4e-mark-execute-all)) 
+(defun automenu--mu4e-view-mode-func (index)
+  (cond ((= 0 index)
+         (mu4e-compose-new))
+        ((= 1 index)
+         (mu4e-compose-delete))
+        ((= 2 index)
+         (mu4e-compose-reply))
+        ((= 3 index)
+         (mu4e-compose-forward))
+        ((= 9 index)
+         (mu4e-mark-execute-all))
         (t (message  "mu4e-view-mode menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-email)
