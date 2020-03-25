@@ -132,7 +132,7 @@
                                        (ome-buf-dirpath)))))
 
 ;; (defun ome-project-dirname()
-  ;; (nth 0 (last (split-string (directory-file-name (expand-file-name (ome-project-root))) "/") 1)))
+;; (nth 0 (last (split-string (directory-file-name (expand-file-name (ome-project-root))) "/") 1)))
 
 (defun ome-project-name ()
   (file-name-base (directory-file-name (expand-file-name (ome-project-root)))))
@@ -596,6 +596,11 @@ Otherwise, construct a buffer name from NAME-OF-MODE."
   (let* ((compilation-buffer-name-function  'ome-compilation-buffer-name-function))
     (compile COMMAND)))
 
+(defun ome-project-command (COMMAND)
+  (if (string= (ome-project-name) "")
+    (ome-run-command COMMAND)
+    (ome-run-command COMMAND (concat "*[project]:" (ome-project-name)"*"))))
+
 ;; (defun ome-run-command (command)
 ;;   "compile project"
 ;;   (setq temp-elisp-buffer-name (buffer-name (current-buffer)))
@@ -626,7 +631,8 @@ Otherwise, construct a buffer name from NAME-OF-MODE."
   (let* ((default-path (expand-file-name "~/projects/"))
           (project-path (directory-file-name (read-file-name "choice project path:" default-path)))
           (COMMAND (concat "bash -c \"" "app_wizard" " " lang " " project-path "\""))
-          (OUTPUT-BUFFER-NAME (concat "*[app_wizard::" lang "]:" (file-name-base project-path) "*")))
+          (OUTPUT-BUFFER-NAME (concat "*[app_wizard::" lang "]:" (file-name-base project-path)
+                                "*")))
     (message "*OUTPUT-BUFFER-NAME*:%s" OUTPUT-BUFFER-NAME)
     (server-start)
     (ome-run-command COMMAND OUTPUT-BUFFER-NAME)))
