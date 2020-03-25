@@ -24,21 +24,23 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-download 'racer)
+;; (package-download 'racer)
 (package-download 'cargo)
 (package-download 'rust-mode)
 (add-to-list 'auto-mode-alist '("\\.rs$" . rust-mode))
 ;;
 (add-hook 'rust-mode-hook (lambda ()
                             ;; Configure Emacs to activate racer when rust-mode starts:
-                            (racer-mode)
+                            ;; (racer-mode)
+                            ;; (add-hook 'racer-mode-hook #'eldoc-mode)
+                            ;; (add-hook 'racer-mode-hook #'company-mode)
+                            ;;
+                            (internal-require 'cargo)
                             (cargo-minor-mode)
-                            (add-hook 'racer-mode-hook #'eldoc-mode)
-                            (add-hook 'racer-mode-hook #'company-mode)
-                            (define-key rust-mode-map (kbd "TAB")
-                              #'company-indent-or-complete-common)
+                            ;;
                             (setq company-tooltip-align-annotations t)
                             ;; `keybinding'
+                            (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
                             (define-key rust-mode-map [f5]
                               '(lambda ()
                                  (interactive)
