@@ -183,7 +183,7 @@
 
 ;; (global-set-key (kbd "C-M-z") 'show-super-menu1)
 (global-set-key (kbd "M-z") 'show-super-menu)
-
+(module-require 'mod-keybind)
 (module-require 'mod-edit-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (message "hello, emacs!")

@@ -38,7 +38,7 @@
 (setq centaur-tabs-modified-marker "*")
 ;; (centaur-tabs-change-fonts "arial" 160)
 (if window-system (centaur-tabs-change-fonts "JetBrains Mono Medium" 100))
- ;;ExtraBold
+;;ExtraBold
 (add-hook 'dired-mode-hook 'centaur-tabs-local-mode)
 
 (defun centaur-tabs-buffer-groups ()
@@ -47,11 +47,12 @@
     Group centaur-tabs with mode if buffer is derived from `eshell-mode' `emacs-lisp-mode' `dired-mode' `org-mode' `magit-mode'.
     All buffer name start with * will group to \"Emacs\".
     Other buffer group by `centaur-tabs-get-group-name' with project name."
-  (list (cond ((or
-                 (string-equal "*" (substring (buffer-name) 0 1))
-                 (memq major-mode '(magit-process-mode magit-status-mode magit-diff-mode
-                                     magit-log-mode magit-file-mode magit-blob-mode
-                                     magit-blame-mode))) "Emacs")
+  (list (cond ;;
+          ((or
+             (string-equal "*" (substring (buffer-name) 0 1))
+             (memq major-mode '(magit-process-mode magit-status-mode magit-diff-mode magit-log-mode
+                                 magit-file-mode magit-blob-mode magit-blame-mode))) "Emacs")
+          ((ome-project-name) (ome-project-name))
           ((derived-mode-p 'prog-mode) "Editing")
           ((derived-mode-p 'dired-mode) "Dired")
           ((memq major-mode '(helpful-mode help-mode)) "Help")
@@ -61,8 +62,8 @@
           (t (centaur-tabs-get-group-name (current-buffer))))))
 
 (setq centaur-tabs--buffer-show-groups nil)
+;; (centaur-tabs-group-buffer-groups)
 (centaur-tabs-group-by-projectile-project)
-(centaur-tabs-group-buffer-groups)
 
 (defun centaur-tabs-hide-tab (x)
   (let ((name (format "%s" x)))

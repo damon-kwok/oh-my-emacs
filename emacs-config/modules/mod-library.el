@@ -112,6 +112,15 @@
     (ome-run-command cmd)
     (setq default-directory oldir)))
 
+(defun ome-major-mode-name ()
+  (->> (symbol-name major-mode)
+    (s-split "-")
+    (reverse)
+    (cdr)
+    (reverse)
+    (s-join "-")))
+
+(reverse (s-split "-" (symbol-name major-mode)))
 ;; (defun ome-bufname-no-ext()
 ;; (first (split-string (buffer-name) "\\."))) ;;file-name-base
 (defun ome-bufname-no-ext()
@@ -562,7 +571,7 @@ occurence of CHAR."
       (shrink-window (/ (window-height) 2)))
     (if dont-return-old-buffer nil (switch-to-buffer-other-window temp-buffer-name))))
 
-;; (setq OME-COMPILE-BUFFER-NAME nil)
+;; (defvar OME-COMPILE-BUFFER-NAME nil)
 (defun ome-compilation-buffer-name-function (mode-name)
   (message "OME-COMPILE-BUFFER-NAME:%s" OME-COMPILE-BUFFER-NAME)
   ;; (format "*compilation:%d*" (random 65535))
@@ -577,7 +586,7 @@ Likewise if `compilation-buffer-name-function' is non-nil.
 If current buffer has the major mode MODE-COMMAND,
 return the name of the current buffer, so that it gets reused.
 Otherwise, construct a buffer name from NAME-OF-MODE."
-  (message "name:%s, cmd:%s, func:%s" name-of-mode mode-command name-function)
+  ;;(message "name:%s, cmd:%s, func:%s" name-of-mode mode-command name-function)
   (cond (name-function (funcall name-function name-of-mode))
     (compilation-buffer-name-function (funcall compilation-buffer-name-function name-of-mode))
     ((eq mode-command major-mode)
@@ -587,11 +596,6 @@ Otherwise, construct a buffer name from NAME-OF-MODE."
 
 (defun ome-run-command (COMMAND &optional OUTPUT-BUFFER-NAME)
   "compile project"
-  ;; (if BUFFER (ome-show-compilation BUFFER)
-  ;; (ome-show-compilation "*compilation*"))
-  ;; (message "ome-run-command: %s" COMMAND)
-  ;; (compilation-start COMMAND nil compilation-buffer-name-function)
-  ;; (compile COMMAND)
   (setq OME-COMPILE-BUFFER-NAME OUTPUT-BUFFER-NAME)
   (let* ((compilation-buffer-name-function  'ome-compilation-buffer-name-function))
     (compile COMMAND)))
@@ -599,7 +603,7 @@ Otherwise, construct a buffer name from NAME-OF-MODE."
 (defun ome-project-command (COMMAND)
   (if (string= (ome-project-name) "")
     (ome-run-command COMMAND)
-    (ome-run-command COMMAND (concat "*[project]:" (ome-project-name)"*"))))
+    (ome-run-command COMMAND (concat "*[" (ome-major-mode-name) "] <" (ome-project-name)">*"))))
 
 ;; (defun ome-run-command (command)
 ;;   "compile project"
@@ -631,8 +635,13 @@ Otherwise, construct a buffer name from NAME-OF-MODE."
   (let* ((default-path (expand-file-name "~/projects/"))
           (project-path (directory-file-name (read-file-name "choice project path:" default-path)))
           (COMMAND (concat "bash -c \"" "app_wizard" " " lang " " project-path "\""))
-          (OUTPUT-BUFFER-NAME (concat "*[app_wizard::" lang "]:" (file-name-base project-path)
-                                "*")))
+          ;; (OUTPUT-BUFFER-NAME (->> "ok"
+                                ;; (file-name-base)
+                                ;; (s-wrap "<" ">")
+                                ;; (s-concat "[app_wizard::" "lang" "]")
+                                ;; (s-wrap "*")))
+          (OUTPUT-BUFFER-NAME (concat "*[wizard:" lang "] <" (file-name-base
+                                                                            project-path) ">*")))
     (message "*OUTPUT-BUFFER-NAME*:%s" OUTPUT-BUFFER-NAME)
     (server-start)
     (ome-run-command COMMAND OUTPUT-BUFFER-NAME)))

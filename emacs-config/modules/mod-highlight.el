@@ -91,13 +91,11 @@
 ;; (package-require 'highlight-parentheses)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(package-require 'symbol-overlay)
-
-(define-globalized-minor-mode global-symbol-overlay-mode symbol-overlay-mode
-  (lambda ()
-    (symbol-overlay-mode 1)))
-
-(global-symbol-overlay-mode 1)
+;; (package-require 'symbol-overlay)
+;; (define-globalized-minor-mode global-symbol-overlay-mode symbol-overlay-mode
+  ;; (lambda ()
+    ;; (symbol-overlay-mode 1)))
+;; (global-symbol-overlay-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `hl-todo
 ;; (package-require 'hl-todo)

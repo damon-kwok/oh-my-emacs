@@ -5,59 +5,40 @@ damon-kwok's emacs config!
 # [[file:https://imgs.xkcd.com/comics/blanket_fort.png]]
 [[https://imgs.xkcd.com/comics/real_programmers.png]]
 
-# * Require
-# - curl
-# - git
-# - [[http://www.imagemagick.org/script/index.php][imagemagick]]
-# - [[http://www.msys2.org/][msys2]] (windows)
-* Install (with [[https://github.com/damon-kwok/oh-my-env][oh-my-env]])
-#+BEGIN_SRC 
-curl -L https://raw.githubusercontent.com/damon-kwok/oh-my-env/master/install.sh | bash
-ome install oh_my_emacs
-#+END_SRC
-# - sh <(curl -fksSL https://github.com/damon-kwok/my-emacs-config/raw/master/INSTALL)
-# curl [[https://raw.githubusercontent.com/damon-kwok/oh-my-emacs/master/install.sh]] -sSf | bash
-# https://git.io/fA3TT 
-# curl -L https://git.io/fA3TG | bash
-# curl -L https://git.io/fA3T4 | bash
-or
-#+BEGIN_SRC shell
-curl -L https://raw.githubusercontent.com/damon-kwok/oh-my-emacs/master/install.sh | bash
-#+END_SRC
-* Keybind
-** global
+*** Keybind
+**** super key
 # - C-u C-h n what's the new
- - M-z super-key
- - C-c C-z show-repl
- - C-x C-b helm-buffers
- - C-M-s speedtree
- - M-number switch window
+ - M-z                super-key
+ - C-\\               toggle-input-method
 
+**** edting
+ - C-M-d              delete-backward-char
+ - C-z | C-M-z        mark-word mark-line
+ - C->                mc/mark-next-like-this
+ - M-;                comment-or-uncomment-region-or-line
+ - M-p | M-n          move-lines-up | down
+ - C-M-w | C-M-z      copy-line | mark-line
 
- - C-z | C-M-z mark-word mark-line
- - C-M-d delete-backward-char
- - C-> mc/mark-next-like-this
- - M-; comment-or-uncomment-region-or-line
- - M-p | M-n move-lines-up | down
- - C-` | C-~ | C-M-` folding-toggle-element | yafolding-hide-parent-element | folding-toggle-all
- - C-M-w | C-M-z copy-line | mark-line
+ - C-`                folding-toggle-element
+ - C-~                yafolding-hide-parent-elemen
+ - C-M-`              folding-toggle-al
 
+ - C-x M-k            close all buffer
 
- - C-x M-k close all buffer
- - C-\\ toggle-input-method
+**** navigate
+ - C-c C-z            show-repl
+ - M-number           switch window
+ - C-M-; | C-M-'      tab-backward | tab-forward
+ - C-M-[ | C-M-/      tab-forward-group | tab-backward-group
+ - C-- | C-=          shrink-window |  enlarge-window
+ - C-M-- | C-M-=      shrink-window-horizontally | enlarge-window-horizontally
 
-
- - C-M-; | C-M-' | tab-backward | tab-forward
- - C-M-[ | C-M-/ tab-forward-group | tab-backward-group
- - C-- | C-= shrink-window |  enlarge-window
- - C-M-- | C-M-= shrink-window-horizontally | enlarge-window-horizontally
-
-
+**** org helper
  - C-c l org-store-link
  - C-c c org-capture
  - C-c a org-agenda
  - C-c b org-iswitchb
-** orgmode
+
+*** orgmode
  - M-n /org-metaup/
  - M-p /org-metadown/
-
