@@ -79,6 +79,7 @@
 ;; (module-require 'mod-book)
 (module-require 'mod-ome)
 (module-require 'mod-input)
+(module-require 'mod-git "git")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `debug'
 ;; (module-require 'mod-gud)
@@ -102,26 +103,26 @@
 (defconst cc-lang-server "clangd")
 
 (cond ((and
-        (string= cc-lang-server "clangd")
-        (or (executable-find "clangd")
-            (executable-find "clangd-devel")))
-       (module-require 'mod-clangd))
-      ((and
-        (string= cc-lang-server "cquery")
-        (executable-find "cquery"))
-       (module-require 'mod-cquery))
-      ((and
-        (string= cc-lang-server "ccls")
-        (executable-find "ccls"))
-       (module-require 'mod-ccls))
-      ((and
-        (string= cc-lang-server "rtags")
-        (executable-find "rdm"))
-       (module-require 'mod-rtags)))
+         (string= cc-lang-server "clangd")
+         (or (executable-find "clangd")
+           (executable-find "clangd-devel")))
+        (module-require 'mod-clangd))
+  ((and
+     (string= cc-lang-server "cquery")
+     (executable-find "cquery"))
+    (module-require 'mod-cquery))
+  ((and
+     (string= cc-lang-server "ccls")
+     (executable-find "ccls"))
+    (module-require 'mod-ccls))
+  ((and
+     (string= cc-lang-server "rtags")
+     (executable-find "rdm"))
+    (module-require 'mod-rtags)))
 
 ;; `java'
 (if (file-directory-p "~/.emacs.d/eclipse.jdt.ls/server/")
-    (module-require 'mod-java))
+  (module-require 'mod-java))
 
 ;; `python'
 ;; (if (and (executable-find "ipython")
@@ -130,8 +131,8 @@
 (module-require 'mod-lsp-py "pyls")
 (module-require 'mod-asm "nasm")
 (if (and (executable-find "erl")
-         (executable-find "rebar3"))
-    (module-require 'mod-erlang))
+      (executable-find "rebar3"))
+  (module-require 'mod-erlang))
 
 (module-require 'mod-elixir "mix")
 (module-require 'mod-slime "ros")
@@ -148,7 +149,7 @@
 (module-require 'mod-clojure "lein")
 (module-require 'mod-rust "cargo")
 (module-require 'mod-haskell "stack")
-(module-require 'mod-git "git")
+(module-require 'mod-pony)
 
 ;; (package-require 'exwm 'exwm 'wxwm-config)
 ;; (exwm-config-default)
