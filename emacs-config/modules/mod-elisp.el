@@ -96,7 +96,7 @@
     ;; (define-key emacs-lisp-mode-map (kbd "M-.")  'elisp-refs-function)
     ;;
     (internal-require 'mod-sexp)
-    (sexp-mode-init)))
+    (ome-sexp-lang-init)))
 
 (defun elisp-code-format()
   (interactive)

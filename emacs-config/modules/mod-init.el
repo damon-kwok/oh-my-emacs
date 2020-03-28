@@ -135,7 +135,8 @@
   (module-require 'mod-erlang))
 
 (module-require 'mod-elixir "mix")
-(module-require 'mod-slime "ros")
+(module-require 'mod-lisp "ros")
+(module-require 'mod-scheme "scheme")
 
 ;; (module-require 'mod-sly)
 ;; (module-require 'mod-csharp)

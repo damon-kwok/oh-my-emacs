@@ -25,8 +25,10 @@
 (require 'mod-package)
 ;;
 ;; (package-download-git "mu-git" "https://github.com/djcb/mu.git")
-;; (setq mu4e-root-git (expand-file-name (concat ome-lib-dir "/mu-git/mu4e")))
-;; (add-to-list 'load-path mu4e-root-git)
+
+;; ome
+(setq mu4e-root-ome (expand-file-name (concat ome-lib-dir "/mu-git/mu4e")))
+(add-to-list 'load-path mu4e-root-ome)
 
 ;; freebsd
 (setq mu4e-root-bsd (expand-file-name "~/.local/share/emacs/site-lisp/mu4e"))
@@ -84,6 +86,7 @@
     (setq mu4e-doc-dir (expand-file-name (concat ome-lib-dir "/../../../../" "/usr/share/doc/mu"))))
 
 ;; `extensions'
+;; (defalias 'mu4e~main-buffer-name 'mu4e-main-buffer-name)
 ;; (package-require 'mu4e-maildirs-extension)
 ;; (mu4e-maildirs-extension)
 
