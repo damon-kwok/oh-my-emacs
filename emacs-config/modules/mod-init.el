@@ -138,17 +138,20 @@
 
 ;; (module-require 'mod-sly)
 (module-require 'mod-csharp)
-(module-require 'mod-nim "nimble")
-(module-require 'mod-hy "hy")
-
 (module-require 'mod-go "gopls")
 ;; (module-require 'mod-gocode "gocode")
 
+(module-require 'mod-haskell "stack")
 (module-require 'mod-ocaml "opam")
 (module-require 'mod-clojure "lein")
+(module-require 'mod-hy "hy")
+(module-require 'mod-janet "janet")
+;;
 (module-require 'mod-rust "cargo")
-(module-require 'mod-haskell "stack")
-(module-require 'mod-pony)
+(module-require 'mod-pony "ponyc")
+(module-require 'mod-nim "nimble")
+(module-require 'mod-zig "zig")
+
 
 ;; (package-require 'exwm 'exwm 'wxwm-config)
 ;; (exwm-config-default)

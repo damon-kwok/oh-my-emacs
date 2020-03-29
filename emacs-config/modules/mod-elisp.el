@@ -37,7 +37,7 @@
 
 
 ;;
-(setq initial-major-mode 'emacs-lisp-mode)
+;; (setq initial-major-mode 'emacs-lisp-mode)
 ;; (add-to-list 'auto-mode-alist '("*scratch*" . emacs-lisp-mode))
 (setq initial-scratch-message "\
 ;;                          !!!Oh My Emacs!!!

@@ -24,8 +24,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'hy-mode)
-
+(package-download 'hy-mode)
+(add-to-list 'auto-mode-alist '("\\hy$" . hy-mode))
+(add-hook 'hy-mode-hook (lambda ()
+                           (internal-require 'hy-mode)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-hy)
 ;; mod-hy.el ends here

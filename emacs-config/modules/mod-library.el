@@ -636,12 +636,11 @@ Otherwise, construct a buffer name from NAME-OF-MODE."
           (project-path (directory-file-name (read-file-name "choice project path:" default-path)))
           (COMMAND (concat "bash -c \"" "app_wizard" " " lang " " project-path "\""))
           ;; (OUTPUT-BUFFER-NAME (->> "ok"
-                                ;; (file-name-base)
-                                ;; (s-wrap "<" ">")
-                                ;; (s-concat "[app_wizard::" "lang" "]")
-                                ;; (s-wrap "*")))
-          (OUTPUT-BUFFER-NAME (concat "*[wizard:" lang "] <" (file-name-base
-                                                                            project-path) ">*")))
+          ;; (file-name-base)
+          ;; (s-wrap "<" ">")
+          ;; (s-concat "[app_wizard::" "lang" "]")
+          ;; (s-wrap "*")))
+          (OUTPUT-BUFFER-NAME (concat "*[wizard:" lang "] <" (file-name-base project-path) ">*")))
     (message "*OUTPUT-BUFFER-NAME*:%s" OUTPUT-BUFFER-NAME)
     (server-start)
     (ome-run-command COMMAND OUTPUT-BUFFER-NAME)))
@@ -810,7 +809,13 @@ Otherwise, construct a buffer name from NAME-OF-MODE."
     (progn ;;
       (module-require 'mod-email)
       (mu4e-compose-new))
-    (message "Please install 'mu' and offlineimap!")))
+    (message "Please install 'mu' and mbsync!")))
+
+(package-download 'ascii-table)
+(defun ome-ascii-table ()
+  (interactive)
+  (internal-require 'ascii-table)
+  (ascii-table))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-download-curl "elisp-format" "elisp-format.el"

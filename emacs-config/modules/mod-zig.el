@@ -1,11 +1,11 @@
 ;; -*- lexical-binding: t -*-
-;; mod-nim.el --- This is where you apply your OCD.
+;; mod-zig.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2018 damon-kwok
+;; Copyright (C) 2009-2020 damon-kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2018-06-05
-;; Modify: 2018-06-05
+;; Create: 2020-03-30
+;; Modify: 2020-03-30
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,18 +24,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-download 'nim-mode)
-(add-to-list 'auto-mode-alist '("\\.nim$" . nim-mode))
-(add-hook 'nim-mode-hook (lambda ()
-                           (internal-require 'nim-mode)
-                           (internal-require 'nim-suggest)
-                           (nimsuggest-mode)
-                           (company-mode)
-                           (flycheck-mode)))
-;; The `nimsuggest-path' will be set the value of
-;; (executable-find "nimsuggest"), automatically.
-;; (setq nimsuggest-path "path/to/nimsuggest")
-
+(package-download 'zig-mode)
+(add-to-list 'auto-mode-alist '("\\zig$" . zig-mode))
+(add-hook 'zig-mode-hook (lambda ()
+                           (internal-require 'zig-mode)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(provide 'mod-nim)
-;; mod-nim.el ends here
+(provide 'mod-zig)
+;; mod-zig.el ends here

@@ -695,7 +695,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
    "_u_:URLs       ^^                ^^                   ^^              _C-9_:CMakeList.txt^^               _M-9_:"(ome-auto-menu 9) "\n";;
    "^^             ^^                ^^                   _M-._:load-menu _C-0_:README.org   ^^               _M-0_:"(ome-auto-menu 0) "\n";;
    "^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------\n"
-   "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^ ^^\n")
+   "_\\_:calendar   _`_:Shell  _a_:ASCII-table   _<escape>_:Quit   _<tab>_:<-BACK  ^^\n")
   ;; Main
   ("n" (hydra-new-menu/body) "New"
    :color blue)
@@ -833,6 +833,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ;; Other
   ("<tab>" helm-recentf "(helm-recentf)")
   ("`" (show-global-shell) "shell")
+  ("a" (ome-ascii-table))
   ("C-`" (show-global-shell-new) "shell-new")
   ("\\" (ome-calendar) "calendar")
   ("w" (ome-open-url "http://wttr.in/") "wego")
