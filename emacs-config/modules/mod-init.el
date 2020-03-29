@@ -146,11 +146,13 @@
 (module-require 'mod-clojure "lein")
 (module-require 'mod-hy "hy")
 (module-require 'mod-janet "janet")
-;;
+;; Language IV
 (module-require 'mod-rust "cargo")
-(module-require 'mod-pony "ponyc")
 (module-require 'mod-nim "nimble")
+(module-require 'mod-pony "ponyc")
 (module-require 'mod-zig "zig")
+(module-require 'mod-gluon)
+(module-require 'mod-verona "veronac")
 
 
 ;; (package-require 'exwm 'exwm 'wxwm-config)
