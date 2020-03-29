@@ -52,13 +52,11 @@
   (interactive)
   (setq temp-global-buffer-name (buffer-name (current-buffer)))
   (ome-show-compilation "*shell*")
-  (if (or (string= system-type 'windows-nt) ;;gnu/linux
-        (string= system-type 'ms-dos))
-    ;; (setq explicit-shell-file-name (executable-find "bash"))
-    ;; (setq explicit-bash-args '("--noediting" "--login" "-i"))
-    ;; (setq shell-file-name explicit-shell-file-name)
-    (setq explicit-bash-args '("/bin/bash" "--login"))
-    (setq shell-file-name (executable-find "mintty"))
+  (if (or (eq system-type 'windows-nt) ;;gnu/linux
+        (eq system-type 'ms-dos))
+    (progn
+      (setq explicit-bash-args '("/bin/bash" "--login"))
+      (setq shell-file-name (executable-find "mintty")))
     ;;
     ;; start-file-process
     ;; process-connection-type
@@ -66,7 +64,8 @@
     )
   (shell)
   (switch-to-buffer-other-window temp-global-buffer-name)
-  (ome-show-compilation "*shell*" t))
+  (ome-show-compilation "*shell*" t)
+  )
 
 (defun show-global-shell-new()
   (interactive)
