@@ -49,8 +49,8 @@
 (module-require 'mod-modeline)
 (module-require 'mod-ui-editor)
 (module-require 'mod-highlight)
-;; (module-require 'mod-tabbar)
 (module-require 'mod-tabs)
+;; (module-require 'mod-tabbar)
 (module-require 'mod-mouse)
 (module-require 'mod-complete)
 (module-require 'mod-helm)
@@ -85,19 +85,22 @@
 ;; (module-require 'mod-gud)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `programming-languages'
-;; (module-require 'mod-js)
-;; (module-require 'mod-dart)
-;; (module-require 'mod-ess)
-;; (module-require 'mod-perl)
-;; (module-require 'mod-groovy)
-;; (module-require 'mod-php)
-
-;; `bash'
 (module-require 'mod-sh)
+(module-require 'mod-js)
+(module-require 'mod-web)
+(module-require 'mod-dart)
+(module-require 'mod-ess)
+(module-require 'mod-perl "perl")
+(module-require 'mod-php)
+(module-require 'mod-asm "nasm")
+(module-require 'mod-groovy)
+;; `java'
+(if (file-directory-p "~/.emacs.d/eclipse.jdt.ls/server/")
+  (module-require 'mod-java))
 
 ;; `cc'
-;; (if (or (string= system-type 'windows-nt) ;;gnu/linux
-;; (string= system-type 'ms-dos))
+;; (if (or (eq system-type 'windows-nt) ;;gnu/linux
+;; (eq system-type 'ms-dos))
 ;; (defconst cc-lang-server "rtags")
 ;; (defconst cc-lang-server "clangd")))
 (defconst cc-lang-server "clangd")
@@ -120,16 +123,11 @@
      (executable-find "rdm"))
     (module-require 'mod-rtags)))
 
-;; `java'
-(if (file-directory-p "~/.emacs.d/eclipse.jdt.ls/server/")
-  (module-require 'mod-java))
-
 ;; `python'
 ;; (if (and (executable-find "ipython")
 ;; (executable-find "jupyter"))
 ;; (module-require 'mod-py))
 (module-require 'mod-lsp-py "pyls")
-(module-require 'mod-asm "nasm")
 (if (and (executable-find "erl")
       (executable-find "rebar3"))
   (module-require 'mod-erlang))
@@ -139,7 +137,7 @@
 (module-require 'mod-scheme "scheme")
 
 ;; (module-require 'mod-sly)
-;; (module-require 'mod-csharp)
+(module-require 'mod-csharp)
 (module-require 'mod-nim "nimble")
 (module-require 'mod-hy "hy")
 
@@ -167,9 +165,9 @@
 ;; (module-require 'tramp)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `version'
-;; (package-require 'magit)
-;; (module-require 'magit)
-;; (auto-fill-mode 0)
+(package-require 'magit)
+;; (module-require 'git)
+(auto-fill-mode 0)
 ;; (package-require 'psvn)
 ;; (module-require 'psvn)
 

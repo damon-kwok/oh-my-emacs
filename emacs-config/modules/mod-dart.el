@@ -24,9 +24,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'dart-mode)
-(require 'mod-lsp)
-(add-hook 'dart-mode-hook #'lsp)
+(package-download 'dart-mode)
+(add-to-list 'auto-mode-alist '("\\.dart$" . dart-mode))
+(add-hook 'dart-mode-hook (lambda ()
+                            (internal-require 'mod-lsp)
+                            (lsp)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-dart)

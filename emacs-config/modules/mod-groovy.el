@@ -24,9 +24,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'groovy-mode)
-(require 'mod-lsp)
-(add-hook 'groovy-mode-hook #'lsp)
+(package-download 'groovy-mode)
+(add-to-list 'auto-mode-alist '("\\.groovy$" . groovy-mode))
+
+(add-hook 'groovy-mode-hook (lambda ()
+                              (internal-require 'mod-lsp)
+                              (lsp)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-groovy)
 ;; mod-groovy.el ends here

@@ -24,7 +24,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'ess 'ess-site)
+(package-download 'ess)
+(add-to-list 'auto-mode-alist '("\\.julia\\.r\\'" . ess-mode))
+
+(add-hook 'ess-mode-hook (lambda ()
+                           (internal-require 'ess-site)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-ess)

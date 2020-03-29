@@ -35,16 +35,7 @@
 ;;
 (add-to-list 'auto-mode-alist '("\\.el\\.els\\.els.el\\'" . emacs-lisp-mode))
 
-(define-key emacs-lisp-mode-map (kbd "C-M-\\")
-  (lambda()
-    (interactive)
-    (internal-require 'elisp-format)
-    (elisp-code-format)))
-(define-key emacs-lisp-mode-map (kbd "C-c C-f")
-  (lambda()
-    (interactive)
-    (internal-require 'elisp-format)
-    (elisp-code-format)))
+
 ;;
 (setq initial-major-mode 'emacs-lisp-mode)
 ;; (add-to-list 'auto-mode-alist '("*scratch*" . emacs-lisp-mode))
@@ -66,6 +57,17 @@
     (dolist (hook '(ielm-mode-hook lisp-interaction-mode-hook))
       (internal-require 'elisp-slime-nav)
       (add-hook hook 'elisp-slime-nav-mode))
+    ;;
+    (define-key emacs-lisp-mode-map (kbd "C-M-\\")
+      (lambda()
+        (interactive)
+        (internal-require 'elisp-format)
+        (elisp-code-format)))
+    (define-key emacs-lisp-mode-map (kbd "C-c C-f")
+      (lambda()
+        (interactive)
+        (internal-require 'elisp-format)
+        (elisp-code-format)))
     ;;
     ;; (internal-require 'el-spice)
     ;; (el-spice-mode)

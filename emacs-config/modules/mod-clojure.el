@@ -37,8 +37,6 @@
 ;;
 ;; Use clojure mode for other extensions
 (add-to-list 'auto-mode-alist '("\\.clj\\.cljc\\.edn\\.boot\\'" . clojure-mode))
-(add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
-(add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.cljs.*$" . clojurescript-mode))
 (add-to-list 'auto-mode-alist '("\\.cljs\\.hl\\'" . clojurescript-mode))
 (add-to-list 'auto-mode-alist '("lein-env" . enh-ruby-mode))
