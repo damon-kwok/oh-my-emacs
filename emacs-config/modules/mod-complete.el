@@ -100,19 +100,19 @@
 (setq dir-core-snippets "~/.oh-my-emacs/snippets/")
 (setq dir-ome-snippets "~/workspace/emacs/snippets/")
 
-(if (file-exists-p dir-core-snippets) 
+(if (file-exists-p dir-core-snippets)
     (add-to-list 'yas-snippet-dirs (expand-file-name dir-core-snippets)))
 
-(if (file-exists-p dir-ome-snippets) 
+(if (file-exists-p dir-ome-snippets)
     (add-to-list 'yas-snippet-dirs (expand-file-name dir-ome-snippets)))
 
-(yas-reload-all)
+;; (yas-reload-all)
 
-(define-globalized-minor-mode global-yas-minor-mode yas-minor-mode 
-  (lambda () 
-    (if (and (not (string-match "^\*.*\*$" (buffer-name))) 
-             (not (eq major-mode 'dired-mode)) 
-             (not (eq major-mode 'speedbar-mode))) 
+(define-globalized-minor-mode global-yas-minor-mode yas-minor-mode
+  (lambda ()
+    (if (and (not (string-match "^\*.*\*$" (buffer-name)))
+             (not (eq major-mode 'dired-mode))
+             (not (eq major-mode 'speedbar-mode)))
         (yas-minor-mode 1))))
 
 (global-yas-minor-mode 1)
@@ -123,12 +123,12 @@
 
 
 
-(defun yas-open-snippet-file(file-name) 
-  (interactive "sEnter snippet file name:") 
+(defun yas-open-snippet-file(file-name)
+  (interactive "sEnter snippet file name:")
   (find-file (concat dir-core-snippets (symbol-name major-mode)"/"file-name)))
 
-(defun yas-open-snippet-template() 
-  (interactive) 
+(defun yas-open-snippet-template()
+  (interactive)
   (find-file (concat dir-core-snippets (symbol-name major-mode) "/auto-insert")))
 
 ;; (define-key yas-minor-mode-map (kbd "TAB") nil)
@@ -140,17 +140,17 @@
 
 ;;
 (defun yasnippet-current-line () ;; C-c TAB
-  (interactive) 
-  (let ((current-line (string-trim-right (thing-at-point 'line t)))) 
-    (end-of-line) 
-    (newline-and-indent) 
+  (interactive)
+  (let ((current-line (string-trim-right (thing-at-point 'line t))))
+    (end-of-line)
+    (newline-and-indent)
     (yas-expand-snippet (yasnippet-string-to-template (string-trim current-line)))))
 
-(defun yasnippet-string-to-template (string) 
-  (let ((count 1)) 
-    (cl-labels ((rep (text) 
-                     (let ((replace (format "${%d:%s}" count text))) 
-                       (incf count) replace))) 
+(defun yasnippet-string-to-template (string)
+  (let ((count 1))
+    (cl-labels ((rep (text)
+                     (let ((replace (format "${%d:%s}" count text)))
+                       (incf count) replace)))
       (replace-regexp-in-string "[a-zA-Z0-9]+" #'rep string))))
 
 (global-set-key (kbd "C-c TAB") 'yasnippet-current-line)
@@ -190,22 +190,25 @@
 (define-auto-insert "\\.py\\'" "python-mode/auto-insert")
 (define-auto-insert "\\.js\\'" "js-mode/auto-insert")
 (define-auto-insert "\\.cs\\'" "csharp-mode/auto-insert")
+;; ROS launch
 (define-auto-insert "\\.launch\\'" "nxml-mode/auto-insert.launch")
 
-(defadvice auto-insert  (around yasnippet-expand-after-auto-insert activate) 
+(define-auto-insert "\\.pony\\'" "ponylang-mode/auto-insert")
+
+(defadvice auto-insert  (around yasnippet-expand-after-auto-insert activate)
   "expand auto-inserted content as yasnippet templete,
   so that we could use yasnippet in autoinsert mode"
-  (let ((is-new-file (and (not buffer-read-only) 
-                          (or (eq this-command 'auto-insert) 
-                              (and auto-insert 
-                                   (bobp) 
-                                   (eobp)))))) ad-do-it (let ((old-point-max (point-max))) 
-                                         (when is-new-file (goto-char old-point-max) 
-                                               (yas-expand-snippet 
-                                                (buffer-substring-no-properties 
-                                                 (point-min) 
-                                                 (point-max))) 
-                                               (delete-region (point-min) old-point-max) 
+  (let ((is-new-file (and (not buffer-read-only)
+                          (or (eq this-command 'auto-insert)
+                              (and auto-insert
+                                   (bobp)
+                                   (eobp)))))) ad-do-it (let ((old-point-max (point-max)))
+                                         (when is-new-file (goto-char old-point-max)
+                                               (yas-expand-snippet
+                                                (buffer-substring-no-properties
+                                                 (point-min)
+                                                 (point-max)))
+                                               (delete-region (point-min) old-point-max)
                                                (elisp-code-format)))))
 
 

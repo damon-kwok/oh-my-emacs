@@ -688,11 +688,11 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
    "_o_:Open       _R_:remove        _<_:gochar-backward  _M-m_:menubar   _/_:down           _M-l_:store-link _M-2_:"(ome-auto-menu 2) "\n";;
    "_b_:Bookmarks  _k_:kill          _g_:grep-dir         _M-s_:speedbar  _;_:left           _M-a_:agenda     _M-3_:"(ome-auto-menu 3) "\n";;
    "_e_(E):Email   _M-k_:kill-other  _G_:grep-proj        _M-d_:sidebar   _'_:right          _M-b_:switchb    _M-4_:"(ome-auto-menu 4) "\n";;
-   "_f_:Feed       _C-k_:kill-all    _d_:dict-bing        _=_:scale+      ^0-9:select^       _M-u_:update     _M-5_:"(ome-auto-menu 5) "\n";;
-   "_m_:Module     ^^                _D_:dict-bing-web    _-_:scale-      _u_:URLs           _M-g_:GTD        _M-6_:"(ome-auto-menu 6) "\n";;
+   "_f_:Feed       _C-k_:kill-all    _t_:dict-bing        _=_:scale+      ^0-9:select^       _M-u_:update     _M-5_:"(ome-auto-menu 5) "\n";;
+   "_m_:Module     ^^                _T_:dict-bing-web    _-_:scale-      _d_:*Dashboard*    _M-g_:GTD        _M-6_:"(ome-auto-menu 6) "\n";;
    "_i_:IRC        ^^                ^^                   _M_:Message     _C-7_:gitignore    _M-p_:push-blog  _M-7_:"(ome-auto-menu 7) "\n";;
    "_s_(S):Shell   ^^                ^^                   _._:*scratch*   _C-8_:Makefile     _M-e_:en         _M-8_:"(ome-auto-menu 8) "\n";;
-   "^^             ^^                ^^                   ^^              _C-9_:CMakeList.txt^^               _M-9_:"(ome-auto-menu 9) "\n";;
+   "_u_:URLs       ^^                ^^                   ^^              _C-9_:CMakeList.txt^^               _M-9_:"(ome-auto-menu 9) "\n";;
    "^^             ^^                ^^                   _M-._:load-menu _C-0_:README.org   ^^               _M-0_:"(ome-auto-menu 0) "\n";;
    "^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------\n"
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^ ^^\n")
@@ -711,6 +711,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("i" (ome-find-buffer-by-major 'erc-mode) "IRC")
   ("s" (show-global-shell) "shell")
   ("S" (show-global-shell-new) "shell")
+  ("u" (hydra-url-menu/body) "URLs")
 
   ;; auto menu
   ("M-1" (ome-auto-func 1) "auto-func")
@@ -743,8 +744,8 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("<" ome-go-to-char-backward "go-to-char-backward")
   ("G" projectile-ripgrep "projectile-project-root")
   ("g" ome-grep-directory "projectile-directory-root")
-  ("d" bing-dict-brief "bing-dict-brief")
-  ("D" ome-bing-dict-brief-web "bing-dict-brief-web")
+  ("t" bing-dict-brief "bing-dict-brief")
+  ("T" ome-bing-dict-brief-web "bing-dict-brief-web")
   ("H" (find-file "~/Cybertron/Modules/Foundation/Source/CybertronLogServer/Main.cpp"))
   ("h" (find-file "~/Cybertron/Modules/Web/WebBridge/main.cpp"))
 
@@ -812,11 +813,11 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
    :color pink)
   ("9" select-window-9 "select-window-9"
    :color pink)
-  ("u" (hydra-url-menu/body) "URLs")
   ("C-7" (find-file (concat (ome-project-root) ".gitignore")) "gitignore")
   ("C-8" (find-file (concat (ome-project-root) "Makefile")) "Makefile")
   ("C-9" (find-file (concat (ome-project-root) "Makefile")) "CMakefile.txt")
   ("C-0" (find-file (concat (ome-project-root) "README.org")) "README.org")
+  ("d" (ome-show-compilation "*dashboard*") "*dashboard*")
 
   ;; Buffer/File
   ("r" ome-rename-file-and-buffer "rename-file-and-buffer")

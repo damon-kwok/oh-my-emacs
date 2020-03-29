@@ -39,7 +39,32 @@
     ;;
     (internal-require 'pony-snippets)))
 
+;; `automenu:ponylang'
+(defun automenu--ponylang-mode-menu ()
+  '("0" "build" "run" "3" "4" "5" "6" "7" "8" "9"))
 
+(defun automenu--ponylang-mode-func (index)
+  (cond ((= 0 index)
+          (message  "ponylang menu:%d" index))
+    ((= 1 index)
+      (ome-project-command "ponyc"))
+    ((= 2 index)
+      (ome-project-command (concat (ome-buf-dirpath) "/" (ome-buf-dirname))));;"/" (ome-bufname-no-ext)
+    ((= 3 index)
+      (message  "ponylang menu:%d" index))
+    ((= 4 index)
+      (message  "ponylang menu:%d" index))
+    ((= 5 index)
+      (message  "ponylang menu:%d" index))
+    ((= 6 index)
+      (message  "ponylang menu:%d" index))
+    ((= 7 index)
+      (message  "ponylang menu:%d" index))
+    ((= 8 index)
+      (message  "ponylang menu:%d" index))
+    ((= 9 index)
+      (message  "ponylang menu:%d" index))
+    (t (message  "ponylang menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-pony)
 ;; mod-pony.el ends here
