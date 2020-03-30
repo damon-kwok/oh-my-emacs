@@ -29,6 +29,9 @@
 (add-to-list 'auto-mode-alist '("\\.rd$" . sh-mode))
 
 (add-hook 'sh-mode-hook (lambda()
+                          '(sh-basic-offset 2)
+                          '(sh-indentation 2)
+                          '(smie-indent-basic 2)
                           ;; (message (concat "you opened cc file:" (buffer-name)))
                           ;; enabled lsp-mode
                           ;;(if (executable-find "bash-language-server")
@@ -64,8 +67,7 @@
     )
   (shell)
   (switch-to-buffer-other-window temp-global-buffer-name)
-  (ome-show-compilation "*shell*" t)
-  )
+  (ome-show-compilation "*shell*" t))
 
 (defun show-global-shell-new()
   (interactive)

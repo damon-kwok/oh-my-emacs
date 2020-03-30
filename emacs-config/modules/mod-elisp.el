@@ -52,6 +52,11 @@
     (internal-require 'ielm)
     (define-key ielm-map (kbd "C-c C-z") 'show-elisp-workbuffer)
     ;;
+    ;; `elisp-refs' is obsolete!
+    ;; (package-require 'elisp-refs)
+    ;; (define-key emacs-lisp-mode-map (kbd "M-.")  'elisp-refs-function)
+    ;;
+    ;; `slime-nav' replaced `elisp-refs'
     (internal-require 'elisp-slime-nav)
     (elisp-slime-nav-mode)
     (dolist (hook '(ielm-mode-hook lisp-interaction-mode-hook))
@@ -93,9 +98,6 @@
     (define-key emacs-lisp-mode-map (kbd "C-c C-z")  'show-elisp-repl)
     (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'compile-current-buffer)
     ;; (define-key emacs-lisp-mode-map (kbd "C-c C-k")  'eval-buffer)
-    ;;
-    ;; (package-require 'elisp-refs)
-    ;; (define-key emacs-lisp-mode-map (kbd "M-.")  'elisp-refs-function)
     ;;
     (internal-require 'mod-sexp)
     (ome-sexp-lang-init)))
