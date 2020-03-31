@@ -494,7 +494,8 @@ occurence of CHAR."
   (ome-show-compilation "*Messages*")
   (other-window 1) ;;(switch-window)
   (find-file (concat "~/.oh-my-emacs/emacs-config/modules/mod-" mod-name ".el"))
-  (delete-other-windows))
+  ;; (delete-other-windows)
+  )
 
 (defun ome-open-doc(doc-name)
   (interactive)
@@ -690,7 +691,7 @@ Otherwise, construct a buffer name from NAME-OF-MODE."
   (interactive)
   (message (concat "root:" (ome-project-root)))
   (if (file-exists-p (concat (projectile-project-root) "CMakeLists.txt"))
-    (let ((cmd (concat "cmake_build " (projectile-project-root))))
+    (let ((cmd (concat "bash -c \"cmake_build " (projectile-project-root) " \"")))
       (message "emacs run:%s" cmd)
       (ome-run-command cmd))))
 
