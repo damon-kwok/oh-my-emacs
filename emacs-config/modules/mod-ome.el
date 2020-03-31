@@ -25,16 +25,16 @@
 (require 'mod-package)
 ;;
 (setq dir-ome-plugins "~/.oh-my-env/plugins/")
-
-(defun ome-open-plugin(arg) 
+(defun ome-open-plugin(arg)
   (interactive "P")
   ;; (interactive "sEnter ome plugin name:")
   ;; (find-file (concat dir-ome-plugins plugin-name))
-  (let ((oldir default-directory)) 
-    (setq default-directory dir-ome-plugins) 
-    (ome-helm-init) 
-    (helm-find-files arg) 
-    (setq default-directory oldir)))
+  (let ((oldir default-directory))
+    (ome-helm-init)
+    (setq default-directory dir-ome-plugins)
+    (helm-find-files arg)
+    ;; (setq default-directory oldir)
+    ))
 
 (global-set-key (kbd "C-x p f") 'ome-open-plugin)
 

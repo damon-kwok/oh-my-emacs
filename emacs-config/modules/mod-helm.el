@@ -112,6 +112,7 @@
                 (lambda (arg)
                   (interactive "P")
                   (ome-helm-init)
+                  (setq default-directory (ome-buffer-directory))
                   (helm-find-files arg)))
 
 (defun ome-helm-init()

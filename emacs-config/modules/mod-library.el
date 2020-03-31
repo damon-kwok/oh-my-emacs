@@ -94,7 +94,7 @@
 
 (defun ome-buffer-directory ()
   (if buffer-file-name (file-name-directory buffer-file-name)
-    (expand-file-name "~/.oh-my-emacs")))
+    default-directory));;(file-name-directory (expand-file-name "~/"))
 
 (defun ome-buf-dirpath()
   ;;(directory-file-name (file-name-directory buffer-file-name))
