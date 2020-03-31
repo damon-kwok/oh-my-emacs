@@ -2,9 +2,10 @@
 #+STARTUP: inlineimages
 damon-kwok's emacs config!
 
-# [[file:https://imgs.xkcd.com/comics/blanket_fort.png]]
-[[https://imgs.xkcd.com/comics/real_programmers.png]]
 
+# [[file:https://imgs.xkcd.com/comics/blanket_fort.png]]
+# [[https://imgs.xkcd.com/comics/real_programmers.png]]
+[[ome.png][oh-my-emacs]]
 *** Keybind
 **** super key
 # - C-u C-h n what's the new
