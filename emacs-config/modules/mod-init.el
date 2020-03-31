@@ -103,7 +103,7 @@
 ;; (eq system-type 'ms-dos))
 ;; (defconst cc-lang-server "rtags")
 ;; (defconst cc-lang-server "clangd")))
-(defconst cc-lang-server "clangd")
+(defconst cc-lang-server "ccls")
 
 (cond ((and
          (string= cc-lang-server "clangd")

@@ -30,7 +30,7 @@
 
 (use-package ccls
   :hook ((c-mode c++-mode objc-mode cuda-mode) .
-         (lambda () (require 'ccls) (lsp))))
+         (lambda ()   (internal-require 'mod-cc) (internal-require 'ccls) (lsp))))
 
 (setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
 
