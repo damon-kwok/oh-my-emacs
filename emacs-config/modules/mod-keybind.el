@@ -593,6 +593,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
    "^^^^^^^^------------------------------------------------------------------------\n";;
    "_c_:C|_C_:C++       _M-j_:Java      _1_:Nodejs                      _9_:Ruby\n";;
    "_0_:CL(Roswell)   _M-c_:Clojure   _C-c_:Cljs                      _e_:Erlang\n";;
+   "_2_:Pony          ^^              ^^                              ^^\n";;
    "_g_:Golang        _M-k_:Kotlin    ^C-t:TypeScript^                _E_:Elixir\n";;
    "_r_:Rust          _M-s_:Scala     ^ReasonML^                      _h_:Haskell\n";;
    "_n_:Nim           _M-g_:Groovy    ^^                              _o_:OCaml\n";;
@@ -603,6 +604,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("c" (ome-project-wizard "c") "C")
   ("C" (ome-project-wizard "cpp") "C++")
   ("0" (ome-project-wizard "ros") "ROS")
+  ("2" (ome-project-wizard "pony") "Ponylang")
   ("r" (ome-project-wizard "rust") "rust")
   ("g" (ome-project-wizard "go") "go")
   ("p" (ome-project-wizard "python") "python")
