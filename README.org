@@ -5,7 +5,8 @@ damon-kwok's emacs config!
 
 # [[file:https://imgs.xkcd.com/comics/blanket_fort.png]]
 # [[https://imgs.xkcd.com/comics/real_programmers.png]]
-[[https://raw.githubusercontent.com/damon-kwok/oh-my-emacs/master/ome.png][file:ome.png]]
+[[https://github.com/damon-kwok/oh-my-emacs][file:screenshot/ome.png]]
+[[https://github.com/damon-kwok/oh-my-emacs][file:screenshot/project_pony.png]]
 *** Keybind
 **** super key
 # - C-u C-h n what's the new
