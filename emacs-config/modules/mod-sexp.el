@@ -111,7 +111,7 @@
 ;; (back-quote . "`")))
 
 ;;
-(defun switch-to-scratch-buffer ()
+(defun switch-to-smart-scratch-buffer ()
   "Toggle between *scratch* buffer and the current buffer.
      If the *scratch* buffer does not exist, create it."
   (interactive)
@@ -125,6 +125,19 @@
         (when (equal major-mode 'fundamental-mode )
           (emacs-lisp-mode))
         (goto-char (point-max))))))
+
+(defun switch-to-scratch-buffer ()
+  "Toggle between *scratch* buffer and the current buffer.
+     If the *scratch* buffer does not exist, create it."
+  (interactive)
+  (let ((scratch-buffer-name  "*scratch*")
+         (prev-major-mode major-mode))
+    (if (equal (buffer-name (current-buffer)) scratch-buffer-name)
+      (switch-to-buffer (other-buffer))
+      (with-current-buffer (switch-to-buffer  scratch-buffer-name)
+        (emacs-lisp-mode)
+        (goto-char (point-max))))))
+
 ;;
 (defun ome-sexp-lang-init()
   (interactive)

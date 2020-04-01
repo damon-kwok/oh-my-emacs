@@ -106,7 +106,7 @@
 (if (file-exists-p dir-ome-snippets)
     (add-to-list 'yas-snippet-dirs (expand-file-name dir-ome-snippets)))
 
-;; (yas-reload-all)
+(yas-reload-all)
 
 (define-globalized-minor-mode global-yas-minor-mode yas-minor-mode
   (lambda ()
