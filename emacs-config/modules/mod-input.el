@@ -27,7 +27,6 @@
 (package-download 'pyim)
 
 (defun pyim-init ()
-
   (package-require 'pyim 'pyim 'pyim-basedict)
   (pyim-basedict-enable)
   (setq default-input-method "pyim")
@@ -36,30 +35,29 @@
   (setq pyim-default-scheme 'quanpin)
 
   ;; 设置 pyim 探针设置，这是 pyim 高级功能设置，可以实现 *无痛* 中英文切换 :-)
-  (setq-default;;
-   pyim-english-input-switch-functions
-   '(;;
-     ;;pyim-probe-dynamic-english ;;2. 当前字符为其他字符时，输入下一个字符时默认开启英文输入
-     pyim-probe-isearch-mode ;; 使用 isearch 搜索时，强制开启英文输入模式
-     ;; pyim-probe-program-mode ;;如果当前的 mode 衍生自 prog-mode，那么仅仅在字符串和 comment 中开启中文输入模式
-     pyim-probe-org-speed-commands ;;解决 org-speed-commands 与 pyim 冲突问题
-     pyim-probe-org-structure-template)) ;;使用 org-structure-template 时，关闭中文输入模式
-
-  (setq-default;;
-   pyim-punctuation-half-width-functions
-   '(pyim-probe-punctuation-line-beginning ;;行首强制输入半角标点
-     pyim-probe-punctuation-after-punctuation)) ;;半角标点后强制输入半角标点
+  (setq-default                            ;;
+    pyim-english-input-switch-functions '(;;
+                                           ;;pyim-probe-dynamic-english ;;2. 当前字符为其他字符时，输入下一个字符时默认开启英文输入
+                                           ;; pyim-probe-isearch-mode ;; 使用 isearch 搜索时，强制开启英文输入模式
+                                           ;; pyim-probe-program-mode ;;如果当前的 mode 衍生自 prog-mode，那么仅仅在字符串和 comment 中开启中文输入模式
+                                           pyim-probe-org-speed-commands ;;解决 org-speed-commands 与 pyim 冲突问题
+                                           pyim-probe-org-structure-template)) ;;使用 org-structure-template 时，关闭中文输入模式
+  (setq-default ;;
+    pyim-punctuation-half-width-functions '(pyim-probe-punctuation-line-beginning ;;行首强制输入半角标点
+                                             ;; pyim-probe-punctuation-after-punctuation;;半角标点后强制输入半角标点
+                                             ))
 
   ;; 开启：1/关闭：0 拼音搜索功能
   (pyim-isearch-mode 0)
 
   ;; option 1.使用 popup 包来绘制选词框 （emacs overlay 机制）
-  ;; (setq pyim-page-tooltip 'popup)
+  (setq pyim-page-tooltip 'popup)
   ;; option 2.使用 pos-tip 包来绘制选词框（emacs tooltip 机制）
-  (setq pyim-page-tooltip 'pos-tip)
+  ;; (setq pyim-page-tooltip 'pos-tip)
   ;; 2.1 注：Linux平台下emacs可以使用GTK来绘制选词框：
-  (if (eq system-type 'gnu/linux) 
-      (setq x-gtk-use-system-tooltips t))
+  (if (and (eq system-type 'gnu/linux)
+        (display-graphic-p))
+    (setq x-gtk-use-system-tooltips t))
 
   ;; pyim 的 tooltip 选词框默认使用 双行显示 的样式，在一些特 殊的情况下（比如：popup 显示的菜单错位），用户可以使用 单行显示 的样式：
   (setq pyim-page-style 'two-lines) ;;one-line ;;two-lines
@@ -85,11 +83,13 @@
   ;; (:name "dict12" :file "~/workspace/pyim-dicts/中国高等院校大全.txt" :coding utf-8 :dict-type pinyin-dict)
   ;; (:name "dict13" :file "~/workspace/pyim-dicts/中国医院大全.txt" :coding utf-8 :dict-type pinyin-dict)
   ;; (:name "dict14" :file "~/workspace/pyim-dicts/最详细的全国地名大全.txt" :coding utf-8 :dict-type pinyin-dict)))
-)
-(global-set-key (kbd "C-\\") 
-                (lambda () 
-                  (pyim-init) 
-                  (toggle-input-method)))
+  )
+(global-set-key (kbd "C-\\")
+  (lambda ()
+    (interactive)
+    (pyim-init)
+    (toggle-input-method)))
+
 ;; (global-set-key (kbd "C-\\") 'toggle-input-method)
 ;;
 (provide 'mod-input)
