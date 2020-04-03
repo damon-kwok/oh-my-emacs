@@ -37,7 +37,7 @@
   ;; 设置 pyim 探针设置，这是 pyim 高级功能设置，可以实现 *无痛* 中英文切换 :-)
   (setq-default                            ;;
     pyim-english-input-switch-functions '(;;
-                                           ;;pyim-probe-dynamic-english ;;2. 当前字符为其他字符时，输入下一个字符时默认开启英文输入
+                                           ;; pyim-probe-dynamic-english ;;2. 当前字符为其他字符时，输入下一个字符时默认开启英文输入
                                            ;; pyim-probe-isearch-mode ;; 使用 isearch 搜索时，强制开启英文输入模式
                                            ;; pyim-probe-program-mode ;;如果当前的 mode 衍生自 prog-mode，那么仅仅在字符串和 comment 中开启中文输入模式
                                            pyim-probe-org-speed-commands ;;解决 org-speed-commands 与 pyim 冲突问题
@@ -63,7 +63,7 @@
   (setq pyim-page-style 'two-lines) ;;one-line ;;two-lines
 
   ;; 选词框显示5个候选词
-  (setq pyim-page-length 9)
+  (setq pyim-page-length 20)
 
   ;; 让 Emacs 启动时自动加载 pyim 词库
   ;; (add-hook 'emacs-startup-hook
