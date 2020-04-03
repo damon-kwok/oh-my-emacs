@@ -624,7 +624,7 @@ Otherwise, construct a buffer name from NAME-OF-MODE."
            (project-path (read-file-name "choice project path:" oldir)))
     (message "proj-path:%s" project-path)
     (setq default-directory (f-dirname project-path))
-    (f-mkdir default-directory)
+    ;; (f-mkdir default-directory)
     (if (= (shell-command (concat (s-replace "%s" (f-filename project-path) command))) 0)
       (progn (message (concat "shell-cmd:" ))
         (find-file (concat project-path "/" (s-replace "%s" (f-filename project-path) openfile)))
