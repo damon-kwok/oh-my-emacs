@@ -819,7 +819,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   ("C-8" (find-file (concat (ome-project-root) "Makefile")) "Makefile")
   ("C-9" (find-file (concat (ome-project-root) "Makefile")) "CMakefile.txt")
   ("C-0" (find-file (concat (ome-project-root) "README.org")) "README.org")
-  ("d" (ome-show-compilation "*dashboard*") "*dashboard*")
+  ("d" (progn (ome-show-compilation "*dashboard*") (delete-other-window)) "*dashboard*")
 
   ;; Buffer/File
   ("r" ome-rename-file-and-buffer "rename-file-and-buffer")

@@ -24,7 +24,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-;;; title
+;;; `mini-frame'
+;; (package-require 'mini-frame)
+;; (custom-set-variables
+ ;; '(mini-frame-show-parameters
+   ;; '((top . 0)
+     ;; (width . 1.0)
+     ;; (left . 0.5)
+;; (height . 15))))
+;;
+;;; `title'
 (setq frame-title-format '("[%Z]    [%m]    "
                             (:eval (if (ome-project-name)
                                      (concat "<project: " (ome-project-name) ">    ")))

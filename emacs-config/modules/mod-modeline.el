@@ -40,11 +40,11 @@
 ;;             (assq-delete-all 'which-func-mode mode-line-misc-info))
 ;;; `mode-icons'
 ;; mode-icons-interpolate-from-scale
-(package-download 'mode-icons)
-(if (display-graphic-p)
-  (progn
-    (internal-require 'mode-icons)
-    (mode-icons-mode)))
+;; (package-download 'mode-icons)
+;; (if (display-graphic-p)
+  ;; (progn
+    ;; (internal-require 'mode-icons)
+    ;; (mode-icons-mode)))
 ;;
 ;;; `smart-mode-line'
 ;; (package-download 'smart-mode-line)
