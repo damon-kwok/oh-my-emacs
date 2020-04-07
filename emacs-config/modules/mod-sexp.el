@@ -141,7 +141,7 @@
 ;;
 (defun ome-sexp-lang-init()
   (interactive)
-  (message "ome-sexp-lang-init with:%s" (symbol-name major-mode))
+  (message "ome-sexp-lang-init with buffer:%s mode:%s" (buffer-name) (symbol-name major-mode))
   ;; `rainbow'
   (internal-require 'rainbow-mode)
   (rainbow-mode)
@@ -170,12 +170,14 @@
   (define-key paredit-mode-map (kbd "C-c e") 'macrostep-expand))
 
 (add-hook 'eval-expression-minibuffer-setup-hook #'ome-sexp-lang-init)
-(add-hook 'inferior-emacs-mode-hook   #'ome-sexp-lang-init)
-(add-hook 'ielm-mode-hook             #'ome-sexp-lang-init)
-(add-hook 'lisp-mode-hook             #'ome-sexp-lang-init)
 (add-hook 'lisp-interaction-mode-hook #'ome-sexp-lang-init)
+(add-hook 'emacs-lisp-mode-hook      #'ome-sexp-lang-init)
+(add-hook 'ielm-mode-hook             #'ome-sexp-lang-init)
+;; (add-hook 'inferior-emacs-mode-hook   #'ome-sexp-lang-init)
+(add-hook 'lisp-mode-hook             #'ome-sexp-lang-init)
 (add-hook 'common-lisp-mode-hook      #'ome-sexp-lang-init)
 (add-hook 'scheme-mode-hook           #'ome-sexp-lang-init)
+(add-hook 'racket-mode-hook           #'ome-sexp-lang-init)
 (add-hook 'hy-mode-hook               #'ome-sexp-lang-init)
 (add-hook 'newlisp-mode-hook          #'ome-sexp-lang-init)
 (add-hook 'hy-mode-hook               #'ome-sexp-lang-init)

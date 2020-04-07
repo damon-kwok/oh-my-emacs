@@ -24,16 +24,26 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(use-package lsp-mode :commands lsp)
-(use-package lsp-ui :commands lsp-ui-mode)
-(use-package company-lsp :commands company-lsp)
+(package-download 'ccls)
+(package-download 'cuda-mode)
+(package-download 'lsp-mode)
+(package-download 'lsp-ui)
+(package-download 'company-lsp)
+;;
+(defun cc-mode-init ()
+  (internal-require 'mod-cc)
+  (internal-require 'mod-lsp)
+  ;;
+  (setq ccls-initialization-options
+    '(:index (:comments 2)
+       :completion (:detailedLabel t)))
+  (internal-require 'ccls)
+  ;;
+  (lsp))
 
-(use-package ccls
-  :hook ((c-mode c++-mode objc-mode cuda-mode) .
-         (lambda ()   (internal-require 'mod-cc) (internal-require 'ccls) (lsp))))
-
-(setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
-
+(dolist (hook '(c-mode c++-mode objc-mode cuda-mode))
+  (add-hook hook 'cc-mode-init))
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-ccls)
 ;; mod-ccls.el ends here

@@ -37,7 +37,7 @@
 
 ;;
 ;; (setq initial-major-mode 'emacs-lisp-mode)
-(add-to-list 'auto-mode-alist '("*scratch*" . emacs-lisp-mode))
+;; (add-to-list 'auto-mode-alist '("*scratch*" . emacs-lisp-mode))
 (setq initial-scratch-message "\
 ;;                          !!!Oh My Emacs!!!
 ;; This buffer is for notes you don't want to save, and for Elisp code.
@@ -48,6 +48,7 @@
 
 (add-hook 'emacs-lisp-mode-hook ;;
   (lambda ()
+    (message "emacs-lisp-mode-hook with buffer:%s mode:%s" (buffer-name) (symbol-name major-mode))
     (internal-require 'ielm)
     (define-key ielm-map (kbd "C-c C-z") 'show-elisp-workbuffer)
     ;;
@@ -58,8 +59,7 @@
     ;; `slime-nav' replaced `elisp-refs'
     (internal-require 'elisp-slime-nav)
     (elisp-slime-nav-mode)
-    (dolist (hook '(ielm-mode-hook lisp-interaction-mode-hook))
-      (internal-require 'elisp-slime-nav)
+    (dolist (hook '(ielm-mode-hook ));;lisp-interaction-mode-hook
       (add-hook hook 'elisp-slime-nav-mode))
     ;;
     (define-key emacs-lisp-mode-map (kbd "C-M-\\")
@@ -96,10 +96,11 @@
     ;;(define-key el-spice-mode-map (kbd "C-c C-z")  'show-elisp-repl)
     (define-key emacs-lisp-mode-map (kbd "C-c C-z")  'show-elisp-repl)
     (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'compile-current-buffer)
-    ;; (define-key emacs-lisp-mode-map (kbd "C-c C-k")  'eval-buffer)
+    (define-key emacs-lisp-mode-map (kbd "C-c C-k")  'eval-buffer)
     ;;
-    (internal-require 'mod-sexp)
-    (ome-sexp-lang-init)))
+    ;; (internal-require 'mod-sexp)
+    ;; (ome-sexp-lang-init)
+    ))
 
 (defun elisp-code-format()
   (interactive)
