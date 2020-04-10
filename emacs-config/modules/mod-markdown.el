@@ -24,12 +24,11 @@
 (require 'mod-package)
 (package-download 'markdown-mode)
 ;; (autoload 'markdown-mode "markdown-mode"
-   ;; "Major mode for editing Markdown files" t)
+;; "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-(autoload 'gfm-mode "markdown-mode"
-   "Major mode for editing GitHub Flavored Markdown files" t)
+(autoload 'gfm-mode "markdown-mode" "Major mode for editing GitHub Flavored Markdown files" t)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
 ;;(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
@@ -40,21 +39,21 @@
 ;;(setq auto-mode-alist (cons '("\\.mdown" . markdown-mode) auto-mode-alist))
 ;;(setq auto-mode-alist (cons '("^*markdown-output*$" . html-mode) auto-mode-alist))
 
-(defun show-markdown-output() 
-  (interactive) 
-  (setq temp-buffer-name (buffer-name (current-buffer))) 
-  (ome-show-compilation "*markdown-output*") 
-  (markdown) 
-  (switch-to-buffer-other-window temp-buffer-name) 
+(defun show-markdown-output()
+  (interactive)
+  (setq temp-buffer-name (buffer-name (current-buffer)))
+  (ome-show-compilation "*markdown-output*")
+  (markdown)
+  (switch-to-buffer-other-window temp-buffer-name)
   (ome-show-compilation "*markdown-output*"))
 
-(defun markdown-custom-settings () 
-  "markdown-mode-hook" 
-  (setq markdown-command "markdown | smartypants") 
-  (define-key markdown-mode-map [f1] 'show-markdown-output) 
-  (define-key markdown-mode-map (kbd "C-c C-z") 'show-markdown-output))
+(defun markdown-custom-settings ()
+  "markdown-mode-hook"
+  (setq markdown-command "markdown | smartypants")
+  ;; (define-key markdown-mode-map (kbd "C-c C-z") 'show-markdown-output)
+  (define-key markdown-mode-map [f1] 'show-markdown-output))
 
-(add-hook 'markdown-mode-hook '(lambda() 
+(add-hook 'markdown-mode-hook '(lambda()
                                  (markdown-custom-settings)))
 ;;
 (provide 'mod-markdown)

@@ -58,8 +58,8 @@
   (if (or (eq system-type 'windows-nt) ;;gnu/linux
         (eq system-type 'ms-dos))
     (progn
-      (setq explicit-bash-args '("/bin/bash" "--login"))
-      (setq shell-file-name (executable-find "mintty")))
+      (setq explicit-bash-args '("/bin/bash" "-i" "--login"))
+      (setq shell-file-name (executable-find "bash")))
     ;;
     ;; start-file-process
     ;; process-connection-type
