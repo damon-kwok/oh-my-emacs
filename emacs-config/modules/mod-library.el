@@ -136,7 +136,6 @@
 
 (defun ome-project-root()
   (let ((fist-char (substring (ome-bufname-no-ext) 0 1)))
-    (message "ome-project-root----buf:%s" (ome-project-root))
     (if (string= fist-char "*") "./" (if (projectile-project-p)
                                        (projectile-project-root)
                                        (ome-buf-dirpath)))))
