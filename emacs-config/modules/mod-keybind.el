@@ -588,17 +588,18 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   (:color blue)
   (concat
    "^^^^^^^^New project wizard:\n";;
-   "^^^^^^^^------------------------------------------------------------------------\n";;
-   "^*^               ^JVM^           ^Nodejs^            ^Python^   ^Other^\n";;
-   "^^^^^^^^------------------------------------------------------------------------\n";;
-   "_c_:C|_C_:C++       _M-j_:Java      _1_:Nodejs                      _9_:Ruby\n";;
-   "_0_:CL(Roswell)   _M-c_:Clojure   _C-c_:Cljs                      _e_:Erlang\n";;
-   "_2_:Pony          ^^              ^^                              ^^\n";;
-   "_g_:Golang        _M-k_:Kotlin    ^C-t:TypeScript^                _E_:Elixir\n";;
-   "_r_:Rust          _M-s_:Scala     ^ReasonML^                      _h_:Haskell\n";;
-   "_n_:Nim           _M-g_:Groovy    ^^                              _o_:OCaml\n";;
-   "_p_:Python        ^M-p_:Jython^   ^C-p:IronPython^                ^C-f:F#^\n";;
-   "^^^^^^^^------------------------------------------------------------------------\n";;
+   "^^^^^^^^------------------------------------------------------------------------------\n";;
+   "^*^               ^JVM^           ^Nodejs^            ^dotnet           ^Other^\n";;
+   "^^^^^^^^------------------------------------------------------------------------------\n";;
+   "_c_:C _C_:C++       _M-j_:Java      _1_:Nodejs          ^C#^                _9_:Ruby\n";;
+   "_0_:CL(Roswell)   _M-c_:Clojure   _C-c_:Cljs          Clojure-clr       _e_:Erlang\n";;
+   "_g_:Golang        _M-k_:Kotlin    ^C-t:TypeScript^                      _E_:Elixir\n";;
+   "_r_:Rust          _M-s_:Scala     ^^                                    _h_:Haskell\n";;
+   "_n_:Nim           _M-g_:Groovy    ^^                                    ^^\n";;
+   "_o_:OCaml         ^^              ^ReasonML^          ^C-f:F#^          ^^\n";;
+   "_p_:Python        ^M-p:Jython^    ^^                  ^C-p:IronPython^  ^^\n";;
+   "_2_:Pony          ^^              ^^                  ^^                  ^^\n";;
+   "^^^^^^^^------------------------------------------------------------------------------\n";;
    "_\\_:calendar   _`_:Shell     _<escape>_:Quit   _<tab>_:<-BACK ^^\n");;
 
   ("c" (ome-project-wizard "c") "C")
