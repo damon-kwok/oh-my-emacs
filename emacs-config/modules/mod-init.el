@@ -185,6 +185,7 @@
   "docstring"
   (interactive)
   (load "mod-keybind.el")
+  (message "What's up?")
   (hydra-super-menu/body))
 
 ;; (global-set-key (kbd "C-M-z") 'show-super-menu1)
