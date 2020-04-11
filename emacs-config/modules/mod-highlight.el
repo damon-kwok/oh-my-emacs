@@ -31,8 +31,7 @@
 ;; `page-break-lines'
 (package-download 'page-break-lines)
 (if (display-graphic-p)
-  (progn
-    (internal-require 'page-break-lines)
+  (progn (internal-require 'page-break-lines)
     (global-page-break-lines-mode)))
 
 ;;; `ANSI-colors' in the compilation buffer output
@@ -68,22 +67,23 @@
 
     ;; Make whitespace-mode and whitespace-newline-mode use “¶” for end of line char and “▷” for tab.
     (setq whitespace-display-mappings
-          ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
-          '((space-mark 32 [183]
-                        [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
-	        ;;
-            (newline-mark 10 [182 10])  ; LINE FEED,
-	        ;;
-            (tab-mark 9 [9655 9]
-                      [92 9])           ; tab
-	        ;;
-            ))
+      ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
+      '((space-mark 32 [183]
+          [46])       ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
+         ;;
+         (newline-mark 10 [182 10])     ; LINE FEED,
+         ;;
+         (tab-mark 9 [9655 9]
+           [92 9])                      ; tab
+         ;;
+         ))
     (if (and (not (string-match "^\*.*\*$" (buffer-name)))
-             (not (eq major-mode 'dired-mode))
-             (not (eq major-mode 'minibuffer-inactive-mode))
-             (not (eq major-mode 'speedbar-mode)))
-        (progn
-          ;; (message (symbol-name major-mode))
+          (not (eq major-mode 'dired-mode))
+          (not (eq major-mode 'fundamental-mode))
+          (not (eq major-mode 'minibuffer-inactive-mode))
+          (not (eq major-mode 'speedbar-mode)))
+      (progn
+        ;; (message (symbol-name major-mode))
 	      (whitespace-mode 1)))))
 (if window-system (ome-global-whitespace-mode t))
 
@@ -93,8 +93,8 @@
 
 ;; (package-require 'symbol-overlay)
 ;; (define-globalized-minor-mode global-symbol-overlay-mode symbol-overlay-mode
-  ;; (lambda ()
-    ;; (symbol-overlay-mode 1)))
+;; (lambda ()
+;; (symbol-overlay-mode 1)))
 ;; (global-symbol-overlay-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `hl-todo
@@ -127,9 +127,10 @@
 (define-globalized-minor-mode global-fci-mode fci-mode
   (lambda ()
     (if (and (not (string-match "^\*.*\*$" (buffer-name)))
-             (not (eq major-mode 'dired-mode))
-             (not (eq major-mode 'speedbar-mode)))
-        (fci-mode 1))))
+          (not (eq major-mode 'dired-mode))
+          (not (eq major-mode 'fundamental-mode))
+          (not (eq major-mode 'speedbar-mode)))
+      (fci-mode 1))))
 
 (global-fci-mode 1)
 
@@ -161,11 +162,12 @@
 ;;            (setq highlight-indent-guides-method 'character)
 ;;            (setq highlight-indent-guides-character ?\|)
 ;;            ;; (setq highlight-indent-guides-character "|")
-
-;;            ;; (define-globalized-minor-mode global-highlight-indent-guides-mode highlight-indent-guides-mode
+;;
+;;            ;; (define-globalized-minor-mode global-highlight-indent-guides-mode
+;;highlight-indent-guides-mode
 ;;            ;; (lambda ()
 ;;            ;; (highlight-indent-guides-mode 1)))
-
+;;
 ;;            (define-globalized-minor-mode global-highlight-indent-guides-mode
 ;;              highlight-indent-guides-mode
 ;;              (lambda ()
@@ -173,7 +175,7 @@
 ;;                         (not (eq major-mode 'dired-mode))
 ;;                         (not (eq major-mode 'speedbar-mode)))
 ;;                    (highlight-indent-guides-mode 1))))
-
+;;
 ;;            (global-highlight-indent-guides-mode 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `highlight-doxygen'
@@ -189,11 +191,11 @@
 (defcustom dimmer-use-colorspace
   :rgb ""
   :type '(radio (const :tag "Interpolate in CIELAB 1976"
-                       :cielab)
-                (const :tag "Interpolate in HSL"
-                       :hsl)
-                (const :tag "Interpolate in RGB"
-                       :rgb))
+                  :cielab)
+           (const :tag "Interpolate in HSL"
+             :hsl)
+           (const :tag "Interpolate in RGB"
+             :rgb))
   :group 'dimmer)
 (dimmer-mode)
 
@@ -226,14 +228,14 @@
 
 ;;; 1. -----
 ;; (setq highlight-tail-colors '(("#119911" . 0)
-			      ;; ("#bc2525" . 25)
-			      ;; ("#991199" . 60)))
+;; ("#bc2525" . 25)
+;; ("#991199" . 60)))
 ;; (setq highlight-tail-colors '(("black" . 0)
-                              ;; ("#bc2525" . 25)
-                              ;; ("black" . 66)))
+;; ("#bc2525" . 25)
+;; ("black" . 66)))
 ;; (setq highlight-tail-colors '(("#c1e156" . 0)
-			      ;; ("#b8ff07" . 25)
-			      ;; ("#00c377" . 60)))
+;; ("#b8ff07" . 25)
+;; ("#00c377" . 60)))
 ;;; 2. -----
 ;; (setq highlight-tail-steps 14 highlight-tail-timer 1)
 

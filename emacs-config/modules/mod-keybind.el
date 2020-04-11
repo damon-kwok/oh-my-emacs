@@ -685,7 +685,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
   (:color blue)
   (concat ;;
    "^Main^         ^Buffer^          ^Search^             ^View^          ^Navigate^         ^Org^            ^" (symbol-name major-mode) "^\n" ;;
-   "^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------\n"
+   "^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------------------------------------\n"
    "_n_:New        _r_:rname         _>_:gochar-forward   _M-t_:toolbar   _[_:up             _M-c_:capture    _M-1_:"(ome-auto-menu 1) "\n";;
    "_o_:Open       _R_:remove        _<_:gochar-backward  _M-m_:menubar   _/_:down           _M-l_:store-link _M-2_:"(ome-auto-menu 2) "\n";;
    "_b_:Bookmarks  _k_:kill          _g_:grep-dir         _M-s_:speedbar  _;_:left           _M-a_:agenda     _M-3_:"(ome-auto-menu 3) "\n";;
@@ -696,7 +696,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
    "_s_(S):Shell   ^^                ^^                   _._:*scratch*   _C-8_:Makefile     _M-e_:en         _M-8_:"(ome-auto-menu 8) "\n";;
    "_u_:URLs       ^^                ^^                   ^^              _C-9_:CMakeList.txt^^               _M-9_:"(ome-auto-menu 9) "\n";;
    "^^             ^^                ^^                   _M-._:load-menu _C-0_:README.org   ^^               _M-0_:"(ome-auto-menu 0) "\n";;
-   "^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------------\n"
+   "^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------------------------------------\n"
    "_\\_:calendar   _`_:Shell  _a_:ASCII-table   _<escape>_:Quit   _<tab>_:<-BACK  ^^\n")
   ;; Main
   ("n" (hydra-new-menu/body) "New"
