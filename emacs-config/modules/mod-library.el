@@ -136,6 +136,7 @@
 
 (defun ome-project-root()
   (let ((fist-char (substring (ome-bufname-no-ext) 0 1)))
+    (message "ome-project-root----buf:%s" (ome-project-root))
     (if (string= fist-char "*") "./" (if (projectile-project-p)
                                        (projectile-project-root)
                                        (ome-buf-dirpath)))))
@@ -595,16 +596,19 @@ Otherwise, construct a buffer name from NAME-OF-MODE."
     (t (concat "*" (downcase name-of-mode) "*"))))
 
 
-(defun ome-run-command (COMMAND &optional OUTPUT-BUFFER-NAME)
+(defun ome-run-command (COMMAND &optional OUTPUT-BUFFER-NAME CURRENT-DIR)
   "compile project"
   (setq OME-COMPILE-BUFFER-NAME OUTPUT-BUFFER-NAME)
+  (if CURRENT-DIR
+    (setq default-directory CURRENT-DIR))
   (let* ((compilation-buffer-name-function  'ome-compilation-buffer-name-function))
     (compile COMMAND)))
 
 (defun ome-project-command (COMMAND)
+  (setq default-directory (ome-buf-dirpath))
   (if (string= (ome-project-name) "")
-    (ome-run-command COMMAND)
-    (ome-run-command COMMAND (concat "*[" (ome-major-mode-name) "] <" (ome-project-name)">*"))))
+    (ome-run-command COMMAND nil (ome-project-root))
+    (ome-run-command COMMAND (concat "*[" (ome-major-mode-name) "] <" (ome-project-name)">*") (ome-project-root))))
 
 ;; (defun ome-run-command (command)
 ;;   "compile project"
