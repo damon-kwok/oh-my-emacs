@@ -1,4 +1,4 @@
-;;; m-xemacs.el --- m-xemacs theme
+;;; ome-xemacs.el --- ome-xemacs theme
 
 ;; Copyright (C) 2005, 2006  Xavier Maillard <zedek@gnu.org>
 ;; Copyright (C) 2005, 2006  Brian Palmer <bpalmer@gmail.com>
@@ -23,45 +23,53 @@
 
 ;;; Commentary:
 ;;
-;; Port of m-xemacs theme from `color-themes'
+;; Port of ome-xemacs theme from `color-themes'
 
 ;;; Code:
 
 (if (display-graphic-p)
     (progn
-      (setq  m-xemacs-ml-fg "black")
-      (setq  m-xemacs-ml-bg "gray80"))
+      (setq  ome-xemacs-ml-fg "#121212")
+      (setq  ome-xemacs-ml-bg "gray80"))
   (progn
-     (setq  m-xemacs-ml-fg "black")
-     (setq  m-xemacs-ml-bg "gray80")))
+     (setq  ome-xemacs-ml-fg "#121212")
+     (setq  ome-xemacs-ml-bg "gray80")))
+(setq centaur-tabs-background-color "gray80")
 
-(deftheme m-xemacs
-  "m-xemacs theme")
+(deftheme ome-xemacs
+  "ome-xemacs theme")
 
-(custom-theme-set-faces
- 'm-xemacs
-
- '(default ((t (:foreground "black" :background "gray80"))))
+(custom-theme-set-faces 'ome-xemacs
+ '(default ((t (:foreground "#121212" :background "gray80"))))
  '(mouse ((t (:foregound "red"))))
- '(cursor ((t (:foregound "yellow")))) ;;yellow 
+ '(cursor ((t (:foregound "yellow")))) ;;yellow
  '(border ((t (:foregound "#330000")))) ;;black
 
- '(modeline ((t (:foreground "black" :background "gray80"))))
+ '(modeline ((t (:foreground "#121212" :background "gray80"))))
  '(modeline-buffer-id ((t (:foreground "gray80" :background "navy"))))
- '(modeline-mousable ((t (:foreground "black" :background "gray80"))))
- '(modeline-mousable-minor-mode ((t (:foreground "black" :background "gray80"))))
+ '(modeline-mousable ((t (:foreground "#121212" :background "gray80"))))
+ '(modeline-mousable-minor-mode ((t (:foreground "#121212" :background "gray80"))))
+
+ '(centaur-tabs-default ((t  (:background "gray80"    :foreground "gray40") )))
+ '(centaur-tabs-unselected ((t  (:background "gray80"    :foreground "gray40") )))
+ '(centaur-tabs-selected ((t  (:background "gray60"    :foreground "#770000") )))
+ '(centaur-tabs-unselected-modified ((t  (:background "gray80"    :foreground "#770000") )))
+ '(centaur-tabs-selected-modified ((t  (:background "gray60"    :foreground "#770000") )))
+
+ '(whitespace-space ((t (:background "gray70" :foreground "lightgray"))))
+ '(whitespace-tab ((t (:background "gray70" :foreground "lightgray"))))
 
  '(highlight ((t (:background "DarkSeaGreen2"))))
  '(bold ((t (:bold t))))
  '(italic ((t (:italic t))))
  '(bold-italic ((t (:bold t :italic t))))
- '(region ((t (:background "CadetBlue")))) ;;gray80 gray40 gray30
+ '(region ((t (:background "gray40")))) ;;gray80 gray40 gray30 #00B2BF CadetBlue #00B2FF gray20 #b0bec5
  '(secondary-selection ((t (:background "PaleTurquoise"))))
  '(underline ((t (:underline t))))
  '(show-paren-match-face ((t (:foreground "gold" :background "DarkGreen")))) ;;yellow
  '(show-paren-mismatch-face ((t (:foreground "white" :background "red"))))
- '(font-lock-comment-face ((t (:foreground "DarkGreen":italic t)))) ;; :bold t 
- '(font-lock-string-face ((t (:foreground "DarkGoldenrod" :italic t)))) ;;"DarkSlateBlue "DarkGoldenrod" "gold"
+ '(font-lock-comment-face ((t (:foreground "DarkGreen":italic t)))) ;; :bold t
+ '(font-lock-string-face ((t (:foreground "#263238" :italic t)))) ;;"DarkSlateBlue "DarkGoldenrod" "gold" orange ##9ccc65
  '(font-lock-keyword-face ((t (:foreground "blue"  :bold t)))) ;;"navy"DarkBlue "blue"
  '(font-lock-builtin-face ((t (:foreground "gray40":italic t)))) ;;white
  '(font-lock-function-name-face ((t (:foreground "blue" :italic t))))
@@ -76,6 +84,6 @@
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 
-(provide-theme 'm-xemacs)
+(provide-theme 'ome-xemacs)
 
-;;; m-xemacs.el ends here
+;;; ome-xemacs.el ends here

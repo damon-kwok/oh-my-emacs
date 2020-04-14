@@ -25,13 +25,21 @@
 (require 'mod-package)
 ;;
 ;; `theme'
-(package-download 'material-theme)
-(load-theme 'material t)
+;; (package-download 'material-theme)
+;; (load-theme 'material t)
+;;
+;; (package-download 'immaterial-theme)
+;; (load-theme 'immaterial t)
+
+(if (display-graphic-p)
+  (load-theme 'ome-material t)
+  (load-theme 'ome-xemacs t))
 
 ;; `page-break-lines'
 (package-download 'page-break-lines)
 (if (display-graphic-p)
-  (progn (internal-require 'page-break-lines)
+  (progn ;;
+    (internal-require 'page-break-lines)
     (global-page-break-lines-mode)))
 
 ;;; `ANSI-colors' in the compilation buffer output
@@ -58,6 +66,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `whitespace-mode'
 (internal-require 'whitespace)
+
+;; (set-face-attribute 'whitespace-space nil :background "gray70" :foreground "lightgray")
+;; (set-face-attribute 'whitespace-tab nil :background "gray70" :foreground "lightgray")
 
 (define-globalized-minor-mode ome-global-whitespace-mode whitespace-mode
   (lambda ()

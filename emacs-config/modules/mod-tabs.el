@@ -107,26 +107,51 @@
 ;; (def-tabbar-color "navy" "gray" "goldenrod" "navy" "red" "gray" "gray")
 ;; DarkGreen LightGoldenrod DarkGoldenrod gold DarkGreen #00B2BF #330000 gray60 grey gray #383838
 
-(set-face-attribute 'centaur-tabs-default t
-  :background "#263238"
-  :foreground "#37474f")
 
-(set-face-attribute 'centaur-tabs-unselected nil
-  :background "#263238"
-  :foreground "#b0bec5")
 
-(set-face-attribute 'centaur-tabs-selected nil
-  :background "#37474f"
-  :foreground "#9ccc65") ;;orange #9ccc65
+;; ;; dark
+;; (set-face-attribute 'centaur-tabs-default t
+;;   :background "#263238"
+;;   :foreground "#37474f")
 
-(set-face-attribute 'centaur-tabs-unselected-modified nil
-  :background "#263238"
-  :foreground "#b0bec5")
+;; (set-face-attribute 'centaur-tabs-unselected nil
+;;   :background "#263238"
+;;   :foreground "#b0bec5")
 
-(set-face-attribute 'centaur-tabs-selected-modified nil
-  :background "#37474f"
-  :foreground "red")
-(setq centaur-tabs-background-color "#263238")
+;; (set-face-attribute 'centaur-tabs-selected nil
+;;   :background "#37474f"
+;;   :foreground "#9ccc65") ;;orange #9ccc65
+
+;; (set-face-attribute 'centaur-tabs-unselected-modified nil
+;;   :background "#263238"
+;;   :foreground "red")
+
+;; (set-face-attribute 'centaur-tabs-selected-modified nil
+;;   :background "#37474f"
+;;   :foreground "red")
+;; (setq centaur-tabs-background-color "#263238")
+
+;; ;;light
+;; (set-face-attribute 'centaur-tabs-default t
+;;   :background "gray80"
+;;   :foreground "gray40")
+
+;; (set-face-attribute 'centaur-tabs-unselected nil
+;;   :background "gray80"
+;;   :foreground "gray40")
+
+;; (set-face-attribute 'centaur-tabs-selected nil
+;;   :background "gray60"
+;;   :foreground "#770000") ;;orange #9ccc65
+
+;; (set-face-attribute 'centaur-tabs-unselected-modified nil
+;;   :background "gray80"
+;;   :foreground "#770000")
+
+;; (set-face-attribute 'centaur-tabs-selected-modified nil
+;;   :background "gray60"
+;;   :foreground "#770000")
+;; (setq centaur-tabs-background-color "gray80")
 ;;
 (centaur-tabs-mode t)
 (centaur-tabs-headline-match)
