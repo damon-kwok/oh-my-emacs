@@ -247,47 +247,6 @@
 (setq bing-dict-org-file (concat (getenv "HOME") "/workspace/org/english/vocabulary.org"))
 ;; (global-set-key (kbd "C-c d") 'ome-bing-dict-brief)
 ;; (global-set-key (kbd "C-c D") 'ome-bing-dict-brief-web)
-
-(defun bing-dict-brief (word &optional sync-p)
-  "Show the explanation of WORD from Bing in the echo area."
-  (interactive
-   (let* ((default (if (use-region-p)
-                       (buffer-substring-no-properties
-                        (region-beginning) (region-end))
-                     (let ((text (thing-at-point 'word)))
-                       (if text (substring-no-properties text)))))
-          (prompt (if (stringp default)
-                      (format "Search Bing dict (default \"%s\"): " default)
-                    "Search Bing dict: "))
-          (string (read-string prompt nil 'bing-dict-history default)))
-     (list string)))
-
-  (and bing-dict-cache-auto-save
-       (not bing-dict--cache)
-       (bing-dict--cache-load))
-
-  (let ((cached-result (and (listp bing-dict--cache)
-                            (car (assoc-default word bing-dict--cache)))))
-    (if cached-result
-        (progn
-          ;; update cached-result's time
-          (setcdr (assoc-default word bing-dict--cache) (time-to-seconds))
-          (kill-new (bing-dict--machine-translation))
-          (message cached-result))
-      (save-match-data
-        (if sync-p
-            (with-current-buffer (url-retrieve-synchronously
-                                  (concat bing-dict--base-url
-                                          (url-hexify-string word))
-                                  t t)
-              (bing-dict-brief-cb nil (decode-coding-string word 'utf-8)))
-          (url-retrieve (concat bing-dict--base-url
-                                (url-hexify-string word))
-                        'bing-dict-brief-cb
-                        `(,(decode-coding-string word 'utf-8))
-                        t
-                        t))))))
-
 
 (define-key global-map (kbd "C-c f") 'ome-go-to-char-forward)
 (define-key global-map (kbd "C-c b") 'ome-go-to-char-backward)
