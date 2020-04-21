@@ -93,8 +93,7 @@
   `(when (ome-is-in-terminal) ,@body))
 
 (defun ome-buffer-directory ()
-  (if buffer-file-name (file-name-directory buffer-file-name)
-    default-directory));;(file-name-directory (expand-file-name "~/"))
+  (if buffer-file-name (file-name-directory buffer-file-name) default-directory)) ;;(file-name-directory (expand-file-name "~/"))
 
 (defun ome-buf-dirpath()
   ;;(directory-file-name (file-name-directory buffer-file-name))
@@ -155,7 +154,8 @@
   (f-no-ext (f-filename path)))
 
 (defun ome-search-file (filename &optional path)
-  (let* ((from (if path path (ome-buf-dirpath)))
+  (let* ((from (if path (file-name-as-directory path)
+                 (file-name-as-directory (ome-buf-dirpath))))
           (parent (ome-parent-dirpath from)))
     (message (concat "check:" from))
     (if (file-exists-p (concat from filename))
@@ -171,6 +171,12 @@
     (if (eq cmake-dir nil)
       (if create (find-file filename))
       (find-file (concat cmake-dir filename)))))
+
+(defun ome-file-root (filename)
+  " create cmake file with current directory!"
+  (interactive)
+  (let* ((dir (ome-buf-dirpath))
+          (cmake-dir (ome-search-file filename dir))) cmake-dir))
 
 ;; (buffer-name)                  ;;=> "hello.txt"
 ;; (buffer-file-name)             ;;=> "/home/damon/docs/hello.txt"
@@ -605,9 +611,13 @@ Otherwise, construct a buffer name from NAME-OF-MODE."
 
 (defun ome-project-command (COMMAND)
   (setq default-directory (ome-buf-dirpath))
-  (if (string= (ome-project-name) "")
-    (ome-run-command COMMAND nil (ome-project-root))
-    (ome-run-command COMMAND (concat "*[" (ome-major-mode-name) "] <" (ome-project-name)">*") (ome-project-root))))
+  (message "..............:%s" (ome-file-root ".editorconfig"))
+  (ome-run-command COMMAND nil (ome-file-root ".editorconfig"))
+  ;; (if (string= (ome-project-name) "")
+  ;; (ome-run-command COMMAND nil (ome-buf-dirpath))
+  ;; (ome-run-command COMMAND (concat "*[" (ome-major-mode-name) "] <" (ome-project-name)">*")
+  ;; (ome-project-root)))
+  )
 
 ;; (defun ome-run-command (command)
 ;;   "compile project"

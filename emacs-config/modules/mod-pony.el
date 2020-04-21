@@ -27,7 +27,7 @@
 (package-download 'ponylang-mode)
 (package-download 'flycheck-pony)
 (package-download 'pony-snippets)
-
+;; (package-download-git "pony-snippets" "https://github.com/damon-kwok/pony-snippets.git")
 (add-to-list 'auto-mode-alist '("\\.pony$" . ponylang-mode))
 
 (add-hook 'ponylang-mode-hook ;;
@@ -44,12 +44,13 @@
   '("0" "build" "run" "3" "4" "5" "6" "7" "8" "9"))
 
 (defun automenu--ponylang-mode-func (index)
-  (cond ((= 0 index)
-          (message  "ponylang menu:%d" index))
+  (cond;;
+    ((= 0 index)
+      (message  "ponylang menu:%d" index))
     ((= 1 index)
       (ome-project-command "ponyc"))
     ((= 2 index)
-      (ome-project-command (concat (ome-buf-dirpath) "/" (ome-buf-dirname))));;"/" (ome-bufname-no-ext)
+      (ome-project-command (concat (ome-buf-dirpath) "/" (ome-buf-dirname)))) ;;"/" (ome-bufname-no-ext)
     ((= 3 index)
       (message  "ponylang menu:%d" index))
     ((= 4 index)
