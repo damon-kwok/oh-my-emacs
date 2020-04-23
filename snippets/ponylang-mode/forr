@@ -1,0 +1,3 @@
+for ${1:i} in Range[${2:USize}](${3:0}, ${4:a.size()}) do
+  $0
+end
