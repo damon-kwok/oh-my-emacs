@@ -143,7 +143,9 @@
 ;; (nth 0 (last (split-string (directory-file-name (expand-file-name (ome-project-root))) "/") 1)))
 
 (defun ome-project-name ()
-  (file-name-base (directory-file-name (expand-file-name (ome-project-root)))))
+  (file-name-base (directory-file-name (expand-file-name (ome-project-root))))
+  ;; (file-name-base (directory-file-name (ome-file-root ".editorconfig")))
+  )
 
 (defalias 'ome-project-dirname 'ome-project-name)
 
@@ -157,7 +159,7 @@
   (let* ((from (if path (file-name-as-directory path)
                  (file-name-as-directory (ome-buf-dirpath))))
           (parent (ome-parent-dirpath from)))
-    (message (concat "check:" from))
+    (message "ome-search-file:%s, from:%s" filename from)
     (if (file-exists-p (concat from filename))
       (progn (message from) from)
       (if (or (eq parent nil)

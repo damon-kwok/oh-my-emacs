@@ -49,7 +49,7 @@
 (setq dashboard-show-shortcuts t)
 
 ;; To customize which widgets are displayed, you can use the following snippet
-(setq dashboard-items '((recents  . 5)
+(setq dashboard-items '((recents  . 20)
                         (bookmarks . 5)
                         (projects . 5)
                         (agenda . 5)
