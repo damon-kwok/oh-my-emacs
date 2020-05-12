@@ -1,5 +1,5 @@
 mkdir -p $OME_REPO/${1:dir}/build
-cd $OME_REPO/$1/build/
+cd $OME_REPO/$1/cmake_build/
 
 cmake .. -G "$OME_MAKE" \
       -DCMAKE_INSTALL_PREFIX=$OME_PREFIX \
