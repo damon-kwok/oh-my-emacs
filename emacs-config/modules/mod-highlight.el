@@ -52,16 +52,16 @@
 (add-hook 'compilation-filter-hook #'endless/colorize-compilation)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; emojify
-;; (package-require 'emojify)
+(package-require 'emojify)
 
 ;; Set emojify to only replace Unicode emoji, and do it everywhere.
-;; (setq emojify-emoji-styles '(unicode) emojify-inhibit-major-modes '())
+(setq emojify-emoji-styles '(unicode) emojify-inhibit-major-modes '())
 
 ;; Patch emojify to replace emoji everywhere in programming modes.
-;; (defun emojify-valid-prog-context-p (beg end) 't)
+(defun emojify-valid-prog-context-p (beg end) 't)
 
 ;; Enable it globally.
-;; (add-hook 'after-init-hook #'global-emojify-mode)
+(add-hook 'after-init-hook #'global-emojify-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `whitespace-mode'

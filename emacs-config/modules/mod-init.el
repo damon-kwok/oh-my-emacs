@@ -46,7 +46,7 @@
 (module-require 'mod-splash)
 (module-require 'mod-ui-frame)
 (module-require 'mod-ui-buffer)
-(module-require 'mod-modeline)
+;; (module-require 'mod-modeline)
 (module-require 'mod-ui-editor)
 (module-require 'mod-highlight)
 (module-require 'mod-tabs)

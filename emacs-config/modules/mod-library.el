@@ -133,19 +133,47 @@
          (buf-name (buffer-name)))
     (if (string= ext-name buf-name) "" ext-name)))
 
-(defun ome-project-root()
-  (let ((fist-char (substring (ome-bufname-no-ext) 0 1)))
-    (if (string= fist-char "*") "./" (if (projectile-project-p)
-                                       (projectile-project-root)
-                                       (ome-buf-dirpath)))))
+
+
+(defun ome-root-p (from)
+  (setq files '("Makefile" "CMakeLists.txt" ".editorconfig"
+                 "lock.json" "corral.json" ".git" "go.mod"))
+  (setq foundp nil)
+  (while (and files (not foundp))
+    (setq filename (car files))
+    ;; (message "1111111111:%s" filename)
+    (setq files (cdr files))
+    (setq foundp (file-exists-p (concat from filename))))
+  foundp)
+
+(defun ome-search-root (&optional path)
+  (let* ((from (if path (file-name-as-directory path)
+                 (file-name-as-directory (ome-buf-dirpath))))
+          (parent (ome-parent-dirpath from)))
+    ;; (message "ome-search-file:%s, from:%s" filename from)
+    (if (ome-root-p from) ;;(file-exists-p (concat from filename)
+      from
+      (if (or (eq parent nil)
+            (eq parent path)
+            (eq parent from)
+            (string= parent "/")) parent (ome-search-root parent)))))
+
+(defun ome-project-root ()
+  " create cmake file with current directory!"
+  (interactive)
+  (ome-search-root (ome-buf-dirpath)))
+
+;; (defun ome-project-root2()
+  ;; (let ((fist-char (substring (ome-bufname-no-ext) 0 1)))
+    ;; (if (string= fist-char "*") "./" (if (projectile-project-p)
+                                       ;; (projectile-project-root)
+                                       ;; (ome-buf-dirpath)))))
 
 ;; (defun ome-project-dirname()
 ;; (nth 0 (last (split-string (directory-file-name (expand-file-name (ome-project-root))) "/") 1)))
 
 (defun ome-project-name ()
-  (file-name-base (directory-file-name (expand-file-name (ome-project-root))))
-  ;; (file-name-base (directory-file-name (ome-file-root ".editorconfig")))
-  )
+  (file-name-base (directory-file-name (expand-file-name (ome-project-root)))))
 
 (defalias 'ome-project-dirname 'ome-project-name)
 
@@ -163,22 +191,18 @@
     (if (file-exists-p (concat from filename))
       (progn (message from) from)
       (if (or (eq parent nil)
+            (eq parent path)
+            (eq parent form)
             (string= parent "/")) nil (ome-search-file filename parent)))))
 
 (defun ome-smart-find-file (filename &optional create)
   " create cmake file with current directory!"
   (interactive)
   (let* ((dir (ome-buf-dirpath))
-          (cmake-dir (ome-search-file filename dir)))
-    (if (eq cmake-dir nil)
+          (root-dir (ome-search-file filename dir)))
+    (if (eq root-dir nil)
       (if create (find-file filename))
-      (find-file (concat cmake-dir filename)))))
-
-(defun ome-file-root (filename)
-  " create cmake file with current directory!"
-  (interactive)
-  (let* ((dir (ome-buf-dirpath))
-          (cmake-dir (ome-search-file filename dir))) cmake-dir))
+      (find-file (concat root-dir filename)))))
 
 ;; (buffer-name)                  ;;=> "hello.txt"
 ;; (buffer-file-name)             ;;=> "/home/damon/docs/hello.txt"
@@ -612,14 +636,7 @@ Otherwise, construct a buffer name from NAME-OF-MODE."
     (compile COMMAND)))
 
 (defun ome-project-command (COMMAND)
-  (setq default-directory (ome-buf-dirpath))
-  (message "..............:%s" (ome-file-root ".editorconfig"))
-  (ome-run-command COMMAND nil (ome-file-root ".editorconfig"))
-  ;; (if (string= (ome-project-name) "")
-  ;; (ome-run-command COMMAND nil (ome-buf-dirpath))
-  ;; (ome-run-command COMMAND (concat "*[" (ome-major-mode-name) "] <" (ome-project-name)">*")
-  ;; (ome-project-root)))
-  )
+  (ome-run-command COMMAND nil (ome-project-root)))
 
 ;; (defun ome-run-command (command)
 ;;   "compile project"

@@ -30,7 +30,7 @@
 ;; (package-download 'suggest)
 ;;(package-download 'rainbow-delimiters)
 (package-download 'macrostep)
-(package-download 'elisp-format)
+;; (package-download 'elisp-format)
 ;; (package-download-curl "elisp-format" "elisp-format.el" "https://www.emacswiki.org/emacs/download/elisp-format.el")
 ;;
 (add-to-list 'auto-mode-alist '("\\.el\\.els\\.els.el\\'" . emacs-lisp-mode))
@@ -48,7 +48,8 @@
 
 (add-hook 'emacs-lisp-mode-hook ;;
   (lambda ()
-    (message "emacs-lisp-mode-hook with buffer:%s mode:%s" (buffer-name) (symbol-name major-mode))
+    (message "emacs-lisp-mode-hook with buffer:%s mode:%s" (buffer-name)
+      (symbol-name major-mode))
     (internal-require 'ielm)
     (define-key ielm-map (kbd "C-c C-z") 'show-elisp-workbuffer)
     ;;
@@ -59,19 +60,13 @@
     ;; `slime-nav' replaced `elisp-refs'
     (internal-require 'elisp-slime-nav)
     (elisp-slime-nav-mode)
-    (dolist (hook '(ielm-mode-hook ));;lisp-interaction-mode-hook
+    (dolist (hook '(ielm-mode-hook )) ;;lisp-interaction-mode-hook
       (add-hook hook 'elisp-slime-nav-mode))
     ;;
-    (define-key emacs-lisp-mode-map (kbd "C-M-\\")
-      (lambda()
-        (interactive)
-        (internal-require 'elisp-format)
-        (elisp-code-format)))
-    (define-key emacs-lisp-mode-map (kbd "C-c C-f")
-      (lambda()
-        (interactive)
-        (internal-require 'elisp-format)
-        (elisp-code-format)))
+    (set-variable 'indent-tabs-mode nil)
+    (set-variable 'tab-width 2)
+    (define-key emacs-lisp-mode-map (kbd "C-M-\\") #'elisp-code-format)
+    (define-key emacs-lisp-mode-map (kbd "C-c C-f") #'elisp-code-format)
     ;;
     ;; (internal-require 'el-spice)
     ;; (el-spice-mode)
@@ -104,10 +99,11 @@
 
 (defun elisp-code-format()
   (interactive)
-  (elisp-format-buffer)
+  ;; (internal-require 'elisp-format)
+  ;; (elisp-format-buffer)
+  (indent-region (point-min) (point-max))
   (save-current-buffer)
   (message "format complete!"))
-
 
 
 

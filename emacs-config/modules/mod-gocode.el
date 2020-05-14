@@ -42,39 +42,39 @@
 (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
 
 ;;https://coderwall.com/p/kpp6ta/nice-emacs-go-mode-indenting-and-autoformat
-(add-hook 'go-mode-hook (lambda () 
-                          (set (make-local-variable 'company-backends) 
-                               '(company-go)) 
-                          (company-mode) 
-                          (add-hook 'before-save-hook 'gofmt-before-save) 
-                          (setq indent-tabs-mode nil) 
+(add-hook 'go-mode-hook (lambda ()
+                          (set (make-local-variable 'company-backends)
+                               '(company-go))
+                          (company-mode)
+                          (add-hook 'before-save-hook 'gofmt-before-save)
+                          (setq indent-tabs-mode nil)
                           (setq tab-width 4)))
 
-(custom-set-faces '(company-preview ((t 
-                                      (:foreground "darkgray" 
+(custom-set-faces '(company-preview ((t
+                                      (:foreground "darkgray"
                                                    :underline t)))) ;;
                   '(company-preview-common                          ;;
-                    ((t 
+                    ((t
                       (:inherit company-preview)))) ;;
                   '(company-tooltip                 ;;
-                    ((t 
-                      (:background "lightgray" 
+                    ((t
+                      (:background "lightgray"
                                    :foreground "black")))) ;;
                   '(company-tooltip-selection              ;;
-                    ((t 
-                      (:background "steelblue" 
+                    ((t
+                      (:background "steelblue"
                                    :foreground "white")))) ;;
                   '(company-tooltip-common                 ;;
-                    ((((type x)) 
-                      (:inherit company-tooltip 
+                    ((((type x))
+                      (:inherit company-tooltip
                                 :weight bold)) ;;
-                     (t 
+                     (t
                       (:inherit company-tooltip))))  ;;
                   '(company-tooltip-common-selection ;;
-                    ((((type x)) 
-                      (:inherit company-tooltip-selection 
-                                :weight bold)) 
-                     (t 
+                    ((((type x))
+                      (:inherit company-tooltip-selection
+                                :weight bold))
+                     (t
                       (:inherit company-tooltip-selection))))) ;;
 
 (define-key go-mode-map (kbd "C-c C-f")  'gofmt)
@@ -83,36 +83,38 @@
  (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
 
 ;; `automenu:go'
-(defun automenu--go-mode-menu () 
+(defun automenu--go-mode-menu ()
   '("0" "build" "run" "clean" "4" "5" "6" "7" "8" "9"))
 
-(defun automenu--go-mode-func (index) 
-  (cond ((= 0 index) 
-         (message  "go menu:%d" index)) 
-        ((= 1 index) 
-         (if (ome-project-file-exists-p "Makefile") 
-             (ome-project-run-command "make game_server") 
-           (ome-run-command "go install"))) 
+(defun automenu--go-mode-func (index)
+  (cond ((= 0 index)
+         (message  "go menu:%d" index))
+        ((= 1 index)
+         (if (ome-project-file-exists-p "Makefile")
+             (ome-project-run-command "make")
+           (ome-project-command "go build")))
         ((= 2 index)
          ;; (ome-run-command (ome-project-dirname))
-         (if (ome-project-file-exists-p "Makefile") 
-             (ome-project-run-command (concat (ome-project-root) "bin/game_server" ));;(ome-buf-dirname) 
-           (ome-run-command ome-project-dirname))) 
-        ((= 3 index) 
-         (if (ome-project-file-exists-p "Makefile") 
-             (ome-project-run-command "make clean"))) 
-        ((= 4 index) 
-         (message  "go menu:%d" index)) 
-        ((= 5 index) 
-         (message  "go menu:%d" index)) 
-        ((= 6 index) 
-         (message  "go menu:%d" index)) 
-        ((= 7 index) 
-         (message  "go menu:%d" index)) 
-        ((= 8 index) 
-         (message  "go menu:%d" index)) 
-        ((= 9 index) 
-         (message  "go menu:%d" index)) 
+         (if (ome-project-file-exists-p "Makefile")
+             (ome-project-run-command (concat (ome-project-root) "bin/" (ome-buf-dirname)))
+           (ome-project-command (concat (ome-buf-dirpath) "/" (ome-buf-dirname)))
+           ;;(ome-project-command (ome-project-dirname))
+           ))
+        ((= 3 index)
+         (if (ome-project-file-exists-p "Makefile")
+             (ome-project-run-command "make clean")))
+        ((= 4 index)
+         (message  "go menu:%d" index))
+        ((= 5 index)
+         (message  "go menu:%d" index))
+        ((= 6 index)
+         (message  "go menu:%d" index))
+        ((= 7 index)
+         (message  "go menu:%d" index))
+        ((= 8 index)
+         (message  "go menu:%d" index))
+        ((= 9 index)
+         (message  "go menu:%d" index))
         (t (message  "go menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-gocode)

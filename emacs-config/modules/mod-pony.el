@@ -28,12 +28,28 @@
 (package-download 'flycheck-pony)
 (package-download 'pony-snippets)
 ;; (package-download-git "pony-snippets" "https://github.com/damon-kwok/pony-snippets.git")
+;; (package-download 'smartparens)
+(package-download 'paredit)
 (add-to-list 'auto-mode-alist '("\\.pony$" . ponylang-mode))
 
 (add-hook 'ponylang-mode-hook ;;
   (lambda ()
     (set-variable 'indent-tabs-mode nil)
     (set-variable 'tab-width 2)
+    ;;
+    ;; (require 'smartparens-config)
+    ;; (smartparens-mode)
+    ;;
+    (internal-require 'paredit)
+    (enable-paredit-mode)
+    (define-key paredit-mode-map (kbd "M-;") 'ome-comment-or-uncomment-region-or-line)
+    (define-key paredit-mode-map (kbd "C-<left>") 'paredit-backward-slurp-sexp)
+    (define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
+    (define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
+    (define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
+    (defun no-space-for-delimiter-p (endp delim)
+      (not (eq major-mode 'ponylang-mode)))
+    (add-to-list 'paredit-space-for-delimiter-predicates 'no-space-for-delimiter-p)
     ;;
     (internal-require 'flycheck-pony)
     ;;
