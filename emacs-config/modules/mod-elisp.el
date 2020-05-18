@@ -30,7 +30,7 @@
 ;; (package-download 'suggest)
 ;;(package-download 'rainbow-delimiters)
 (package-download 'macrostep)
-;; (package-download 'elisp-format)
+(package-download 'elisp-format)
 ;; (package-download-curl "elisp-format" "elisp-format.el" "https://www.emacswiki.org/emacs/download/elisp-format.el")
 ;;
 (add-to-list 'auto-mode-alist '("\\.el\\.els\\.els.el\\'" . emacs-lisp-mode))
@@ -99,9 +99,9 @@
 
 (defun elisp-code-format()
   (interactive)
-  ;; (internal-require 'elisp-format)
-  ;; (elisp-format-buffer)
-  (indent-region (point-min) (point-max))
+  (internal-require 'elisp-format)
+  (elisp-format-buffer)
+  ;; (indent-region (point-min) (point-max))
   (save-current-buffer)
   (message "format complete!"))
 

@@ -135,47 +135,83 @@
 
 
 
-(defun ome-root-p (from)
-  (setq files '("Makefile" "CMakeLists.txt" ".editorconfig"
-                 "lock.json" "corral.json" ".git" "go.mod"))
-  (setq foundp nil)
-  (while (and files (not foundp))
-    (setq filename (car files))
-    ;; (message "1111111111:%s" filename)
-    (setq files (cdr files))
-    (setq foundp (file-exists-p (concat from filename))))
+;; (defun ome-root-p (from)
+;;   (setq files '("Makefile" "CMakeLists.txt" ".editorconfig" "lock.json" "corral.json" ".git"
+;;                  "go.mod"))
+;;   (setq foundp nil)
+;;   (while (and files
+;;            (not foundp))
+;;     (setq filename (car files))
+;;     (setq files (cdr files))
+;;     (setq foundp (file-exists-p (concat (file-name-as-directory from) filename))))
+;;   foundp)
+
+;; (defun ome-search-root
+;;   (&optional
+;;     path)
+;;   (let* ((from (if path (file-name-as-directory path)
+;;                  (file-name-as-directory (ome-buf-dirpath))))
+;;           (parent (ome-parent-dirpath from)))
+;;     (if (ome-root-p from) from (if (or (eq parent nil)
+;;                                      (eq parent path)
+;;                                      (eq parent from)
+;;                                      (string= parent "/")) parent (ome-search-root parent)))))
+
+;; (defun ome-project-root ()
+;;   " create cmake file with current directory!"
+;;   (interactive)
+;;   (ome-search-root (ome-buf-dirpath)))
+
+;; (defun ome-project-name ()
+;;   (file-name-base (directory-file-name (expand-file-name (ome-project-root)))))
+
+(defun ome-project-root-p (path)
+  (setq-local files '("corral.json" "lock.json" "Makefile" "Dockerfile"
+                       ".editorconfig" ".gitignore" "CMakeLists.txt"))
+  (setq-local foundp nil)
+  (while (and files
+           (not foundp))
+    (let* ((filename (car files))
+            (filepath (concat (file-name-as-directory path) filename)))
+      (setq-local files (cdr files))
+      (setq-local foundp (file-exists-p filepath))))
   foundp)
 
-(defun ome-search-root (&optional path)
-  (let* ((from (if path (file-name-as-directory path)
-                 (file-name-as-directory (ome-buf-dirpath))))
-          (parent (ome-parent-dirpath from)))
-    ;; (message "ome-search-file:%s, from:%s" filename from)
-    (if (ome-root-p from) ;;(file-exists-p (concat from filename)
-      from
-      (if (or (eq parent nil)
-            (eq parent path)
-            (eq parent from)
-            (string= parent "/")) parent (ome-search-root parent)))))
+(defun ome-project-root (&optional path)
+  (let* ((bufdir (if buffer-file-name
+                   (file-name-directory buffer-file-name) default-directory))
+          (curdir (if path (file-name-as-directory path) bufdir))
+          (parent (file-name-directory (directory-file-name curdir))))
+    (if (or (not parent)
+          (string= parent curdir)
+          (string= parent "/")
+          (ome-project-root-p curdir))
+      curdir (ome-project-root parent))))
 
-(defun ome-project-root ()
-  " create cmake file with current directory!"
-  (interactive)
-  (ome-search-root (ome-buf-dirpath)))
+(defun ome-project-name ()
+  (file-name-base (directory-file-name (ome-project-root))))
 
-;; (defun ome-project-root2()
-  ;; (let ((fist-char (substring (ome-bufname-no-ext) 0 1)))
-    ;; (if (string= fist-char "*") "./" (if (projectile-project-p)
-                                       ;; (projectile-project-root)
-                                       ;; (ome-buf-dirpath)))))
+(defalias 'ome-project-dirname 'ome-project-name)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; (define-key ome-mode-map (kbd "M-z")  'hydra-ome-menu/body)
+;; (define-key ome-mode-map [f6] 'ome-menu)
+;; (use-package ome-mode
+  ;; :ensure t
+  ;; :bind-keymap
+  ;; ([f6] . ome-menu))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; (defun ome-project-root-old()
+;; (let ((fist-char (substring (ome-bufname-no-ext) 0 1)))
+;; (if (string= fist-char "*") "./" (if (projectile-project-p)
+;; (projectile-project-root)
+;; (ome-buf-dirpath)))))
 
 ;; (defun ome-project-dirname()
 ;; (nth 0 (last (split-string (directory-file-name (expand-file-name (ome-project-root))) "/") 1)))
 
-(defun ome-project-name ()
-  (file-name-base (directory-file-name (expand-file-name (ome-project-root)))))
-
-(defalias 'ome-project-dirname 'ome-project-name)
 
 (defun ome-parent-dirpath (path)
   (file-name-directory (directory-file-name path)))
@@ -610,22 +646,20 @@ occurence of CHAR."
   ;; (format "*compilation:%d*" (random 65535))
   (if OME-COMPILE-BUFFER-NAME OME-COMPILE-BUFFER-NAME "*compilation*"))
 
-
-(defun compilation-buffer-name (name-of-mode mode-command name-function)
-  "Return the name of a compilation buffer to use.
-If NAME-FUNCTION is non-nil, call it with one argument NAME-OF-MODE
-to determine the buffer name.
-Likewise if `compilation-buffer-name-function' is non-nil.
-If current buffer has the major mode MODE-COMMAND,
-return the name of the current buffer, so that it gets reused.
-Otherwise, construct a buffer name from NAME-OF-MODE."
-  ;;(message "name:%s, cmd:%s, func:%s" name-of-mode mode-command name-function)
-  (cond (name-function (funcall name-function name-of-mode))
-    (compilation-buffer-name-function (funcall compilation-buffer-name-function name-of-mode))
-    ((eq mode-command major-mode)
-      (buffer-name))
-    (t (concat "*" (downcase name-of-mode) "*"))))
-
+;; (defun compilation-buffer-name (name-of-mode mode-command name-function)
+;;   "Return the name of a compilation buffer to use.
+;; If NAME-FUNCTION is non-nil, call it with one argument NAME-OF-MODE
+;; to determine the buffer name.
+;; Likewise if `compilation-buffer-name-function' is non-nil.
+;; If current buffer has the major mode MODE-COMMAND,
+;; return the name of the current buffer, so that it gets reused.
+;; Otherwise, construct a buffer name from NAME-OF-MODE."
+;;   ;;(message "name:%s, cmd:%s, func:%s" name-of-mode mode-command name-function)
+;;   (cond (name-function (funcall name-function name-of-mode))
+;;     (compilation-buffer-name-function (funcall compilation-buffer-name-function name-of-mode))
+;;     ((eq mode-command major-mode)
+;;       (buffer-name))
+;;     (t (concat "*" (downcase name-of-mode) "*"))))
 
 (defun ome-run-command (COMMAND &optional OUTPUT-BUFFER-NAME CURRENT-DIR)
   "compile project"
