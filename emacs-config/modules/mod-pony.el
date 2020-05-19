@@ -40,6 +40,8 @@
     ;;
     ;; (require 'smartparens-config)
     ;; (smartparens-mode)
+    (substitute-key-definition 'ponylang-menu nil ponylang-mode-map)
+    (define-key ponylang-mode-map (kbd "<f6>")  'ponylang-menu)
     (setq ponylang-banner "
              _|\\ _/|_,
            ,((\\\\``-\\\\\\\\_
