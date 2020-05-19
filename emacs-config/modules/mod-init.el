@@ -184,7 +184,7 @@
 (defun show-super-menu ()
   "docstring"
   (interactive)
-  (load "mod-keybind.el")
+  ;; (load "mod-keybind.el")
   (message "What's up?")
   (hydra-super-menu/body))
 
