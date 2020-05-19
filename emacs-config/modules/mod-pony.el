@@ -40,6 +40,15 @@
     ;;
     ;; (require 'smartparens-config)
     ;; (smartparens-mode)
+    (setq ponylang-banner "
+             _|\\ _/|_,
+           ,((\\\\``-\\\\\\\\_
+         ,(())      `))\\
+       ,(()))       ,_ \\
+      ((())'   |        \\
+      )))))     >.__     \\
+      ((('     /    `-. .c|
+              /        `-`'")
     ;;
     (internal-require 'paredit)
     (enable-paredit-mode)
