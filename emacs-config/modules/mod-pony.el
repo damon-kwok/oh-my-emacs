@@ -52,16 +52,16 @@
       ((('     /    `-. .c|
               /        `-`'")
     ;;
-    (internal-require 'paredit)
-    (enable-paredit-mode)
-    (define-key paredit-mode-map (kbd "M-;") 'ome-comment-or-uncomment-region-or-line)
-    (define-key paredit-mode-map (kbd "C-<left>") 'paredit-backward-slurp-sexp)
-    (define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
-    (define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
-    (define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
-    (defun no-space-for-delimiter-p (endp delim)
-      (not (eq major-mode 'ponylang-mode)))
-    (add-to-list 'paredit-space-for-delimiter-predicates 'no-space-for-delimiter-p)
+    ;; (internal-require 'paredit)
+    ;; (enable-paredit-mode)
+    ;; (define-key paredit-mode-map (kbd "M-;") 'ome-comment-or-uncomment-region-or-line)
+    ;; (define-key paredit-mode-map (kbd "C-<left>") 'paredit-backward-slurp-sexp)
+    ;; (define-key paredit-mode-map (kbd "C-<right>") 'paredit-forward-slurp-sexp)
+    ;; (define-key paredit-mode-map (kbd "C-M-<left>") 'paredit-backward-barf-sexp)
+    ;; (define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-forward-barf-sexp)
+    ;; (defun no-space-for-delimiter-p (endp delim)
+      ;; (not (eq major-mode 'ponylang-mode)))
+    ;; (add-to-list 'paredit-space-for-delimiter-predicates 'no-space-for-delimiter-p)
     ;;
     (internal-require 'flycheck-pony)
     ;;
