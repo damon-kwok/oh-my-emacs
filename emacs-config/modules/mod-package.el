@@ -45,32 +45,32 @@
 
 
 (setq package-archives '(;;
-                         ;;("gnu" . "https://elpa.gnu.org/packages/")
-                         ;;("org" . "http://orgmode.org/elpa/")
-                         ;;("melpa" . "https://melpa.org/packages/")
-                         ;;
-                         ;;("gnu-china" . "http://elpa.emacs-china.org/gnu/")
-                         ;;("melpa-china" . "http://elpa.emacs-china.org/melpa/")
-                         ;;("org-china" . "http://elpa.emacs-china.org/org/")
-						 ;;
-                         ;;'("popkit" . "http://elpa.popkit.org/packages/")
-                         ;;
-             			 ("gnu-china" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("melpa-china" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-                         ("org-china" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-                         ;;
-                         ))
+                          ;; ("gnu" . "https://elpa.gnu.org/packages/")
+                          ;; ("org" . "http://orgmode.org/elpa/")
+                          ;; ("melpa" . "https://melpa.org/packages/")
+                          ;;
+                          ;;("gnu-china" . "http://elpa.emacs-china.org/gnu/")
+                          ;;("melpa-china" . "http://elpa.emacs-china.org/melpa/")
+                          ;;("org-china" . "http://elpa.emacs-china.org/org/")
+                          ;;
+                          ;;'("popkit" . "http://elpa.popkit.org/packages/")
+                          ;;
+                          ("gnu-tuna" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                          ("melpa-tuna" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+                          ("org-tuna" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+                          ;;
+                          ))
 
 ;;(add-to-list 'load-path "~/emacs-config/elpa-mirror")
 ;;(internal-require 'elpa-mirror)
 
 (defun online? ()
   (if (and (functionp 'network-interface-list)
-           (network-interface-list))
-      (some (lambda (iface)
-              (unless (equal "lo" (car iface))
-                (member 'up (first (last (network-interface-info (car iface)))))))
-            (network-interface-list)) t))
+        (network-interface-list))
+    (some (lambda (iface)
+            (unless (equal "lo" (car iface))
+              (member 'up (first (last (network-interface-info (car iface)))))))
+      (network-interface-list)) t))
 
 ;;(when (online?)
 ;;  (unless package-archive-contents (package-refresh-contents)))
@@ -78,7 +78,7 @@
 (defun lazy-require (ext mode)
   (add-hook 'find-file-hook `(lambda ()
                                (when (and (stringp buffer-file-name)
-                                          (string-match (concat "\\." ,ext "\\'") buffer-file-name))
+                                       (string-match (concat "\\." ,ext "\\'") buffer-file-name))
                                  (internal-require (quote ,mode))
                                  (,mode)))))
 
@@ -89,7 +89,7 @@
 (defun package-download (pkg)
   (when (not (package-installed-p pkg))
     (progn (unless package-archive-contents (package-refresh-contents))
-           (package-install pkg))))
+      (package-install pkg))))
 
 (defun package-require(pkg &optional alias-pkg alias-pkg2)
   (package-download pkg)
@@ -100,18 +100,18 @@
 (defun package-download-git(lib-name repo)
   ;; (setq dir-lib-name (expand-file-name ome-lib-dir ))
   (let* ((oldir default-directory)
-         (dir-name (concat (expand-file-name ome-lib-dir) "/" (file-name-base lib-name)))
-         (full-name (concat dir-name "/" lib-name))
-         (cmd-update (concat "git pull"))
-         (cmd-clone (concat "git clone " repo " --depth=1 " lib-name)))
+          (dir-name (concat (expand-file-name ome-lib-dir) "/" (file-name-base lib-name)))
+          (full-name (concat dir-name "/" lib-name))
+          (cmd-update (concat "git pull"))
+          (cmd-clone (concat "git clone " repo " --depth=1 " lib-name)))
     (add-to-list 'load-path dir-name)
     (make-directory ome-lib-dir t)
     (message dir-name)
     (setq default-directory dir-name)
     (if (file-exists-p dir-name)
-        (progn
-          (setq default-directory dir-name)
-          (ome-run-command cmd-update))
+      (progn
+        (setq default-directory dir-name)
+        (ome-run-command cmd-update))
       (progn
         (setq default-directory ome-lib-dir)
         (ome-run-command cmd-clone)))
@@ -127,18 +127,24 @@
 (defun package-download-svn(lib-name path)
   ;;(setq dir-lib-name (expand-file-name ome-lib-dir ))
   (let* ((oldir default-directory)
-         (dir-name (concat (expand-file-name ome-lib-dir) "/" (file-name-base lib-name)))
-         ( full-name (concat dir-name "/" lib-name))
-         ( cmd-update (concat "git fetch"))
-         ( cmd-clone (concat "git clone " path " --depth=1 " lib-name)))
+          (dir-name (concat (expand-file-name ome-lib-dir) "/" (file-name-base lib-name)))
+          (
+            full-name
+            (concat dir-name "/" lib-name))
+          (
+            cmd-update
+            (concat "git fetch"))
+          (
+            cmd-clone
+            (concat "git clone " path " --depth=1 " lib-name)))
     (add-to-list 'load-path dir-name)
     (make-directory ome-lib-dir t)
     (message dir-name)
     (setq default-directory dir-name)
     (if (file-exists-p dir-name)
-        (progn
-          (setq default-directory dir-name)
-          (call-process-shell-command cmd-update nil t))
+      (progn
+        (setq default-directory dir-name)
+        (call-process-shell-command cmd-update nil t))
       (progn
         (setq default-directory ome-lib-dir)
         (call-process-shell-command cmd-clone nil nil t)))
@@ -151,9 +157,9 @@
 
 (defun package-download-curl(dir-name file-name url)
   (let* ((oldir default-directory)
-         (dir (concat (expand-file-name ome-lib-dir) "/" dir-name))
-         (full-name (concat dir "/" file-name))
-         (cmd (concat "curl -o " full-name " " url)))
+          (dir (concat (expand-file-name ome-lib-dir) "/" dir-name))
+          (full-name (concat dir "/" file-name))
+          (cmd (concat "curl -o " full-name " " url)))
     (make-directory dir t)
     (add-to-list 'load-path dir)
     (setq default-directory dir-name)
@@ -174,15 +180,15 @@
 (defun package-update()
   (interactive)
   (save-window-excursion (package-list-packages t)
-                         (package-refresh-contents)))
+    (package-refresh-contents)))
 
 (defun package-upgrade()
   (interactive)
   ;; upgrade installed
   (save-window-excursion (package-list-packages t)
-                         (package-menu-mark-upgrades)
-                         (package-menu-mark-obsolete-for-deletion)
-                         (package-menu-execute t)))
+    (package-menu-mark-upgrades)
+    (package-menu-mark-obsolete-for-deletion)
+    (package-menu-execute t)))
 
 (defun package-dist-upgrade()
   (interactive)
@@ -191,8 +197,7 @@
   (package-autoremove))
 
 ;; `use-package'
-(package-require 'use-package)
-
+(package-require 'use-package) 
 ;; `quelpa'
 ;; (package-require 'quelpa)
 
