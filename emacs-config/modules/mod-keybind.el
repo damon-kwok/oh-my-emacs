@@ -321,7 +321,7 @@
 
 ;;; `buffer'
 (defhydra hydra-show-buffer
-  (:color blue)
+  (:color blue :hint none)
   "
 ^Cmooand^            ^Buffer1^         ^Buffer2^
 ^^^^^^^^-------------------------------------------------------------------------
@@ -358,7 +358,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 
 ;;; `hydra-url-menu'
 (defhydra hydra-url-menu
-  (:color blue)
+  (:color blue :hint none)
   "
 ^News^       ^Search^          ^Tut^                 ^Awesome^          ^site^
 ^^^^^^^^------------------------------------------------------------------------------
@@ -398,7 +398,7 @@ _<escape>_: Quit    _\\_: calendar     _<tab>_: <-BACK          ^^ ^^
 
 ;;; `hydra-open-module'
 (defhydra hydra-config-menu
-  (:color blue)
+  (:color blue :hint none)
   "
 ^Basic^            ^Layout^         ^Editor^          ^Language^      ^Other^
 ^^^^^^^^-------------------------------------------------------------------------
@@ -466,7 +466,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 ;; (global-set-key (kbd "C-c c") 'hydra-open-config/body)
 ;;
 (defhydra hydra-open-menu
-  (:color blue)
+  (:color blue :hint none)
   "
 ^Project^         ^Doc^          ^Blog^            ^dotfiles^      ^dotfiles^        ^English^
 ^^^^^^^^^^^^-----------------------------------------------------------------------------------------------
@@ -535,7 +535,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 
 
 (defhydra hydra-english-menu
-  (:color blue)
+  (:color blue :hint none)
   "
 ^Common^        ^PETS^      ^CET^         ^TEM^         ^Other^
 ^^^^^^^^^^--------------------------------------------------------------------------------
@@ -584,7 +584,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
 
 ;;
 (defhydra hydra-new-menu
-  (:color blue)
+  (:color blue :hint none)
   (concat
    "^^^^^^^^New project wizard:\n";;
    "^^^^^^^^------------------------------------------------------------------------------\n";;
@@ -682,7 +682,7 @@ _\\_: calendar    _<escape>_:Quit   _<tab>_: <-BACK     ^^ ^^
 ;; (nth 5 '(1 2 3))
 
 (defhydra hydra-super-menu
-  (:color blue)
+  (:color blue :hint none)
   (concat ;;
    "^Main^         ^Buffer^          ^Search^             ^View^          ^Navigate^         ^Org^            ^%s(symbol-name major-mode)^\n" ;;
    "^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------------------------------------\n"
