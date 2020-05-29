@@ -148,11 +148,11 @@
 (module-require 'mod-hy "hy")
 (module-require 'mod-janet "janet")
 ;; Language IV
-(module-require 'mod-rust "cargo")
+(module-require 'mod-rustic "cargo")
 (module-require 'mod-nim "nimble")
 (module-require 'mod-pony "ponyc")
 (module-require 'mod-zig "zig")
-(module-require 'mod-gluon)
+(module-require 'mod-gluon "gluon_repl")
 (module-require 'mod-verona "veronac")
 
 

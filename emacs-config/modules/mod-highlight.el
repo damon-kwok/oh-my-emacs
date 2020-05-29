@@ -31,9 +31,10 @@
 ;; (package-download 'immaterial-theme)
 ;; (load-theme 'immaterial t)
 
-(if (display-graphic-p)
-  (load-theme 'ome-material t)
-  (load-theme 'ome-xemacs t))
+(load-theme 'ome-material t)
+;; (if (display-graphic-p)
+  ;; (load-theme 'ome-material t)
+;; (load-theme 'ome-xemacs t))
 
 ;; `page-break-lines'
 (package-download 'page-break-lines)
