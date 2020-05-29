@@ -31,7 +31,7 @@
                             (internal-require 'rustic)
                             ;; (setq rustic-lsp-server 'rust-analyzer)
                             ;; (setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
-                            (push 'rustic-clippy flycheck-checkers))
+                            (push 'rustic-clippy flycheck-checkers)))
 
 (defun ome-open-or-close-cargofile ()
   (interactive)
@@ -69,5 +69,5 @@
       (message  "rust menu:%d" index))
     (t (message  "rust menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(provide 'mod-rust)
+(provide 'mod-rustic)
 ;; mod-rust.el ends here
