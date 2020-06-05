@@ -25,9 +25,48 @@
 (require 'mod-package)
 ;;
 (package-download 'janet-mode)
+(package-download-git "ijanet-mode" "https://github.com/SerialDev/ijanet-mode.git")
+(package-download-git "inf-janet" "https://github.com/velkyel/inf-janet.git")
+
 (add-to-list 'auto-mode-alist '("\\janet$" . janet-mode))
-(add-hook 'janet-mode-hook (lambda ()
-                             (message "janet-mode")))
+(add-hook 'janet-mode-hook ;;
+  (lambda ()
+    (internal-require 'ijanet)
+    (define-key janet-mode-map (kbd "C-c C-k") #'ijanet-eval-buffer)
+    (define-key janet-mode-map (kbd "C-c C-r") #'ijanet-eval-region)
+    (define-key janet-mode-map (kbd "C-x C-e") #'ijanet-eval-line)
+    (define-key janet-mode-map (kbd "C-c C-z") #'ijanet)
+
+    (internal-require 'inf-janet)
+    (inf-janet-minor-mode)))
+
+(defun show-janet-repl()
+  (interactive)
+  (setq temp-janet-buffer-name (buffer-name (current-buffer)))
+  (ome-show-compilation "*ijanet*")
+  (ijanet)
+  (switch-to-buffer-other-window temp-janet-buffer-name)
+  (ome-show-compilation "*ijanet*" t))
+
+(defun show-janet-workbuffer()
+  (interactive)
+  (switch-to-buffer-other-window temp-janet-buffer-name)
+  (delete-other-windows)
+  (show-janet-repl)
+  (switch-to-buffer-other-window temp-janet-buffer-name))
+
+;; `automenu:janet'
+(defun automenu--janet-mode-menu ()
+  '("REPL" "reload" "compile-buffer"))
+
+(defun automenu--janet-mode-func (index)
+  (cond ((= 0 index)
+          (show-janet-repl))
+    ((= 1 index)
+      (ijanet-eval-buffer))
+    ((= 2 index)
+      (buffer-file-name))
+    (t (message  "janet-mode menu:%d" index))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-janet)
 ;; mod-janet.el ends here

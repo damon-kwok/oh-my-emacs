@@ -76,11 +76,12 @@
 ;;  (unless package-archive-contents (package-refresh-contents)))
 
 (defun lazy-require (ext mode)
-  (add-hook 'find-file-hook `(lambda ()
-                               (when (and (stringp buffer-file-name)
-                                       (string-match (concat "\\." ,ext "\\'") buffer-file-name))
-                                 (internal-require (quote ,mode))
-                                 (,mode)))))
+  (add-hook 'find-file-hook             ;
+    `(lambda ()
+       (when (and (stringp buffer-file-name)
+               (string-match (concat "\\." ,ext "\\'") buffer-file-name))
+         (internal-require (quote ,mode))
+         (,mode)))))
 
 ;; (lazy-require "soy" 'soy-mode)
 ;; (lazy-require "tpl" 'tpl-mode)
@@ -99,19 +100,20 @@
 
 (defun package-download-git(lib-name repo)
   ;; (setq dir-lib-name (expand-file-name ome-lib-dir ))
+  ;; (make-directory ome-lib-dir t)
   (let* ((oldir default-directory)
           (dir-name (concat (expand-file-name ome-lib-dir) "/" (file-name-base lib-name)))
           (full-name (concat dir-name "/" lib-name))
           (cmd-update (concat "git pull"))
           (cmd-clone (concat "git clone " repo " --depth=1 " lib-name)))
     (add-to-list 'load-path dir-name)
-    (make-directory ome-lib-dir t)
     (message dir-name)
     (setq default-directory dir-name)
     (if (file-exists-p dir-name)
       (progn
-        (setq default-directory dir-name)
-        (ome-run-command cmd-update))
+        ;; (setq default-directory dir-name)
+        ;; (ome-run-command cmd-update)
+        )
       (progn
         (setq default-directory ome-lib-dir)
         (ome-run-command cmd-clone)))
@@ -126,25 +128,20 @@
 
 (defun package-download-svn(lib-name path)
   ;;(setq dir-lib-name (expand-file-name ome-lib-dir ))
+  ;; (make-directory ome-lib-dir t)
   (let* ((oldir default-directory)
           (dir-name (concat (expand-file-name ome-lib-dir) "/" (file-name-base lib-name)))
-          (
-            full-name
-            (concat dir-name "/" lib-name))
-          (
-            cmd-update
-            (concat "git fetch"))
-          (
-            cmd-clone
-            (concat "git clone " path " --depth=1 " lib-name)))
+          (full-name (concat dir-name "/" lib-name))
+          (cmd-update (concat "git fetch"))
+          (cmd-clone (concat "git clone " path " --depth=1 " lib-name)))
     (add-to-list 'load-path dir-name)
-    (make-directory ome-lib-dir t)
     (message dir-name)
     (setq default-directory dir-name)
     (if (file-exists-p dir-name)
       (progn
-        (setq default-directory dir-name)
-        (call-process-shell-command cmd-update nil t))
+        ;; (setq default-directory dir-name)
+        ;; (call-process-shell-command cmd-update nil t)
+        )
       (progn
         (setq default-directory ome-lib-dir)
         (call-process-shell-command cmd-clone nil nil t)))
