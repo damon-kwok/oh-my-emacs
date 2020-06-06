@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t -*-
 ;; `(buffer-name)` --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-`(format-time-string "%Y")` damon-kwok
+;; Copyright (C) 2009-`(format-time-string "%Y")` Damon Kwok
 ;;
 ;; Author: `(user-login-name)` <damon-kwok@outlook.com>
 ;; Create: `(format-time-string "%Y-%m-%d")`
