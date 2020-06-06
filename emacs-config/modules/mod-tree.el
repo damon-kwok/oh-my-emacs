@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-tree.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2017 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2017-11-07
-;; Modify: 2017-11-07
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -18,7 +16,7 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -66,43 +64,43 @@
 ;;         ;; ("C-M-m f M-t") . treemacs-find-tag)
 ;;   )
 
-(use-package 
-  treemacs-projectile 
-  :defer t 
-  :ensure t 
+(use-package
+  treemacs-projectile
+  :defer t
+  :ensure t
   :config (setq treemacs-header-function #'treemacs-projectile-create-header)
   ;; :bind (:map global-map
   ;; ("C-M-m fP" . treemacs-projectile)
   ;; ("C-M-m fp" . treemacs-projectile-toggle))
   )
 
-(defun treemacs-projectile 
-    (&optional 
+(defun treemacs-projectile
+    (&optional
      arg)
   "Open treemacs for the current projectile project.
 If not in a project do nothing. If a prefix argument ARG is given select
-the project from among `projectile-known-projects'." 
-  (interactive "P") 
-  (cond (arg (treemacs--init (completing-read "Project: " projectile-known-projects))) 
-        ((projectile-project-p) 
-         (treemacs--init (projectile-project-root))) 
+the project from among `projectile-known-projects'."
+  (interactive "P")
+  (cond (arg (treemacs--init (completing-read "Project: " projectile-known-projects)))
+        ((projectile-project-p)
+         (treemacs--init (projectile-project-root)))
         (t (treemacs))))
 
-(defun ome-treemacs-toggle () 
+(defun ome-treemacs-toggle ()
   "If a treemacs buffer exists and is visible hide it.
 If a treemacs buffer exists, but is not visible bring it to the foreground
 and select it.
-If no treemacs buffer exists call `treemacs'." 
-  (interactive) 
-  (-pcase (treemacs--current-visibility) 
-          ['visible (treemacs--select-visible) 
-                    (if (one-window-p) 
-                        (switch-to-buffer (other-buffer)) 
-                      (bury-buffer))] 
-          ['exists (treemacs-projectile)] 
-          ['none (treemacs-projectile)] 
-          [_ 
-           (error 
+If no treemacs buffer exists call `treemacs'."
+  (interactive)
+  (-pcase (treemacs--current-visibility)
+          ['visible (treemacs--select-visible)
+                    (if (one-window-p)
+                        (switch-to-buffer (other-buffer))
+                      (bury-buffer))]
+          ['exists (treemacs-projectile)]
+          ['none (treemacs-projectile)]
+          [_
+           (error
             "[Treemacs] Invalid visibility value: %s"
             (treemacs--current-visibility))
            ]))

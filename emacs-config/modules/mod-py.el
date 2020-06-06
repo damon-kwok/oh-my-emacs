@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-py.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2017 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2017-10-19
-;; Modify: 2017-10-19
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -18,7 +16,7 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -31,9 +29,9 @@
 (setq python-shell-interpreter "ipython" python-shell-interpreter-args "-i --simple-prompt")
 
 ;; use flycheck not flymake with elpy
-(when 
-    (require 'flycheck nil t) 
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)) 
+(when
+    (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 ;; enable autopep8 formatting on save

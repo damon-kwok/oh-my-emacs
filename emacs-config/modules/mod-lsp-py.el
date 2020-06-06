@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-lsp-py.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2018 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2018-01-15
-;; Modify: 2018-01-15
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -26,7 +24,7 @@
 ;;
 (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
 (add-hook 'python-mode-hook;;
-          (lambda (internal-require 'mod-lsp) 
+          (lambda (internal-require 'mod-lsp)
             (lsp)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-lsp-py)

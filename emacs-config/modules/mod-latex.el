@@ -1,10 +1,9 @@
 ;;; -*- lexical-binding: t -*-
 ;; mod-latex.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2016 Damon Kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
-;; Author: damon-kwok <damon-kwok@outlook.com>
-;; Date: 2016-02-16
+;; Author: damon <damon-kwok@outlook.com>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -17,10 +16,9 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
-;;
 (require 'mod-package)
 
 ;;; `load-auctex'
@@ -33,10 +31,10 @@
 (package-download 'cdlatex)
 (add-hook 'LaTex-mode-hook (lambda()
                              ;; (load "preview.el" nil t t)
-                             (setq Tex-auto-save t) 
-                             (setq Tex-parse-self t) 
+                             (setq Tex-auto-save t)
+                             (setq Tex-parse-self t)
                              (setq-default Tex-master nil)
-                             (if (string-equal system-type "windows-nt") 
+                             (if (string-equal system-type "windows-nt")
                                  (internal-require 'tex-mik))
 
                              ;; turn on image file support
@@ -45,12 +43,12 @@
                              ;;; cdlatex is AUCtex's helper
                              (internal-require 'cdlatex)
                              (turn-on-cdlatex)
-                             
+
                              ;; set xelatex is default edit command
                              (setq Tex-output-view-style ;;
-                                   (quote (("^pdf$" "." "evince &o %(outpage)")))) 
+                                   (quote (("^pdf$" "." "evince &o %(outpage)"))))
                              (add-to-list 'Tex-command-list '("XeLaTex" "%`xelatex%(mode)'%t"
-                                                              Tex-run-Tex nil t)) 
+                                                              Tex-run-Tex nil t))
                              (setq Tex-command-default "XeLaTex")))
 
 
@@ -71,11 +69,11 @@
 
 (with-eval-after-load 'ox-latex (add-to-list 'org-latex-classes '("report" "\\documentclass{report}"
                                                                   ("\\chapter{%s}" .
-                                                                   "\\chapter*{%s}") 
+                                                                   "\\chapter*{%s}")
                                                                   ("\\section{%s}" .
-                                                                   "\\section*{%s}") 
+                                                                   "\\section*{%s}")
                                                                   ("\\subsection{%s}" .
-                                                                   "\\subsection*{%s}") 
+                                                                   "\\subsection*{%s}")
                                                                   ("\\subsubsection{%s}" .
                                                                    "\\subsubsection*{%s}"))))
 ;;

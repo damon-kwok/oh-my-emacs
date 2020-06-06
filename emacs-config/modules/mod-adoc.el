@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-adoc.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2019 damon-kwok
+;; Copyright (C) 2009-2020 damon-kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2019-01-16
-;; Modify: 2019-01-16
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

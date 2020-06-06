@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-mouse.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2017 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
-;; Author: Wuyouwofang <damon-kwok@outlook.com>
-;; Create: 2017-01-03
-;; Modify: 2017-01-03
+;; Author: damon <damon-kwok@outlook.com>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -18,7 +16,7 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,16 +30,16 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `disable-mouse-mode'
-(define-minor-mode disable-mouse-mode "A minor-mode that disables all mouse keybinds." 
-  :global t 
-  :lighter " :mouse:" 
+(define-minor-mode disable-mouse-mode "A minor-mode that disables all mouse keybinds."
+  :global t
+  :lighter " :mouse:"
   :keymap (make-sparse-keymap))
 
-(dolist (type '(mouse down-mouse drag-mouse double-mouse triple-mouse)) 
+(dolist (type '(mouse down-mouse drag-mouse double-mouse triple-mouse))
   (dolist (prefix '("" C- M- S- M-S- C-M- C-S- C-M-S-))
     ;; Yes, I actually HAD to go up to 7 here.
-    (dotimes (n 7) 
-      (let ((k (format "%s%s-%s" prefix type n))) 
+    (dotimes (n 7)
+      (let ((k (format "%s%s-%s" prefix type n)))
         (define-key disable-mouse-mode-map (vector (intern k)) #'ignore)))))
 
 (disable-mouse-mode 1)

@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-speedbar.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2017 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2017-11-14
-;; Modify: 2017-11-14
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -25,14 +23,14 @@
 (require 'mod-package)
 
 
-;; (use-package 
-;;   dired-sidebar 
-;;   :ensure t 
-;;   :commands (dired-sidebar-toggle-sidebar) 
-;;   :config (use-package 
+;; (use-package
+;;   dired-sidebar
+;;   :ensure t
+;;   :commands (dired-sidebar-toggle-sidebar)
+;;   :config (use-package
 ;;             all-the-icons-dired
 ;;             ;; M-x all-the-icons-install-fonts
-;;             :ensure t 
+;;             :ensure t
 ;;             :commands (all-the-icons-dired-mode)))
 ;;
 
@@ -120,19 +118,19 @@
 ;;        (add-to-list 'speedbar-frame-parameters '(top . 40))
 ;;        (add-to-list 'speedbar-frame-parameters '(left . 0))))
 
-(defun speedbar-edit-line() 
-  "Edit whatever tag or file is on the current speedbar line." 
-  (interactive) 
+(defun speedbar-edit-line()
+  "Edit whatever tag or file is on the current speedbar line."
+  (interactive)
   (or (save-excursion (beginning-of-line)
 		      ;; If this fails, then it is a non-standard click, and as such,
 		      ;; perfectly allowed.
-		      (if (re-search-forward "[]>?}] [^ ]" (line-end-position) t) 
-                          (progn (forward-char -1) 
-                                 (speedbar-do-function-pointer)) nil)) 
-      (speedbar-do-function-pointer)) 
-  (setq speedbar-is-opened (sr-speedbar-exist-p)) 
-  (if speedbar-is-opened (sr-speedbar-close)) 
-  (delete-other-windows) 
+		      (if (re-search-forward "[]>?}] [^ ]" (line-end-position) t)
+                          (progn (forward-char -1)
+                                 (speedbar-do-function-pointer)) nil))
+      (speedbar-do-function-pointer))
+  (setq speedbar-is-opened (sr-speedbar-exist-p))
+  (if speedbar-is-opened (sr-speedbar-close))
+  (delete-other-windows)
   (if speedbar-is-opened (sr-speedbar-open)))
 
 ;; (global-set-key (kbd "C-c s")

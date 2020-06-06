@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-java.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2018 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2018-01-15
-;; Modify: 2018-01-15
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -29,21 +27,21 @@
 ;; `eclipse.jdt.ls' Eclipse JDT Language Server
 ;; (package-require 'lsp-java)
 ;; (add-hook 'java-mode-hook #'lsp)
-(add-hook 'java-mode-hook (lambda () 
-                            (package-require 'lsp-java) 
-                            (require 'mod-lsp) 
+(add-hook 'java-mode-hook (lambda ()
+                            (package-require 'lsp-java)
+                            (require 'mod-lsp)
                             (lsp)))
 
 ;; set the projects that are going to be imported into the workspace.
-(setq lsp-java--workspace-folders (list (concat (getenv "HOME") "/projects") 
-                                        (concat (getenv "HOME") "/projects/java") 
-                                        (concat (getenv "HOME") "/workspace") 
+(setq lsp-java--workspace-folders (list (concat (getenv "HOME") "/projects")
+                                        (concat (getenv "HOME") "/projects/java")
+                                        (concat (getenv "HOME") "/workspace")
                                         (concat (getenv "HOME") "/eclipse-workspace")))
 (setq  lsp-java-server-install-dir "~/.emacs.d/eclipse.jdt.ls/server/")
 
-(defun install-lsp-java-server () 
-  "install java lsp server" 
-  (interactive) 
+(defun install-lsp-java-server ()
+  "install java lsp server"
+  (interactive)
   (ome-run-command "install_java_language_server"))
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

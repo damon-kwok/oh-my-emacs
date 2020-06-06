@@ -1,10 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-library.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2015 Damon Kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
-;; Author: damon-kwok <damon-kwok@outlook.com>
-;; Date: 2015-12-31
+;; Author: damon <damon-kwok@outlook.com>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -20,46 +19,8 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
-(internal-require 'cl)
 (package-require 's)
 (package-require 'f)
-
-;; (projectile-project-p)
-;; (projectile-project-root)
-;; (projectile-get-project-directories)
-;; (ome-run-command (concat "grep -n --include=\"*.el\" \"buffer-\" -R ./"));; (projectile-project-root)))
-
-;;(ome-run-command (concat "grep -n --include=\"*.el\" \"buffer-\" -R ./" (projectile-project-root)))
-;;(ome-run-command (concat "grep -n \"buffer-\" -r ./" (projectile-project-root)))
-
-;;(require 'dash)
-;;(require 'json)
-;;(require 'files)
-;;(require 'ido)
-;;(require 'thingatpt)
-;;(require 'dash)
-;;(require 'compile)
-;;(require 'dired)
-;;(require 'popup)
-;;(require 'etags)
-;;(require 'flycheck)
-
-;;(defun fib (n)
-;;  (cond ((= n 0) 0)
-;;	((= n 1) 1)
-;;	(t (+ (fib (- n 1))
-;;	      (fib (- n 2))))))
-
-;; (fib 100)
-
-;;(setq default-directory "c:")
-;;(concat default-directory "TAGS")
-
-;; (defun remove-dos-eol ()
-;;   "Do not show ^M in files containing mixed UNIX and DOS line endings."
-;;   (interactive)
-;;   (setq buffer-display-table (make-display-table))
-;;   (aset buffer-display-table ?\^M []))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `keymap-unset-key'
@@ -89,14 +50,14 @@
 (defmacro when-terminal
   (&rest
     body)
-  "Works just like `progn' but will only evaluate expressions in VAR when Emacs is running in a terminal else just nil."
+  "Works just like `progn' but will only evaluate expressions in VAR when Emacs
+is running in a terminal else just nil."
   `(when (ome-is-in-terminal) ,@body))
 
 (defun ome-buffer-directory ()
-  (if buffer-file-name (file-name-directory buffer-file-name) default-directory)) ;;(file-name-directory (expand-file-name "~/"))
+  (if buffer-file-name (file-name-directory buffer-file-name) default-directory))
 
 (defun ome-buf-dirpath()
-  ;;(directory-file-name (file-name-directory buffer-file-name))
   (directory-file-name (ome-buffer-directory)))
 
 (defun ome-buf-dirname()
@@ -119,9 +80,6 @@
     (reverse)
     (s-join "-")))
 
-(reverse (s-split "-" (symbol-name major-mode)))
-;; (defun ome-bufname-no-ext()
-;; (first (split-string (buffer-name) "\\."))) ;;file-name-base
 (defun ome-bufname-no-ext()
   (file-name-base (buffer-name)))
 
@@ -133,40 +91,8 @@
          (buf-name (buffer-name)))
     (if (string= ext-name buf-name) "" ext-name)))
 
-
-
-;; (defun ome-root-p (from)
-;;   (setq files '("Makefile" "CMakeLists.txt" ".editorconfig" "lock.json" "corral.json" ".git"
-;;                  "go.mod"))
-;;   (setq foundp nil)
-;;   (while (and files
-;;            (not foundp))
-;;     (setq filename (car files))
-;;     (setq files (cdr files))
-;;     (setq foundp (file-exists-p (concat (file-name-as-directory from) filename))))
-;;   foundp)
-
-;; (defun ome-search-root
-;;   (&optional
-;;     path)
-;;   (let* ((from (if path (file-name-as-directory path)
-;;                  (file-name-as-directory (ome-buf-dirpath))))
-;;           (parent (ome-parent-dirpath from)))
-;;     (if (ome-root-p from) from (if (or (eq parent nil)
-;;                                      (eq parent path)
-;;                                      (eq parent from)
-;;                                      (string= parent "/")) parent (ome-search-root parent)))))
-
-;; (defun ome-project-root ()
-;;   " create cmake file with current directory!"
-;;   (interactive)
-;;   (ome-search-root (ome-buf-dirpath)))
-
-;; (defun ome-project-name ()
-;;   (file-name-base (directory-file-name (expand-file-name (ome-project-root)))))
-
 (defun ome-project-root-p (path)
-  (setq-local files '("corral.json" "lock.json" "Makefile" "Dockerfile"
+  (setq-local files '("corral.json" "lock.json" "Makefile" "Dockerfile" ;
                        ".editorconfig" ".gitignore" "CMakeLists.txt"))
   (setq-local foundp nil)
   (while (and files
@@ -177,41 +103,23 @@
       (setq-local foundp (file-exists-p filepath))))
   foundp)
 
-(defun ome-project-root (&optional path)
-  (let* ((bufdir (if buffer-file-name
+(defun ome-project-root
+  (&optional
+    path)
+  (let* ((bufdir (if buffer-file-name   ;
                    (file-name-directory buffer-file-name) default-directory))
           (curdir (if path (file-name-as-directory path) bufdir))
           (parent (file-name-directory (directory-file-name curdir))))
     (if (or (not parent)
           (string= parent curdir)
           (string= parent "/")
-          (ome-project-root-p curdir))
+          (ome-project-root-p curdir))  ;
       curdir (ome-project-root parent))))
 
 (defun ome-project-name ()
   (file-name-base (directory-file-name (ome-project-root))))
 
 (defalias 'ome-project-dirname 'ome-project-name)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (define-key ome-mode-map (kbd "M-z")  'hydra-ome-menu/body)
-;; (define-key ome-mode-map [f6] 'ome-menu)
-;; (use-package ome-mode
-  ;; :ensure t
-  ;; :bind-keymap
-  ;; ([f6] . ome-menu))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (defun ome-project-root-old()
-;; (let ((fist-char (substring (ome-bufname-no-ext) 0 1)))
-;; (if (string= fist-char "*") "./" (if (projectile-project-p)
-;; (projectile-project-root)
-;; (ome-buf-dirpath)))))
-
-;; (defun ome-project-dirname()
-;; (nth 0 (last (split-string (directory-file-name (expand-file-name (ome-project-root))) "/") 1)))
-
 
 (defun ome-parent-dirpath (path)
   (file-name-directory (directory-file-name path)))
@@ -229,7 +137,8 @@
       (if (or (eq parent nil)
             (eq parent path)
             (eq parent form)
-            (string= parent "/")) nil (ome-search-file filename parent)))))
+            (string= parent "/"))       ;
+        nil (ome-search-file filename parent)))))
 
 (defun ome-smart-find-file (filename &optional create)
   " create cmake file with current directory!"
@@ -240,42 +149,8 @@
       (if create (find-file filename))
       (find-file (concat root-dir filename)))))
 
-;; (buffer-name)                  ;;=> "hello.txt"
-;; (buffer-file-name)             ;;=> "/home/damon/docs/hello.txt"
-;; (file-name-as-directory "/home/damon/docs") ;;=> "/home/damon/docs/"
-;; (directory-file-name "/home/damon/docs/");;=> "/home/damon/docs"
-;; (file-name-nondirectory "/home/damon/docs/hello.txt") ;;=> "hello.txt"
-;; (file-name-directory "/home/damon/docs/1/2/3") ;;=> "home/damon/dacs/1/2/"
-;; (file-name-directory "/home/damon/docs/1/2/");;=> "/home/damon/docs/1/2/" oooooooooooh!no!
-;; (ome-file-directory "/home/damon/docs/1/2/") ;;=> "/home/damon/docs/1/" nice:)
-;; (f-dirname "path/to/file.ext/") ;;=> "path/to/"
-
-
-;; (f-filename-no-ext "path/to/file.txt") ;;=> "file"
-
-;; (ome-filename-no-ext) ;;=>"file”
-;; (ome-bufname-no-ext);;=>"file"
-;; (ome-parent-dirpath "/path/to/hello.txt")
-;; (ome-parent-dirpath "C:/")
-;; (ome-buf-dirpath)                ;;=> "/home/damon/docs"
-;; (ome-buf-dirname)      ;;=> "docs"
-;; (ome-buffer-name-sans-extension) ;;=> "hello"
-;; (ome-buffer-file-name-sans-extension) ;;=> "/home/damon/docs/hello"
-;; (file-name-directory "/home/damon/docs/hello.txt");;=> "/home/damon/docs"
-;; (ome-buf-ext)      ;;=> "el"
-
-;; (ome-project-root)               ;;=> "/home/damon/docs"
-;; (file-name-sans-extension "222/111.el") ;;==>222/111
-;; (file-name-base "222/111.el") ;;==> 111
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (browse-url
-;;  (concat "https://www.bing.com/dict/search?q="
-;; 	 (url-hexify-string
-;; 	  (read-string "Query: "))))
-
 (defun ome-bing-dict-brief-eww (arg)
   "compile project"
-  ;;(interactive)
   (ome-show-compilation "*Messages*")
   (other-window 1)
   (eww (concat "https://www.bing.com/dict/search??mkt=zh-cn&q=" arg)))
@@ -316,8 +191,7 @@
 
 (defun ome-quick-copy-line ()
   "Copy the whole line that point is on and move to the beginning of the next line.
-    Consecutive calls to this command append each line to the
-    kill-ring."
+ Consecutive calls to this command append each line to the kill-ring."
   (interactive)
   (let ((beg (line-beginning-position 1))
          (end (line-beginning-position 2)))
@@ -334,7 +208,8 @@
   (beginning-of-line 2))
 
 (defun ome-quick-cut-line ()
-  "Cut the whole line that point is on.  Consecutive calls to this command append each line to the kill-ring."
+  "Cut the whole line that point is on.  Consecutive calls to this command
+append each line to the kill-ring."
   (interactive)
   (let ((beg (line-beginning-position 1))
          (end (line-beginning-position 2)))
@@ -386,7 +261,7 @@ occurence of CHAR."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (defun switch-to-buffer-by-major )
 (defun ome-count-buffer-by-major (mode)
-  "Kill all other buffers."
+  "Count buffers number by `major-mode'."
   (interactive)
   (let ((count-buf 0))
     (mapcar #'(lambda (BUFFER_OR_NAME)
@@ -396,7 +271,7 @@ occurence of CHAR."
     (message "count:%d" count-buf) count-buf))
 
 (defun ome-find-buffer-by-major (mode)
-  "Kill all other buffers."
+  "Find buffers by `major-mode'."
   (interactive)
   (if ( >  (ome-count-buffer-by-major mode) 0)
     (mapcar #'(lambda (BUFFER_OR_NAME)
@@ -405,34 +280,22 @@ occurence of CHAR."
       (buffer-list))
     (erc)))
 
-;; (>  (ome-count-buffer-by-major 'erc-mode) 0)
-
-;; close all buffer
 (defun ome-kill-all-buffers ()
-  "Kill all other buffers."
+  "Kill all buffers."
   (interactive)
   (mapcar 'kill-buffer (buffer-list)))
 
-;; kill buffer by name
-;; (defun ome-kill-buffer-by-name (NAME)
-;; (let ((buf (get-buffer NAME)))
-;; (if buf (kill-buffer buf t)
-;; (message "buffer '%s' not exist!" NAME))))
 (defun ome-kill-buffer-by-name (NAME)
   (if (get-buffer NAME)
-    (kill-buffer NAME)
-    ;; (message "buffer '%s' not exist!" NAME)
-    ))
+    (kill-buffer NAME)    ))
 
-;; close all buffer but this
 (defun ome-kill-other-buffers ()
-  "Kill all other buffers."
+  "Close all buffers but this."
   (interactive)
   (delete-other-windows)
   (mapc 'kill-buffer (delq (current-buffer)
                        (remove-if-not 'buffer-file-name (buffer-list)))))
 
-;; delete current buffer && file
 ;; http://rejeep.github.io/emacs/elisp/2010/11/16/delete-file-and-buffer-in-emacs.html
 (defun ome-delete-file-and-buffer ()
   "Removes file connected to current buffer and kills buffer."
@@ -450,7 +313,6 @@ occurence of CHAR."
         (message "File '%s' successfully removed" filename)))))
 
 ;; Originally from stevey, adapted to support moving to a new directory.
-;; ome-rename-file-and-buffer
 (defun ome-rename-file-and-buffer (new-name)
   "Renames both current buffer and file it's visiting to NEW-NAME."
   (interactive (progn (if (not (buffer-file-name))
@@ -498,30 +360,17 @@ occurence of CHAR."
 (defun ome-rename-file-and-buffer-ext (ext-name)
   "rename extname with file and buffer"
   (ome-rename-file-and-buffer (concat (ome-bufname-no-ext) "." ext-name)))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; define function to shutdown emacs server instance
+
 (defun ome-server-shutdown ()
   "Save buffers, Quit, and Shutdown (kill) server"
   (interactive)
   (save-some-buffers)
   (kill-emacs))
 
-
-;;(global-set-key [(control x) (control c)]
-;;                (function
-;;                 (lambda () (interactive)
-;;                   (cond ((y-or-n-p "Exit? ") ;;(y-or-n-p "Relax...? ")
-;;                          (if server-clients (server-edit) ;;if has clients , kill client frame.
-;;                            (bye)))))))
-
-
 ;; exit
-;; prevent kill emacs by mistake
 (defun ome-play-exit-animate ()
   "say bye-bye !"
   (interactive)
-  ;;(if (sr-speedbar-exist-p)
-  ;;    (sr-speedbar-close))
   ;; Make a suitable buffer to display the birthday present in.
   (switch-to-buffer (get-buffer-create "*bye*"))
   (erase-buffer)
@@ -530,12 +379,8 @@ occurence of CHAR."
   ;;(animate-string "I'll miss you~" 7)
   ;;(sit-for 1) ;;wait 1 second
   (animate-string " Bye!!!" 9)
-
   ;;wait 1 second
   (sit-for 1))
-
-;;`remove' the prompt for killing emacsclient buffers
-(remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
 
 (defun ome-exit-animate()
   (interactive)
@@ -545,6 +390,8 @@ occurence of CHAR."
 
 (defun ome-exit()
   (interactive)
+  ;;`remove' the prompt for killing emacsclient buffers
+  (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
   (cond ((y-or-n-p "Exit? ") ;;(y-or-n-p "Relax...? ")
           (save-buffers-kill-emacs))))
 
@@ -560,10 +407,9 @@ occurence of CHAR."
   (interactive)
   (delete-other-windows)
   (ome-show-compilation "*Messages*")
-  (other-window 1) ;;(switch-window)
-  (find-file (concat "~/.oh-my-emacs/emacs-config/modules/mod-" mod-name ".el"))
-  ;; (delete-other-windows)
-  )
+  (other-window 1)
+  (find-file                            ;
+    (concat "~/.oh-my-emacs/emacs-config/modules/mod-" mod-name ".el")))
 
 (defun ome-open-doc(doc-name)
   (interactive)
@@ -573,13 +419,11 @@ occurence of CHAR."
   (find-file (concat (getenv "HOME") "/workspace/org/" doc-name))
   (delete-other-windows))
 
-
-
 (defun ome-open-org-by-month(name)
   (interactive)
   (delete-other-windows)
   (ome-show-compilation "*Messages*")
-  (other-window 1) ;;(switch-window)
+  (other-window 1)
   (let ((filename (concat name (format-time-string "-%Y-%m") ".org")))
     (find-file (concat (getenv "HOME") "/workspace/org/" filename)))
   (delete-other-windows))
@@ -588,7 +432,7 @@ occurence of CHAR."
   (interactive)
   (delete-other-windows)
   (ome-show-compilation "*Messages*")
-  (other-window 1) ;;(switch-window)
+  (other-window 1)
   (find-file (concat (getenv "HOME") "/workspace/blog/src/index.org"))
   (find-file (concat (getenv "HOME") "/workspace/blog/src/blog.org"))
   (find-file (concat (getenv "HOME") "/workspace/blog/src/link.org"))
@@ -640,7 +484,6 @@ occurence of CHAR."
       (shrink-window (/ (window-height) 2)))
     (if dont-return-old-buffer nil (switch-to-buffer-other-window temp-buffer-name))))
 
-;; (defvar OME-COMPILE-BUFFER-NAME nil)
 (defun ome-compilation-buffer-name-function (mode-name)
   (message "OME-COMPILE-BUFFER-NAME:%s" OME-COMPILE-BUFFER-NAME)
   ;; (format "*compilation:%d*" (random 65535))
@@ -711,41 +554,6 @@ occurence of CHAR."
     (message "*OUTPUT-BUFFER-NAME*:%s" OUTPUT-BUFFER-NAME)
     (server-start)
     (ome-run-command COMMAND OUTPUT-BUFFER-NAME)))
-
-(defun ome-project-wizard-old(lang)
-  (cond ((string= lang "clojure")
-          (ome-ask-new-project "lein new %s" "project.clj"))
-    ((string= lang "elixir")
-      (ome-ask-new-project "mix new %s" "mix.exs"))
-    ;; ((string= lang "java")
-    ;; (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type java-application" "src/main/java/App.java"))
-    ((string= lang "java")
-      (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type java-application"
-        "src/main/java/App.java"))
-    ((string= lang "scala")
-      (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type scala-library"
-        "src/main/scala/Library.scala"))
-    ((string= lang "groovy")
-      (ome-ask-new-project "mkdir -p %s && cd %s && gradle init --type groovy-application"
-        "src/main/groovy/App.groovy"))
-    ((string= lang "python")
-      (ome-ask-new-project "mkdir -p %s && cd %s && pipenv --three" "Pipfile"))
-    ((string= lang "ruby")
-      (ome-ask-new-project "mkdir -p %s && cd %s && bundle init" "Gemfile"))
-    ((string= lang "c")
-      (ome-ask-new-project "gen_cmake_file %s" "CMakeLists.txt"))
-    ((string= lang "haskell")
-      (ome-ask-new-project "stack new %s" "src/Main.hs"))
-    ((string= lang "nim")
-      (ome-ask-new-project "nimble init %s" "src/%s.nim")) ;; not invalid
-    ((string= lang "rust")
-      (ome-ask-new-project "cargo new %s --bin" "Cargo.toml"))
-    ;; ((string= lang "go")
-    ;; (ome-ask-new-project "mkdir -p %s && cd %s && rubigo init" "rubigo.json"))
-    ((string= lang "go")
-      (ome-ask-new-project "mkdir -p %s && cd %s && dep init" "Gopkg.toml"))
-    ((string= lang "ros")
-      (ome-ask-new-project "rosman %s" "src/main.cpp"))))
 
 ;; `cmake-file'
 (defun ome-gen-cmake-file ()
@@ -883,40 +691,5 @@ occurence of CHAR."
   (interactive)
   (internal-require 'ascii-table)
   (ascii-table))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(package-download-curl "elisp-format" "elisp-format.el"
-  "https://www.emacswiki.org/emacs/download/elisp-format.el")
-(package-download-curl "xcowsay" "xcowsay.el" "https://www.emacswiki.org/emacs/download/xcowsay.el")
-(package-download-curl "pink-bliss" "pink-bliss-theme.el"
-  "https://raw.githubusercontent.com/kensanata/elisp/master/pink-bliss-theme.el")
-(package-download-curl "pink-bliss" "pink-bliss.el"
-  "https://www.emacswiki.org/emacs/download/pink-bliss.el")
-(package-download-curl "pink-bliss" "pink-gnu.xpm"
-  "http://www.emacswiki.org/emacs/download/pink-gnu.xpm")
-
-(package-download-curl "multi-term" "multi-term.el"
-  "https://www.emacswiki.org/emacs/download/multi-term.el")
-(package-download-curl "visws" "visws.el" "https://www.emacswiki.org/emacs/download/visws.el")
-
-(setq multi-term-program "/bin/bash")
-;; (package-download-git "window-layout" "https://github.com/kiwanami/emacs-window-layout.git")
-;; (package-download-git "E2WM" "https://github.com/kiwanami/emacs-window-manager.git")
-
-;; (internal-require 'e2wm)
-
-;; (global-set-key (kbd "M-+") 'e2wm:start-management)
-;;Example Usage:
-;;
-;;(when-terminal
-;;    (load-my-term-theme)
-;;    (set-some-keybindings)
-;;    (foo-bar))
-
-;; (symbol-to-string major-mode) ;;cl
-;;(find-library (file-name-sans-extension (symbol-file major-mode)))
-
-;;(setq list '(alpha beta gamma delta))
-;;(butlast list 2)
 ;;
 (provide 'mod-library)

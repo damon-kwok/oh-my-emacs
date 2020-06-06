@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-projectile.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2018 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2018-08-10
-;; Modify: 2018-08-10
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -59,7 +57,7 @@
             (internal-require 'helm-projectile)
             ;; (global-set-key (kbd "C-c C-f") 'helm-projectile-find-file-dwim)
             ;; (global-set-key (kbd "C-x C-g") 'helm-projectile-grep)
-            (global-set-key [f5] 'helm-projectile) 
+            (global-set-key [f5] 'helm-projectile)
             (global-set-key [f12] 'helm-projectile-find-other-file)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-projectile)

@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-email.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2017 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2017-11-17
-;; Modify: 2017-11-17
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -51,7 +49,7 @@
 (setq mu4e-view-show-images t)
 
 ;; use imagemagick, if available
-(when (fboundp 'imagemagick-register-types) 
+(when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
 
 ;; save attachment to my desktop (this can also be a function)
@@ -77,16 +75,16 @@
 ;; then, when you want archive some messages, move them to
 ;; the 'All Mail' folder by pressing ``ma''.
 
-(setq mu4e-maildir-shortcuts '( ("/INBOX" . ?i) 
-                                ("/INBOX/News" . ?1) 
-                                ("/INBOX/Notification" . ?2) 
-                                ("/INBOX/NewMember" . ?3) 
-                                ("/INBOX/JIRA" . ?4) 
-                                ("/INBOX/Meeting" . ?m) 
-                                ("/INBOX/MeetingSummary" . ?M) 
-                                ("/INBOX/Wage" . ?w) 
-                                ("/Sent" . ?s) 
-                                ("/Trash" . ?t) 
+(setq mu4e-maildir-shortcuts '( ("/INBOX" . ?i)
+                                ("/INBOX/News" . ?1)
+                                ("/INBOX/Notification" . ?2)
+                                ("/INBOX/NewMember" . ?3)
+                                ("/INBOX/JIRA" . ?4)
+                                ("/INBOX/Meeting" . ?m)
+                                ("/INBOX/MeetingSummary" . ?M)
+                                ("/INBOX/Wage" . ?w)
+                                ("/Sent" . ?s)
+                                ("/Trash" . ?t)
                                 ("/Junk" . ?j)))
 
 (setq mu4e-index-cleanup nil   ;; don't do a full cleanup check
@@ -109,7 +107,7 @@
       user-full-name  "yourname"           ;
       mu4e-compose-signature "hello,world!")
 
-(defun load-email-signature (conf-dir) 
+(defun load-email-signature (conf-dir)
   (setq mu4e-compose-signature (s-trim (ome-load-file-to-string (concat conf-dir "/signature"))) ;
         user-full-name (s-trim (ome-load-file-to-string (concat conf-dir "/name"))) ;
         user-mail-address (s-trim (ome-load-file-to-string (concat conf-dir "/addr")))))
@@ -145,12 +143,12 @@
   '("compose" "heads-search" "" "" "" "" "" "" "" "mark-execute"))
 
 (defun automenu--mu4e-main-mode-func (index)
-  (cond ((= 0 index) 
+  (cond ((= 0 index)
          (mu4e-compose-new))
         ((= 1 index)
          (mu4e-headers-search))
-        ((= 9 index) 
-         (mu4e-mark-execute-all)) 
+        ((= 9 index)
+         (mu4e-mark-execute-all))
         (t (message  "mu4e-main-mode menu:%d" index))))
 
 ;; `automenu'
@@ -158,11 +156,11 @@
   '("compose" "delete" "" "" "" "" "" "" "" "mark-execute"))
 
 (defun automenu--mu4e-headers-mode-func (index)
-  (cond ((= 0 index) 
-         (mu4e-compose-new)) 
-        ((= 1 index) 
+  (cond ((= 0 index)
+         (mu4e-compose-new))
+        ((= 1 index)
          (mu4e-compose-delete))
-        ((= 9 index) 
+        ((= 9 index)
          (mu4e-mark-execute-all))
         (t (message  "mu4e-headers-mode menu:%d" index))))
 
@@ -171,9 +169,9 @@
   '("compose" "delete" "reply" "forward" "" "" "" "" "" "mark-execute"))
 
 (defun automenu--mu4e-view-mode-func (index)
-  (cond ((= 0 index) 
-         (mu4e-compose-new)) 
-        ((= 1 index) 
+  (cond ((= 0 index)
+         (mu4e-compose-new))
+        ((= 1 index)
          (mu4e-compose-delete))
         ((= 2 index)
          (mu4e-compose-reply))

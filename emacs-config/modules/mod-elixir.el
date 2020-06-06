@@ -1,10 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-elixir.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2016 Damon Kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
-;; Author: damon-kwok <damon-kwok@outlook.com>
-;; Date: 2016-01-11
+;; Author: damon <damon-kwok@outlook.com>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -17,7 +16,7 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
 ;;
@@ -33,7 +32,7 @@
           (lambda ()
             ;; Alchemist offers integration with the Mix tool.
             ;; (internal-require 'elixir-mode)
-            (internal-require 'alchemist) 
+            (internal-require 'alchemist)
             (alchemist-mode)
             ;;
             ;; A `Flycheck' checker that uses Mix, so it finds project deps.
@@ -43,10 +42,10 @@
               (flycheck-define-checker
                ;;
                elixir-mix
-               "An Elixir syntax checker using the Elixir interpreter.See URL `http://elixir-lang.org/'." 
-               :command ("mix" "compile" source) 
+               "An Elixir syntax checker using the Elixir interpreter.See URL `http://elixir-lang.org/'."
+               :command ("mix" "compile" source)
                :error-patterns ;;
-               ((error 
+               ((error
                  line-start
                  "** ("
                  (zero-or-more not-newline)
@@ -56,26 +55,26 @@
                  line
                  ": "
                  (message)
-                 line-end) 
+                 line-end)
                 (warning line-start (one-or-more (not (syntax whitespace))) ":" line ": " (message)
-                         line-end)) 
-               :modes elixir-mode) 
+                         line-end))
+               :modes elixir-mode)
               (add-to-list 'flycheck-checkers 'elixir-mix))
             ;;
             ;; Bind some Alchemist commands to more commonly used keys.
-            (define-key alchemist-mode-map (kbd "C-c C-l") 
-              (lambda () 
-                (interactive) 
-                (save-buffer) 
-                (alchemist-iex-compile-this-buffer) 
+            (define-key alchemist-mode-map (kbd "C-c C-l")
+              (lambda ()
+                (interactive)
+                (save-buffer)
+                (alchemist-iex-compile-this-buffer)
                 (show-elixir-mode-repl)))
             ;;
             (define-key alchemist-iex-mode-map (kbd "C-c C-z") 'show-elixir-mode-workbuffer)
             ;;
-            (define-key alchemist-mode-map (kbd "C-x C-e") 
-              (lambda () 
-                (interactive) 
-                (alchemist-iex-send-current-line-and-go) 
+            (define-key alchemist-mode-map (kbd "C-x C-e")
+              (lambda ()
+                (interactive)
+                (alchemist-iex-send-current-line-and-go)
                 (show-elixir-mode-workbuffer)))
             ;;
             (define-key elixir-mode-map (kbd "C-c C-c") 'alchemist-mix-compile)
@@ -85,19 +84,19 @@
             (define-key elixir-mode-map (kbd "C-c C-z") 'show-elixir-mode-repl)))
 
 
-(defun show-elixir-mode-repl() 
-  (interactive) 
-  (setq temp-elixir-buffer-name (buffer-name (current-buffer))) 
-  (ome-show-compilation "*Alchemist-IEx*") 
-  (alchemist-iex-run) 
-  (switch-to-buffer-other-window temp-elixir-buffer-name) 
+(defun show-elixir-mode-repl()
+  (interactive)
+  (setq temp-elixir-buffer-name (buffer-name (current-buffer)))
+  (ome-show-compilation "*Alchemist-IEx*")
+  (alchemist-iex-run)
+  (switch-to-buffer-other-window temp-elixir-buffer-name)
   (ome-show-compilation "*Alchemist-IEx*" t))
 
-(defun show-elixir-mode-workbuffer() 
-  (interactive) 
-  (switch-to-buffer-other-window temp-elixir-buffer-name) 
-  (delete-other-windows) 
-  (show-elixir-mode-repl) 
+(defun show-elixir-mode-workbuffer()
+  (interactive)
+  (switch-to-buffer-other-window temp-elixir-buffer-name)
+  (delete-other-windows)
+  (show-elixir-mode-repl)
   (switch-to-buffer-other-window temp-elixir-buffer-name))
 
 ;; (define-key elixir-mode-map (kbd "C-c C-c")  'compile-current-buffer)

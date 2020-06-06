@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-cquery.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2018 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2018-01-15
-;; Modify: 2018-01-15
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -39,8 +37,8 @@
 (setq cquery-executable "~/.local/stow/cquery/bin/cquery")
 (setq cquery-resource-dir (expand-file-name
 			   "~/.local/stow/cquery/lib/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-14.04"))
-(setq cquery-extra-init-params 
-      '(:enableComments 2 
+(setq cquery-extra-init-params
+      '(:enableComments 2
 			:cacheFormat "msgpack"))
 
 (with-eval-after-load 'projectile
@@ -51,18 +49,18 @@
 
 
 
-(defun cquery-setup () 
-  (interactive) 
-  (lsp-cquery-enable) 
-  (cquery-xref-find-custom "$cquery/base") 
-  (cquery-xref-find-custom "$cquery/callers") 
-  (cquery-xref-find-custom "$cquery/derived") 
+(defun cquery-setup ()
+  (interactive)
+  (lsp-cquery-enable)
+  (cquery-xref-find-custom "$cquery/base")
+  (cquery-xref-find-custom "$cquery/callers")
+  (cquery-xref-find-custom "$cquery/derived")
   (cquery-xref-find-custom "$cquery/vars")
 
   ;; Alternatively, use lsp-ui-peek interface
-  (lsp-ui-peek-find-custom 'base "$cquery/base") 
-  (lsp-ui-peek-find-custom 'callers "$cquery/callers") 
-  (lsp-ui-peek-find-custom "$cquery/derived") 
+  (lsp-ui-peek-find-custom 'base "$cquery/base")
+  (lsp-ui-peek-find-custom 'callers "$cquery/callers")
+  (lsp-ui-peek-find-custom "$cquery/derived")
   (lsp-ui-peek-find-custom "$cquery/vars")
   ;; ......
   ;; don't include type signature in the child frame
@@ -84,91 +82,91 @@
 (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
 
 ;; `create-or-open-cmake-file'
-(defun m-search-file (filename &optional path) 
-  (let ((from (if path path (ome-buf-dirpath)))) 
-    (message (concat "check:" from)) 
-    (if (file-exists-p (concat from filename)) 
-	(progn (message from) from) 
-      (progn 
-	(setq parent (ome-parent-dirpath from)) 
-	(if (or (eq parent nil) 
+(defun m-search-file (filename &optional path)
+  (let ((from (if path path (ome-buf-dirpath))))
+    (message (concat "check:" from))
+    (if (file-exists-p (concat from filename))
+	(progn (message from) from)
+      (progn
+	(setq parent (ome-parent-dirpath from))
+	(if (or (eq parent nil)
 		(string= parent "/")) nil (ome-search-file filename parent))))))
 
-(defun m-smart-find-file (filename &optional create) 
-  " create cmake file with current directory!" 
-  (interactive) 
-  (setq dir (ome-buf-dirpath)) 
-  (setq cmake-dir (ome-search-file filename dir)) 
-  (if (eq cmake-dir nil) 
-      (if create (find-file filename)) 
+(defun m-smart-find-file (filename &optional create)
+  " create cmake file with current directory!"
+  (interactive)
+  (setq dir (ome-buf-dirpath))
+  (setq cmake-dir (ome-search-file filename dir))
+  (if (eq cmake-dir nil)
+      (if create (find-file filename))
     (find-file (concat cmake-dir filename))))
 
 ;; switch 'cmake buffer' and 'code buffer'
-(defun m-open-or-close-cmakefile () 
-  (interactive) 
-  (if (or (eq major-mode 'c-mode) 
-	  (eq major-mode 'c++-mode)) 
-      (ome-smart-find-file "CMakeLists.txt" t) 
+(defun m-open-or-close-cmakefile ()
+  (interactive)
+  (if (or (eq major-mode 'c-mode)
+	  (eq major-mode 'c++-mode))
+      (ome-smart-find-file "CMakeLists.txt" t)
     (if (eq major-mode 'cmake-mode) ;;(if (equal buffer-name "CMakeLists.txt")
 	(kill-this-buffer))))
 
 ;; switch 'package-xml buffer' and 'code buffer'
-(defun m-open-or-close-packagexml () 
-  (interactive) 
-  (if (or (eq major-mode 'c-mode) 
-	  (eq major-mode 'c++-mode)) 
-      (ome-smart-find-file "package.xml") 
-    (if (eq major-mode 'nxml-mode) 
+(defun m-open-or-close-packagexml ()
+  (interactive)
+  (if (or (eq major-mode 'c-mode)
+	  (eq major-mode 'c++-mode))
+      (ome-smart-find-file "package.xml")
+    (if (eq major-mode 'nxml-mode)
 	(kill-this-buffer))))
 
-(defun find-cc-file (dir basename ext) 
-  (let ((filename (concat dir "/" basename "." ext))) 
-    (if (file-exists-p filename) 
+(defun find-cc-file (dir basename ext)
+  (let ((filename (concat dir "/" basename "." ext)))
+    (if (file-exists-p filename)
 	(find-file filename)
       ;; (progn (message "not found:%s" filename) nil)
       nil				;
       )))
 
-(defun check-header (dir basename) 
-  (cond ((find-cc-file dir basename "h") t) 
-	((find-cc-file dir basename "H") t) 
-	((find-cc-file dir basename "hh") t) 
-	((find-cc-file dir basename "hpp") t) 
-	((find-cc-file dir basename "h++") t) 
+(defun check-header (dir basename)
+  (cond ((find-cc-file dir basename "h") t)
+	((find-cc-file dir basename "H") t)
+	((find-cc-file dir basename "hh") t)
+	((find-cc-file dir basename "hpp") t)
+	((find-cc-file dir basename "h++") t)
 	((find-cc-file dir basename "hxx") t)))
 
-(defun check-source (dir basename) 
-  (cond ((find-cc-file dir basename "c") t) 
-	((find-cc-file dir basename "C") t) 
-	((find-cc-file dir basename "cc") t) 
-	((find-cc-file dir basename "cpp") t) 
-	((find-cc-file dir basename "c++") t) 
+(defun check-source (dir basename)
+  (cond ((find-cc-file dir basename "c") t)
+	((find-cc-file dir basename "C") t)
+	((find-cc-file dir basename "cc") t)
+	((find-cc-file dir basename "cpp") t)
+	((find-cc-file dir basename "c++") t)
 	((find-cc-file dir basename "cxx") t)))
 
-(defun m-switch-cc-source-and-header () 
-  (interactive) 
-  (setq basename (ome-bufname-no-ext)) 
-  (setq dir0 (ome-buf-dirpath)) 
-  (setq dir0-name (ome-buf-dirname)) 
-  (setq extname (ome-buf-ext)) 
+(defun m-switch-cc-source-and-header ()
+  (interactive)
+  (setq basename (ome-bufname-no-ext))
+  (setq dir0 (ome-buf-dirpath))
+  (setq dir0-name (ome-buf-dirname))
+  (setq extname (ome-buf-ext))
   (concat (ome-parent-dirpath dir0) dir0-name)
   ;; (setq postfixes '(".." "include" "src" "Classes" "Public" "Private" "../include" "../src" "../Classes" "../Public" "../Private"))
-  (setq postfixes '("include" "src" "Classes" "Public" "Private")) 
-  (setq dirs ()) 
-  (add-to-list 'dirs dir0) 
-  (dolist (postfix postfixes) 
-    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) postfix)) 
-    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) dir0-name)) 
-    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) postfix "/" dir0-name)) 
-    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../" postfix)) 
-    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../" dir0-name)) 
+  (setq postfixes '("include" "src" "Classes" "Public" "Private"))
+  (setq dirs ())
+  (add-to-list 'dirs dir0)
+  (dolist (postfix postfixes)
+    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) postfix))
+    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) dir0-name))
+    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) postfix "/" dir0-name))
+    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../" postfix))
+    (add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../" dir0-name))
     (add-to-list 'dirs (concat (ome-parent-dirpath dir0) "../" postfix "/" dir0-name))
     ;;
-    ) 
-  (if (s-contains? "h" extname) 
-      (dolist (dir dirs) 
-	(check-source dir basename)) 
-    (dolist (dir dirs) 
+    )
+  (if (s-contains? "h" extname)
+      (dolist (dir dirs)
+	(check-source dir basename))
+    (dolist (dir dirs)
       (check-header dir basename))))
 
 (require 'cmake-mode)
@@ -182,9 +180,9 @@
 (define-key c-mode-map [f12] 'ome-switch-cc-source-and-header)
 (define-key c++-mode-map [f12] 'ome-switch-cc-source-and-header)
 
-(define-key c++-mode-map [f5] 
-  '(lambda () 
-     (interactive) 
+(define-key c++-mode-map [f5]
+  '(lambda ()
+     (interactive)
      (ome-run-command "/home/damon/catkin_ws/bin/build_adsim")))
 
 (require 'nxml-mode)

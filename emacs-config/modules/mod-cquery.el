@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-cquery.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2018 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2018-01-15
-;; Modify: 2018-01-15
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -31,27 +29,27 @@
 (package-require 'cquery)
 ;; (setq cquery-executable "/home/damon/.cquery/bin/cquery")
 
-(setq cquery-extra-init-params 
-      '(:index (:comments 2) 
-               :cacheFormat "msgpack" 
+(setq cquery-extra-init-params
+      '(:index (:comments 2)
+               :cacheFormat "msgpack"
                :completion (:detailedLabel t)))
 
-(with-eval-after-load 'projectile 
+(with-eval-after-load 'projectile
   (setq projectile-project-root-files-top-down-recurring ;;
         (append '("compile_commands.json" ".cquery")
                 projectile-project-root-files-top-down-recurring)))
 
-(defun cquery//enable () 
+(defun cquery//enable ()
   (condition-case nil ;;
-      (lsp-cquery-enable) 
-    (user-error 
+      (lsp-cquery-enable)
+    (user-error
      nil)))
 
 ;; Also see lsp-project-whitelist lsp-project-blacklist cquery-root-matchers
 
-(defun cquery-setup () 
-  (interactive) 
-  (ome-gen-cmake-file) 
+(defun cquery-setup ()
+  (interactive)
+  (ome-gen-cmake-file)
   (cquery//enable)
   ;; (push 'company-lsp company-backends)
   ;; (cquery-xref-find-custom "$cquery/base")
