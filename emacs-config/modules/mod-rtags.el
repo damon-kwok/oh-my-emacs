@@ -1,10 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-cc.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2016 Damon Kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
-;; Author: damon-kwok <damon-kwok@outlook.com>
-;; Date: 2016-01-07
+;; Author: damon <damon-kwok@outlook.com>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -17,7 +16,7 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
 (require 'mod-cc)
@@ -27,13 +26,13 @@
 ;; `rtags'
 (package-require 'rtags)
 
-;; (if (or (eq system-type 'windows-nt) 
-        ;; (eq system-type 'ms-dos) 
-        ;; (eq system-type 'cygwin)) 
-    ;; (setq rtags-rc "rc.exe") 
+;; (if (or (eq system-type 'windows-nt)
+        ;; (eq system-type 'ms-dos)
+        ;; (eq system-type 'cygwin))
+    ;; (setq rtags-rc "rc.exe")
   ;; (setq rtags-rc "rc"))
 
-;;(unless (rtags-executable-find rtags-rc) 
+;;(unless (rtags-executable-find rtags-rc)
 ;;  (rtags-install))
 
 (unless (rtags-executable-find "rc")
@@ -68,9 +67,9 @@
 ;; (define-key c-mode-base-map (kbd "M-?") 'rtags-find-file)
 (define-key c-mode-base-map (kbd "M-i") 'rtags-imenu)
 
-(defun rtags-open-file () 
-  (interactive) 
-  (rtags-select-other-window) 
+(defun rtags-open-file ()
+  (interactive)
+  (rtags-select-other-window)
   (delete-other-windows))
 
 (define-key rtags-mode-map (kbd "RET") 'rtags-open-file)
@@ -84,71 +83,71 @@
 ;; '(lambda ()
 ;; (shell-command (concat (getenv "HOME") "/.oh-my-emacs/bin/gen-rtags"))) t))
 
-(defun gen-rtags-indexes () 
+(defun gen-rtags-indexes ()
   (interactive)
   ;; (message (concat "you opened cc file:" (buffer-name)))
   ;; find CmakeLists.txt & gen rtags indexes
   (shell-command (concat "gen_rtags " (ome-project-root))))
 
-(defun gen-rtags-indexes-with-elisp () 
-  (interactive) 
-  (setq dir (ome-buf-dirpath)) 
-  (setq cmake-dir (ome-search-file "CMakeLists.txt" dir)) 
-  (setq index-dir (concat cmake-dir "rtags_indexes")) 
-  (if (eq cmake-dir nil) 
-      (message "not found 'CMakeLists.txt' file!") 
-    (if (file-exists-p index-dir) 
-        (message "rtags_indexes is exists.") 
-      (progn 
-        (setq old-default-directory default-directory) 
-        (make-directory index-dir) 
-        (setq default-directory  index-dir) 
+(defun gen-rtags-indexes-with-elisp ()
+  (interactive)
+  (setq dir (ome-buf-dirpath))
+  (setq cmake-dir (ome-search-file "CMakeLists.txt" dir))
+  (setq index-dir (concat cmake-dir "rtags_indexes"))
+  (if (eq cmake-dir nil)
+      (message "not found 'CMakeLists.txt' file!")
+    (if (file-exists-p index-dir)
+        (message "rtags_indexes is exists.")
+      (progn
+        (setq old-default-directory default-directory)
+        (make-directory index-dir)
+        (setq default-directory  index-dir)
         (shell-command
-         "bash -c \"source /opt/ros/kinetic/setup.bash && cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 && rc -J .\"") 
+         "bash -c \"source /opt/ros/kinetic/setup.bash && cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 && rc -J .\"")
         (setq default-directory old-default-directory)))))
 
-(defun gen-rtags-indexes-with-elisp () 
-  (interactive) 
-  (setq dir (ome-buf-dirpath)) 
-  (setq cmake-dir (ome-search-file "CMakeLists.txt" dir)) 
-  (setq index-dir (concat cmake-dir "rtags_indexes")) 
-  (if (eq cmake-dir nil) 
-      (message "not found 'CMakeLists.txt' file!") 
-    (if (file-exists-p index-dir) 
-        (message "rtags_indexes is exists.") 
-      (make-directory index-dir)) 
-    (progn 
-      (setq old-default-directory default-directory) 
-      (setq default-directory  index-dir) 
-      (message "indexdir:%s" index-dir) 
+(defun gen-rtags-indexes-with-elisp ()
+  (interactive)
+  (setq dir (ome-buf-dirpath))
+  (setq cmake-dir (ome-search-file "CMakeLists.txt" dir))
+  (setq index-dir (concat cmake-dir "rtags_indexes"))
+  (if (eq cmake-dir nil)
+      (message "not found 'CMakeLists.txt' file!")
+    (if (file-exists-p index-dir)
+        (message "rtags_indexes is exists.")
+      (make-directory index-dir))
+    (progn
+      (setq old-default-directory default-directory)
+      (setq default-directory  index-dir)
+      (message "indexdir:%s" index-dir)
       (shell-command (concat "bash -c \"source /opt/ros/kinetic/setup.bash && "
                              "cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 && " "rc -J " index-dir
-                             "\"")) 
+                             "\""))
       (setq default-directory old-default-directory))))
 
 
-(defun rtags-setup () 
-  (interactive) 
-  (rtags-start-process-unless-running) 
+(defun rtags-setup ()
+  (interactive)
+  (rtags-start-process-unless-running)
   (gen-rtags-indexes))
 
 (add-hook 'c-mode-hook 'rtags-setup)
 (add-hook 'c++-mode-hook 'rtags-setup)
 (add-hook 'objc-mode-hook 'rtags-setup)
 
-(defun show-rtags-buffer() 
-  (interactive) 
-  (setq temp-cc-buffer-name (buffer-name (current-buffer))) 
+(defun show-rtags-buffer()
+  (interactive)
+  (setq temp-cc-buffer-name (buffer-name (current-buffer)))
   (ome-show-compilation "*Shell Command Output*") ;;*RTags*
-  (shell) 
-  (switch-to-buffer-other-window temp-cc-buffer-name) 
+  (shell)
+  (switch-to-buffer-other-window temp-cc-buffer-name)
   (ome-show-compilation "*Shell Command Output*" t))
 
-(defun show-cc-buffer() 
-  (interactive) 
-  (switch-to-buffer-other-window temp-cc-buffer-name) 
-  (delete-other-windows) 
-  (show-rtags-buffer) 
+(defun show-cc-buffer()
+  (interactive)
+  (switch-to-buffer-other-window temp-cc-buffer-name)
+  (delete-other-windows)
+  (show-rtags-buffer)
   (switch-to-buffer-other-window temp-cc-buffer-name))
 
 (define-key rtags-mode-map (kbd "C-c C-z") 'show-cc-buffer)
@@ -163,8 +162,8 @@
 
 ;; `flycheck-rtags'
 (package-require 'flycheck-rtags)
-(defun my-flycheck-rtags-setup () 
-  (flycheck-select-checker 'rtags) 
+(defun my-flycheck-rtags-setup ()
+  (flycheck-select-checker 'rtags)
   (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
   (setq-local flycheck-check-syntax-automatically nil))
 ;; c-mode-common-hook is also called by c++-mode

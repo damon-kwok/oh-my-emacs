@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-carp.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2018 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2018-10-25
-;; Modify: 2018-10-25
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -40,19 +38,19 @@
 
 
 
-(defun show-carp-repl() 
-  (interactive) 
-  (setq temp-carp-buffer-name (buffer-name (current-buffer))) 
-  (ome-show-compilation "*ielm*") 
-  (run-carp) 
-  (switch-to-buffer-other-window temp-carp-buffer-name) 
+(defun show-carp-repl()
+  (interactive)
+  (setq temp-carp-buffer-name (buffer-name (current-buffer)))
+  (ome-show-compilation "*ielm*")
+  (run-carp)
+  (switch-to-buffer-other-window temp-carp-buffer-name)
   (ome-show-compilation "*ielm*" t))
 
-(defun show-carp-workbuffer() 
-  (interactive) 
-  (switch-to-buffer-other-window temp-carp-buffer-name) 
-  (delete-other-windows) 
-  (show-carp-repl) 
+(defun show-carp-workbuffer()
+  (interactive)
+  (switch-to-buffer-other-window temp-carp-buffer-name)
+  (delete-other-windows)
+  (show-carp-repl)
   (switch-to-buffer-other-window temp-carp-buffer-name))
 
 (define-key carp-mode-map (kbd "C-c C-z")  'show-carp-repl)

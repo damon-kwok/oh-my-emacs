@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-haskell.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2017 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2017-11-15
-;; Modify: 2017-11-15
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,20 +22,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-;; (package-download 'intero) 
+;; (package-download 'intero)
 ;; (package-download 'dante)
 (package-download 'flycheck-haskell)
 (package-download 'lsp-haskell)
 ;;
 (add-hook 'haskell-mode-hook;;
-          (lambda () 
-            ;; (internal-require 'intero) 
+          (lambda ()
+            ;; (internal-require 'intero)
             (internal-require 'dante)
             (internal-require 'mod-lsp)
             (internal-require 'flycheck-haskell)
             (internal-require 'lsp-haskell)
             ;;
-            ;; (intero-mode) 
+            ;; (intero-mode)
             (flycheck-mode)
             ;;
             (setq lsp-haskell-process-path-hie "ghcide")
@@ -48,7 +46,7 @@
             ;; dante
             ;; (dante-mode)
             ;; (add-hook 'dante-mode-hook;;
-            ;;           '(lambda () 
+            ;;           '(lambda ()
             ;;              (flycheck-add-next-checker ; 'haskell-dante
             ;;               '(warning . haskell-hlint))))
             ))

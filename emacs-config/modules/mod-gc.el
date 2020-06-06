@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-gc.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2018 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2018-08-10
-;; Modify: 2018-08-10
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -33,7 +31,7 @@
 ;; (add-hook 'after-init-hook (lambda ()
 ;; 			     (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
 
-(defun my-optimize-gc (NUM PER) 
+(defun my-optimize-gc (NUM PER)
   "By default Emacs will initiate GC every 0.76 MB allocated (gc-cons-threshold == 800000).
 @see http://www.gnu.org/software/emacs/manual/html_node/elisp/Garbage-Collection.html
 We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
@@ -46,15 +44,15 @@ We increase this to 16MB by `(my-optimize-gc 16 0.5)` "
 (setq garbage-collection-messages nil)
 
 (if (or (string= system-type 'windows-nt) ;
-        (string= system-type 'ms-dos) 
-        (string= system-type 'cygwin)) 
-    (progn 
-      (setq gc-cons-threshold (* 256 1024 1024)) 
-      (setq gc-cons-percentage 0.5) 
-      (add-hook 'after-init-hook (lambda () 
-                                   (run-with-idle-timer 3 t #'garbage-collect)))) 
-  (progn (my-optimize-gc 256 0.2) 
-         (add-hook 'after-init-hook (lambda () 
+        (string= system-type 'ms-dos)
+        (string= system-type 'cygwin))
+    (progn
+      (setq gc-cons-threshold (* 256 1024 1024))
+      (setq gc-cons-percentage 0.5)
+      (add-hook 'after-init-hook (lambda ()
+                                   (run-with-idle-timer 3 t #'garbage-collect))))
+  (progn (my-optimize-gc 256 0.2)
+         (add-hook 'after-init-hook (lambda ()
                                       (my-optimize-gc 16 0.2)))))
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

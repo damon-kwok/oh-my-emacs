@@ -1,6 +1,7 @@
 ;;; ome-material-theme.el --- A Theme based on the colors of the Google Material Design
 
 ;; Copyright (C) 2014 Paulik Christoph
+;; Copyright (C) 2020 Damon Kwok <damon-kwok@outlook.com>
 
 ;; Author: Christoph Paulik <cpaulik@gmail.com>
 ;; Keywords: themes

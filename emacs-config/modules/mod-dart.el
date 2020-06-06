@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-dart.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2018 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2018-12-21
-;; Modify: 2018-12-21
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

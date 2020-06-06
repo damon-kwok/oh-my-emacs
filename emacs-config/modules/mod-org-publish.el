@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-org-publish.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2018 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2018-08-24
-;; Modify: 2018-08-24
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -29,38 +27,39 @@
 (internal-require 'ox-html)
 (internal-require 'ox-publish)
 
-(setq org-publish-project-alist '(;;
-                                  ("blog" :components ("blog-notes" "blog-static"))
-                                  ;;
-                                  ("blog-notes" :base-directory "~/workspace/blog/src/" 
-                                   :base-extension "org" 
-                                   :publishing-directory "~/projects/me/blog/" 
-                                   :recursive t 
-                                   :publishing-function org-html-publish-to-html 
-                                   :headline-levels 4 ; Just the default for this project.
-                                   :auto-preamble t 
-                                   :section-numbers nil 
-                                   :author "damon-kwok" 
-                                   :email "damon-kwok@outlook.com" 
-                                   :auto-sitemap t ; Generate sitemap.org automagically...
-                                   :sitemap-filename "sitemap.org" ; call it sitemap.org (it's the default)...
-                                   :sitemap-title "Sitemap" ; with title 'Sitemap'.
-                                   :sitemap-sort-files anti-chronologically 
-                                   :sitemap-file-entry-format "%d %t")
-                                  ;;
-                                  ("blog-static" :base-directory "~/workspace/blog/src/" 
-                                   :base-extension
-                                   "css\\|js\\|png\\|jpg\\|bmp\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|ico" 
-                                   :publishing-directory "~/projects/me/blog/" 
-                                   :recursive t 
-                                   :publishing-function org-publish-attachment)
-                                  ;;
-                                  ))
+(setq org-publish-project-alist ;;
+  '(;;
+     ("blog" :components ("blog-notes" "blog-static"))
+     ;;
+     ("blog-notes" :base-directory "~/workspace/blog/src/"
+       :base-extension "org"
+       :publishing-directory "~/projects/me/blog/"
+       :recursive t
+       :publishing-function org-html-publish-to-html
+       :headline-levels 4               ; Just the default for this project.
+       :auto-preamble t
+       :section-numbers nil
+       :author "damon-kwok"
+       :email "damon-kwok@outlook.com"
+       :auto-sitemap t                  ; Generate sitemap.org automagically...
+       :sitemap-filename "sitemap.org" ; call it sitemap.org (it's the default)...
+       :sitemap-title "Sitemap"        ; with title 'Sitemap'.
+       :sitemap-sort-files anti-chronologically
+       :sitemap-file-entry-format "%d %t")
+     ;;
+     ("blog-static" :base-directory "~/workspace/blog/src/"
+       :base-extension
+       "css\\|js\\|png\\|jpg\\|bmp\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|ico"
+       :publishing-directory "~/projects/me/blog/"
+       :recursive t
+       :publishing-function org-publish-attachment)
+     ;;
+     ))
 (setq org-html-validation-link nil)
 
 (setq *site-template-directory* "~/workspace/blog/src/templates")
-(defun read-html-template (template-file) 
-  (with-temp-buffer (insert-file-contents (concat *site-template-directory* "/" template-file)) 
+(defun read-html-template (template-file)
+  (with-temp-buffer (insert-file-contents (concat *site-template-directory* "/" template-file))
                     (buffer-string)))
 
 ;; set `CSS' style

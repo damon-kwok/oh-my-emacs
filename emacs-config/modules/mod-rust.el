@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-rust.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2017 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
-;; Author: qq563 <damon-kwok@outlook.com>
-;; Create: 2017-06-23
-;; Modify: 2017-06-23
+;; Author: damon <damon-kwok@outlook.com>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -18,7 +16,7 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -29,36 +27,37 @@
 (package-download 'rust-mode)
 (add-to-list 'auto-mode-alist '("\\.rs$" . rust-mode))
 ;;
-(add-hook 'rust-mode-hook (lambda ()
-                            ;; Configure Emacs to activate racer when rust-mode starts:
-                            ;; (racer-mode)
-                            ;; (add-hook 'racer-mode-hook #'eldoc-mode)
-                            ;; (add-hook 'racer-mode-hook #'company-mode)
-                            ;;
-                            (internal-require 'cargo)
-                            (cargo-minor-mode)
-                            ;;
-                            (setq company-tooltip-align-annotations t)
-                            ;; `keybinding'
-                            (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
-                            (define-key rust-mode-map [f5]
-                              '(lambda ()
-                                 (interactive)
-                                 (ome-run-command "cargo build")))
-                            (define-key rust-mode-map [f6] 'ome-open-or-close-cargofile)
-                            (internal-require 'mod-toml)
-                            (add-hook 'toml-mode-hook ;;
-                              (lambda ()
-                                (interactive)
-                                (define-key toml-mode-map [f6] 'ome-open-or-close-cargofile)))
-                            (add-hook 'conf-toml-mode-hook ;;
-                              (lambda ()
-                                (interactive)
-                                (define-key conf-toml-mode-map [f6] 'ome-open-or-close-cargofile)))
-                            ;;
-                            (require 'mod-lsp)
-                            (lsp)
-                            (lsp-ui-mode)))
+(add-hook 'rust-mode-hook ;;
+  (lambda ()
+    ;; Configure Emacs to activate racer when rust-mode starts:
+    ;; (racer-mode)
+    ;; (add-hook 'racer-mode-hook #'eldoc-mode)
+    ;; (add-hook 'racer-mode-hook #'company-mode)
+    ;;
+    (internal-require 'cargo)
+    (cargo-minor-mode)
+    ;;
+    (setq company-tooltip-align-annotations t)
+    ;; `keybinding'
+    (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+    (define-key rust-mode-map [f5]
+      '(lambda ()
+         (interactive)
+         (ome-run-command "cargo build")))
+    (define-key rust-mode-map [f6] 'ome-open-or-close-cargofile)
+    (internal-require 'mod-toml)
+    (add-hook 'toml-mode-hook ;;
+      (lambda ()
+        (interactive)
+        (define-key toml-mode-map [f6] 'ome-open-or-close-cargofile)))
+    (add-hook 'conf-toml-mode-hook ;;
+      (lambda ()
+        (interactive)
+        (define-key conf-toml-mode-map [f6] 'ome-open-or-close-cargofile)))
+    ;;
+    (require 'mod-lsp)
+    (lsp)
+    (lsp-ui-mode)))
 
 (defun ome-open-or-close-cargofile ()
   (interactive)

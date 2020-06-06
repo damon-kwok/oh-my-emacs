@@ -1,28 +1,23 @@
 ;;; mod-erlang.el --- gww
 
-;; Copyright (C) 2013  gww
-
-;; Author: gww <gww@192.168.0.171>
-;; Keywords: lisp
-
+;; Copyright (C) 2009-2020 Damon Kwok
+;;
+;; Author: damon <damon-kwok@outlook.com>
+;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
 ;; (at your option) any later version.
-
+;;
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
-
+;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-;;; Commentary:
-
-;; 
-
-;;; Code:
+;;
+;; Code:
 (require 'mod-package)
 
 ;; This is needed for Erlang mode setup
@@ -69,10 +64,10 @@
 ;; A number of the erlang-extended-mode key bindings are useful in the shell too
 (defconst distel-shell-keys
   '(("\C-\M-i"   erl-complete)
-    ("\M-?"      erl-complete)	
+    ("\M-?"      erl-complete)
     ("\M-."      erl-find-source-under-point)
-    ("\M-,"      erl-find-source-unwind) 
-    ("\M-*"      erl-find-source-unwind) 
+    ("\M-,"      erl-find-source-unwind)
+    ("\M-*"      erl-find-source-unwind)
     )
   "Additional keys to bind when in Erlang shell.")
 
@@ -84,4 +79,3 @@
 
 (provide 'mod-erlang)
 ;;; mod-erlang.el ends here
-

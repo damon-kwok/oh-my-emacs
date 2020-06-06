@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-ocaml.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2017 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
-;; Author: qq563 <damon-kwok@outlook.com>
-;; Create: 2017-06-26
-;; Modify: 2017-06-26
+;; Author: damon <damon-kwok@outlook.com>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -18,7 +16,7 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -26,9 +24,9 @@
 ;;;
 (package-download 'tuareg)
 (add-to-list 'auto-mode-alist '("\\.ml$" . tuareg-mode))
-(add-hook 'tuareg-mode-hook (lambda() 
-                              (when (functionp 'prettify-symbols-mode) 
-                                (prettify-symbols-mode)) 
+(add-hook 'tuareg-mode-hook (lambda()
+                              (when (functionp 'prettify-symbols-mode)
+                                (prettify-symbols-mode))
                               (package-require 'merlin)
 
                               ;; directory containing merlin.el
@@ -36,12 +34,12 @@
 
                               ;; needed only if ocamlmerlin not already in your PATH
                               (setq merlin-command "<BIN_DIR>/ocamlmerlin")
-                              (autoload 'merlin-mode "merlin" "Merlin mode" t) 
-                              (add-hook 'tuareg-mode-hook 'merlin-mode) 
+                              (autoload 'merlin-mode "merlin" "Merlin mode" t)
+                              (add-hook 'tuareg-mode-hook 'merlin-mode)
                               (add-hook 'caml-mode-hook 'merlin-mode)
 
                               ;; `flycheck'
-                              (package-require 'flycheck-ocaml) 
+                              (package-require 'flycheck-ocaml)
                               (with-eval-after-load 'merlin
                                 ;; Disable Merlin's own error checking
                                 (setq merlin-error-after-save nil)

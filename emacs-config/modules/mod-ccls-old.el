@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-ccls-old.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2018 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2018-08-03
-;; Modify: 2018-08-03
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -28,28 +26,28 @@
 
 (package-require 'ccls)
 ;;(setq ccls-executable "/home/damon/.ccls/bin/ccls")
-(setq ccls-initialization-options 
-      '(:index (:comments 2) 
+(setq ccls-initialization-options
+      '(:index (:comments 2)
                :completion (:detailedLabel t)))
 
 
 
-;; (setq ccls-extra-init-params 
-      ;; '(:index (:comments 2) 
+;; (setq ccls-extra-init-params
+      ;; '(:index (:comments 2)
                ;; :completion (:detailedLabel t)))
 
-;; (with-eval-after-load 'projectile 
+;; (with-eval-after-load 'projectile
   ;; (setq projectile-project-root-files-top-down-recurring ;;
         ;; (append '("compile_commands.json" ".ccls")
                 ;; projectile-project-root-files-top-down-recurring)))
 
-(defun ccls//enable () 
+(defun ccls//enable ()
   (condition-case nil ;;
-      (lsp) 
-    (user-error 
+      (lsp)
+    (user-error
      nil)))
 
-(defun ccls-setup () 
+(defun ccls-setup ()
   (interactive)
   (ome-gen-cmake-file)
   (ccls//enable)

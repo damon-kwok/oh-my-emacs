@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-racket.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2020 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2020-04-07
-;; Modify: 2020-04-07
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

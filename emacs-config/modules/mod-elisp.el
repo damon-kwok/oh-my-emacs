@@ -1,9 +1,9 @@
-;;; emacs-settings.el --- damon-kwok
+;; -*- lexical-binding: t -*-
+;; mod-elisp.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2013  damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
-;; Author: damon-kwok <damon-kwok@outlook.com>
-;; Keywords: lisp
+;; Author: damon <damon-kwok@outlook.com>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -17,8 +17,6 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-;;
-;; Commentary:
 ;;
 ;; Code:
 (require 'mod-package)

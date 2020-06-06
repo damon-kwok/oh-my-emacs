@@ -1,19 +1,9 @@
 ;; -*- lexical-binding: t -*-
-;; mod-slime.el --- This is where you apply your OCD.
+;; mod-lisp.el --- This is where you apply your OCD.
 ;;
-;; Author     : Dylan R. E. Moonfire (original)
-;; Maintainer : Jostein Kjønigsen <jostein@gmail.com>
-;; Created    : Feburary 2005
-;; Modified   : November 2015
-;; Version    : 0.8.12
-;; Keywords   : emacs elisp
-;; Package-Version: 20160117.1321
-;; X-URL      : https://github.com/josteink/csharp-mode
-;; Last-saved : 2016-Jan-06
-;; Copyright (C) 2015-2016 Damon Kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
-;; Author: damon-kwok <damon-kwok@outlook.com>
-;; Date: 2016-01-21
+;; Author: damon <damon-kwok@outlook.com>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -26,10 +16,9 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
-;;
 (require 'mod-package)
 
 (add-to-list 'auto-mode-alist '("\\.cl\\.lisp\\.ros\\'" . lisp-mode))

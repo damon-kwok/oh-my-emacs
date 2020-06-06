@@ -1,19 +1,9 @@
 ;;; -*- lexical-binding: t -*-
 ;; mod-slime.el --- This is where you apply your OCD.
 ;;
-;; Author     : Dylan R. E. Moonfire (original)
-;; Maintainer : Jostein Kjønigsen <jostein@gmail.com>
-;; Created    : Feburary 2005
-;; Modified   : November 2015
-;; Version    : 0.8.12
-;; Keywords   : emacs elisp
-;; Package-Version: 20160117.1321
-;; X-URL      : https://github.com/josteink/csharp-mode
-;; Last-saved : 2016-Jan-06
-;; Copyright (C) 2015-2016 Damon Kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
-;; Author: gww <DamonKwok@msn.com>
-;; Date: 2016-01-21
+;; Author: damon <damon-kwok@outlook.com>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -26,27 +16,27 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
-;;						 
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;;
 ;; Code:
 ;;
-(require 'mod-package)   
+(require 'mod-package)
 (package-require 'slime)
 
 (require 'slime)
 (slime-setup)
 ;;(package-require "slime/contrib")
 
-(defun slime-fuzzy-init () 
+(defun slime-fuzzy-init ()
   (message "-------------------slime-fuzzy-init-------------------"))
 
-;;slime-asdf slime-autodoc slime-banner slime-c-p-c slime-cl-indent slime-clipboard 
-;;slime-compiler-notes-tree slime-editing-commands slime-enclosing-context 
-;;slime-fancy-inspector slime-fancy slime-fontifying-fu slime-fuzzy slime-highlight-edits 
-;;slime-hyperdoc slime-indentation slime-mdot-fu slime-media slime-motd slime-mrepl 
-;;slime-package-fu slime-parse slime-presentation-streams slime-presentations 
-;;slime-references slime-repl slime-sbcl-exts slime-scheme slime-scratch slime-snapshot 
-;;slime-sprof slime-tramp slime-typeout-frame slime-xref-browser 
+;;slime-asdf slime-autodoc slime-banner slime-c-p-c slime-cl-indent slime-clipboard
+;;slime-compiler-notes-tree slime-editing-commands slime-enclosing-context
+;;slime-fancy-inspector slime-fancy slime-fontifying-fu slime-fuzzy slime-highlight-edits
+;;slime-hyperdoc slime-indentation slime-mdot-fu slime-media slime-motd slime-mrepl
+;;slime-package-fu slime-parse slime-presentation-streams slime-presentations
+;;slime-references slime-repl slime-sbcl-exts slime-scheme slime-scratch slime-snapshot
+;;slime-sprof slime-tramp slime-typeout-frame slime-xref-browser
 
 ;;slime????,??IO???(???IO??????SLIME repl)???????????:
 ;;??????????????slime-fuzzy-complete???,???????????????
@@ -54,15 +44,15 @@
 (eval-after-load "slime"
   '(progn
      ;;(slime-setup '(slime-repl slime-fuzzy))	;;elpa?slime
-     (slime-setup '(slime-asdf slime-autodoc slime-banner slime-c-p-c ;;slime-cl-indent slime-clipboard 
-			       slime-compiler-notes-tree slime-editing-commands ;;slime-enclosing-context 
-			       slime-fancy-inspector slime-fancy slime-fontifying-fu slime-fuzzy slime-highlight-edits 
-			       slime-hyperdoc slime-indentation slime-mdot-fu slime-media ;;slime-motd 
-			       slime-mrepl 
-			       slime-package-fu slime-parse ;;slime-presentation-streams 
-			       slime-presentations 
-			       slime-references slime-repl slime-sbcl-exts slime-scheme slime-scratch slime-snapshot 
-			       slime-sprof slime-tramp ;;slime-typeout-frame ;;muliti-frame 
+     (slime-setup '(slime-asdf slime-autodoc slime-banner slime-c-p-c ;;slime-cl-indent slime-clipboard
+			       slime-compiler-notes-tree slime-editing-commands ;;slime-enclosing-context
+			       slime-fancy-inspector slime-fancy slime-fontifying-fu slime-fuzzy slime-highlight-edits
+			       slime-hyperdoc slime-indentation slime-mdot-fu slime-media ;;slime-motd
+			       slime-mrepl
+			       slime-package-fu slime-parse ;;slime-presentation-streams
+			       slime-presentations
+			       slime-references slime-repl slime-sbcl-exts slime-scheme slime-scratch slime-snapshot
+			       slime-sprof slime-tramp ;;slime-typeout-frame ;;muliti-frame
 			       slime-xref-browser))
      (setq slime-truncate-lines t)
      (setq swank:*globally-redirect-io*  t)

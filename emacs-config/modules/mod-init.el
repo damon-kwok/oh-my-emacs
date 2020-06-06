@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; init.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2016 damon-kwok
+;; Copyright (C) 2009-2020 damon-kwok
 ;;
 ;; Author: damon-kwok <damon-kwok@outlook.com>
-;; Create: 2016-01-05
-;; Last-saved : 2016-04-19
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

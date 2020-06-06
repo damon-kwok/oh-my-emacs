@@ -3,6 +3,7 @@
 ;; Copyright (C) 2005, 2006  Xavier Maillard <zedek@gnu.org>
 ;; Copyright (C) 2005, 2006  Brian Palmer <bpalmer@gmail.com>
 ;; Copyright (C) 2013 by Syohei YOSHIDA
+;; Copyright (C) 2020 Damon Kwok <damon-kwok@outlook.com>
 
 ;; Author: Syohei YOSHIDA <syohex@gmail.com>
 ;; URL: https://github.com/emacs-jp/replace-colorthemes

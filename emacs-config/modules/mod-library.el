@@ -1,10 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-library.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2015 Damon Kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
-;; Author: damon-kwok <damon-kwok@outlook.com>
-;; Date: 2015-12-31
+;; Author: damon <damon-kwok@outlook.com>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -20,7 +19,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
-(internal-require 'cl)
 (package-require 's)
 (package-require 'f)
 

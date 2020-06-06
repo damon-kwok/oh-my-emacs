@@ -1,10 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-package.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2015 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
-;; Author: damon-kwok <damon-kwok@outlook.com>
-;; Date: 2015-12-31
+;; Author: damon <damon-kwok@outlook.com>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -17,9 +16,10 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
+
 ;; `(online?)` is a function that tries to detect whether you are online.
 ;; We want to refresh our package list on Emacs start if we are.
 

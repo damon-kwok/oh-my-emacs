@@ -1,11 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-js.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2017 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
-;; Create: 2017-12-27
-;; Modify: 2017-12-27
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

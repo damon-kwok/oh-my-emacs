@@ -1,10 +1,9 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-coding.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2015-2016 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
-;; Author: damon-kwok <damon-kwok@outlook.com>
-;; Date: 2016-01-07
+;; Author: damon <damon-kwok@outlook.com>
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -17,7 +16,7 @@
 ;; GNU General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:;;www.gnu.org/licenses/>.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ENCODING ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -56,36 +55,36 @@
 (setq eol-mnemonic-undecided ":?")
 
 (defalias 'read-buffer-file-coding-system 'lawlist-read-buffer-file-coding-system)
-(defun lawlist-read-buffer-file-coding-system () 
-  (let* ((bcss (find-coding-systems-region (point-min) 
-                                           (point-max))) 
+(defun lawlist-read-buffer-file-coding-system ()
+  (let* ((bcss (find-coding-systems-region (point-min)
+                                           (point-max)))
          (css-table ;;
-          (unless (equal bcss '(undecided)) 
-            (append '("dos" "unix" "mac") 
+          (unless (equal bcss '(undecided))
+            (append '("dos" "unix" "mac")
                     (delq nil ;;
-                          (mapcar (lambda (cs) 
-                                    (if (memq (coding-system-base cs) bcss) 
-                                        (symbol-name cs))) coding-system-list))))) 
+                          (mapcar (lambda (cs)
+                                    (if (memq (coding-system-base cs) bcss)
+                                        (symbol-name cs))) coding-system-list)))))
          (combined-table;;
           (if css-table (completion-table-in-turn css-table coding-system-alist)
-            coding-system-alist)) 
+            coding-system-alist))
          (auto-cs (unless find-file-literally ;;
                     (save-excursion           ;;
                       (save-restriction       ;;
-                        (widen) 
-                        (goto-char (point-min)) 
-                        (funcall set-auto-coding-function (or buffer-file-name 
-                                                              "") 
-                                 (buffer-size)))))) 
-         (preferred 'utf-8-unix) 
-         (default 'utf-8-unix) 
-         (completion-ignore-case t) 
+                        (widen)
+                        (goto-char (point-min))
+                        (funcall set-auto-coding-function (or buffer-file-name
+                                                              "")
+                                 (buffer-size))))))
+         (preferred 'utf-8-unix)
+         (default 'utf-8-unix)
+         (completion-ignore-case t)
          (completion-pcm--delim-wild-regex ; Let "u8" complete to "utf-8".
-          (concat completion-pcm--delim-wild-regex "\\|\\([[:alpha:]]\\)[[:digit:]]")) 
+          (concat completion-pcm--delim-wild-regex "\\|\\([[:alpha:]]\\)[[:digit:]]"))
          (cs (completing-read ;;
               (format "Coding system for saving file (default %s): " default) combined-table nil t
-              nil 'coding-system-history (if default (symbol-name default))))) 
-    (unless (zerop (length cs)) 
+              nil 'coding-system-history (if default (symbol-name default)))))
+    (unless (zerop (length cs))
       (intern cs))))
 
 ;; 支持从外部粘贴中文
