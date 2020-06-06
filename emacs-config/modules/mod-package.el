@@ -42,24 +42,23 @@
 ;;                         ("org" . "http://orgmode.org/elpa/")))
 ;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 
-
-
-(setq package-archives '(;;
-                          ;; ("gnu" . "https://elpa.gnu.org/packages/")
-                          ;; ("org" . "http://orgmode.org/elpa/")
-                          ;; ("melpa" . "https://melpa.org/packages/")
-                          ;;
-                          ;;("gnu-china" . "http://elpa.emacs-china.org/gnu/")
-                          ;;("melpa-china" . "http://elpa.emacs-china.org/melpa/")
-                          ;;("org-china" . "http://elpa.emacs-china.org/org/")
-                          ;;
-                          ;;'("popkit" . "http://elpa.popkit.org/packages/")
-                          ;;
-                          ("gnu-tuna" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                          ("melpa-tuna" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-                          ("org-tuna" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-                          ;;
-                          ))
+(setq package-archives ;;
+  '(;;
+     ;; ("gnu" . "https://elpa.gnu.org/packages/")
+     ;; ("org" . "http://orgmode.org/elpa/")
+     ;; ("melpa" . "https://melpa.org/packages/")
+     ;;
+     ;;("gnu-china" . "http://elpa.emacs-china.org/gnu/")
+     ;;("melpa-china" . "http://elpa.emacs-china.org/melpa/")
+     ;;("org-china" . "http://elpa.emacs-china.org/org/")
+     ;;
+     ;;'("popkit" . "http://elpa.popkit.org/packages/")
+     ;;
+     ("gnu-tuna" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+     ("melpa-tuna" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+     ("org-tuna" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+     ;;
+     ))
 
 ;;(add-to-list 'load-path "~/emacs-config/elpa-mirror")
 ;;(internal-require 'elpa-mirror)
@@ -100,22 +99,22 @@
 
 (defun package-download-git(lib-name repo)
   ;; (setq dir-lib-name (expand-file-name ome-lib-dir ))
-  ;; (make-directory ome-lib-dir t)
   (let* ((oldir default-directory)
-          (dir-name (concat (expand-file-name ome-lib-dir) "/git/" (file-name-base lib-name)))
-          (full-name (concat dir-name "/" lib-name))
+          (ome-lib-dir-git (concat (expand-file-name ome-lib-dir) "/git"))
+          (dir-name (concat ome-lib-dir-git "/" (file-name-base lib-name)))
           (cmd-update (concat "git pull"))
           (cmd-clone (concat "git clone " repo " --depth=1 " lib-name)))
+    (make-directory ome-lib-dir-git t)
     (add-to-list 'load-path dir-name)
-    (message dir-name)
-    (setq default-directory dir-name)
+    (message "dir-name:%s" dir-name)
+
     (if (file-exists-p dir-name)
       (progn
         ;; (setq default-directory dir-name)
         ;; (ome-run-command cmd-update)
         )
       (progn
-        (setq default-directory ome-lib-dir)
+        (setq default-directory ome-lib-dir-git)
         (ome-run-command cmd-clone)))
     (setq default-directory oldir)))
 
@@ -125,23 +124,21 @@
     (internal-require pkg)))
 
 (defun package-download-svn(lib-name path)
-  ;;(setq dir-lib-name (expand-file-name ome-lib-dir ))
-  ;; (make-directory ome-lib-dir t)
   (let* ((oldir default-directory)
-          (dir-name (concat (expand-file-name ome-lib-dir) "/svn/" (file-name-base lib-name)))
-          (full-name (concat dir-name "/" lib-name))
+          (ome-lib-dir-svn (concat (expand-file-name ome-lib-dir) "/svn"))
+          (dir-name (concat ome-lib-dir-svn "/" (file-name-base lib-name)))
           (cmd-update (concat "svn up"))
           (cmd-clone (concat "svn co " path lib-name)))
+    (make-directory ome-lib-dir-svn t)
     (add-to-list 'load-path dir-name)
-    (message dir-name)
-    (setq default-directory dir-name)
+
     (if (file-exists-p dir-name)
       (progn
         ;; (setq default-directory dir-name)
         ;; (call-process-shell-command cmd-update nil t)
         )
       (progn
-        (setq default-directory ome-lib-dir)
+        (setq default-directory ome-lib-dir-svn)
         (call-process-shell-command cmd-clone nil nil t)))
     (setq default-directory oldir)))
 
@@ -152,7 +149,7 @@
 
 (defun package-download-curl(dir-name file-name url)
   (let* ((oldir default-directory)
-          (dir (concat (expand-file-name ome-lib-dir) "/" dir-name))
+          (dir (concat (expand-file-name ome-lib-dir) "/curl/" dir-name))
           (full-name (concat dir "/" file-name))
           (cmd (concat "curl -o " full-name " " url)))
     (make-directory dir t)
@@ -197,15 +194,15 @@
 ;;
 ;; (auto-install-from-url "https://raw.github.com/aki2o/guide-key-tip/master/guide-key-tip.el")
 
-(package-download-curl "elisp-format" "elisp-format.el"
-  "https://www.emacswiki.org/emacs/download/elisp-format.el")
 (package-download-curl "xcowsay" "xcowsay.el" "https://www.emacswiki.org/emacs/download/xcowsay.el")
+
 (package-download-curl "pink-bliss" "pink-bliss-theme.el"
   "https://raw.githubusercontent.com/kensanata/elisp/master/pink-bliss-theme.el")
 (package-download-curl "pink-bliss" "pink-bliss.el"
   "https://www.emacswiki.org/emacs/download/pink-bliss.el")
 (package-download-curl "pink-bliss" "pink-gnu.xpm"
   "http://www.emacswiki.org/emacs/download/pink-gnu.xpm")
+
 (package-download-curl "visws" "visws.el" "https://www.emacswiki.org/emacs/download/visws.el")
 
 (package-download-curl "multi-term" "multi-term.el"
