@@ -8,12 +8,12 @@ damon-kwok's emacs config!
 [[https://github.com/damon-kwok/oh-my-emacs][file:screenshot/ome.png]]
 [[https://github.com/damon-kwok/oh-my-emacs][file:screenshot/project_pony.png]]
 *** Keybind
-**** super key
+**** SuperKey
 # - C-u C-h n what's the new
  - M-z                super-key
  - C-\\               toggle-input-method
 
-**** edting
+**** Editing
  - C-M-d              delete-backward-char
  - C-z | C-M-z        mark-word mark-line
  - C->                mc/mark-next-like-this
@@ -27,7 +27,7 @@ damon-kwok's emacs config!
 
  - C-x M-k            close all buffer
 
-**** navigate
+**** Navigate
  - C-c C-z            show-repl
  - M-number           switch window
  - C-M-; | C-M-'      tab-backward | tab-forward
@@ -35,12 +35,12 @@ damon-kwok's emacs config!
  - C-- | C-=          shrink-window |  enlarge-window
  - C-M-- | C-M-=      shrink-window-horizontally | enlarge-window-horizontally
 
-**** org helper
+**** OrgHelper
  - C-c l org-store-link
  - C-c c org-capture
  - C-c a org-agenda
  - C-c b org-iswitchb
 
-*** orgmode
+**** Orgmode
  - M-n /org-metaup/
  - M-p /org-metadown/
