@@ -102,7 +102,7 @@
   ;; (setq dir-lib-name (expand-file-name ome-lib-dir ))
   ;; (make-directory ome-lib-dir t)
   (let* ((oldir default-directory)
-          (dir-name (concat (expand-file-name ome-lib-dir) "/" (file-name-base lib-name)))
+          (dir-name (concat (expand-file-name ome-lib-dir) "/git/" (file-name-base lib-name)))
           (full-name (concat dir-name "/" lib-name))
           (cmd-update (concat "git pull"))
           (cmd-clone (concat "git clone " repo " --depth=1 " lib-name)))
@@ -119,8 +119,6 @@
         (ome-run-command cmd-clone)))
     (setq default-directory oldir)))
 
-;;(package-download-git "wanderlust" "https://github.com/wanderlust/wanderlust.git")
-
 (defun package-require-git(dir-name file-name url)
   (let* ((pkg (intern dir-name)))
     (package-download-git dir-name)
@@ -130,10 +128,10 @@
   ;;(setq dir-lib-name (expand-file-name ome-lib-dir ))
   ;; (make-directory ome-lib-dir t)
   (let* ((oldir default-directory)
-          (dir-name (concat (expand-file-name ome-lib-dir) "/" (file-name-base lib-name)))
+          (dir-name (concat (expand-file-name ome-lib-dir) "/svn/" (file-name-base lib-name)))
           (full-name (concat dir-name "/" lib-name))
-          (cmd-update (concat "git fetch"))
-          (cmd-clone (concat "git clone " path " --depth=1 " lib-name)))
+          (cmd-update (concat "svn up"))
+          (cmd-clone (concat "svn co " path lib-name)))
     (add-to-list 'load-path dir-name)
     (message dir-name)
     (setq default-directory dir-name)
@@ -163,7 +161,7 @@
     (unless (file-exists-p full-name)
       (progn
         (setq default-directory dir)
-        (call-process-shell-command cmd nil nil t))) ;;(ome-run-command cmd)
+        (call-process-shell-command cmd nil nil t)))
     (setq default-directory oldir)))
 
 (defun package-require-curl(dir-name file-name url)
@@ -171,17 +169,14 @@
     (package-download-curl dir-name file-name url)
     (internal-require pkg)))
 
-
-;; (auto-install-from-url "https://raw.github.com/aki2o/guide-key-tip/master/guide-key-tip.el")
-
 (defun package-update()
   (interactive)
   (save-window-excursion (package-list-packages t)
     (package-refresh-contents)))
 
 (defun package-upgrade()
+  "Upgrade installed"
   (interactive)
-  ;; upgrade installed
   (save-window-excursion (package-list-packages t)
     (package-menu-mark-upgrades)
     (package-menu-mark-obsolete-for-deletion)
@@ -192,11 +187,30 @@
   (package-update)
   (package-upgrade)
   (package-autoremove))
-
+
 ;; `use-package'
-(package-require 'use-package) 
+(package-require 'use-package)
+
 ;; `quelpa'
 ;; (package-require 'quelpa)
+
+;;
+;; (auto-install-from-url "https://raw.github.com/aki2o/guide-key-tip/master/guide-key-tip.el")
+
+(package-download-curl "elisp-format" "elisp-format.el"
+  "https://www.emacswiki.org/emacs/download/elisp-format.el")
+(package-download-curl "xcowsay" "xcowsay.el" "https://www.emacswiki.org/emacs/download/xcowsay.el")
+(package-download-curl "pink-bliss" "pink-bliss-theme.el"
+  "https://raw.githubusercontent.com/kensanata/elisp/master/pink-bliss-theme.el")
+(package-download-curl "pink-bliss" "pink-bliss.el"
+  "https://www.emacswiki.org/emacs/download/pink-bliss.el")
+(package-download-curl "pink-bliss" "pink-gnu.xpm"
+  "http://www.emacswiki.org/emacs/download/pink-gnu.xpm")
+(package-download-curl "visws" "visws.el" "https://www.emacswiki.org/emacs/download/visws.el")
+
+(package-download-curl "multi-term" "multi-term.el"
+  "https://www.emacswiki.org/emacs/download/multi-term.el")
+(setq multi-term-program "/bin/bash")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
