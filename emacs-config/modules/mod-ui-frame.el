@@ -171,7 +171,7 @@
 (if (display-graphic-p)
   (progn
     (require 'nyan-mode)
-    ;;(nyan-start-animation)
+    (nyan-start-animation)
     (nyan-mode 1)))
 
 ;;; `all-the-icons'
