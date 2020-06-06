@@ -148,6 +148,8 @@
 (module-require 'mod-clojure "lein")
 (module-require 'mod-hy "hy")
 (module-require 'mod-janet "janet")
+(module-require 'mod-swift "swift")
+
 ;; Language IV
 (module-require 'mod-rustic "cargo")
 (module-require 'mod-nim "nimble")

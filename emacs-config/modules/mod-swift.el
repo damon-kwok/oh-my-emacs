@@ -22,8 +22,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-require 'swift-mode)
+(package-download 'swift-mode)
+(package-download 'swift-helpful)
+(package-download 'flycheck-swiftx)
+(package-download 'flycheck-drstring)
 
+(add-to-list 'auto-mode-alist '("\\.swift$" . swift-mode))
+
+(add-hook 'swift-mode-hook ;;
+  (lambda ()
+    (with-eval-after-load 'flycheck
+      (require 'flycheck-swiftx)
+      (flycheck-drstring-setup))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-swift)
 ;; mod-swift.el ends here
