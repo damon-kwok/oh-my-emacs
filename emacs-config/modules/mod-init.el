@@ -140,6 +140,8 @@
 (module-require 'mod-go "gopls")
 ;; (module-require 'mod-gocode "gocode")
 
+(module-require 'mod-antlr)
+
 (module-require 'mod-haskell "stack")
 (module-require 'mod-ocaml "opam")
 (module-require 'mod-clojure "lein")
