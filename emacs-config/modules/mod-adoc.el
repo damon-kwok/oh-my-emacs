@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t -*-
 ;; mod-adoc.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2020 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
 ;;

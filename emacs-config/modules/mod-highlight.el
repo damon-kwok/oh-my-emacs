@@ -31,7 +31,7 @@
 
 (load-theme 'ome-material t)
 ;; (if (display-graphic-p)
-  ;; (load-theme 'ome-material t)
+;; (load-theme 'ome-material t)
 ;; (load-theme 'ome-xemacs t))
 
 ;; `page-break-lines'
@@ -57,7 +57,8 @@
 (setq emojify-emoji-styles '(unicode) emojify-inhibit-major-modes '())
 
 ;; Patch emojify to replace emoji everywhere in programming modes.
-(defun emojify-valid-prog-context-p (beg end) 't)
+(defun emojify-valid-prog-context-p (beg end)
+  't)
 
 ;; Enable it globally.
 (add-hook 'after-init-hook #'global-emojify-mode)
@@ -167,26 +168,24 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `highlight-indent-guides'
 
-;; (if (display-graphic-p)
-;;     (progn (package-require 'highlight-indent-guides)
-;;            (setq highlight-indent-guides-method 'character)
-;;            (setq highlight-indent-guides-character ?\|)
-;;            ;; (setq highlight-indent-guides-character "|")
-;;
-;;            ;; (define-globalized-minor-mode global-highlight-indent-guides-mode
-;;highlight-indent-guides-mode
-;;            ;; (lambda ()
-;;            ;; (highlight-indent-guides-mode 1)))
-;;
-;;            (define-globalized-minor-mode global-highlight-indent-guides-mode
-;;              highlight-indent-guides-mode
-;;              (lambda ()
-;;                (if (and (not (string-match "^\*.*\*$" (buffer-name)))
-;;                         (not (eq major-mode 'dired-mode))
-;;                         (not (eq major-mode 'speedbar-mode)))
-;;                    (highlight-indent-guides-mode 1))))
-;;
-;;            (global-highlight-indent-guides-mode 1))
+(if (display-graphic-p)
+  (progn ;;
+    (package-require 'highlight-indent-guides)
+    (setq highlight-indent-guides-method 'character)
+    (setq highlight-indent-guides-character ?\|)
+    ;; (setq highlight-indent-guides-character "|")
+
+    ;; (define-globalized-minor-mode global-highlight-indent-guides-mode
+    highlight-indent-guides-mode
+    ;; (lambda ()
+    ;; (highlight-indent-guides-mode 1)))
+    (define-globalized-minor-mode global-highlight-indent-guides-mode highlight-indent-guides-mode
+      (lambda ()
+        (if (and (not (string-match "^\*.*\*$" (buffer-name)))
+              (not (eq major-mode 'dired-mode))
+              (not (eq major-mode 'speedbar-mode)))
+          (highlight-indent-guides-mode 1))))
+    (global-highlight-indent-guides-mode 1)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `highlight-doxygen'
 ;; (package-require 'highlight-doxygen)

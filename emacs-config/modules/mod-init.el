@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t -*-
 ;; init.el --- This is where you apply your OCD.
 ;;
-;; Copyright (C) 2009-2020 damon-kwok
+;; Copyright (C) 2009-2020 Damon Kwok
 ;;
 ;; Author: damon-kwok <damon-kwok@outlook.com>
 ;;
@@ -44,7 +44,10 @@
 (module-require 'mod-splash)
 (module-require 'mod-ui-frame)
 (module-require 'mod-ui-buffer)
-;; (module-require 'mod-modeline)
+(if (eq system-type 'gnu/linux)
+  (if (not (display-graphic-p))
+    (module-require 'mod-modeline))
+  (module-require 'mod-modeline))
 (module-require 'mod-ui-editor)
 (module-require 'mod-highlight)
 (module-require 'mod-tabs)
@@ -147,6 +150,8 @@
 (module-require 'mod-clojure "lein")
 (module-require 'mod-hy "hy")
 (module-require 'mod-janet "janet")
+(module-require 'mod-swift "swift")
+
 ;; Language IV
 (module-require 'mod-rustic "cargo")
 (module-require 'mod-nim "nimble")
