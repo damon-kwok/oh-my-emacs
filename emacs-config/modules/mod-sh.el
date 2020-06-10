@@ -25,6 +25,7 @@
 (add-to-list 'auto-mode-alist '("PKGBUILD" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.sh$" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.rd$" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.[Bb][Aa][Tt]\\'" . bat-mode))
 
 (add-hook 'sh-mode-hook (lambda()
                           '(sh-basic-offset 2)
