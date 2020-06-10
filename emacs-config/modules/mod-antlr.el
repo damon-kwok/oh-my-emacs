@@ -22,11 +22,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(package-download 'bnf-mode)
-(add-to-list 'auto-mode-alist '("\\.bnf\\'" . bnf-mode))
+(package-require 'bnf-mode)
 
-(add-hook 'bnf-mode-hook (lambda ()
-    (internal-require 'bnf-mode)))
+;; (add-to-list 'auto-mode-alist '("\\.bnf\\.g\\.g3\\.g4\\'" . bnf-mode))
+(add-to-list 'auto-mode-alist '("\\.bnf\\'" . bnf-mode))
+(add-to-list 'auto-mode-alist '("\\.g4\\'" . bnf-mode))
+(add-to-list 'auto-mode-alist '("\\.g\\'" . bnf-mode))
+
+;; (add-hook 'bnf-mode-hook (lambda () (internal-require 'bnf-mode)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-antlr)
 ;; mod-antlr.el ends here
