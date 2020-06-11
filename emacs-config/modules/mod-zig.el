@@ -23,9 +23,16 @@
 (require 'mod-package)
 ;;
 (package-download 'zig-mode)
-(add-to-list 'auto-mode-alist '("\\zig$" . zig-mode))
-(add-hook 'zig-mode-hook (lambda ()
-                           (internal-require 'zig-mode)))
+(add-to-list 'auto-mode-alist '("\\.zig\\" . zig-mode))
+(add-hook 'zig-mode-hook ;;
+  (lambda ()
+    (internal-require 'zig-mode)
+    ;;lsp
+    (internal-require 'mod-lsp)
+    (add-to-list 'lsp-language-id-configuration '(zig-mode . "zig"))
+    (lsp-register-client (make-lsp-client :new-connection (lsp-stdio-connection "<path to zls>")
+                           :major-modes '(zig-mode)
+                           :server-id 'zls))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-zig)
 ;; mod-zig.el ends here
