@@ -41,10 +41,10 @@
 (defun show-janet-repl()
   (interactive)
   (setq temp-janet-buffer-name (buffer-name (current-buffer)))
-  (ome-show-compilation "*ijanet*")
+  (ome-show-compilation "*Ijanet*")
   (ijanet)
   (switch-to-buffer-other-window temp-janet-buffer-name)
-  (ome-show-compilation "*ijanet*" t))
+  (ome-show-compilation "*Ijanet*" t))
 
 (defun show-janet-workbuffer()
   (interactive)
