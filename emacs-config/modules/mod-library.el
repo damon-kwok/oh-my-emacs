@@ -54,6 +54,13 @@
 is running in a terminal else just nil."
   `(when (ome-is-in-terminal) ,@body))
 
+(defun ome-buffer-dirpath ()
+  "Return current buffer directory path"
+  (directory-file-name
+   (if buffer-file-name
+       (file-name-directory buffer-file-name)
+     default-directory)))
+
 (defun ome-buffer-directory ()
   (if buffer-file-name (file-name-directory buffer-file-name) default-directory))
 
