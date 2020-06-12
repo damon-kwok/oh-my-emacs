@@ -89,7 +89,10 @@
          ;;
          ))
     (if (and (not (string-match "^\*.*\*$" (buffer-name)))
+          (not (eq major-mode 'ponylang-mode))
           (not (eq major-mode 'dired-mode))
+          (not (eq major-mode 'treemacs-mode))
+          (not (eq major-mode 'neotree-mode))
           (not (eq major-mode 'fundamental-mode))
           (not (eq major-mode 'minibuffer-inactive-mode))
           (not (eq major-mode 'speedbar-mode)))
