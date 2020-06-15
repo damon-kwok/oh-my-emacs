@@ -61,11 +61,11 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
   '(rainbow-delimiters-depth-1-face ((t
-                                       (:foreground "white"))))
+                                       (:foreground "SlateGray"))))
   '(rainbow-delimiters-depth-2-face ((t
                                        (:foreground "LightGreen"))))
   '(rainbow-delimiters-depth-3-face ((t
-                                       (:foreground "SlateGray"))))
+                                       (:foreground "white"))))
   '(rainbow-delimiters-depth-4-face ((t
                                        (:foreground "khaki"))))
   '(rainbow-delimiters-depth-5-face ((t

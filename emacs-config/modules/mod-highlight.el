@@ -112,12 +112,11 @@
 ;; (global-symbol-overlay-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `hl-todo
-;; (package-require 'hl-todo)
-
-;; (define-key hl-todo-mode-map (kbd "C-c p") 'hl-todo-previous)
-;; (define-key hl-todo-mode-map (kbd "C-c n") 'hl-todo-next)
-;; (define-key hl-todo-mode-map (kbd "C-c o") 'hl-todo-occur)
-;; (global-hl-todo-mode 1)
+(package-require 'hl-todo)
+(define-key hl-todo-mode-map (kbd "C-c p") 'hl-todo-previous)
+(define-key hl-todo-mode-map (kbd "C-c n") 'hl-todo-next)
+(define-key hl-todo-mode-map (kbd "C-c o") 'hl-todo-occur)
+(global-hl-todo-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `fci-mode'
