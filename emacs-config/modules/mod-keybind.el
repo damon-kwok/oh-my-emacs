@@ -77,10 +77,9 @@
                               :action #'(lambda (string)
                                           (eval (read string))))))
 
-(global-set-key (kbd "<C-return>")       'wand:execute)
-(global-set-key (kbd "<C-mouse-1>")      'wand:execute)
-(global-set-key (kbd "<C-down-mouse-1>")  nil)
-
+(global-set-key (kbd "<S-return>")       'wand:execute)
+(global-set-key (kbd "<S-mouse-1>")      'wand:execute)
+(global-set-key (kbd "<S-down-mouse-1>")  nil)
 
 ;; (global-set-key (kbd "<C-return>")       'wand:execute)
 ;; (global-set-key (kbd "<C-mouse-1>")      'wand:execute)
@@ -112,9 +111,9 @@
 
 (package-require 'yafolding)
 
-(global-set-key (kbd "C-M-`") 'yafolding-toggle-all)
-(global-set-key (kbd "C-~") 'yafolding-hide-parent-element)
-(global-set-key (kbd "C-`") 'yafolding-toggle-element)
+(global-set-key (kbd "<C-M-return>") 'yafolding-toggle-all)
+(global-set-key (kbd "<C-S-return>") 'yafolding-hide-parent-element)
+(global-set-key (kbd "<C-return>") 'yafolding-toggle-element)
 
 ;; `anzu' https://github.com/syohex/emacs-anzu
 (package-require 'anzu)

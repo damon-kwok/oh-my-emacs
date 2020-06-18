@@ -173,9 +173,8 @@
 (if (display-graphic-p)
   (progn ;;
     (package-require 'highlight-indent-guides)
-    (setq highlight-indent-guides-method 'character)
+    (setq highlight-indent-guides-method 'bitmap) ;; fill column character bitmap
     (setq highlight-indent-guides-character ?\|)
-    ;; (setq highlight-indent-guides-character "|")
 
     ;; (define-globalized-minor-mode global-highlight-indent-guides-mode
     highlight-indent-guides-mode
