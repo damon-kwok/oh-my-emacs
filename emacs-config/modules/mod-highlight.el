@@ -54,7 +54,7 @@
 (package-require 'emojify)
 
 ;; Set emojify to only replace Unicode emoji, and do it everywhere.
-(setq emojify-emoji-styles '(unicode) emojify-inhibit-major-modes '())
+(setq emojify-emoji-styles '(ascii unicode github) emojify-inhibit-major-modes '())
 
 ;; Patch emojify to replace emoji everywhere in programming modes.
 (defun emojify-valid-prog-context-p (beg end)

@@ -22,7 +22,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
+;;I love pony 🐎 :horse: :smile: .
 (defun add (a b)
+  "I love pony 🐎 :horse: :smile: ."
   (+ a b))
 
 (fset 'fadd (symbol-function (intern "add")))
