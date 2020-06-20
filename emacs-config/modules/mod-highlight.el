@@ -29,7 +29,7 @@
 ;; (package-download 'immaterial-theme)
 ;; (load-theme 'immaterial t)
 
-(load-theme 'ome-material t)
+(load-theme 'ome-damon t)
 ;; (if (display-graphic-p)
 ;; (load-theme 'ome-material t)
 ;; (load-theme 'ome-xemacs t))
@@ -173,7 +173,7 @@
 (if (display-graphic-p)
   (progn ;;
     (package-require 'highlight-indent-guides)
-    (setq highlight-indent-guides-method 'bitmap) ;; fill column character bitmap
+    (setq highlight-indent-guides-method 'character) ;; fill column character bitmap
     (setq highlight-indent-guides-character ?\|)
 
     ;; (define-globalized-minor-mode global-highlight-indent-guides-mode
