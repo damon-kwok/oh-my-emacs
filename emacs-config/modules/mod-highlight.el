@@ -113,6 +113,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `hl-todo
 (package-require 'hl-todo)
+(setq hl-todo-keyword-faces
+    '(("TODO" . "green")
+       ("FIXME" . "yellow")
+       ("DEBUG" . "DarkCyan")
+       ("GOTCHA" . "red")
+       ("STUB" . "DarkGreen")))
 (define-key hl-todo-mode-map (kbd "C-c p") 'hl-todo-previous)
 (define-key hl-todo-mode-map (kbd "C-c n") 'hl-todo-next)
 (define-key hl-todo-mode-map (kbd "C-c o") 'hl-todo-occur)
