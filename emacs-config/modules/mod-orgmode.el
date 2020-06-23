@@ -113,42 +113,26 @@
 
 
   ;; `Babel-Languages'
+  ;; (package-require-curl "ob-pony" "ob-pony.el" "")
+  ;; (internal-require 'ob-pony)
   (internal-require 'ob-elixir)
-
   (internal-require 'ob-browser)
-
   (internal-require 'ob-crystal)
-
   (internal-require 'ob-go)
-
   (internal-require 'ob-kotlin)
-
   (internal-require 'ob-lfe)
-
   (internal-require 'ob-crystal)
-
   (internal-require 'ob-fsharp)
-
   (internal-require 'ob-http)
-
   (internal-require 'ob-nim)
-
   (internal-require 'ob-prolog)
-
   (internal-require 'ob-rust)
-
   (internal-require 'ob-swift)
-
   (internal-require 'ob-dart)
-
   (internal-require 'ob-coffee)
-
   (internal-require 'ob-coffeescript)
-
   (internal-require 'ob-hy)
-
   (internal-require 'ob-typescript)
-
   (internal-require 'ob-sml)
 
 
