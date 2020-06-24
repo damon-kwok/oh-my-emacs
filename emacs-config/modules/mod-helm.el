@@ -81,13 +81,13 @@
 ;; (package-download 'helm-swoop)
 (package-download 'helm-bm)
 (package-download 'helm-ag)
+(package-download 'helm-xref)
 (package-download 'helm-ls-svn)
 (package-download 'helm-ls-git)
 (package-download 'helm-ls-hg)
 ;;; (package-download 'helm-buffer-list)
 (package-download 'helm-descbinds)
 (package-download 'helm-pages)
-(package-download 'helm-xref)
 ;; (package-download 'ac-helm)
 (package-download 'helm-company)
 ;; (package-download 'company-quickhelp) ;; don't super tty
@@ -112,6 +112,8 @@
                   (ome-helm-init)
                   (setq default-directory (ome-buffer-directory))
                   (helm-find-files arg)))
+
+;; (add-hook helm-major-mode-hook 'ome-helm-init)
 
 (defun ome-helm-init()
   ;; `large-file
@@ -167,7 +169,11 @@
   ;; `helm-ag' (need ag)
   (internal-require 'helm-ag)
 
-  ;; helm-is-git hg svn
+  ;; `helm-xref'
+  (internal-require 'helm-xref)
+  ;; (setq xref-show-xrefs-function 'helm-xref-show-xrefs)
+
+  ;; `helm-is-git'/`hg'/`svn'
   (internal-require 'helm-ls-svn)
   (internal-require 'helm-ls-git)
   (internal-require 'helm-ls-hg)
@@ -176,12 +182,8 @@
   (internal-require 'helm-descbinds)
   (helm-descbinds-mode)
 
-  ;; helm-pages
+  ;; `helm-pages'
   (internal-require 'helm-pages)
-
-  ;; helm-xref
-  (internal-require 'helm-xref)
-  (setq xref-show-xrefs-function 'helm-xref-show-xrefs)
 
   ;; `helm-company'
   (package-download 'helm-company)
@@ -194,8 +196,7 @@
   ;; (company-quickhelp-mode 1)
   ;; (setq company-quickhelp-delay 0.5)
   )
-
-
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 (provide 'mod-helm)

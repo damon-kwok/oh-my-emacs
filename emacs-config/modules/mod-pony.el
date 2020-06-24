@@ -50,6 +50,8 @@
       ((('     /    `-. .c|
               /        `-`'")
     ;;
+    (internal-require 'helm-xref)
+    ;;
     ;; (internal-require 'paredit)
     ;; (enable-paredit-mode)
     ;; (define-key paredit-mode-map (kbd "M-;") 'ome-comment-or-uncomment-region-or-line)

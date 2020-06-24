@@ -52,10 +52,19 @@
 ;;;;;;;;;;;;;;;;;;;;`line-number'  `column-number' `fill-column';;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 'linum'
-;; (internal-require 'linum)
-(setq linum-mode t)
-(setq linum-format "%4d")
-(global-linum-mode)
+
+
+;; `display-line-numbers-mode'
+(if (version<= "26.0.50" emacs-version )
+  (progn
+    (require 'display-line-numbers)
+    (global-display-line-numbers-mode))
+  (progn
+    ;; (internal-require 'linum)
+    ;; linum-mode
+    (setq linum-mode t)
+    (setq linum-format "%4d")
+    (global-linum-mode)))
 
 ;;; `column'
 (setq column-number-mode t)
@@ -111,7 +120,7 @@
 
 ;; (package-require 'undo-tree)
 (package-download-curl "undo-tree-0.6.6" "undo-tree.el"
-                       "https://raw.githubusercontent.com/emacs-lisp/undo-tree/master/undo-tree.el")
+  "https://raw.githubusercontent.com/emacs-lisp/undo-tree/master/undo-tree.el")
 (internal-require 'undo-tree)
 (global-undo-tree-mode)
 
@@ -121,8 +130,8 @@
   (delete-other-windows)
   (undo-tree-visualize)
   (if (< (/ (frame-height) 3)
-         (window-height))
-      (shrink-window (/ (window-height) 2))))
+        (window-height))
+    (shrink-window (/ (window-height) 2))))
 
 (global-set-key (kbd "C-x u") 'show-undo-tree)
 (define-key undo-tree-map (kbd "C-x u")
