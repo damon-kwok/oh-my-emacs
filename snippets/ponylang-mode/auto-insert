@@ -1,5 +1,5 @@
-"""
-`(buffer-name)` ---  I love pony 🐎.
+/*
+`(buffer-name)` ---  I love pony 🐎
 Date: `(format-time-string "%Y-%m-%d")`
 
 Copyright (C) 2016-`(format-time-string "%Y")`, The Pony Developers
@@ -25,7 +25,7 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-"""
+*/
 
 actor Main
   let _env: Env
