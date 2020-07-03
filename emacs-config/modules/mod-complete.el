@@ -75,6 +75,10 @@
 (package-require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 
+(package-require 'company-ctags)
+(with-eval-after-load 'company
+  (company-ctags-auto-setup))
+
 (global-set-key (kbd "<M-/>") 'company-complete)
 (global-set-key (kbd "<C-M-i>") 'company-complete)
 
