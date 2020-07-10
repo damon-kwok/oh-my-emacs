@@ -54,25 +54,17 @@
 ;;           (lambda ()))
 
 (defun orgmode-init ()
-
   (internal-require 'org-install)
-
   (setq truncate-lines nil)
-
   (setq org-startup-with-inline-images t)
-
   (org-display-inline-images t t)
 
-  (org-defkey org-mode-map [(meta p)]    'org-metaup)
-
-  (org-defkey org-mode-map [(meta n)]  'org-metadown)
+  ;; (org-defkey org-mode-map [(meta p)]    'org-metaup)
+  ;; (org-defkey org-mode-map [(meta n)]  'org-metadown)
 
   (org-defkey org-mode-map "\M-["    'org-metaup)
-
   (org-defkey org-mode-map "\M-/"  'org-metadown)
-
   (org-defkey org-mode-map "\M-;"    'org-metaleft)
-
   (org-defkey org-mode-map "\M-'"  'org-metaright)
 
   ;;
