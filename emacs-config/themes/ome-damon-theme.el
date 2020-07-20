@@ -75,10 +75,10 @@
    `(bold-italic ((,class (:slant italic :weight bold))))
    `(underline ((,class (:underline t))))
    `(italic ((,class (:slant italic))))
-   `(font-lock-builtin-face ((,class (:foreground "#ff8A65"))))
+   `(font-lock-builtin-face ((,class (:foreground "#CD2990")))) ;; #EE82EE ;;#CD2990 #ff8A65
    `(font-lock-comment-delimiter-face ((,class (:foreground ,comment))))
    `(font-lock-comment-face ((,class (:foreground ,comment))))
-   `(font-lock-constant-face ((,class (:foreground ,"#90EE90")))) ;;#CD2990
+   `(font-lock-constant-face ((,class (:foreground ,"#90EE90"))))
    `(font-lock-doc-face ((,class (:foreground "#FFDAB9")))) ;;"moccasin"
    `(font-lock-doc-string-face ((,class (:foreground ,"#9AC0CD")))) ;;yellow
    `(font-lock-function-name-face ((,class (:foreground ,"#4dd0e1")))) ;;#00BFFF #00F5FF
@@ -88,7 +88,7 @@
    `(font-lock-regexp-grouping-backslash ((,class (:foreground ,yellow))))
    `(font-lock-regexp-grouping-construct ((,class (:foreground ,purple))))
    `(font-lock-string-face ((,class (:foreground "#9ccc65"))))
-   `(font-lock-type-face ((,class (:foreground "#4dd0e1"))))
+   `(font-lock-type-face ((,class (:foreground "#84ffff"))))
    `(font-lock-variable-name-face ((,class (:foreground ,"#ffcc80"))))
    `(font-lock-warning-face ((,class (:weight bold :foreground ,"#ff6c60"))))
    `(highlight-numbers-number ((,class (:foreground ,"#9ccc65"))))
