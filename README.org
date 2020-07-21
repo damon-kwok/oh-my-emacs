@@ -1,7 +1,9 @@
 #+TITLE: Oh My Emacs
 #+STARTUP: inlineimages
-damon-kwok's emacs config!
+[[https://github.com/damon-kwok/oh-my-env/blob/master/COPYING][https://img.shields.io/github/license/damon-kwok/oh-my-env?logo=gnu&.svg]]
+[[https://www.patreon.com/DamonKwok][https://img.shields.io/badge/Support%20Me-%F0%9F%92%97-ff69b4.svg]]
 
+My Emacs config!
 
 # [[file:https://imgs.xkcd.com/comics/blanket_fort.png]]
 # [[https://imgs.xkcd.com/comics/real_programmers.png]]
