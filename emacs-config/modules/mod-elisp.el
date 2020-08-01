@@ -98,6 +98,8 @@
 (defun elisp-code-format()
   (interactive)
   (internal-require 'elisp-format)
+  (setq-local elisp-format-column 80)
+  (setq-local elisp-format-debug-mode nil)
   (elisp-format-buffer)
   ;; (indent-region (point-min) (point-max))
   (save-current-buffer)

@@ -27,7 +27,8 @@
 ;; (eval-when-compile
 ;;   (internal-require 'cl))
 
-(with-no-warnings (internal-require 'cl))
+;; (with-no-warnings (internal-require 'cl))
+(internal-require 'cl-lib)
 
 ;; (internal-require 'package)
 ;; (package-initialize)
@@ -209,6 +210,7 @@
   "https://www.emacswiki.org/emacs/download/multi-term.el")
 (setq multi-term-program "/bin/bash")
 
+(package-require 'package-lint)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 (provide 'mod-package)

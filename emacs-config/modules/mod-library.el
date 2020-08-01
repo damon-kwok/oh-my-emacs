@@ -479,8 +479,7 @@ occurence of CHAR."
     (helm-find-files nil)
     (setq default-directory oldir)))
 
-
-(defun ome-show-compilation(buffer-name &optional dont-return-old-buffer)
+(defun ome-show-compilation (buffer-name &optional dont-return-old-buffer)
   "shrink compile window, avoid compile window occupy 1/2 hight of whole window"
   (interactive)
   (delete-other-windows)
