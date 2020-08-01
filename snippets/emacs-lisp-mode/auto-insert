@@ -1,5 +1,4 @@
-;; -*- lexical-binding: t -*-
-;;; `(buffer-name)` --- This is where you apply your OCD.
+;;; `(buffer-name)` --- This is where you apply your OCD.  -*- lexical-binding: t -*-
 ;;
 ;; Copyright (C) 2009-`(format-time-string "%Y")` Damon Kwok
 ;;
@@ -24,6 +23,7 @@
 (require 'mod-package)
 
 $0
-
+;;
 (provide '`(ome-bufname-no-ext)`)
+
 ;;; `(buffer-name)` ends here
