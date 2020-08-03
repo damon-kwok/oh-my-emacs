@@ -31,6 +31,10 @@
                           '(sh-basic-offset 2)
                           '(sh-indentation 2)
                           '(smie-indent-basic 2)
+                          ;;
+                          (internal-require 'modern-sh)
+                          (modern-sh-mode)
+                          (define-key modern-sh-mode-map (kbd "<f6>")  'modern-sh-menu)
                           ;; (message (concat "you opened cc file:" (buffer-name)))
                           ;; enabled lsp-mode
                           ;;(if (executable-find "bash-language-server")
