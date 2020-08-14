@@ -53,7 +53,7 @@
 ;; https://emacs.stackexchange.com/questions/14509/kill-process-buffer-without-confirmation
 (setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function
                                         kill-buffer-query-functions))
-(setq kill-buffer-query-functions nil)
+;; (setq kill-buffer-query-functions nil)
 
 ;; overflow of stack
 (setq kill-ring-max 1024) ;用一个很大的kill ring. 这样防止我不小心删掉重要的东西

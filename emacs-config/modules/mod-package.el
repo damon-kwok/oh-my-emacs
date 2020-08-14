@@ -20,6 +20,9 @@
 ;;
 ;; Code:
 
+(setq package-check-signature nil)
+;; (setq package-check-signature 'allow-unsigned)
+
 ;; `(online?)` is a function that tries to detect whether you are online.
 ;; We want to refresh our package list on Emacs start if we are.
 
