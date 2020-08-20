@@ -352,7 +352,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 
 
 (defun compile-all-modules()
-  (byte-recompile-directory (expand-file-name (concat (getenv "ROOT") "/emacs-config/modules")) 0))
+  (byte-recompile-directory (concat (getenv "ROOT") "/emacs-config/modules") 0))
 
 
 ;;; `hydra-url-menu'

@@ -33,7 +33,7 @@
 (setq dashboard-banner-logo-title "Oh My Emacs!")
 
 ;; Set the banner
-(setq dashboard-startup-banner (if (display-graphic-p) (expand-file-name "~/.oh-my-emacs/logo.png") 1))
+(setq dashboard-startup-banner (if (display-graphic-p) "~/.oh-my-emacs/logo.png" 1))
 ;; Value can be
 ;; 'official which displays the official emacs logo
 ;; 'logo which displays an alternative emacs logo

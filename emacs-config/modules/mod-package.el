@@ -102,9 +102,8 @@
   (if alias-pkg2 (internal-require alias-pkg2)))
 
 (defun package-download-git(lib-name repo)
-  ;; (setq dir-lib-name (expand-file-name ome-lib-dir ))
   (let* ((oldir default-directory)
-          (ome-lib-dir-git (concat (expand-file-name ome-lib-dir) "/git"))
+          (ome-lib-dir-git (concat ome-lib-dir "/git"))
           (dir-name (concat ome-lib-dir-git "/" (file-name-base lib-name)))
           (cmd-update (concat "git pull"))
           (cmd-clone (concat "git clone " repo " --depth=1 " lib-name)))
@@ -129,7 +128,7 @@
 
 (defun package-download-svn(lib-name path)
   (let* ((oldir default-directory)
-          (ome-lib-dir-svn (concat (expand-file-name ome-lib-dir) "/svn"))
+          (ome-lib-dir-svn (concat ome-lib-dir "/svn"))
           (dir-name (concat ome-lib-dir-svn "/" (file-name-base lib-name)))
           (cmd-update (concat "svn up"))
           (cmd-clone (concat "svn co " path lib-name)))
@@ -153,7 +152,7 @@
 
 (defun package-download-curl(dir-name file-name url)
   (let* ((oldir default-directory)
-          (dir (concat (expand-file-name ome-lib-dir) "/curl/" dir-name))
+          (dir (concat ome-lib-dir "/curl/" dir-name))
           (full-name (concat dir "/" file-name))
           (cmd (concat "curl -o " full-name " " url)))
     (make-directory dir t)

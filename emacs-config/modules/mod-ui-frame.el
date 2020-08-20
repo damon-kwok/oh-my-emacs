@@ -50,7 +50,7 @@
 ;;
 (set-window-dedicated-p (selected-window) nil)
 ;; (bgex-set-image-default "~/gnuemacsref.png" nil)
-;; (bgex-set-image-default (expand-file-name "~/.oh-my-emacs/logo.png") nil)
+;; (bgex-set-image-default "~/.oh-my-emacs/logo.png" nil)
 
 ;;; `open-file' (don't in new frame)
 (setq ns-pop-up-frames nil)

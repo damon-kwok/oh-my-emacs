@@ -22,11 +22,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(setq mu4e-root-git (concat (expand-file-name ome-lib-dir) "/mu-git/mu4e"))
+(setq mu4e-root-git (concat ome-lib-dir "/mu-git/mu4e"))
 (add-to-list 'load-path mu4e-root-git)
 
 ;; freebsd
-(setq mu4e-root (expand-file-name "~/.local/share/emacs/site-lisp/mu4e"))
+(setq mu4e-root "~/.local/share/emacs/site-lisp/mu4e")
 (add-to-list 'load-path mu4e-root)
 
 (internal-require 'mu4e)

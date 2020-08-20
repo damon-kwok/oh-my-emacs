@@ -21,7 +21,7 @@
 ;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (defcustom ome-logo (expand-file-name "~/.oh-my-emacs/logo.png")
+;; (defcustom ome-logo "~/.oh-my-emacs/logo.png"
 ;; "set ome logo. nil means official logo."
 ;; :type 'string)
 ;; (setq fancy-splash-image ome-logo)

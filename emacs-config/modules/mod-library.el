@@ -548,7 +548,7 @@ occurence of CHAR."
     (setq default-directory oldir)))
 
 (defun ome-project-wizard(lang)
-  (let* ((default-path (expand-file-name "~/projects/"))
+  (let* ((default-path "~/projects/")
           (project-path (directory-file-name (read-file-name "choice project path:" default-path)))
           (COMMAND (concat "bash -c \"" "app_wizard" " " lang " " project-path "\""))
           ;; (OUTPUT-BUFFER-NAME (->> "ok"

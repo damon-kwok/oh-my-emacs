@@ -38,7 +38,7 @@
 
                             ;;-------------------------------------------------
                             ;; Set your lisp system and, optionally, some contribs
-                            ;; (load (expand-file-name "C:/Users/Administrator/.roswell/helper.el"))
+                            ;; (load "C:/Users/Administrator/.roswell/helper.el")
                             (setq inferior-lisp-program "ros -Q run")
                             (setq slime-contribs '(slime-fancy))
                             (internal-require 'slime-autoloads)

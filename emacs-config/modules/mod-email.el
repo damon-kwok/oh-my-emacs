@@ -25,51 +25,24 @@
 ;; (package-download-git "mu-git" "https://github.com/djcb/mu.git")
 
 ;; ome
-(setq mu4e-root-ome (expand-file-name (concat ome-lib-dir "/mu-git/mu4e")))
+(setq mu4e-root-ome (concat ome-lib-dir "/mu-git/mu4e"))
 (add-to-list 'load-path mu4e-root-ome)
 
 ;; freebsd
-(setq mu4e-root-bsd (expand-file-name "~/.local/share/emacs/site-lisp/mu4e"))
+(setq mu4e-root-bsd "~/.local/share/emacs/site-lisp/mu4e")
 (add-to-list 'load-path mu4e-root-bsd)
 
 ;; linux
-(setq mu4e-root-linux (expand-file-name "/use/share/emacs/site-lisp/mu4e"))
+(setq mu4e-root-linux "/use/share/emacs/site-lisp/mu4e")
 (add-to-list 'load-path mu4e-root-linux)
 
 ;; msys2
-(setq mu4e-root-msys2 (expand-file-name (concat ome-lib-dir "/../../../../"
-                                                "/usr/share/emacs/site-lisp/mu4e")))
+(setq mu4e-root-msys2 (concat ome-lib-dir "/../../../../"
+                                         "/usr/share/emacs/site-lisp/mu4e"))
 (add-to-list 'load-path mu4e-root-msys2)
 
 (internal-require 'mu4e)
 (setenv "XAPIAN_CJK_NGRAM" "1")
-
-;; (defun mu4e~mark-get-move-target ()
-;;   "Ask for a move target, and propose to create it if it does not exist."
-;;   (interactive)
-;;   ;;  (mu4e-message-at-point) ;; raises error if there is none
-;;   (let* ((target (mu4e-ask-maildir "Move message to: "))
-;;          (target (if (string= (substring target 0 1) "/") target (concat "/" target)))
-;;          (fulltarget (expand-file-name (concat (mu4e-root-maildir) target))))
-;;     (when (or (file-directory-p fulltarget)
-;;               (and (yes-or-no-p (format "1==>%s does not exist.  Create now?" fulltarget))
-;;                    (mu4e~proc-mkdir fulltarget))) target)))
-
-;; (defun mu4e-create-maildir-maybe (dir)
-;;   "Offer to create maildir DIR if it does not exist yet.
-;; Return t if the dir already existed, or an attempt has been made to
-;; create it -- we cannot be sure creation succeeded here, since this
-;; is done asynchronously. Otherwise, return nil. NOte, DIR has to be
-;; an absolute path."
-;;   (message "dir:%s" dir)
-;;   (let ((dir (expand-file-name dir)))
-;;     (if (and (file-exists-p dir)
-;;              (not (file-directory-p dir)))
-;;         (mu4e-error "%s exists, but is not a directory." dir))
-;;     (cond ((file-directory-p dir) t)
-;;           ((yes-or-no-p (mu4e-format "2==>%s does not exist yet. Create now?" dir))
-;;            (mu4e~proc-mkdir dir) t)
-;;           (t nil))))
 
 ;; (defun mu4e-ask-maildir-check-exists (prompt)
 ;;   "Like `mu4e-ask-maildir', but check for existence of the maildir,
@@ -81,7 +54,7 @@
 ;;            (mu4e~proc-mkdir fullpath))) mdir))
 
 (if (string= "MSYS2" (getenv "OME_OS"))
-    (setq mu4e-doc-dir (expand-file-name (concat ome-lib-dir "/../../../../" "/usr/share/doc/mu"))))
+    (setq mu4e-doc-dir (concat ome-lib-dir "/../../../.." "/usr/share/doc/mu")))
 
 ;; `extensions'
 ;; (defalias 'mu4e~main-buffer-name 'mu4e-main-buffer-name)

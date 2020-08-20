@@ -104,10 +104,10 @@
 (setq dir-ome-snippets "~/workspace/emacs/snippets/")
 
 (if (file-exists-p dir-core-snippets)
-    (add-to-list 'yas-snippet-dirs (expand-file-name dir-core-snippets)))
+    (add-to-list 'yas-snippet-dirs dir-core-snippets))
 
 (if (file-exists-p dir-ome-snippets)
-    (add-to-list 'yas-snippet-dirs (expand-file-name dir-ome-snippets)))
+    (add-to-list 'yas-snippet-dirs dir-ome-snippets))
 
 (yas-reload-all)
 
