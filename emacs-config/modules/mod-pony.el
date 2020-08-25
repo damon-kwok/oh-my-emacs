@@ -69,7 +69,7 @@
 
 ;; `automenu:ponylang'
 (defun automenu--ponylang-mode-menu ()
-  '("0" "build" "run" "3" "4" "5" "6" "7" "8" "9"))
+  '("0" "build" "run" "clean" "4" "5" "6" "7" "8" "9"))
 
 (defun automenu--ponylang-mode-func (index)
   (cond;;
@@ -80,7 +80,7 @@
     ((= 2 index)
       (ponylang-project-run))
     ((= 3 index)
-      (message  "ponylang menu:%d" index))
+      (ponylang-project-clean))
     ((= 4 index)
       (message  "ponylang menu:%d" index))
     ((= 5 index)
