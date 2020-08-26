@@ -94,6 +94,7 @@
 (module-require 'mod-perl "perl")
 (module-require 'mod-php)
 (module-require 'mod-asm "nasm")
+(module-require 'mod-lua)
 (module-require 'mod-groovy)
 ;; `java'
 (if (file-directory-p "~/.emacs.d/eclipse.jdt.ls/server/")
