@@ -73,6 +73,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `company'
 (package-require 'company)
+(setq company-show-numbers t)
 (add-hook 'after-init-hook 'global-company-mode)
 
 (package-require 'company-ctags)
