@@ -116,7 +116,9 @@
 ;; `hl-todo
 (package-require 'hl-todo)
 (setq hl-todo-keyword-faces
-    '(("TODO" . "green")
+      '(("TODO" . "green")
+        ("name" . "yellow")
+        ("combined" . "red")
        ("FIXME" . "yellow")
        ("DEBUG" . "DarkCyan")
        ("GOTCHA" . "red")
