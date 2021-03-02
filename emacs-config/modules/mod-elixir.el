@@ -103,6 +103,34 @@
 ;; (define-key elixir-mode-map (kbd "C-c C-k")  'eval-buffer)
 ;; (define-key elixir-mode-map (kbd "C-M-\\")  'elisp-code-format)
 
+;; `automenu:elixir'
+(defun automenu--elixir-mode-menu ()
+  '("repl" "compile" "run" "3" "4" "5" "6" "7" "8" "repl"))
+
+(defun automenu--elixir-mode-func (index)
+  (cond ;;
+    ((= 0 index)
+      (show-elixir-mode-repl))
+    ((= 1 index)
+      (alchemist-mix-compile))
+    ((= 2 index)
+      (alchemist-mix-run))
+    ((= 3 index)
+      (message  "elixir menu:%d" index))
+    ((= 4 index)
+      (message  "elixir menu:%d" index))
+    ((= 5 index)
+      (message  "elixir menu:%d" index))
+    ((= 6 index)
+      (message  "elixir menu:%d" index))
+    ((= 7 index)
+      (message  "elixir menu:%d" index))
+    ((= 8 index)
+      (message  "elixir menu:%d" index))
+    ((= 9 index)
+      (message  "elixir menu:%d" index))
+    (t (message  "elixir menu:%d" index))))
+
 ;;
 (provide 'mod-elixir)
 ;;; ohai-elixir.el ends here

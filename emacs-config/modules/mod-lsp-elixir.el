@@ -1,9 +1,10 @@
-;; -*- lexical-binding: t -*-
-;; mod-lsp-py.el --- This is where you apply your OCD.
+;;; mod-lsp-elixir.el --- This is where you apply your OCD.  -*- lexical-binding: t -*-
 ;;
-;; Copyright (C) 2009-2020 Damon Kwok
+;; Copyright (C) 2009-2021 Damon Kwok
 ;;
 ;; Author: damon <damon-kwok@outlook.com>
+;; Create: 2021-02-25
+;; Modify: 2021-02-25
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -18,15 +19,15 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
-;; Code:
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Code:
 (require 'mod-package)
 ;;
 (require 'mod-lsp)
-(add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-(add-hook 'python-mode-hook;;
-          (lambda() (internal-require 'mod-lsp)
+(add-to-list 'auto-mode-alist '("\\.ex$" . elixir-mode))
+(add-hook 'elixir-mode-hook;;
+         (lambda() (internal-require 'mod-lsp)
             (lsp)))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(provide 'mod-lsp-py)
-;; mod-lsp-py.el ends here
+;;
+(provide 'mod-lsp-elixir)
+
+;;; mod-lsp-elixir.el ends here
