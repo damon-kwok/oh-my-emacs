@@ -140,7 +140,7 @@
 (module-require 'mod-racket "racket")
 
 ;; (module-require 'mod-sly)
-(module-require 'mod-csharp)
+(module-require 'mod-lsp-csharp)
 (module-require 'mod-go "gopls")
 ;; (module-require 'mod-gocode "gocode")
 

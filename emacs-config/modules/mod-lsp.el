@@ -122,14 +122,14 @@
 (package-require 'company)
 
 
-(package-require 'company-lsp)
-(push 'company-lsp company-backends)
+;; (package-require 'company-lsp)
+;; (push 'company-lsp company-backends)
 
 ;; company-lsp-cache-candidates: Can be set to 'auto, t, or nil.
-(setq company-lsp-cache-candidates 'auto)
-(setq company-lsp-async t)
-(setq company-lsp-enable-snippet t)
-(setq company-lsp-enable-recompletion t)
+;; (setq company-lsp-cache-candidates 'auto)
+;; (setq company-lsp-async t)
+;; (setq company-lsp-enable-snippet t)
+;; (setq company-lsp-enable-recompletion t)
 
 (define-key lsp-ui-mode-map [f10] 'lsp-ui-sideline-toggle-symbols-info)
 
