@@ -64,7 +64,7 @@
      ;;
      ))
 
-;;(add-to-list 'load-path "~/emacs-config/elpa-mirror")
+;;(add-to-list 'load-path "~/conf/elpa-mirror")
 ;;(internal-require 'elpa-mirror)
 
 (defun online? ()

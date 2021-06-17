@@ -431,7 +431,7 @@ occurence of CHAR."
   (ome-show-compilation "*Messages*") 
   (other-window 1) 
   (find-file                            ;
-   (concat "~/.oh-my-emacs/emacs-config/modules/mod-" mod-name ".el")))
+   (concat "~/.oh-my-emacs/conf/modules/mod-" mod-name ".el")))
 
 (defun ome-open-doc(doc-name) 
   (interactive) 

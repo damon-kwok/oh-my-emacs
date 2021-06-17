@@ -352,7 +352,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK
 
 
 (defun compile-all-modules()
-  (byte-recompile-directory (concat (getenv "ROOT") "/emacs-config/modules") 0))
+  (byte-recompile-directory (concat (getenv "ROOT") "/conf/modules") 0))
 
 
 ;;; `hydra-url-menu'
@@ -422,7 +422,7 @@ _\\_: calendar    _<escape>_: Quit   <tab>_: <-BACK           ^ ^             ^ 
 ("r" (ome-open-mod "rust") "rust")
 ;;("3" (ome-open-mod "theme") "theme")
 ;;("4" (ome-open-mod "speedbar") "speedbar")
-("T" (ome-open-file "~/emacs-config/themes/m-xemacs-theme.el") "theme")
+("T" (ome-open-file "~/conf/themes/m-xemacs-theme.el") "theme")
 ("1" (ome-open-mod "elisp") "elisp")
 ("2" (ome-open-mod "clojure") "clojure")
 ("3" (ome-open-mod "csharp") "csharp")

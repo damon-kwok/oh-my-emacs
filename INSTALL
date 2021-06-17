@@ -9,19 +9,19 @@ fi
 
 link-init-el() {
     tip "link"
-    bkdir=~/emacs-config-backup/`date +%Y-%m-%d@%H-%M-%S`
+    bkdir=~/conf-backup/`date +%Y-%m-%d@%H-%M-%S`
     mkdir -p $bkdir
 
     if [ -e ~/.emacs ]; then
 	mv ~/.emacs $bkdir
     fi
 
-    if [ -e ~/emacs-config ]; then
-	mv ~/emacs-config $bkdir
+    if [ -e ~/conf ]; then
+	mv ~/conf $bkdir
     fi
 
     tip "link .emacs"
-    cp -a $OME_ROOT/emacs-config/init.el ~/.emacs 
-    ln -s $OME_ROOT/emacs-config ~/emacs-config 
+    cp -a $OME_ROOT/conf/init.el ~/.emacs 
+    ln -s $OME_ROOT/conf ~/conf 
 }
 link-init-el

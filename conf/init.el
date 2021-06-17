@@ -11,10 +11,10 @@
 (setq debug-on-error t)
 (setq debug-on-quit nil)
 
-(add-to-list 'load-path "~/.oh-my-emacs/emacs-config")
-(add-to-list 'load-path "~/.oh-my-emacs/emacs-config/modules")
-(add-to-list 'load-path "~/.oh-my-emacs/emacs-config/preferences")
-(add-to-list 'custom-theme-load-path "~/.oh-my-emacs/emacs-config/themes")
+(add-to-list 'load-path "~/.oh-my-emacs/conf")
+(add-to-list 'load-path "~/.oh-my-emacs/conf/modules")
+(add-to-list 'load-path "~/.oh-my-emacs/conf/preferences")
+(add-to-list 'custom-theme-load-path "~/.oh-my-emacs/conf/themes")
 
 ;; Display the total loading time in the minibuffer
 (defun display-startup-echo-area-message ()
@@ -43,6 +43,6 @@
 ;;
 ;; avoid compile error
 ;;(setq byte-compile-warnings nil)
-;; (byte-recompile-directory (expand-file-name "~/.oh-my-emacs/emacs-config/modules") 0)
+;; (byte-recompile-directory (expand-file-name "~/.oh-my-emacs/conf/modules") 0)
 ;;
 (module-require 'mod-init)
