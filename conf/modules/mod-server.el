@@ -30,11 +30,11 @@
 
 (if window-system
     (progn
-      (setq server-auth-dir (concat (getenv "HOME") "/../../tmp/emacs1000/"))
-      (setq server-socket-dir(concat (getenv "HOME") "/../../tmp/emacs1000/")))
+      (setq server-auth-dir (concat (getenv "HOME") "/../../tmp/" (user-login-name) "/emacs1000/"))
+      (setq server-socket-dir(concat (getenv "HOME") "/../../tmp/" (user-login-name) "/emacs1000/")))
   (progn
-    (setq server-auth-dir (concat (getenv "HOME") "/../../tmp/emacstty1000/"))
-    (setq server-socket-dir(concat (getenv "HOME") "/../../tmp/emacstty1000/"))))
+    (setq server-auth-dir (concat (getenv "HOME") "/../../tmp/" (user-login-name) "/emacstty1000/"))
+    (setq server-socket-dir(concat (getenv "HOME") "/../../tmp/" (user-login-name) "/emacstty1000/"))))
 
 (setq server-name "server")
 
