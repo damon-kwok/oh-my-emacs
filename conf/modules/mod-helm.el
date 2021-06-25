@@ -76,6 +76,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`helm';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-download 'helm)
+(if (< emacs-major-version 26) (setq while-no-input-ignore-events nil))
 (package-download 'helm-themes)
 ;; (package-download 'swiper-helm)
 ;; (package-download 'helm-swoop)
