@@ -27,7 +27,7 @@
 ;; (require 'lsp-clients)
 (setq lsp-auto-guess-root t)
 
-(package-require 'dap-mode 'dap-mode 'dap-ui)
+(package-require 'dap-mode)
 (add-hook 'lsp-mode-hook 'dap-mode)
 (add-hook 'lsp-mode-hook 'dap-ui-mode)
 
