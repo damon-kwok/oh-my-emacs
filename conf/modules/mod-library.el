@@ -118,8 +118,8 @@ is running in a terminal else just nil."
   (let* ((bufdir (if buffer-file-name   ;
                      (file-name-directory buffer-file-name) default-directory)) 
          (curdir (if path (file-name-as-directory path) bufdir)) 
-         (parent (file-name-directory (directory-file-name curdir))) 
-         (parent-basename (file-name-base (directory-file-name parent)))) 
+         (parent (if curdir (file-name-directory (directory-file-name curdir)))) 
+         (parent-basename (if parent (file-name-base (directory-file-name parent))))) 
     ;; (message "cur: %s | base:%s | parent:%s" curdir parent-basename parent) 
     (if (or (not parent)
             (string= parent "")
@@ -134,6 +134,12 @@ is running in a terminal else just nil."
 
 (defun ome-project-name () 
   (file-name-base (directory-file-name (ome-project-root))))
+
+(defun ome-project-name-str ()
+  (let ((name (ome-project-name)))
+    (if name
+        name
+      "")))
 
 (defalias 'ome-project-dirname 'ome-project-name)
 

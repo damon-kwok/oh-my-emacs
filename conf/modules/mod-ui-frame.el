@@ -33,8 +33,7 @@
 ;;
 ;;; `title'
 (setq frame-title-format '("[%Z]    [%m]    "
-                            (:eval (if (ome-project-name)
-                                     (concat "<project: " (ome-project-name) ">    ")))
+                           (:eval (concat "<Project: " (ome-project-name-str) ">    "))
                             (:eval (cond (buffer-read-only " (readonly)")))
                             " %b"
                             (:eval (cond ((buffer-modified-p) " *")))
