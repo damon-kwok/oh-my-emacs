@@ -52,10 +52,10 @@
         ;; ("org" . "http://orgmode.org/elpa/")
         ;; ("melpa" . "https://melpa.org/packages/")
         ;;
-        ;; ("gnu-china" . "http://elpa.emacs-china.org/gnu/")
-        ;; ("melpa-china" . "http://elpa.emacs-china.org/melpa/")
+        ("gnu-china" . "http://elpa.emacs-china.org/gnu/")
+        ("melpa-china" . "http://elpa.emacs-china.org/melpa/")
         ;; ("melpa-stable-china" . "http://elpa.emacs-china.org/stable-melpa/")
-        ;; ("org-china" . "http://elpa.emacs-china.org/org/")
+        ("org-china" . "http://elpa.emacs-china.org/org/")
         ;;
         ;;'("popkit" . "http://elpa.popkit.org/packages/")
         ;;
