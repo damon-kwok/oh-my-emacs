@@ -23,6 +23,8 @@
 ;;; Code:
 (require 'mod-package)
 
+(toggle-frame-fullscreen)
+
 (package-require 'exwm)
 (package-require 'exwm-x)
 (package-require 'helm-exwm)
