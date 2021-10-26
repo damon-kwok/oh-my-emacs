@@ -31,8 +31,9 @@
 (require 'exwm-config)
 (require 'exwm-systemtray)
 
-;; (package-download 'exwm-firefox-core)
-;; (eval-after-load 'exwm (require 'exwm-firefox-core))
+(package-require 'exwm-firefox-core)
+(with-eval-after-load 'exwm 
+  (require 'exwm-firefox-core))
 
 (define-obsolete-function-alias 'exwm-config-default #'exwm-config-ome "27.1")
 
@@ -49,6 +50,7 @@
                                       (exwm-workspace-rename-buffer
                                        exwm-class-name)))
   ;; Global keybindings.
+  (exwm-input-set-key (kbd "M-<tab>") #'exwmx-switch-application)
   ;; 's-p': Launch application
   (exwm-input-set-key (kbd "s-p") 'helm-run-external-command)
   ;; 's-RET': Launch terminal
