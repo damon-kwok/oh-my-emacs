@@ -99,20 +99,21 @@
 (global-set-key (kbd "M-x")
                 (lambda (arg)
                   (interactive "P")
-                  (ome-helm-init)
-                  (helm-M-x arg)))
+                  (if (ome-helm-init)
+                      (helm-M-x arg))))
 ;;(global-set-key (kbd "C-c i") (lambda () (ome-helm-init) (helm-imenu)))
 (global-set-key (kbd "C-x C-b")
                 (lambda ()
                   (interactive)
-                  (ome-helm-init)
-                  (helm-buffers-list)))
+                  (if (ome-helm-init)
+                      (helm-buffers-list))))
 (global-set-key (kbd "C-x C-f")
                 (lambda (arg)
                   (interactive "P")
-                  (ome-helm-init)
-                  (setq default-directory (ome-buffer-directory))
-                  (helm-find-files arg)))
+                  (if (ome-helm-init)
+                      (progn
+                        (setq default-directory (ome-buffer-directory))
+                        (helm-find-files arg)))))
 
 ;; (add-hook helm-major-mode-hook 'ome-helm-init)
 
@@ -196,6 +197,7 @@
   ;; (internal-require 'company-quickhelp)
   ;; (company-quickhelp-mode 1)
   ;; (setq company-quickhelp-delay 0.5)
+  (eq nil (helm--alive-p))
   )
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

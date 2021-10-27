@@ -42,7 +42,7 @@
 (setq exwm-systemtray-height 20)
 (exwm-systemtray-enable)
 
-(defun exwm-config-ome () 
+(defun ome-exwm-config () 
   "Default configuration of EXWM."
   ;; Set the initial workspace number.
   (unless (get 'exwm-workspace-number 'saved-value) 
@@ -52,17 +52,18 @@
                                       (exwm-workspace-rename-buffer
                                        exwm-class-name)))
   ;; Global keybindings.
-  (exwm-input-set-key (kbd "M-<tab>") #'exwmx-switch-application)
+  (exwm-input-set-key (kbd "M-<tab>") #'ome-switch-app) 
+  (exwm-input-set-key (kbd "s-<tab>") #'ome-switch-app)
   ;; 's-p': Launch application
-  (exwm-input-set-key (kbd "s-p") 'helm-run-external-command)
+  (exwm-input-set-key (kbd "s-p") 'ome-switch-app)
   ;; 's-RET': Launch terminal
-  (exwm-input-set-key (kbd "s-<return>") #'run-terminal) 
+  (exwm-input-set-key (kbd "s-<return>") #'ome-run-terminal) 
   (unless (get 'exwm-input-global-keys 'saved-value) 
     (setq exwm-input-global-keys ;;
-          `(([?\s-x] . run-nemo) 
-            ([?\s-z] . run-firefox) 
-            ([?\s-t] . run-terminal) 
-            ([?\s-d] . helm-run-external-command)
+          `(([?\s-x] . ome-run-nemo) 
+            ([?\s-z] . ome-run-firefox) 
+            ([?\s-t] . ome-run-terminal) 
+            ([?\s-d] . ome-run-dmenu)
 
             ;; 's-r': Reset (to line-mode).
             ([?\s-r] . exwm-reset)
@@ -102,23 +103,32 @@
   ;; Other configurations
   (exwm-config-misc))
 
-(defun run-nemo () 
+(defun ome-run-nemo () 
   (interactive) 
-  (exwmx-quickrun "nemo"))
+  (if (ome-helm-init) 
+      (exwmx-quickrun "nemo")))
 
-(defun run-firefox () 
+(defun ome-run-firefox () 
   (interactive) 
-  (exwmx-quickrun "firefox"))
+  (if (ome-helm-init) 
+      (exwmx-quickrun "firefox")))
 
-;; (defun run-rofi ()
-;; (interactive)
-;; (exwmx-quickrun "rofi -show run"))
-
-(defun run-terminal () 
+(defun ome-run-dmenu () 
   (interactive) 
-  (exwmx-quickrun "gnome-terminal"))
+  (if (ome-helm-init) 
+      (helm-run-external-command)))
 
-(exwm-config-ome)
+(defun ome-switch-app () 
+  (interactive) 
+  (if (ome-helm-init) 
+      (exwmx-switch-application)))
+
+(defun ome-run-terminal () 
+  (interactive) 
+  (if (ome-helm-init) 
+      (exwmx-quickrun "gnome-terminal")))
+
+(ome-exwm-config)
 ;;
 (provide 'mod-exwm)
 

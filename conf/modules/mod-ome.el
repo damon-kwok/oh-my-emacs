@@ -23,16 +23,17 @@
 (require 'mod-package)
 ;;
 (setq dir-ome-pkgs "~/.oh-my-env/packages/")
-(defun ome-open-pkg(arg)
+(defun ome-open-pkg(arg) 
   (interactive "P")
   ;; (interactive "sEnter ome pkg name:")
   ;; (find-file (concat dir-ome-pkgs pkg-name))
-  (let ((oldir default-directory))
-    (ome-helm-init)
-    (setq default-directory dir-ome-pkgs)
-    (helm-find-files arg)
-    ;; (setq default-directory oldir)
-    ))
+  (let ((oldir default-directory)) 
+    (if  (ome-helm-init)) 
+    (progn 
+      (setq default-directory dir-ome-pkgs) 
+      (helm-find-files arg)
+      ;; (setq default-directory oldir)
+      )))
 
 (global-set-key (kbd "C-x p f") 'ome-open-pkg)
 
