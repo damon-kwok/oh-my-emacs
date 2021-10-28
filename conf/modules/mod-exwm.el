@@ -29,9 +29,9 @@
 (package-require 'exwm-x)
 (package-require 'helm-exwm)
 (require 'exwm)
-(require 'exwm-x)
 (require 'exwm-config)
 (require 'exwm-systemtray)
+
 
 (package-require 'exwm-firefox-core)
 (with-eval-after-load 'exwm 
@@ -41,6 +41,9 @@
 
 (setq exwm-systemtray-height 20)
 (exwm-systemtray-enable)
+
+(require 'exwm-x)
+(setq exwmx-button-floating-button-line 'mode-line)
 
 (defun ome-exwm-config () 
   "Default configuration of EXWM."
@@ -52,8 +55,10 @@
                                       (exwm-workspace-rename-buffer
                                        exwm-class-name)))
   ;; Global keybindings.
+  (exwm-input-set-key (kbd "<f8>") #'exwm-floating-toggle-floating)
   (exwm-input-set-key (kbd "M-<tab>") #'ome-switch-app) 
   (exwm-input-set-key (kbd "s-<tab>") #'ome-switch-app)
+  (exwm-input-set-key (kbd "C-c C-c") #'exwmx-sendstring)
   ;; 's-p': Launch application
   (exwm-input-set-key (kbd "s-p") 'ome-switch-app)
   ;; 's-RET': Launch terminal
