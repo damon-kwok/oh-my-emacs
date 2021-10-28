@@ -49,10 +49,6 @@
                           (internal-require 'shell)
                           (define-key shell-mode-map (kbd "C-c `")  'show-global-workbuffer)
                           (define-key shell-mode-map (kbd "C-c C-z")  'show-global-workbuffer)))
-(global-set-key (kbd "C-c `") 'show-global-shell)
-(global-set-key (kbd "C-c C-`") 'show-global-shell-new)
-(global-set-key (kbd "C-c C-z") 'show-global-shell)
-
 ;; `repl'
 (defun show-global-shell()
   (interactive)

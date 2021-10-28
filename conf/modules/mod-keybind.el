@@ -195,6 +195,13 @@
 (global-set-key (kbd "C-M--") 'shrink-window-horizontally)
 (global-set-key (kbd "C-M-=") 'enlarge-window-horizontally)
 
+
+(global-set-key (kbd "C-c `") 'show-global-shell)
+(global-set-key (kbd "C-c C-`") 'show-global-shell-new)
+(global-set-key (kbd "C-c C-z") 'show-global-shell)
+
+(global-set-key (kbd "C-c z") 'show-super-menu)
+
 ;;; minibuffer (press mouse left, show: shrink-compile-window
 ;; (define-key minibuffer-local-map [double-mouse-1] 'shrink-compile-window)
 
