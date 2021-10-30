@@ -25,7 +25,7 @@
 ;; "set ome logo. nil means official logo."
 ;; :type 'string)
 ;; (setq fancy-splash-image ome-logo)
-(module-require 'mod-exwm)
+;; (module-require 'mod-exwm)
 ;;(package-require 'esup)
 ;; (module-require 'mod-profiler)
 (module-require 'mod-gc)
@@ -201,6 +201,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (message "hello, emacs!")
 (module-require 'mod-server)
+(module-require 'mod-eaf)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-init)
 ;; init.el ends here

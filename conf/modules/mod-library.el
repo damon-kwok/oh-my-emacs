@@ -474,13 +474,17 @@ occurence of CHAR."
     (helm-find-files nil) 
     (setq default-directory oldir)))
 
+(defun ome-open-url(url) 
+  (interactive) 
+  (eaf-open-browser url))
+
 (defun ome-open-url_1(url) 
   (interactive) 
   (ome-show-compilation "*eww*") 
   (other-window 1) 
   (eww url))
 
-(defun ome-open-url(url) 
+(defun ome-open-url_2(url) 
   (interactive) 
   (if (string= (getenv "OME_OS") "MSYS2") 
       (ome-run-command (concat "cygstart " url)) 

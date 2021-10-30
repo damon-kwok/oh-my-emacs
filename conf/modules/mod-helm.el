@@ -76,7 +76,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`helm';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-download 'helm)
-(if (< emacs-major-version 26) (setq while-no-input-ignore-events nil))
+(if (< emacs-major-version 26) 
+    (setq while-no-input-ignore-events nil))
 (package-download 'helm-themes)
 ;; (package-download 'swiper-helm)
 ;; (package-download 'helm-swoop)
@@ -96,24 +97,27 @@
 ;; (package-download 'vlf)
 
 ;; Replace common selectors with Helm versions.
-(global-set-key (kbd "M-x")
-                (lambda (arg)
-                  (interactive "P")
-                  (if (ome-helm-init)
+(global-set-key (kbd "M-x") 
+                (lambda (arg) 
+                  (interactive "P") 
+                  (if (ome-helm-init) 
                       (helm-M-x arg))))
 ;;(global-set-key (kbd "C-c i") (lambda () (ome-helm-init) (helm-imenu)))
-(global-set-key (kbd "C-x C-b")
-                (lambda ()
-                  (interactive)
-                  (if (ome-helm-init)
+(global-set-key (kbd "C-x C-b") 
+                (lambda () 
+                  (interactive) 
+                  (if (ome-helm-init) 
                       (helm-buffers-list))))
-(global-set-key (kbd "C-x C-f")
-                (lambda (arg)
-                  (interactive "P")
-                  (if (ome-helm-init)
-                      (progn
-                        (setq default-directory (ome-buffer-directory))
-                        (helm-find-files arg)))))
+
+(global-set-key (kbd "C-x C-f") 
+                (lambda (arg) 
+                  (interactive "P") 
+                  (if (ome-helm-init) 
+                      (progn 
+                        (setq default-directory (ome-buffer-directory)) 
+                        (if (s-ends-with? ".md" arg t) 
+                            (eaf-open-browser arg) 
+                          (helm-find-files arg))))))
 
 ;; (add-hook helm-major-mode-hook 'ome-helm-init)
 
@@ -123,9 +127,8 @@
   ;; (custom-set-variables '(vlf-application 'dont-ask))
 
   ;; (message "helm::")
-  (internal-require 'helm-config)
-  (internal-require 'helm-themes)
-
+  (internal-require 'helm-config) 
+  (internal-require 'helm-themes) 
   (internal-require 'helm)
   ;; Activate Helm.
   (helm-mode 1)
@@ -134,15 +137,16 @@
 
   ;; Make Helm look nice.
   (setq-default helm-display-header-line nil helm-autoresize-min-height 20
-                helm-autoresize-max-height 35 helm-split-window-in-side-p t helm-M-x-fuzzy-match t
-                helm-buffers-fuzzy-matching t helm-recentf-fuzzy-match t helm-apropos-fuzzy-match t)
-  (set-face-attribute 'helm-source-header nil
+                helm-autoresize-max-height 35 helm-split-window-in-side-p t
+                helm-M-x-fuzzy-match t helm-buffers-fuzzy-matching t
+                helm-recentf-fuzzy-match t helm-apropos-fuzzy-match t) 
+  (set-face-attribute 'helm-source-header nil 
                       :height 0.75)
 
 
 
   ;; Keybinding
-  (define-key helm-map (kbd "<tab>")  'helm-execute-persistent-action)
+  (define-key helm-map (kbd "<tab>")  'helm-execute-persistent-action) 
   (define-key helm-map (kbd "<escape>")  'helm-keyboard-quit)
 
   ;; (global-set-key (kbd "C-x c g") 'helm-google-suggest)
@@ -176,29 +180,30 @@
   ;; (setq xref-show-xrefs-function 'helm-xref-show-xrefs)
 
   ;; `helm-is-git'/`hg'/`svn'
-  (internal-require 'helm-ls-svn)
-  (internal-require 'helm-ls-git)
+  (internal-require 'helm-ls-svn) 
+  (internal-require 'helm-ls-git) 
   (internal-require 'helm-ls-hg)
 
   ;; (internal-require 'helm-buffer-list)
-  (internal-require 'helm-descbinds)
+  (internal-require 'helm-descbinds) 
   (helm-descbinds-mode)
 
   ;; `helm-pages'
   (internal-require 'helm-pages)
 
   ;; `helm-company'
-  (package-download 'helm-company)
+  (package-download 'helm-company) 
   (autoload 'helm-company "helm-company") ;; Not necessary if using ELPA package
-  (eval-after-load 'company '(progn (define-key company-mode-map (kbd "C-:") 'helm-company)
-                                    (define-key company-active-map (kbd "C-:") 'helm-company)))
+  (eval-after-load 'company '(progn (define-key company-mode-map (kbd "C-:")
+                                      'helm-company) 
+                                    (define-key company-active-map (kbd "C-:")
+                                      'helm-company)))
 
   ;; don't super tty
   ;; (internal-require 'company-quickhelp)
   ;; (company-quickhelp-mode 1)
   ;; (setq company-quickhelp-delay 0.5)
-  (eq nil (helm--alive-p))
-  )
+  (eq nil (helm--alive-p)))
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
