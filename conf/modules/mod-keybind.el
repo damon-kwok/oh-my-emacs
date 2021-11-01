@@ -68,7 +68,7 @@
                               :action #'async-shell-command)
             (wand:create-rule :match "https?://"
                               :capture :whole
-                              :action #'ome-open-url)
+                              :action #'eaf-open-browser);; ome-open-url
             (wand:create-rule :match "file:"
                               :capture :after
                               :action #'find-file)

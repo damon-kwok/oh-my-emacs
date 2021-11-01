@@ -93,7 +93,7 @@
 (setq doom-modeline-height 20)
 
 ;; How wide the mode-line bar should be. It's only respected in GUI.
-(setq doom-modeline-bar-width 0)
+(setq doom-modeline-bar-width 4)
 
 ;; The limit of the window width.
 ;; If `window-width' is smaller than the limit, some information won't be displayed.
@@ -253,27 +253,25 @@
 (define-key isearch-mode-map [remap isearch-query-replace-regexp]
   #'anzu-isearch-query-replace-regexp)
 
-;;; time
-(display-time-mode 0)
 
 ;;; time format
 (setq display-time-24hr-format t)
 (setq display-time-day-and-date t)
 (setq display-time-interval 10)
 
-;; (defface egoge-display-time
-;;   '((((type x w32 mac))
-;;      ;; #060525 is the background colour of my default face.
-;;      (:foreground "#060525" :inherit bold))
-;;     (((type tty))
-;;      (:foreground "blue")))
-;;   "Face used to display the time in the mode line.")
+(defface egoge-display-time
+  '((((type x w32 mac))
+     ;; #060525 is the background colour of my default face.
+     (:foreground "#9ccc65" :inherit bold))
+    (((type tty))
+     (:foreground "#2E8B57")))
+  "Face used to display the time in the mode line.")
 
-;; ;; This causes the current time in the mode line to be displayed in
-;; ;; `egoge-display-time-face' to make it stand out visually.
-;; (setq display-time-string-forms
-;;       '((propertize (concat " " 24-hours ":" minutes " ")
-;; 		    'face 'egoge-display-time)))
+;; This causes the current time in the mode line to be displayed in
+;; `egoge-display-time-face' to make it stand out visually.
+(setq display-time-string-forms
+      '((propertize (concat " " 24-hours ":" minutes " ")
+		    'face 'egoge-display-time)))
 
 ;; See also:  `display-time-format' and `mode-line-format'
 ;; `mode-line-format'
@@ -283,6 +281,8 @@
 ;; ‘size-indication-mode’ (for Emacs 22 and up) – Enable or disable the current buffer size, Emacs 22 and later, see size-indication-mode
 ;; ‘display-battery-mode’ – Enable or disable laptop battery information, see DisplayBatteryMode.
 
+;;; time
+(display-time-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-modeline)
 ;; mod-modeline.el ends here

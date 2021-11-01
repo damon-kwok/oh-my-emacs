@@ -1,4 +1,3 @@
-
 ;;; mod-exwm.el --- This is where you apply your OCD.  -*- lexical-binding: t -*-
 ;;
 ;; Copyright (C) 2009-2021 Damon Kwok
@@ -55,9 +54,9 @@
                                       (exwm-workspace-rename-buffer
                                        exwm-class-name)))
   ;; Global keybindings.
-  (exwm-input-set-key (kbd "<f8>") #'exwm-floating-toggle-floating)
+  (exwm-input-set-key (kbd "<f8>") #'exwm-floating-toggle-floating) 
   (exwm-input-set-key (kbd "M-<tab>") #'ome-switch-app) 
-  (exwm-input-set-key (kbd "s-<tab>") #'ome-switch-app)
+  (exwm-input-set-key (kbd "s-<tab>") #'ome-switch-app) 
   (exwm-input-set-key (kbd "C-c C-c") #'exwmx-sendstring)
   ;; 's-p': Launch application
   (exwm-input-set-key (kbd "s-p") 'ome-switch-app)
@@ -115,8 +114,8 @@
 
 (defun ome-run-firefox () 
   (interactive) 
-  (if (ome-helm-init) 
-      (exwmx-quickrun "firefox")))
+  (if (ome-helm-init) ;;(exwmx-quickrun "firefox")
+      (eaf-open-browser "https://cn.bing.com")))
 
 (defun ome-run-dmenu () 
   (interactive) 
@@ -130,8 +129,8 @@
 
 (defun ome-run-terminal () 
   (interactive) 
-  (if (ome-helm-init) 
-      (exwmx-quickrun "gnome-terminal")))
+  (if (ome-helm-init) ;;(exwmx-quickrun "gnome-terminal")
+      (shell)))
 
 (ome-exwm-config)
 ;;

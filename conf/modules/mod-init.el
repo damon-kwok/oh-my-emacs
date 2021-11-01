@@ -25,7 +25,8 @@
 ;; "set ome logo. nil means official logo."
 ;; :type 'string)
 ;; (setq fancy-splash-image ome-logo)
-;; (module-require 'mod-exwm)
+
+(module-require 'mod-exwm)
 ;;(package-require 'esup)
 ;; (module-require 'mod-profiler)
 (module-require 'mod-gc)
@@ -44,10 +45,15 @@
 (module-require 'mod-splash)
 (module-require 'mod-ui-frame)
 (module-require 'mod-ui-buffer)
-(if (eq system-type 'gnu/linux)
-  (if (not (display-graphic-p))
-    (module-require 'mod-modeline))
-  (module-require 'mod-modeline))
+
+(setq max-image-size 128)
+;; (if (eq system-type 'gnu/linux)
+  ;; (if (not (display-graphic-p))
+    ;; (module-require 'mod-modeline))
+  ;; (module-require 'mod-modeline))
+
+(module-require 'mod-modeline)
+
 (module-require 'mod-ui-editor)
 (module-require 'mod-highlight)
 (module-require 'mod-tabs)
