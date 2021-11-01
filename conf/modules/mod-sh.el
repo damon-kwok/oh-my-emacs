@@ -103,7 +103,8 @@
 (global-set-key (kbd "<f12>") 'th-shell-popup)
 
 
-(package-download 'shell-pop)
+(package-require 'shell-pop)
+
 
 ;; `automenu'
 ;; (setenv "OME_PREFIX" "/home/damon/.ome_local")
