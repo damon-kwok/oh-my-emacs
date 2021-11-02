@@ -112,9 +112,9 @@
   (if (ome-helm-init) 
       (exwmx-quickrun "nemo")))
 
-(defun ome-run-firefox () 
+(defun ome-run-browser () 
   (interactive) 
-  (if (ome-helm-init) ;;(exwmx-quickrun "firefox")
+  (if (ome-helm-init) ;; (exwmx-quickrun "chromium")
       (eaf-open-browser "https://cn.bing.com")))
 
 (defun ome-run-dmenu () 
