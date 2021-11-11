@@ -50,7 +50,7 @@
       '(;;
         ;; ("gnu" . "https://elpa.gnu.org/packages/")
         ;; ("org" . "http://orgmode.org/elpa/")
-        ("melpa" . "https://melpa.org/packages/")
+        ;; ("melpa" . "https://melpa.org/packages/")
         ;;
         ;; ("gnu-china" . "http://elpa.emacs-china.org/gnu/")
         ;; ("melpa-china" . "http://elpa.emacs-china.org/melpa/")

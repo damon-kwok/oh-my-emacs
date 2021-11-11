@@ -119,11 +119,12 @@ is running in a terminal else just nil."
                      (file-name-directory buffer-file-name) default-directory)) 
          (curdir (if path (file-name-as-directory path) bufdir)) 
          (parent (if curdir (file-name-directory (directory-file-name curdir)))) 
-         (parent-basename (if parent (file-name-base (directory-file-name parent))))) 
-    ;; (message "cur: %s | base:%s | parent:%s" curdir parent-basename parent) 
-    (if (or (not parent)
-            (string= parent "")
-            (string= parent "/")
+         (parent-basename (if parent (file-name-base (directory-file-name
+                                                      parent)))))
+    ;; (message "cur: %s | base:%s | parent:%s" curdir parent-basename parent)
+    (if (or (not parent) 
+            (string= parent "") 
+            (string= parent "/") 
             (string= parent curdir) 
             (string= parent (file-name-as-directory (getenv "HOME"))) 
             (and (>= (length parent-basename) 10) 
@@ -135,11 +136,9 @@ is running in a terminal else just nil."
 (defun ome-project-name () 
   (file-name-base (directory-file-name (ome-project-root))))
 
-(defun ome-project-name-str ()
-  (let ((name (ome-project-name)))
-    (if name
-        name
-      "")))
+(defun ome-project-name-str () 
+  (let ((name (ome-project-name))) 
+    (if name name "")))
 
 (defalias 'ome-project-dirname 'ome-project-name)
 
@@ -717,6 +716,34 @@ occurence of CHAR."
 (defun ome-eval-string (string) 
   "Evaluate elisp code stored in a string. (ome-eval-string \"(+ 1 2)\") is 3"
   (eval (car (read-from-string string))))
+
+(defun ome-build-tags ()
+  "Build tags for current project."
+  (interactive)
+  (let ((tags-buffer (get-buffer "TAGS"))
+         (tags-buffer2 (get-buffer (format "TAGS<%s>"
+                                     (ome-project-name)))))
+    (if tags-buffer ;;
+      (kill-buffer tags-buffer))
+    (if tags-buffer2 ;;
+      (kill-buffer tags-buffer2)))
+  (let* ((oldir default-directory)
+          (ctags-params (concat "ctags -e -R . ")))
+    (setq default-directory (ome-project-root))
+    (message "ctags:%s" (shell-command-to-string ctags-params))
+    (ome-load-tags)
+    (setq default-directory oldir)))
+
+(defun ome-load-tags
+  (&optional
+    build)
+  "Visit tags table.
+Optional argument BUILD If the tags file does not exist, execute the build."
+  (interactive)
+  (let* ((tags-file (concat (ome-project-root) "TAGS")))
+    (if (file-exists-p tags-file)
+      (progn (visit-tags-table (concat (ome-project-root) "TAGS")))
+      (if build (ome-build-tags)))))
 
 (defun ome-mu4e-open () 
   (interactive) 

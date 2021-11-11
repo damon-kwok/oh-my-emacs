@@ -65,7 +65,7 @@
   (unless (get 'exwm-input-global-keys 'saved-value) 
     (setq exwm-input-global-keys ;;
           `(([?\s-x] . ome-run-nemo) 
-            ([?\s-z] . ome-run-firefox) 
+            ([?\s-z] . ome-run-browser) 
             ([?\s-t] . ome-run-terminal) 
             ([?\s-d] . ome-run-dmenu)
 
