@@ -114,8 +114,8 @@
 
 (defun ome-run-browser () 
   (interactive) 
-  (if (ome-helm-init) ;; (exwmx-quickrun "chromium")
-      (eaf-open-browser "https://cn.bing.com")))
+  (if (ome-helm-init) ;; (eaf-open-browser "https://cn.bing.com")
+      (exwmx-quickrun "firefox")))
 
 (defun ome-run-dmenu () 
   (interactive) 
