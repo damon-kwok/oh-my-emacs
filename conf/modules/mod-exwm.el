@@ -67,7 +67,7 @@
           `(([?\s-x] . ome-run-nemo) 
             ([?\s-z] . ome-run-browser) 
             ([?\s-t] . ome-run-terminal) 
-            ([?\s-d] . ome-run-dmenu)
+            ([?\s-d] . helm-run-external-command)
 
             ;; 's-r': Reset (to line-mode).
             ([?\s-r] . exwm-reset)
@@ -117,10 +117,10 @@
   (if (ome-helm-init) ;; (eaf-open-browser "https://cn.bing.com")
       (exwmx-quickrun "firefox")))
 
-(defun ome-run-dmenu () 
-  (interactive) 
+(defun ome-run-dmenu (cmd)
+  (interactive "P") 
   (if (ome-helm-init) 
-      (helm-run-external-command)))
+      (helm-run-external-command cmd)))
 
 (defun ome-switch-app () 
   (interactive) 
