@@ -23,7 +23,6 @@
 (require 'mod-package)
 ;;
 (package-download 'js2-mode)
-(package-download 'company-lsp)
 (package-download 'skewer-mode)
 (package-download 'js2-refactor)
 (package-download 'nodejs-repl)
@@ -55,8 +54,6 @@
                            (define-key js-mode-map (kbd "C-c C-l") 'nodejs-repl-load-file)
                            (define-key js-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl)
                            ;; `company'
-                           (internal-require 'company-lsp)
-                           (push 'company-lsp company-backends)
                            (make-local-variable 'company-transformers)
                            (push 'my-company-transformer company-transformers)
                            ;;

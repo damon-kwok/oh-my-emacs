@@ -22,7 +22,7 @@
 ;;; Code:
 (require 'mod-package)
 
-(toggle-frame-fullscreen)
+;;(toggle-frame-fullscreen)
 
 (package-require 'exwm)
 (package-require 'exwm-x)

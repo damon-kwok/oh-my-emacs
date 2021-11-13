@@ -26,7 +26,6 @@
 (package-download 'cuda-mode)
 (package-download 'lsp-mode)
 (package-download 'lsp-ui)
-(package-download 'company-lsp)
 ;;
 (defun cc-mode-init ()
   (internal-require 'mod-cc)

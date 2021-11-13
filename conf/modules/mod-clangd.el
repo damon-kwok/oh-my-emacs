@@ -31,7 +31,6 @@
   (internal-require 'mod-cc)
   (internal-require 'mod-lsp)
   (ome-gen-cmake-file)
-  (push 'company-lsp company-backends)
   (lsp))
 
 (add-hook 'c-mode-hook #'clangd-setup)

@@ -58,11 +58,6 @@
 
 ;; (internal-require 'lsp-ui)
 ;; (add-hook 'lsp-after-open-hook #'lsp-ui-mode)
-
-;; (package-require 'company-lsp)
-;; (setq company-lsp-enable-snippet t
-;; company-lsp-cache-candidates t)
-;; (push 'company-lsp company-backends)
 ;; (push 'java-mode company-global-modes)
 
 ;; if using Kotlin

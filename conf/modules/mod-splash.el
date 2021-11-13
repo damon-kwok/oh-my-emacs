@@ -26,7 +26,7 @@
 ;; (package-require 'spaceline-all-the-icons)
 ;; (spaceline-all-the-icons-theme)
 (package-require 'dashboard)
-(page-break-lines-mode (if (display-graphic-p) 1 -1))
+;;(page-break-lines-mode (if (display-graphic-p) 1 -1))
 (dashboard-setup-startup-hook)
 
 ;; Set the title

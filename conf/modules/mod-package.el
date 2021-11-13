@@ -49,24 +49,24 @@
 (setq package-archives ;;
       '(;;
         ;; ("gnu" . "https://elpa.gnu.org/packages/")
-        ;; ("org" . "http://orgmode.org/elpa/")
+        ;; ("org" . "https://orgmode.org/elpa/")
         ;; ("melpa" . "https://melpa.org/packages/")
         ;;
-        ;; ("gnu-china" . "http://elpa.emacs-china.org/gnu/")
-        ;; ("melpa-china" . "http://elpa.emacs-china.org/melpa/")
-        ;; ("melpa-stable-china" . "http://elpa.emacs-china.org/stable-melpa/")
-        ;; ("org-china" . "http://elpa.emacs-china.org/org/")
+        ;;("gnu-china" . "https://elpa.zilongshanren.com/gnu/")
+        ;;("melpa-china" . "https://elpa.zilongshanren.com/melpa/")
+        ;;("melpa-stable-china" . "http://elpa.emacs-china.org/stable-melpa/")
+        ;;("org-china" . "https://elpa.zilongshanren.com/org/")
         ;;
         ;;'("popkit" . "http://elpa.popkit.org/packages/")
         ;;
-        ("gnu-tuna" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/") 
-        ("melpa-tuna" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") 
-        ("org-tuna" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+         ("gnu-tuna" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/") 
+         ("melpa-tuna" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") 
+         ("org-tuna" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
         ;;
-        ("gnu-ustc" . "http://mirrors.ustc.edu.cn/elpa/gnu/") 
-        ("melpa-ustc" . "http://mirrors.ustc.edu.cn/elpa/melpa/") 
-        ;; ("melpa-stable-ustc" . "http://mirrors.ustc.edu.cn/elpa/melpa-stable/") 
-        ("org-ustc" . "http://mirrors.ustc.edu.cn/elpa/org/")
+         ("gnu-ustc" . "https://mirrors.ustc.edu.cn/elpa/gnu/") 
+         ("melpa-ustc" . "https://mirrors.ustc.edu.cn/elpa/melpa/") 
+        ;; ("melpa-stable-ustc" . "https://mirrors.ustc.edu.cn/elpa/melpa-stable/") 
+         ("org-ustc" . "https://mirrors.ustc.edu.cn/elpa/org/")
         ;;
         ))
 
