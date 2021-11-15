@@ -28,12 +28,12 @@
   ;; (interactive "sEnter ome pkg name:")
   ;; (find-file (concat dir-ome-pkgs pkg-name))
   (let ((oldir default-directory)) 
-    (if  (ome-helm-init)) 
-    (progn 
-      (setq default-directory dir-ome-pkgs) 
-      (helm-find-files arg)
-      ;; (setq default-directory oldir)
-      )))
+    (if  (ome-helm-init) 
+        (progn 
+          (setq default-directory dir-ome-pkgs) 
+          (helm-find-files arg)
+          ;; (setq default-directory oldir)
+          ))))
 
 (global-set-key (kbd "C-x p f") 'ome-open-pkg)
 
