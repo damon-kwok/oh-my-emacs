@@ -83,7 +83,6 @@
 ;; (module-require 'mod-latex)
 (module-require 'mod-ros)
 ;; (module-require 'mod-book)
-(module-require 'mod-ome)
 (module-require 'mod-input)
 (module-require 'mod-git "git")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -205,9 +204,9 @@
 (module-require 'mod-edit-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (message "hello, emacs!")
-(module-require 'mod-server)
 (module-require 'mod-eaf)
-
+(module-require 'mod-ome)
+(module-require 'mod-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-init)
 ;; init.el ends here
