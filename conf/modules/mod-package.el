@@ -66,8 +66,7 @@
         ;; ("gnu-ustc" . "https://mirrors.ustc.edu.cn/elpa/gnu/")
         ;; ("melpa-ustc" . "https://mirrors.ustc.edu.cn/elpa/melpa/")
         ;; ("melpa-stable-ustc" . "https://mirrors.ustc.edu.cn/elpa/melpa-stable/")
-        ("org-ustc" . "https://mirrors.ustc.edu.cn/elpa/org/")
-        ))
+        ("org-ustc" . "https://mirrors.ustc.edu.cn/elpa/org/")))
 
 ;;(add-to-list 'load-path "~/conf/elpa-mirror")
 ;;(internal-require 'elpa-mirror)
@@ -81,8 +80,9 @@
                                                                   iface))))))) 
             (network-interface-list)) t))
 
-;;(when (online?)
-;;  (unless package-archive-contents (package-refresh-contents)))
+;; (when (online?)
+;; (unless package-archive-contents (package-refresh-contents)))
+(unless package-archive-contents (package-refresh-contents))
 
 (defun lazy-require (ext mode) 
   (add-hook 'find-file-hook             ;
@@ -99,7 +99,7 @@
 ;; To get the package manager going, we invoke its initialise function.
 (defun package-download (pkg) 
   (when (not (package-installed-p pkg)) 
-    (progn (unless package-archive-contents (package-refresh-contents)) 
+    (progn (package-refresh-contents)
            (package-install pkg))))
 
 (defun package-require(pkg &optional alias-pkg alias-pkg2) 
