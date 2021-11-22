@@ -48,9 +48,9 @@
 
 (setq package-archives ;;
       '(;;
-        ;; ("gnu" . "https://elpa.gnu.org/packages/")
-        ;; ("org" . "https://orgmode.org/elpa/")
-        ;; ("melpa" . "https://melpa.org/packages/")
+        ("gnu" . "https://elpa.gnu.org/packages/") 
+        ("melpa" . "https://melpa.org/packages/") 
+        ("org" . "https://orgmode.org/elpa/")
         ;;
         ;;("gnu-china" . "https://elpa.zilongshanren.com/gnu/")
         ;;("melpa-china" . "https://elpa.zilongshanren.com/melpa/")
@@ -59,15 +59,14 @@
         ;;
         ;;'("popkit" . "http://elpa.popkit.org/packages/")
         ;;
-         ("gnu-tuna" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/") 
-         ("melpa-tuna" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") 
-         ("org-tuna" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+        ;; ("gnu-tuna" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+        ;; ("melpa-tuna" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+        ;; ("org-tuna" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
         ;;
-         ("gnu-ustc" . "https://mirrors.ustc.edu.cn/elpa/gnu/") 
-         ("melpa-ustc" . "https://mirrors.ustc.edu.cn/elpa/melpa/") 
-        ;; ("melpa-stable-ustc" . "https://mirrors.ustc.edu.cn/elpa/melpa-stable/") 
-         ("org-ustc" . "https://mirrors.ustc.edu.cn/elpa/org/")
-        ;;
+        ;; ("gnu-ustc" . "https://mirrors.ustc.edu.cn/elpa/gnu/")
+        ;; ("melpa-ustc" . "https://mirrors.ustc.edu.cn/elpa/melpa/")
+        ;; ("melpa-stable-ustc" . "https://mirrors.ustc.edu.cn/elpa/melpa-stable/")
+        ("org-ustc" . "https://mirrors.ustc.edu.cn/elpa/org/")
         ))
 
 ;;(add-to-list 'load-path "~/conf/elpa-mirror")
@@ -117,7 +116,7 @@
          (cmd-clone (concat "git clone " repo " --depth=1 " lib-name))) 
     (make-directory ome-lib-dir-git t) 
     (add-to-list 'load-path dir-name) 
-    (message "dir-name:%s" dir-name)
+    (message "dir-name:%s" dir-name) 
     (if (file-exists-p dir-name) 
         (progn
           ;; (setq default-directory dir-name)
@@ -140,7 +139,7 @@
          (cmd-update (concat "svn up")) 
          (cmd-clone (concat "svn co " path lib-name))) 
     (make-directory ome-lib-dir-svn t) 
-    (add-to-list 'load-path dir-name)
+    (add-to-list 'load-path dir-name) 
     (if (file-exists-p dir-name) 
         (progn
           ;; (setq default-directory dir-name)
