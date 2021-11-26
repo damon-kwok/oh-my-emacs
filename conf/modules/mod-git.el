@@ -22,14 +22,24 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
+(package-require 'git-gutter)
+(custom-set-variables ;;
+ '(git-gutter:window-width 2) 
+ ;; '(git-gutter:modified-sign "☁") 
+ ;; '(git-gutter:added-sign "☀") 
+ ;; '(git-gutter:deleted-sign "☂")
+ '(git-gutter:handled-backends '(git hg bzr svn)))
+
+(global-git-gutter-mode +1)
+;;
 (package-download 'magit)
-(global-set-key (kbd "C-x g")
-                (lambda ()
-                  (internal-require 'magit)
+(global-set-key (kbd "C-x g") 
+                (lambda () 
+                  (internal-require 'magit) 
                   (magit-status)))
-(global-set-key (kbd "C-x M-g")
-                (lambda ()
-                  (internal-require 'magit)
+(global-set-key (kbd "C-x M-g") 
+                (lambda () 
+                  (internal-require 'magit) 
                   (magit-dispatch-popup)) )
 ;;
 ;; `magithub'
