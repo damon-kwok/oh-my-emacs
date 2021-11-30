@@ -100,6 +100,7 @@
 (module-require 'mod-asm "nasm")
 (module-require 'mod-lua)
 (module-require 'mod-groovy)
+(module-require 'mod-factor)
 ;; `java'
 (if (file-directory-p "~/.emacs.d/eclipse.jdt.ls/server/")
   (module-require 'mod-java))
