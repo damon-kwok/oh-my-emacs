@@ -118,10 +118,10 @@
 ;;; max delete history (undo)
 (setq kill-ring-max 200)
 
-;; (package-require 'undo-tree)
-(package-download-curl "undo-tree-0.6.6" "undo-tree.el"
-  "https://raw.githubusercontent.com/emacs-lisp/undo-tree/master/undo-tree.el")
-(internal-require 'undo-tree)
+(package-require 'undo-tree)
+;; (package-download-curl "undo-tree-0.6.6" "undo-tree.el"
+  ;; "https://raw.githubusercontent.com/emacs-lisp/undo-tree/master/undo-tree.el")
+;; (internal-require 'undo-tree)
 (global-undo-tree-mode)
 
 (defun show-undo-tree()

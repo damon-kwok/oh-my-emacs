@@ -61,12 +61,13 @@
   ;; 's-p': Launch application
   (exwm-input-set-key (kbd "s-p") 'ome-switch-app)
   ;; 's-RET': Launch terminal
-  (exwm-input-set-key (kbd "s-<return>") #'ome-run-terminal) 
+  (exwm-input-set-key (kbd "s-<return>") #'ome-run-terminal)
+  (exwm-input-set-key (kbd "S-s-<return>") #'ome-run-lxterminal)
   (unless (get 'exwm-input-global-keys 'saved-value) 
     (setq exwm-input-global-keys ;;
           `(([?\s-x] . ome-run-nemo) 
             ([?\s-z] . ome-run-browser) 
-            ([?\s-t] . ome-run-terminal) 
+            ([?\s-t] . ome-run-lxterminal) 
             ([?\s-d] . helm-run-external-command)
 
             ;; 's-r': Reset (to line-mode).
@@ -131,6 +132,11 @@
   (interactive) 
   (if (ome-helm-init) ;;(exwmx-quickrun "gnome-terminal")
       (shell)))
+
+(defun ome-run-lxterminal () 
+  (interactive) 
+  (if (ome-helm-init)
+      (exwmx-quickrun "lxterminal")))
 
 (ome-exwm-config)
 ;;
