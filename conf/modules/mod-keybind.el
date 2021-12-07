@@ -460,7 +460,7 @@ _M-3_:pkg-manager _t_:todo.org    _l_: link.org     _3_:lib        _9_:.editorco
 _M-4_:network     _b_:book.org    ^^                _4_:tool       ^^                 _C-4_: CET4.org
 _M-5_:webscrap    _g_:game.org    ^^                _5_:proj       ^^                 _C-6_: CET6.org
 _M-6_:medusa      _n_:NEWS.org    ^^                _6_:appwizard  ^^                 _e_:english.org
-^^                _m_:me.org      ^^                _7_:git-hook    ^^                _v_:vocabulary.org
+_M-7_:clojure     _m_:me.org      ^^                _7_:git-hook    ^^                _v_:vocabulary.org
 ^^^^^^^^^^^^-----------------------------------------------------------------------------------------------
 _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
 " ;;
@@ -472,6 +472,7 @@ _\\_: calendar       _<escape>_: Quit   _<tab>_: <-BACK ^^^^
   ("M-4" (ome-open-file "~/projects/me/awesome-network-programming/README.org") "network")
   ("M-5" (ome-open-file "~/projects/me/awesome-web-scraping/README.org") "web-scrap")
   ("M-6" (ome-open-file "~/projects/me/medusa/medusa-cpp/Core/Core.h") "medusa")
+  ("M-7" (ome-open-file "~/projects/me/awesome-clojure/README.org") "clojure")
 
   ;; Doc
   ("h" (ome-open-file "~/.oh-my-emacs/README.org") "README.org")

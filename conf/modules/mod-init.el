@@ -41,6 +41,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `base'
 (module-require 'mod-basic)
+(module-require 'mod-indent)
 (module-require 'mod-splash)
 (module-require 'mod-ui-frame)
 (module-require 'mod-ui-buffer)
