@@ -44,8 +44,13 @@
 
 (defun my-clojure-mode-hook ()
   (define-key clojure-mode-map (kbd "C-c C-h") 'helm-cider-apropos)
+  (define-key clojurec-mode-map (kbd "C-c C-h") 'helm-cider-apropos)
+  (define-key clojurescript-mode-map (kbd "C-c C-h") 'helm-cider-apropos)
   (define-key clojure-mode-map (kbd "C-M-\\")  'cider-format-buffer)
+  (define-key clojurec-mode-map (kbd "C-M-\\")  'cider-format-buffer)
+  (define-key clojurescript-mode-map (kbd "C-M-\\")  'cider-format-buffer)
   (define-key clojure-mode-map [f6] 'ome-open-clojure-project)
+  (define-key clojurec-mode-map [f6] 'ome-open-clojure-project)
   (define-key clojurescript-mode-map [f6] 'ome-open-clojure-project)
   ;;
   ;; `clj-refactor'
@@ -67,9 +72,9 @@
   ;;
   ;; syntax hilighting for midje
   (font-lock-add-keywords
-    nil
-    '(("(\\(facts?\\)" (1 font-lock-keyword-face))
-       ("(\\(background?\\)" (1 font-lock-keyword-face))))
+   nil
+   '(("(\\(facts?\\)" (1 font-lock-keyword-face))
+     ("(\\(background?\\)" (1 font-lock-keyword-face))))
   (define-clojure-indent (fact 1))
   (define-clojure-indent (facts 1))
   ;;
@@ -109,19 +114,20 @@
   ;;
   (eval-after-load 'cider ;;
     '(progn (helm-cider-mode 1)
-       (define-key clojure-mode-map (kbd "C-c C-v") 'cider-start-http-server)
-       (define-key cider-repl-mode-map (kbd "C-c C-q") 'my-kill-java)
-       (define-key clojure-mode-map (kbd "C-M-r") 'cider-refresh)
-       (define-key clojure-mode-map (kbd "C-c u") 'cider-user-ns)
-       (define-key cider-mode-map (kbd "C-c u") 'cider-user-ns)
-       (define-key cider-mode-map (kbd "C-c C-z")  'show-clojure-repl)
-       (define-key cider-repl-mode-map (kbd "C-c C-z")
-         'show-clojure-workbuffer)))
+            (define-key clojure-mode-map (kbd "C-c C-v") 'cider-start-http-server)
+            (define-key cider-repl-mode-map (kbd "C-c C-q") 'my-kill-java)
+            (define-key clojure-mode-map (kbd "C-M-r") 'cider-refresh)
+            (define-key clojure-mode-map (kbd "C-c u") 'cider-user-ns)
+            (define-key cider-mode-map (kbd "C-c u") 'cider-user-ns)
+            (define-key cider-mode-map (kbd "C-c C-z")  'show-clojure-repl)
+            (define-key cider-repl-mode-map (kbd "C-c C-z")
+              'show-clojure-workbuffer)))
   ;;(internal-require 'clojure-cheatsheet)
   ;;(define-key clojure-mode-map (kbd "C-c C-h") 'clojure-cheatsheet)
   )
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+(add-hook 'clojurec-mode-hook #'my-clojure-mode-hook)
 
 (internal-require '4clojure)
 (defadvice 4clojure-open-question (around 4clojure-open-question-around)
@@ -241,28 +247,33 @@ opening 4clojure questions"
 ;; `auto-menu:clojure'
 (defun automenu--clojure-mode-menu ()
   '("REPL" "jack-in-clj" "jack-in-cljs" "jack-in-clj&cljs" "arcadia-repl" ""
-     "4clj-open" "4clj-prev" "4clj-next" "4clj-check"))
+    "4clj-open" "4clj-prev" "4clj-next" "4clj-check"))
 
 (defun automenu--clojure-mode-func (index)
   (cond ((= 0 index)
-          (show-clojure-repl))
-    ((= 1 index)
-      (cider-jack-in-clj nil))
-    ((= 2 index)
-      (cider-jack-in-cljs nil))
-    ((= 3 index)
-      (cider-jack-in-clj&cljs nil))
-    ((= 4 index)
-      (arcadia-repl))
-    ((= 6 index)
-      (4clojure-open-question))
-    ((= 7 index)
-      (4clojure-previous-question))
-    ((= 8 index)
-      (4clojure-next-question))
-    ((= 9 index)
-      (4clojure-check-answer))
-    (t (message  "clojure-mode menu:%d" index))))
+         (show-clojure-repl))
+        ((= 1 index)
+         (cider-jack-in-clj nil))
+        ((= 2 index)
+         (cider-jack-in-cljs nil))
+        ((= 3 index)
+         (cider-jack-in-clj&cljs nil))
+        ((= 4 index)
+         (arcadia-repl))
+        ((= 6 index)
+         (4clojure-open-question))
+        ((= 7 index)
+         (4clojure-previous-question))
+        ((= 8 index)
+         (4clojure-next-question))
+        ((= 9 index)
+         (4clojure-check-answer))
+        (t (message  "clojure-mode menu:%d" index))))
+
+(defun automenu--clojurec-mode-menu ()
+  (automenu--clojure-mode-menu))
+(defun automenu--clojurec-mode-func (index)
+  (automenu--clojure-mode-func index))
 
 ;; `auto-menu:cider-repl'
 (defun cider-repl-mode-menu ()
