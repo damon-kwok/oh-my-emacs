@@ -49,7 +49,7 @@
 (setq package-archives ;;
       '(;;
         ("gnu" . "https://elpa.gnu.org/packages/") 
-        ("melpa" . "https://melpa.org/packages/") 
+        ("melpa" . "https://melpa.org/packages/")
         ("org" . "https://orgmode.org/elpa/")
         ;;
         ;;("gnu-china" . "https://elpa.zilongshanren.com/gnu/")
@@ -66,7 +66,8 @@
         ;; ("gnu-ustc" . "https://mirrors.ustc.edu.cn/elpa/gnu/")
         ;; ("melpa-ustc" . "https://mirrors.ustc.edu.cn/elpa/melpa/")
         ;; ("melpa-stable-ustc" . "https://mirrors.ustc.edu.cn/elpa/melpa-stable/")
-        ("org-ustc" . "https://mirrors.ustc.edu.cn/elpa/org/")))
+        ;;("org-ustc" . "https://mirrors.ustc.edu.cn/elpa/org/")
+        ))
 
 ;;(add-to-list 'load-path "~/conf/elpa-mirror")
 ;;(internal-require 'elpa-mirror)
@@ -99,7 +100,7 @@
 ;; To get the package manager going, we invoke its initialise function.
 (defun package-download (pkg) 
   (when (not (package-installed-p pkg)) 
-    (progn (package-refresh-contents)
+    (progn (package-refresh-contents) 
            (package-install pkg))))
 
 (defun package-require(pkg &optional alias-pkg alias-pkg2) 

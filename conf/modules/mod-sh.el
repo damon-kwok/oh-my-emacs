@@ -27,6 +27,11 @@
 (add-to-list 'auto-mode-alist '("\\.rd$" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.[Bb][Aa][Tt]\\'" . bat-mode))
 
+;; setup exec-path-from-shell here
+(package-require 'exec-path-from-shell)
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
 (add-hook 'sh-mode-hook (lambda()
                           '(sh-basic-offset 2)
                           '(sh-indentation 2)
