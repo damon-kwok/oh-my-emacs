@@ -1,8 +1,6 @@
 /// auto-insert.h --- This is where you apply your OCD.
 //
-// Copyright (C) 2009-2018 Damon Kwok
-//
-// Author: damon <damon-kwok@outlook.com>
+// Copyright (C) 2009-`(format-time-string "%Y")` `(user-login-name)` <`(user-login-name)`@outlook.com>
 // Date: 2018-06-26
 //
 // This program is free software; you can redistribute it and/or modify

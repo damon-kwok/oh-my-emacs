@@ -1,8 +1,6 @@
 // `(buffer-name)` --- This is where you apply your OCD.
 //
-// Copyright (C) 2009-`(format-time-string "%Y")` damon-kwok
-//
-// Author: `(user-login-name)` <damon-kwok@outlook.com>
+// Copyright (C) 2009-`(format-time-string "%Y")` `(user-login-name)` <`(user-login-name)`@outlook.com>
 // Date: `(format-time-string "%Y-%m-%d")`
 //
 // This program is free software; you can redistribute it and/or modify
