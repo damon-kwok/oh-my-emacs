@@ -21,8 +21,8 @@
 ;; Code:
 (require 'mod-package)
 
-(add-to-list 'auto-mode-alist '("\\.cl\\.lisp\\.ros\\'" . lisp-mode))
-
+;; (add-to-list 'auto-mode-alist '("\\.cl\\.lisp\\.ros\\'" . lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.cl\\'" . lisp-mode))
 (package-download 'slime)
 (package-download 'paredit)
 (add-hook 'lisp-mode-hook (lambda ()
@@ -70,22 +70,24 @@
 (package-download 'slime-company)
 (eval-after-load "slime" ;;
   '(progn
-	 ;;(slime-setup '(slime-repl slime-fuzzy))
-	 (slime-setup '(slime-company slime-asdf slime-autodoc slime-banner slime-c-p-c slime-cl-indent
+     (message "--------------eval-after-load-------------111")
+	   ;;(slime-setup '(slime-repl slime-fuzzy))
+	   (slime-setup '(slime-company slime-asdf slime-autodoc slime-banner slime-c-p-c slime-cl-indent
                                   slime-clipboard slime-compiler-notes-tree slime-editing-commands
                                   slime-enclosing-context slime-fancy-inspector slime-fancy
                                   slime-fontifying-fu slime-fuzzy slime-highlight-edits
                                   slime-hyperdoc slime-indentation slime-mdot-fu slime-media
                                   ;;slime-motd
                                   slime-mrepl slime-package-fu slime-parse
-		                          ;; slime-presentation-streams slime-presentations
+		                              ;; slime-presentation-streams slime-presentations
                                   slime-references slime-repl slime-sbcl-exts slime-scheme
                                   slime-scratch slime-snapshot slime-sprof slime-tramp ;;slime-typeout-frame ;;muliti-frame
                                   slime-xref-browser))
      (setq slime-truncate-lines t)
      (setq swank:*globally-redirect-io*  t)
      (setq slime-complete-symbol-function ' slime-fuzzy-complete-symbol)
-     (setq slime-net-coding-system 'utf-8-unix)))
+     (setq slime-net-coding-system 'utf-8-unix)
+     (message "--------------eval-after-load-------------222")))
 
 ;;
 (defun show-lisp-repl()

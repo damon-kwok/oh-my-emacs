@@ -27,19 +27,43 @@
 (package-download 'lsp-mode)
 (package-download 'lsp-ui)
 ;;
-(defun cc-mode-init ()
-  (internal-require 'mod-cc)
+(defun cc-mode-init () 
+  (internal-require 'mod-cc) 
   (internal-require 'mod-lsp)
   ;;
-  (setq ccls-initialization-options
-    '(:index (:comments 2)
-       :completion (:detailedLabel t)))
+  (setq ccls-initialization-options 
+        '(:index (:comments 2) 
+                 :completion (:detailedLabel t))) 
   (internal-require 'ccls)
+  ;;
+  (add-hook 'after-save-hook #'cc-after-save-hook nil t)
   ;;
   (lsp))
 
-(dolist (hook '(c-mode c++-mode objc-mode cuda-mode))
+(defun clang-format-buffer () 
+  "Format the current buffer using the 'clang-format'." 
+  (interactive) 
+  (when (or (eq major-mode 'c-mode) 
+            (eq major-mode 'c++-mode) 
+            (eq major-mode 'objc-mode)) 
+    (if (executable-find "clang-format") 
+        (progn (shell-command (concat  "clang-format -i " (buffer-file-name))) 
+               (revert-buffer 
+                :ignore-auto 
+                :noconfirm)
+               (message "clang-format!")))))
+
+(defun cc-after-save-hook ()
+  (message "cc-after-save-hook:11111111111")
+  (when (or (eq major-mode 'c-mode) 
+            (eq major-mode 'c++-mode) 
+            (eq major-mode 'objc-mode)) 
+    (clang-format-buffer)))
+
+(dolist (hook '(c-mode c++-mode objc-mode cuda-mode)) 
   (add-hook hook 'cc-mode-init))
+
+(message "load:ccls!!!!!!!!!!!!!!!!")
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-ccls)

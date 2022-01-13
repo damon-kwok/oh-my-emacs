@@ -29,11 +29,11 @@
 
 (package-require 'dap-mode)
 (add-hook 'lsp-mode-hook 'dap-mode)
-(add-hook 'lsp-mode-hook 'dap-ui-mode)
+;; (add-hook 'lsp-mode-hook 'dap-ui-mode)
 
 ;;
 (package-require 'lsp-ui)
-(add-hook 'lsp-mode-hook 'lsp-ui-mode)
+;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 
 ;; don't include type signature in the child frame
 (setq lsp-ui-doc-include-signature nil)
@@ -98,6 +98,11 @@
 (setq flycheck-idle-change-delay 2)     ; in seconds
 
 (add-hook 'lsp-mode-hook 'flycheck-mode)
+
+(defun lsp-after-save-hook ()
+  (when (eq major-mode 'sh-mode)
+    (lsp-format-buffer)))
+(add-hook 'after-save-hook #'lsp-after-save-hook nil t)
 (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
 (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
 

@@ -32,6 +32,7 @@
 ;; (package-require 'exec-path-from-shell)
 ;; (when (memq window-system '(mac ns x))
 ;; (exec-path-from-shell-initialize))
+(setq temporary-file-directory "/tmp")
 (module-require 'mod-coding)
 (module-require 'mod-sexp)
 (module-require 'mod-elisp)
@@ -48,9 +49,9 @@
 (module-require 'mod-exwm)
 
 ;; (if (eq system-type 'gnu/linux)
-  ;; (if (not (display-graphic-p))
-    ;; (module-require 'mod-modeline))
-  ;; (module-require 'mod-modeline))
+;; (if (not (display-graphic-p))
+;; (module-require 'mod-modeline))
+;; (module-require 'mod-modeline))
 
 (module-require 'mod-modeline)
 
@@ -103,42 +104,42 @@
 (module-require 'mod-groovy)
 (module-require 'mod-factor)
 ;; `java'
-(if (file-directory-p "~/.emacs.d/eclipse.jdt.ls/server/")
-  (module-require 'mod-java))
+(if (file-directory-p "~/.emacs.d/eclipse.jdt.ls/server/") 
+    (module-require 'mod-java))
 
 ;; `cc'
 ;; (if (or (eq system-type 'windows-nt) ;;gnu/linux
 ;; (eq system-type 'ms-dos))
 ;; (defconst cc-lang-server "rtags")
 ;; (defconst cc-lang-server "clangd")))
-(defconst cc-lang-server "ccls")
+(defconst cc-lang-server "clangd")
 
-(cond ((and
-         (string= cc-lang-server "clangd")
-         (or (executable-find "clangd")
-           (executable-find "clangd-devel")))
-        (module-require 'mod-clangd))
-  ((and
-     (string= cc-lang-server "cquery")
-     (executable-find "cquery"))
-    (module-require 'mod-cquery))
-  ((and
-     (string= cc-lang-server "ccls")
-     (executable-find "ccls"))
-    (module-require 'mod-ccls))
-  ((and
-     (string= cc-lang-server "rtags")
-     (executable-find "rdm"))
-    (module-require 'mod-rtags)))
+(cond ((and 
+        (string= cc-lang-server "clangd") 
+        (or (executable-find "clangd") 
+            (executable-find "clangd-devel"))) 
+       (module-require 'mod-clangd)) 
+      ((and 
+        (string= cc-lang-server "cquery") 
+        (executable-find "cquery")) 
+       (module-require 'mod-cquery)) 
+      ((and 
+        (string= cc-lang-server "ccls") 
+        (executable-find "ccls")) 
+       (module-require 'mod-ccls)) 
+      ((and 
+        (string= cc-lang-server "rtags") 
+        (executable-find "rdm")) 
+       (module-require 'mod-rtags)))
 
 ;; `python'
 ;; (if (and (executable-find "ipython")
 ;; (executable-find "jupyter"))
 ;; (module-require 'mod-py))
 (module-require 'mod-lsp-py "pyls")
-(if (and (executable-find "erl")
-      (executable-find "rebar3"))
-  (module-require 'mod-erlang))
+(if (and (executable-find "erl") 
+         (executable-find "rebar3")) 
+    (module-require 'mod-erlang))
 
 (module-require 'mod-elixir "mix")
 (module-require 'mod-lisp "ros")
@@ -193,8 +194,8 @@
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (module-require 'mod-keybind)
-(defun show-super-menu ()
-  "docstring"
+(defun show-super-menu () 
+  "docstring" 
   (interactive)
   ;; (load "mod-keybind.el")
   ;; (message "What is up?")
@@ -206,7 +207,7 @@
 (module-require 'mod-edit-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (message "hello, emacs!")
-;; (module-require 'mod-eaf)
+(module-require 'mod-eaf)
 (module-require 'mod-ome)
 (module-require 'mod-server)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
