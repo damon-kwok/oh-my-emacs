@@ -19,6 +19,10 @@
 // Code:
 //
 #pragma once
-$0
-//`(buffer-name)` ends here
 
+namespace $1 {
+$0
+}
+// namespace $1
+ 
+//`(buffer-name)` ends here
