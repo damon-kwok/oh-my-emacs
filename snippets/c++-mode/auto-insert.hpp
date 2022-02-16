@@ -20,9 +20,10 @@
 //
 #pragma once
 
-namespace $1 {
-$0
+namespace ${1:name}
+{
+  $0
 }
 // namespace $1
- 
+
 //`(buffer-name)` ends here
