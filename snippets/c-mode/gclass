@@ -1,0 +1,14 @@
+#include <glib-object.h>
+
+G_BEGIN_DECLS
+
+#define ${1:EXAMPLE$(upcase yas-text)}_TYPE_${2:PERSON$(upcase yas-text)} (${1:$(downcase yas-text)}_${2:$(downcase yas-text)}_get_type())
+
+G_DECLARE_FINAL_TYPE (${1:$(capitalize yas-text)}${2:$(capitalize yas-text)}, ${1:$(upcase yas-text)}_${2:$(upcase yas-text)}, $1, $2, GObject)
+
+const gchar *${1:$(downcase yas-text)}_${2:$(downcase yas-text)}_get_name (${1:$(capitalize yas-text)}${2:$(capitalize yas-text)} *self);
+void         ${1:$(downcase yas-text)}_${2:$(downcase yas-text)}_set_name (${1:$(capitalize yas-text)}${2:$(capitalize yas-text)} *self, const gchar *name);
+
+$0
+
+G_END_DECLS
