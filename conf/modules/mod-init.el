@@ -46,7 +46,7 @@
 (module-require 'mod-splash)
 (module-require 'mod-ui-frame)
 (module-require 'mod-ui-buffer)
-(module-require 'mod-exwm)
+;; (module-require 'mod-exwm)
 
 ;; (if (eq system-type 'gnu/linux)
 ;; (if (not (display-graphic-p))
@@ -112,7 +112,7 @@
 ;; (eq system-type 'ms-dos))
 ;; (defconst cc-lang-server "rtags")
 ;; (defconst cc-lang-server "clangd")))
-(defconst cc-lang-server "clangd")
+(defconst cc-lang-server "ccls")
 
 (cond ((and 
         (string= cc-lang-server "clangd") 

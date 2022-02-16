@@ -23,7 +23,7 @@
 (require 'mod-package)
 ;;
 (package-require 'aggressive-indent)
-(global-aggressive-indent-mode 1)
+(global-aggressive-indent-mode 0)
 (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 (add-to-list
  'aggressive-indent-dont-indent-if
