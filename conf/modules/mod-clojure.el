@@ -22,7 +22,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'mod-package)
 ;;
-(require 'mod-lsp)
 ;;===================================================
 ;;clojure
 ;;===================================================
@@ -42,21 +41,26 @@
 (add-to-list 'auto-mode-alist '("\\.cljs\\.hl\\'" . clojurescript-mode))
 (add-to-list 'auto-mode-alist '("lein-env" . enh-ruby-mode))
 
-(use-package 
-  lsp-mode 
-  :ensure t 
-  :hook ((clojure-mode . lsp) 
-         (clojurec-mode . lsp) 
-         (clojurescript-mode . lsp)) 
-  :config
-  ;; add paths to your local installation of project mgmt tools, like lein
-  (setenv "PATH" (concat "/usr/local/bin" path-separator (getenv "PATH"))) 
-  (dolist (m '(clojure-mode             ;
-               ;;clojurex-mode
-               clojurec-mode            ;
-               clojurescript-mode)) 
-    (add-to-list 'lsp-language-id-configuration `(,m . "clojure"))) 
-  (setq lsp-clojure-server-command '("clojure-lsp"))) ;; Optional: In case `clojure-lsp` is not in your $PATH
+(if (executable-find "clojure-lsp") 
+    (progn 
+      (require 'mod-lsp) 
+      (use-package 
+        lsp-mode 
+        :ensure t 
+        :hook ((clojure-mode . lsp) 
+               (clojurec-mode . lsp) 
+               (clojurescript-mode . lsp)) 
+        :config
+        ;; add paths to your local installation of project mgmt tools, like lein
+        (setenv "PATH" (concat "/usr/local/bin" path-separator (getenv "PATH"))) 
+        (dolist (m '(clojure-mode       ;
+                     ;;clojurex-mode
+                     clojurec-mode      ;
+                     clojurescript-mode)) 
+          (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
+
+        ;; Optional: In case `clojure-lsp` is not in your $PATH
+        (setq lsp-clojure-server-command '("clojure-lsp")))))
 
 (defun my-clojure-mode-hook () 
   (define-key clojure-mode-map (kbd "C-c C-h") 'helm-cider-apropos) 
