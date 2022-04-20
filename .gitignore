@@ -10,6 +10,7 @@
 !shaman
 !shaman.bat
 !*.el
+*.~undo-tree~
 
 # !/cache/
 # !/cache/bin/
