@@ -48,9 +48,11 @@
 
 (setq package-archives ;;
       '(;;
-        ("gnu" . "https://elpa.gnu.org/packages/") 
-        ("melpa" . "https://melpa.org/packages/")
-        ;; ("org" . "https://orgmode.org/elpa/")
+        ("melpa"        . "https://melpa.org/packages/") 
+        ;;("melpa-stable" . "https://stable.melpa.org/packages/") 
+        ("org"          . "https://orgmode.org/elpa/") 
+        ("gnu"          . "https://elpa.gnu.org/packages/") 
+        ("nongnu"       . "https://elpa.nongnu.org/nongnu/")
         ;;
         ;;("gnu-china" . "https://elpa.zilongshanren.com/gnu/")
         ;;("melpa-china" . "https://elpa.zilongshanren.com/melpa/")

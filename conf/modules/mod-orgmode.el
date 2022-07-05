@@ -25,7 +25,8 @@
 ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
-(package-download 'org-plus-contrib)
+(package-download 'org-contrib)
+;; (package-download 'org-plus-contrib)
 (package-download 'org2ctex)
 ;; `Babel-Languages'
 (package-download 'ob-elixir)
