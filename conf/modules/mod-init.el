@@ -210,6 +210,7 @@
 (module-require 'mod-eaf)
 (module-require 'mod-ome)
 (module-require 'mod-server)
+(module-require 'mod-email)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-init)
 ;; init.el ends here

@@ -25,7 +25,7 @@
 ;; (package-download-git "mu-git" "https://github.com/djcb/mu.git")
 
 ;; ome
-(setq mu4e-root-ome (concat ome-lib-dir "/mu-git/mu4e"))
+(setq mu4e-root-ome (concat ome-lib-dir "/mu-git/build/mu4e"))
 (add-to-list 'load-path mu4e-root-ome)
 
 ;; freebsd
