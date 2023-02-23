@@ -133,9 +133,9 @@
       mu4e-compose-signature "hello,world!")
 
 (defun load-email-signature (conf-dir)
-  (setq mu4e-compose-signature (s-trim (ome-load-file-to-string (concat conf-dir "/signature"))) ;
-        user-full-name (s-trim (ome-load-file-to-string (concat conf-dir "/name"))) ;
-        user-mail-address (s-trim (ome-load-file-to-string (concat conf-dir "/addr")))))
+  (setq mu4e-compose-signature (s-trim (ome-load-file-to-string (concat conf-dir "/mail-signature"))) ;
+        user-full-name (s-trim (ome-load-file-to-string (concat conf-dir "/mail-nickname"))) ;
+        user-mail-address (s-trim (ome-load-file-to-string (concat conf-dir "/mail-address")))))
 
 (load-email-signature "~/workspace/conf/email/outlook")
 
