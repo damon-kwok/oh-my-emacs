@@ -127,7 +127,7 @@
   ;; (custom-set-variables '(vlf-application 'dont-ask))
 
   ;; (message "helm::")
-  (internal-require 'helm-config) 
+  ;;(internal-require 'helm-config) 
   (internal-require 'helm-themes) 
   (internal-require 'helm)
   ;; Activate Helm.

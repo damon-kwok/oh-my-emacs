@@ -67,8 +67,8 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/app/file-browser")
 (require 'eaf-file-browser)
 
-(add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/app/vue-demo/")
-(require 'eaf-vue-demo)
+;; (add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/app/vue-demo/")
+;; (require 'eaf-vue-demo)
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/app/terminal/")
 (require 'eaf-terminal)
@@ -76,8 +76,8 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/app/file-sender/")
 (require 'eaf-file-sender)
 
-(add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/app/demo/")
-(require 'eaf-demo)
+;;(add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/app/demo/")
+;;(require 'eaf-demo)
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/app/netease-cloud-music/")
 (require 'eaf-netease-cloud-music)
