@@ -184,7 +184,7 @@
 ;; (module-require 'tramp)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; `version'
-(package-require 'magit)
+;;(package-require 'magit)
 ;; (module-require 'git)
 (auto-fill-mode 0)
 ;; (package-require 'psvn)
@@ -210,7 +210,7 @@
 (module-require 'mod-eaf)
 (module-require 'mod-ome)
 (module-require 'mod-server)
-(module-require 'mod-email)
+;; (module-require 'mod-email)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (provide 'mod-init)
 ;; init.el ends here

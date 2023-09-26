@@ -48,27 +48,30 @@
 
 (setq package-archives ;;
       '(;;
-        ("melpa"        . "https://melpa.org/packages/") 
+        ;;("melpa"        . "https://melpa.org/packages/") 
         ;;("melpa-stable" . "https://stable.melpa.org/packages/") 
-        ("org"          . "https://orgmode.org/elpa/") 
-        ("gnu"          . "https://elpa.gnu.org/packages/") 
-        ("nongnu"       . "https://elpa.nongnu.org/nongnu/")
+        ;;("org"          . "https://orgmode.org/elpa/") 
+        ;;("gnu"          . "https://elpa.gnu.org/packages/") 
+        ;;("nongnu"       . "https://elpa.nongnu.org/nongnu/")
         ;;
-        ;;("gnu-china" . "https://elpa.zilongshanren.com/gnu/")
-        ;;("melpa-china" . "https://elpa.zilongshanren.com/melpa/")
-        ;;("melpa-stable-china" . "http://elpa.emacs-china.org/stable-melpa/")
-        ;;("org-china" . "https://elpa.zilongshanren.com/org/")
+		;; emacs-china
+        ;;("gnu" . "https://elpa.zilongshanren.com/gnu/")
+        ;;("melpa" . "https://elpa.zilongshanren.com/melpa/")
+        ;;("melpa-stable" . "http://elpa.emacs-china.org/stable-melpa/")
+        ;;("org" . "https://elpa.zilongshanren.com/org/")
         ;;
         ;;'("popkit" . "http://elpa.popkit.org/packages/")
+		;;
+        ;; tuna
+        ("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+        ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+        ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
         ;;
-        ;; ("gnu-tuna" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-        ;; ("melpa-tuna" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-        ;; ("org-tuna" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-        ;;
-        ;; ("gnu-ustc" . "https://mirrors.ustc.edu.cn/elpa/gnu/")
-        ;; ("melpa-ustc" . "https://mirrors.ustc.edu.cn/elpa/melpa/")
-        ;; ("melpa-stable-ustc" . "https://mirrors.ustc.edu.cn/elpa/melpa-stable/")
-        ;;("org-ustc" . "https://mirrors.ustc.edu.cn/elpa/org/")
+		;; ustc
+        ;; ("gnu" . "https://mirrors.ustc.edu.cn/elpa/gnu/")
+        ;; ("melpa" . "https://mirrors.ustc.edu.cn/elpa/melpa/")
+        ;; ("melpa-stable" . "https://mirrors.ustc.edu.cn/elpa/melpa-stable/")
+        ;; ("org" . "https://mirrors.ustc.edu.cn/elpa/org/")
         ))
 
 ;;(add-to-list 'load-path "~/conf/elpa-mirror")
